@@ -1,0 +1,47 @@
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 2 equation(s)
+unit conversion off;
+unit UnitP=1  dimensionless;
+unit UnitQ=1  dimensionless;
+unit UnitR=1  dimensionless;
+unit UnitC=1  dimensionless;
+unit UnitL=1  dimensionless;
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  Po, Qi, R, C, L, P0, Q0, LS_added
+	realDomain t second;
+	t.min=0;
+	extern t.max;
+	extern t.delta;
+	extern real Po UnitP;
+	Po.cellMLNames="TempRLC.Po";
+	extern real Qi UnitQ;
+	Qi.cellMLNames="TempRLC.Qi";
+	extern real R UnitR;
+	R.cellMLNames="TempRLC.R";
+	extern real C UnitC;
+	C.cellMLNames="TempRLC.C";
+	extern real L UnitL;
+	L.cellMLNames="TempRLC.L";
+	extern real P0 UnitP;
+	P0.cellMLNames="TempRLC.P0";
+	extern real Q0 UnitQ;
+	Q0.cellMLNames="TempRLC.Q0";
+	//Warning:  LS_added has no declared units.
+	extern real LS_added;
+	LS_added.cellMLNames="TempRLC.LS_added";
+	real Pi(t) UnitP;
+	Pi.cellMLNames="TempRLC.Pi";
+	when(t=t.min) Pi=P0;
+	real Qo(t) UnitQ;
+	Qo.cellMLNames="TempRLC.Qo";
+	when(t=t.min) Qo=Q0;
+
+	// <component name="TempRLC">
+	Pi:t=((Qi-Qo)/C);
+	Qo:t=((Pi-Po-R*Qo)/L);
+}
+

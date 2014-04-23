@@ -1,0 +1,61 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real a
+  add var: real b
+  add var: real c
+  add var: real u
+Loading Constraints
+  a=1 :: [a]
+  b=(-5) :: [b]
+  c=6 :: [c]
+  (a*u^2+b*u+c)=0 :: [a, u, b, c]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+Toolbox phase - cycle 1:
+  check eqn: a=1; [a]
+  add tool: a=1
+  check eqn: b=(-5); [b]
+  add tool: b=-5
+  check eqn: c=6; [c]
+  add tool: c=6
+  check eqn: (a*u^2+b*u+c)=0; [u]
+  Implicit tool non-linear in [u]
+  add tool: [(a*u^2+b*u+c)=0]
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  [(a*u^2+b*u+c)=0] :: [u]<<[a, b, c]
+  c=6 :: [c]<<[]
+  b=-5 :: [b]<<[]
+  a=1 :: [a]<<[]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode u seqLoops=() phase=main fft=null
+  addNode c seqLoops=() phase=main fft=null
+  addNode b seqLoops=() phase=main fft=null
+  addNode a seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding c=6 to main
+  adding b=-5 to main
+  adding a=1 to main
+  adding [(a*u^2+b*u+c)=0] to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  c=6
+  b=-5
+  a=1
+  [(a*u^2+b*u+c)=0]
+

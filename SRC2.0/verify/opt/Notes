@@ -1,0 +1,28 @@
+== test DataCompare mean sqr error calculation 
+
+jsrun.db JSim.project.TestCompare opt1.proj data ref
+rmsError=1.1832159566199232
+
+jsrun.db JSim.project.TestCompare opt1.proj data ref pwgts
+rmsError=0.9309493362512627
+
+  data
+	2 4 6 8 
+	4 6 8 10
+
+  reft	   1  3  5  7  9 
+  ref	   4  6  8 10 12
+  dinterp  4  5  7  9 10
+  sqr diff 0  1  1  1  4
+
+unweighted
+  sum = 7
+  sum w = 5
+  mean = sqrt(7/5) = sqrt(1.4) = 1.183216
+
+weighted
+  pwgts    5  4  3  2  1
+  wsqrdif  0  4  3  2  4
+  sum = 13
+  wsum = 15
+  mean = sqrt(13/15) = sqrt(.866667) = 0.93094934

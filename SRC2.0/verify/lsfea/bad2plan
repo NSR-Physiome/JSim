@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# convert MOD/*_bad.mod to WORK/*_plan.mod
+#   sub K1 values at compile time 
+
+M="$1"
+PM=`echo $M | sed s/_bad/_plan/`
+MOD=MOD/"$M".mod
+PMOD=WORK/"$PM".mod
+
+K1VAL=`fgrep "real K1 = " $MOD | awk '{ print $4 }'`
+
+# echo converting $MOD to $PMOD K1=$K1VAL
+if [ "$K1VAL" = "" ]
+then
+  echo ERROR: K1 not set
+  exit 1
+fi
+
+cat $MOD | sed "/real K1 = /d" | sed s/K1/$K1VAL/ > $PMOD
+exit 0
+

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# set CLASSPATH for source or binary distribution
+if [ "$JSIMSRC" = "" ]
+then
+  if [ "$JSIMHOME" = "" ]
+  then
+    echo "JSIMHOME not defined"
+    exit 1
+  fi
+  export CLASSPATH=$JSIMHOME/lib/JSimClient.jar
+else
+  export CLASSPATH=$JSIMSRC
+fi
+
+javac -g My*.java
+
+jar cfm MyEasel.jar manifest My*.class

@@ -1,0 +1,5 @@
+==== JSim version 2.02f: Fatal Error
+
+JSim.util.Xcept: Model Dneg_bad
+aborted: LSFEA solver failure: negative diffusion term
+

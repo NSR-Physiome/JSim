@@ -1,0 +1,105 @@
+#!/bin/sh
+#############################################
+#
+# Upgrade fpack models to newest version
+#
+############################################# 
+#
+#  This script will extract the source and the RTML code from the first model 
+#  from an example project within JSim's documentation suite
+#  and import it into a project so that it conforms to the latest version of JSim. 
+#
+FPACKDIR="$JSIMHOME/doc/examples/fpack"
+JSBATCH="$JSIMHOME"/*/bin/jsbatch
+
+#############################################
+# Adjust JSIMHOME for Mac OS X for backwards compatibility 
+# if it is set to the folder enclosing JSim.app 
+if [ ! -r $JSBATCH ]
+then
+  JSIMHOME="$JSIMHOME"/JSim.app/Contents/Resources
+  JSBATCH=$JSIMHOME/*/bin/jsbatch
+  if [ ! -r $JSBATCH ]
+  then
+    echo --- "$CMDNAME": JSIMHOME is not set correctly
+    echo $'JSIMHOME should be set to the JSim installation directory'
+    echo $'On a Macinitosh, JSIMHOME should be set to the absolute path of JSim.app/Contents/Resources'
+    exit 2
+  fi
+  export JSIMHOME
+fi
+if [ ! -d "$FPACKDIR" ]
+then
+  FPACKDIR="$JSIMHOME"/../../../doc/examples/fpack
+  if [ ! -d "$FPACKDIR" ]
+  then
+    echo --- "$CMDNAME": model not found
+    echo $'On a Macintosh, the doc folder sould be in the same folder as the JSim application'
+    $0 -help
+    exit 2
+  fi
+  export JSIMHOME
+fi
+#############################################
+if [ "$1" = '-help' ]
+  then
+  echo $'Usage:
+jsfupgrade project[.proj] model[.proj] [newproject[.proj]]
+where project.proj is the project file to be upgraded
+      model is one of the following '
+  echo '       ' `cd $FPACKDIR; ls *.proj | sed s\/.proj\/\/` 
+  echo '     ' newproject.proj is the upgraded project
+  echo '        'if none is provided, the standard output is used
+  exit 1
+fi
+
+CMDNAME=`basename "$0"`
+# check number of parameters
+#
+if [ $# -lt 2 ] ; then 
+    echo --- "$CMDNAME" needs at least two parameters
+    $0 -help
+    exit 1
+fi
+
+# Add .proj extension if not present
+IN="$1"
+if  ! grep -q '.proj$' <<< "$IN" 
+  then
+  IN="$IN".proj
+fi
+#
+MODEL="$2"
+if  ! grep -q '.proj$' <<< "$MODEL" 
+  then 
+  MODEL="$MODEL".proj
+fi
+#
+MODELNAME=`basename "$MODEL" .proj`
+#
+  MODEL="$FPACKDIR"/"$MODEL"
+if [ ! -r $MODEL ]
+then
+  echo ---- "$CMDNAME": model \`"$MODELNAME"\' not found
+  $0 -help
+  exit 3
+fi
+#
+if [ $3 ] ; then
+   OUT="$3"
+   if ! grep -q '.proj$' <<< "$OUT" ; then 
+     OUT="$OUT".proj
+   fi
+fi
+#
+TMPDIR=$(mktemp -d /tmp/JSimXXXXXXXXXX)
+# Extract mml code
+$JSBATCH -f "$MODEL" -omml -out "$TMPDIR"/"$MODELNAME".mod &&
+# Extract RTML code
+$JSBATCH -f "$MODEL" -ortml -out "$TMPDIR"/"$MODELNAME".rtml &&
+# Import into target model 
+$JSBATCH -f "$IN" -lmod "$TMPDIR"/"$MODELNAME".mod -rtml "$TMPDIR"/"$MODELNAME".rtml -oproj ${OUT:+'-out'} "$OUT"
+ERRNO=$?
+if [ $ERRNO -eq 0 ] ; then echo "$CMDNAME": `basename "$OUT"` created successfully. ; fi
+rm -rf $TMPDIR
+exit $ERRNO

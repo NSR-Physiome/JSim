@@ -1,0 +1,2315 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time hour
+  add var: real time.min hour
+  add var: extern real time.max hour
+  add var: int time.ct
+  add var: extern real time.delta hour
+  add var: real V_K(time) nanoM
+  add var: real fr(time) hertz
+  add var: real v_sPC(time) flux
+  add var: real Res(time) gigaohm
+  add var: real V_rest(time) milliV
+  add var: real V_reset(time) milliV
+  add var: real V_theta milliV
+  add var: real Cm nanoF
+  add var: real R joule_per_mole_kelvin
+  add var: real T kelvin
+  add var: real T_abs kelvin
+  add var: real T_room kelvin
+  add var: real F coulomb_per_mole
+  add var: real alpha(time) dimensionless
+  add var: real beta(time) dimensionless
+  add var: real beta_a(time) dimensionless
+  add var: real c(time) dimensionless
+  add var: real P_Ca per_milliM
+  add var: real P_K(time) per_milliM
+  add var: real P_Na per_milliM
+  add var: real P_Cl per_milliM
+  add var: real v_PK per_milliM
+  add var: real K_PK per_nanoM2
+  add var: real V_R gigaohm
+  add var: real membrane.K_R milliV
+  add var: real Ca_ex microM
+  add var: real Na_ex milliM
+  add var: real K_ex milliM
+  add var: real Cl_ex milliM
+  add var: real Na_in milliM
+  add var: real K_in milliM
+  add var: real theta_Na dimensionless
+  add var: real theta_K dimensionless
+  add var: real E_Na_0 milliV
+  add var: real E_Na milliV
+  add var: real g_Na nanoS
+  add var: real E_Ca(time) milliV
+  add var: real g_Ca(time) nanoS
+  add var: real g_K(time) nanoS
+  add var: real g_K0 nanoS
+  add var: real v_gk nanoS
+  add var: real K_gk nanoM
+  add var: real g_KCa(time) nanoS
+  add var: real v_KCa nanoS
+  add var: real K_KCa per_nanoM
+  add var: real g_L(time) nanoS
+  add var: real E_L_0 milliV
+  add var: real E_L milliV
+  add var: real E_K_0 milliV
+  add var: real E_K milliV
+  add var: real g_ex(time) nanoS
+  add var: real E_ex milliV
+  add var: real v_ex1 nanoS
+  add var: real v_ex2 nanoS
+  add var: real K_ex1 picoA_2_5
+  add var: real K_ex2 per_microM
+  add var: real g_inhib nanoS
+  add var: real E_inhib(time) milliV
+  add var: real GABA(time) nanoM
+  add var: real GABA0 nanoM
+  add var: real v_GABA nanoM
+  add var: real K_GABA nanoM
+  add var: real Cl_in(time) milliM
+  add var: real Cl0 milliM
+  add var: real v_Cl1 milliM
+  add var: real v_Cl2 milliM
+  add var: real K_Cl1 nanoM
+  add var: real K_Cl2 per_nanoM_0_2
+  add var: real i_Na(time) picoA
+  add var: real i_Na_abs(time) picoA
+  add var: real i_Ca(time) picoA
+  add var: real i_K(time) picoA
+  add var: real i_KCa(time) picoA
+  add var: real i_L(time) picoA
+  add var: real i_ex(time) picoA
+  add var: real i_inhib(time) picoA
+  add var: real I_star(time) picoA
+  add var: real R_star(time) milliohm
+  add var: real tau_m(time) second
+  add var: real theta(time) milliV
+  add var: real psi(time) dimensionless
+  add var: real k_q per_kelvin
+  add var: real k_MK nanoM
+  add var: real V_MK nanoM
+  add var: real V_b nanoM
+  add var: real k_b dimensionless
+  add var: real K_D nanoM
+  add var: real v_sP0 flux
+  add var: real C_T flux
+  add var: real v_Ca nanoS
+  add var: real K_Ca nanoM_2_2
+  add var: real K_C nanoM
+  add var: real Ca_in(time) microM
+  add var: real BC(time) nanoM
+  add var: real MP(time) nanoM
+  add var: real VIP(time) nanoM
+  add var: real CC(time) nanoM
+  add var: real CB(time) nanoM
+  add var: real beta_IP3 dimensionless
+  add var: real Ca_store(time) nanoM
+  add var: real v0(time) microM_per_hour
+  add var: real v1 microM_per_hour
+  add var: real v2(time) microM_per_hour
+  add var: real v3(time) microM_per_hour
+  add var: real v_kk per_microM_per_hour
+  add var: real v_v0 microM_per_hour
+  add var: real kf per_hour
+  add var: real k(time) per_microM_per_hour
+  add var: real K_kk nanoM_0_1
+  add var: real K_v0 nanoM_4_5
+  add var: real K_2 microM
+  add var: real Ca_in.K_R microM
+  add var: real K_A microM
+  add var: real v_M1 microM_per_hour
+  add var: real v_M2 microM_per_hour
+  add var: real v_M3 microM_per_hour
+  add var: real v_VIP flux
+  add var: real K_VIP hertz_1_9
+  add var: real kd_VIP nanoM_0_8_per_hour
+  add var: real vmP flux
+  add var: real kdmp first_order_rate_constant
+  add var: real KAP nanoM
+  add var: real KmP nanoM
+  add var: real BN(time) nanoM
+  add var: real MC(time) nanoM
+  add var: real vsC flux
+  add var: real vmC flux
+  add var: real kdmc first_order_rate_constant
+  add var: real KAC nanoM
+  add var: real KmC nanoM
+  add var: real MB(time) nanoM
+  add var: real vsB flux
+  add var: real vmB flux
+  add var: real kdmb first_order_rate_constant
+  add var: real KIB nanoM
+  add var: real KmB nanoM
+  add var: real PC(time) nanoM
+  add var: real ksP first_order_rate_constant
+  add var: real Kp nanoM
+  add var: real Kdp nanoM
+  add var: real k3 second_order_rate_constant
+  add var: real k4 first_order_rate_constant
+  add var: real kdn first_order_rate_constant
+  add var: real V1P flux
+  add var: real V2P flux
+  add var: real PCP(time) nanoM
+  add var: real PCC(time) nanoM
+  add var: real ksC first_order_rate_constant
+  add var: real kdnc first_order_rate_constant
+  add var: real V1C flux
+  add var: real V2C flux
+  add var: real CCP(time) nanoM
+  add var: real vdPC flux
+  add var: real Kd nanoM
+  add var: real vdCC flux
+  add var: real k1 first_order_rate_constant
+  add var: real k2 first_order_rate_constant
+  add var: real V1PC flux
+  add var: real V2PC flux
+  add var: real PCCP(time) nanoM
+  add var: real PCN(time) nanoM
+  add var: real k7 second_order_rate_constant
+  add var: real k8 first_order_rate_constant
+  add var: real V3PC flux
+  add var: real V4PC flux
+  add var: real PCNP(time) nanoM
+  add var: real IN(time) nanoM
+  add var: real vdPCC flux
+  add var: real vdPCN flux
+  add var: real ksB first_order_rate_constant
+  add var: real k5 first_order_rate_constant
+  add var: real k6 first_order_rate_constant
+  add var: real V1B flux
+  add var: real V2B flux
+  add var: real BCP(time) nanoM
+  add var: real vdBC flux
+  add var: real V3B flux
+  add var: real V4B flux
+  add var: real BNP(time) nanoM
+  add var: real vdBN flux
+  add var: real vdIN flux
+  add var: real K1CB nanoM
+  add var: real K2CB nanoM
+  add var: real WT hour
+  add var: real vP nanoM
+  add var: real Ca_in:time(time) microM/hour
+  add var: real Ca_store:time(time) nanoM/hour
+  add var: real VIP:time(time) nanoM/hour
+  add var: real MP:time(time) nanoM/hour
+  add var: real MC:time(time) nanoM/hour
+  add var: real MB:time(time) nanoM/hour
+  add var: real PC:time(time) nanoM/hour
+  add var: real CC:time(time) nanoM/hour
+  add var: real PCP:time(time) nanoM/hour
+  add var: real CCP:time(time) nanoM/hour
+  add var: real PCC:time(time) nanoM/hour
+  add var: real PCN:time(time) nanoM/hour
+  add var: real PCCP:time(time) nanoM/hour
+  add var: real PCNP:time(time) nanoM/hour
+  add var: real BC:time(time) nanoM/hour
+  add var: real BCP:time(time) nanoM/hour
+  add var: real BN:time(time) nanoM/hour
+  add var: real BNP:time(time) nanoM/hour
+  add var: real IN:time(time) nanoM/hour
+  add var: real CB:time(time) nanoM/hour
+Loading Constraints
+  time.min=0 :: [time.min]
+  V_theta=20 :: [V_theta]
+  Cm=5 :: [Cm]
+  R=8.314 :: [R]
+  T=37 :: [T]
+  T_abs=273.15 :: [T_abs]
+  T_room=22 :: [T_room]
+  F=96485 :: [F]
+  P_Ca=.05 :: [P_Ca]
+  P_Na=.036 :: [P_Na]
+  P_Cl=.3 :: [P_Cl]
+  v_PK=1.9 :: [v_PK]
+  K_PK=1 :: [K_PK]
+  V_R=.41 :: [V_R]
+  membrane.K_R=34 :: [membrane.K_R]
+  Ca_ex=5 :: [Ca_ex]
+  Na_ex=145 :: [Na_ex]
+  K_ex=1 :: [K_ex]
+  Cl_ex=114.5 :: [Cl_ex]
+  E_Na_0=45 :: [E_Na_0]
+  g_Na=36 :: [g_Na]
+  g_K0=9.7 :: [g_K0]
+  v_gk=10 :: [v_gk]
+  K_gk=10 :: [K_gk]
+  v_KCa=3 :: [v_KCa]
+  K_KCa=.16 :: [K_KCa]
+  E_L_0=(-29) :: [E_L_0]
+  E_K_0=(-97) :: [E_K_0]
+  E_ex=0 :: [E_ex]
+  v_ex1=105 :: [v_ex1]
+  v_ex2=4.4 :: [v_ex2]
+  K_ex1=5.7405E8 :: [K_ex1]
+  K_ex2=1 :: [K_ex2]
+  g_inhib=12.3 :: [g_inhib]
+  GABA0=.2 :: [GABA0]
+  v_GABA=19 :: [v_GABA]
+  K_GABA=3 :: [K_GABA]
+  Cl0=1 :: [Cl0]
+  v_Cl1=15.5 :: [v_Cl1]
+  v_Cl2=19 :: [v_Cl2]
+  K_Cl1=4 :: [K_Cl1]
+  K_Cl2=1 :: [K_Cl2]
+  k_q=8.75E-5 :: [k_q]
+  k_MK=2.9 :: [k_MK]
+  V_MK=5 :: [V_MK]
+  V_b=2 :: [V_b]
+  k_b=2 :: [k_b]
+  K_D=.08 :: [K_D]
+  v_sP0=1 :: [v_sP0]
+  C_T=1.6 :: [C_T]
+  v_Ca=12.3 :: [v_Ca]
+  K_Ca=22 :: [K_Ca]
+  K_C=.15 :: [K_C]
+  when (time=time.min) Ca_in=.1 :: [Ca_in(time.min)]
+  when (time=time.min) BC=2.41 :: [BC(time.min)]
+  when (time=time.min) MP=2.8 :: [MP(time.min)]
+  when (time=time.min) VIP=0 :: [VIP(time.min)]
+  when (time=time.min) CC=12 :: [CC(time.min)]
+  when (time=time.min) CB=.12 :: [CB(time.min)]
+  beta_IP3=.5 :: [beta_IP3]
+  when (time=time.min) Ca_store=.1 :: [Ca_store(time.min)]
+  v_kk=3.3 :: [v_kk]
+  v_v0=.09 :: [v_v0]
+  kf=.001 :: [kf]
+  K_kk=.02 :: [K_kk]
+  K_v0=4.5 :: [K_v0]
+  K_2=5 :: [K_2]
+  Ca_in.K_R=3 :: [Ca_in.K_R]
+  K_A=.67 :: [K_A]
+  v_M1=3E-4 :: [v_M1]
+  v_M2=149.5 :: [v_M2]
+  v_M3=400 :: [v_M3]
+  v_VIP=.5 :: [v_VIP]
+  K_VIP=15 :: [K_VIP]
+  kd_VIP=.5 :: [kd_VIP]
+  vmP=1.1 :: [vmP]
+  kdmp=.01 :: [kdmp]
+  KAP=.6 :: [KAP]
+  KmP=.31 :: [KmP]
+  when (time=time.min) BN=1.94 :: [BN(time.min)]
+  when (time=time.min) MC=2 :: [MC(time.min)]
+  vsC=1.1 :: [vsC]
+  vmC=1 :: [vmC]
+  kdmc=.01 :: [kdmc]
+  KAC=.6 :: [KAC]
+  KmC=.4 :: [KmC]
+  when (time=time.min) MB=7.94 :: [MB(time.min)]
+  vsB=1 :: [vsB]
+  vmB=.8 :: [vmB]
+  kdmb=.01 :: [kdmb]
+  KIB=2.2 :: [KIB]
+  KmB=.4 :: [KmB]
+  when (time=time.min) PC=.4 :: [PC(time.min)]
+  ksP=.6 :: [ksP]
+  Kp=.1 :: [Kp]
+  Kdp=.1 :: [Kdp]
+  k3=.4 :: [k3]
+  k4=.2 :: [k4]
+  kdn=.01 :: [kdn]
+  V1P=.4 :: [V1P]
+  V2P=.3 :: [V2P]
+  when (time=time.min) PCP=.13 :: [PCP(time.min)]
+  when (time=time.min) PCC=1.26 :: [PCC(time.min)]
+  ksC=1.6 :: [ksC]
+  kdnc=.12 :: [kdnc]
+  V1C=.6 :: [V1C]
+  V2C=.1 :: [V2C]
+  when (time=time.min) CCP=9 :: [CCP(time.min)]
+  vdPC=.7 :: [vdPC]
+  Kd=.3 :: [Kd]
+  vdCC=.7 :: [vdCC]
+  k1=.45 :: [k1]
+  k2=.2 :: [k2]
+  V1PC=.4 :: [V1PC]
+  V2PC=.1 :: [V2PC]
+  when (time=time.min) PCCP=.2 :: [PCCP(time.min)]
+  when (time=time.min) PCN=.16 :: [PCN(time.min)]
+  k7=.5 :: [k7]
+  k8=.1 :: [k8]
+  V3PC=.4 :: [V3PC]
+  V4PC=.1 :: [V4PC]
+  when (time=time.min) PCNP=.091 :: [PCNP(time.min)]
+  when (time=time.min) IN=.05 :: [IN(time.min)]
+  vdPCC=.7 :: [vdPCC]
+  vdPCN=.7 :: [vdPCN]
+  ksB=.12 :: [ksB]
+  k5=.4 :: [k5]
+  k6=.2 :: [k6]
+  V1B=.5 :: [V1B]
+  V2B=.1 :: [V2B]
+  when (time=time.min) BCP=.48 :: [BCP(time.min)]
+  vdBC=.5 :: [vdBC]
+  V3B=.5 :: [V3B]
+  V4B=.2 :: [V4B]
+  when (time=time.min) BNP=.32 :: [BNP(time.min)]
+  vdBN=.6 :: [vdBN]
+  vdIN=.8 :: [vdIN]
+  K1CB=.01 :: [K1CB]
+  K2CB=.01 :: [K2CB]
+  WT=1 :: [WT]
+  vP=1 :: [vP]
+  I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)) :: [I_star, g_Na, E_Na, g_Ca, E_Ca, g_K, E_K, g_L, E_L, g_KCa, g_inhib, E_inhib, g_ex, E_ex]
+  R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))) :: [R_star, g_Na, g_K, g_L, g_Ca, g_KCa, g_inhib, g_ex]
+  fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))) :: [fr, tau_m, theta, R_star, I_star, V_reset]
+  tau_m=(Cm*R_star*1.0000000000000002E-12) :: [tau_m, Cm, R_star]
+  V_rest=(R*(T+T_abs)/F*ln(psi)*1E6) :: [V_rest, R, T, T_abs, F, psi]
+  theta=(V_rest+V_theta) :: [theta, V_rest, V_theta]
+  V_reset=(V_rest+4) :: [V_reset, V_rest]
+  psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5) :: [psi, beta_a, alpha, c]
+  alpha=((P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001) :: [alpha, P_Ca, Ca_in, P_K, K_in, P_Na, Na_in, P_Cl, Cl_ex]
+  beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)) :: [beta_a, P_K, K_in, P_Na, Na_in, P_Cl, Cl_ex, K_ex, Na_ex, Cl_in]
+  c=((P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)) :: [c, P_K, K_ex, P_Ca, Ca_ex, P_Na, Na_ex, P_Cl, Cl_in]
+  P_K=(v_PK*(BC^(-2)/(K_PK+BC^(-2)))) :: [P_K, v_PK, BC, K_PK]
+  Res=(V_R*(V_rest/(membrane.K_R+V_rest))) :: [Res, V_R, V_rest, membrane.K_R]
+  K_in=(K_ex/theta_K) :: [K_in, K_ex, theta_K]
+  Na_in=(Na_ex/theta_Na) :: [Na_in, Na_ex, theta_Na]
+  theta_K=exp(E_K/(k_q*(T+T_abs)*1E3)) :: [theta_K, E_K, k_q, T, T_abs]
+  theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3)) :: [theta_Na, E_Na, k_q, T, T_abs]
+  E_K=(E_K_0*(T+T_abs)/(T_room+T_abs)) :: [E_K, E_K_0, T, T_abs, T_room]
+  E_Na=(E_Na_0*(T+T_abs)/(T_room+T_abs)) :: [E_Na, E_Na_0, T, T_abs, T_room]
+  E_L=(E_L_0*(T+T_abs)/(T_room+T_abs)) :: [E_L, E_L_0, T, T_abs, T_room]
+  E_Ca=(k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5) :: [E_Ca, k_q, T, T_abs, Ca_ex, Ca_in]
+  E_inhib=(k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)) :: [E_inhib, k_q, T, T_abs, Cl_ex, Cl_in]
+  i_Na=(g_Na*(V_rest-E_Na)) :: [i_Na, g_Na, V_rest, E_Na]
+  i_Na_abs=sqrt(i_Na^2) :: [i_Na_abs, i_Na]
+  g_K=(g_K0+v_gk*(MP/(K_gk+MP))) :: [g_K, g_K0, v_gk, MP, K_gk]
+  i_K=(g_K*(V_rest-E_K)) :: [i_K, g_K, V_rest, E_K]
+  g_Ca=(v_Ca*(MP^2.2/(K_Ca+MP^2.2))) :: [g_Ca, v_Ca, MP, K_Ca]
+  i_Ca=(g_Ca*(V_rest-E_Ca)) :: [i_Ca, g_Ca, V_rest, E_Ca]
+  g_KCa=(v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))) :: [g_KCa, v_KCa, CC, K_KCa]
+  i_KCa=(g_KCa*(V_rest-E_K)) :: [i_KCa, g_KCa, V_rest, E_K]
+  g_L=(1/Res) :: [g_L, Res]
+  i_L=(g_L*(V_rest-E_L)) :: [i_L, g_L, V_rest, E_L]
+  g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))) :: [g_ex, v_ex1, i_Na_abs, K_ex1, v_ex2, Ca_in, K_ex2]
+  i_ex=(g_ex*(V_rest-E_ex)) :: [i_ex, g_ex, V_rest, E_ex]
+  i_inhib=(g_inhib*(V_rest-E_inhib)) :: [i_inhib, g_inhib, V_rest, E_inhib]
+  GABA=(GABA0+v_GABA*VIP/(K_GABA+VIP)) :: [GABA, GABA0, v_GABA, VIP, K_GABA]
+  beta=(VIP/(VIP+K_D)) :: [beta, VIP, K_D]
+  v_sPC=(v_sP0+C_T*CB/(K_C+CB)) :: [v_sPC, v_sP0, C_T, CB, K_C]
+  Cl_in=(Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))) :: [Cl_in, Cl0, v_Cl1, MP, K_Cl1, v_Cl2, GABA, K_Cl2]
+  V_K=((V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001) :: [V_K, V_MK, Ca_in, k_MK, V_b, beta, k_b]
+  Ca_in:time=(v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)) :: [Ca_in:time, v0, v1, v3, kf, Ca_store, v2, k, Ca_in]
+  Ca_store:time=((v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008) :: [Ca_store:time, v2, v3, kf, Ca_store]
+  k=(v_kk*(CC^.1/(K_kk+CC^.1))) :: [k, v_kk, CC, K_kk]
+  v0=(v_v0*(BC^4.5/(K_v0+BC^4.5))) :: [v0, v_v0, BC, K_v0]
+  v1=(v_M1*beta_IP3) :: [v1, v_M1, beta_IP3]
+  v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))) :: [v2, v_M2, Ca_in, K_2]
+  v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18) :: [v3, v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
+  VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2) :: [VIP:time, v_VIP, fr, K_VIP, kd_VIP, VIP]
+  MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)) :: [MP:time, v_sPC, BN, KAP, vmP, MP, KmP, kdmp]
+  MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)) :: [MC:time, vsC, BN, KAC, vmC, MC, KmC, kdmc]
+  MB:time=(vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)) :: [MB:time, vsB, KIB, BN, vmB, MB, KmB, kdmb]
+  PC:time=(ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)) :: [PC:time, ksP, MP, V2P, PCP, Kdp, k4, PCC, V1P, PC, Kp, k3, CC, kdn]
+  CC:time=(ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)) :: [CC:time, ksC, MC, V2C, CCP, Kdp, k4, PCC, V1C, CC, Kp, k3, PC, kdnc]
+  PCP:time=(V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)) :: [PCP:time, V1P, PC, Kp, V2P, PCP, Kdp, vdPC, Kd, kdn]
+  CCP:time=(V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)) :: [CCP:time, V1C, CC, Kp, V2C, CCP, Kdp, vdCC, Kd, kdn]
+  PCC:time=(V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)) :: [PCC:time, V2PC, PCCP, Kdp, k3, PC, CC, k2, PCN, V1PC, PCC, Kp, k4, k1, kdn]
+  PCN:time=(V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)) :: [PCN:time, V4PC, PCNP, Kdp, k1, PCC, k8, IN, V3PC, PCN, Kp, k2, k7, BN, kdn]
+  PCCP:time=(V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)) :: [PCCP:time, V1PC, PCC, Kp, V2PC, PCCP, Kdp, vdPCC, Kd, kdn]
+  PCNP:time=(V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)) :: [PCNP:time, V3PC, PCN, Kp, V4PC, PCNP, Kdp, vdPCN, Kd, kdn]
+  BC:time=(V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)) :: [BC:time, V2B, BCP, Kdp, k6, BN, ksB, MB, V1B, BC, Kp, k5, kdn]
+  BCP:time=(V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)) :: [BCP:time, V1B, BC, Kp, V2B, BCP, Kdp, vdBC, Kd, kdn]
+  BN:time=(V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)) :: [BN:time, V4B, BNP, Kdp, k5, BC, k8, IN, V3B, BN, Kp, k6, k7, PCN, kdn]
+  BNP:time=(V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)) :: [BNP:time, V3B, BN, Kp, V4B, BNP, Kdp, vdBN, Kd, kdn]
+  IN:time=(k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)) :: [IN:time, k7, BN, PCN, k8, IN, vdIN, Kd, kdn]
+  CB:time=((V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT) :: [CB:time, V_K, CB, K1CB, vP, K2CB, WT]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: V_theta=20; [V_theta]
+  add tool: V_theta=20
+  check eqn: Cm=5; [Cm]
+  add tool: Cm=5
+  check eqn: R=8.314; [R]
+  add tool: R=8.314
+  check eqn: T=37; [T]
+  add tool: T=37
+  check eqn: T_abs=273.15; [T_abs]
+  add tool: T_abs=273.15
+  check eqn: T_room=22; [T_room]
+  add tool: T_room=22
+  check eqn: F=96485; [F]
+  add tool: F=96485
+  check eqn: P_Ca=.05; [P_Ca]
+  add tool: P_Ca=.05
+  check eqn: P_Na=.036; [P_Na]
+  add tool: P_Na=.036
+  check eqn: P_Cl=.3; [P_Cl]
+  add tool: P_Cl=.3
+  check eqn: v_PK=1.9; [v_PK]
+  add tool: v_PK=1.9
+  check eqn: K_PK=1; [K_PK]
+  add tool: K_PK=1
+  check eqn: V_R=.41; [V_R]
+  add tool: V_R=.41
+  check eqn: membrane.K_R=34; [membrane.K_R]
+  add tool: membrane.K_R=34
+  check eqn: Ca_ex=5; [Ca_ex]
+  add tool: Ca_ex=5
+  check eqn: Na_ex=145; [Na_ex]
+  add tool: Na_ex=145
+  check eqn: K_ex=1; [K_ex]
+  add tool: K_ex=1
+  check eqn: Cl_ex=114.5; [Cl_ex]
+  add tool: Cl_ex=114.5
+  check eqn: E_Na_0=45; [E_Na_0]
+  add tool: E_Na_0=45
+  check eqn: g_Na=36; [g_Na]
+  add tool: g_Na=36
+  check eqn: g_K0=9.7; [g_K0]
+  add tool: g_K0=9.7
+  check eqn: v_gk=10; [v_gk]
+  add tool: v_gk=10
+  check eqn: K_gk=10; [K_gk]
+  add tool: K_gk=10
+  check eqn: v_KCa=3; [v_KCa]
+  add tool: v_KCa=3
+  check eqn: K_KCa=.16; [K_KCa]
+  add tool: K_KCa=.16
+  check eqn: E_L_0=(-29); [E_L_0]
+  add tool: E_L_0=-29
+  check eqn: E_K_0=(-97); [E_K_0]
+  add tool: E_K_0=-97
+  check eqn: E_ex=0; [E_ex]
+  add tool: E_ex=0
+  check eqn: v_ex1=105; [v_ex1]
+  add tool: v_ex1=105
+  check eqn: v_ex2=4.4; [v_ex2]
+  add tool: v_ex2=4.4
+  check eqn: K_ex1=5.7405E8; [K_ex1]
+  add tool: K_ex1=5.7405E8
+  check eqn: K_ex2=1; [K_ex2]
+  add tool: K_ex2=1
+  check eqn: g_inhib=12.3; [g_inhib]
+  add tool: g_inhib=12.3
+  check eqn: GABA0=.2; [GABA0]
+  add tool: GABA0=.2
+  check eqn: v_GABA=19; [v_GABA]
+  add tool: v_GABA=19
+  check eqn: K_GABA=3; [K_GABA]
+  add tool: K_GABA=3
+  check eqn: Cl0=1; [Cl0]
+  add tool: Cl0=1
+  check eqn: v_Cl1=15.5; [v_Cl1]
+  add tool: v_Cl1=15.5
+  check eqn: v_Cl2=19; [v_Cl2]
+  add tool: v_Cl2=19
+  check eqn: K_Cl1=4; [K_Cl1]
+  add tool: K_Cl1=4
+  check eqn: K_Cl2=1; [K_Cl2]
+  add tool: K_Cl2=1
+  check eqn: k_q=8.75E-5; [k_q]
+  add tool: k_q=8.75E-5
+  check eqn: k_MK=2.9; [k_MK]
+  add tool: k_MK=2.9
+  check eqn: V_MK=5; [V_MK]
+  add tool: V_MK=5
+  check eqn: V_b=2; [V_b]
+  add tool: V_b=2
+  check eqn: k_b=2; [k_b]
+  add tool: k_b=2
+  check eqn: K_D=.08; [K_D]
+  add tool: K_D=.08
+  check eqn: v_sP0=1; [v_sP0]
+  add tool: v_sP0=1
+  check eqn: C_T=1.6; [C_T]
+  add tool: C_T=1.6
+  check eqn: v_Ca=12.3; [v_Ca]
+  add tool: v_Ca=12.3
+  check eqn: K_Ca=22; [K_Ca]
+  add tool: K_Ca=22
+  check eqn: K_C=.15; [K_C]
+  add tool: K_C=.15
+  check eqn: when (time=time.min) Ca_in=.1; [Ca_in(time.min)]
+  add tool: Ca_in(time.min)=.1
+  check eqn: when (time=time.min) BC=2.41; [BC(time.min)]
+  add tool: BC(time.min)=2.41
+  check eqn: when (time=time.min) MP=2.8; [MP(time.min)]
+  add tool: MP(time.min)=2.8
+  check eqn: when (time=time.min) VIP=0; [VIP(time.min)]
+  add tool: VIP(time.min)=0
+  check eqn: when (time=time.min) CC=12; [CC(time.min)]
+  add tool: CC(time.min)=12
+  check eqn: when (time=time.min) CB=.12; [CB(time.min)]
+  add tool: CB(time.min)=.12
+  check eqn: beta_IP3=.5; [beta_IP3]
+  add tool: beta_IP3=.5
+  check eqn: when (time=time.min) Ca_store=.1; [Ca_store(time.min)]
+  add tool: Ca_store(time.min)=.1
+  check eqn: v_kk=3.3; [v_kk]
+  add tool: v_kk=3.3
+  check eqn: v_v0=.09; [v_v0]
+  add tool: v_v0=.09
+  check eqn: kf=.001; [kf]
+  add tool: kf=.001
+  check eqn: K_kk=.02; [K_kk]
+  add tool: K_kk=.02
+  check eqn: K_v0=4.5; [K_v0]
+  add tool: K_v0=4.5
+  check eqn: K_2=5; [K_2]
+  add tool: K_2=5
+  check eqn: Ca_in.K_R=3; [Ca_in.K_R]
+  add tool: Ca_in.K_R=3
+  check eqn: K_A=.67; [K_A]
+  add tool: K_A=.67
+  check eqn: v_M1=3E-4; [v_M1]
+  add tool: v_M1=3E-4
+  check eqn: v_M2=149.5; [v_M2]
+  add tool: v_M2=149.5
+  check eqn: v_M3=400; [v_M3]
+  add tool: v_M3=400
+  check eqn: v_VIP=.5; [v_VIP]
+  add tool: v_VIP=.5
+  check eqn: K_VIP=15; [K_VIP]
+  add tool: K_VIP=15
+  check eqn: kd_VIP=.5; [kd_VIP]
+  add tool: kd_VIP=.5
+  check eqn: vmP=1.1; [vmP]
+  add tool: vmP=1.1
+  check eqn: kdmp=.01; [kdmp]
+  add tool: kdmp=.01
+  check eqn: KAP=.6; [KAP]
+  add tool: KAP=.6
+  check eqn: KmP=.31; [KmP]
+  add tool: KmP=.31
+  check eqn: when (time=time.min) BN=1.94; [BN(time.min)]
+  add tool: BN(time.min)=1.94
+  check eqn: when (time=time.min) MC=2; [MC(time.min)]
+  add tool: MC(time.min)=2
+  check eqn: vsC=1.1; [vsC]
+  add tool: vsC=1.1
+  check eqn: vmC=1; [vmC]
+  add tool: vmC=1
+  check eqn: kdmc=.01; [kdmc]
+  add tool: kdmc=.01
+  check eqn: KAC=.6; [KAC]
+  add tool: KAC=.6
+  check eqn: KmC=.4; [KmC]
+  add tool: KmC=.4
+  check eqn: when (time=time.min) MB=7.94; [MB(time.min)]
+  add tool: MB(time.min)=7.94
+  check eqn: vsB=1; [vsB]
+  add tool: vsB=1
+  check eqn: vmB=.8; [vmB]
+  add tool: vmB=.8
+  check eqn: kdmb=.01; [kdmb]
+  add tool: kdmb=.01
+  check eqn: KIB=2.2; [KIB]
+  add tool: KIB=2.2
+  check eqn: KmB=.4; [KmB]
+  add tool: KmB=.4
+  check eqn: when (time=time.min) PC=.4; [PC(time.min)]
+  add tool: PC(time.min)=.4
+  check eqn: ksP=.6; [ksP]
+  add tool: ksP=.6
+  check eqn: Kp=.1; [Kp]
+  add tool: Kp=.1
+  check eqn: Kdp=.1; [Kdp]
+  add tool: Kdp=.1
+  check eqn: k3=.4; [k3]
+  add tool: k3=.4
+  check eqn: k4=.2; [k4]
+  add tool: k4=.2
+  check eqn: kdn=.01; [kdn]
+  add tool: kdn=.01
+  check eqn: V1P=.4; [V1P]
+  add tool: V1P=.4
+  check eqn: V2P=.3; [V2P]
+  add tool: V2P=.3
+  check eqn: when (time=time.min) PCP=.13; [PCP(time.min)]
+  add tool: PCP(time.min)=.13
+  check eqn: when (time=time.min) PCC=1.26; [PCC(time.min)]
+  add tool: PCC(time.min)=1.26
+  check eqn: ksC=1.6; [ksC]
+  add tool: ksC=1.6
+  check eqn: kdnc=.12; [kdnc]
+  add tool: kdnc=.12
+  check eqn: V1C=.6; [V1C]
+  add tool: V1C=.6
+  check eqn: V2C=.1; [V2C]
+  add tool: V2C=.1
+  check eqn: when (time=time.min) CCP=9; [CCP(time.min)]
+  add tool: CCP(time.min)=9
+  check eqn: vdPC=.7; [vdPC]
+  add tool: vdPC=.7
+  check eqn: Kd=.3; [Kd]
+  add tool: Kd=.3
+  check eqn: vdCC=.7; [vdCC]
+  add tool: vdCC=.7
+  check eqn: k1=.45; [k1]
+  add tool: k1=.45
+  check eqn: k2=.2; [k2]
+  add tool: k2=.2
+  check eqn: V1PC=.4; [V1PC]
+  add tool: V1PC=.4
+  check eqn: V2PC=.1; [V2PC]
+  add tool: V2PC=.1
+  check eqn: when (time=time.min) PCCP=.2; [PCCP(time.min)]
+  add tool: PCCP(time.min)=.2
+  check eqn: when (time=time.min) PCN=.16; [PCN(time.min)]
+  add tool: PCN(time.min)=.16
+  check eqn: k7=.5; [k7]
+  add tool: k7=.5
+  check eqn: k8=.1; [k8]
+  add tool: k8=.1
+  check eqn: V3PC=.4; [V3PC]
+  add tool: V3PC=.4
+  check eqn: V4PC=.1; [V4PC]
+  add tool: V4PC=.1
+  check eqn: when (time=time.min) PCNP=.091; [PCNP(time.min)]
+  add tool: PCNP(time.min)=.091
+  check eqn: when (time=time.min) IN=.05; [IN(time.min)]
+  add tool: IN(time.min)=.05
+  check eqn: vdPCC=.7; [vdPCC]
+  add tool: vdPCC=.7
+  check eqn: vdPCN=.7; [vdPCN]
+  add tool: vdPCN=.7
+  check eqn: ksB=.12; [ksB]
+  add tool: ksB=.12
+  check eqn: k5=.4; [k5]
+  add tool: k5=.4
+  check eqn: k6=.2; [k6]
+  add tool: k6=.2
+  check eqn: V1B=.5; [V1B]
+  add tool: V1B=.5
+  check eqn: V2B=.1; [V2B]
+  add tool: V2B=.1
+  check eqn: when (time=time.min) BCP=.48; [BCP(time.min)]
+  add tool: BCP(time.min)=.48
+  check eqn: vdBC=.5; [vdBC]
+  add tool: vdBC=.5
+  check eqn: V3B=.5; [V3B]
+  add tool: V3B=.5
+  check eqn: V4B=.2; [V4B]
+  add tool: V4B=.2
+  check eqn: when (time=time.min) BNP=.32; [BNP(time.min)]
+  add tool: BNP(time.min)=.32
+  check eqn: vdBN=.6; [vdBN]
+  add tool: vdBN=.6
+  check eqn: vdIN=.8; [vdIN]
+  add tool: vdIN=.8
+  check eqn: K1CB=.01; [K1CB]
+  add tool: K1CB=.01
+  check eqn: K2CB=.01; [K2CB]
+  add tool: K2CB=.01
+  check eqn: WT=1; [WT]
+  add tool: WT=1
+  check eqn: vP=1; [vP]
+  add tool: vP=1
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, E_Na]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_K]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest, psi]
+  check eqn: theta=(V_rest+V_theta); [theta, V_rest]
+  check eqn: V_reset=(V_rest+4); [V_reset, V_rest]
+  check eqn: psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5); [psi, beta_a]
+  check eqn: alpha=((P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001); [alpha, Ca_in]
+  check eqn: beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)); [beta_a, P_K]
+  check eqn: c=((P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)); [c, P_K]
+  check eqn: P_K=(v_PK*(BC^(-2)/(K_PK+BC^(-2)))); [P_K, BC]
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res, V_rest]
+  check eqn: K_in=(K_ex/theta_K); [K_in, theta_K]
+  check eqn: Na_in=(Na_ex/theta_Na); [Na_in, theta_Na]
+  check eqn: theta_K=exp(E_K/(k_q*(T+T_abs)*1E3)); [theta_K, E_K]
+  check eqn: theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3)); [theta_Na, E_Na]
+  check eqn: E_K=(E_K_0*(T+T_abs)/(T_room+T_abs)); [E_K]
+  add tool: E_K=E_K_0*(T+T_abs)/(T_room+T_abs)
+  check eqn: E_Na=(E_Na_0*(T+T_abs)/(T_room+T_abs)); [E_Na]
+  add tool: E_Na=E_Na_0*(T+T_abs)/(T_room+T_abs)
+  check eqn: E_L=(E_L_0*(T+T_abs)/(T_room+T_abs)); [E_L]
+  add tool: E_L=E_L_0*(T+T_abs)/(T_room+T_abs)
+  check eqn: E_Ca=(k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5); [E_Ca, Ca_in]
+  check eqn: E_inhib=(k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)); [E_inhib, Cl_in]
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na, V_rest]
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs, i_Na]
+  check eqn: g_K=(g_K0+v_gk*(MP/(K_gk+MP))); [g_K, MP]
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K, g_K]
+  check eqn: g_Ca=(v_Ca*(MP^2.2/(K_Ca+MP^2.2))); [g_Ca, MP]
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca, g_Ca]
+  check eqn: g_KCa=(v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))); [g_KCa, CC]
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa, g_KCa]
+  check eqn: g_L=(1/Res); [g_L, Res]
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L, g_L]
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex, i_Na_abs]
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex, g_ex]
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib, V_rest]
+  check eqn: GABA=(GABA0+v_GABA*VIP/(K_GABA+VIP)); [GABA, VIP]
+  check eqn: beta=(VIP/(VIP+K_D)); [beta, VIP]
+  check eqn: v_sPC=(v_sP0+C_T*CB/(K_C+CB)); [v_sPC, CB]
+  check eqn: Cl_in=(Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))); [Cl_in, MP]
+  check eqn: V_K=((V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001); [V_K, Ca_in]
+  check eqn: Ca_in:time=(v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)); [Ca_in:time, v0]
+  check eqn: Ca_store:time=((v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008); [Ca_store:time, v2]
+  check eqn: k=(v_kk*(CC^.1/(K_kk+CC^.1))); [k, CC]
+  check eqn: v0=(v_v0*(BC^4.5/(K_v0+BC^4.5))); [v0, BC]
+  check eqn: v1=(v_M1*beta_IP3); [v1]
+  add tool: v1=v_M1*beta_IP3
+  check eqn: v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))); [v2, Ca_in]
+  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18); [v3, Ca_store]
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+  check eqn: MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)); [MP:time, v_sPC]
+  check eqn: MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)); [MC:time, BN]
+  check eqn: MB:time=(vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)); [MB:time, BN]
+  check eqn: PC:time=(ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)); [PC:time, MP]
+  check eqn: CC:time=(ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)); [CC:time, MC]
+  check eqn: PCP:time=(V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)); [PCP:time, PC]
+  check eqn: CCP:time=(V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)); [CCP:time, CC]
+  check eqn: PCC:time=(V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)); [PCC:time, PCCP]
+  check eqn: PCN:time=(V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)); [PCN:time, PCNP]
+  check eqn: PCCP:time=(V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)); [PCCP:time, PCC]
+  check eqn: PCNP:time=(V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)); [PCNP:time, PCN]
+  check eqn: BC:time=(V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)); [BC:time, BCP]
+  check eqn: BCP:time=(V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)); [BCP:time, BC]
+  check eqn: BN:time=(V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)); [BN:time, BNP]
+  check eqn: BNP:time=(V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)); [BNP:time, BN]
+  check eqn: IN:time=(k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)); [IN:time, BN]
+  check eqn: CB:time=((V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT); [CB:time, V_K]
+  add tool: ODE Ca_in: []
+  updated ODE(Ca_in) with Ca_in(time.min)=.1
+  add tool: ODE BC: []
+  updated ODE(BC) with BC(time.min)=2.41
+  add tool: ODE MP: []
+  updated ODE(MP) with MP(time.min)=2.8
+  add tool: ODE VIP: []
+  updated ODE(VIP) with VIP(time.min)=0
+  add tool: ODE CC: []
+  updated ODE(CC) with CC(time.min)=12
+  add tool: ODE CB: []
+  updated ODE(CB) with CB(time.min)=.12
+  add tool: ODE Ca_store: []
+  updated ODE(Ca_store) with Ca_store(time.min)=.1
+  add tool: ODE BN: []
+  updated ODE(BN) with BN(time.min)=1.94
+  add tool: ODE MC: []
+  updated ODE(MC) with MC(time.min)=2
+  add tool: ODE MB: []
+  updated ODE(MB) with MB(time.min)=7.94
+  add tool: ODE PC: []
+  updated ODE(PC) with PC(time.min)=.4
+  add tool: ODE PCP: []
+  updated ODE(PCP) with PCP(time.min)=.13
+  add tool: ODE PCC: []
+  updated ODE(PCC) with PCC(time.min)=1.26
+  add tool: ODE CCP: []
+  updated ODE(CCP) with CCP(time.min)=9
+  add tool: ODE PCCP: []
+  updated ODE(PCCP) with PCCP(time.min)=.2
+  add tool: ODE PCN: []
+  updated ODE(PCN) with PCN(time.min)=.16
+  add tool: ODE PCNP: []
+  updated ODE(PCNP) with PCNP(time.min)=.091
+  add tool: ODE IN: []
+  updated ODE(IN) with IN(time.min)=.05
+  add tool: ODE BCP: []
+  updated ODE(BCP) with BCP(time.min)=.48
+  add tool: ODE BNP: []
+  updated ODE(BNP) with BNP(time.min)=.32
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, g_Ca]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_K]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest, psi]
+  check eqn: theta=(V_rest+V_theta); [theta, V_rest]
+  check eqn: V_reset=(V_rest+4); [V_reset, V_rest]
+  check eqn: psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5); [psi, beta_a]
+  check eqn: alpha=((P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001); [alpha, P_K]
+  check eqn: beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)); [beta_a, P_K]
+  check eqn: c=((P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)); [c, P_K]
+  check eqn: P_K=(v_PK*(BC^(-2)/(K_PK+BC^(-2)))); [P_K]
+  add tool: P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2)))
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res, V_rest]
+  check eqn: K_in=(K_ex/theta_K); [K_in, theta_K]
+  check eqn: Na_in=(Na_ex/theta_Na); [Na_in, theta_Na]
+  check eqn: theta_K=exp(E_K/(k_q*(T+T_abs)*1E3)); [theta_K]
+  add tool: theta_K=exp(E_K/(k_q*(T+T_abs)*1E3))
+  check eqn: theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3)); [theta_Na]
+  add tool: theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3))
+  check eqn: E_Ca=(k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5); [E_Ca]
+  add tool: E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5
+  check eqn: E_inhib=(k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)); [E_inhib, Cl_in]
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na, V_rest]
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs, i_Na]
+  check eqn: g_K=(g_K0+v_gk*(MP/(K_gk+MP))); [g_K]
+  add tool: g_K=g_K0+v_gk*(MP/(K_gk+MP))
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K, V_rest]
+  check eqn: g_Ca=(v_Ca*(MP^2.2/(K_Ca+MP^2.2))); [g_Ca]
+  add tool: g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2))
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca, V_rest]
+  check eqn: g_KCa=(v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))); [g_KCa]
+  add tool: g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa, V_rest]
+  check eqn: g_L=(1/Res); [g_L, Res]
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L, g_L]
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex, i_Na_abs]
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex, g_ex]
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib, V_rest]
+  check eqn: GABA=(GABA0+v_GABA*VIP/(K_GABA+VIP)); [GABA]
+  add tool: GABA=GABA0+v_GABA*VIP/(K_GABA+VIP)
+  check eqn: beta=(VIP/(VIP+K_D)); [beta]
+  add tool: beta=VIP/(VIP+K_D)
+  check eqn: v_sPC=(v_sP0+C_T*CB/(K_C+CB)); [v_sPC]
+  add tool: v_sPC=v_sP0+C_T*CB/(K_C+CB)
+  check eqn: Cl_in=(Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))); [Cl_in]
+  add tool: Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))
+  check eqn: V_K=((V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001); [V_K]
+  add tool: V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001
+  check eqn: Ca_in:time=(v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)); [Ca_in:time, v0]
+  check eqn: Ca_store:time=((v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008); [Ca_store:time, v2]
+  check eqn: k=(v_kk*(CC^.1/(K_kk+CC^.1))); [k]
+  add tool: k=v_kk*(CC^.1/(K_kk+CC^.1))
+  check eqn: v0=(v_v0*(BC^4.5/(K_v0+BC^4.5))); [v0]
+  add tool: v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
+  check eqn: v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))); [v2]
+  add tool: v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
+  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18); [v3]
+  add tool: v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+  check eqn: MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)); [MP:time]
+  add tool: MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
+  check eqn: MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)); [MC:time]
+  add tool: MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
+  check eqn: MB:time=(vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)); [MB:time]
+  add tool: MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
+  check eqn: PC:time=(ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)); [PC:time]
+  add tool: PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)
+  check eqn: CC:time=(ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)); [CC:time]
+  add tool: CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)
+  check eqn: PCP:time=(V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)); [PCP:time]
+  add tool: PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)
+  check eqn: CCP:time=(V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)); [CCP:time]
+  add tool: CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)
+  check eqn: PCC:time=(V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)); [PCC:time]
+  add tool: PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)
+  check eqn: PCN:time=(V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)); [PCN:time]
+  add tool: PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)
+  check eqn: PCCP:time=(V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)); [PCCP:time]
+  add tool: PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)
+  check eqn: PCNP:time=(V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)); [PCNP:time]
+  add tool: PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)
+  check eqn: BC:time=(V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)); [BC:time]
+  add tool: BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)
+  check eqn: BCP:time=(V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)); [BCP:time]
+  add tool: BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)
+  check eqn: BN:time=(V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)); [BN:time]
+  add tool: BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
+  check eqn: BNP:time=(V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)); [BNP:time]
+  add tool: BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)
+  check eqn: IN:time=(k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)); [IN:time]
+  add tool: IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)
+  check eqn: CB:time=((V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT); [CB:time]
+  add tool: CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT
+  updated ODE(MP) with MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
+    MP is now entirely solved
+  updated ODE(MC) with MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
+    MC is now entirely solved
+  updated ODE(MB) with MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
+    MB is now entirely solved
+  updated ODE(PC) with PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)
+    PC is now entirely solved
+  updated ODE(CC) with CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)
+    CC is now entirely solved
+  updated ODE(PCP) with PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)
+    PCP is now entirely solved
+  updated ODE(CCP) with CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)
+    CCP is now entirely solved
+  updated ODE(PCC) with PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)
+    PCC is now entirely solved
+  updated ODE(PCN) with PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)
+    PCN is now entirely solved
+  updated ODE(PCCP) with PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)
+    PCCP is now entirely solved
+  updated ODE(PCNP) with PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)
+    PCNP is now entirely solved
+  updated ODE(BC) with BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)
+    BC is now entirely solved
+  updated ODE(BCP) with BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)
+    BCP is now entirely solved
+  updated ODE(BN) with BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
+    BN is now entirely solved
+  updated ODE(BNP) with BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)
+    BNP is now entirely solved
+  updated ODE(IN) with IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)
+    IN is now entirely solved
+  updated ODE(CB) with CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT
+    CB is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, g_L]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_L]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest, psi]
+  check eqn: theta=(V_rest+V_theta); [theta, V_rest]
+  check eqn: V_reset=(V_rest+4); [V_reset, V_rest]
+  check eqn: psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5); [psi, beta_a]
+  check eqn: alpha=((P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001); [alpha, K_in]
+  check eqn: beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)); [beta_a, K_in]
+  check eqn: c=((P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)); [c]
+  add tool: c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res, V_rest]
+  check eqn: K_in=(K_ex/theta_K); [K_in]
+  add tool: K_in=K_ex/theta_K
+  check eqn: Na_in=(Na_ex/theta_Na); [Na_in]
+  add tool: Na_in=Na_ex/theta_Na
+  check eqn: E_inhib=(k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)); [E_inhib]
+  add tool: E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na, V_rest]
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs, i_Na]
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K, V_rest]
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca, V_rest]
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa, V_rest]
+  check eqn: g_L=(1/Res); [g_L, Res]
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L, g_L]
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex, i_Na_abs]
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex, g_ex]
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib, V_rest]
+  check eqn: Ca_in:time=(v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)); [Ca_in:time]
+  add tool: Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)
+  check eqn: Ca_store:time=((v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008); [Ca_store:time]
+  add tool: Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+  updated ODE(Ca_in) with Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)
+    Ca_in is now entirely solved
+  updated ODE(Ca_store) with Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
+    Ca_store is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, g_L]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_L]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest, psi]
+  check eqn: theta=(V_rest+V_theta); [theta, V_rest]
+  check eqn: V_reset=(V_rest+4); [V_reset, V_rest]
+  check eqn: psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5); [psi, beta_a]
+  check eqn: alpha=((P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001); [alpha]
+  add tool: alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001
+  check eqn: beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)); [beta_a]
+  add tool: beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res, V_rest]
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na, V_rest]
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs, i_Na]
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K, V_rest]
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca, V_rest]
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa, V_rest]
+  check eqn: g_L=(1/Res); [g_L, Res]
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L, g_L]
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex, i_Na_abs]
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex, g_ex]
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib, V_rest]
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, g_L]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_L]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest, psi]
+  check eqn: theta=(V_rest+V_theta); [theta, V_rest]
+  check eqn: V_reset=(V_rest+4); [V_reset, V_rest]
+  check eqn: psi=((sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5); [psi]
+  add tool: psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res, V_rest]
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na, V_rest]
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs, i_Na]
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K, V_rest]
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca, V_rest]
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa, V_rest]
+  check eqn: g_L=(1/Res); [g_L, Res]
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L, g_L]
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex, i_Na_abs]
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex, g_ex]
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib, V_rest]
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star, g_L]
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star, g_L]
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m, R_star]
+  check eqn: V_rest=(R*(T+T_abs)/F*ln(psi)*1E6); [V_rest]
+  add tool: V_rest=R*(T+T_abs)/F*ln(psi)*1E6
+  check eqn: theta=(V_rest+V_theta); [theta]
+  add tool: theta=V_rest+V_theta
+  check eqn: V_reset=(V_rest+4); [V_reset]
+  add tool: V_reset=V_rest+4
+  check eqn: Res=(V_R*(V_rest/(membrane.K_R+V_rest))); [Res]
+  add tool: Res=V_R*(V_rest/(membrane.K_R+V_rest))
+  check eqn: i_Na=(g_Na*(V_rest-E_Na)); [i_Na]
+  add tool: i_Na=g_Na*(V_rest-E_Na)
+  check eqn: i_Na_abs=sqrt(i_Na^2); [i_Na_abs]
+  add tool: i_Na_abs=sqrt(i_Na^2)
+  check eqn: i_K=(g_K*(V_rest-E_K)); [i_K]
+  add tool: i_K=g_K*(V_rest-E_K)
+  check eqn: i_Ca=(g_Ca*(V_rest-E_Ca)); [i_Ca]
+  add tool: i_Ca=g_Ca*(V_rest-E_Ca)
+  check eqn: i_KCa=(g_KCa*(V_rest-E_K)); [i_KCa]
+  add tool: i_KCa=g_KCa*(V_rest-E_K)
+  check eqn: g_L=(1/Res); [g_L]
+  add tool: g_L=1/Res
+  check eqn: i_L=(g_L*(V_rest-E_L)); [i_L]
+  add tool: i_L=g_L*(V_rest-E_L)
+  check eqn: g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))); [g_ex]
+  add tool: g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))
+  check eqn: i_ex=(g_ex*(V_rest-E_ex)); [i_ex]
+  add tool: i_ex=g_ex*(V_rest-E_ex)
+  check eqn: i_inhib=(g_inhib*(V_rest-E_inhib)); [i_inhib]
+  add tool: i_inhib=g_inhib*(V_rest-E_inhib)
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+Toolbox phase - cycle 1:
+  check eqn: I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)); [I_star]
+  add tool: I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)
+  check eqn: R_star=(9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))); [R_star]
+  add tool: R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr, tau_m]
+  check eqn: tau_m=(Cm*R_star*1.0000000000000002E-12); [tau_m]
+  add tool: tau_m=Cm*R_star*1.0000000000000002E-12
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
+Toolbox phase - cycle 1:
+  check eqn: fr=((-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))); [fr]
+  add tool: fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))
+  check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time]
+  add tool: VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2
+  updated ODE(VIP) with VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2
+    VIP is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Ca_in__init microM
+  add tool: Ca_in__init=.1
+  add var: real BC__init nanoM
+  add tool: BC__init=2.41
+  add var: real MP__init nanoM
+  add tool: MP__init=2.8
+  add var: real VIP__init nanoM
+  add tool: VIP__init=0
+  add var: real CC__init nanoM
+  add tool: CC__init=12
+  add var: real CB__init nanoM
+  add tool: CB__init=.12
+  add var: real Ca_store__init nanoM
+  add tool: Ca_store__init=.1
+  add var: real BN__init nanoM
+  add tool: BN__init=1.94
+  add var: real MC__init nanoM
+  add tool: MC__init=2
+  add var: real MB__init nanoM
+  add tool: MB__init=7.94
+  add var: real PC__init nanoM
+  add tool: PC__init=.4
+  add var: real PCP__init nanoM
+  add tool: PCP__init=.13
+  add var: real PCC__init nanoM
+  add tool: PCC__init=1.26
+  add var: real CCP__init nanoM
+  add tool: CCP__init=9
+  add var: real PCCP__init nanoM
+  add tool: PCCP__init=.2
+  add var: real PCN__init nanoM
+  add tool: PCN__init=.16
+  add var: real PCNP__init nanoM
+  add tool: PCNP__init=.091
+  add var: real IN__init nanoM
+  add tool: IN__init=.05
+  add var: real BCP__init nanoM
+  add tool: BCP__init=.48
+  add var: real BNP__init nanoM
+  add tool: BNP__init=.32
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  BNP__init=.32 :: [BNP__init]<<[]
+  BCP__init=.48 :: [BCP__init]<<[]
+  IN__init=.05 :: [IN__init]<<[]
+  PCNP__init=.091 :: [PCNP__init]<<[]
+  PCN__init=.16 :: [PCN__init]<<[]
+  PCCP__init=.2 :: [PCCP__init]<<[]
+  CCP__init=9 :: [CCP__init]<<[]
+  PCC__init=1.26 :: [PCC__init]<<[]
+  PCP__init=.13 :: [PCP__init]<<[]
+  PC__init=.4 :: [PC__init]<<[]
+  MB__init=7.94 :: [MB__init]<<[]
+  MC__init=2 :: [MC__init]<<[]
+  BN__init=1.94 :: [BN__init]<<[]
+  Ca_store__init=.1 :: [Ca_store__init]<<[]
+  CB__init=.12 :: [CB__init]<<[]
+  CC__init=12 :: [CC__init]<<[]
+  VIP__init=0 :: [VIP__init]<<[]
+  MP__init=2.8 :: [MP__init]<<[]
+  BC__init=2.41 :: [BC__init]<<[]
+  Ca_in__init=.1 :: [Ca_in__init]<<[]
+  @time CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT :: [CB:time]<<[V_K, CB, K1CB, vP, K2CB, WT]
+  @time IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN) :: [IN:time]<<[k7, BN, PCN, k8, IN, vdIN, Kd, kdn]
+  @time BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP) :: [BNP:time]<<[V3B, BN, Kp, V4B, BNP, Kdp, vdBN, Kd, kdn]
+  @time BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN) :: [BN:time]<<[V4B, BNP, Kdp, k5, BC, k8, IN, V3B, BN, Kp, k6, k7, PCN, kdn]
+  @time BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP) :: [BCP:time]<<[V1B, BC, Kp, V2B, BCP, Kdp, vdBC, Kd, kdn]
+  @time BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC) :: [BC:time]<<[V2B, BCP, Kdp, k6, BN, ksB, MB, V1B, BC, Kp, k5, kdn]
+  @time PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP) :: [PCNP:time]<<[V3PC, PCN, Kp, V4PC, PCNP, Kdp, vdPCN, Kd, kdn]
+  @time PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP) :: [PCCP:time]<<[V1PC, PCC, Kp, V2PC, PCCP, Kdp, vdPCC, Kd, kdn]
+  @time PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN) :: [PCN:time]<<[V4PC, PCNP, Kdp, k1, PCC, k8, IN, V3PC, PCN, Kp, k2, k7, BN, kdn]
+  @time PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC) :: [PCC:time]<<[V2PC, PCCP, Kdp, k3, PC, CC, k2, PCN, V1PC, PCC, Kp, k4, k1, kdn]
+  @time CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP) :: [CCP:time]<<[V1C, CC, Kp, V2C, CCP, Kdp, vdCC, Kd, kdn]
+  @time PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP) :: [PCP:time]<<[V1P, PC, Kp, V2P, PCP, Kdp, vdPC, Kd, kdn]
+  @time CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC) :: [CC:time]<<[ksC, MC, V2C, CCP, Kdp, k4, PCC, V1C, CC, Kp, k3, PC, kdnc]
+  @time PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC) :: [PC:time]<<[ksP, MP, V2P, PCP, Kdp, k4, PCC, V1P, PC, Kp, k3, CC, kdn]
+  @time MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB) :: [MB:time]<<[vsB, KIB, BN, vmB, MB, KmB, kdmb]
+  @time MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) :: [MC:time]<<[vsC, BN, KAC, vmC, MC, KmC, kdmc]
+  @time MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP) :: [MP:time]<<[v_sPC, BN, KAP, vmP, MP, KmP, kdmp]
+  @time VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2 :: [VIP:time]<<[v_VIP, fr, K_VIP, kd_VIP, VIP]
+  @time Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008 :: [Ca_store:time]<<[v2, v3, kf, Ca_store]
+  @time Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2) :: [Ca_in:time]<<[v0, v1, v3, kf, Ca_store, v2, k, Ca_in]
+  vP=1 :: [vP]<<[]
+  WT=1 :: [WT]<<[]
+  K2CB=.01 :: [K2CB]<<[]
+  K1CB=.01 :: [K1CB]<<[]
+  vdIN=.8 :: [vdIN]<<[]
+  vdBN=.6 :: [vdBN]<<[]
+  @time ODE BNP: BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP) :: [BNP, BNP(time.max)]<<[V3B, BN, Kp, V4B, Kdp, vdBN, Kd, kdn, BNP(time.min), BNP:time]
+  V4B=.2 :: [V4B]<<[]
+  V3B=.5 :: [V3B]<<[]
+  vdBC=.5 :: [vdBC]<<[]
+  @time ODE BCP: BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP) :: [BCP, BCP(time.max)]<<[V1B, BC, Kp, V2B, Kdp, vdBC, Kd, kdn, BCP(time.min), BCP:time]
+  V2B=.1 :: [V2B]<<[]
+  V1B=.5 :: [V1B]<<[]
+  k6=.2 :: [k6]<<[]
+  k5=.4 :: [k5]<<[]
+  ksB=.12 :: [ksB]<<[]
+  vdPCN=.7 :: [vdPCN]<<[]
+  vdPCC=.7 :: [vdPCC]<<[]
+  @time ODE IN: IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN) :: [IN, IN(time.max)]<<[k7, BN, PCN, k8, vdIN, Kd, kdn, IN(time.min), IN:time]
+  @time ODE PCNP: PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP) :: [PCNP, PCNP(time.max)]<<[V3PC, PCN, Kp, V4PC, Kdp, vdPCN, Kd, kdn, PCNP(time.min), PCNP:time]
+  V4PC=.1 :: [V4PC]<<[]
+  V3PC=.4 :: [V3PC]<<[]
+  k8=.1 :: [k8]<<[]
+  k7=.5 :: [k7]<<[]
+  @time ODE PCN: PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN) :: [PCN, PCN(time.max)]<<[V4PC, PCNP, Kdp, k1, PCC, k8, IN, V3PC, Kp, k2, k7, BN, kdn, PCN(time.min), PCN:time]
+  @time ODE PCCP: PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP) :: [PCCP, PCCP(time.max)]<<[V1PC, PCC, Kp, V2PC, Kdp, vdPCC, Kd, kdn, PCCP(time.min), PCCP:time]
+  V2PC=.1 :: [V2PC]<<[]
+  V1PC=.4 :: [V1PC]<<[]
+  k2=.2 :: [k2]<<[]
+  k1=.45 :: [k1]<<[]
+  vdCC=.7 :: [vdCC]<<[]
+  Kd=.3 :: [Kd]<<[]
+  vdPC=.7 :: [vdPC]<<[]
+  @time ODE CCP: CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP) :: [CCP, CCP(time.max)]<<[V1C, CC, Kp, V2C, Kdp, vdCC, Kd, kdn, CCP(time.min), CCP:time]
+  V2C=.1 :: [V2C]<<[]
+  V1C=.6 :: [V1C]<<[]
+  kdnc=.12 :: [kdnc]<<[]
+  ksC=1.6 :: [ksC]<<[]
+  @time ODE PCC: PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC) :: [PCC, PCC(time.max)]<<[V2PC, PCCP, Kdp, k3, PC, CC, k2, PCN, V1PC, Kp, k4, k1, kdn, PCC(time.min), PCC:time]
+  @time ODE PCP: PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP) :: [PCP, PCP(time.max)]<<[V1P, PC, Kp, V2P, Kdp, vdPC, Kd, kdn, PCP(time.min), PCP:time]
+  V2P=.3 :: [V2P]<<[]
+  V1P=.4 :: [V1P]<<[]
+  kdn=.01 :: [kdn]<<[]
+  k4=.2 :: [k4]<<[]
+  k3=.4 :: [k3]<<[]
+  Kdp=.1 :: [Kdp]<<[]
+  Kp=.1 :: [Kp]<<[]
+  ksP=.6 :: [ksP]<<[]
+  @time ODE PC: PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC) :: [PC, PC(time.max)]<<[ksP, MP, V2P, PCP, Kdp, k4, PCC, V1P, Kp, k3, CC, kdn, PC(time.min), PC:time]
+  KmB=.4 :: [KmB]<<[]
+  KIB=2.2 :: [KIB]<<[]
+  kdmb=.01 :: [kdmb]<<[]
+  vmB=.8 :: [vmB]<<[]
+  vsB=1 :: [vsB]<<[]
+  @time ODE MB: MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB) :: [MB, MB(time.max)]<<[vsB, KIB, BN, vmB, KmB, kdmb, MB(time.min), MB:time]
+  KmC=.4 :: [KmC]<<[]
+  KAC=.6 :: [KAC]<<[]
+  kdmc=.01 :: [kdmc]<<[]
+  vmC=1 :: [vmC]<<[]
+  vsC=1.1 :: [vsC]<<[]
+  @time ODE MC: MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) :: [MC, MC(time.max)]<<[vsC, BN, KAC, vmC, KmC, kdmc, MC(time.min), MC:time]
+  @time ODE BN: BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN) :: [BN, BN(time.max)]<<[V4B, BNP, Kdp, k5, BC, k8, IN, V3B, Kp, k6, k7, PCN, kdn, BN(time.min), BN:time]
+  KmP=.31 :: [KmP]<<[]
+  KAP=.6 :: [KAP]<<[]
+  kdmp=.01 :: [kdmp]<<[]
+  vmP=1.1 :: [vmP]<<[]
+  kd_VIP=.5 :: [kd_VIP]<<[]
+  K_VIP=15 :: [K_VIP]<<[]
+  v_VIP=.5 :: [v_VIP]<<[]
+  v_M3=400 :: [v_M3]<<[]
+  v_M2=149.5 :: [v_M2]<<[]
+  v_M1=3E-4 :: [v_M1]<<[]
+  K_A=.67 :: [K_A]<<[]
+  Ca_in.K_R=3 :: [Ca_in.K_R]<<[]
+  K_2=5 :: [K_2]<<[]
+  K_v0=4.5 :: [K_v0]<<[]
+  K_kk=.02 :: [K_kk]<<[]
+  @time k=v_kk*(CC^.1/(K_kk+CC^.1)) :: [k]<<[v_kk, CC, K_kk]
+  kf=.001 :: [kf]<<[]
+  v_v0=.09 :: [v_v0]<<[]
+  v_kk=3.3 :: [v_kk]<<[]
+  @time v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 :: [v3]<<[v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
+  @time v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) :: [v2]<<[v_M2, Ca_in, K_2]
+  v1=v_M1*beta_IP3 :: [v1]<<[v_M1, beta_IP3]
+  @time v0=v_v0*(BC^4.5/(K_v0+BC^4.5)) :: [v0]<<[v_v0, BC, K_v0]
+  @time ODE Ca_store: Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008 :: [Ca_store, Ca_store(time.max)]<<[v2, v3, kf, Ca_store(time.min), Ca_store:time]
+  beta_IP3=.5 :: [beta_IP3]<<[]
+  @time ODE CB: CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT :: [CB, CB(time.max)]<<[V_K, K1CB, vP, K2CB, WT, CB(time.min), CB:time]
+  @time ODE CC: CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC) :: [CC, CC(time.max)]<<[ksC, MC, V2C, CCP, Kdp, k4, PCC, V1C, Kp, k3, PC, kdnc, CC(time.min), CC:time]
+  @time ODE VIP: VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2 :: [VIP, VIP(time.max)]<<[v_VIP, fr, K_VIP, kd_VIP, VIP(time.min), VIP:time]
+  @time ODE MP: MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP) :: [MP, MP(time.max)]<<[v_sPC, BN, KAP, vmP, KmP, kdmp, MP(time.min), MP:time]
+  @time ODE BC: BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC) :: [BC, BC(time.max)]<<[V2B, BCP, Kdp, k6, BN, ksB, MB, V1B, Kp, k5, kdn, BC(time.min), BC:time]
+  @time ODE Ca_in: Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2) :: [Ca_in, Ca_in(time.max)]<<[v0, v1, v3, kf, Ca_store, v2, k, Ca_in(time.min), Ca_in:time]
+  K_C=.15 :: [K_C]<<[]
+  K_Ca=22 :: [K_Ca]<<[]
+  v_Ca=12.3 :: [v_Ca]<<[]
+  C_T=1.6 :: [C_T]<<[]
+  v_sP0=1 :: [v_sP0]<<[]
+  K_D=.08 :: [K_D]<<[]
+  k_b=2 :: [k_b]<<[]
+  V_b=2 :: [V_b]<<[]
+  V_MK=5 :: [V_MK]<<[]
+  k_MK=2.9 :: [k_MK]<<[]
+  k_q=8.75E-5 :: [k_q]<<[]
+  @time psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5 :: [psi]<<[beta_a, alpha, c]
+  @time theta=V_rest+V_theta :: [theta]<<[V_rest, V_theta]
+  @time tau_m=Cm*R_star*1.0000000000000002E-12 :: [tau_m]<<[Cm, R_star]
+  @time R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex)) :: [R_star]<<[g_Na, g_K, g_L, g_Ca, g_KCa, g_inhib, g_ex]
+  @time I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex) :: [I_star]<<[g_Na, E_Na, g_Ca, E_Ca, g_K, E_K, g_L, E_L, g_KCa, g_inhib, E_inhib, g_ex, E_ex]
+  @time i_inhib=g_inhib*(V_rest-E_inhib) :: [i_inhib]<<[g_inhib, V_rest, E_inhib]
+  @time i_ex=g_ex*(V_rest-E_ex) :: [i_ex]<<[g_ex, V_rest, E_ex]
+  @time i_L=g_L*(V_rest-E_L) :: [i_L]<<[g_L, V_rest, E_L]
+  @time i_KCa=g_KCa*(V_rest-E_K) :: [i_KCa]<<[g_KCa, V_rest, E_K]
+  @time i_K=g_K*(V_rest-E_K) :: [i_K]<<[g_K, V_rest, E_K]
+  @time i_Ca=g_Ca*(V_rest-E_Ca) :: [i_Ca]<<[g_Ca, V_rest, E_Ca]
+  @time i_Na_abs=sqrt(i_Na^2) :: [i_Na_abs]<<[i_Na]
+  @time i_Na=g_Na*(V_rest-E_Na) :: [i_Na]<<[g_Na, V_rest, E_Na]
+  K_Cl2=1 :: [K_Cl2]<<[]
+  K_Cl1=4 :: [K_Cl1]<<[]
+  v_Cl2=19 :: [v_Cl2]<<[]
+  v_Cl1=15.5 :: [v_Cl1]<<[]
+  Cl0=1 :: [Cl0]<<[]
+  @time Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2))) :: [Cl_in]<<[Cl0, v_Cl1, MP, K_Cl1, v_Cl2, GABA, K_Cl2]
+  K_GABA=3 :: [K_GABA]<<[]
+  v_GABA=19 :: [v_GABA]<<[]
+  GABA0=.2 :: [GABA0]<<[]
+  @time GABA=GABA0+v_GABA*VIP/(K_GABA+VIP) :: [GABA]<<[GABA0, v_GABA, VIP, K_GABA]
+  @time E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1) :: [E_inhib]<<[k_q, T, T_abs, Cl_ex, Cl_in]
+  g_inhib=12.3 :: [g_inhib]<<[]
+  K_ex2=1 :: [K_ex2]<<[]
+  K_ex1=5.7405E8 :: [K_ex1]<<[]
+  v_ex2=4.4 :: [v_ex2]<<[]
+  v_ex1=105 :: [v_ex1]<<[]
+  E_ex=0 :: [E_ex]<<[]
+  @time g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1))) :: [g_ex]<<[v_ex1, i_Na_abs, K_ex1, v_ex2, Ca_in, K_ex2]
+  E_K=E_K_0*(T+T_abs)/(T_room+T_abs) :: [E_K]<<[E_K_0, T, T_abs, T_room]
+  E_K_0=-97 :: [E_K_0]<<[]
+  E_L=E_L_0*(T+T_abs)/(T_room+T_abs) :: [E_L]<<[E_L_0, T, T_abs, T_room]
+  E_L_0=-29 :: [E_L_0]<<[]
+  @time g_L=1/Res :: [g_L]<<[Res]
+  K_KCa=.16 :: [K_KCa]<<[]
+  v_KCa=3 :: [v_KCa]<<[]
+  @time g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1))) :: [g_KCa]<<[v_KCa, CC, K_KCa]
+  K_gk=10 :: [K_gk]<<[]
+  v_gk=10 :: [v_gk]<<[]
+  g_K0=9.7 :: [g_K0]<<[]
+  @time g_K=g_K0+v_gk*(MP/(K_gk+MP)) :: [g_K]<<[g_K0, v_gk, MP, K_gk]
+  @time g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2)) :: [g_Ca]<<[v_Ca, MP, K_Ca]
+  @time E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5 :: [E_Ca]<<[k_q, T, T_abs, Ca_ex, Ca_in]
+  g_Na=36 :: [g_Na]<<[]
+  E_Na=E_Na_0*(T+T_abs)/(T_room+T_abs) :: [E_Na]<<[E_Na_0, T, T_abs, T_room]
+  E_Na_0=45 :: [E_Na_0]<<[]
+  theta_K=exp(E_K/(k_q*(T+T_abs)*1E3)) :: [theta_K]<<[E_K, k_q, T, T_abs]
+  theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3)) :: [theta_Na]<<[E_Na, k_q, T, T_abs]
+  K_in=K_ex/theta_K :: [K_in]<<[K_ex, theta_K]
+  Na_in=Na_ex/theta_Na :: [Na_in]<<[Na_ex, theta_Na]
+  Cl_ex=114.5 :: [Cl_ex]<<[]
+  K_ex=1 :: [K_ex]<<[]
+  Na_ex=145 :: [Na_ex]<<[]
+  Ca_ex=5 :: [Ca_ex]<<[]
+  membrane.K_R=34 :: [membrane.K_R]<<[]
+  V_R=.41 :: [V_R]<<[]
+  K_PK=1 :: [K_PK]<<[]
+  v_PK=1.9 :: [v_PK]<<[]
+  P_Cl=.3 :: [P_Cl]<<[]
+  P_Na=.036 :: [P_Na]<<[]
+  @time P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2))) :: [P_K]<<[v_PK, BC, K_PK]
+  P_Ca=.05 :: [P_Ca]<<[]
+  @time c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1) :: [c]<<[P_K, K_ex, P_Ca, Ca_ex, P_Na, Na_ex, P_Cl, Cl_in]
+  @time beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in) :: [beta_a]<<[P_K, K_in, P_Na, Na_in, P_Cl, Cl_ex, K_ex, Na_ex, Cl_in]
+  @time beta=VIP/(VIP+K_D) :: [beta]<<[VIP, K_D]
+  @time alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001 :: [alpha]<<[P_Ca, Ca_in, P_K, K_in, P_Na, Na_in, P_Cl, Cl_ex]
+  F=96485 :: [F]<<[]
+  T_room=22 :: [T_room]<<[]
+  T_abs=273.15 :: [T_abs]<<[]
+  T=37 :: [T]<<[]
+  R=8.314 :: [R]<<[]
+  Cm=5 :: [Cm]<<[]
+  V_theta=20 :: [V_theta]<<[]
+  @time V_reset=V_rest+4 :: [V_reset]<<[V_rest]
+  @time V_rest=R*(T+T_abs)/F*ln(psi)*1E6 :: [V_rest]<<[R, T, T_abs, F, psi]
+  @time Res=V_R*(V_rest/(membrane.K_R+V_rest)) :: [Res]<<[V_R, V_rest, membrane.K_R]
+  @time v_sPC=v_sP0+C_T*CB/(K_C+CB) :: [v_sPC]<<[v_sP0, C_T, CB, K_C]
+  @time fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12))) :: [fr]<<[tau_m, theta, R_star, I_star, V_reset]
+  @time V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001 :: [V_K]<<[V_MK, Ca_in, k_MK, V_b, beta, k_b]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  BNP(time.min)=BNP__init :: [BNP(time.min)]<<[BNP__init]
+  BCP(time.min)=BCP__init :: [BCP(time.min)]<<[BCP__init]
+  IN(time.min)=IN__init :: [IN(time.min)]<<[IN__init]
+  PCNP(time.min)=PCNP__init :: [PCNP(time.min)]<<[PCNP__init]
+  PCN(time.min)=PCN__init :: [PCN(time.min)]<<[PCN__init]
+  PCCP(time.min)=PCCP__init :: [PCCP(time.min)]<<[PCCP__init]
+  CCP(time.min)=CCP__init :: [CCP(time.min)]<<[CCP__init]
+  PCC(time.min)=PCC__init :: [PCC(time.min)]<<[PCC__init]
+  PCP(time.min)=PCP__init :: [PCP(time.min)]<<[PCP__init]
+  PC(time.min)=PC__init :: [PC(time.min)]<<[PC__init]
+  MB(time.min)=MB__init :: [MB(time.min)]<<[MB__init]
+  MC(time.min)=MC__init :: [MC(time.min)]<<[MC__init]
+  BN(time.min)=BN__init :: [BN(time.min)]<<[BN__init]
+  Ca_store(time.min)=Ca_store__init :: [Ca_store(time.min)]<<[Ca_store__init]
+  CB(time.min)=CB__init :: [CB(time.min)]<<[CB__init]
+  CC(time.min)=CC__init :: [CC(time.min)]<<[CC__init]
+  VIP(time.min)=VIP__init :: [VIP(time.min)]<<[VIP__init]
+  MP(time.min)=MP__init :: [MP(time.min)]<<[MP__init]
+  BC(time.min)=BC__init :: [BC(time.min)]<<[BC__init]
+  Ca_in(time.min)=Ca_in__init :: [Ca_in(time.min)]<<[Ca_in__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode BNP__init seqLoops=() phase=main fft=null
+  addNode BCP__init seqLoops=() phase=main fft=null
+  addNode IN__init seqLoops=() phase=main fft=null
+  addNode PCNP__init seqLoops=() phase=main fft=null
+  addNode PCN__init seqLoops=() phase=main fft=null
+  addNode PCCP__init seqLoops=() phase=main fft=null
+  addNode CCP__init seqLoops=() phase=main fft=null
+  addNode PCC__init seqLoops=() phase=main fft=null
+  addNode PCP__init seqLoops=() phase=main fft=null
+  addNode PC__init seqLoops=() phase=main fft=null
+  addNode MB__init seqLoops=() phase=main fft=null
+  addNode MC__init seqLoops=() phase=main fft=null
+  addNode BN__init seqLoops=() phase=main fft=null
+  addNode Ca_store__init seqLoops=() phase=main fft=null
+  addNode CB__init seqLoops=() phase=main fft=null
+  addNode CC__init seqLoops=() phase=main fft=null
+  addNode VIP__init seqLoops=() phase=main fft=null
+  addNode MP__init seqLoops=() phase=main fft=null
+  addNode BC__init seqLoops=() phase=main fft=null
+  addNode Ca_in__init seqLoops=() phase=main fft=null
+  addNode CB:time seqLoops=(time) phase=time#1 fft=null
+  addNode IN:time seqLoops=(time) phase=time#1 fft=null
+  addNode BNP:time seqLoops=(time) phase=time#1 fft=null
+  addNode BN:time seqLoops=(time) phase=time#1 fft=null
+  addNode BCP:time seqLoops=(time) phase=time#1 fft=null
+  addNode BC:time seqLoops=(time) phase=time#1 fft=null
+  addNode PCNP:time seqLoops=(time) phase=time#1 fft=null
+  addNode PCCP:time seqLoops=(time) phase=time#1 fft=null
+  addNode PCN:time seqLoops=(time) phase=time#1 fft=null
+  addNode PCC:time seqLoops=(time) phase=time#1 fft=null
+  addNode CCP:time seqLoops=(time) phase=time#1 fft=null
+  addNode PCP:time seqLoops=(time) phase=time#1 fft=null
+  addNode CC:time seqLoops=(time) phase=time#1 fft=null
+  addNode PC:time seqLoops=(time) phase=time#1 fft=null
+  addNode MB:time seqLoops=(time) phase=time#1 fft=null
+  addNode MC:time seqLoops=(time) phase=time#1 fft=null
+  addNode MP:time seqLoops=(time) phase=time#1 fft=null
+  addNode VIP:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_store:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_in:time seqLoops=(time) phase=time#1 fft=null
+  addNode vP seqLoops=() phase=main fft=null
+  addNode WT seqLoops=() phase=main fft=null
+  addNode K2CB seqLoops=() phase=main fft=null
+  addNode K1CB seqLoops=() phase=main fft=null
+  addNode vdIN seqLoops=() phase=main fft=null
+  addNode vdBN seqLoops=() phase=main fft=null
+  addNode BNP seqLoops=(time) phase=time#1 fft=time
+  addNode V4B seqLoops=() phase=main fft=null
+  addNode V3B seqLoops=() phase=main fft=null
+  addNode vdBC seqLoops=() phase=main fft=null
+  addNode BCP seqLoops=(time) phase=time#1 fft=time
+  addNode V2B seqLoops=() phase=main fft=null
+  addNode V1B seqLoops=() phase=main fft=null
+  addNode k6 seqLoops=() phase=main fft=null
+  addNode k5 seqLoops=() phase=main fft=null
+  addNode ksB seqLoops=() phase=main fft=null
+  addNode vdPCN seqLoops=() phase=main fft=null
+  addNode vdPCC seqLoops=() phase=main fft=null
+  addNode IN seqLoops=(time) phase=time#1 fft=time
+  addNode PCNP seqLoops=(time) phase=time#1 fft=time
+  addNode V4PC seqLoops=() phase=main fft=null
+  addNode V3PC seqLoops=() phase=main fft=null
+  addNode k8 seqLoops=() phase=main fft=null
+  addNode k7 seqLoops=() phase=main fft=null
+  addNode PCN seqLoops=(time) phase=time#1 fft=time
+  addNode PCCP seqLoops=(time) phase=time#1 fft=time
+  addNode V2PC seqLoops=() phase=main fft=null
+  addNode V1PC seqLoops=() phase=main fft=null
+  addNode k2 seqLoops=() phase=main fft=null
+  addNode k1 seqLoops=() phase=main fft=null
+  addNode vdCC seqLoops=() phase=main fft=null
+  addNode Kd seqLoops=() phase=main fft=null
+  addNode vdPC seqLoops=() phase=main fft=null
+  addNode CCP seqLoops=(time) phase=time#1 fft=time
+  addNode V2C seqLoops=() phase=main fft=null
+  addNode V1C seqLoops=() phase=main fft=null
+  addNode kdnc seqLoops=() phase=main fft=null
+  addNode ksC seqLoops=() phase=main fft=null
+  addNode PCC seqLoops=(time) phase=time#1 fft=time
+  addNode PCP seqLoops=(time) phase=time#1 fft=time
+  addNode V2P seqLoops=() phase=main fft=null
+  addNode V1P seqLoops=() phase=main fft=null
+  addNode kdn seqLoops=() phase=main fft=null
+  addNode k4 seqLoops=() phase=main fft=null
+  addNode k3 seqLoops=() phase=main fft=null
+  addNode Kdp seqLoops=() phase=main fft=null
+  addNode Kp seqLoops=() phase=main fft=null
+  addNode ksP seqLoops=() phase=main fft=null
+  addNode PC seqLoops=(time) phase=time#1 fft=time
+  addNode KmB seqLoops=() phase=main fft=null
+  addNode KIB seqLoops=() phase=main fft=null
+  addNode kdmb seqLoops=() phase=main fft=null
+  addNode vmB seqLoops=() phase=main fft=null
+  addNode vsB seqLoops=() phase=main fft=null
+  addNode MB seqLoops=(time) phase=time#1 fft=time
+  addNode KmC seqLoops=() phase=main fft=null
+  addNode KAC seqLoops=() phase=main fft=null
+  addNode kdmc seqLoops=() phase=main fft=null
+  addNode vmC seqLoops=() phase=main fft=null
+  addNode vsC seqLoops=() phase=main fft=null
+  addNode MC seqLoops=(time) phase=time#1 fft=time
+  addNode BN seqLoops=(time) phase=time#1 fft=time
+  addNode KmP seqLoops=() phase=main fft=null
+  addNode KAP seqLoops=() phase=main fft=null
+  addNode kdmp seqLoops=() phase=main fft=null
+  addNode vmP seqLoops=() phase=main fft=null
+  addNode kd_VIP seqLoops=() phase=main fft=null
+  addNode K_VIP seqLoops=() phase=main fft=null
+  addNode v_VIP seqLoops=() phase=main fft=null
+  addNode v_M3 seqLoops=() phase=main fft=null
+  addNode v_M2 seqLoops=() phase=main fft=null
+  addNode v_M1 seqLoops=() phase=main fft=null
+  addNode K_A seqLoops=() phase=main fft=null
+  addNode Ca_in.K_R seqLoops=() phase=main fft=null
+  addNode K_2 seqLoops=() phase=main fft=null
+  addNode K_v0 seqLoops=() phase=main fft=null
+  addNode K_kk seqLoops=() phase=main fft=null
+  addNode k seqLoops=(time) phase=time#1 fft=null
+  addNode kf seqLoops=() phase=main fft=null
+  addNode v_v0 seqLoops=() phase=main fft=null
+  addNode v_kk seqLoops=() phase=main fft=null
+  addNode v3 seqLoops=(time) phase=time#1 fft=null
+  addNode v2 seqLoops=(time) phase=time#1 fft=null
+  addNode v1 seqLoops=() phase=main fft=null
+  addNode v0 seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_store seqLoops=(time) phase=time#1 fft=time
+  addNode beta_IP3 seqLoops=() phase=main fft=null
+  addNode CB seqLoops=(time) phase=time#1 fft=time
+  addNode CC seqLoops=(time) phase=time#1 fft=time
+  addNode VIP seqLoops=(time) phase=time#1 fft=time
+  addNode MP seqLoops=(time) phase=time#1 fft=time
+  addNode BC seqLoops=(time) phase=time#1 fft=time
+  addNode Ca_in seqLoops=(time) phase=time#1 fft=time
+  addNode K_C seqLoops=() phase=main fft=null
+  addNode K_Ca seqLoops=() phase=main fft=null
+  addNode v_Ca seqLoops=() phase=main fft=null
+  addNode C_T seqLoops=() phase=main fft=null
+  addNode v_sP0 seqLoops=() phase=main fft=null
+  addNode K_D seqLoops=() phase=main fft=null
+  addNode k_b seqLoops=() phase=main fft=null
+  addNode V_b seqLoops=() phase=main fft=null
+  addNode V_MK seqLoops=() phase=main fft=null
+  addNode k_MK seqLoops=() phase=main fft=null
+  addNode k_q seqLoops=() phase=main fft=null
+  addNode psi seqLoops=(time) phase=time#1 fft=null
+  addNode theta seqLoops=(time) phase=time#1 fft=null
+  addNode tau_m seqLoops=(time) phase=time#1 fft=null
+  addNode R_star seqLoops=(time) phase=time#1 fft=null
+  addNode I_star seqLoops=(time) phase=time#1 fft=null
+  addNode i_inhib seqLoops=(time) phase=time#1 fft=null
+  addNode i_ex seqLoops=(time) phase=time#1 fft=null
+  addNode i_L seqLoops=(time) phase=time#1 fft=null
+  addNode i_KCa seqLoops=(time) phase=time#1 fft=null
+  addNode i_K seqLoops=(time) phase=time#1 fft=null
+  addNode i_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode i_Na_abs seqLoops=(time) phase=time#1 fft=null
+  addNode i_Na seqLoops=(time) phase=time#1 fft=null
+  addNode K_Cl2 seqLoops=() phase=main fft=null
+  addNode K_Cl1 seqLoops=() phase=main fft=null
+  addNode v_Cl2 seqLoops=() phase=main fft=null
+  addNode v_Cl1 seqLoops=() phase=main fft=null
+  addNode Cl0 seqLoops=() phase=main fft=null
+  addNode Cl_in seqLoops=(time) phase=time#1 fft=null
+  addNode K_GABA seqLoops=() phase=main fft=null
+  addNode v_GABA seqLoops=() phase=main fft=null
+  addNode GABA0 seqLoops=() phase=main fft=null
+  addNode GABA seqLoops=(time) phase=time#1 fft=null
+  addNode E_inhib seqLoops=(time) phase=time#1 fft=null
+  addNode g_inhib seqLoops=() phase=main fft=null
+  addNode K_ex2 seqLoops=() phase=main fft=null
+  addNode K_ex1 seqLoops=() phase=main fft=null
+  addNode v_ex2 seqLoops=() phase=main fft=null
+  addNode v_ex1 seqLoops=() phase=main fft=null
+  addNode E_ex seqLoops=() phase=main fft=null
+  addNode g_ex seqLoops=(time) phase=time#1 fft=null
+  addNode E_K seqLoops=() phase=main fft=null
+  addNode E_K_0 seqLoops=() phase=main fft=null
+  addNode E_L seqLoops=() phase=main fft=null
+  addNode E_L_0 seqLoops=() phase=main fft=null
+  addNode g_L seqLoops=(time) phase=time#1 fft=null
+  addNode K_KCa seqLoops=() phase=main fft=null
+  addNode v_KCa seqLoops=() phase=main fft=null
+  addNode g_KCa seqLoops=(time) phase=time#1 fft=null
+  addNode K_gk seqLoops=() phase=main fft=null
+  addNode v_gk seqLoops=() phase=main fft=null
+  addNode g_K0 seqLoops=() phase=main fft=null
+  addNode g_K seqLoops=(time) phase=time#1 fft=null
+  addNode g_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode E_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode g_Na seqLoops=() phase=main fft=null
+  addNode E_Na seqLoops=() phase=main fft=null
+  addNode E_Na_0 seqLoops=() phase=main fft=null
+  addNode theta_K seqLoops=() phase=main fft=null
+  addNode theta_Na seqLoops=() phase=main fft=null
+  addNode K_in seqLoops=() phase=main fft=null
+  addNode Na_in seqLoops=() phase=main fft=null
+  addNode Cl_ex seqLoops=() phase=main fft=null
+  addNode K_ex seqLoops=() phase=main fft=null
+  addNode Na_ex seqLoops=() phase=main fft=null
+  addNode Ca_ex seqLoops=() phase=main fft=null
+  addNode membrane.K_R seqLoops=() phase=main fft=null
+  addNode V_R seqLoops=() phase=main fft=null
+  addNode K_PK seqLoops=() phase=main fft=null
+  addNode v_PK seqLoops=() phase=main fft=null
+  addNode P_Cl seqLoops=() phase=main fft=null
+  addNode P_Na seqLoops=() phase=main fft=null
+  addNode P_K seqLoops=(time) phase=time#1 fft=null
+  addNode P_Ca seqLoops=() phase=main fft=null
+  addNode c seqLoops=(time) phase=time#1 fft=null
+  addNode beta_a seqLoops=(time) phase=time#1 fft=null
+  addNode beta seqLoops=(time) phase=time#1 fft=null
+  addNode alpha seqLoops=(time) phase=time#1 fft=null
+  addNode F seqLoops=() phase=main fft=null
+  addNode T_room seqLoops=() phase=main fft=null
+  addNode T_abs seqLoops=() phase=main fft=null
+  addNode T seqLoops=() phase=main fft=null
+  addNode R seqLoops=() phase=main fft=null
+  addNode Cm seqLoops=() phase=main fft=null
+  addNode V_theta seqLoops=() phase=main fft=null
+  addNode V_reset seqLoops=(time) phase=time#1 fft=null
+  addNode V_rest seqLoops=(time) phase=time#1 fft=null
+  addNode Res seqLoops=(time) phase=time#1 fft=null
+  addNode v_sPC seqLoops=(time) phase=time#1 fft=null
+  addNode fr seqLoops=(time) phase=time#1 fft=null
+  addNode V_K seqLoops=(time) phase=time#1 fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode BNP(time.min) seqLoops=() phase=main fft=null
+  addNode BCP(time.min) seqLoops=() phase=main fft=null
+  addNode IN(time.min) seqLoops=() phase=main fft=null
+  addNode PCNP(time.min) seqLoops=() phase=main fft=null
+  addNode PCN(time.min) seqLoops=() phase=main fft=null
+  addNode PCCP(time.min) seqLoops=() phase=main fft=null
+  addNode CCP(time.min) seqLoops=() phase=main fft=null
+  addNode PCC(time.min) seqLoops=() phase=main fft=null
+  addNode PCP(time.min) seqLoops=() phase=main fft=null
+  addNode PC(time.min) seqLoops=() phase=main fft=null
+  addNode MB(time.min) seqLoops=() phase=main fft=null
+  addNode MC(time.min) seqLoops=() phase=main fft=null
+  addNode BN(time.min) seqLoops=() phase=main fft=null
+  addNode Ca_store(time.min) seqLoops=() phase=main fft=null
+  addNode CB(time.min) seqLoops=() phase=main fft=null
+  addNode CC(time.min) seqLoops=() phase=main fft=null
+  addNode VIP(time.min) seqLoops=() phase=main fft=null
+  addNode MP(time.min) seqLoops=() phase=main fft=null
+  addNode BC(time.min) seqLoops=() phase=main fft=null
+  addNode Ca_in(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding BNP__init=.32 to main
+  adding BCP__init=.48 to main
+  adding IN__init=.05 to main
+  adding PCNP__init=.091 to main
+  adding PCN__init=.16 to main
+  adding PCCP__init=.2 to main
+  adding CCP__init=9 to main
+  adding PCC__init=1.26 to main
+  adding PCP__init=.13 to main
+  adding PC__init=.4 to main
+  adding MB__init=7.94 to main
+  adding MC__init=2 to main
+  adding BN__init=1.94 to main
+  adding Ca_store__init=.1 to main
+  adding CB__init=.12 to main
+  adding CC__init=12 to main
+  adding VIP__init=0 to main
+  adding MP__init=2.8 to main
+  adding BC__init=2.41 to main
+  adding Ca_in__init=.1 to main
+  adding vP=1 to main
+  adding WT=1 to main
+  adding K2CB=.01 to main
+  adding K1CB=.01 to main
+  adding vdIN=.8 to main
+  adding vdBN=.6 to main
+  adding V4B=.2 to main
+  adding V3B=.5 to main
+  adding vdBC=.5 to main
+  adding V2B=.1 to main
+  adding V1B=.5 to main
+  adding k6=.2 to main
+  adding k5=.4 to main
+  adding ksB=.12 to main
+  adding vdPCN=.7 to main
+  adding vdPCC=.7 to main
+  adding V4PC=.1 to main
+  adding V3PC=.4 to main
+  adding k8=.1 to main
+  adding k7=.5 to main
+  adding V2PC=.1 to main
+  adding V1PC=.4 to main
+  adding k2=.2 to main
+  adding k1=.45 to main
+  adding vdCC=.7 to main
+  adding Kd=.3 to main
+  adding vdPC=.7 to main
+  adding V2C=.1 to main
+  adding V1C=.6 to main
+  adding kdnc=.12 to main
+  adding ksC=1.6 to main
+  adding V2P=.3 to main
+  adding V1P=.4 to main
+  adding kdn=.01 to main
+  adding k4=.2 to main
+  adding k3=.4 to main
+  adding Kdp=.1 to main
+  adding Kp=.1 to main
+  adding ksP=.6 to main
+  adding KmB=.4 to main
+  adding KIB=2.2 to main
+  adding kdmb=.01 to main
+  adding vmB=.8 to main
+  adding vsB=1 to main
+  adding KmC=.4 to main
+  adding KAC=.6 to main
+  adding kdmc=.01 to main
+  adding vmC=1 to main
+  adding vsC=1.1 to main
+  adding KmP=.31 to main
+  adding KAP=.6 to main
+  adding kdmp=.01 to main
+  adding vmP=1.1 to main
+  adding kd_VIP=.5 to main
+  adding K_VIP=15 to main
+  adding v_VIP=.5 to main
+  adding v_M3=400 to main
+  adding v_M2=149.5 to main
+  adding v_M1=3E-4 to main
+  adding K_A=.67 to main
+  adding Ca_in.K_R=3 to main
+  adding K_2=5 to main
+  adding K_v0=4.5 to main
+  adding K_kk=.02 to main
+  adding kf=.001 to main
+  adding v_v0=.09 to main
+  adding v_kk=3.3 to main
+  adding beta_IP3=.5 to main
+  adding K_C=.15 to main
+  adding K_Ca=22 to main
+  adding v_Ca=12.3 to main
+  adding C_T=1.6 to main
+  adding v_sP0=1 to main
+  adding K_D=.08 to main
+  adding k_b=2 to main
+  adding V_b=2 to main
+  adding V_MK=5 to main
+  adding k_MK=2.9 to main
+  adding k_q=8.75E-5 to main
+  adding K_Cl2=1 to main
+  adding K_Cl1=4 to main
+  adding v_Cl2=19 to main
+  adding v_Cl1=15.5 to main
+  adding Cl0=1 to main
+  adding K_GABA=3 to main
+  adding v_GABA=19 to main
+  adding GABA0=.2 to main
+  adding g_inhib=12.3 to main
+  adding K_ex2=1 to main
+  adding K_ex1=5.7405E8 to main
+  adding v_ex2=4.4 to main
+  adding v_ex1=105 to main
+  adding E_ex=0 to main
+  adding E_K_0=-97 to main
+  adding E_L_0=-29 to main
+  adding K_KCa=.16 to main
+  adding v_KCa=3 to main
+  adding K_gk=10 to main
+  adding v_gk=10 to main
+  adding g_K0=9.7 to main
+  adding g_Na=36 to main
+  adding E_Na_0=45 to main
+  adding Cl_ex=114.5 to main
+  adding K_ex=1 to main
+  adding Na_ex=145 to main
+  adding Ca_ex=5 to main
+  adding membrane.K_R=34 to main
+  adding V_R=.41 to main
+  adding K_PK=1 to main
+  adding v_PK=1.9 to main
+  adding P_Cl=.3 to main
+  adding P_Na=.036 to main
+  adding P_Ca=.05 to main
+  adding F=96485 to main
+  adding T_room=22 to main
+  adding T_abs=273.15 to main
+  adding T=37 to main
+  adding R=8.314 to main
+  adding Cm=5 to main
+  adding V_theta=20 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding v1=v_M1*beta_IP3 to main
+  adding E_K=E_K_0*(T+T_abs)/(T_room+T_abs) to main
+  adding E_L=E_L_0*(T+T_abs)/(T_room+T_abs) to main
+  adding E_Na=E_Na_0*(T+T_abs)/(T_room+T_abs) to main
+  adding theta_K=exp(E_K/(k_q*(T+T_abs)*1E3)) to main
+  adding theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3)) to main
+  adding K_in=K_ex/theta_K to main
+  adding Na_in=Na_ex/theta_Na to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding BNP(time.min)=BNP__init to main
+  adding BCP(time.min)=BCP__init to main
+  adding IN(time.min)=IN__init to main
+  adding PCNP(time.min)=PCNP__init to main
+  adding PCN(time.min)=PCN__init to main
+  adding PCCP(time.min)=PCCP__init to main
+  adding CCP(time.min)=CCP__init to main
+  adding PCC(time.min)=PCC__init to main
+  adding PCP(time.min)=PCP__init to main
+  adding PC(time.min)=PC__init to main
+  adding MB(time.min)=MB__init to main
+  adding MC(time.min)=MC__init to main
+  adding BN(time.min)=BN__init to main
+  adding Ca_store(time.min)=Ca_store__init to main
+  adding CB(time.min)=CB__init to main
+  adding CC(time.min)=CC__init to main
+  adding VIP(time.min)=VIP__init to main
+  adding MP(time.min)=MP__init to main
+  adding BC(time.min)=BC__init to main
+  adding Ca_in(time.min)=Ca_in__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN) to loop-time
+  adding BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP) to loop-time
+  adding BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN) to loop-time
+  adding BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP) to loop-time
+  adding BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC) to loop-time
+  adding PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP) to loop-time
+  adding PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP) to loop-time
+  adding PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN) to loop-time
+  adding PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC) to loop-time
+  adding CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP) to loop-time
+  adding PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP) to loop-time
+  adding CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC) to loop-time
+  adding PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC) to loop-time
+  adding MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB) to loop-time
+  adding MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) to loop-time
+  adding k=v_kk*(CC^.1/(K_kk+CC^.1)) to loop-time
+  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 to loop-time
+  adding v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) to loop-time
+  adding v0=v_v0*(BC^4.5/(K_v0+BC^4.5)) to loop-time
+  adding GABA=GABA0+v_GABA*VIP/(K_GABA+VIP) to loop-time
+  adding g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1))) to loop-time
+  adding g_K=g_K0+v_gk*(MP/(K_gk+MP)) to loop-time
+  adding g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2)) to loop-time
+  adding E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5 to loop-time
+  adding P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2))) to loop-time
+  adding beta=VIP/(VIP+K_D) to loop-time
+  adding alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001 to loop-time
+  adding v_sPC=v_sP0+C_T*CB/(K_C+CB) to loop-time
+  adding V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001 to loop-time
+  adding CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT to loop-time
+  adding MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP) to loop-time
+  adding Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008 to loop-time
+  adding Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2) to loop-time
+  adding Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2))) to loop-time
+  adding E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1) to loop-time
+  adding c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1) to loop-time
+  adding beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in) to loop-time
+  adding psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5 to loop-time
+  adding V_rest=R*(T+T_abs)/F*ln(psi)*1E6 to loop-time
+  adding Res=V_R*(V_rest/(membrane.K_R+V_rest)) to loop-time
+  adding theta=V_rest+V_theta to loop-time
+  adding i_inhib=g_inhib*(V_rest-E_inhib) to loop-time
+  adding i_KCa=g_KCa*(V_rest-E_K) to loop-time
+  adding i_K=g_K*(V_rest-E_K) to loop-time
+  adding i_Ca=g_Ca*(V_rest-E_Ca) to loop-time
+  adding i_Na=g_Na*(V_rest-E_Na) to loop-time
+  adding g_L=1/Res to loop-time
+  adding V_reset=V_rest+4 to loop-time
+  adding i_L=g_L*(V_rest-E_L) to loop-time
+  adding i_Na_abs=sqrt(i_Na^2) to loop-time
+  adding g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1))) to loop-time
+  adding R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex)) to loop-time
+  adding I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex) to loop-time
+  adding i_ex=g_ex*(V_rest-E_ex) to loop-time
+  adding tau_m=Cm*R_star*1.0000000000000002E-12 to loop-time
+  adding fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12))) to loop-time
+  adding VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2 to loop-time
+  adding ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in] to loop-time
+  adding loop-time to main
+Building ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in] ...
+  adding muTool BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)
+  adding muVar BNP:time
+  adding muTool BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)
+  adding muVar BCP:time
+  adding muTool IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)
+  adding muVar IN:time
+  adding muTool PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)
+  adding muVar PCNP:time
+  adding muTool PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)
+  adding muVar PCN:time
+  adding muTool PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)
+  adding muVar PCCP:time
+  adding muTool CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)
+  adding muVar CCP:time
+  adding muTool PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)
+  adding muVar PCC:time
+  adding muTool PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)
+  adding muVar PCP:time
+  adding muTool PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)
+  adding muVar PC:time
+  adding muTool MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
+  adding muVar MB:time
+  adding muTool MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
+  adding muVar MC:time
+  adding muTool BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
+  adding muVar BN:time
+  adding muTool v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
+  adding muVar v2
+  adding muTool v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+  adding muVar v3
+  adding muTool Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
+  adding muVar Ca_store:time
+  adding muTool V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001
+  adding muVar V_K
+  adding muTool beta=VIP/(VIP+K_D)
+  adding muVar beta
+  adding muTool CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT
+  adding muVar CB:time
+  adding muTool CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)
+  adding muVar CC:time
+  adding muTool g_K=g_K0+v_gk*(MP/(K_gk+MP))
+  adding muTool R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))
+  adding muTool tau_m=Cm*R_star*1.0000000000000002E-12
+  adding muTool fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))
+  adding muVar fr
+  adding muVar tau_m
+  adding muVar R_star
+  adding muVar g_K
+  adding muTool P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2)))
+  adding muTool beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)
+  adding muTool psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5
+  adding muTool V_rest=R*(T+T_abs)/F*ln(psi)*1E6
+  adding muTool Res=V_R*(V_rest/(membrane.K_R+V_rest))
+  adding muTool g_L=1/Res
+  adding muVar g_L
+  adding muVar Res
+  adding muVar V_rest
+  adding muVar psi
+  adding muVar beta_a
+  adding muVar P_K
+  adding muTool Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))
+  adding muVar Cl_in
+  adding muTool GABA=GABA0+v_GABA*VIP/(K_GABA+VIP)
+  adding muVar GABA
+  adding muTool alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001
+  adding muVar alpha
+  adding muTool c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)
+  adding muVar c
+  adding muTool g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2))
+  adding muVar g_Ca
+  adding muTool g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))
+  adding muVar g_KCa
+  adding muTool i_Na=g_Na*(V_rest-E_Na)
+  adding muTool i_Na_abs=sqrt(i_Na^2)
+  adding muTool g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))
+  adding muVar g_ex
+  adding muVar i_Na_abs
+  adding muVar i_Na
+  adding muTool theta=V_rest+V_theta
+  adding muVar theta
+  adding muTool I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)
+  adding muVar I_star
+  adding muTool E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5
+  adding muVar E_Ca
+  adding muTool E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)
+  adding muVar E_inhib
+  adding muTool V_reset=V_rest+4
+  adding muVar V_reset
+  adding muTool VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2
+  adding muVar VIP:time
+  adding muTool v_sPC=v_sP0+C_T*CB/(K_C+CB)
+  adding muVar v_sPC
+  adding muTool MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
+  adding muVar MP:time
+  adding muTool BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)
+  adding muVar BC:time
+  adding muTool v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
+  adding muVar v0
+  adding muTool k=v_kk*(CC^.1/(K_kk+CC^.1))
+  adding muVar k
+  adding muTool Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)
+  adding muVar Ca_in:time
+  adding BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding beta=VIP/(VIP+K_D) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding g_K=g_K0+v_gk*(MP/(K_gk+MP)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2))) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding GABA=GABA0+v_GABA*VIP/(K_GABA+VIP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1))) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding v_sPC=v_sP0+C_T*CB/(K_C+CB) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding v0=v_v0*(BC^4.5/(K_v0+BC^4.5)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding k=v_kk*(CC^.1/(K_kk+CC^.1)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2))) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding V_rest=R*(T+T_abs)/F*ln(psi)*1E6 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding Res=V_R*(V_rest/(membrane.K_R+V_rest)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding g_L=1/Res to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding i_Na=g_Na*(V_rest-E_Na) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding i_Na_abs=sqrt(i_Na^2) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1))) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding theta=V_rest+V_theta to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding V_reset=V_rest+4 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding tau_m=Cm*R_star*1.0000000000000002E-12 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12))) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  BNP__init=.32
+  BCP__init=.48
+  IN__init=.05
+  PCNP__init=.091
+  PCN__init=.16
+  PCCP__init=.2
+  CCP__init=9
+  PCC__init=1.26
+  PCP__init=.13
+  PC__init=.4
+  MB__init=7.94
+  MC__init=2
+  BN__init=1.94
+  Ca_store__init=.1
+  CB__init=.12
+  CC__init=12
+  VIP__init=0
+  MP__init=2.8
+  BC__init=2.41
+  Ca_in__init=.1
+  vP=1
+  WT=1
+  K2CB=.01
+  K1CB=.01
+  vdIN=.8
+  vdBN=.6
+  V4B=.2
+  V3B=.5
+  vdBC=.5
+  V2B=.1
+  V1B=.5
+  k6=.2
+  k5=.4
+  ksB=.12
+  vdPCN=.7
+  vdPCC=.7
+  V4PC=.1
+  V3PC=.4
+  k8=.1
+  k7=.5
+  V2PC=.1
+  V1PC=.4
+  k2=.2
+  k1=.45
+  vdCC=.7
+  Kd=.3
+  vdPC=.7
+  V2C=.1
+  V1C=.6
+  kdnc=.12
+  ksC=1.6
+  V2P=.3
+  V1P=.4
+  kdn=.01
+  k4=.2
+  k3=.4
+  Kdp=.1
+  Kp=.1
+  ksP=.6
+  KmB=.4
+  KIB=2.2
+  kdmb=.01
+  vmB=.8
+  vsB=1
+  KmC=.4
+  KAC=.6
+  kdmc=.01
+  vmC=1
+  vsC=1.1
+  KmP=.31
+  KAP=.6
+  kdmp=.01
+  vmP=1.1
+  kd_VIP=.5
+  K_VIP=15
+  v_VIP=.5
+  v_M3=400
+  v_M2=149.5
+  v_M1=3E-4
+  K_A=.67
+  Ca_in.K_R=3
+  K_2=5
+  K_v0=4.5
+  K_kk=.02
+  kf=.001
+  v_v0=.09
+  v_kk=3.3
+  beta_IP3=.5
+  K_C=.15
+  K_Ca=22
+  v_Ca=12.3
+  C_T=1.6
+  v_sP0=1
+  K_D=.08
+  k_b=2
+  V_b=2
+  V_MK=5
+  k_MK=2.9
+  k_q=8.75E-5
+  K_Cl2=1
+  K_Cl1=4
+  v_Cl2=19
+  v_Cl1=15.5
+  Cl0=1
+  K_GABA=3
+  v_GABA=19
+  GABA0=.2
+  g_inhib=12.3
+  K_ex2=1
+  K_ex1=5.7405E8
+  v_ex2=4.4
+  v_ex1=105
+  E_ex=0
+  E_K_0=-97
+  E_L_0=-29
+  K_KCa=.16
+  v_KCa=3
+  K_gk=10
+  v_gk=10
+  g_K0=9.7
+  g_Na=36
+  E_Na_0=45
+  Cl_ex=114.5
+  K_ex=1
+  Na_ex=145
+  Ca_ex=5
+  membrane.K_R=34
+  V_R=.41
+  K_PK=1
+  v_PK=1.9
+  P_Cl=.3
+  P_Na=.036
+  P_Ca=.05
+  F=96485
+  T_room=22
+  T_abs=273.15
+  T=37
+  R=8.314
+  Cm=5
+  V_theta=20
+  extern time.delta
+  extern time.max
+  time.min=0
+  v1=v_M1*beta_IP3
+  E_K=E_K_0*(T+T_abs)/(T_room+T_abs)
+  E_L=E_L_0*(T+T_abs)/(T_room+T_abs)
+  E_Na=E_Na_0*(T+T_abs)/(T_room+T_abs)
+  theta_K=exp(E_K/(k_q*(T+T_abs)*1E3))
+  theta_Na=exp(E_Na/(k_q*(T+T_abs)*1E3))
+  K_in=K_ex/theta_K
+  Na_in=Na_ex/theta_Na
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  BNP(time.min)=BNP__init
+  BCP(time.min)=BCP__init
+  IN(time.min)=IN__init
+  PCNP(time.min)=PCNP__init
+  PCN(time.min)=PCN__init
+  PCCP(time.min)=PCCP__init
+  CCP(time.min)=CCP__init
+  PCC(time.min)=PCC__init
+  PCP(time.min)=PCP__init
+  PC(time.min)=PC__init
+  MB(time.min)=MB__init
+  MC(time.min)=MC__init
+  BN(time.min)=BN__init
+  Ca_store(time.min)=Ca_store__init
+  CB(time.min)=CB__init
+  CC(time.min)=CC__init
+  VIP(time.min)=VIP__init
+  MP(time.min)=MP__init
+  BC(time.min)=BC__init
+  Ca_in(time.min)=Ca_in__init
+  loop-time
+    IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)
+    BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)
+    BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
+    BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)
+    BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)
+    PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)
+    PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)
+    PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)
+    PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)
+    CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)
+    PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)
+    CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)
+    PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)
+    MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
+    MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
+    k=v_kk*(CC^.1/(K_kk+CC^.1))
+    v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+    v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
+    v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
+    GABA=GABA0+v_GABA*VIP/(K_GABA+VIP)
+    g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))
+    g_K=g_K0+v_gk*(MP/(K_gk+MP))
+    g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2))
+    E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5
+    P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2)))
+    beta=VIP/(VIP+K_D)
+    alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001
+    v_sPC=v_sP0+C_T*CB/(K_C+CB)
+    V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001
+    CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT
+    MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
+    Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
+    Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)
+    Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))
+    E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)
+    c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)
+    beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)
+    psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5
+    V_rest=R*(T+T_abs)/F*ln(psi)*1E6
+    Res=V_R*(V_rest/(membrane.K_R+V_rest))
+    theta=V_rest+V_theta
+    i_inhib=g_inhib*(V_rest-E_inhib)
+    i_KCa=g_KCa*(V_rest-E_K)
+    i_K=g_K*(V_rest-E_K)
+    i_Ca=g_Ca*(V_rest-E_Ca)
+    i_Na=g_Na*(V_rest-E_Na)
+    g_L=1/Res
+    V_reset=V_rest+4
+    i_L=g_L*(V_rest-E_L)
+    i_Na_abs=sqrt(i_Na^2)
+    g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))
+    R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))
+    I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)
+    i_ex=g_ex*(V_rest-E_ex)
+    tau_m=Cm*R_star*1.0000000000000002E-12
+    fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))
+    VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2
+    ODE Block-time vmus=[time, BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in, BNP:time, BCP:time, IN:time, PCNP:time, PCN:time, PCCP:time, CCP:time, PCC:time, PCP:time, PC:time, MB:time, MC:time, BN:time, v2, v3, Ca_store:time, V_K, beta, CB:time, CC:time, fr, tau_m, R_star, g_K, g_L, Res, V_rest, psi, beta_a, P_K, Cl_in, GABA, alpha, c, g_Ca, g_KCa, g_ex, i_Na_abs, i_Na, theta, I_star, E_Ca, E_inhib, V_reset, VIP:time, v_sPC, MP:time, BC:time, v0, k, Ca_in:time]
+      BNP:time=V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP)
+      BCP:time=V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP)
+      IN:time=k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN)
+      PCNP:time=V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP)
+      PCN:time=V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN)
+      PCCP:time=V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP)
+      CCP:time=V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP)
+      PCC:time=V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC)
+      PCP:time=V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP)
+      PC:time=ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC)
+      MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
+      MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
+      BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
+      v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
+      v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+      Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
+      beta=VIP/(VIP+K_D)
+      CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)
+      g_K=g_K0+v_gk*(MP/(K_gk+MP))
+      P_K=v_PK*(BC^(-2)/(K_PK+BC^(-2)))
+      GABA=GABA0+v_GABA*VIP/(K_GABA+VIP)
+      alpha=(P_Ca*Ca_in*.004+P_K*K_in*1E3+P_Na*Na_in*1E3+P_Cl*Cl_ex*1E3)*.001
+      g_Ca=v_Ca*(MP^2.2/(K_Ca+MP^2.2))
+      g_KCa=v_KCa*(CC^(-1)/(K_KCa+CC^(-1)))
+      E_Ca=k_q*(T+T_abs)*ln(Ca_ex/Ca_in)*1E3*.5
+      v_sPC=v_sP0+C_T*CB/(K_C+CB)
+      MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
+      BC:time=V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC)
+      v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
+      k=v_kk*(CC^.1/(K_kk+CC^.1))
+      Ca_in:time=v0+v1+v3+kf*Ca_store*.0010000000000000002-(v2+k*Ca_in^2)
+      V_K=(V_MK*Ca_in/(k_MK+Ca_in*1000.0000000000001)+V_b*beta/(k_b+beta)*.001)*1000.0000000000001
+      CB:time=(V_K*(1-CB)/(K1CB+1-CB)-vP*CB/(K2CB+CB))/WT
+      Cl_in=Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2)))
+      c=(P_K*K_ex+P_Ca*Ca_ex*4E-6+P_Na*Na_ex+P_Cl*Cl_in)*(-1)
+      E_inhib=k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*1E3*(-1)
+      beta_a=P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in)
+      psi=(sqrt(beta_a^2-alpha*c*4)-beta_a)/alpha*.5
+      V_rest=R*(T+T_abs)/F*ln(psi)*1E6
+      Res=V_R*(V_rest/(membrane.K_R+V_rest))
+      g_L=1/Res
+      i_Na=g_Na*(V_rest-E_Na)
+      i_Na_abs=sqrt(i_Na^2)
+      g_ex=v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1)))
+      theta=V_rest+V_theta
+      I_star=g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex)
+      V_reset=V_rest+4
+      R_star=9.999999999999999E11/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex))
+      tau_m=Cm*R_star*1.0000000000000002E-12
+      fr=(-1)/(tau_m*ln((theta-R_star*I_star*1E-12)/(V_reset-R_star*I_star*1E-12)))
+      VIP:time=v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2
+

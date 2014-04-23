@@ -1,0 +1,44 @@
+#!/bin/sh
+
+. ../run.common
+
+if [ $# -lt 4 ]
+then
+  echo "Usage: run1pde nproc proj solver output [inputs]"
+  exit 1
+fi
+NPROC=$1
+shift
+PROJ=$1
+shift
+SOLVER=$1
+shift
+OUTPUT=$1
+shift
+INPUTS="$*"
+OUT=WORK/"$PROJ"_$SOLVER.out
+LOG=LOG/"$PROJ"_"$SOLVER".log
+
+echo "== PDE $NPROC $PROJ $SOLVER $OUTPUT $INPUTS"
+
+if [ ! -d WORK ]
+then
+  mkdir WORK
+fi
+
+$JSBATCH -f PROJ/"$PROJ".proj -loops -o $OUTPUT -timing \
+  -mpdebug $NPROC -oprec 4 -out $OUT -i solver.pde_which=$SOLVER $INPUTS \
+  > $LOG 2>&1
+
+
+STAT=$?
+
+if [ $STAT -eq 0 ]
+then
+  cat $LOG
+else 
+  echo "  $SOLVER returned status $STAT"
+fi
+
+rm -Rf hs_err*.log
+

@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# determine JSIMOS
+JSIMOS=`uname`
+if [ $? -ne 0 ]
+then
+  echo "uname not found"
+  exit 1
+fi
+case $JSIMOS in
+  Linux )
+    JSIMOS=linux
+    JSIMARCH=`uname -m`
+    ;;
+  Darwin )
+    JSIMOS=macos
+    JSIMARCH=`uname -p`
+    # use 1.4 for compilation on all platforms
+    JSIMSDK=/System/Library/Frameworks/JavaVM.framework/Home
+     ;;
+  CYGWIN* )
+    JSIMOS=win32
+    JSIMARCH=""
+    ;;
+  * )
+    echo "Unknown JSIMOS=$JSIMOS"
+    exit 1
+    ;;
+esac
+
+JSIMARCH=i386
+
+# determine JSIMOSARCH
+JSIMOSARCH="$JSIMOS"
+
+export JSIMOS JSIMARCH JSIMOSARCH

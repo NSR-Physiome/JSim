@@ -1,0 +1,28 @@
+#!/bin/sh
+
+. ../run.common
+
+rm -Rf WORK
+mkdir WORK
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+for i in $MODS
+do
+  run1"$WHICH" $i
+done
+
+echo ==== exttime
+$JSBATCH -f MODPARM/exttime.mod -i t.max=3 t.delta=.5 -out WORK/exttime.out
+echo ==== varquery3
+$JSBATCH -f MODPARM/varquery3.mod -o u "u(3-t)" -out WORK/varquery3.out
+echo ==== tparm
+$JSBATCH -f MODPARM/tparm.mod -i Kin=2 -out WORK/tparm.out
+echo ==== alg1
+$JSBATCH -f MODPARM/alg1.mod -oplan -out WORK/alg1.out
+echo ==== parens
+$JSBATCH -f MODPARM/parens.mod -oflat -out WORK/parens.out
+
+

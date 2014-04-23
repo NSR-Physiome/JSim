@@ -1,0 +1,14 @@
+//Created by libAntimony v2.0
+model file0()
+
+  // Rate Rules:
+  S1' = 7;
+
+  // Variable initializations:
+  compartment_ = 1;
+  S1 = 0;
+
+  //Other declarations:
+  var S1;
+end
+

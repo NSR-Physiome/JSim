@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1
+OUT=WORK/"$1".out
+echo "To pass NaN test, this file should contain this header line" > $OUT
+$JSBATCH -f MOD/"$1".mod -o $2 | grep -i nan >> $OUT

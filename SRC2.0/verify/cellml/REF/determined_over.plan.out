@@ -1,0 +1,1595 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time minute
+  add var: real time.min minute
+  add var: extern real time.max minute
+  add var: int time.ct
+  add var: extern real time.delta minute
+  add var: real c(time) molar
+  add var: real c2(time) molar
+  add var: real L0 molar
+  add var: real R0 number_per_cell
+  add var: real kr first_order_rate_constant
+  add var: real kf second_order_rate_constant
+  add var: real ku first_order_rate_constant
+  add var: real kc second_order_rate_constant
+  add var: real r(time) number_per_cell
+  add var: real c_star(time) molar
+  add var: real kc_plus first_order_rate_constant
+  add var: real kc_minus first_order_rate_constant
+  add var: real a1(time) molar
+  add var: real e0_star(time) molar
+  add var: real c_star_a1(time) molar
+  add var: real a1a2(time) molar
+  add var: real kr_1 first_order_rate_constant
+  add var: real kf_1 second_order_rate_constant
+  add var: real kr_12 first_order_rate_constant
+  add var: real kf_12 second_order_rate_constant
+  add var: real A1_T number_per_cell
+  add var: real A2_T number_per_cell
+  add var: real a2(time) molar
+  add var: real e0_star_e4_star(time) molar
+  add var: real kr_2 first_order_rate_constant
+  add var: real kf_2 second_order_rate_constant
+  add var: real kcat_x first_order_rate_constant
+  add var: real E4_T number_per_cell
+  add var: real e1(time) molar
+  add var: real e4_star(time) molar
+  add var: real e1_e0_star(time) molar
+  add var: real k1_plus second_order_rate_constant
+  add var: real k1_minus first_order_rate_constant
+  add var: real kx_plus second_order_rate_constant
+  add var: real kx_minus first_order_rate_constant
+  add var: real kcat_1 first_order_rate_constant
+  add var: real E1_T number_per_cell
+  add var: real kc_12 second_order_rate_constant
+  add var: real kd_12 first_order_rate_constant
+  add var: real a2_minus(time) molar
+  add var: real e1_star_p1(time) molar
+  add var: real e1_star(time) molar
+  add var: real p1(time) molar
+  add var: real kP1_plus second_order_rate_constant
+  add var: real kP1_minus first_order_rate_constant
+  add var: real kcat_P1 first_order_rate_constant
+  add var: real e2_star_p2(time) molar
+  add var: real e2_star(time) molar
+  add var: real p2(time) molar
+  add var: real kP2_plus second_order_rate_constant
+  add var: real kP2_minus first_order_rate_constant
+  add var: real kcat_P2 first_order_rate_constant
+  add var: real E2_T number_per_cell
+  add var: real e3_star_p3(time) molar
+  add var: real e3_star(time) molar
+  add var: real p3(time) molar
+  add var: real kP3_plus second_order_rate_constant
+  add var: real kP3_minus first_order_rate_constant
+  add var: real kcat_P3 first_order_rate_constant
+  add var: real E3_T number_per_cell
+  add var: real e4_star_p4(time) molar
+  add var: real p4(time) molar
+  add var: real kP4_plus second_order_rate_constant
+  add var: real kP4_minus first_order_rate_constant
+  add var: real kcat_P4 first_order_rate_constant
+  add var: real e5_star_p5(time) molar
+  add var: real e5_star(time) molar
+  add var: real p5(time) molar
+  add var: real kP5_plus second_order_rate_constant
+  add var: real kP5_minus first_order_rate_constant
+  add var: real kcat_P5 first_order_rate_constant
+  add var: real E5_T number_per_cell
+  add var: real e2_e1_star(time) molar
+  add var: real e2(time) molar
+  add var: real k2_plus second_order_rate_constant
+  add var: real k2_minus first_order_rate_constant
+  add var: real kcat_2 first_order_rate_constant
+  add var: real e3_e2_star(time) molar
+  add var: real e3(time) molar
+  add var: real k3_plus second_order_rate_constant
+  add var: real k3_minus first_order_rate_constant
+  add var: real kcat_3 first_order_rate_constant
+  add var: real e4_e3_star(time) molar
+  add var: real e4(time) molar
+  add var: real k4_plus second_order_rate_constant
+  add var: real k4_minus first_order_rate_constant
+  add var: real kcat_4 first_order_rate_constant
+  add var: real e5_e4_star(time) molar
+  add var: real e5(time) molar
+  add var: real k5_plus second_order_rate_constant
+  add var: real k5_minus first_order_rate_constant
+  add var: real kcat_5 first_order_rate_constant
+  add var: real e2_star_e4_star(time) molar
+  add var: real kz_plus second_order_rate_constant
+  add var: real kz_minus first_order_rate_constant
+  add var: real kcat_z first_order_rate_constant
+  add var: real e2_minus(time) molar
+  add var: real P1_T number_per_cell
+  add var: real P3_T number_per_cell
+  add var: real P5_T number_per_cell
+  add var: real P2_T number_per_cell
+  add var: real P4_T number_per_cell
+  add var: real c:time(time) molar/minute
+  add var: real c2:time(time) molar/minute
+  add var: real c_star:time(time) molar/minute
+  add var: real c_star_a1:time(time) molar/minute
+  add var: real e0_star:time(time) molar/minute
+  add var: real a1a2:time(time) molar/minute
+  add var: real a2_minus:time(time) molar/minute
+  add var: real e1_star_p1:time(time) molar/minute
+  add var: real e2_star_p2:time(time) molar/minute
+  add var: real e3_star_p3:time(time) molar/minute
+  add var: real e4_star_p4:time(time) molar/minute
+  add var: real e5_star_p5:time(time) molar/minute
+  add var: real e1_e0_star:time(time) molar/minute
+  add var: real e2_e1_star:time(time) molar/minute
+  add var: real e3_e2_star:time(time) molar/minute
+  add var: real e4_e3_star:time(time) molar/minute
+  add var: real e5_e4_star:time(time) molar/minute
+  add var: real e2_star_e4_star:time(time) molar/minute
+  add var: real e0_star_e4_star:time(time) molar/minute
+  add var: real e2_minus:time(time) molar/minute
+  add var: real e1_star:time(time) molar/minute
+  add var: real e3_star:time(time) molar/minute
+  add var: real e5_star:time(time) molar/minute
+  add var: real e2_star:time(time) molar/minute
+  add var: real e4_star:time(time) molar/minute
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) c=0 :: [c(time.min)]
+  when (time=time.min) c2=0 :: [c2(time.min)]
+  R0=1E5 :: [R0]
+  kr=.3 :: [kr]
+  kf=1E7 :: [kf]
+  ku=60 :: [ku]
+  kc=6E7 :: [kc]
+  when (time=time.min) c_star=0 :: [c_star(time.min)]
+  kc_plus=50 :: [kc_plus]
+  kc_minus=5 :: [kc_minus]
+  when (time=time.min) e0_star=0 :: [e0_star(time.min)]
+  when (time=time.min) c_star_a1=0 :: [c_star_a1(time.min)]
+  when (time=time.min) a1a2=0 :: [a1a2(time.min)]
+  kf_1=3E8 :: [kf_1]
+  kf_12=3E8 :: [kf_12]
+  A1_T=1E4 :: [A1_T]
+  A2_T=1E4 :: [A2_T]
+  when (time=time.min) e0_star_e4_star=0 :: [e0_star_e4_star(time.min)]
+  kf_2=3E8 :: [kf_2]
+  kcat_x=6 :: [kcat_x]
+  E4_T=1E4 :: [E4_T]
+  when (time=time.min) e4_star=0 :: [e4_star(time.min)]
+  when (time=time.min) e1_e0_star=0 :: [e1_e0_star(time.min)]
+  k1_plus=6E8 :: [k1_plus]
+  k1_minus=30 :: [k1_minus]
+  kx_plus=6E8 :: [kx_plus]
+  kx_minus=30 :: [kx_minus]
+  kcat_1=6 :: [kcat_1]
+  E1_T=1E4 :: [E1_T]
+  kc_12=3E8 :: [kc_12]
+  when (time=time.min) a2_minus=0 :: [a2_minus(time.min)]
+  when (time=time.min) e1_star_p1=0 :: [e1_star_p1(time.min)]
+  when (time=time.min) e1_star=0 :: [e1_star(time.min)]
+  kP1_plus=6E8 :: [kP1_plus]
+  kP1_minus=30 :: [kP1_minus]
+  kcat_P1=6 :: [kcat_P1]
+  when (time=time.min) e2_star_p2=0 :: [e2_star_p2(time.min)]
+  when (time=time.min) e2_star=0 :: [e2_star(time.min)]
+  kP2_plus=6E8 :: [kP2_plus]
+  kP2_minus=30 :: [kP2_minus]
+  kcat_P2=6 :: [kcat_P2]
+  E2_T=1E4 :: [E2_T]
+  when (time=time.min) e3_star_p3=0 :: [e3_star_p3(time.min)]
+  when (time=time.min) e3_star=0 :: [e3_star(time.min)]
+  kP3_plus=6E8 :: [kP3_plus]
+  kP3_minus=30 :: [kP3_minus]
+  kcat_P3=6 :: [kcat_P3]
+  E3_T=1E4 :: [E3_T]
+  when (time=time.min) e4_star_p4=0 :: [e4_star_p4(time.min)]
+  kP4_plus=6E8 :: [kP4_plus]
+  kP4_minus=30 :: [kP4_minus]
+  kcat_P4=6 :: [kcat_P4]
+  when (time=time.min) e5_star_p5=0 :: [e5_star_p5(time.min)]
+  when (time=time.min) e5_star=0 :: [e5_star(time.min)]
+  kP5_plus=6E8 :: [kP5_plus]
+  kP5_minus=30 :: [kP5_minus]
+  kcat_P5=6 :: [kcat_P5]
+  E5_T=1E4 :: [E5_T]
+  when (time=time.min) e2_e1_star=0 :: [e2_e1_star(time.min)]
+  k2_plus=6E8 :: [k2_plus]
+  k2_minus=30 :: [k2_minus]
+  kcat_2=6 :: [kcat_2]
+  when (time=time.min) e3_e2_star=0 :: [e3_e2_star(time.min)]
+  k3_plus=6E8 :: [k3_plus]
+  k3_minus=30 :: [k3_minus]
+  kcat_3=6 :: [kcat_3]
+  when (time=time.min) e4_e3_star=0 :: [e4_e3_star(time.min)]
+  k4_plus=6E8 :: [k4_plus]
+  k4_minus=30 :: [k4_minus]
+  kcat_4=6 :: [kcat_4]
+  when (time=time.min) e5_e4_star=0 :: [e5_e4_star(time.min)]
+  k5_plus=6E8 :: [k5_plus]
+  k5_minus=30 :: [k5_minus]
+  kcat_5=6 :: [kcat_5]
+  when (time=time.min) e2_star_e4_star=0 :: [e2_star_e4_star(time.min)]
+  kz_plus=6E8 :: [kz_plus]
+  kz_minus=30 :: [kz_minus]
+  kcat_z=6 :: [kcat_z]
+  when (time=time.min) e2_minus=0 :: [e2_minus(time.min)]
+  P1_T=5E3 :: [P1_T]
+  P3_T=5E3 :: [P3_T]
+  P5_T=5E3 :: [P5_T]
+  P2_T=5E3 :: [P2_T]
+  P4_T=5E3 :: [P4_T]
+  c:time=(L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)) :: [c:time, L0, kr, kf, r, ku, c2, c, R0, kc]
+  c2:time=(R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)) :: [c2:time, R0, kr, kc, c, kc_minus, c_star, ku, kc_plus, c2]
+  c_star:time=(kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)) :: [c_star:time, kc_plus, kr, c2, kr_1, A1_T, R0, c_star_a1, kr_12, A2_T, e0_star, kc_minus, c_star, kf_1, a1, kf_12, a1a2]
+  c_star_a1:time=(kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)) :: [c_star_a1:time, kf_1, R0, kr, c_star, a1, kr_2, A2_T, A1_T, e0_star, kcat_x, E4_T, e0_star_e4_star, kr_1, c_star_a1, kf_2, a2]
+  e0_star:time=(kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)) :: [e0_star:time, kf_2, A1_T, kr, c_star_a1, a2, kf_12, c_star, a1a2, k1_minus, kcat_1, E1_T, A2_T, e1_e0_star, kx_minus, E4_T, e0_star_e4_star, kr_2, e0_star, kr_12, k1_plus, e1, kx_plus, e4_star]
+  a1a2:time=(kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)) :: [a1a2:time, kr_12, kr, A2_T, A1_T, e0_star, kc_12, a1, a2, kd_12, a1a2, kf_12, R0, c_star]
+  r=(1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)) :: [r, c, c2, c_star, A1_T, R0, c_star_a1, A2_T, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star]
+  a1=(1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)) :: [a1, c_star_a1, a1a2, A2_T, A1_T, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star]
+  a2=(1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)) :: [a2, A1_T, A2_T, a1a2, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star, a2_minus]
+  a2_minus:time=(kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star) :: [a2_minus:time, kcat_x, kr, E4_T, A2_T, e0_star_e4_star]
+  e1_star_p1:time=(kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1) :: [e1_star_p1:time, kP1_plus, E1_T, kr, e1_star, p1, kP1_minus, kcat_P1, e1_star_p1]
+  e2_star_p2:time=(kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2) :: [e2_star_p2:time, kP2_plus, E2_T, kr, e2_star, p2, kP2_minus, kcat_P2, e2_star_p2]
+  e3_star_p3:time=(kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3) :: [e3_star_p3:time, kP3_plus, E3_T, kr, e3_star, p3, kP3_minus, kcat_P3, e3_star_p3]
+  e4_star_p4:time=(kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4) :: [e4_star_p4:time, kP4_plus, E4_T, kr, e4_star, p4, kP4_minus, kcat_P4, e4_star_p4]
+  e5_star_p5:time=(kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5) :: [e5_star_p5:time, kP5_plus, E5_T, kr, e5_star, p5, kP5_minus, kcat_P5, e5_star_p5]
+  e1_e0_star:time=(k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star) :: [e1_e0_star:time, k1_plus, A2_T, kr, e1, e0_star, k1_minus, kcat_1, e1_e0_star]
+  e2_e1_star:time=(k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star) :: [e2_e1_star:time, k2_plus, E1_T, kr, e2, e1_star, k2_minus, kcat_2, e2_e1_star]
+  e3_e2_star:time=(k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star) :: [e3_e2_star:time, k3_plus, E2_T, kr, e3, e2_star, k3_minus, kcat_3, e3_e2_star]
+  e4_e3_star:time=(k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star) :: [e4_e3_star:time, k4_plus, E3_T, kr, e4, e3_star, k4_minus, kcat_4, e4_e3_star]
+  e5_e4_star:time=(k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star) :: [e5_e4_star:time, k5_plus, E4_T, kr, e5, e4_star, k5_minus, kcat_5, e5_e4_star]
+  e2_star_e4_star:time=(kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star) :: [e2_star_e4_star:time, kz_plus, E2_T, kr, e4_star, e2_star, kz_minus, kcat_z, e2_star_e4_star]
+  e0_star_e4_star:time=(kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star) :: [e0_star_e4_star:time, kx_plus, A2_T, kr, e4_star, e0_star, kx_minus, kcat_x, e0_star_e4_star]
+  e2_minus:time=(kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star) :: [e2_minus:time, kcat_z, kr, E4_T, E2_T, e2_star_e4_star]
+  e1_star:time=(kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)) :: [e1_star:time, kcat_1, kr, e1_e0_star, k2_minus, kcat_2, E2_T, E1_T, e2_e1_star, kP1_minus, P1_T, e1_star_p1, k2_plus, e1_star, e2, kP1_plus, p1]
+  e3_star:time=(kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)) :: [e3_star:time, kcat_3, kr, e3_e2_star, k4_minus, kcat_4, E4_T, E3_T, e4_e3_star, kP3_minus, P3_T, e3_star_p3, k4_plus, e3_star, e4, kP3_plus, p3]
+  e5_star:time=(kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5) :: [e5_star:time, kcat_5, kr, e5_e4_star, kP5_minus, P5_T, E5_T, e5_star_p5, kP5_plus, e5_star, p5]
+  e2_star:time=(kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)) :: [e2_star:time, kcat_2, kr, e2_e1_star, k3_minus, kcat_3, E3_T, E2_T, e3_e2_star, kP2_minus, P2_T, e2_star_p2, kz_minus, E4_T, e2_star_e4_star, k3_plus, e2_star, e3, kP2_plus, p2, kz_plus, e4_star]
+  e4_star:time=(kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)) :: [e4_star:time, kcat_4, kr, e4_e3_star, k5_minus, kcat_5, E5_T, E4_T, e5_e4_star, kP4_minus, P4_T, e4_star_p4, kx_minus, kcat_x, e0_star_e4_star, kz_minus, kcat_z, e2_star_e4_star, k5_plus, e4_star, e5, kP4_plus, p4, kx_plus, A2_T, e0_star, kz_plus, E2_T, e2_star]
+  p1=(1-e1_star_p1) :: [p1, e1_star_p1]
+  p2=(1-e2_star_p2) :: [p2, e2_star_p2]
+  p3=(1-e3_star_p3) :: [p3, e3_star_p3]
+  p4=(1-e4_star_p4) :: [p4, e4_star_p4]
+  p5=(1-e5_star_p5) :: [p5, e5_star_p5]
+  e1=(1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)) :: [e1, e1_e0_star, e1_star, E2_T, E1_T, e2_e1_star, P1_T, e1_star_p1]
+  e3=(1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)) :: [e3, e3_e2_star, e3_star, E4_T, E3_T, e4_e3_star, P3_T, e3_star_p3]
+  e5=(1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)) :: [e5, e5_e4_star, e5_star, P5_T, E5_T, e5_star_p5]
+  e2=(1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)) :: [e2, e3_e2_star, e3_star, E3_T, E2_T, E4_T, e2_star_e4_star, P2_T, e2_star_p2]
+  e4=(1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)) :: [e4, e4_e3_star, e4_star, E5_T, E4_T, e5_e4_star, P4_T, e4_star_p4, e0_star_e4_star, e2_star_e4_star]
+  L0=(kr/kf) :: [L0, kr, kf]
+  kr_1=(kf_1*1E-7) :: [kr_1, kf_1]
+  kr_2=(kf_2*1E-7) :: [kr_2, kf_2]
+  kr_12=(kf_12*1E-7) :: [kr_12, kf_12]
+  kd_12=(kc_12*1E-7) :: [kd_12, kc_12]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) c=0; [c(time.min)]
+  add tool: c(time.min)=0
+  check eqn: when (time=time.min) c2=0; [c2(time.min)]
+  add tool: c2(time.min)=0
+  check eqn: R0=1E5; [R0]
+  add tool: R0=1E5
+  check eqn: kr=.3; [kr]
+  add tool: kr=.3
+  check eqn: kf=1E7; [kf]
+  add tool: kf=1E7
+  check eqn: ku=60; [ku]
+  add tool: ku=60
+  check eqn: kc=6E7; [kc]
+  add tool: kc=6E7
+  check eqn: when (time=time.min) c_star=0; [c_star(time.min)]
+  add tool: c_star(time.min)=0
+  check eqn: kc_plus=50; [kc_plus]
+  add tool: kc_plus=50
+  check eqn: kc_minus=5; [kc_minus]
+  add tool: kc_minus=5
+  check eqn: when (time=time.min) e0_star=0; [e0_star(time.min)]
+  add tool: e0_star(time.min)=0
+  check eqn: when (time=time.min) c_star_a1=0; [c_star_a1(time.min)]
+  add tool: c_star_a1(time.min)=0
+  check eqn: when (time=time.min) a1a2=0; [a1a2(time.min)]
+  add tool: a1a2(time.min)=0
+  check eqn: kf_1=3E8; [kf_1]
+  add tool: kf_1=3E8
+  check eqn: kf_12=3E8; [kf_12]
+  add tool: kf_12=3E8
+  check eqn: A1_T=1E4; [A1_T]
+  add tool: A1_T=1E4
+  check eqn: A2_T=1E4; [A2_T]
+  add tool: A2_T=1E4
+  check eqn: when (time=time.min) e0_star_e4_star=0; [e0_star_e4_star(time.min)]
+  add tool: e0_star_e4_star(time.min)=0
+  check eqn: kf_2=3E8; [kf_2]
+  add tool: kf_2=3E8
+  check eqn: kcat_x=6; [kcat_x]
+  add tool: kcat_x=6
+  check eqn: E4_T=1E4; [E4_T]
+  add tool: E4_T=1E4
+  check eqn: when (time=time.min) e4_star=0; [e4_star(time.min)]
+  add tool: e4_star(time.min)=0
+  check eqn: when (time=time.min) e1_e0_star=0; [e1_e0_star(time.min)]
+  add tool: e1_e0_star(time.min)=0
+  check eqn: k1_plus=6E8; [k1_plus]
+  add tool: k1_plus=6E8
+  check eqn: k1_minus=30; [k1_minus]
+  add tool: k1_minus=30
+  check eqn: kx_plus=6E8; [kx_plus]
+  add tool: kx_plus=6E8
+  check eqn: kx_minus=30; [kx_minus]
+  add tool: kx_minus=30
+  check eqn: kcat_1=6; [kcat_1]
+  add tool: kcat_1=6
+  check eqn: E1_T=1E4; [E1_T]
+  add tool: E1_T=1E4
+  check eqn: kc_12=3E8; [kc_12]
+  add tool: kc_12=3E8
+  check eqn: when (time=time.min) a2_minus=0; [a2_minus(time.min)]
+  add tool: a2_minus(time.min)=0
+  check eqn: when (time=time.min) e1_star_p1=0; [e1_star_p1(time.min)]
+  add tool: e1_star_p1(time.min)=0
+  check eqn: when (time=time.min) e1_star=0; [e1_star(time.min)]
+  add tool: e1_star(time.min)=0
+  check eqn: kP1_plus=6E8; [kP1_plus]
+  add tool: kP1_plus=6E8
+  check eqn: kP1_minus=30; [kP1_minus]
+  add tool: kP1_minus=30
+  check eqn: kcat_P1=6; [kcat_P1]
+  add tool: kcat_P1=6
+  check eqn: when (time=time.min) e2_star_p2=0; [e2_star_p2(time.min)]
+  add tool: e2_star_p2(time.min)=0
+  check eqn: when (time=time.min) e2_star=0; [e2_star(time.min)]
+  add tool: e2_star(time.min)=0
+  check eqn: kP2_plus=6E8; [kP2_plus]
+  add tool: kP2_plus=6E8
+  check eqn: kP2_minus=30; [kP2_minus]
+  add tool: kP2_minus=30
+  check eqn: kcat_P2=6; [kcat_P2]
+  add tool: kcat_P2=6
+  check eqn: E2_T=1E4; [E2_T]
+  add tool: E2_T=1E4
+  check eqn: when (time=time.min) e3_star_p3=0; [e3_star_p3(time.min)]
+  add tool: e3_star_p3(time.min)=0
+  check eqn: when (time=time.min) e3_star=0; [e3_star(time.min)]
+  add tool: e3_star(time.min)=0
+  check eqn: kP3_plus=6E8; [kP3_plus]
+  add tool: kP3_plus=6E8
+  check eqn: kP3_minus=30; [kP3_minus]
+  add tool: kP3_minus=30
+  check eqn: kcat_P3=6; [kcat_P3]
+  add tool: kcat_P3=6
+  check eqn: E3_T=1E4; [E3_T]
+  add tool: E3_T=1E4
+  check eqn: when (time=time.min) e4_star_p4=0; [e4_star_p4(time.min)]
+  add tool: e4_star_p4(time.min)=0
+  check eqn: kP4_plus=6E8; [kP4_plus]
+  add tool: kP4_plus=6E8
+  check eqn: kP4_minus=30; [kP4_minus]
+  add tool: kP4_minus=30
+  check eqn: kcat_P4=6; [kcat_P4]
+  add tool: kcat_P4=6
+  check eqn: when (time=time.min) e5_star_p5=0; [e5_star_p5(time.min)]
+  add tool: e5_star_p5(time.min)=0
+  check eqn: when (time=time.min) e5_star=0; [e5_star(time.min)]
+  add tool: e5_star(time.min)=0
+  check eqn: kP5_plus=6E8; [kP5_plus]
+  add tool: kP5_plus=6E8
+  check eqn: kP5_minus=30; [kP5_minus]
+  add tool: kP5_minus=30
+  check eqn: kcat_P5=6; [kcat_P5]
+  add tool: kcat_P5=6
+  check eqn: E5_T=1E4; [E5_T]
+  add tool: E5_T=1E4
+  check eqn: when (time=time.min) e2_e1_star=0; [e2_e1_star(time.min)]
+  add tool: e2_e1_star(time.min)=0
+  check eqn: k2_plus=6E8; [k2_plus]
+  add tool: k2_plus=6E8
+  check eqn: k2_minus=30; [k2_minus]
+  add tool: k2_minus=30
+  check eqn: kcat_2=6; [kcat_2]
+  add tool: kcat_2=6
+  check eqn: when (time=time.min) e3_e2_star=0; [e3_e2_star(time.min)]
+  add tool: e3_e2_star(time.min)=0
+  check eqn: k3_plus=6E8; [k3_plus]
+  add tool: k3_plus=6E8
+  check eqn: k3_minus=30; [k3_minus]
+  add tool: k3_minus=30
+  check eqn: kcat_3=6; [kcat_3]
+  add tool: kcat_3=6
+  check eqn: when (time=time.min) e4_e3_star=0; [e4_e3_star(time.min)]
+  add tool: e4_e3_star(time.min)=0
+  check eqn: k4_plus=6E8; [k4_plus]
+  add tool: k4_plus=6E8
+  check eqn: k4_minus=30; [k4_minus]
+  add tool: k4_minus=30
+  check eqn: kcat_4=6; [kcat_4]
+  add tool: kcat_4=6
+  check eqn: when (time=time.min) e5_e4_star=0; [e5_e4_star(time.min)]
+  add tool: e5_e4_star(time.min)=0
+  check eqn: k5_plus=6E8; [k5_plus]
+  add tool: k5_plus=6E8
+  check eqn: k5_minus=30; [k5_minus]
+  add tool: k5_minus=30
+  check eqn: kcat_5=6; [kcat_5]
+  add tool: kcat_5=6
+  check eqn: when (time=time.min) e2_star_e4_star=0; [e2_star_e4_star(time.min)]
+  add tool: e2_star_e4_star(time.min)=0
+  check eqn: kz_plus=6E8; [kz_plus]
+  add tool: kz_plus=6E8
+  check eqn: kz_minus=30; [kz_minus]
+  add tool: kz_minus=30
+  check eqn: kcat_z=6; [kcat_z]
+  add tool: kcat_z=6
+  check eqn: when (time=time.min) e2_minus=0; [e2_minus(time.min)]
+  add tool: e2_minus(time.min)=0
+  check eqn: P1_T=5E3; [P1_T]
+  add tool: P1_T=5E3
+  check eqn: P3_T=5E3; [P3_T]
+  add tool: P3_T=5E3
+  check eqn: P5_T=5E3; [P5_T]
+  add tool: P5_T=5E3
+  check eqn: P2_T=5E3; [P2_T]
+  add tool: P2_T=5E3
+  check eqn: P4_T=5E3; [P4_T]
+  add tool: P4_T=5E3
+  check eqn: c:time=(L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)); [c:time, L0]
+  check eqn: c2:time=(R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)); [c2:time, c]
+  check eqn: c_star:time=(kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)); [c_star:time, c2]
+  check eqn: c_star_a1:time=(kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)); [c_star_a1:time, c_star]
+  check eqn: e0_star:time=(kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)); [e0_star:time, c_star_a1]
+  check eqn: a1a2:time=(kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)); [a1a2:time, kr_12]
+  check eqn: r=(1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)); [r, c]
+  check eqn: a1=(1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)); [a1, c_star_a1]
+  check eqn: a2=(1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)); [a2, a1a2]
+  check eqn: a2_minus:time=(kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star); [a2_minus:time, e0_star_e4_star]
+  check eqn: e1_star_p1:time=(kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1); [e1_star_p1:time, e1_star]
+  check eqn: e2_star_p2:time=(kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2); [e2_star_p2:time, e2_star]
+  check eqn: e3_star_p3:time=(kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3); [e3_star_p3:time, e3_star]
+  check eqn: e4_star_p4:time=(kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4); [e4_star_p4:time, e4_star]
+  check eqn: e5_star_p5:time=(kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5); [e5_star_p5:time, e5_star]
+  check eqn: e1_e0_star:time=(k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star); [e1_e0_star:time, e1]
+  check eqn: e2_e1_star:time=(k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star); [e2_e1_star:time, e2]
+  check eqn: e3_e2_star:time=(k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star); [e3_e2_star:time, e3]
+  check eqn: e4_e3_star:time=(k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star); [e4_e3_star:time, e4]
+  check eqn: e5_e4_star:time=(k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star); [e5_e4_star:time, e5]
+  check eqn: e2_star_e4_star:time=(kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star); [e2_star_e4_star:time, e4_star]
+  check eqn: e0_star_e4_star:time=(kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star); [e0_star_e4_star:time, e4_star]
+  check eqn: e2_minus:time=(kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star); [e2_minus:time, e2_star_e4_star]
+  check eqn: e1_star:time=(kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)); [e1_star:time, e1_e0_star]
+  check eqn: e3_star:time=(kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)); [e3_star:time, e3_e2_star]
+  check eqn: e5_star:time=(kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5); [e5_star:time, e5_e4_star]
+  check eqn: e2_star:time=(kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)); [e2_star:time, e2_e1_star]
+  check eqn: e4_star:time=(kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)); [e4_star:time, e4_e3_star]
+  check eqn: p1=(1-e1_star_p1); [p1, e1_star_p1]
+  check eqn: p2=(1-e2_star_p2); [p2, e2_star_p2]
+  check eqn: p3=(1-e3_star_p3); [p3, e3_star_p3]
+  check eqn: p4=(1-e4_star_p4); [p4, e4_star_p4]
+  check eqn: p5=(1-e5_star_p5); [p5, e5_star_p5]
+  check eqn: e1=(1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)); [e1, e1_e0_star]
+  check eqn: e3=(1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)); [e3, e3_e2_star]
+  check eqn: e5=(1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)); [e5, e5_e4_star]
+  check eqn: e2=(1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)); [e2, e3_e2_star]
+  check eqn: e4=(1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)); [e4, e4_e3_star]
+  check eqn: L0=(kr/kf); [L0]
+  add tool: L0=kr/kf
+  check eqn: kr_1=(kf_1*1E-7); [kr_1]
+  add tool: kr_1=kf_1*1E-7
+  check eqn: kr_2=(kf_2*1E-7); [kr_2]
+  add tool: kr_2=kf_2*1E-7
+  check eqn: kr_12=(kf_12*1E-7); [kr_12]
+  add tool: kr_12=kf_12*1E-7
+  check eqn: kd_12=(kc_12*1E-7); [kd_12]
+  add tool: kd_12=kc_12*1E-7
+  add tool: ODE c: []
+  updated ODE(c) with c(time.min)=0
+  add tool: ODE c2: []
+  updated ODE(c2) with c2(time.min)=0
+  add tool: ODE c_star: []
+  updated ODE(c_star) with c_star(time.min)=0
+  add tool: ODE e0_star: []
+  updated ODE(e0_star) with e0_star(time.min)=0
+  add tool: ODE c_star_a1: []
+  updated ODE(c_star_a1) with c_star_a1(time.min)=0
+  add tool: ODE a1a2: []
+  updated ODE(a1a2) with a1a2(time.min)=0
+  add tool: ODE e0_star_e4_star: []
+  updated ODE(e0_star_e4_star) with e0_star_e4_star(time.min)=0
+  add tool: ODE e4_star: []
+  updated ODE(e4_star) with e4_star(time.min)=0
+  add tool: ODE e1_e0_star: []
+  updated ODE(e1_e0_star) with e1_e0_star(time.min)=0
+  add tool: ODE a2_minus: []
+  updated ODE(a2_minus) with a2_minus(time.min)=0
+  add tool: ODE e1_star_p1: []
+  updated ODE(e1_star_p1) with e1_star_p1(time.min)=0
+  add tool: ODE e1_star: []
+  updated ODE(e1_star) with e1_star(time.min)=0
+  add tool: ODE e2_star_p2: []
+  updated ODE(e2_star_p2) with e2_star_p2(time.min)=0
+  add tool: ODE e2_star: []
+  updated ODE(e2_star) with e2_star(time.min)=0
+  add tool: ODE e3_star_p3: []
+  updated ODE(e3_star_p3) with e3_star_p3(time.min)=0
+  add tool: ODE e3_star: []
+  updated ODE(e3_star) with e3_star(time.min)=0
+  add tool: ODE e4_star_p4: []
+  updated ODE(e4_star_p4) with e4_star_p4(time.min)=0
+  add tool: ODE e5_star_p5: []
+  updated ODE(e5_star_p5) with e5_star_p5(time.min)=0
+  add tool: ODE e5_star: []
+  updated ODE(e5_star) with e5_star(time.min)=0
+  add tool: ODE e2_e1_star: []
+  updated ODE(e2_e1_star) with e2_e1_star(time.min)=0
+  add tool: ODE e3_e2_star: []
+  updated ODE(e3_e2_star) with e3_e2_star(time.min)=0
+  add tool: ODE e4_e3_star: []
+  updated ODE(e4_e3_star) with e4_e3_star(time.min)=0
+  add tool: ODE e5_e4_star: []
+  updated ODE(e5_e4_star) with e5_e4_star(time.min)=0
+  add tool: ODE e2_star_e4_star: []
+  updated ODE(e2_star_e4_star) with e2_star_e4_star(time.min)=0
+  add tool: ODE e2_minus: []
+  updated ODE(e2_minus) with e2_minus(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: c:time=(L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)); [c:time, r]
+  check eqn: c2:time=(R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)); [c2:time]
+  add tool: c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)
+  check eqn: c_star:time=(kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)); [c_star:time, a1]
+  check eqn: c_star_a1:time=(kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)); [c_star_a1:time, a1]
+  check eqn: e0_star:time=(kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)); [e0_star:time, a2]
+  check eqn: a1a2:time=(kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)); [a1a2:time, a1]
+  check eqn: r=(1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)); [r]
+  add tool: r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)
+  check eqn: a1=(1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)); [a1]
+  add tool: a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)
+  check eqn: a2=(1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)); [a2]
+  add tool: a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)
+  check eqn: a2_minus:time=(kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star); [a2_minus:time]
+  add tool: a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star
+  check eqn: e1_star_p1:time=(kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1); [e1_star_p1:time, p1]
+  check eqn: e2_star_p2:time=(kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2); [e2_star_p2:time, p2]
+  check eqn: e3_star_p3:time=(kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3); [e3_star_p3:time, p3]
+  check eqn: e4_star_p4:time=(kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4); [e4_star_p4:time, p4]
+  check eqn: e5_star_p5:time=(kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5); [e5_star_p5:time, p5]
+  check eqn: e1_e0_star:time=(k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star); [e1_e0_star:time, e1]
+  check eqn: e2_e1_star:time=(k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star); [e2_e1_star:time, e2]
+  check eqn: e3_e2_star:time=(k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star); [e3_e2_star:time, e3]
+  check eqn: e4_e3_star:time=(k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star); [e4_e3_star:time, e4]
+  check eqn: e5_e4_star:time=(k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star); [e5_e4_star:time, e5]
+  check eqn: e2_star_e4_star:time=(kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star); [e2_star_e4_star:time]
+  add tool: e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star
+  check eqn: e0_star_e4_star:time=(kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star); [e0_star_e4_star:time]
+  add tool: e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star
+  check eqn: e2_minus:time=(kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star); [e2_minus:time]
+  add tool: e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star
+  check eqn: e1_star:time=(kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)); [e1_star:time, e2]
+  check eqn: e3_star:time=(kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)); [e3_star:time, e4]
+  check eqn: e5_star:time=(kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5); [e5_star:time, p5]
+  check eqn: e2_star:time=(kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)); [e2_star:time, e3]
+  check eqn: e4_star:time=(kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)); [e4_star:time, e5]
+  check eqn: p1=(1-e1_star_p1); [p1]
+  add tool: p1=1-e1_star_p1
+  check eqn: p2=(1-e2_star_p2); [p2]
+  add tool: p2=1-e2_star_p2
+  check eqn: p3=(1-e3_star_p3); [p3]
+  add tool: p3=1-e3_star_p3
+  check eqn: p4=(1-e4_star_p4); [p4]
+  add tool: p4=1-e4_star_p4
+  check eqn: p5=(1-e5_star_p5); [p5]
+  add tool: p5=1-e5_star_p5
+  check eqn: e1=(1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)); [e1]
+  add tool: e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)
+  check eqn: e3=(1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)); [e3]
+  add tool: e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)
+  check eqn: e5=(1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)); [e5]
+  add tool: e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)
+  check eqn: e2=(1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)); [e2]
+  add tool: e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)
+  check eqn: e4=(1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)); [e4]
+  add tool: e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)
+  updated ODE(c2) with c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)
+    c2 is now entirely solved
+  updated ODE(a2_minus) with a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star
+    a2_minus is now entirely solved
+  updated ODE(e2_star_e4_star) with e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star
+    e2_star_e4_star is now entirely solved
+  updated ODE(e0_star_e4_star) with e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star
+    e0_star_e4_star is now entirely solved
+  updated ODE(e2_minus) with e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star
+    e2_minus is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: c:time=(L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)); [c:time]
+  add tool: c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)
+  check eqn: c_star:time=(kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)); [c_star:time]
+  add tool: c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)
+  check eqn: c_star_a1:time=(kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)); [c_star_a1:time]
+  add tool: c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)
+  check eqn: e0_star:time=(kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)); [e0_star:time]
+  add tool: e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)
+  check eqn: a1a2:time=(kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)); [a1a2:time]
+  add tool: a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)
+  check eqn: e1_star_p1:time=(kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1); [e1_star_p1:time]
+  add tool: e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1
+  check eqn: e2_star_p2:time=(kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2); [e2_star_p2:time]
+  add tool: e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2
+  check eqn: e3_star_p3:time=(kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3); [e3_star_p3:time]
+  add tool: e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3
+  check eqn: e4_star_p4:time=(kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4); [e4_star_p4:time]
+  add tool: e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4
+  check eqn: e5_star_p5:time=(kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5); [e5_star_p5:time]
+  add tool: e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5
+  check eqn: e1_e0_star:time=(k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star); [e1_e0_star:time]
+  add tool: e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star
+  check eqn: e2_e1_star:time=(k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star); [e2_e1_star:time]
+  add tool: e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star
+  check eqn: e3_e2_star:time=(k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star); [e3_e2_star:time]
+  add tool: e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star
+  check eqn: e4_e3_star:time=(k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star); [e4_e3_star:time]
+  add tool: e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star
+  check eqn: e5_e4_star:time=(k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star); [e5_e4_star:time]
+  add tool: e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star
+  check eqn: e1_star:time=(kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)); [e1_star:time]
+  add tool: e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)
+  check eqn: e3_star:time=(kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)); [e3_star:time]
+  add tool: e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)
+  check eqn: e5_star:time=(kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5); [e5_star:time]
+  add tool: e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5
+  check eqn: e2_star:time=(kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)); [e2_star:time]
+  add tool: e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)
+  check eqn: e4_star:time=(kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)); [e4_star:time]
+  add tool: e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)
+  updated ODE(c) with c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)
+    c is now entirely solved
+  updated ODE(c_star) with c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)
+    c_star is now entirely solved
+  updated ODE(c_star_a1) with c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)
+    c_star_a1 is now entirely solved
+  updated ODE(e0_star) with e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)
+    e0_star is now entirely solved
+  updated ODE(a1a2) with a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)
+    a1a2 is now entirely solved
+  updated ODE(e1_star_p1) with e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1
+    e1_star_p1 is now entirely solved
+  updated ODE(e2_star_p2) with e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2
+    e2_star_p2 is now entirely solved
+  updated ODE(e3_star_p3) with e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3
+    e3_star_p3 is now entirely solved
+  updated ODE(e4_star_p4) with e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4
+    e4_star_p4 is now entirely solved
+  updated ODE(e5_star_p5) with e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5
+    e5_star_p5 is now entirely solved
+  updated ODE(e1_e0_star) with e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star
+    e1_e0_star is now entirely solved
+  updated ODE(e2_e1_star) with e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star
+    e2_e1_star is now entirely solved
+  updated ODE(e3_e2_star) with e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star
+    e3_e2_star is now entirely solved
+  updated ODE(e4_e3_star) with e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star
+    e4_e3_star is now entirely solved
+  updated ODE(e5_e4_star) with e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star
+    e5_e4_star is now entirely solved
+  updated ODE(e1_star) with e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)
+    e1_star is now entirely solved
+  updated ODE(e3_star) with e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)
+    e3_star is now entirely solved
+  updated ODE(e5_star) with e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5
+    e5_star is now entirely solved
+  updated ODE(e2_star) with e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)
+    e2_star is now entirely solved
+  updated ODE(e4_star) with e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)
+    e4_star is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real c__init molar
+  add tool: c__init=0
+  add var: real c2__init molar
+  add tool: c2__init=0
+  add var: real c_star__init molar
+  add tool: c_star__init=0
+  add var: real e0_star__init molar
+  add tool: e0_star__init=0
+  add var: real c_star_a1__init molar
+  add tool: c_star_a1__init=0
+  add var: real a1a2__init molar
+  add tool: a1a2__init=0
+  add var: real e0_star_e4_star__init molar
+  add tool: e0_star_e4_star__init=0
+  add var: real e4_star__init molar
+  add tool: e4_star__init=0
+  add var: real e1_e0_star__init molar
+  add tool: e1_e0_star__init=0
+  add var: real a2_minus__init molar
+  add tool: a2_minus__init=0
+  add var: real e1_star_p1__init molar
+  add tool: e1_star_p1__init=0
+  add var: real e1_star__init molar
+  add tool: e1_star__init=0
+  add var: real e2_star_p2__init molar
+  add tool: e2_star_p2__init=0
+  add var: real e2_star__init molar
+  add tool: e2_star__init=0
+  add var: real e3_star_p3__init molar
+  add tool: e3_star_p3__init=0
+  add var: real e3_star__init molar
+  add tool: e3_star__init=0
+  add var: real e4_star_p4__init molar
+  add tool: e4_star_p4__init=0
+  add var: real e5_star_p5__init molar
+  add tool: e5_star_p5__init=0
+  add var: real e5_star__init molar
+  add tool: e5_star__init=0
+  add var: real e2_e1_star__init molar
+  add tool: e2_e1_star__init=0
+  add var: real e3_e2_star__init molar
+  add tool: e3_e2_star__init=0
+  add var: real e4_e3_star__init molar
+  add tool: e4_e3_star__init=0
+  add var: real e5_e4_star__init molar
+  add tool: e5_e4_star__init=0
+  add var: real e2_star_e4_star__init molar
+  add tool: e2_star_e4_star__init=0
+  add var: real e2_minus__init molar
+  add tool: e2_minus__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  e2_minus__init=0 :: [e2_minus__init]<<[]
+  e2_star_e4_star__init=0 :: [e2_star_e4_star__init]<<[]
+  e5_e4_star__init=0 :: [e5_e4_star__init]<<[]
+  e4_e3_star__init=0 :: [e4_e3_star__init]<<[]
+  e3_e2_star__init=0 :: [e3_e2_star__init]<<[]
+  e2_e1_star__init=0 :: [e2_e1_star__init]<<[]
+  e5_star__init=0 :: [e5_star__init]<<[]
+  e5_star_p5__init=0 :: [e5_star_p5__init]<<[]
+  e4_star_p4__init=0 :: [e4_star_p4__init]<<[]
+  e3_star__init=0 :: [e3_star__init]<<[]
+  e3_star_p3__init=0 :: [e3_star_p3__init]<<[]
+  e2_star__init=0 :: [e2_star__init]<<[]
+  e2_star_p2__init=0 :: [e2_star_p2__init]<<[]
+  e1_star__init=0 :: [e1_star__init]<<[]
+  e1_star_p1__init=0 :: [e1_star_p1__init]<<[]
+  a2_minus__init=0 :: [a2_minus__init]<<[]
+  e1_e0_star__init=0 :: [e1_e0_star__init]<<[]
+  e4_star__init=0 :: [e4_star__init]<<[]
+  e0_star_e4_star__init=0 :: [e0_star_e4_star__init]<<[]
+  a1a2__init=0 :: [a1a2__init]<<[]
+  c_star_a1__init=0 :: [c_star_a1__init]<<[]
+  e0_star__init=0 :: [e0_star__init]<<[]
+  c_star__init=0 :: [c_star__init]<<[]
+  c2__init=0 :: [c2__init]<<[]
+  c__init=0 :: [c__init]<<[]
+  @time e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star) :: [e4_star:time]<<[kcat_4, kr, e4_e3_star, k5_minus, kcat_5, E5_T, E4_T, e5_e4_star, kP4_minus, P4_T, e4_star_p4, kx_minus, kcat_x, e0_star_e4_star, kz_minus, kcat_z, e2_star_e4_star, k5_plus, e4_star, e5, kP4_plus, p4, kx_plus, A2_T, e0_star, kz_plus, E2_T, e2_star]
+  @time e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star) :: [e2_star:time]<<[kcat_2, kr, e2_e1_star, k3_minus, kcat_3, E3_T, E2_T, e3_e2_star, kP2_minus, P2_T, e2_star_p2, kz_minus, E4_T, e2_star_e4_star, k3_plus, e2_star, e3, kP2_plus, p2, kz_plus, e4_star]
+  @time e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5 :: [e5_star:time]<<[kcat_5, kr, e5_e4_star, kP5_minus, P5_T, E5_T, e5_star_p5, kP5_plus, e5_star, p5]
+  @time e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3) :: [e3_star:time]<<[kcat_3, kr, e3_e2_star, k4_minus, kcat_4, E4_T, E3_T, e4_e3_star, kP3_minus, P3_T, e3_star_p3, k4_plus, e3_star, e4, kP3_plus, p3]
+  @time e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1) :: [e1_star:time]<<[kcat_1, kr, e1_e0_star, k2_minus, kcat_2, E2_T, E1_T, e2_e1_star, kP1_minus, P1_T, e1_star_p1, k2_plus, e1_star, e2, kP1_plus, p1]
+  @time e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star :: [e2_minus:time]<<[kcat_z, kr, E4_T, E2_T, e2_star_e4_star]
+  @time e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star :: [e0_star_e4_star:time]<<[kx_plus, A2_T, kr, e4_star, e0_star, kx_minus, kcat_x, e0_star_e4_star]
+  @time e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star :: [e2_star_e4_star:time]<<[kz_plus, E2_T, kr, e4_star, e2_star, kz_minus, kcat_z, e2_star_e4_star]
+  @time e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star :: [e5_e4_star:time]<<[k5_plus, E4_T, kr, e5, e4_star, k5_minus, kcat_5, e5_e4_star]
+  @time e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star :: [e4_e3_star:time]<<[k4_plus, E3_T, kr, e4, e3_star, k4_minus, kcat_4, e4_e3_star]
+  @time e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star :: [e3_e2_star:time]<<[k3_plus, E2_T, kr, e3, e2_star, k3_minus, kcat_3, e3_e2_star]
+  @time e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star :: [e2_e1_star:time]<<[k2_plus, E1_T, kr, e2, e1_star, k2_minus, kcat_2, e2_e1_star]
+  @time e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star :: [e1_e0_star:time]<<[k1_plus, A2_T, kr, e1, e0_star, k1_minus, kcat_1, e1_e0_star]
+  @time e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5 :: [e5_star_p5:time]<<[kP5_plus, E5_T, kr, e5_star, p5, kP5_minus, kcat_P5, e5_star_p5]
+  @time e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4 :: [e4_star_p4:time]<<[kP4_plus, E4_T, kr, e4_star, p4, kP4_minus, kcat_P4, e4_star_p4]
+  @time e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3 :: [e3_star_p3:time]<<[kP3_plus, E3_T, kr, e3_star, p3, kP3_minus, kcat_P3, e3_star_p3]
+  @time e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2 :: [e2_star_p2:time]<<[kP2_plus, E2_T, kr, e2_star, p2, kP2_minus, kcat_P2, e2_star_p2]
+  @time e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1 :: [e1_star_p1:time]<<[kP1_plus, E1_T, kr, e1_star, p1, kP1_minus, kcat_P1, e1_star_p1]
+  @time a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star :: [a2_minus:time]<<[kcat_x, kr, E4_T, A2_T, e0_star_e4_star]
+  @time a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2) :: [a1a2:time]<<[kr_12, kr, A2_T, A1_T, e0_star, kc_12, a1, a2, kd_12, a1a2, kf_12, R0, c_star]
+  @time e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star) :: [e0_star:time]<<[kf_2, A1_T, kr, c_star_a1, a2, kf_12, c_star, a1a2, k1_minus, kcat_1, E1_T, A2_T, e1_e0_star, kx_minus, E4_T, e0_star_e4_star, kr_2, e0_star, kr_12, k1_plus, e1, kx_plus, e4_star]
+  @time c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2) :: [c_star_a1:time]<<[kf_1, R0, kr, c_star, a1, kr_2, A2_T, A1_T, e0_star, kcat_x, E4_T, e0_star_e4_star, kr_1, c_star_a1, kf_2, a2]
+  @time c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2) :: [c_star:time]<<[kc_plus, kr, c2, kr_1, A1_T, R0, c_star_a1, kr_12, A2_T, e0_star, kc_minus, c_star, kf_1, a1, kf_12, a1a2]
+  @time c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2) :: [c2:time]<<[R0, kr, kc, c, kc_minus, c_star, ku, kc_plus, c2]
+  @time c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2) :: [c:time]<<[L0, kr, kf, r, ku, c2, c, R0, kc]
+  P4_T=5E3 :: [P4_T]<<[]
+  P2_T=5E3 :: [P2_T]<<[]
+  P5_T=5E3 :: [P5_T]<<[]
+  P3_T=5E3 :: [P3_T]<<[]
+  P1_T=5E3 :: [P1_T]<<[]
+  @time ODE e2_minus: e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star :: [e2_minus, e2_minus(time.max)]<<[kcat_z, kr, E4_T, E2_T, e2_star_e4_star, e2_minus(time.min), e2_minus:time]
+  kcat_z=6 :: [kcat_z]<<[]
+  kz_minus=30 :: [kz_minus]<<[]
+  kz_plus=6E8 :: [kz_plus]<<[]
+  @time ODE e2_star_e4_star: e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star :: [e2_star_e4_star, e2_star_e4_star(time.max)]<<[kz_plus, E2_T, kr, e4_star, e2_star, kz_minus, kcat_z, e2_star_e4_star(time.min), e2_star_e4_star:time]
+  kcat_5=6 :: [kcat_5]<<[]
+  k5_minus=30 :: [k5_minus]<<[]
+  k5_plus=6E8 :: [k5_plus]<<[]
+  @time e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5) :: [e5]<<[e5_e4_star, e5_star, P5_T, E5_T, e5_star_p5]
+  @time ODE e5_e4_star: e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star :: [e5_e4_star, e5_e4_star(time.max)]<<[k5_plus, E4_T, kr, e5, e4_star, k5_minus, kcat_5, e5_e4_star(time.min), e5_e4_star:time]
+  kcat_4=6 :: [kcat_4]<<[]
+  k4_minus=30 :: [k4_minus]<<[]
+  k4_plus=6E8 :: [k4_plus]<<[]
+  @time e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star) :: [e4]<<[e4_e3_star, e4_star, E5_T, E4_T, e5_e4_star, P4_T, e4_star_p4, e0_star_e4_star, e2_star_e4_star]
+  @time ODE e4_e3_star: e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star :: [e4_e3_star, e4_e3_star(time.max)]<<[k4_plus, E3_T, kr, e4, e3_star, k4_minus, kcat_4, e4_e3_star(time.min), e4_e3_star:time]
+  kcat_3=6 :: [kcat_3]<<[]
+  k3_minus=30 :: [k3_minus]<<[]
+  k3_plus=6E8 :: [k3_plus]<<[]
+  @time e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3) :: [e3]<<[e3_e2_star, e3_star, E4_T, E3_T, e4_e3_star, P3_T, e3_star_p3]
+  @time ODE e3_e2_star: e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star :: [e3_e2_star, e3_e2_star(time.max)]<<[k3_plus, E2_T, kr, e3, e2_star, k3_minus, kcat_3, e3_e2_star(time.min), e3_e2_star:time]
+  kcat_2=6 :: [kcat_2]<<[]
+  k2_minus=30 :: [k2_minus]<<[]
+  k2_plus=6E8 :: [k2_plus]<<[]
+  @time e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2) :: [e2]<<[e3_e2_star, e3_star, E3_T, E2_T, E4_T, e2_star_e4_star, P2_T, e2_star_p2]
+  @time ODE e2_e1_star: e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star :: [e2_e1_star, e2_e1_star(time.max)]<<[k2_plus, E1_T, kr, e2, e1_star, k2_minus, kcat_2, e2_e1_star(time.min), e2_e1_star:time]
+  E5_T=1E4 :: [E5_T]<<[]
+  kcat_P5=6 :: [kcat_P5]<<[]
+  kP5_minus=30 :: [kP5_minus]<<[]
+  kP5_plus=6E8 :: [kP5_plus]<<[]
+  @time p5=1-e5_star_p5 :: [p5]<<[e5_star_p5]
+  @time ODE e5_star: e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5 :: [e5_star, e5_star(time.max)]<<[kcat_5, kr, e5_e4_star, kP5_minus, P5_T, E5_T, e5_star_p5, kP5_plus, p5, e5_star(time.min), e5_star:time]
+  @time ODE e5_star_p5: e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5 :: [e5_star_p5, e5_star_p5(time.max)]<<[kP5_plus, E5_T, kr, e5_star, p5, kP5_minus, kcat_P5, e5_star_p5(time.min), e5_star_p5:time]
+  kcat_P4=6 :: [kcat_P4]<<[]
+  kP4_minus=30 :: [kP4_minus]<<[]
+  kP4_plus=6E8 :: [kP4_plus]<<[]
+  @time p4=1-e4_star_p4 :: [p4]<<[e4_star_p4]
+  @time ODE e4_star_p4: e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4 :: [e4_star_p4, e4_star_p4(time.max)]<<[kP4_plus, E4_T, kr, e4_star, p4, kP4_minus, kcat_P4, e4_star_p4(time.min), e4_star_p4:time]
+  E3_T=1E4 :: [E3_T]<<[]
+  kcat_P3=6 :: [kcat_P3]<<[]
+  kP3_minus=30 :: [kP3_minus]<<[]
+  kP3_plus=6E8 :: [kP3_plus]<<[]
+  @time p3=1-e3_star_p3 :: [p3]<<[e3_star_p3]
+  @time ODE e3_star: e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3) :: [e3_star, e3_star(time.max)]<<[kcat_3, kr, e3_e2_star, k4_minus, kcat_4, E4_T, E3_T, e4_e3_star, kP3_minus, P3_T, e3_star_p3, k4_plus, e4, kP3_plus, p3, e3_star(time.min), e3_star:time]
+  @time ODE e3_star_p3: e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3 :: [e3_star_p3, e3_star_p3(time.max)]<<[kP3_plus, E3_T, kr, e3_star, p3, kP3_minus, kcat_P3, e3_star_p3(time.min), e3_star_p3:time]
+  E2_T=1E4 :: [E2_T]<<[]
+  kcat_P2=6 :: [kcat_P2]<<[]
+  kP2_minus=30 :: [kP2_minus]<<[]
+  kP2_plus=6E8 :: [kP2_plus]<<[]
+  @time p2=1-e2_star_p2 :: [p2]<<[e2_star_p2]
+  @time ODE e2_star: e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star) :: [e2_star, e2_star(time.max)]<<[kcat_2, kr, e2_e1_star, k3_minus, kcat_3, E3_T, E2_T, e3_e2_star, kP2_minus, P2_T, e2_star_p2, kz_minus, E4_T, e2_star_e4_star, k3_plus, e3, kP2_plus, p2, kz_plus, e4_star, e2_star(time.min), e2_star:time]
+  @time ODE e2_star_p2: e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2 :: [e2_star_p2, e2_star_p2(time.max)]<<[kP2_plus, E2_T, kr, e2_star, p2, kP2_minus, kcat_P2, e2_star_p2(time.min), e2_star_p2:time]
+  kcat_P1=6 :: [kcat_P1]<<[]
+  kP1_minus=30 :: [kP1_minus]<<[]
+  kP1_plus=6E8 :: [kP1_plus]<<[]
+  @time p1=1-e1_star_p1 :: [p1]<<[e1_star_p1]
+  @time ODE e1_star: e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1) :: [e1_star, e1_star(time.max)]<<[kcat_1, kr, e1_e0_star, k2_minus, kcat_2, E2_T, E1_T, e2_e1_star, kP1_minus, P1_T, e1_star_p1, k2_plus, e2, kP1_plus, p1, e1_star(time.min), e1_star:time]
+  @time ODE e1_star_p1: e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1 :: [e1_star_p1, e1_star_p1(time.max)]<<[kP1_plus, E1_T, kr, e1_star, p1, kP1_minus, kcat_P1, e1_star_p1(time.min), e1_star_p1:time]
+  @time ODE a2_minus: a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star :: [a2_minus, a2_minus(time.max)]<<[kcat_x, kr, E4_T, A2_T, e0_star_e4_star, a2_minus(time.min), a2_minus:time]
+  kd_12=kc_12*1E-7 :: [kd_12]<<[kc_12]
+  kc_12=3E8 :: [kc_12]<<[]
+  E1_T=1E4 :: [E1_T]<<[]
+  kcat_1=6 :: [kcat_1]<<[]
+  kx_minus=30 :: [kx_minus]<<[]
+  kx_plus=6E8 :: [kx_plus]<<[]
+  k1_minus=30 :: [k1_minus]<<[]
+  k1_plus=6E8 :: [k1_plus]<<[]
+  @time ODE e1_e0_star: e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star :: [e1_e0_star, e1_e0_star(time.max)]<<[k1_plus, A2_T, kr, e1, e0_star, k1_minus, kcat_1, e1_e0_star(time.min), e1_e0_star:time]
+  @time ODE e4_star: e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star) :: [e4_star, e4_star(time.max)]<<[kcat_4, kr, e4_e3_star, k5_minus, kcat_5, E5_T, E4_T, e5_e4_star, kP4_minus, P4_T, e4_star_p4, kx_minus, kcat_x, e0_star_e4_star, kz_minus, kcat_z, e2_star_e4_star, k5_plus, e5, kP4_plus, p4, kx_plus, A2_T, e0_star, kz_plus, E2_T, e2_star, e4_star(time.min), e4_star:time]
+  @time e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1) :: [e1]<<[e1_e0_star, e1_star, E2_T, E1_T, e2_e1_star, P1_T, e1_star_p1]
+  E4_T=1E4 :: [E4_T]<<[]
+  kcat_x=6 :: [kcat_x]<<[]
+  kf_2=3E8 :: [kf_2]<<[]
+  kr_2=kf_2*1E-7 :: [kr_2]<<[kf_2]
+  @time ODE e0_star_e4_star: e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star :: [e0_star_e4_star, e0_star_e4_star(time.max)]<<[kx_plus, A2_T, kr, e4_star, e0_star, kx_minus, kcat_x, e0_star_e4_star(time.min), e0_star_e4_star:time]
+  @time a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus) :: [a2]<<[A1_T, A2_T, a1a2, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star, a2_minus]
+  A2_T=1E4 :: [A2_T]<<[]
+  A1_T=1E4 :: [A1_T]<<[]
+  kf_12=3E8 :: [kf_12]<<[]
+  kr_12=kf_12*1E-7 :: [kr_12]<<[kf_12]
+  kf_1=3E8 :: [kf_1]<<[]
+  kr_1=kf_1*1E-7 :: [kr_1]<<[kf_1]
+  @time ODE a1a2: a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2) :: [a1a2, a1a2(time.max)]<<[kr_12, kr, A2_T, A1_T, e0_star, kc_12, a1, a2, kd_12, kf_12, R0, c_star, a1a2(time.min), a1a2:time]
+  @time ODE c_star_a1: c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2) :: [c_star_a1, c_star_a1(time.max)]<<[kf_1, R0, kr, c_star, a1, kr_2, A2_T, A1_T, e0_star, kcat_x, E4_T, e0_star_e4_star, kr_1, kf_2, a2, c_star_a1(time.min), c_star_a1:time]
+  @time ODE e0_star: e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star) :: [e0_star, e0_star(time.max)]<<[kf_2, A1_T, kr, c_star_a1, a2, kf_12, c_star, a1a2, k1_minus, kcat_1, E1_T, A2_T, e1_e0_star, kx_minus, E4_T, e0_star_e4_star, kr_2, kr_12, k1_plus, e1, kx_plus, e4_star, e0_star(time.min), e0_star:time]
+  @time a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star) :: [a1]<<[c_star_a1, a1a2, A2_T, A1_T, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star]
+  kc_minus=5 :: [kc_minus]<<[]
+  kc_plus=50 :: [kc_plus]<<[]
+  @time ODE c_star: c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2) :: [c_star, c_star(time.max)]<<[kc_plus, kr, c2, kr_1, A1_T, R0, c_star_a1, kr_12, A2_T, e0_star, kc_minus, kf_1, a1, kf_12, a1a2, c_star(time.min), c_star:time]
+  @time r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2) :: [r]<<[c, c2, c_star, A1_T, R0, c_star_a1, A2_T, e0_star, E4_T, e0_star_e4_star, E1_T, e1_e0_star]
+  kc=6E7 :: [kc]<<[]
+  ku=60 :: [ku]<<[]
+  kf=1E7 :: [kf]<<[]
+  kr=.3 :: [kr]<<[]
+  R0=1E5 :: [R0]<<[]
+  L0=kr/kf :: [L0]<<[kr, kf]
+  @time ODE c2: c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2) :: [c2, c2(time.max)]<<[R0, kr, kc, c, kc_minus, c_star, ku, kc_plus, c2(time.min), c2:time]
+  @time ODE c: c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2) :: [c, c(time.max)]<<[L0, kr, kf, r, ku, c2, R0, kc, c(time.min), c:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  e2_minus(time.min)=e2_minus__init :: [e2_minus(time.min)]<<[e2_minus__init]
+  e2_star_e4_star(time.min)=e2_star_e4_star__init :: [e2_star_e4_star(time.min)]<<[e2_star_e4_star__init]
+  e5_e4_star(time.min)=e5_e4_star__init :: [e5_e4_star(time.min)]<<[e5_e4_star__init]
+  e4_e3_star(time.min)=e4_e3_star__init :: [e4_e3_star(time.min)]<<[e4_e3_star__init]
+  e3_e2_star(time.min)=e3_e2_star__init :: [e3_e2_star(time.min)]<<[e3_e2_star__init]
+  e2_e1_star(time.min)=e2_e1_star__init :: [e2_e1_star(time.min)]<<[e2_e1_star__init]
+  e5_star(time.min)=e5_star__init :: [e5_star(time.min)]<<[e5_star__init]
+  e5_star_p5(time.min)=e5_star_p5__init :: [e5_star_p5(time.min)]<<[e5_star_p5__init]
+  e4_star_p4(time.min)=e4_star_p4__init :: [e4_star_p4(time.min)]<<[e4_star_p4__init]
+  e3_star(time.min)=e3_star__init :: [e3_star(time.min)]<<[e3_star__init]
+  e3_star_p3(time.min)=e3_star_p3__init :: [e3_star_p3(time.min)]<<[e3_star_p3__init]
+  e2_star(time.min)=e2_star__init :: [e2_star(time.min)]<<[e2_star__init]
+  e2_star_p2(time.min)=e2_star_p2__init :: [e2_star_p2(time.min)]<<[e2_star_p2__init]
+  e1_star(time.min)=e1_star__init :: [e1_star(time.min)]<<[e1_star__init]
+  e1_star_p1(time.min)=e1_star_p1__init :: [e1_star_p1(time.min)]<<[e1_star_p1__init]
+  a2_minus(time.min)=a2_minus__init :: [a2_minus(time.min)]<<[a2_minus__init]
+  e1_e0_star(time.min)=e1_e0_star__init :: [e1_e0_star(time.min)]<<[e1_e0_star__init]
+  e4_star(time.min)=e4_star__init :: [e4_star(time.min)]<<[e4_star__init]
+  e0_star_e4_star(time.min)=e0_star_e4_star__init :: [e0_star_e4_star(time.min)]<<[e0_star_e4_star__init]
+  a1a2(time.min)=a1a2__init :: [a1a2(time.min)]<<[a1a2__init]
+  c_star_a1(time.min)=c_star_a1__init :: [c_star_a1(time.min)]<<[c_star_a1__init]
+  e0_star(time.min)=e0_star__init :: [e0_star(time.min)]<<[e0_star__init]
+  c_star(time.min)=c_star__init :: [c_star(time.min)]<<[c_star__init]
+  c2(time.min)=c2__init :: [c2(time.min)]<<[c2__init]
+  c(time.min)=c__init :: [c(time.min)]<<[c__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode e2_minus__init seqLoops=() phase=main fft=null
+  addNode e2_star_e4_star__init seqLoops=() phase=main fft=null
+  addNode e5_e4_star__init seqLoops=() phase=main fft=null
+  addNode e4_e3_star__init seqLoops=() phase=main fft=null
+  addNode e3_e2_star__init seqLoops=() phase=main fft=null
+  addNode e2_e1_star__init seqLoops=() phase=main fft=null
+  addNode e5_star__init seqLoops=() phase=main fft=null
+  addNode e5_star_p5__init seqLoops=() phase=main fft=null
+  addNode e4_star_p4__init seqLoops=() phase=main fft=null
+  addNode e3_star__init seqLoops=() phase=main fft=null
+  addNode e3_star_p3__init seqLoops=() phase=main fft=null
+  addNode e2_star__init seqLoops=() phase=main fft=null
+  addNode e2_star_p2__init seqLoops=() phase=main fft=null
+  addNode e1_star__init seqLoops=() phase=main fft=null
+  addNode e1_star_p1__init seqLoops=() phase=main fft=null
+  addNode a2_minus__init seqLoops=() phase=main fft=null
+  addNode e1_e0_star__init seqLoops=() phase=main fft=null
+  addNode e4_star__init seqLoops=() phase=main fft=null
+  addNode e0_star_e4_star__init seqLoops=() phase=main fft=null
+  addNode a1a2__init seqLoops=() phase=main fft=null
+  addNode c_star_a1__init seqLoops=() phase=main fft=null
+  addNode e0_star__init seqLoops=() phase=main fft=null
+  addNode c_star__init seqLoops=() phase=main fft=null
+  addNode c2__init seqLoops=() phase=main fft=null
+  addNode c__init seqLoops=() phase=main fft=null
+  addNode e4_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e2_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e5_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e3_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e1_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e2_minus:time seqLoops=(time) phase=time#1 fft=null
+  addNode e0_star_e4_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e2_star_e4_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e5_e4_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e4_e3_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e3_e2_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e2_e1_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e1_e0_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode e5_star_p5:time seqLoops=(time) phase=time#1 fft=null
+  addNode e4_star_p4:time seqLoops=(time) phase=time#1 fft=null
+  addNode e3_star_p3:time seqLoops=(time) phase=time#1 fft=null
+  addNode e2_star_p2:time seqLoops=(time) phase=time#1 fft=null
+  addNode e1_star_p1:time seqLoops=(time) phase=time#1 fft=null
+  addNode a2_minus:time seqLoops=(time) phase=time#1 fft=null
+  addNode a1a2:time seqLoops=(time) phase=time#1 fft=null
+  addNode e0_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode c_star_a1:time seqLoops=(time) phase=time#1 fft=null
+  addNode c_star:time seqLoops=(time) phase=time#1 fft=null
+  addNode c2:time seqLoops=(time) phase=time#1 fft=null
+  addNode c:time seqLoops=(time) phase=time#1 fft=null
+  addNode P4_T seqLoops=() phase=main fft=null
+  addNode P2_T seqLoops=() phase=main fft=null
+  addNode P5_T seqLoops=() phase=main fft=null
+  addNode P3_T seqLoops=() phase=main fft=null
+  addNode P1_T seqLoops=() phase=main fft=null
+  addNode e2_minus seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_z seqLoops=() phase=main fft=null
+  addNode kz_minus seqLoops=() phase=main fft=null
+  addNode kz_plus seqLoops=() phase=main fft=null
+  addNode e2_star_e4_star seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_5 seqLoops=() phase=main fft=null
+  addNode k5_minus seqLoops=() phase=main fft=null
+  addNode k5_plus seqLoops=() phase=main fft=null
+  addNode e5 seqLoops=(time) phase=time#1 fft=null
+  addNode e5_e4_star seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_4 seqLoops=() phase=main fft=null
+  addNode k4_minus seqLoops=() phase=main fft=null
+  addNode k4_plus seqLoops=() phase=main fft=null
+  addNode e4 seqLoops=(time) phase=time#1 fft=null
+  addNode e4_e3_star seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_3 seqLoops=() phase=main fft=null
+  addNode k3_minus seqLoops=() phase=main fft=null
+  addNode k3_plus seqLoops=() phase=main fft=null
+  addNode e3 seqLoops=(time) phase=time#1 fft=null
+  addNode e3_e2_star seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_2 seqLoops=() phase=main fft=null
+  addNode k2_minus seqLoops=() phase=main fft=null
+  addNode k2_plus seqLoops=() phase=main fft=null
+  addNode e2 seqLoops=(time) phase=time#1 fft=null
+  addNode e2_e1_star seqLoops=(time) phase=time#1 fft=time
+  addNode E5_T seqLoops=() phase=main fft=null
+  addNode kcat_P5 seqLoops=() phase=main fft=null
+  addNode kP5_minus seqLoops=() phase=main fft=null
+  addNode kP5_plus seqLoops=() phase=main fft=null
+  addNode p5 seqLoops=(time) phase=time#1 fft=null
+  addNode e5_star seqLoops=(time) phase=time#1 fft=time
+  addNode e5_star_p5 seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_P4 seqLoops=() phase=main fft=null
+  addNode kP4_minus seqLoops=() phase=main fft=null
+  addNode kP4_plus seqLoops=() phase=main fft=null
+  addNode p4 seqLoops=(time) phase=time#1 fft=null
+  addNode e4_star_p4 seqLoops=(time) phase=time#1 fft=time
+  addNode E3_T seqLoops=() phase=main fft=null
+  addNode kcat_P3 seqLoops=() phase=main fft=null
+  addNode kP3_minus seqLoops=() phase=main fft=null
+  addNode kP3_plus seqLoops=() phase=main fft=null
+  addNode p3 seqLoops=(time) phase=time#1 fft=null
+  addNode e3_star seqLoops=(time) phase=time#1 fft=time
+  addNode e3_star_p3 seqLoops=(time) phase=time#1 fft=time
+  addNode E2_T seqLoops=() phase=main fft=null
+  addNode kcat_P2 seqLoops=() phase=main fft=null
+  addNode kP2_minus seqLoops=() phase=main fft=null
+  addNode kP2_plus seqLoops=() phase=main fft=null
+  addNode p2 seqLoops=(time) phase=time#1 fft=null
+  addNode e2_star seqLoops=(time) phase=time#1 fft=time
+  addNode e2_star_p2 seqLoops=(time) phase=time#1 fft=time
+  addNode kcat_P1 seqLoops=() phase=main fft=null
+  addNode kP1_minus seqLoops=() phase=main fft=null
+  addNode kP1_plus seqLoops=() phase=main fft=null
+  addNode p1 seqLoops=(time) phase=time#1 fft=null
+  addNode e1_star seqLoops=(time) phase=time#1 fft=time
+  addNode e1_star_p1 seqLoops=(time) phase=time#1 fft=time
+  addNode a2_minus seqLoops=(time) phase=time#1 fft=time
+  addNode kd_12 seqLoops=() phase=main fft=null
+  addNode kc_12 seqLoops=() phase=main fft=null
+  addNode E1_T seqLoops=() phase=main fft=null
+  addNode kcat_1 seqLoops=() phase=main fft=null
+  addNode kx_minus seqLoops=() phase=main fft=null
+  addNode kx_plus seqLoops=() phase=main fft=null
+  addNode k1_minus seqLoops=() phase=main fft=null
+  addNode k1_plus seqLoops=() phase=main fft=null
+  addNode e1_e0_star seqLoops=(time) phase=time#1 fft=time
+  addNode e4_star seqLoops=(time) phase=time#1 fft=time
+  addNode e1 seqLoops=(time) phase=time#1 fft=null
+  addNode E4_T seqLoops=() phase=main fft=null
+  addNode kcat_x seqLoops=() phase=main fft=null
+  addNode kf_2 seqLoops=() phase=main fft=null
+  addNode kr_2 seqLoops=() phase=main fft=null
+  addNode e0_star_e4_star seqLoops=(time) phase=time#1 fft=time
+  addNode a2 seqLoops=(time) phase=time#1 fft=null
+  addNode A2_T seqLoops=() phase=main fft=null
+  addNode A1_T seqLoops=() phase=main fft=null
+  addNode kf_12 seqLoops=() phase=main fft=null
+  addNode kr_12 seqLoops=() phase=main fft=null
+  addNode kf_1 seqLoops=() phase=main fft=null
+  addNode kr_1 seqLoops=() phase=main fft=null
+  addNode a1a2 seqLoops=(time) phase=time#1 fft=time
+  addNode c_star_a1 seqLoops=(time) phase=time#1 fft=time
+  addNode e0_star seqLoops=(time) phase=time#1 fft=time
+  addNode a1 seqLoops=(time) phase=time#1 fft=null
+  addNode kc_minus seqLoops=() phase=main fft=null
+  addNode kc_plus seqLoops=() phase=main fft=null
+  addNode c_star seqLoops=(time) phase=time#1 fft=time
+  addNode r seqLoops=(time) phase=time#1 fft=null
+  addNode kc seqLoops=() phase=main fft=null
+  addNode ku seqLoops=() phase=main fft=null
+  addNode kf seqLoops=() phase=main fft=null
+  addNode kr seqLoops=() phase=main fft=null
+  addNode R0 seqLoops=() phase=main fft=null
+  addNode L0 seqLoops=() phase=main fft=null
+  addNode c2 seqLoops=(time) phase=time#1 fft=time
+  addNode c seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode e2_minus(time.min) seqLoops=() phase=main fft=null
+  addNode e2_star_e4_star(time.min) seqLoops=() phase=main fft=null
+  addNode e5_e4_star(time.min) seqLoops=() phase=main fft=null
+  addNode e4_e3_star(time.min) seqLoops=() phase=main fft=null
+  addNode e3_e2_star(time.min) seqLoops=() phase=main fft=null
+  addNode e2_e1_star(time.min) seqLoops=() phase=main fft=null
+  addNode e5_star(time.min) seqLoops=() phase=main fft=null
+  addNode e5_star_p5(time.min) seqLoops=() phase=main fft=null
+  addNode e4_star_p4(time.min) seqLoops=() phase=main fft=null
+  addNode e3_star(time.min) seqLoops=() phase=main fft=null
+  addNode e3_star_p3(time.min) seqLoops=() phase=main fft=null
+  addNode e2_star(time.min) seqLoops=() phase=main fft=null
+  addNode e2_star_p2(time.min) seqLoops=() phase=main fft=null
+  addNode e1_star(time.min) seqLoops=() phase=main fft=null
+  addNode e1_star_p1(time.min) seqLoops=() phase=main fft=null
+  addNode a2_minus(time.min) seqLoops=() phase=main fft=null
+  addNode e1_e0_star(time.min) seqLoops=() phase=main fft=null
+  addNode e4_star(time.min) seqLoops=() phase=main fft=null
+  addNode e0_star_e4_star(time.min) seqLoops=() phase=main fft=null
+  addNode a1a2(time.min) seqLoops=() phase=main fft=null
+  addNode c_star_a1(time.min) seqLoops=() phase=main fft=null
+  addNode e0_star(time.min) seqLoops=() phase=main fft=null
+  addNode c_star(time.min) seqLoops=() phase=main fft=null
+  addNode c2(time.min) seqLoops=() phase=main fft=null
+  addNode c(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding e2_minus__init=0 to main
+  adding e2_star_e4_star__init=0 to main
+  adding e5_e4_star__init=0 to main
+  adding e4_e3_star__init=0 to main
+  adding e3_e2_star__init=0 to main
+  adding e2_e1_star__init=0 to main
+  adding e5_star__init=0 to main
+  adding e5_star_p5__init=0 to main
+  adding e4_star_p4__init=0 to main
+  adding e3_star__init=0 to main
+  adding e3_star_p3__init=0 to main
+  adding e2_star__init=0 to main
+  adding e2_star_p2__init=0 to main
+  adding e1_star__init=0 to main
+  adding e1_star_p1__init=0 to main
+  adding a2_minus__init=0 to main
+  adding e1_e0_star__init=0 to main
+  adding e4_star__init=0 to main
+  adding e0_star_e4_star__init=0 to main
+  adding a1a2__init=0 to main
+  adding c_star_a1__init=0 to main
+  adding e0_star__init=0 to main
+  adding c_star__init=0 to main
+  adding c2__init=0 to main
+  adding c__init=0 to main
+  adding P4_T=5E3 to main
+  adding P2_T=5E3 to main
+  adding P5_T=5E3 to main
+  adding P3_T=5E3 to main
+  adding P1_T=5E3 to main
+  adding kcat_z=6 to main
+  adding kz_minus=30 to main
+  adding kz_plus=6E8 to main
+  adding kcat_5=6 to main
+  adding k5_minus=30 to main
+  adding k5_plus=6E8 to main
+  adding kcat_4=6 to main
+  adding k4_minus=30 to main
+  adding k4_plus=6E8 to main
+  adding kcat_3=6 to main
+  adding k3_minus=30 to main
+  adding k3_plus=6E8 to main
+  adding kcat_2=6 to main
+  adding k2_minus=30 to main
+  adding k2_plus=6E8 to main
+  adding E5_T=1E4 to main
+  adding kcat_P5=6 to main
+  adding kP5_minus=30 to main
+  adding kP5_plus=6E8 to main
+  adding kcat_P4=6 to main
+  adding kP4_minus=30 to main
+  adding kP4_plus=6E8 to main
+  adding E3_T=1E4 to main
+  adding kcat_P3=6 to main
+  adding kP3_minus=30 to main
+  adding kP3_plus=6E8 to main
+  adding E2_T=1E4 to main
+  adding kcat_P2=6 to main
+  adding kP2_minus=30 to main
+  adding kP2_plus=6E8 to main
+  adding kcat_P1=6 to main
+  adding kP1_minus=30 to main
+  adding kP1_plus=6E8 to main
+  adding kc_12=3E8 to main
+  adding E1_T=1E4 to main
+  adding kcat_1=6 to main
+  adding kx_minus=30 to main
+  adding kx_plus=6E8 to main
+  adding k1_minus=30 to main
+  adding k1_plus=6E8 to main
+  adding E4_T=1E4 to main
+  adding kcat_x=6 to main
+  adding kf_2=3E8 to main
+  adding kr_2=kf_2*1E-7 to main
+  adding A2_T=1E4 to main
+  adding A1_T=1E4 to main
+  adding kf_12=3E8 to main
+  adding kr_12=kf_12*1E-7 to main
+  adding kf_1=3E8 to main
+  adding kr_1=kf_1*1E-7 to main
+  adding kc_minus=5 to main
+  adding kc_plus=50 to main
+  adding kc=6E7 to main
+  adding ku=60 to main
+  adding kf=1E7 to main
+  adding kr=.3 to main
+  adding R0=1E5 to main
+  adding L0=kr/kf to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding kd_12=kc_12*1E-7 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding e2_minus(time.min)=e2_minus__init to main
+  adding e2_star_e4_star(time.min)=e2_star_e4_star__init to main
+  adding e5_e4_star(time.min)=e5_e4_star__init to main
+  adding e4_e3_star(time.min)=e4_e3_star__init to main
+  adding e3_e2_star(time.min)=e3_e2_star__init to main
+  adding e2_e1_star(time.min)=e2_e1_star__init to main
+  adding e5_star(time.min)=e5_star__init to main
+  adding e5_star_p5(time.min)=e5_star_p5__init to main
+  adding e4_star_p4(time.min)=e4_star_p4__init to main
+  adding e3_star(time.min)=e3_star__init to main
+  adding e3_star_p3(time.min)=e3_star_p3__init to main
+  adding e2_star(time.min)=e2_star__init to main
+  adding e2_star_p2(time.min)=e2_star_p2__init to main
+  adding e1_star(time.min)=e1_star__init to main
+  adding e1_star_p1(time.min)=e1_star_p1__init to main
+  adding a2_minus(time.min)=a2_minus__init to main
+  adding e1_e0_star(time.min)=e1_e0_star__init to main
+  adding e4_star(time.min)=e4_star__init to main
+  adding e0_star_e4_star(time.min)=e0_star_e4_star__init to main
+  adding a1a2(time.min)=a1a2__init to main
+  adding c_star_a1(time.min)=c_star_a1__init to main
+  adding e0_star(time.min)=e0_star__init to main
+  adding c_star(time.min)=c_star__init to main
+  adding c2(time.min)=c2__init to main
+  adding c(time.min)=c__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star to loop-time
+  adding e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star to loop-time
+  adding e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star to loop-time
+  adding a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star to loop-time
+  adding c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2) to loop-time
+  adding e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5) to loop-time
+  adding e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star) to loop-time
+  adding e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3) to loop-time
+  adding e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2) to loop-time
+  adding p5=1-e5_star_p5 to loop-time
+  adding p4=1-e4_star_p4 to loop-time
+  adding p3=1-e3_star_p3 to loop-time
+  adding p2=1-e2_star_p2 to loop-time
+  adding p1=1-e1_star_p1 to loop-time
+  adding e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1) to loop-time
+  adding a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus) to loop-time
+  adding a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star) to loop-time
+  adding r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2) to loop-time
+  adding e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star) to loop-time
+  adding e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star) to loop-time
+  adding e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5 to loop-time
+  adding e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3) to loop-time
+  adding e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1) to loop-time
+  adding e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star to loop-time
+  adding e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star to loop-time
+  adding e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star to loop-time
+  adding e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star to loop-time
+  adding e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star to loop-time
+  adding e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5 to loop-time
+  adding e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4 to loop-time
+  adding e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3 to loop-time
+  adding e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2 to loop-time
+  adding e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1 to loop-time
+  adding a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2) to loop-time
+  adding e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star) to loop-time
+  adding c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2) to loop-time
+  adding c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2) to loop-time
+  adding c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2) to loop-time
+  adding ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c] to loop-time
+  adding loop-time to main
+Building ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c] ...
+  adding muTool e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star
+  adding muVar e2_minus:time
+  adding muTool e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star
+  adding muVar e2_star_e4_star:time
+  adding muTool e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)
+  adding muVar e5
+  adding muTool e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star
+  adding muVar e5_e4_star:time
+  adding muTool e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)
+  adding muVar e4
+  adding muTool e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star
+  adding muVar e4_e3_star:time
+  adding muTool e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)
+  adding muVar e3
+  adding muTool e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star
+  adding muVar e3_e2_star:time
+  adding muTool e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)
+  adding muVar e2
+  adding muTool e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star
+  adding muVar e2_e1_star:time
+  adding muTool p5=1-e5_star_p5
+  adding muVar p5
+  adding muTool e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5
+  adding muVar e5_star:time
+  adding muTool e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5
+  adding muVar e5_star_p5:time
+  adding muTool p4=1-e4_star_p4
+  adding muVar p4
+  adding muTool e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4
+  adding muVar e4_star_p4:time
+  adding muTool p3=1-e3_star_p3
+  adding muVar p3
+  adding muTool e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)
+  adding muVar e3_star:time
+  adding muTool e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3
+  adding muVar e3_star_p3:time
+  adding muTool p2=1-e2_star_p2
+  adding muVar p2
+  adding muTool e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)
+  adding muVar e2_star:time
+  adding muTool e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2
+  adding muVar e2_star_p2:time
+  adding muTool p1=1-e1_star_p1
+  adding muVar p1
+  adding muTool e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)
+  adding muVar e1_star:time
+  adding muTool e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1
+  adding muVar e1_star_p1:time
+  adding muTool a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star
+  adding muVar a2_minus:time
+  adding muTool e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)
+  adding muVar e1
+  adding muTool e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star
+  adding muVar e1_e0_star:time
+  adding muTool e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)
+  adding muVar e4_star:time
+  adding muTool e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star
+  adding muVar e0_star_e4_star:time
+  adding muTool a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)
+  adding muVar a1
+  adding muTool a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)
+  adding muVar a2
+  adding muTool a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)
+  adding muVar a1a2:time
+  adding muTool c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)
+  adding muVar c_star_a1:time
+  adding muTool e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)
+  adding muVar e0_star:time
+  adding muTool c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)
+  adding muVar c_star:time
+  adding muTool c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)
+  adding muVar c2:time
+  adding muTool r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)
+  adding muVar r
+  adding muTool c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)
+  adding muVar c:time
+  adding e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding p5=1-e5_star_p5 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding p4=1-e4_star_p4 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding p3=1-e3_star_p3 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding p2=1-e2_star_p2 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding p1=1-e1_star_p1 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1 to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+  adding c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2) to ODE Block-time [e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  e2_minus__init=0
+  e2_star_e4_star__init=0
+  e5_e4_star__init=0
+  e4_e3_star__init=0
+  e3_e2_star__init=0
+  e2_e1_star__init=0
+  e5_star__init=0
+  e5_star_p5__init=0
+  e4_star_p4__init=0
+  e3_star__init=0
+  e3_star_p3__init=0
+  e2_star__init=0
+  e2_star_p2__init=0
+  e1_star__init=0
+  e1_star_p1__init=0
+  a2_minus__init=0
+  e1_e0_star__init=0
+  e4_star__init=0
+  e0_star_e4_star__init=0
+  a1a2__init=0
+  c_star_a1__init=0
+  e0_star__init=0
+  c_star__init=0
+  c2__init=0
+  c__init=0
+  P4_T=5E3
+  P2_T=5E3
+  P5_T=5E3
+  P3_T=5E3
+  P1_T=5E3
+  kcat_z=6
+  kz_minus=30
+  kz_plus=6E8
+  kcat_5=6
+  k5_minus=30
+  k5_plus=6E8
+  kcat_4=6
+  k4_minus=30
+  k4_plus=6E8
+  kcat_3=6
+  k3_minus=30
+  k3_plus=6E8
+  kcat_2=6
+  k2_minus=30
+  k2_plus=6E8
+  E5_T=1E4
+  kcat_P5=6
+  kP5_minus=30
+  kP5_plus=6E8
+  kcat_P4=6
+  kP4_minus=30
+  kP4_plus=6E8
+  E3_T=1E4
+  kcat_P3=6
+  kP3_minus=30
+  kP3_plus=6E8
+  E2_T=1E4
+  kcat_P2=6
+  kP2_minus=30
+  kP2_plus=6E8
+  kcat_P1=6
+  kP1_minus=30
+  kP1_plus=6E8
+  kc_12=3E8
+  E1_T=1E4
+  kcat_1=6
+  kx_minus=30
+  kx_plus=6E8
+  k1_minus=30
+  k1_plus=6E8
+  E4_T=1E4
+  kcat_x=6
+  kf_2=3E8
+  kr_2=kf_2*1E-7
+  A2_T=1E4
+  A1_T=1E4
+  kf_12=3E8
+  kr_12=kf_12*1E-7
+  kf_1=3E8
+  kr_1=kf_1*1E-7
+  kc_minus=5
+  kc_plus=50
+  kc=6E7
+  ku=60
+  kf=1E7
+  kr=.3
+  R0=1E5
+  L0=kr/kf
+  extern time.delta
+  extern time.max
+  time.min=0
+  kd_12=kc_12*1E-7
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  e2_minus(time.min)=e2_minus__init
+  e2_star_e4_star(time.min)=e2_star_e4_star__init
+  e5_e4_star(time.min)=e5_e4_star__init
+  e4_e3_star(time.min)=e4_e3_star__init
+  e3_e2_star(time.min)=e3_e2_star__init
+  e2_e1_star(time.min)=e2_e1_star__init
+  e5_star(time.min)=e5_star__init
+  e5_star_p5(time.min)=e5_star_p5__init
+  e4_star_p4(time.min)=e4_star_p4__init
+  e3_star(time.min)=e3_star__init
+  e3_star_p3(time.min)=e3_star_p3__init
+  e2_star(time.min)=e2_star__init
+  e2_star_p2(time.min)=e2_star_p2__init
+  e1_star(time.min)=e1_star__init
+  e1_star_p1(time.min)=e1_star_p1__init
+  a2_minus(time.min)=a2_minus__init
+  e1_e0_star(time.min)=e1_e0_star__init
+  e4_star(time.min)=e4_star__init
+  e0_star_e4_star(time.min)=e0_star_e4_star__init
+  a1a2(time.min)=a1a2__init
+  c_star_a1(time.min)=c_star_a1__init
+  e0_star(time.min)=e0_star__init
+  c_star(time.min)=c_star__init
+  c2(time.min)=c2__init
+  c(time.min)=c__init
+  loop-time
+    e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star
+    e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star
+    e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star
+    a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star
+    c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)
+    e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)
+    e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)
+    e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)
+    e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)
+    p5=1-e5_star_p5
+    p4=1-e4_star_p4
+    p3=1-e3_star_p3
+    p2=1-e2_star_p2
+    p1=1-e1_star_p1
+    e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)
+    a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)
+    a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)
+    r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)
+    e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)
+    e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)
+    e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5
+    e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)
+    e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)
+    e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star
+    e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star
+    e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star
+    e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star
+    e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star
+    e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5
+    e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4
+    e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3
+    e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2
+    e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1
+    a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)
+    e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)
+    c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)
+    c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)
+    c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)
+    ODE Block-time vmus=[time, e2_minus, e2_star_e4_star, e5_e4_star, e4_e3_star, e3_e2_star, e2_e1_star, e5_star, e5_star_p5, e4_star_p4, e3_star, e3_star_p3, e2_star, e2_star_p2, e1_star, e1_star_p1, a2_minus, e1_e0_star, e4_star, e0_star_e4_star, a1a2, c_star_a1, e0_star, c_star, c2, c, e2_minus:time, e2_star_e4_star:time, e5, e5_e4_star:time, e4, e4_e3_star:time, e3, e3_e2_star:time, e2, e2_e1_star:time, p5, e5_star:time, e5_star_p5:time, p4, e4_star_p4:time, p3, e3_star:time, e3_star_p3:time, p2, e2_star:time, e2_star_p2:time, p1, e1_star:time, e1_star_p1:time, a2_minus:time, e1, e1_e0_star:time, e4_star:time, e0_star_e4_star:time, a1, a2, a1a2:time, c_star_a1:time, e0_star:time, c_star:time, c2:time, r, c:time]
+      e2_minus:time=kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star
+      e2_star_e4_star:time=kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star
+      e5=1-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5)
+      e5_e4_star:time=k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star
+      e4=1-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star)
+      e4_e3_star:time=k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star
+      e3=1-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3)
+      e3_e2_star:time=k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star
+      e2=1-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2)
+      e2_e1_star:time=k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star
+      p5=1-e5_star_p5
+      e5_star:time=kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5
+      e5_star_p5:time=kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5
+      p4=1-e4_star_p4
+      e4_star_p4:time=kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4
+      p3=1-e3_star_p3
+      e3_star:time=kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3)
+      e3_star_p3:time=kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3
+      p2=1-e2_star_p2
+      e2_star:time=kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star)
+      e2_star_p2:time=kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2
+      p1=1-e1_star_p1
+      e1_star:time=kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1)
+      e1_star_p1:time=kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1
+      a2_minus:time=kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star
+      e1=1-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1)
+      e1_e0_star:time=k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star
+      e4_star:time=kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star)
+      e0_star_e4_star:time=kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star
+      a1=1-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star)
+      a2=1-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus)
+      a1a2:time=kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2)
+      c_star_a1:time=kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2)
+      e0_star:time=kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star)
+      c_star:time=kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2)
+      c2:time=R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2)
+      r=1-(c+(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)*2)
+      c:time=L0/(kr/kf)*r+ku/kr*c2*2-(c+R0/(kr/kc)*c^2*2)
+

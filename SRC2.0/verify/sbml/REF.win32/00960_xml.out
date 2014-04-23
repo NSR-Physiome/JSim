@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfParameters>
+      <parameter id="P1" value="6.0221418e+023" constant="true"/>
+      <parameter id="P5" value="4.179e+018" constant="true"/>
+      <parameter id="P4" value="6.0221418e+023" constant="true"/>
+      <parameter id="P3" value="6.0221418e+023" constant="true"/>
+      <parameter id="P2" value="6.0221418e+023" constant="true"/>
+    </listOfParameters>
+  </model>
+</sbml>
+

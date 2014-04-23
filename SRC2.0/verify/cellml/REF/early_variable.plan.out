@@ -1,0 +1,167 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time hour
+  add var: real time.min hour
+  add var: extern real time.max hour
+  add var: int time.ct
+  add var: extern real time.delta hour
+  add var: extern real Y_0 nanomolar
+  add var: extern real Y_2 nanomolar
+  add var: extern real V_1 nanomolar_hour
+  add var: extern real V_2 nanomolar_hour
+  add var: extern real V_3 nanomolar_hour
+  add var: extern real V_4 nanomolar_hour
+  add var: extern real K_1 nanomolar
+  add var: extern real K_2 nanomolar
+  add var: extern real K_3 nanomolar
+  add var: extern real K_4 nanomolar
+  add var: extern real k_d per_hour
+  add var: extern real Y_1init nanomolar
+  add var: real Y_1(time) nanomolar
+  add var: real Y_1:time(time) nanomolar/hour
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) Y_1=Y_1init :: [Y_1(time.min), Y_1init]
+  Y_1:time=(V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1) :: [Y_1:time, V_1, Y_0, K_1, V_2, Y_1, K_2, V_3, K_3, V_4, Y_2, K_4, k_d]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+  add tool: extern Y_0
+  add tool: extern Y_2
+  add tool: extern V_1
+  add tool: extern V_2
+  add tool: extern V_3
+  add tool: extern V_4
+  add tool: extern K_1
+  add tool: extern K_2
+  add tool: extern K_3
+  add tool: extern K_4
+  add tool: extern k_d
+  add tool: extern Y_1init
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) Y_1=Y_1init; [Y_1(time.min)]
+  add tool: Y_1(time.min)=Y_1init
+  check eqn: Y_1:time=(V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1); [Y_1:time, Y_1]
+  add tool: ODE Y_1: []
+  updated ODE(Y_1) with Y_1(time.min)=Y_1init
+Toolbox phase - cycle 1:
+  check eqn: Y_1:time=(V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1); [Y_1:time]
+  add tool: Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1
+  updated ODE(Y_1) with Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1
+    Y_1 is now entirely solved
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @time Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1 :: [Y_1:time]<<[V_1, Y_0, K_1, V_2, Y_1, K_2, V_3, K_3, V_4, Y_2, K_4, k_d]
+  @time ODE Y_1: Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1 :: [Y_1, Y_1(time.max)]<<[V_1, Y_0, K_1, V_2, K_2, V_3, K_3, V_4, Y_2, K_4, k_d, Y_1(time.min), Y_1:time]
+  extern Y_1init :: [Y_1init]<<[]
+  extern k_d :: [k_d]<<[]
+  extern K_4 :: [K_4]<<[]
+  extern K_3 :: [K_3]<<[]
+  extern K_2 :: [K_2]<<[]
+  extern K_1 :: [K_1]<<[]
+  extern V_4 :: [V_4]<<[]
+  extern V_3 :: [V_3]<<[]
+  extern V_2 :: [V_2]<<[]
+  extern V_1 :: [V_1]<<[]
+  extern Y_2 :: [Y_2]<<[]
+  extern Y_0 :: [Y_0]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  Y_1(time.min)=Y_1init :: [Y_1(time.min)]<<[Y_1init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode Y_1:time seqLoops=(time) phase=time#1 fft=null
+  addNode Y_1 seqLoops=(time) phase=time#1 fft=time
+  addNode Y_1init seqLoops=() phase=main fft=null
+  addNode k_d seqLoops=() phase=main fft=null
+  addNode K_4 seqLoops=() phase=main fft=null
+  addNode K_3 seqLoops=() phase=main fft=null
+  addNode K_2 seqLoops=() phase=main fft=null
+  addNode K_1 seqLoops=() phase=main fft=null
+  addNode V_4 seqLoops=() phase=main fft=null
+  addNode V_3 seqLoops=() phase=main fft=null
+  addNode V_2 seqLoops=() phase=main fft=null
+  addNode V_1 seqLoops=() phase=main fft=null
+  addNode Y_2 seqLoops=() phase=main fft=null
+  addNode Y_0 seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode Y_1(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding extern Y_1init to main
+  adding extern k_d to main
+  adding extern K_4 to main
+  adding extern K_3 to main
+  adding extern K_2 to main
+  adding extern K_1 to main
+  adding extern V_4 to main
+  adding extern V_3 to main
+  adding extern V_2 to main
+  adding extern V_1 to main
+  adding extern Y_2 to main
+  adding extern Y_0 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding Y_1(time.min)=Y_1init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1 to loop-time
+  adding ODE Block-time [Y_1] to loop-time
+  adding loop-time to main
+Building ODE Block-time [Y_1] ...
+  adding muTool Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1
+  adding muVar Y_1:time
+  adding Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1 to ODE Block-time [Y_1]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  extern Y_1init
+  extern k_d
+  extern K_4
+  extern K_3
+  extern K_2
+  extern K_1
+  extern V_4
+  extern V_3
+  extern V_2
+  extern V_1
+  extern Y_2
+  extern Y_0
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  Y_1(time.min)=Y_1init
+  loop-time
+    Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1
+    ODE Block-time vmus=[time, Y_1, Y_1:time]
+      Y_1:time=V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1
+

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="S4" value="0" units="M" constant="false"/>
+      <parameter id="S3" value="0" units="M" constant="false"/>
+      <parameter id="S2" units="M" constant="false"/>
+      <parameter id="S1" units="M" constant="false"/>
+      <parameter id="compartment" value="1" units="litre" constant="true"/>
+      <parameter id="k4" value="0.1" constant="true"/>
+      <parameter id="k3" value="0.1" constant="true"/>
+      <parameter id="k2" value="0.25" constant="true"/>
+      <parameter id="k1" value="0.75" constant="true"/>
+      <parameter id="reaction4" units="katal" constant="false"/>
+      <parameter id="reaction3" units="katal" constant="false"/>
+      <parameter id="reaction2" units="katal" constant="false"/>
+      <parameter id="reaction1" units="katal" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 0.1 </cn>
+            <ci> compartment </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 0.2 </cn>
+            <ci> compartment </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="S3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> reaction3 </ci>
+              <apply>
+                <times/>
+                <ci> reaction4 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> reaction3 </ci>
+              <apply>
+                <times/>
+                <ci> reaction4 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="reaction1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> compartment </ci>
+            <ci> k1 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> compartment </ci>
+            <ci> k2 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> compartment </ci>
+            <ci> k3 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> compartment </ci>
+            <ci> k4 </ci>
+            <ci> S3 </ci>
+            <ci> S4 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> reaction1 </ci>
+                <cn> -1 </cn>
+              </apply>
+              <ci> reaction2 </ci>
+            </apply>
+            <ci> compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+

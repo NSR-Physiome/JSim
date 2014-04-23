@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# create list of JSim java files to compile
+
+. jsbuild.path
+
+find $JSIMSRC/JSim -name "*.java" -print | sed -e /OLD/d
+

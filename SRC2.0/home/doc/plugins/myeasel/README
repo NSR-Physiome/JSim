@@ -1,0 +1,24 @@
+  To build the plugin (MyEasel.jar):
+
+./build
+
+  To run a plugin test:
+
+jsim -plugin MyEasel.jar
+
+Project->Add->New model
+
+Enter name for new model:  
+  type OK for model_1 (default)
+
+Choose plugin variant:  
+  pick "mine" from list (not default "text")
+  
+Click on model_1 tab
+  to show graphic model configuration (Easel tab)
+  
+Click MORE & FEWER buttons to adjust # compartments
+
+Click "Compile!" button to compile model
+
+  

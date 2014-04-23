@@ -1,0 +1,151 @@
+/*
+ * Quantitative Analysis Of Mitochondrial Ca2+ Uptake And Release
+ * Pathways In Sympathetic Neurons
+ * 
+ * Model Status
+ * 
+ * This model can not be solved as it is unsuitably constrained.
+ * 
+ * ValidateCellML verifies this model as valid CellML with consistent
+ * units.
+ * 
+ * Model Structure
+ * 
+ * One of the central goals in the study of calcium signalling
+ * is to understand the basis of [Ca2+] dynamics. This is complicated
+ * by the fact that Ca2+ is present in several membrane-bound intracellular
+ * compartments, each of which uses a distinct Ca2+ transport system
+ * and the rate of Ca2+ transport between these compartments can
+ * exhibit a complex non-linear dependence on free [Ca2+].
+ * 
+ * In their 2000 model, Stephen L. Colegrove, Meredith A. Albrecht
+ * and David D. Friel have studied how mitochondrial Ca2+ transport
+ * contributes to the redistribution of intracellular Ca2+ during
+ * and after depolarisation-evoked Ca2+ entry in sympathetic neurons.
+ * The total Ca2+ flux during the recovery phase following membrane
+ * depolarisation was divided into three components (see below):
+ * one representing net Ca2+ extrusion across the plasma membrane
+ * (Jextru), one representing mitochondrial Ca2+ uptake via the
+ * uniporter (Juni) and one representing mitochondrial Ca2+ release
+ * via the Na+/Ca2+ exchanger (JNaCa). This mathematical model
+ * has been translated into a CellML description which can be downloaded
+ * in various formats as described in .
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * Quantitative Analysis of Mitochondrial Ca2+ Uptake and Release
+ * Pathways in Sympathetic Neurons Reconstruction of the Recovery
+ * after Depolarisation-evoked [Ca2+] Elevations , Stephen L. Colegrove,
+ * Meredith A. Albrecht and David D. Friel, 2000, The Journal Of
+ * General Physiology , 115, 371-388. PubMed ID: 10694264
+ * 
+ * cell schematic for the model
+ * 
+ * [[Image file: colegrove_2000.png]]
+ * 
+ * Schematic of the model indicating Ca2+ compartmentalization
+ * in the extracellular matrix, cytosol and the mitochondrial matrix
+ * and pathways for Ca2+ ion movement between the compartments.
+ */
+
+import nsrunit;
+unit conversion on;
+unit per_second=1 second^(-1);
+// unit millivolt predefined
+// unit micromolar predefined
+// unit nanomolar predefined
+unit nanomolar_per_second=1E-6 meter^(-3)*second^(-1)*mole^1;
+unit micromolar_per_second=1E-3 meter^(-3)*second^(-1)*mole^1;
+unit micro_litre=1E-9 meter^3;
+property cellMLNames=string;
+
+math main {
+	realDomain time second;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real J_pm(time) nanomolar_per_second;
+	J_pm.cellMLNames="Ca_extrusion_across_the_plasma_membrane.J_pm;intracellular_calcium.J_pm";
+	real J_leak(time) nanomolar_per_second;
+	J_leak.cellMLNames="Ca_extrusion_across_the_plasma_membrane.J_leak";
+	real J_extru(time) nanomolar_per_second;
+	J_extru.cellMLNames="Ca_extrusion_across_the_plasma_membrane.J_extru";
+	real k_leak per_second;
+	k_leak.cellMLNames="Ca_extrusion_across_the_plasma_membrane.k_leak";
+	k_leak=0.00000037;
+	real Vmax_extru nanomolar_per_second;
+	Vmax_extru.cellMLNames="Ca_extrusion_across_the_plasma_membrane.Vmax_extru";
+	Vmax_extru=28.3;
+	real EC50_extru nanomolar;
+	EC50_extru.cellMLNames="Ca_extrusion_across_the_plasma_membrane.EC50_extru";
+	EC50_extru=378.8;
+	real n_extru dimensionless;
+	n_extru.cellMLNames="Ca_extrusion_across_the_plasma_membrane.n_extru";
+	n_extru=1.8;
+	real Ca_o nanomolar;
+	Ca_o.cellMLNames="Ca_extrusion_across_the_plasma_membrane.Ca_o";
+	Ca_o=0.002;
+	real Ca_i(time) nanomolar;
+	Ca_i.cellMLNames="Ca_extrusion_across_the_plasma_membrane.Ca_i;intracellular_calcium.Ca_i;mitochondrial_Ca_uptake.Ca_i;mitochondrial_Ca_release.Ca_i";
+	when(time=time.min) Ca_i=0.002;
+	real J_uni(time) nanomolar_per_second;
+	J_uni.cellMLNames="mitochondrial_Ca_uptake.J_uni;mitochondrial_Ca_release.J_uni";
+	real kuni_max per_second;
+	kuni_max.cellMLNames="mitochondrial_Ca_uptake.kuni_max";
+	kuni_max=75.9;
+	real EC50_uni micromolar;
+	EC50_uni.cellMLNames="mitochondrial_Ca_uptake.EC50_uni";
+	EC50_uni=10.0;
+	real n_uni dimensionless;
+	n_uni.cellMLNames="mitochondrial_Ca_uptake.n_uni";
+	n_uni=2.0;
+	real J_NaCa(time) nanomolar_per_second;
+	J_NaCa.cellMLNames="mitochondrial_Ca_release.J_NaCa";
+	real Ca_inhibited_J_NaCa(time) nanomolar_per_second;
+	Ca_inhibited_J_NaCa.cellMLNames="mitochondrial_Ca_release.Ca_inhibited_J_NaCa";
+	real J_mito(time) nanomolar_per_second;
+	J_mito.cellMLNames="mitochondrial_Ca_release.J_mito;intracellular_calcium.J_mito;mitochondrial_calcium.J_mito";
+	real Vmax_NaCa nanomolar_per_second;
+	Vmax_NaCa.cellMLNames="mitochondrial_Ca_release.Vmax_NaCa";
+	Vmax_NaCa=-35.0;
+	real EC50_NaCa nanomolar;
+	EC50_NaCa.cellMLNames="mitochondrial_Ca_release.EC50_NaCa";
+	EC50_NaCa=307.0;
+	real n_inhib dimensionless;
+	n_inhib.cellMLNames="mitochondrial_Ca_release.n_inhib";
+	n_inhib=6.0;
+	real k_inhib nanomolar;
+	k_inhib.cellMLNames="mitochondrial_Ca_release.k_inhib";
+	k_inhib=500.0;
+	real delta_Ca_i(time) dimensionless;
+	delta_Ca_i.cellMLNames="mitochondrial_Ca_release.delta_Ca_i";
+	real Ca_m(time) nanomolar;
+	Ca_m.cellMLNames="mitochondrial_Ca_release.Ca_m;mitochondrial_calcium.Ca_m";
+	when(time=time.min) Ca_m=50.0e-9;
+	real gamma dimensionless;
+	gamma.cellMLNames="mitochondrial_calcium.gamma";
+	gamma=2.0;
+
+	// <component name="environment">
+
+	// <component name="Ca_extrusion_across_the_plasma_membrane">
+	J_pm=(J_leak+J_extru);
+	J_leak=(k_leak*(Ca_i-Ca_o));
+	J_extru=(Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru));
+
+	// <component name="mitochondrial_Ca_uptake">
+	J_uni=(kuni_max*Ca_i/(1+(EC50_uni/Ca_i)^n_uni));
+
+	// <component name="mitochondrial_Ca_release">
+	J_NaCa=((-1)*Vmax_NaCa/(1+EC50_NaCa/Ca_m));
+	Ca_inhibited_J_NaCa=((-1)*(delta_Ca_i*Vmax_NaCa)/(1+EC50_NaCa/Ca_i));
+	delta_Ca_i=(1-1/(1-(k_inhib/Ca_i)^n_inhib));
+	J_mito=(J_uni+J_NaCa);
+
+	// <component name="intracellular_calcium">
+	Ca_i:time=((-1)*(J_pm+J_mito));
+
+	// <component name="mitochondrial_calcium">
+	Ca_m:time=(J_mito/gamma);
+}
+

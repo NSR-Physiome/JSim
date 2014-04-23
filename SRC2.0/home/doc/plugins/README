@@ -1,0 +1,20 @@
+  This directory provides examples of the JSim plugin functionality.
+For an introduction to JSim plugins,  see the "Developing JSim Plugins"
+document in the JSim documentation set.
+
+  Key to example directories:
+
+    mydata/ a simple DataFormat plugin,  implementing a DataWriter
+only (no DataReader).
+
+    myeasel/ a simple ModelEasel plugin,  implementing a point-and-click
+model interface for N compartment models.
+
+    mygraphic/ a simple Graphic plugin,  implementing a 4-chamber heart
+volume graphic.
+
+    myoptimizer/ a simple Optimizer plugin,  implementing GridSearch 
+algorithm
+
+
+  See the README file in each directory.

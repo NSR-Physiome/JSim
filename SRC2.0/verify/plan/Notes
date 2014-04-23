@@ -1,0 +1,11 @@
+  This directory tests planning logic for a variety
+of models.  Notifies user of any non-zero exit status.
+
+  run1 and runall check out conceptual plan writer.
+  runj1 and runjall check out Java plan writer.  
+
+  diffall should any differences as reflected
+in JPlanWriter or JSPlanWriter which may result from parsing or 
+planning differences.
+
+

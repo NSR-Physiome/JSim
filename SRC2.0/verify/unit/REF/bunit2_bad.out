@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model bunit2
+aborted:  near line 11 token "}" Expression "w=((v/u)^2)"
+Operands for '=' have incompatible units
+w has units s = <1 sec>
+(v/u)^2 has units sec^2 = <1 sec^2>
+

@@ -1,0 +1,7 @@
+t.min = { 0 } dimensionless
+t.max = { 1 } dimensionless
+t.ct = { 2 } dimensionless
+t.delta = { 1 } dimensionless
+t = { 0 1 } dimensionless
+Kin(t) = { (0,2) (1,2) } dimensionless
+Kout(t) = { (0,2) (1,2) } dimensionless

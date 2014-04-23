@@ -1,0 +1,211 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: realDomain y
+  add var: real y.min
+  add var: real y.max
+  add var: int y.ct
+  add var: real y.delta
+  add var: real u(t,x,y)
+  add var: real u:x(t,x,y)
+  add var: real u:t(t,x,y)
+  add var: real u:x:x(t,x,y)
+Loading Constraints
+  t.min=0 :: [t.min]
+  t.max=3 :: [t.max]
+  t.delta=.1 :: [t.delta]
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=.05 :: [x.delta]
+  y.min=0 :: [y.min]
+  y.max=5 :: [y.max]
+  y.delta=1 :: [y.delta]
+  when (t=t.min) u=0 :: [u(t.min)]
+  when (x=x.min) u:x=0 :: [u:x(x.min)]
+  when (x=x.max) u:x=0 :: [u:x(x.max)]
+  u:t=u:x:x :: [u:t, u:x:x]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+  add tool: domain y
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=3; [t.max]
+  add tool: t.max=3
+  check eqn: t.delta=.1; [t.delta]
+  add tool: t.delta=.1
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=.05; [x.delta]
+  add tool: x.delta=.05
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: y.min=0; [y.min]
+  add tool: y.min=0
+  check eqn: y.max=5; [y.max]
+  add tool: y.max=5
+  check eqn: y.delta=1; [y.delta]
+  add tool: y.delta=1
+  add tool: y.ct=(y.max-y.min)/y.delta+1.5
+  check eqn: when (t=t.min) u=0; [u(t.min)]
+  add tool: u(t.min)=0
+  check eqn: when (x=x.min) u:x=0; [u:x(x.min)]
+  add tool: u:x(x.min)=0
+  check eqn: when (x=x.max) u:x=0; [u:x(x.max)]
+  add tool: u:x(x.max)=0
+  check eqn: u:t=u:x:x; [u:t, u:x:x]
+  add tool: PDE u: []
+  updated PDE(u) with u(t.min)=0
+  updated PDE(u) with u:x(x.min)=0
+  updated PDE(u) with u:x(x.max)=0
+Toolbox phase - cycle 1:
+  check eqn: u:t=u:x:x; [u:t, u:x:x]
+Toolbox phase - cycle 2:
+Toolbox phase - cycle 3:
+  updated PDE(u) with u:t=u:x:x
+    u is now entirely solved
+Toolbox phase - cycle 1:
+Toolbox phase - all cycles completed
+  add var: real u__init(x,y)
+  add tool: u__init=0
+PDE(u) factors:  D=1 P=0 B=0 S=0
+  LHBC F1=0 F2=1 F3=0
+  RHBC F1=0 F2=1 F3=0
+  Solver LSFEA supported
+  Solver MacCormack supported
+  Solver Toms731 supported
+  checking PDE(u) D=1 for differentiability ...
+  setting Dx=0
+  Tom731  C=1 Q=0 R=u:x
+  Toms731 LHBC:  Beta=1 Gamma=1
+  Toms731 RHBC:  Beta=1 Gamma=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @x@y u__init=0 :: [u__init]<<[]
+  @t@y PDE-1D u: u:t=u:x:x :: [u, u(t.max), u(x.max), u(x.min)]<<[u(t.min)]
+  y.delta=1 :: [y.delta]<<[]
+  y.ct=(y.max-y.min)/y.delta+1.5 :: [y.ct]<<[y.max, y.min, y.delta]
+  y.max=5 :: [y.max]<<[]
+  y.min=0 :: [y.min]<<[]
+  domain y :: [y]<<[y.min, y.max, y.ct, y.delta]
+  x.delta=.05 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.1 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=3 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  @x@y u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[t, x, y]
+  addNode u__init seqLoops=(x,y) phase=x#1+y#1 fft=null
+  addNode u seqLoops=(t,y) phase=t#1+y#1 fft=t
+  addNode y.delta seqLoops=() phase=main fft=null
+  addNode y.ct seqLoops=() phase=main fft=null
+  addNode y.max seqLoops=() phase=main fft=null
+  addNode y.min seqLoops=() phase=main fft=null
+  addNode y seqLoops=() phase=main fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(x,y) phase=x#1+y#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding y.delta=1 to main
+  adding y.max=5 to main
+  adding y.min=0 to main
+  adding x.delta=.05 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.1 to main
+  adding t.max=3 to main
+  adding t.min=0 to main
+  adding y.ct=(y.max-y.min)/y.delta+1.5 to main
+  adding domain y to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  subphase x#1+y#1 entryEdge=null
+building block for phase x#1+y#1
+  adding u__init=0 to loop-y
+  adding u(t.min)=u__init to loop-y
+  adding loop-y to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  subphase t#1+y#1 entryEdge=null
+building block for phase t#1+y#1
+  adding PDE Block-t(x) [u] to loop-y
+  adding loop-y to loop-t
+  adding loop-t to main
+Building PDE Block-t(x) [u] ...
+PDE solver LSFEA: supported
+PDE solver MacCormack: supported
+PDE solver Toms731: supported
+Building PDE BC x=x.min [u] ...
+Building PDE BC x=x.max [u] ...
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  y.delta=1
+  y.max=5
+  y.min=0
+  x.delta=.05
+  x.max=1
+  x.min=0
+  t.delta=.1
+  t.max=3
+  t.min=0
+  y.ct=(y.max-y.min)/y.delta+1.5
+  domain y
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  loop-x
+    loop-y
+      u__init=0
+      u(t.min)=u__init
+  loop-t
+    loop-y
+      PDE Block-t(x) vmus=[t, x, u]
+        PDE BC x=x.min vmus=[t, u]
+        PDE BC x=x.max vmus=[t, u]
+

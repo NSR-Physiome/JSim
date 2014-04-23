@@ -1,0 +1,167 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: realDomain y
+  add var: real y.min
+  add var: real y.max
+  add var: int y.ct
+  add var: real y.delta
+  add var: real a(x)
+  add var: real af
+  add var: real b(y)
+  add var: real bf
+  add var: real c(x)
+Loading Constraints
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=1 :: [x.delta]
+  y.min=0 :: [y.min]
+  y.max=1 :: [y.max]
+  y.delta=1 :: [y.delta]
+  a=x :: [a, x]
+  af=a(x.max) :: [af, x.max, a(x.max)]
+  b=(y+af) :: [b, y, af]
+  bf=b(y.max) :: [bf, y.max, b(y.max)]
+  c=(x+bf) :: [c, x, bf]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain x
+  add tool: domain y
+Toolbox phase - cycle 1:
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=1; [x.delta]
+  add tool: x.delta=1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: y.min=0; [y.min]
+  add tool: y.min=0
+  check eqn: y.max=1; [y.max]
+  add tool: y.max=1
+  check eqn: y.delta=1; [y.delta]
+  add tool: y.delta=1
+  add tool: y.ct=(y.max-y.min)/y.delta+1.5
+  check eqn: a=x; [a]
+  add tool: a=x
+  check eqn: af=a(x.max); [af]
+  add tool: af=a(x.max)
+  check eqn: b=(y+af); [b]
+  add tool: b=y+af
+  check eqn: bf=b(y.max); [bf]
+  add tool: bf=b(y.max)
+  check eqn: c=(x+bf); [c]
+  add tool: c=x+bf
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @x c=x+bf :: [c]<<[x, bf]
+  bf=b(y.max) :: [bf]<<[y.max, b(y.max)]
+  @y b=y+af :: [b]<<[y, af]
+  af=a(x.max) :: [af]<<[x.max, a(x.max)]
+  @x a=x :: [a]<<[x]
+  y.delta=1 :: [y.delta]<<[]
+  y.ct=(y.max-y.min)/y.delta+1.5 :: [y.ct]<<[y.max, y.min, y.delta]
+  y.max=1 :: [y.max]<<[]
+  y.min=0 :: [y.min]<<[]
+  domain y :: [y]<<[y.min, y.max, y.ct, y.delta]
+  x.delta=1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [a(x.max)]<<[a]
+  adding query tool: query [b(y.max)]<<[b]
+Creating MainGraph ...
+loopOrder=[x, y]
+  addNode c seqLoops=(x) phase=x#1 fft=null
+  addNode bf seqLoops=() phase=main fft=null
+  addNode b seqLoops=(y) phase=y#1 fft=null
+  addNode af seqLoops=() phase=main fft=null
+  addNode a seqLoops=(x) phase=x#1 fft=null
+  addNode y.delta seqLoops=() phase=main fft=null
+  addNode y.ct seqLoops=() phase=main fft=null
+  addNode y.max seqLoops=() phase=main fft=null
+  addNode y.min seqLoops=() phase=main fft=null
+  addNode y seqLoops=() phase=main fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode a(x.max) seqLoops=() phase=main fft=null
+  addNode b(y.max) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding y.delta=1 to main
+  adding y.max=1 to main
+  adding y.min=0 to main
+  adding x.delta=1 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding y.ct=(y.max-y.min)/y.delta+1.5 to main
+  adding domain y to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding a=x to loop-x
+  adding loop-x to main
+  subphase y#1 entryEdge=null
+building block for phase y#1
+  Repressing empty block: loop-y
+  subphase y#2 entryEdge=af->b
+  subphase x#2 entryEdge=bf->c
+  adding query [a(x.max)] to main
+  adding af=a(x.max) to main
+  subphase y#2 entryEdge=null
+building block for phase y#2
+  adding b=y+af to loop-y
+  adding loop-y to main
+  subphase x#2 entryEdge=bf->c
+  adding query [b(y.max)] to main
+  adding bf=b(y.max) to main
+  subphase x#2 entryEdge=null
+building block for phase x#2
+  adding c=x+bf to loop-x
+  adding loop-x to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  y.delta=1
+  y.max=1
+  y.min=0
+  x.delta=1
+  x.max=1
+  x.min=0
+  y.ct=(y.max-y.min)/y.delta+1.5
+  domain y
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  loop-x
+    a=x
+  query [a(x.max)]
+  af=a(x.max)
+  loop-y
+    b=y+af
+  query [b(y.max)]
+  bf=b(y.max)
+  loop-x
+    c=x+bf
+

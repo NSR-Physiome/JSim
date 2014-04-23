@@ -1,0 +1,3 @@
+WARNING: Unconstraint variable t.min set to extern
+WARNING: Unconstraint variable t.max set to extern
+WARNING: Unconstraint variable t.delta set to extern

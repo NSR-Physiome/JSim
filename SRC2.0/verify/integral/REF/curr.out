@@ -1,0 +1,7 @@
+t.min = { 0 } dimensionless
+t.max = { 5 } dimensionless
+t.ct = { 6 } dimensionless
+t.delta = { 1 } dimensionless
+t = { 0 1 2 3 4 5 } dimensionless
+u(t) = { (0,0) (1,1) (2,4) (3,9) (4,16) (5,25) } dimensionless
+v(t) = { (0,0) (1,.5) (2,3) (3,9.5) (4,22) (5,42.5) } dimensionless

@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+JSimPluginClass: MyDataFormat
+Created-By: 1.4.2_08 (Sun Microsystems Inc.)
+JSimPluginVariant: mine
+JSimPluginType: DataFormat
+

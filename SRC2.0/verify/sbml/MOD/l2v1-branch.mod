@@ -1,0 +1,60 @@
+// This model generated automatically from SBML
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// reaction_1: X0 <=> S1 
+// reaction_2: S1 <=> X1 
+// reaction_3: S1 <=> X2 
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real compartmentOne = 1 L;
+  real S1(time) M;
+  real X0 = 0 M;
+  real X1 = 0 M;
+  real X2 = 0 M;
+  real reaction_1(time) katal;
+  real k1 = 0;
+  real reaction_2(time) katal;
+  real k2 = 0;
+  real reaction_3(time) katal;
+  real k3 = 0;
+
+  // equations
+  when (time=time.min) S1 = 0;
+  (S1*compartmentOne):time = reaction_1 + -1*reaction_2 + -1*reaction_3;
+  reaction_1 = k1*X0;
+  reaction_2 = k2*S1;
+  reaction_3 = k3*S1;
+
+  // variable properties
+  compartmentOne.sbmlRole="compartment";
+  S1.sbmlRole="species";
+  S1.sbmlCompartment="compartmentOne";
+  X0.sbmlRole="species";
+  X0.sbmlCompartment="compartmentOne";
+  X1.sbmlRole="species";
+  X1.sbmlCompartment="compartmentOne";
+  X2.sbmlRole="species";
+  X2.sbmlCompartment="compartmentOne";
+  reaction_1.sbmlRole="rate";
+  k1.sbmlRole="parameter";
+  reaction_2.sbmlRole="rate";
+  k2.sbmlRole="parameter";
+  reaction_3.sbmlRole="rate";
+  k3.sbmlRole="parameter";
+}
+

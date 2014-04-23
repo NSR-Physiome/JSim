@@ -1,0 +1,56 @@
+JSim v1.1
+
+
+unit dimensionless = 1  dimensionless;
+unit radian = 1  dimensionless;
+math junc {
+	realDomain t;
+	real r1.vol;
+	real r1.A(t);
+	real r2.vol;
+	real r2.A(t);
+	real j1.A(t);
+	real j1.f2wgt(t);
+	real j1.f3wgt(t);
+	real j2.A(t);
+	private real j2.f6wgt(t);
+	real f1.flow(t);
+	real f1.A(t);
+	real f2.flow(t);
+	real f2.A(t);
+	real f3.flow(t);
+	real f3.A(t);
+	real f4.flow(t);
+	real f4.A(t);
+	real f5.flow(t);
+	real f5.A(t);
+	real f6.flow(t);
+	real f6.A(t);
+	t.min = 0;
+	t.max = 10;
+	t.delta = .1;
+	r1.vol = .5;
+	r2.vol = .2;
+	f1.flow = .7;
+	f4.flow = f2.flow;
+	f5.flow = f3.flow;
+	f2.flow = f1.flow*(j1.f2wgt/(j1.f2wgt+j1.f3wgt));
+	f3.flow = f1.flow*(j1.f3wgt/(j1.f2wgt+j1.f3wgt));
+	f6.flow = (f4.flow+f5.flow)*(j2.f6wgt/j2.f6wgt);
+	when (t=t.min) r1.A = 0;
+	r1.A:t = f2.flow/r1.vol*f2.A-f4.flow/r1.vol*r1.A;
+	when (t=t.min) r2.A = 0;
+	r2.A:t = f3.flow/r2.vol*f3.A-f5.flow/r2.vol*r2.A;
+	j1.A = f1.flow*f1.A/f1.flow;
+	j1.f2wgt = 1;
+	j1.f3wgt = 1;
+	j2.A = (f4.flow*f4.A+f5.flow*f5.A)/(f4.flow+f5.flow);
+	j2.f6wgt = 1;
+	f1.A = 0;
+	f2.A = j1.A;
+	f3.A = j1.A;
+	f4.A = r1.A;
+	f5.A = r2.A;
+	f6.A = j2.A;
+}
+

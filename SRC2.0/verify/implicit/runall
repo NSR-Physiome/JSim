@@ -1,0 +1,36 @@
+#!/bin/sh
+
+cd MOD
+LMODS=`ls l*.mod | sed -e 's/.mod//'`
+BMODS=`ls b*.mod | sed -e 's/.mod//'`
+UMODS=`ls u*.mod | sed -e 's/.mod//'`
+cd ..
+
+rm -Rf WORK
+mkdir WORK
+
+for i in $LMODS
+do
+  run1lin $i
+done
+
+echo "Note: simanneal currently randomized."
+echo "  Model runs may sometimes fail or show deviations from reference data."
+
+# genetic doesn't reliably converge, so commented out
+
+for i in $BMODS
+do
+  run1 $i simplex 
+  run1 $i gridsearch
+  run1 $i simanneal -i solver.fzero_errtol=1e-3 solver.fzero_maxcalls=200000 -oprec 4
+  # run1 $i genetic -i solver.fzero_errtol=1e-3 solver.fzero_maxcalls=200000 -oprec 4
+done
+
+
+for i in $UMODS
+do
+  run1 $i ggopt 
+  run1 $i neldermead 
+  run1 $i nl2sol
+done

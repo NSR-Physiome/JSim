@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model sumunit
+aborted:  near line 10 token "}" Expression "v=sum(t,t.min,t.max,u)"
+Operands for '=' have incompatible units
+v has units m/sec = <1 m / sec>
+sum(t,t.min,t.max,u) has units m = <1 m>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by sblToSBML version 1.0 -->
+<sbml level = "2" version = "1" xmlns = "http://www.sbml.org/sbml/level2" >
+<model id = "mod" name = "mod">
+
+<listOfCompartments>
+  <compartment id = "comp1" size = "10" />
+</listOfCompartments>
+
+<listOfSpecies>
+   <species compartment="comp1" id="AmtAmtAlg"   hasOnlySubstanceUnits="true" initialAmount = "5" />
+   <species compartment="comp1" id="AmtNoneAlg"  hasOnlySubstanceUnits="true" />
+   <species compartment="comp1" id="ConcAmtAlg"  hasOnlySubstanceUnits="false" initialAmount = "5" />
+   <species compartment="comp1" id="ConcConcAlg" hasOnlySubstanceUnits="false" initialConcentration = "5" />
+   <species compartment="comp1" id="ConcNoneAlg" hasOnlySubstanceUnits="false" />
+</listOfSpecies>
+ 
+<listOfRules>
+  <algebraicRule variable="AmtAmtAlg">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply> <plus/> <ci> time </ci> <ci> AmtAmtAlg</ci> </apply> 
+    </math>
+  </algebraicRule>
+  <algebraicRule variable="AmtNoneAlg">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply> <plus/> <ci> time </ci> <ci> AmtNoneAlg </ci>  </apply>
+    </math>
+  </algebraicRule>
+  <algebraicRule variable="ConcAmtAlg">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply> <plus/> <ci> time </ci> <ci> ConcAmtAlg </ci>  </apply>
+    </math>
+  </algebraicRule>
+  <algebraicRule variable="ConcConcAlg">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply> <plus/> <ci> time </ci> <ci> ConcConcAlg</ci>  </apply>
+    </math>
+  </algebraicRule>
+  <algebraicRule variable="ConcNoneAlg">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply> <plus/> <ci> time </ci> <ci> ConcNoneAlg </ci>  </apply>
+    </math>
+  </algebraicRule>
+</listOfRules>
+
+</model>
+</sbml>

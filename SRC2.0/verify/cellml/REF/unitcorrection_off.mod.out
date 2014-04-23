@@ -1,0 +1,157 @@
+/*
+ * Mathematical model of paracrine interactions between osteoclasts
+ * and osteoblasts predicts anabolic action of parathyroid hormone
+ * on bone
+ * 
+ * Model Status
+ * 
+ * This CellML model runs in both OpenCell and COR to recreate
+ * the published results (figure 2A part 3 the red line). The parameter
+ * values have been set to those listed in the main body of the
+ * paper with the exception that g12=1.4, k2=0.00075, and g21 increases
+ * to 0.15 for one day (day 1-day2). Other figures from the paper
+ * can be created by altering these parameter values in the CellML
+ * model.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: To restore falling plasma calcium levels, PTH promotes
+ * calcium liberation from bone. PTH targets bone-forming cells,
+ * osteoblasts, to increase expression of the cytokine receptor
+ * activator of nuclear factor kappaB ligand (RANKL), which then
+ * stimulates osteoclastic bone resorption. Intriguingly, whereas
+ * continuous administration of PTH decreases bone mass, intermittent
+ * PTH has an anabolic effect on bone, which was proposed to arise
+ * from direct effects of PTH on osteoblastic bone formation. However,
+ * antiresorptive therapies impair the ability of PTH to increase
+ * bone mass, indicating a complex role for osteoclasts in the
+ * process. We developed a mathematical model that describes the
+ * actions of PTH at a single site of bone remodeling, where osteoclasts
+ * and osteoblasts are regulated by local autocrine and paracrine
+ * factors. It was assumed that PTH acts only to increase the production
+ * of RANKL by osteoblasts. As a result, PTH stimulated osteoclasts
+ * upon application, followed by compensatory osteoblast activation
+ * due to the coupling of osteoblasts to osteoclasts through local
+ * paracrine factors. Continuous PTH administration resulted in
+ * net bone loss, because bone resorption preceded bone formation
+ * at all times. In contrast, over a wide range of model parameters,
+ * short application of PTH resulted in a net increase in bone
+ * mass, because osteoclasts were rapidly removed upon PTH withdrawal,
+ * enabling osteoblasts to rebuild the bone. In excellent agreement
+ * with experimental findings, increase in the rate of osteoclast
+ * death abolished the anabolic effect of PTH on bone. This study
+ * presents an original concept for the regulation of bone remodeling
+ * by PTH, currently the only approved anabolic treatment for osteoporosis.
+ * 
+ * model diagram
+ * 
+ * [[Image file: komarova_2005.png]]
+ * 
+ * Schematic representation of the interactions between osteoclasts
+ * and osteoblasts included in the model.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Mathematical model of paracrine interactions between osteoclasts
+ * and osteoblasts predicts anabolic action of parathyroid hormone
+ * on bone, Komarova SV, 2005, Endocrinology, 146, 3589-3595. PubMed
+ * ID: 15860557
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 3 equation(s)
+unit conversion off;
+unit day=86400 second^1;
+unit cell = fundamental;
+//Warning:  unit percent_ renamed from percent, as the latter is predefined in JSim with different fundamental units.
+unit percent_ = fundamental;
+unit flux=1.1574074E-5 second^(-1)*cell^1;
+unit first_order_rate_constant=1.1574074E-5 second^(-1);
+unit second_order_rate_constant=1.1574074E-5 second^(-1)*cell^(-1);
+unit percent_per_cell_per_day=1.1574074E-5 second^(-1)*cell^(-1)*percent_^1;
+property cellMLNames=string;
+
+math main {
+	realDomain time day;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real x1(time) cell;
+	x1.cellMLNames="x1.x1;x2.x1;y1.x1";
+	when(time=time.min) x1=10.06066;
+	real alpha1 flux;
+	alpha1.cellMLNames="x1.alpha1;model_parameters.alpha1;x1_bar.alpha1;x2_bar.alpha1";
+	alpha1=3;
+	real beta1 first_order_rate_constant;
+	beta1.cellMLNames="x1.beta1;model_parameters.beta1;x1_bar.beta1;x2_bar.beta1";
+	beta1=0.2;
+	real g11 dimensionless;
+	g11.cellMLNames="x1.g11;model_parameters.g11;x2_bar.g11";
+	g11=0.5;
+	real g21(time) dimensionless;
+	g21.cellMLNames="x1.g21;model_parameters.g21;x1_bar.g21";
+	real x2(time) cell;
+	x2.cellMLNames="x1.x2;x2.x2;y2.x2";
+	when(time=time.min) x2=212.132;
+	real alpha2 first_order_rate_constant;
+	alpha2.cellMLNames="x2.alpha2;model_parameters.alpha2;x1_bar.alpha2;x2_bar.alpha2";
+	alpha2=4;
+	real beta2 first_order_rate_constant;
+	beta2.cellMLNames="x2.beta2;model_parameters.beta2;x1_bar.beta2;x2_bar.beta2";
+	beta2=0.02;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real g12 dimensionless;
+//	g12.cellMLNames="x2.g12;model_parameters.g12;x2_bar.g12";
+//	g12=1;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real g22 dimensionless;
+//	g22.cellMLNames="x2.g22;model_parameters.g22;x1_bar.g22";
+//	g22=0;
+	real z(time) percent_;
+	z.cellMLNames="z.z";
+	when(time=time.min) z=100.0;
+	real k1 percent_per_cell_per_day;
+	k1.cellMLNames="z.k1;model_parameters.k1";
+	k1=0.24;
+	real k2 percent_per_cell_per_day;
+	k2.cellMLNames="z.k2;model_parameters.k2";
+	k2=0.0017;
+	real y1(time) cell;
+	y1.cellMLNames="z.y1;y1.y1";
+	real y2(time) cell;
+	y2.cellMLNames="z.y2;y2.y2";
+	real x1_bar(time) cell;
+	x1_bar.cellMLNames="y1.x1_bar;x1_bar.x1_bar";
+	real x2_bar(time) cell;
+	x2_bar.cellMLNames="y2.x2_bar;x2_bar.x2_bar";
+	real gamma(time) dimensionless;
+	gamma.cellMLNames="x1_bar.gamma;model_parameters.gamma;x2_bar.gamma";
+
+	// <component name="environment">
+
+	// <component name="x1">
+	x1:time=(alpha1*x1^g11*x2^g21-beta1*x1);
+
+	// <component name="x2">
+	x2:time=(alpha2*x1^1*x2^0-beta2*x2);
+
+	// <component name="z">
+	z:time=(k2*y2-k1*y1);
+
+	// <component name="y1">
+	y1=(if (x1>x1_bar) x1-x1_bar else (0 cell));
+
+	// <component name="y2">
+	y2=(if (x2>x2_bar) x2-x2_bar else (0 cell));
+
+	// <component name="x1_bar">
+	x1_bar=((beta1/alpha1)^((1-0)/gamma)*(beta2/alpha2)^(g21/gamma));
+
+	// <component name="x2_bar">
+	x2_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma));
+
+	// <component name="model_parameters">
+	gamma=(1*g21-(1-g11)*(1-0));
+	g21=(if ((time>=(1 day)) and (time<(2 day))) .15 else -0.5);
+}
+

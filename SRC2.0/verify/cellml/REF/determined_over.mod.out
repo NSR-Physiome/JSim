@@ -1,0 +1,500 @@
+/*
+ * Feedback Effects On Signal Dynamics In A Mitogen-Activated Protein
+ * Kinase (MAPK) Cascade
+ * 
+ * Model Status
+ * 
+ * This model has been recoded in CellML without the use of the
+ * reaction element. The parameters and differential equations
+ * described in the original publication were used. This CellML
+ * model is known to read in both COR and PCEnv although currently
+ * it is unable to recreate the published results from the original
+ * model.
+ * 
+ * ValidateCellML detects widespread unit inconsistency within
+ * this model.
+ * 
+ * Model Structure
+ * 
+ * In 2001, Anand Asthagiri and Douglas Lauffenburger published
+ * a mathematical model which examined the mechanisms that govern
+ * MAPK pathway dynamics (see the figure below). Their model builds
+ * upon the MAPK cascade model of Chi-Ying Huang and James Ferrell
+ * (1996). This earlier model focused on the steady-state effects
+ * of signaling, whereas more recently, it has been discovered
+ * that a signal's information content partly resides in its dynamics.
+ * 
+ * In their model, Anand Asthagiri and Douglas Lauffenburger concentrate
+ * on the role of negative feedback mechanisms in the generation
+ * of signal adaptation - a term referring to the reset of a signal
+ * to prestimulation levels. They assess how different modes of
+ * feedback affect the properties of MAPK signalling dynamics.
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * A Computational Study of Feedback Effects on Signal Dynamics
+ * in a Mitogen-Activated Protein Kinase (MAPK) Pathway Model,
+ * Anand R. Asthagiri and Douglas A. Lauffenburger, 2001, Biotechnol.
+ * Prog, 17, 227-239. (Full text and PDF versions are available
+ * to subscribers on the ACS Publications website. PubMed ID: 11312698
+ * 
+ * the conventional rendering of the MAPK cascade with feedback
+ * effects
+ * 
+ * [[Image file: asthagiri_2001.png]]
+ * 
+ * A rendering of the MAPK cascade with feedback effects. Species
+ * are represented by rounded rectangles, and reactions by arrows.
+ * The action of a catalyst on a reaction is represented by dashed
+ * lines.
+ * 
+ * In CellML, models are thought of as connected networks of discrete
+ * components. These components may correspond to physiologically
+ * separated regions or chemically distinct objects, or may be
+ * useful modelling abstractions. This model has 71 components
+ * representing chemically distinct objects (41 chemical species
+ * and 30 reactions) and one component defined for modelling convenience
+ * which stores the universal variable time. Because this model
+ * has so many components, its CellML rendering would be complex.
+ * For an example of a CellML rendering of a reaction pathway see
+ * The Bhalla Iyengar EGF Pathway Model, 1999.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 26 equation(s)
+unit conversion off;
+unit minute=60 second^1;
+unit number = fundamental;
+unit cell = fundamental;
+unit number_per_cell=1 number^1*cell^(-1);
+// unit molar predefined
+unit first_order_rate_constant=.01666667 second^(-1);
+unit second_order_rate_constant=1.6666667E-5 meter^3*second^(-1)*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables had initial values which were
+	//  suppressed because the model would otherwise be overdetermined:
+	//   p1, p2, p3, p4, p5
+	realDomain time minute;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real c(time) molar;
+	c.cellMLNames="c.c;c2.c;r.c";
+	when(time=time.min) c=0.0;
+	real c2(time) molar;
+	c2.cellMLNames="c.c2;c2.c2;c_star.c2;r.c2";
+	when(time=time.min) c2=0.0;
+	real L0 molar;
+	L0.cellMLNames="c.L0;model_parameters.L0";
+	real R0 number_per_cell;
+	R0.cellMLNames="c.R0;model_parameters.R0;c2.R0;c_star.R0;c_star_a1.R0;a1a2.R0;r.R0";
+	R0=1E5;
+	real kr first_order_rate_constant;
+	kr.cellMLNames="c.kr;model_parameters.kr;c2.kr;c_star.kr;c_star_a1.kr;e0_star.kr;a1a2.kr;a2_minus.kr;e1_star_p1.kr;e2_star_p2.kr;e3_star_p3.kr;e4_star_p4.kr;e5_star_p5.kr;e1_e0_star.kr;e2_e1_star.kr;e3_e2_star.kr;e4_e3_star.kr;e5_e4_star.kr;e2_star_e4_star.kr;e0_star_e4_star.kr;e2_minus.kr;e1_star.kr;e3_star.kr;e5_star.kr;e2_star.kr;e4_star.kr";
+	kr=0.3;
+	real kf second_order_rate_constant;
+	kf.cellMLNames="c.kf;model_parameters.kf;c2.kf";
+	kf=1E7;
+	real ku first_order_rate_constant;
+	ku.cellMLNames="c.ku;model_parameters.ku;c2.ku";
+	ku=60.0;
+	real kc second_order_rate_constant;
+	kc.cellMLNames="c.kc;model_parameters.kc;c2.kc";
+	kc=6E7;
+	real r(time) number_per_cell;
+	r.cellMLNames="c.r;r.r";
+	real c_star(time) molar;
+	c_star.cellMLNames="c2.c_star;c_star.c_star;e0_star.c_star;c_star_a1.c_star;a1a2.c_star;r.c_star";
+	when(time=time.min) c_star=0.0;
+	real kc_plus first_order_rate_constant;
+	kc_plus.cellMLNames="c2.kc_plus;model_parameters.kc_plus;c_star.kc_plus;c_star_a1.kc_plus";
+	kc_plus=50.0;
+	real kc_minus first_order_rate_constant;
+	kc_minus.cellMLNames="c2.kc_minus;model_parameters.kc_minus;c_star.kc_minus;c_star_a1.kc_minus";
+	kc_minus=5.0;
+	real a1(time) molar;
+	a1.cellMLNames="c_star.a1;a1.a1;c_star_a1.a1;a1a2.a1";
+	real e0_star(time) molar;
+	e0_star.cellMLNames="c_star.e0_star;e0_star.e0_star;c_star_a1.e0_star;a2.e0_star;e4_star.e0_star;e1_e0_star.e0_star;a1a2.e0_star;e0_star_e4_star.e0_star;r.e0_star;a1.e0_star";
+	when(time=time.min) e0_star=0.0;
+	real c_star_a1(time) molar;
+	c_star_a1.cellMLNames="c_star.c_star_a1;c_star_a1.c_star_a1;a1.c_star_a1;e0_star.c_star_a1;r.c_star_a1";
+	when(time=time.min) c_star_a1=0.0;
+	real a1a2(time) molar;
+	a1a2.cellMLNames="c_star.a1a2;a1a2.a1a2;e0_star.a1a2;a1.a1a2;a2.a1a2";
+	when(time=time.min) a1a2=0.0;
+	real kr_1 first_order_rate_constant;
+	kr_1.cellMLNames="c_star.kr_1;model_parameters.kr_1;c_star_a1.kr_1";
+	real kf_1 second_order_rate_constant;
+	kf_1.cellMLNames="c_star.kf_1;model_parameters.kf_1;c_star_a1.kf_1";
+	kf_1=3E8;
+	real kr_12 first_order_rate_constant;
+	kr_12.cellMLNames="c_star.kr_12;model_parameters.kr_12;e0_star.kr_12;a1a2.kr_12";
+	real kf_12 second_order_rate_constant;
+	kf_12.cellMLNames="c_star.kf_12;model_parameters.kf_12;e0_star.kf_12;a1a2.kf_12";
+	kf_12=3E8;
+	real A1_T number_per_cell;
+	A1_T.cellMLNames="c_star.A1_T;model_parameters.A1_T;c_star_a1.A1_T;e0_star.A1_T;a1a2.A1_T;r.A1_T;a1.A1_T;a2.A1_T";
+	A1_T=1E4;
+	real A2_T number_per_cell;
+	A2_T.cellMLNames="c_star.A2_T;model_parameters.A2_T;c_star_a1.A2_T;e0_star.A2_T;a1a2.A2_T;r.A2_T;a1.A2_T;a2.A2_T;a2_minus.A2_T;e1_e0_star.A2_T;e0_star_e4_star.A2_T;e4_star.A2_T";
+	A2_T=1E4;
+	real a2(time) molar;
+	a2.cellMLNames="c_star_a1.a2;a2.a2;e0_star.a2;a1a2.a2";
+	real e0_star_e4_star(time) molar;
+	e0_star_e4_star.cellMLNames="c_star_a1.e0_star_e4_star;e0_star_e4_star.e0_star_e4_star;e0_star.e0_star_e4_star;r.e0_star_e4_star;a1.e0_star_e4_star;a2.e0_star_e4_star;a2_minus.e0_star_e4_star;e4_star.e0_star_e4_star;e4.e0_star_e4_star";
+	when(time=time.min) e0_star_e4_star=0.0;
+	real kr_2 first_order_rate_constant;
+	kr_2.cellMLNames="c_star_a1.kr_2;model_parameters.kr_2;e0_star.kr_2";
+	real kf_2 second_order_rate_constant;
+	kf_2.cellMLNames="c_star_a1.kf_2;model_parameters.kf_2;e0_star.kf_2";
+	kf_2=3E8;
+	real kcat_x first_order_rate_constant;
+	kcat_x.cellMLNames="c_star_a1.kcat_x;model_parameters.kcat_x;a2_minus.kcat_x;e0_star_e4_star.kcat_x;e4_star.kcat_x";
+	kcat_x=6;
+	real E4_T number_per_cell;
+	E4_T.cellMLNames="c_star_a1.E4_T;model_parameters.E4_T;e0_star.E4_T;r.E4_T;a1.E4_T;a2.E4_T;a2_minus.E4_T;e4_star_p4.E4_T;e5_e4_star.E4_T;e2_minus.E4_T;e3_star.E4_T;e2_star.E4_T;e4_star.E4_T;e3.E4_T;e2.E4_T;e4.E4_T";
+	E4_T=1E4;
+	real e1(time) molar;
+	e1.cellMLNames="e0_star.e1;e1.e1;e1_e0_star.e1";
+	real e4_star(time) molar;
+	e4_star.cellMLNames="e0_star.e4_star;e4_star.e4_star;e4_star_p4.e4_star;e5_e4_star.e4_star;e2_star_e4_star.e4_star;e0_star_e4_star.e4_star;e2_star.e4_star;e4.e4_star";
+	when(time=time.min) e4_star=0.0;
+	real e1_e0_star(time) molar;
+	e1_e0_star.cellMLNames="e0_star.e1_e0_star;e1_e0_star.e1_e0_star;r.e1_e0_star;a1.e1_e0_star;a2.e1_e0_star;e1.e1_e0_star;e1_star.e1_e0_star";
+	when(time=time.min) e1_e0_star=0.0;
+	real k1_plus second_order_rate_constant;
+	k1_plus.cellMLNames="e0_star.k1_plus;model_parameters.k1_plus;e1_e0_star.k1_plus";
+	k1_plus=6E8;
+	real k1_minus first_order_rate_constant;
+	k1_minus.cellMLNames="e0_star.k1_minus;model_parameters.k1_minus;e1_e0_star.k1_minus";
+	k1_minus=30;
+	real kx_plus second_order_rate_constant;
+	kx_plus.cellMLNames="e0_star.kx_plus;model_parameters.kx_plus;e0_star_e4_star.kx_plus;e4_star.kx_plus";
+	kx_plus=6E8;
+	real kx_minus first_order_rate_constant;
+	kx_minus.cellMLNames="e0_star.kx_minus;model_parameters.kx_minus;e0_star_e4_star.kx_minus;e4_star.kx_minus";
+	kx_minus=30;
+	real kcat_1 first_order_rate_constant;
+	kcat_1.cellMLNames="e0_star.kcat_1;model_parameters.kcat_1;e1_e0_star.kcat_1;e1_star.kcat_1";
+	kcat_1=6;
+	real E1_T number_per_cell;
+	E1_T.cellMLNames="e0_star.E1_T;model_parameters.E1_T;r.E1_T;a1.E1_T;a2.E1_T;e1_star_p1.E1_T;e2_e1_star.E1_T;e1_star.E1_T;e1.E1_T";
+	E1_T=1E4;
+	real kc_12 second_order_rate_constant;
+	kc_12.cellMLNames="a1a2.kc_12;model_parameters.kc_12";
+	kc_12=3E8;
+	real kd_12 first_order_rate_constant;
+	kd_12.cellMLNames="a1a2.kd_12;model_parameters.kd_12";
+	real a2_minus(time) molar;
+	a2_minus.cellMLNames="a2.a2_minus;a2_minus.a2_minus";
+	when(time=time.min) a2_minus=0.0;
+	real e1_star_p1(time) molar;
+	e1_star_p1.cellMLNames="e1_star_p1.e1_star_p1;e1_star.e1_star_p1;p1.e1_star_p1;e1.e1_star_p1";
+	when(time=time.min) e1_star_p1=0.0;
+	real e1_star(time) molar;
+	e1_star.cellMLNames="e1_star_p1.e1_star;e1_star.e1_star;e2_e1_star.e1_star;e1.e1_star";
+	when(time=time.min) e1_star=0.0;
+	real p1(time) molar;
+	p1.cellMLNames="e1_star_p1.p1;p1.p1;e1_star.p1";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: p1=5E3;
+	real kP1_plus second_order_rate_constant;
+	kP1_plus.cellMLNames="e1_star_p1.kP1_plus;model_parameters.kP1_plus;e1_star.kP1_plus";
+	kP1_plus=6E8;
+	real kP1_minus first_order_rate_constant;
+	kP1_minus.cellMLNames="e1_star_p1.kP1_minus;model_parameters.kP1_minus;e1_star.kP1_minus";
+	kP1_minus=30;
+	real kcat_P1 first_order_rate_constant;
+	kcat_P1.cellMLNames="e1_star_p1.kcat_P1;model_parameters.kcat_P1";
+	kcat_P1=6;
+	real e2_star_p2(time) molar;
+	e2_star_p2.cellMLNames="e2_star_p2.e2_star_p2;e2_star.e2_star_p2;p2.e2_star_p2;e2.e2_star_p2";
+	when(time=time.min) e2_star_p2=0.0;
+	real e2_star(time) molar;
+	e2_star.cellMLNames="e2_star_p2.e2_star;e2_star.e2_star;e3_e2_star.e2_star;e2_star_e4_star.e2_star;e4_star.e2_star";
+	when(time=time.min) e2_star=0.0;
+	real p2(time) molar;
+	p2.cellMLNames="e2_star_p2.p2;p2.p2;e2_star.p2";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: p2=5E3;
+	real kP2_plus second_order_rate_constant;
+	kP2_plus.cellMLNames="e2_star_p2.kP2_plus;model_parameters.kP2_plus;e2_star.kP2_plus";
+	kP2_plus=6E8;
+	real kP2_minus first_order_rate_constant;
+	kP2_minus.cellMLNames="e2_star_p2.kP2_minus;model_parameters.kP2_minus;e2_star.kP2_minus";
+	kP2_minus=30;
+	real kcat_P2 first_order_rate_constant;
+	kcat_P2.cellMLNames="e2_star_p2.kcat_P2;model_parameters.kcat_P2";
+	kcat_P2=6;
+	real E2_T number_per_cell;
+	E2_T.cellMLNames="e2_star_p2.E2_T;model_parameters.E2_T;e3_e2_star.E2_T;e2_star_e4_star.E2_T;e2_minus.E2_T;e1_star.E2_T;e2_star.E2_T;e4_star.E2_T;e1.E2_T;e2.E2_T";
+	E2_T=1E4;
+	real e3_star_p3(time) molar;
+	e3_star_p3.cellMLNames="e3_star_p3.e3_star_p3;e3_star.e3_star_p3;p3.e3_star_p3;e3.e3_star_p3";
+	when(time=time.min) e3_star_p3=0.0;
+	real e3_star(time) molar;
+	e3_star.cellMLNames="e3_star_p3.e3_star;e3_star.e3_star;e4_e3_star.e3_star;e3.e3_star;e2.e3_star";
+	when(time=time.min) e3_star=0.0;
+	real p3(time) molar;
+	p3.cellMLNames="e3_star_p3.p3;p3.p3;e3_star.p3";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: p3=5E3;
+	real kP3_plus second_order_rate_constant;
+	kP3_plus.cellMLNames="e3_star_p3.kP3_plus;model_parameters.kP3_plus;e3_star.kP3_plus";
+	kP3_plus=6E8;
+	real kP3_minus first_order_rate_constant;
+	kP3_minus.cellMLNames="e3_star_p3.kP3_minus;model_parameters.kP3_minus;e3_star.kP3_minus";
+	kP3_minus=30;
+	real kcat_P3 first_order_rate_constant;
+	kcat_P3.cellMLNames="e3_star_p3.kcat_P3;model_parameters.kcat_P3";
+	kcat_P3=6;
+	real E3_T number_per_cell;
+	E3_T.cellMLNames="e3_star_p3.E3_T;model_parameters.E3_T;e4_e3_star.E3_T;e3_star.E3_T;e2_star.E3_T;e3.E3_T;e2.E3_T";
+	E3_T=1E4;
+	real e4_star_p4(time) molar;
+	e4_star_p4.cellMLNames="e4_star_p4.e4_star_p4;e4_star.e4_star_p4;p4.e4_star_p4;e4.e4_star_p4";
+	when(time=time.min) e4_star_p4=0.0;
+	real p4(time) molar;
+	p4.cellMLNames="e4_star_p4.p4;p4.p4;e4_star.p4";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: p4=5E3;
+	real kP4_plus second_order_rate_constant;
+	kP4_plus.cellMLNames="e4_star_p4.kP4_plus;model_parameters.kP4_plus;e4_star.kP4_plus";
+	kP4_plus=6E8;
+	real kP4_minus first_order_rate_constant;
+	kP4_minus.cellMLNames="e4_star_p4.kP4_minus;model_parameters.kP4_minus;e4_star.kP4_minus";
+	kP4_minus=30;
+	real kcat_P4 first_order_rate_constant;
+	kcat_P4.cellMLNames="e4_star_p4.kcat_P4;model_parameters.kcat_P4";
+	kcat_P4=6;
+	real e5_star_p5(time) molar;
+	e5_star_p5.cellMLNames="e5_star_p5.e5_star_p5;e5_star.e5_star_p5;p5.e5_star_p5;e5.e5_star_p5";
+	when(time=time.min) e5_star_p5=0.0;
+	real e5_star(time) molar;
+	e5_star.cellMLNames="e5_star_p5.e5_star;e5_star.e5_star;e5.e5_star";
+	when(time=time.min) e5_star=0.0;
+	real p5(time) molar;
+	p5.cellMLNames="e5_star_p5.p5;p5.p5;e5_star.p5";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: p5=5E3;
+	real kP5_plus second_order_rate_constant;
+	kP5_plus.cellMLNames="e5_star_p5.kP5_plus;model_parameters.kP5_plus;e5_star.kP5_plus";
+	kP5_plus=6E8;
+	real kP5_minus first_order_rate_constant;
+	kP5_minus.cellMLNames="e5_star_p5.kP5_minus;model_parameters.kP5_minus;e5_star.kP5_minus";
+	kP5_minus=30;
+	real kcat_P5 first_order_rate_constant;
+	kcat_P5.cellMLNames="e5_star_p5.kcat_P5;model_parameters.kcat_P5";
+	kcat_P5=6;
+	real E5_T number_per_cell;
+	E5_T.cellMLNames="e5_star_p5.E5_T;model_parameters.E5_T;e5_star.E5_T;e4_star.E5_T;e5.E5_T;e4.E5_T";
+	E5_T=1E4;
+	real e2_e1_star(time) molar;
+	e2_e1_star.cellMLNames="e2_e1_star.e2_e1_star;e2.e2_e1_star;e1_star.e2_e1_star;e2_star.e2_e1_star;e1.e2_e1_star";
+	when(time=time.min) e2_e1_star=0.0;
+	real e2(time) molar;
+	e2.cellMLNames="e2_e1_star.e2;e2.e2;e1_star.e2";
+	real k2_plus second_order_rate_constant;
+	k2_plus.cellMLNames="e2_e1_star.k2_plus;model_parameters.k2_plus;e2_star_e4_star.k2_plus;e1_star.k2_plus";
+	k2_plus=6E8;
+	real k2_minus first_order_rate_constant;
+	k2_minus.cellMLNames="e2_e1_star.k2_minus;model_parameters.k2_minus;e2_star_e4_star.k2_minus;e1_star.k2_minus";
+	k2_minus=30;
+	real kcat_2 first_order_rate_constant;
+	kcat_2.cellMLNames="e2_e1_star.kcat_2;model_parameters.kcat_2;e1_star.kcat_2;e2_star.kcat_2";
+	kcat_2=6;
+	real e3_e2_star(time) molar;
+	e3_e2_star.cellMLNames="e3_e2_star.e3_e2_star;e3.e3_e2_star;e2_star.e3_e2_star;e3_star.e3_e2_star;e2.e3_e2_star";
+	when(time=time.min) e3_e2_star=0.0;
+	real e3(time) molar;
+	e3.cellMLNames="e3_e2_star.e3;e3.e3;e2_star.e3";
+	real k3_plus second_order_rate_constant;
+	k3_plus.cellMLNames="e3_e2_star.k3_plus;model_parameters.k3_plus;e2_star.k3_plus";
+	k3_plus=6E8;
+	real k3_minus first_order_rate_constant;
+	k3_minus.cellMLNames="e3_e2_star.k3_minus;model_parameters.k3_minus;e2_star.k3_minus";
+	k3_minus=30;
+	real kcat_3 first_order_rate_constant;
+	kcat_3.cellMLNames="e3_e2_star.kcat_3;model_parameters.kcat_3;e3_star.kcat_3;e2_star.kcat_3";
+	kcat_3=6;
+	real e4_e3_star(time) molar;
+	e4_e3_star.cellMLNames="e4_e3_star.e4_e3_star;e4.e4_e3_star;e3_star.e4_e3_star;e4_star.e4_e3_star;e3.e4_e3_star";
+	when(time=time.min) e4_e3_star=0.0;
+	real e4(time) molar;
+	e4.cellMLNames="e4_e3_star.e4;e4.e4;e3_star.e4";
+	real k4_plus second_order_rate_constant;
+	k4_plus.cellMLNames="e4_e3_star.k4_plus;model_parameters.k4_plus;e3_star.k4_plus";
+	k4_plus=6E8;
+	real k4_minus first_order_rate_constant;
+	k4_minus.cellMLNames="e4_e3_star.k4_minus;model_parameters.k4_minus;e3_star.k4_minus";
+	k4_minus=30;
+	real kcat_4 first_order_rate_constant;
+	kcat_4.cellMLNames="e4_e3_star.kcat_4;model_parameters.kcat_4;e3_star.kcat_4;e4_star.kcat_4";
+	kcat_4=6;
+	real e5_e4_star(time) molar;
+	e5_e4_star.cellMLNames="e5_e4_star.e5_e4_star;e5.e5_e4_star;e4_star.e5_e4_star;e5_star.e5_e4_star;e4.e5_e4_star";
+	when(time=time.min) e5_e4_star=0.0;
+	real e5(time) molar;
+	e5.cellMLNames="e5_e4_star.e5;e5.e5;e4_star.e5";
+	real k5_plus second_order_rate_constant;
+	k5_plus.cellMLNames="e5_e4_star.k5_plus;model_parameters.k5_plus;e4_star.k5_plus";
+	k5_plus=6E8;
+	real k5_minus first_order_rate_constant;
+	k5_minus.cellMLNames="e5_e4_star.k5_minus;model_parameters.k5_minus;e4_star.k5_minus";
+	k5_minus=30;
+	real kcat_5 first_order_rate_constant;
+	kcat_5.cellMLNames="e5_e4_star.kcat_5;model_parameters.kcat_5;e5_star.kcat_5;e4_star.kcat_5";
+	kcat_5=6;
+	real e2_star_e4_star(time) molar;
+	e2_star_e4_star.cellMLNames="e2_star_e4_star.e2_star_e4_star;e2_star.e2_star_e4_star;e4_star.e2_star_e4_star;e2_minus.e2_star_e4_star;e2.e2_star_e4_star;e4.e2_star_e4_star";
+	when(time=time.min) e2_star_e4_star=0.0;
+	real kz_plus second_order_rate_constant;
+	kz_plus.cellMLNames="e2_star_e4_star.kz_plus;model_parameters.kz_plus;e2_star.kz_plus;e4_star.kz_plus";
+	kz_plus=6E8;
+	real kz_minus first_order_rate_constant;
+	kz_minus.cellMLNames="e2_star_e4_star.kz_minus;model_parameters.kz_minus;e2_star.kz_minus;e4_star.kz_minus";
+	kz_minus=30;
+	real kcat_z first_order_rate_constant;
+	kcat_z.cellMLNames="e2_star_e4_star.kcat_z;model_parameters.kcat_z;e2_minus.kcat_z;e4_star.kcat_z";
+	kcat_z=6;
+	real e2_minus(time) molar;
+	e2_minus.cellMLNames="e2_minus.e2_minus;e2.e2_minus";
+	when(time=time.min) e2_minus=0.0;
+	real P1_T number_per_cell;
+	P1_T.cellMLNames="e1_star.P1_T;model_parameters.P1_T;e1.P1_T";
+	P1_T=5E3;
+	real P3_T number_per_cell;
+	P3_T.cellMLNames="e3_star.P3_T;model_parameters.P3_T;e3.P3_T";
+	P3_T=5E3;
+	real P5_T number_per_cell;
+	P5_T.cellMLNames="e5_star.P5_T;model_parameters.P5_T;e5.P5_T";
+	P5_T=5E3;
+	real P2_T number_per_cell;
+	P2_T.cellMLNames="e2_star.P2_T;model_parameters.P2_T;e2.P2_T";
+	P2_T=5E3;
+	real P4_T number_per_cell;
+	P4_T.cellMLNames="e4_star.P4_T;model_parameters.P4_T;e4.P4_T";
+	P4_T=5E3;
+
+	// <component name="environment">
+
+	// <component name="c">
+	c:time=(L0/(kr/kf)*r+2*(ku/kr)*c2-(c+2*(R0/(kr/kc))*c^2));
+
+	// <component name="c2">
+	c2:time=(R0/(kr/kc)*c^2+kc_minus/kr*c_star-(ku/kr*c+kc_plus/kr*c2));
+
+	// <component name="c_star">
+	c_star:time=(kc_plus/kr*c2+kr_1/kr*(A1_T/R0)*c_star_a1+kr_12/kr*(A2_T/R0)*e0_star-(kc_minus/kr*c_star+kf_1*A1_T/kr*c_star*a1+kf_12*A1_T/kr*c_star*a1a2));
+
+	// <component name="c_star_a1">
+	c_star_a1:time=(kf_1*R0/kr*c_star*a1+kr_2/kr*(A2_T/A1_T)*e0_star+kcat_x/kr*(E4_T/A1_T)*e0_star_e4_star-(kr_1/kr*c_star_a1+kf_2*A2_T/kr*c_star_a1*a2));
+
+	// <component name="e0_star">
+	e0_star:time=(kf_2*A1_T/kr*c_star_a1*a2+kf_12*A1_T/kr*c_star*a1a2+(k1_minus+kcat_1)/kr*(E1_T/A2_T)*e1_e0_star+kx_minus/kr*(E4_T/A2_T)*e0_star_e4_star-(kr_2/kr*e0_star+kr_12/kr*e0_star+k1_plus*E1_T/kr*e0_star*e1+kx_plus*E4_T/kr*e0_star*e4_star));
+
+	// <component name="a1a2">
+	a1a2:time=(kr_12/kr*(A2_T/A1_T)*e0_star+kc_12*A2_T/kr*a1*a2-(kd_12/kr*a1a2+kf_12*R0/kr*c_star*a1a2));
+
+	// <component name="r">
+	r=((1 molar)-(c+2*(c2+c_star+A1_T/R0*c_star_a1+A2_T/R0*e0_star+E4_T/R0*e0_star_e4_star+E1_T/R0*e1_e0_star)));
+
+	// <component name="a1">
+	a1=((1 molar)-(c_star_a1+a1a2+A2_T/A1_T*e0_star+E4_T/A1_T*e0_star_e4_star+E1_T/A1_T*e1_e0_star));
+
+	// <component name="a2">
+	a2=((1 molar)-(A1_T/A2_T*a1a2+e0_star+E4_T/A2_T*e0_star_e4_star+E1_T/A2_T*e1_e0_star+a2_minus));
+
+	// <component name="a2_minus">
+	a2_minus:time=(kcat_x/kr*(E4_T/A2_T)*e0_star_e4_star);
+
+	// <component name="e1_star_p1">
+	e1_star_p1:time=(kP1_plus*E1_T/kr*e1_star*p1-(kP1_minus/kr+kcat_P1/kr)*e1_star_p1);
+
+	// <component name="e2_star_p2">
+	e2_star_p2:time=(kP2_plus*E2_T/kr*e2_star*p2-(kP2_minus/kr+kcat_P2/kr)*e2_star_p2);
+
+	// <component name="e3_star_p3">
+	e3_star_p3:time=(kP3_plus*E3_T/kr*e3_star*p3-(kP3_minus/kr+kcat_P3/kr)*e3_star_p3);
+
+	// <component name="e4_star_p4">
+	e4_star_p4:time=(kP4_plus*E4_T/kr*e4_star*p4-(kP4_minus/kr+kcat_P4/kr)*e4_star_p4);
+
+	// <component name="e5_star_p5">
+	e5_star_p5:time=(kP5_plus*E5_T/kr*e5_star*p5-(kP5_minus/kr+kcat_P5/kr)*e5_star_p5);
+
+	// <component name="e1_e0_star">
+	e1_e0_star:time=(k1_plus*A2_T/kr*e1*e0_star-(k1_minus/kr+kcat_1/kr)*e1_e0_star);
+
+	// <component name="e2_e1_star">
+	e2_e1_star:time=(k2_plus*E1_T/kr*e2*e1_star-(k2_minus/kr+kcat_2/kr)*e2_e1_star);
+
+	// <component name="e3_e2_star">
+	e3_e2_star:time=(k3_plus*E2_T/kr*e3*e2_star-(k3_minus/kr+kcat_3/kr)*e3_e2_star);
+
+	// <component name="e4_e3_star">
+	e4_e3_star:time=(k4_plus*E3_T/kr*e4*e3_star-(k4_minus/kr+kcat_4/kr)*e4_e3_star);
+
+	// <component name="e5_e4_star">
+	e5_e4_star:time=(k5_plus*E4_T/kr*e5*e4_star-(k5_minus/kr+kcat_5/kr)*e5_e4_star);
+
+	// <component name="e2_star_e4_star">
+	e2_star_e4_star:time=(kz_plus*E2_T/kr*e4_star*e2_star-(kz_minus/kr+kcat_z/kr)*e2_star_e4_star);
+
+	// <component name="e0_star_e4_star">
+	e0_star_e4_star:time=(kx_plus*A2_T/kr*e4_star*e0_star-(kx_minus/kr+kcat_x/kr)*e0_star_e4_star);
+
+	// <component name="e2_minus">
+	e2_minus:time=(kcat_z/kr*(E4_T/E2_T)*e2_star_e4_star);
+
+	// <component name="e1_star">
+	e1_star:time=(kcat_1/kr*e1_e0_star+(k2_minus+kcat_2)/kr*(E2_T/E1_T)*e2_e1_star+kP1_minus/kr*(P1_T/E1_T)*e1_star_p1-(k2_plus*E2_T/kr*e1_star*e2+kP1_plus*P1_T/kr*e1_star*p1));
+
+	// <component name="e3_star">
+	e3_star:time=(kcat_3/kr*e3_e2_star+(k4_minus+kcat_4)/kr*(E4_T/E3_T)*e4_e3_star+kP3_minus/kr*(P3_T/E3_T)*e3_star_p3-(k4_plus*E4_T/kr*e3_star*e4+kP3_plus*P3_T/kr*e3_star*p3));
+
+	// <component name="e5_star">
+	e5_star:time=(kcat_5/kr*e5_e4_star+kP5_minus/kr*(P5_T/E5_T)*e5_star_p5-kP5_plus*P5_T/kr*e5_star*p5);
+
+	// <component name="e2_star">
+	e2_star:time=(kcat_2/kr*e2_e1_star+(k3_minus+kcat_3)/kr*(E3_T/E2_T)*e3_e2_star+kP2_minus/kr*(P2_T/E2_T)*e2_star_p2+kz_minus/kr*(E4_T/E2_T)*e2_star_e4_star-(k3_plus*E3_T/kr*e2_star*e3+kP2_plus*P2_T/kr*e2_star*p2+kz_plus*E4_T/kr*e2_star*e4_star));
+
+	// <component name="e4_star">
+	e4_star:time=(kcat_4/kr*e4_e3_star+(k5_minus+kcat_5)/kr*(E5_T/E4_T)*e5_e4_star+kP4_minus/kr*(P4_T/E4_T)*e4_star_p4+(kx_minus/kr+kcat_x/kr)*e0_star_e4_star+(kz_minus/kr+kcat_z/kr)*e2_star_e4_star-(k5_plus*E5_T/kr*e4_star*e5+kP4_plus*P4_T/kr*e4_star*p4+kx_plus*A2_T/kr*e0_star*e4_star+kz_plus*E2_T/kr*e2_star*e4_star));
+
+	// <component name="p1">
+	p1=((1 molar)-e1_star_p1);
+
+	// <component name="p2">
+	p2=((1 molar)-e2_star_p2);
+
+	// <component name="p3">
+	p3=((1 molar)-e3_star_p3);
+
+	// <component name="p4">
+	p4=((1 molar)-e4_star_p4);
+
+	// <component name="p5">
+	p5=((1 molar)-e5_star_p5);
+
+	// <component name="e1">
+	e1=((1 molar)-(e1_e0_star+e1_star+E2_T/E1_T*e2_e1_star+P1_T/E1_T*e1_star_p1));
+
+	// <component name="e3">
+	e3=((1 molar)-(e3_e2_star+e3_star+E4_T/E3_T*e4_e3_star+P3_T/E3_T*e3_star_p3));
+
+	// <component name="e5">
+	e5=((1 molar)-(e5_e4_star+e5_star+P5_T/E5_T*e5_star_p5));
+
+	// <component name="e2">
+	e2=((1 molar)-(e3_e2_star+e3_star+E3_T/E2_T*e3_e2_star+E4_T/E2_T*e2_star_e4_star+P2_T/E2_T*e2_star_p2));
+
+	// <component name="e4">
+	e4=((1 molar)-(e4_e3_star+e4_star+E5_T/E4_T*e5_e4_star+P4_T/E4_T*e4_star_p4+e0_star_e4_star+e2_star_e4_star));
+
+	// <component name="model_parameters">
+	L0=(kr/kf);
+	kr_1=(kf_1*(1E-7 molar));
+	kr_2=(kf_2*(1E-7 molar));
+	kr_12=(kf_12*(1E-7 molar));
+	kd_12=(kc_12*(1E-7 molar));
+}
+

@@ -1,0 +1,48 @@
+import nsrunit;
+unit conversion on;
+unit minute=60 second^1;
+unit per_minute=.01666667 second^(-1);
+unit beats_per_minute=.01666667 second^(-1);
+unit minute_per_L=6E4 meter^(-3)*second^1;
+//Warning:  unit mmHg_ renamed from mmHg, as the latter is predefined in JSim with different fundamental units.
+unit mmHg_=133.322 kilogram^1*meter^(-1)*second^(-2);
+unit per_mmHg=.00750064 kilogram^(-1)*meter^1*second^2;
+unit mmHg_L=.133322 kilogram^1*meter^2*second^(-2);
+unit per_mmHg2=5.6259564E-5 kilogram^(-2)*meter^2*second^4;
+unit mmHg3=2.369766E6 kilogram^3*meter^(-3)*second^(-6);
+unit monovalent_mEq=.001 mole^1;
+unit monovalent_mEq_per_minute=1.6666667E-5 second^(-1)*mole^1;
+unit monovalent_mEq_per_litre=1 meter^(-3)*mole^1;
+unit mOsm=.001 mole^1;
+unit mOsm_per_litre=1 meter^(-3)*mole^1;
+unit mOsm_per_minute=1.6666667E-5 second^(-1)*mole^1;
+unit monovalent_mEq_per_litre_per_minute=.01666667 meter^(-3)*second^(-1)*mole^1;
+unit litre2_per_monovalent_mEq_per_minute=1.6666667E-5 meter^6*second^(-1)*mole^(-1);
+unit L_per_minute=1.6666667E-5 meter^3*second^(-1);
+unit per_mmHg_per_minute=1.2501063E-4 kilogram^(-1)*meter^1*second^1;
+unit mL=1E-6 meter^3;
+unit gram_per_L=1 kilogram^1*meter^(-3);
+unit L_mmHg_per_gram=133.322 meter^2*second^(-2);
+unit L2_mmHg_per_gram2=133.322 kilogram^(-1)*meter^5*second^(-2);
+unit mmHg_minute_per_L=7999320 kilogram^1*meter^(-4)*second^(-1);
+unit mmHg_L_per_minute=.00222203 kilogram^1*meter^2*second^(-3);
+unit gram_per_minute=1.6666667E-5 kilogram^1*second^(-1);
+unit mL_per_L=.001  dimensionless;
+unit mL_per_L_per_mmHg=7.5006376E-6 kilogram^(-1)*meter^1*second^2;
+unit mL_per_L_per_minute=1.6666667E-5 second^(-1);
+unit mL_per_minute_per_mmHg=1.2501063E-10 kilogram^(-1)*meter^4*second^1;
+unit L_mL_per_minute_per_mmHg=1.2501063E-13 kilogram^(-1)*meter^7*second^1;
+unit L_per_mL=1E3  dimensionless;
+unit L_per_mmHg=7.5006376E-6 kilogram^(-1)*meter^4*second^2;
+unit mL_per_minute=1.6666667E-8 meter^3*second^(-1);
+unit L_per_minute_per_mmHg=1.2501063E-7 kilogram^(-1)*meter^4*second^1;
+unit L_per_minute_per_mmHg2=9.376594E-10 kilogram^(-2)*meter^5*second^3;
+unit beats_per_minute_per_mmHg=1.2501063E-4 kilogram^(-1)*meter^1*second^1;
+unit mmHg_per_mL=1.33322E8 kilogram^1*meter^(-4)*second^(-2);
+property cellMLNames=string;
+
+math main {
+	//Note:  no math in this CellML model:  probably used for defining units or metadata only.
+	extern real all;
+}
+

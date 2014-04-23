@@ -1,0 +1,156 @@
+/*
+ * Macrophage dynamics in diabetic wound dealing
+ * 
+ * Model Status
+ * 
+ * This CellML version of the model runs in PCEnv to recreate the
+ * results in the published paper. The model has also been checked
+ * in COR and the units are consistent. This particular version
+ * of the model has alpha set to 0.8 and therefore it represents
+ * wound healing in a diabetic patient (figure 2, right hand column).
+ * 
+ * Model Structure
+ * 
+ * Wounds in diabetic patients can take much longer to heal than
+ * they would in a healthy individual; some taking up to 18 months
+ * to heal properly. This suggests the normal wound healing process
+ * is disrupted in some way in diabetic patients, but despite intensive
+ * research, the mechanisms underlying this process are still relatively
+ * poorly understood. However, by piecing together the information
+ * which has been obtained, it is possible to develop a simple
+ * mathematical model of the wound healing process and how it is
+ * influenced by diabetes.
+ * 
+ * The first stage of the wound healing process is inflammation,
+ * and macrophages are some of the first cells to be recruited
+ * to the site of injury. They are derived from monocytes and they
+ * differentiate into one of three types depending on the chemical
+ * stimulus they receive, namely; cytocidal (or killer), inflammatory,
+ * and repair macrophages. Killer macrophages remove bacteria and
+ * other debris from the wound site by phagocytosis, inflammatory
+ * macrophages secrete cytokines and chemokines to attract fibroblasts
+ * and endothelial cells to the wound and encourage their proliferation,
+ * while repair macrophages help to remodel the extracellular matrix
+ * of the wound. The ratio of inflammatory to repair macrophages
+ * seems to be a key determinant of the rate of wound healing.
+ * 
+ * In diabetic patients cell proliferation is often impaired, endothelial
+ * cells are more likely to undergo apoptosis, blood glucose levels
+ * are elevated, blood vessel growth is impaired, and there can
+ * be decreased collagen deposition at the wound site. Macrophage
+ * removal to the lymph nodes may also be impaired, which might
+ * explain the presence of macrophages at the wound site long after
+ * the inflammatory stage when they would have normally been cleared
+ * in a healthy individual.
+ * 
+ * To date, mathematical models of wound healing have tended to
+ * focus on the cell proliferation and repair stages of the wound
+ * process. However, in diabetic patients it seems the inflammatory
+ * phase should be modelled instead. In the paper described here,
+ * Helen Waugh and Jonathan Sherratt address this issue by developing
+ * a basic mathematical model of the inflammatory stage of the
+ * wound healing process, in particular focusing on the behaviour
+ * of the macrophage populations. This model is discussed in the
+ * context of the available biological data, and simulations are
+ * also used to suggest potential treatment strategies.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Macrophage dynamics in diabetic wound dealing, Helen V. Waugh
+ * and Jonathan A. Sherratt, 2006, Bulletin of Mathematical Biology,
+ * 68, 197-207. PubMed ID: 16794927
+ * 
+ * model diagram
+ * 
+ * [[Image file: waugh_2006.png]]
+ * 
+ * Schematic diagram of the Waugh-Sherratt model of macrophage
+ * dynamics in diabetic wound healing.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 3 equation(s)
+unit conversion off;
+unit day=86400 second^1;
+unit cells = fundamental;
+unit cells_per_mm3=1E9 meter^(-3)*cells^1;
+unit cells_per_mm3_day=1.1574074E4 meter^(-3)*second^(-1)*cells^1;
+unit cells_per_pg_day=1.1574074E10 kilogram^(-1)*second^(-1)*cells^1;
+unit mm3_cells_per_pg2_day=1.1574074E16 kilogram^(-2)*meter^3*second^(-1)*cells^1;
+unit mm6_cells_per_pg3_day=1.1574074E22 kilogram^(-3)*meter^6*second^(-1)*cells^1;
+unit per_cells_per_mm3=1E-9 meter^3*cells^(-1);
+unit pg_per_cells=1E-15 kilogram^1*cells^(-1);
+unit pg_per_mm3=1E-6 kilogram^1*meter^(-3);
+unit first_order_rate_constant=1.1574074E-5 second^(-1);
+unit second_order_rate_constant=1.1574074E-20 kilogram^1*second^(-1)*cells^(-1);
+//Warning:  unit cells_per_mm3_per_day unknown; assuming it is a fundamental unit.
+unit cells_per_mm3_per_day = fundamental;
+property cellMLNames=string;
+
+math main {
+	realDomain time day;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real phi_I(time) cells_per_mm3;
+	phi_I.cellMLNames="phi_I.phi_I;phi_R.phi_I;T.phi_I";
+	when(time=time.min) phi_I=200.0;
+	real alpha dimensionless;
+	alpha.cellMLNames="phi_I.alpha;model_parameters.alpha;phi_R.alpha";
+	alpha=0.8;
+	real k1 dimensionless;
+	k1.cellMLNames="phi_I.k1;model_parameters.k1;phi_R.k1";
+	k1=0.05;
+	real k2 first_order_rate_constant;
+	k2.cellMLNames="phi_I.k2;model_parameters.k2;phi_R.k2";
+	k2=0.693;
+	real k3 per_cells_per_mm3;
+	k3.cellMLNames="phi_I.k3;model_parameters.k3;phi_R.k3";
+	k3=0.002;
+	real d1 first_order_rate_constant;
+	d1.cellMLNames="phi_I.d1;model_parameters.d1;phi_R.d1";
+	d1=0.2;
+	real phi_R(time) cells_per_mm3;
+	phi_R.cellMLNames="phi_I.phi_R;phi_R.phi_R";
+	when(time=time.min) phi_R=200.0;
+	real K_T(time) cells_per_mm3_per_day;
+	K_T.cellMLNames="phi_I.K_T;K_T.K_T;phi_R.K_T";
+	real T(time) pg_per_mm3;
+	T.cellMLNames="T.T;K_T.T";
+	when(time=time.min) T=6.0;
+	real k4 second_order_rate_constant;
+	k4.cellMLNames="T.k4;model_parameters.k4";
+	k4=0.07;
+	real d2 first_order_rate_constant;
+	d2.cellMLNames="T.d2;model_parameters.d2";
+	d2=9.1;
+	real tau1 mm6_cells_per_pg3_day;
+	tau1.cellMLNames="K_T.tau1";
+	tau1=-2.47;
+	real tau2 mm3_cells_per_pg2_day;
+	tau2.cellMLNames="K_T.tau2";
+	tau2=21.94;
+	real tau3 cells_per_pg_day;
+	tau3.cellMLNames="K_T.tau3";
+	tau3=6.41;
+	real tau4 cells_per_mm3_day;
+	tau4.cellMLNames="K_T.tau4";
+	tau4=1.75;
+
+	// <component name="environment">
+
+	// <component name="phi_I">
+	phi_I:time=(alpha*K_T+k1*k2*phi_I*(1-k3*(phi_I+phi_R))-d1*phi_I);
+
+	// <component name="phi_R">
+	phi_R:time=((1-alpha)*K_T+k1*k2*phi_R*(1-k3*(phi_I+phi_R))-d1*phi_R);
+
+	// <component name="T">
+	T:time=(k4*phi_I-d2*T);
+
+	// <component name="K_T">
+	K_T=(tau1*T^3+tau2*T^2+tau3*T+tau4);
+
+	// <component name="model_parameters">
+}
+

@@ -1,0 +1,64 @@
+/*
+ * A Model for Circadian Rhythms in Drosophila Incorporating the
+ * Formation of a Complex between the PER and TIM Proteins
+ * 
+ * Model Status
+ * 
+ * This is an import for the model "leloup_1998a_1.1model.cellml".
+ * It is used to define a reoccuring structure within the model
+ * and may be used for multiple equations in the model. This file
+ * is known to run only in OpenCell in conjunction with the base
+ * file.
+ */
+
+import nsrunit;
+unit conversion on;
+unit hour=3600 second^1;
+unit per_hour=2.7777778E-4 second^(-1);
+unit per_litre=1E3 meter^(-3);
+// unit nanomolar predefined
+unit nanomolar_hour=2.7777778E-10 meter^(-3)*second^(-1)*mole^1;
+unit per_nanomolar_hour=2.7777778E2 meter^3*second^(-1)*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  Y_0, Y_2, V_1, V_2, V_3, V_4, K_1, K_2, K_3,
+	//  K_4, k_d, Y_1init
+	realDomain time hour;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	extern real Y_0 nanomolar;
+	Y_0.cellMLNames="interface.Y_0";
+	extern real Y_2 nanomolar;
+	Y_2.cellMLNames="interface.Y_2";
+	extern real V_1 nanomolar_hour;
+	V_1.cellMLNames="interface.V_1";
+	extern real V_2 nanomolar_hour;
+	V_2.cellMLNames="interface.V_2";
+	extern real V_3 nanomolar_hour;
+	V_3.cellMLNames="interface.V_3";
+	extern real V_4 nanomolar_hour;
+	V_4.cellMLNames="interface.V_4";
+	extern real K_1 nanomolar;
+	K_1.cellMLNames="interface.K_1";
+	extern real K_2 nanomolar;
+	K_2.cellMLNames="interface.K_2";
+	extern real K_3 nanomolar;
+	K_3.cellMLNames="interface.K_3";
+	extern real K_4 nanomolar;
+	K_4.cellMLNames="interface.K_4";
+	extern real k_d per_hour;
+	k_d.cellMLNames="interface.k_d";
+	extern real Y_1init nanomolar;
+	Y_1init.cellMLNames="interface.Y_1init";
+	real Y_1(time) nanomolar;
+	Y_1.cellMLNames="interface.Y_1";
+	when(time=time.min) Y_1=Y_1init;
+
+	// <component name="interface">
+	Y_1:time=(V_1*(Y_0/(K_1+Y_0))-V_2*(Y_1/(K_2+Y_1))-V_3*(Y_1/(K_3+Y_1))+V_4*(Y_2/(K_4+Y_2))-k_d*Y_1);
+}
+

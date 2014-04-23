@@ -1,0 +1,96 @@
+// This model generated automatically from SBML
+// WARNING: SBML events are not currently supported: _E0
+// WARNING: SBML events are not currently supported: _E1
+// WARNING: SBML events are not currently supported: _E2
+// WARNING: SBML events are not currently supported: _E3
+// WARNING: SBML events are not currently supported: _E4
+// WARNING: SBML events are not currently supported: _E5
+// WARNING: SBML events are not currently supported: _E6
+// WARNING: SBML events are not currently supported: _E7
+// WARNING: Renamed variable _J0 to xxx_J0 due to JSim namespace restrictions
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// _J0: S3 S1refS1 => S2refS2 
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real comp(time) L;
+  real comp2(time) L;
+  real kavo;
+  real k1 = 1.1;
+  real k3 = 2.5;
+  real k4(time);
+  real k5 = 2.8;
+  real k2 = 8.12;
+  real conversion1 = 10;
+  real conversion2 = 100;
+  real S1(time) M;
+  real S2(time) M;
+  real S3 = 4 mol;
+  real S4 mol;
+  real S1ref;
+  real S2ref(time);
+  real xxx_J0(time) katal;
+  real xxx_J0_k1 = 1;
+  private real kinetics_call0(time);
+
+  // equations
+  when (time=time.min) comp = 5;
+  comp:time = 1;
+  comp2 = k4;
+  kavo = 6.02214179E23/6.0219999999999996E23;
+  when (time=time.min) k4 = 1;
+  k4:time = time;
+  when (time=time.min) S1 = 1/comp;
+  (S1*comp):time = conversion1*(-S1ref*xxx_J0);
+  when (time=time.min) S2 = 3;
+  (S2*comp2):time = conversion1*(S2ref*xxx_J0);
+  when (time=time.min) S4 = 2*comp2;
+  S1ref = k1;
+  S2ref = k1*S1;
+  xxx_J0 = kinetics_call0;
+  kinetics_call0 = ((-1)*xxx_J0_k1+k2+k3+k4+k5+S1+S1ref+S3+S4+S2)/10;
+
+  // Used function definitions
+  // Function definition kinetics(a,b,c,d,e,f,g,h,i,j)=((-1)*a+b+c+d+e+f+g+h+i+j)/10;
+
+  // variable properties
+  comp.sbmlRole="compartment";
+  comp2.sbmlRole="compartment";
+  kavo.sbmlRole="parameter";
+  k1.sbmlRole="parameter";
+  k3.sbmlRole="parameter";
+  k4.sbmlRole="parameter";
+  k5.sbmlRole="parameter";
+  k2.sbmlRole="parameter";
+  conversion1.sbmlRole="parameter";
+  conversion2.sbmlRole="parameter";
+  S1.sbmlRole="species";
+  S1.sbmlCompartment="comp";
+  S2.sbmlRole="species";
+  S2.sbmlCompartment="comp2";
+  S3.sbmlRole="species";
+  S3.sbmlCompartment="comp2";
+  S4.sbmlRole="species";
+  S4.sbmlCompartment="comp2";
+  S1ref.sbmlRole="species reference";
+  S2ref.sbmlRole="species reference";
+  xxx_J0.sbmlRole="rate";
+  xxx_J0.sbmlName="_J0";
+  xxx_J0_k1.sbmlRole="parameter";
+}
+

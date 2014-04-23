@@ -1,0 +1,43 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real u
+  add var: real v
+Loading Constraints
+  u=1 :: [u]
+  double.1[u, v]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: procedure double.1[u, v]
+Toolbox phase - cycle 1:
+  check eqn: u=1; [u]
+  add tool: u=1
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  procedure double.1[u, v] :: [v]<<[u]
+  u=1 :: [u]<<[]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode v seqLoops=() phase=main fft=null
+  addNode u seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding u=1 to main
+  adding procedure double.1[u, v] to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  u=1
+  procedure double.1[u, v]
+

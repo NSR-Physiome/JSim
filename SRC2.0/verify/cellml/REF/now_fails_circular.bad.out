@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model now_fails_circu
+aborted: Circular variable dependency: [J_Ca_CSQN,Ca_rel:time,Ca_CSQN:time,J_Ca_CSQN]
+
+
+

@@ -1,0 +1,4 @@
+
+JSim.util.Xcept: Model MultiFlowBTEX10
+aborted: Ngrid for LSFEA solver must be at least 39 because of velocity ratios
+

@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: CellML component TempCDa
+Equation or relation expected but found:
+   'if ((TempCDa.Ag>=(-1E-5)) and (TempCDa.Ag<TempCDa.AgMax)) TempCDa.W:TempCDa.t=(TempCDa.Kp*(TempCDa.Pi-TempCDa.Po)*cos(TempCDa.Ag)-TempCDa.Kf*TempCDa.W+TempCDa.Kb*TempCDa.Qo*cos(TempCDa.Ag)) else TempCDa.W=0'
+ If this is a partial differential equation model, JSim cannot yet translate these models.
+

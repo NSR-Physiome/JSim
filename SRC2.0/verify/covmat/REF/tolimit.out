@@ -1,0 +1,9 @@
+   Parm        value       +/- 1SD     90%       95%       99%   
+    PSg         2.5         5.09      8.649    10.4111   14.0311 
+   Visfp        .11         .0921     .1565     .1884     .2539  
+
+Correlation matrix: (condition number=3.742E3)
+              PSg      Visfp  
+    PSg        1       .429   
+   Visfp     .429        1    
+

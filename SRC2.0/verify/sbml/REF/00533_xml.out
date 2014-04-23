@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="S4" value="0" units="M" constant="false"/>
+      <parameter id="S3" value="0" units="M" constant="false"/>
+      <parameter id="S2" units="M" constant="false"/>
+      <parameter id="S1" units="M" constant="false"/>
+      <parameter id="k3" value="0.7" constant="true"/>
+      <parameter id="k2" constant="false"/>
+      <parameter id="k1" value="10" constant="true"/>
+      <parameter id="reaction3" units="katal" constant="false"/>
+      <parameter id="C" value="1" units="litre" constant="true"/>
+      <parameter id="reaction2" units="katal" constant="false"/>
+      <parameter id="reaction1" units="katal" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 0.2 </cn>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 0.2 </cn>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> reaction1 </ci>
+                <cn> -1 </cn>
+              </apply>
+              <ci> reaction2 </ci>
+            </apply>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> reaction1 </ci>
+              <apply>
+                <times/>
+                <ci> reaction2 </ci>
+                <cn> -1 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> reaction3 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> reaction3 </ci>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="reaction1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C </ci>
+            <ci> k1 </ci>
+            <ci> S1 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C </ci>
+            <ci> k2 </ci>
+            <ci> S3 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C </ci>
+            <ci> k3 </ci>
+            <ci> S3 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="k2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <cn> 0 </cn>
+            <cn> -0.9 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> reaction1 </ci>
+                <cn> -1 </cn>
+              </apply>
+              <ci> reaction2 </ci>
+              <ci> reaction3 </ci>
+            </apply>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+

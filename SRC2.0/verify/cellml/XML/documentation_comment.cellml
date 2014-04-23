@@ -1,0 +1,4022 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<model xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" name="malys_2010" cmeta:id="malys_2010" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>A systems biology pipeline for biochemical networks, and its application to yeast glycolysis</title>
+  <author>
+    <firstname>Geoff</firstname>
+          <surname>Nunns</surname>
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+        This CellML model runs in OpenCell and COR to reproduce the results of the original model. The CellML translation was based on the original SBML code supplied by the model authors. The units have been checked and they are consistent.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+  <title>Model Structure</title>
+
+<para>
+ABSTRACT: 
+</para>
+
+<informalfigure float="0" id="fig_reaction_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>model diagram</title>
+    </objectinfo>
+    <imagedata fileref="malys_2010.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic diagram of the glycolysis pathway described by the model.</caption>
+</informalfigure>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+A systems biology pipeline for biochemical networks, and its application to yeast glycolysis, Naglis Malys, Hanan Messiha, Kathleen Carroll, Warwick Dunn, Farid Khan, Neil W. Hayes, Pinar Pir, Evangelos Simeonidis, Kieran Smallbone, Irena Spasic, Neil Swainston, Daniel Jameson, Alice Villeger, Dieter Weichart, Cate Winder, Jill Wishart, David S. Broomhead, Simon J. Gaskell, Douglas B. Kell, John E.G. McCarthy, Stephen G. Oliver, Norman Paton, Hans V. Westerhoff and Pedro Mendes, 2010, <!-- 
+            <emphasis>Free Radical Biology and Medicine</emphasis>
+         , 42, 811-822. <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=pubmed&amp;cmd=Retrieve&amp;dopt=AbstractPlus&amp;list_uids=17320763&amp;query_hl=1&amp;itool=pubmed_docsum">PubMed ID: 17320763</ulink> -->
+</para>
+
+</sect1>
+</article>
+</documentation> 
+
+   
+   
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="mM">
+      <unit units="mole" prefix="-3"/>
+      <unit units="litre" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="mM_per_second">
+      <unit units="mole" prefix="-3"/>
+      <unit units="litre" exponent="-1"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="mmol_per_second">
+      <unit units="mole" prefix="-3"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_mM_per_second">
+      <unit units="mole" prefix="-3" exponent="-1"/>
+      <unit units="litre"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_mM_squared_per_second">
+      <unit units="mole" prefix="-3" exponent="-2"/>
+      <unit units="litre" exponent="2"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_mmol">
+      <unit units="mole" prefix="-3" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_second">
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="item">
+      <unit units="mole" exponent="-24" multiplier="1.66053878233550918318605"/>
+   </units>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="environment">
+      <variable name="time" units="second" public_interface="out"/>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="parameters">
+      <variable name="cell_volume" units="litre" initial_value="2.155e-14" public_interface="out"/>
+      <variable name="Kacald_adh" units="mM" initial_value="1.11" public_interface="out"/>
+      <variable name="Kadp_hxk" units="mM" initial_value="0.23" public_interface="out"/>
+      <variable name="Katp_pyk" units="mM" initial_value="1.5" public_interface="out"/>
+      <variable name="Kbpg_tdh" units="mM" initial_value="0.909" public_interface="out"/>
+      <variable name="kcat_adh" units="per_second" initial_value="112.3" public_interface="out"/>
+      <variable name="Keq_adh" units="dimensionless" initial_value="6.9e-5" public_interface="out"/>
+      <variable name="Keq_gpm" units="dimensionless" initial_value="0.19" public_interface="out"/>
+      <variable name="Keq_hxk" units="dimensionless" initial_value="2000" public_interface="out"/>
+      <variable name="Keq_tdh" units="dimensionless" initial_value="0.005334" public_interface="out"/>
+      <variable name="Ketoh_adh" units="mM" initial_value="17" public_interface="out"/>
+      <variable name="Kg6p_hxk" units="mM" initial_value="30" public_interface="out"/>
+      <variable name="Kiacald_adh" units="mM" initial_value="1.1" public_interface="out"/>
+      <variable name="Kietoh_adh" units="mM" initial_value="90" public_interface="out"/>
+      <variable name="Kinad_adh" units="mM" initial_value="0.92" public_interface="out"/>
+      <variable name="Kinadh_adh" units="mM" initial_value="0.031" public_interface="out"/>
+      <variable name="Knad_adh" units="mM" initial_value="0.17" public_interface="out"/>
+      <variable name="Knad_tdh" units="mM" initial_value="0.09" public_interface="out"/>
+      <variable name="Knadh_adh" units="mM" initial_value="0.11" public_interface="out"/>
+      <variable name="Knadh_tdh" units="mM" initial_value="0.06" public_interface="out"/>
+      <variable name="Kp2g_gpm" units="mM" initial_value="0.08" public_interface="out"/>
+      <variable name="N_A" units="per_mmol" initial_value="6.02214179e20" public_interface="out"/>
+      <variable name="percentage_cell_wall" units="dimensionless" initial_value="21.8" public_interface="out"/>
+      <variable name="percentage_cytoplasm" units="dimensionless" initial_value="47.5" public_interface="out"/>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="cytoplasm">
+      <variable name="c_1" units="litre" initial_value="1.023625e-14" public_interface="out"/>
+      <variable name="x_01" units="mM" initial_value="0.329796102" public_interface="out"/>
+      <variable name="x_02" units="mM" initial_value="0.005534" public_interface="out"/>
+      <variable name="x_03" units="mM" initial_value="0.1781" public_interface="out"/>
+      <variable name="x_04" units="mM" initial_value="1.138794213" public_interface="out"/>
+      <variable name="x_05" units="mM" initial_value="0.655861111" public_interface="out"/>
+      <variable name="x_06" units="mM" initial_value="4.394577666" public_interface="out"/>
+      <variable name="x_08" units="mM" initial_value="2.045611826" public_interface="out"/>
+      <variable name="x_09" units="mM" initial_value="0.02" public_interface="out"/>
+      <variable name="x_10" units="mM" initial_value="0.114998749" public_interface="out"/>
+      <variable name="x_11" units="mM" initial_value="2.728563911" public_interface="out"/>
+      <variable name="x_12" units="mM" initial_value="0.484555315" public_interface="out"/>
+      <variable name="x_13" units="mM" initial_value="0.047547092" public_interface="out"/>
+      <variable name="x_14" units="mM" initial_value="1.072770104" public_interface="out"/>
+      <variable name="x_15" units="mM" initial_value="108.3801159" public_interface="out"/>
+      <variable name="x_16" units="mM" initial_value="0.081078255" public_interface="out"/>
+      <variable name="x_17" units="mM" initial_value="36.32137097" public_interface="out"/>
+      <variable name="x_18" units="mM" initial_value="0.133832653" public_interface="out"/>
+      <variable name="x_21" units="mM" initial_value="1.503" public_interface="out"/>
+      <variable name="x_22" units="mM" initial_value="0.08671" public_interface="out"/>
+      <variable name="x_23" units="mM" initial_value="1" public_interface="out"/>
+      <variable name="x_24" units="mM" initial_value="0.223865529" public_interface="out"/>
+      <variable name="x_25" units="mM" initial_value="1.604207403" public_interface="out"/>
+      <variable name="x_29" units="mM" initial_value="0.985981656" public_interface="out"/>
+      <variable name="x_30" units="mM" initial_value="0" public_interface="out"/>
+      <variable name="x_31" units="mM" initial_value="0.050093968" public_interface="out"/>
+      <variable name="x_32" units="mM" initial_value="0.020212786" public_interface="out"/>
+      <variable name="x_33" units="mM" initial_value="0.456977678" public_interface="out"/>
+      <variable name="x_36" units="mM" initial_value="0.535655056" public_interface="out"/>
+      <variable name="x_45" units="mM" initial_value="0.010026905" public_interface="out"/>
+      <variable name="x_46" units="mM" initial_value="0.022824551" public_interface="out"/>
+      <variable name="x_47" units="mM" initial_value="0.014453927" public_interface="out"/>
+      <variable name="x_48" units="mM" initial_value="0.005698838" public_interface="out"/>
+      <variable name="x_49" units="mM" initial_value="2.597164579" public_interface="out"/>
+      <variable name="x_50" units="mM" initial_value="0.027610082" public_interface="out"/>
+      <variable name="x_51" units="mM" initial_value="0.76828054" public_interface="out"/>
+      <variable name="x_55" units="mM" initial_value="1.103267726" public_interface="out"/>
+      <variable name="x_57" units="mM" initial_value="0.111300101" public_interface="out"/>
+      <variable name="x_60" units="mM" initial_value="0.223216643" public_interface="out"/>
+      <variable name="x_62" units="mM" initial_value="0.966352867" public_interface="out"/>
+      <variable name="x_63" units="mM" initial_value="0.537277269" public_interface="out"/>
+      <variable name="x_64" units="mM" initial_value="0.770064975" public_interface="out"/>
+      <variable name="x_66" units="mM" initial_value="0" public_interface="out"/>
+      <variable name="x_68" units="mM" initial_value="0.027610082" public_interface="out"/>
+      <variable name="x_69" units="mM" initial_value="0" public_interface="out"/>
+      <variable name="x_72" units="mM" initial_value="0.079456041" public_interface="out"/>
+      <variable name="x_74" units="mM" initial_value="0.004407555" public_interface="out"/>
+      <variable name="x_77" units="mM" initial_value="0.027610082" public_interface="out"/>
+      <variable name="time" units="second" public_interface="in"/>
+      <variable name="r_01" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_02" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_03" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_04" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_05" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_06" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_07" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_08" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_09" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_10" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_11" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_12" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_13" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_14" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_15" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_16" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_17" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_18" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_19" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_20" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_21" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_22" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_23" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_24" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_25" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_26" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_27" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_28" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_29" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_30" units="mmol_per_second" public_interface="in"/>
+      <variable name="r_31" units="mmol_per_second" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_01</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_24</ci>
+                  <ci>r_25</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_02</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <plus/>
+                     <ci>r_14</ci>
+                     <ci>r_15</ci>
+                     <ci>r_16</ci>
+                  </apply>
+                  <ci>r_24</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_03</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>r_05</ci>
+                           <ci>r_26</ci>
+                           <ci>r_27</ci>
+                           <ci>r_28</ci>
+                        </apply>
+                        <ci>r_02</ci>
+                     </apply>
+                     <ci>r_03</ci>
+                  </apply>
+                  <ci>r_04</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_04</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="dimensionless">2</cn>
+                              <ci>r_01</ci>
+                           </apply>
+                           <ci>r_06</ci>
+                           <ci>r_19</ci>
+                           <ci>r_20</ci>
+                           <ci>r_21</ci>
+                           <ci>r_23</ci>
+                        </apply>
+                        <ci>r_24</ci>
+                     </apply>
+                     <ci>r_29</ci>
+                  </apply>
+                  <ci>r_30</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_05</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_01</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_06</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <minus/>
+                                 <apply>
+                                    <plus/>
+                                    <ci>r_24</ci>
+                                    <ci>r_29</ci>
+                                    <ci>r_30</ci>
+                                 </apply>
+                                 <ci>r_01</ci>
+                              </apply>
+                              <ci>r_06</ci>
+                           </apply>
+                           <ci>r_19</ci>
+                        </apply>
+                        <ci>r_20</ci>
+                     </apply>
+                     <ci>r_21</ci>
+                  </apply>
+                  <ci>r_23</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_08</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_23</ci>
+                  <ci>r_11</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_09</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_10</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_13</ci>
+                  <ci>r_23</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_11</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <ci>r_12</ci>
+                        <ci>r_19</ci>
+                     </apply>
+                     <ci>r_20</ci>
+                  </apply>
+                  <ci>r_21</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_12</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <plus/>
+                     <ci>r_19</ci>
+                     <ci>r_20</ci>
+                     <ci>r_21</ci>
+                  </apply>
+                  <ci>r_13</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_13</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <ci>r_25</ci>
+                     <ci>r_08</ci>
+                  </apply>
+                  <ci>r_09</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_14</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <ci>r_11</ci>
+                     <ci>r_18</ci>
+                  </apply>
+                  <ci>r_31</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_15</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <plus/>
+                        <ci>r_02</ci>
+                        <ci>r_03</ci>
+                        <ci>r_04</ci>
+                     </apply>
+                     <ci>r_05</ci>
+                  </apply>
+                  <ci>r_10</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_16</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>r_11</ci>
+                           <ci>r_31</ci>
+                        </apply>
+                        <ci>r_14</ci>
+                     </apply>
+                     <ci>r_15</ci>
+                  </apply>
+                  <ci>r_16</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_17</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_18</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_18</ci>
+                  <ci>r_17</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_21</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>r_02</ci>
+                              <ci>r_03</ci>
+                              <ci>r_04</ci>
+                              <ci>r_18</ci>
+                              <ci>r_22</ci>
+                           </apply>
+                           <ci>r_05</ci>
+                        </apply>
+                        <ci>r_14</ci>
+                     </apply>
+                     <ci>r_15</ci>
+                  </apply>
+                  <ci>r_16</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_22</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <plus/>
+                                 <ci>r_05</ci>
+                                 <ci>r_14</ci>
+                                 <ci>r_15</ci>
+                                 <ci>r_16</ci>
+                              </apply>
+                              <ci>r_02</ci>
+                           </apply>
+                           <ci>r_03</ci>
+                        </apply>
+                        <ci>r_04</ci>
+                     </apply>
+                     <ci>r_18</ci>
+                  </apply>
+                  <ci>r_22</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_23</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_24</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <plus/>
+                        <ci>r_08</ci>
+                        <ci>r_09</ci>
+                     </apply>
+                     <ci>r_29</ci>
+                  </apply>
+                  <ci>r_30</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_25</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>r_29</ci>
+                              <ci>r_30</ci>
+                           </apply>
+                           <ci>r_07</ci>
+                        </apply>
+                        <ci>r_26</ci>
+                     </apply>
+                     <ci>r_27</ci>
+                  </apply>
+                  <ci>r_28</ci>
+               </apply>
+               <ci>c_1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_29</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_30</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_31</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_32</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_33</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_36</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_45</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_46</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_47</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_48</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_49</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_50</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_51</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_55</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_57</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_60</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_62</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_63</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_64</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_66</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_68</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_69</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_72</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_74</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_77</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="extracellular">
+      <variable name="size" units="litre" initial_value="1" public_interface="out"/>
+      <variable name="x_26" units="mM" initial_value="51.11" public_interface="out"/>
+      <variable name="time" units="second" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>x_26</ci>
+            </apply>
+            <cn cellml:units="mM_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="plasma_membrane">
+      <variable name="size" units="litre" initial_value="4.6979e-15" public_interface="out"/>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_01">
+      <variable name="r_01" units="mmol_per_second" public_interface="out"/>
+      <variable name="k" units="per_mM_per_second" initial_value="1.667"/>
+      <variable name="Keq" units="dimensionless" initial_value="0.45"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_05" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_01</ci>
+            <apply>
+               <times/>
+               <ci>c_1</ci>
+               <ci>k</ci>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <times/>
+                     <ci>x_06</ci>
+                     <ci>x_05</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_04</ci>
+                        <ci>x_04</ci>
+                     </apply>
+                     <ci>Keq</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_02">
+      <variable name="r_02" units="mmol_per_second" public_interface="out"/>
+      <variable name="Kacald_adh" units="mM" public_interface="in"/>
+      <variable name="Keq_adh" units="dimensionless" public_interface="in"/>
+      <variable name="Ketoh_adh" units="mM" public_interface="in"/>
+      <variable name="Knad_adh" units="mM" public_interface="in"/>
+      <variable name="Knadh_adh" units="mM" public_interface="in"/>
+      <variable name="Kiacald_adh" units="mM" public_interface="in"/>
+      <variable name="Kietoh_adh" units="mM" public_interface="in"/>
+      <variable name="Kinad_adh" units="mM" public_interface="in"/>
+      <variable name="Kinadh_adh" units="mM" public_interface="in"/>
+      <variable name="kcat_adh" units="per_second" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_03" units="mM" public_interface="in"/>
+      <variable name="x_15" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_47" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_02</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <apply>
+                     <minus/>
+                     <ci>x_47</ci>
+                  </apply>
+                  <ci>kcat_adh</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_15</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_03</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                           <ci>Keq_adh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_21</ci>
+                     <ci>Kinad_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_22</ci>
+                     <ci>Kinadh_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_22</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kacald_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kiacald_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kietoh_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_03">
+      <variable name="r_03" units="mmol_per_second" public_interface="out"/>
+      <variable name="Kacald_adh" units="mM" public_interface="in"/>
+      <variable name="Keq_adh" units="dimensionless" public_interface="in"/>
+      <variable name="Ketoh_adh" units="mM" public_interface="in"/>
+      <variable name="Knad_adh" units="mM" public_interface="in"/>
+      <variable name="Knadh_adh" units="mM" public_interface="in"/>
+      <variable name="Kiacald_adh" units="mM" public_interface="in"/>
+      <variable name="Kietoh_adh" units="mM" public_interface="in"/>
+      <variable name="Kinad_adh" units="mM" public_interface="in"/>
+      <variable name="Kinadh_adh" units="mM" public_interface="in"/>
+      <variable name="kcat_adh" units="per_second" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_03" units="mM" public_interface="in"/>
+      <variable name="x_15" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_30" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_03</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <apply>
+                     <minus/>
+                     <ci>x_30</ci>
+                  </apply>
+                  <ci>kcat_adh</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_15</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_03</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                           <ci>Keq_adh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_21</ci>
+                     <ci>Kinad_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_22</ci>
+                     <ci>Kinadh_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_22</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kacald_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kiacald_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kietoh_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald_adh</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_04">
+      <variable name="r_04" units="mmol_per_second" public_interface="out"/>
+      <variable name="Kacald" units="mM" initial_value="0.4622"/>
+      <variable name="Kacald_adh" units="mM" public_interface="in"/>
+      <variable name="Keq_adh" units="dimensionless" public_interface="in"/>
+      <variable name="Ketoh_adh" units="mM" public_interface="in"/>
+      <variable name="Knad_adh" units="mM" public_interface="in"/>
+      <variable name="Knadh_adh" units="mM" public_interface="in"/>
+      <variable name="Kiacald_adh" units="mM" public_interface="in"/>
+      <variable name="Kietoh_adh" units="mM" public_interface="in"/>
+      <variable name="Kinad_adh" units="mM" public_interface="in"/>
+      <variable name="Kinadh_adh" units="mM" public_interface="in"/>
+      <variable name="kcat_adh" units="per_second" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_03" units="mM" public_interface="in"/>
+      <variable name="x_15" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_72" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_04</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <apply>
+                     <minus/>
+                     <ci>x_72</ci>
+                  </apply>
+                  <ci>kcat_adh</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_15</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_03</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Ketoh_adh</ci>
+                           <ci>Kinad_adh</ci>
+                           <ci>Keq_adh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_21</ci>
+                     <ci>Kinad_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_22</ci>
+                     <ci>Kinadh_adh</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                        <ci>Knadh_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_22</ci>
+                        <ci>Knad_adh</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kacald</ci>
+                        <ci>Kinadh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_21</ci>
+                        <ci>x_03</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kinad_adh</ci>
+                        <ci>Kiacald_adh</ci>
+                        <ci>Ketoh_adh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_15</ci>
+                        <ci>x_03</ci>
+                        <ci>x_22</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kietoh_adh</ci>
+                        <ci>Kinadh_adh</ci>
+                        <ci>Kacald</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_05">
+      <variable name="r_05" units="mmol_per_second" public_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_05</ci>
+            <cn cellml:units="mmol_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_06">
+      <variable name="r_06" units="mmol_per_second" public_interface="out"/>
+      <variable name="k" units="per_second" initial_value="0.4011"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_06</ci>
+            <apply>
+               <times/>
+               <ci>c_1</ci>
+               <ci>k</ci>
+               <ci>x_06</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_07">
+      <variable name="r_07" units="mmol_per_second" public_interface="out"/>
+      <variable name="k" units="per_second" initial_value="0.319"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_25" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_07</ci>
+            <apply>
+               <times/>
+               <ci>c_1</ci>
+               <ci>k</ci>
+               <ci>x_25</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_08">
+      <variable name="r_08" units="mmol_per_second" public_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_08</ci>
+            <cn cellml:units="mmol_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_09">
+      <variable name="r_09" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="26.5"/>
+      <variable name="Kp2g" units="mM" initial_value="0.066"/>
+      <variable name="Keq" units="dimensionless" initial_value="6.7"/>
+      <variable name="Kpep" units="mM" initial_value="0.5"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_13" units="mM" public_interface="in"/>
+      <variable name="x_24" units="mM" public_interface="in"/>
+      <variable name="x_51" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_09</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_51</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <ci>x_13</ci>
+                        <ci>Kp2g</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_24</ci>
+                        <apply>
+                           <times/>
+                           <ci>Kp2g</ci>
+                           <ci>Keq</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_13</ci>
+                     <ci>Kp2g</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_24</ci>
+                     <ci>Kpep</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_10">
+      <variable name="r_10" units="mmol_per_second" public_interface="out"/>
+      <variable name="k" units="per_second" initial_value="0.01384"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_15" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_10</ci>
+            <apply>
+               <times/>
+               <ci>c_1</ci>
+               <ci>k</ci>
+               <ci>x_15</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_11">
+      <variable name="r_11" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="4.139"/>
+      <variable name="Kf16bp" units="mM" initial_value="0.4507"/>
+      <variable name="Kdhap" units="mM" initial_value="2"/>
+      <variable name="Kgap" units="mM" initial_value="2.4"/>
+      <variable name="Kigap" units="mM" initial_value="10"/>
+      <variable name="Keq" units="mM" initial_value="0.069"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_08" units="mM" public_interface="in"/>
+      <variable name="x_14" units="mM" public_interface="in"/>
+      <variable name="x_16" units="mM" public_interface="in"/>
+      <variable name="x_62" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_11</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_62</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <ci>x_08</ci>
+                        <ci>Kf16bp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_14</ci>
+                           <ci>x_16</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kf16bp</ci>
+                           <ci>Keq</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_08</ci>
+                     <ci>Kf16bp</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_14</ci>
+                     <ci>Kdhap</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_16</ci>
+                     <ci>Kgap</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_08</ci>
+                        <ci>x_16</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kf16bp</ci>
+                        <ci>Kigap</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>x_14</ci>
+                        <ci>x_16</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kdhap</ci>
+                        <ci>Kgap</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_12">
+      <variable name="r_12" units="mmol_per_second" public_interface="out"/>
+      <variable name="Vmax" units="mM_per_second" initial_value="3.774"/>
+      <variable name="Kglc" units="mM" initial_value="1.192"/>
+      <variable name="Ki" units="dimensionless" initial_value="0.91"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_11" units="mM" public_interface="in"/>
+      <variable name="x_26" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_12</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>c_1</ci>
+                     <ci>Vmax</ci>
+                     <apply>
+                        <minus/>
+                        <ci>x_26</ci>
+                        <ci>x_11</ci>
+                     </apply>
+                  </apply>
+                  <ci>Kglc</ci>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_26</ci>
+                     <ci>Kglc</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_11</ci>
+                     <ci>Kglc</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <ci>Ki</ci>
+                              <ci>x_26</ci>
+                           </apply>
+                           <ci>Kglc</ci>
+                        </apply>
+                        <ci>x_11</ci>
+                     </apply>
+                     <ci>Kglc</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_13">
+      <variable name="r_13" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="487.4"/>
+      <variable name="Kg6p" units="mM" initial_value="1.03"/>
+      <variable name="Kf6p" units="mM" initial_value="0.307"/>
+      <variable name="Keq" units="dimensionless" initial_value="0.29"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_10" units="mM" public_interface="in"/>
+      <variable name="x_12" units="mM" public_interface="in"/>
+      <variable name="x_31" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_13</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_31</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <ci>x_12</ci>
+                        <ci>Kg6p</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_10</ci>
+                        <apply>
+                           <times/>
+                           <ci>Kg6p</ci>
+                           <ci>Keq</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_12</ci>
+                     <ci>Kg6p</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_10</ci>
+                     <ci>Kf6p</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_14">
+      <variable name="r_14" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="19.12"/>
+      <variable name="Kgap" units="mM" initial_value="0.495"/>
+      <variable name="Kbpg_tdh" units="mM" public_interface="in"/>
+      <variable name="Keq_tdh" units="dimensionless" public_interface="in"/>
+      <variable name="Knad_tdh" units="mM" public_interface="in"/>
+      <variable name="Knadh_tdh" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_02" units="mM" public_interface="in"/>
+      <variable name="x_16" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_57" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_14</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_57</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_16</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_02</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                           <ci>Keq_tdh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_16</ci>
+                        <ci>Kgap</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_02</ci>
+                        <ci>Kbpg_tdh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_21</ci>
+                        <ci>Knad_tdh</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_22</ci>
+                        <ci>Knadh_tdh</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_15">
+      <variable name="r_15" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="18.16"/>
+      <variable name="Kgap" units="mM" initial_value="0.423"/>
+      <variable name="Kbpg" units="mM" initial_value="0.909"/>
+      <variable name="Kbpg_tdh" units="mM" public_interface="in"/>
+      <variable name="Keq_tdh" units="dimensionless" public_interface="in"/>
+      <variable name="Knad_tdh" units="mM" public_interface="in"/>
+      <variable name="Knadh_tdh" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_02" units="mM" public_interface="in"/>
+      <variable name="x_16" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_49" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_15</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_49</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_16</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_02</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                           <ci>Keq_tdh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_16</ci>
+                        <ci>Kgap</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_02</ci>
+                        <ci>Kbpg</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_21</ci>
+                        <ci>Knad_tdh</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_22</ci>
+                        <ci>Knadh_tdh</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_16">
+      <variable name="r_16" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="15.58"/>
+      <variable name="Kgap" units="mM" initial_value="0.21"/>
+      <variable name="Kbpg_tdh" units="mM" public_interface="in"/>
+      <variable name="Keq_tdh" units="dimensionless" public_interface="in"/>
+      <variable name="Knad_tdh" units="mM" public_interface="in"/>
+      <variable name="Knadh_tdh" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_02" units="mM" public_interface="in"/>
+      <variable name="x_16" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <variable name="x_60" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_16</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_60</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_16</ci>
+                           <ci>x_21</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_02</ci>
+                           <ci>x_22</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kgap</ci>
+                           <ci>Knad_tdh</ci>
+                           <ci>Keq_tdh</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_16</ci>
+                        <ci>Kgap</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_02</ci>
+                        <ci>Kbpg_tdh</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_21</ci>
+                        <ci>Knad_tdh</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_22</ci>
+                        <ci>Knadh_tdh</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_17">
+      <variable name="r_17" units="mmol_per_second" public_interface="out"/>
+      <variable name="Vmax" units="mM_per_second" initial_value="13.54"/>
+      <variable name="Kg3p" units="mM" initial_value="3.5"/>
+      <variable name="Kphi" units="mM" initial_value="1"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_18" units="mM" public_interface="in"/>
+      <variable name="x_23" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_17</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>c_1</ci>
+                     <ci>Vmax</ci>
+                     <ci>x_18</ci>
+                  </apply>
+                  <ci>Kg3p</ci>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_18</ci>
+                        <ci>Kg3p</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_23</ci>
+                        <ci>Kphi</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_18">
+      <variable name="r_18" units="mmol_per_second" public_interface="out"/>
+      <variable name="Vmax" units="mM_per_second" initial_value="5.282"/>
+      <variable name="Knadh" units="mM" initial_value="0.023"/>
+      <variable name="Kdhap" units="mM" initial_value="0.54"/>
+      <variable name="Knad" units="mM" initial_value="0.93"/>
+      <variable name="Kg3p" units="mM" initial_value="1.2"/>
+      <variable name="Kf16bp" units="mM" initial_value="4.8"/>
+      <variable name="Katp" units="mM" initial_value="0.73"/>
+      <variable name="Kadp" units="mM" initial_value="2"/>
+      <variable name="Keq" units="dimensionless" initial_value="10000"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_08" units="mM" public_interface="in"/>
+      <variable name="x_14" units="mM" public_interface="in"/>
+      <variable name="x_18" units="mM" public_interface="in"/>
+      <variable name="x_21" units="mM" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_18</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>c_1</ci>
+                        <ci>Vmax</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Knadh</ci>
+                        <ci>Kdhap</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <times/>
+                        <ci>x_22</ci>
+                        <ci>x_14</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_21</ci>
+                           <ci>x_18</ci>
+                        </apply>
+                        <ci>Keq</ci>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_08</ci>
+                        <ci>Kf16bp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_22</ci>
+                        <ci>Knadh</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_21</ci>
+                        <ci>Knad</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_14</ci>
+                        <ci>Kdhap</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_18</ci>
+                        <ci>Kg3p</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_19">
+      <variable name="r_19" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="10.2"/>
+      <variable name="Kglc" units="mM" initial_value="0.15"/>
+      <variable name="Katp" units="mM" initial_value="0.293"/>
+      <variable name="Kadp_hxk" units="mM" public_interface="in"/>
+      <variable name="Keq_hxk" units="dimensionless" public_interface="in"/>
+      <variable name="Kg6p_hxk" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_11" units="mM" public_interface="in"/>
+      <variable name="x_12" units="mM" public_interface="in"/>
+      <variable name="x_45" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_19</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_45</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_11</ci>
+                           <ci>x_06</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_12</ci>
+                           <ci>x_04</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                           <ci>Keq_hxk</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_11</ci>
+                        <ci>Kglc</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_12</ci>
+                        <ci>Kg6p_hxk</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp_hxk</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_20">
+      <variable name="r_20" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="0.0721"/>
+      <variable name="Kglc" units="mM" initial_value="0.0106"/>
+      <variable name="Katp" units="mM" initial_value="0.865"/>
+      <variable name="Kadp_hxk" units="mM" public_interface="in"/>
+      <variable name="Keq_hxk" units="dimensionless" public_interface="in"/>
+      <variable name="Kg6p_hxk" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_11" units="mM" public_interface="in"/>
+      <variable name="x_12" units="mM" public_interface="in"/>
+      <variable name="x_32" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_20</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_32</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_11</ci>
+                           <ci>x_06</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_12</ci>
+                           <ci>x_04</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                           <ci>Keq_hxk</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_11</ci>
+                        <ci>Kglc</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_12</ci>
+                        <ci>Kg6p_hxk</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp_hxk</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_21">
+      <variable name="r_21" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="63.1"/>
+      <variable name="Kglc" units="mM" initial_value="0.2"/>
+      <variable name="Katp" units="mM" initial_value="0.195"/>
+      <variable name="Kadp_hxk" units="mM" public_interface="in"/>
+      <variable name="Keq_hxk" units="dimensionless" public_interface="in"/>
+      <variable name="Kg6p_hxk" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_11" units="mM" public_interface="in"/>
+      <variable name="x_12" units="mM" public_interface="in"/>
+      <variable name="x_46" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_21</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_46</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_11</ci>
+                           <ci>x_06</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_12</ci>
+                           <ci>x_04</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kglc</ci>
+                           <ci>Katp</ci>
+                           <ci>Keq_hxk</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_11</ci>
+                        <ci>Kglc</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_12</ci>
+                        <ci>Kg6p_hxk</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp_hxk</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_22">
+      <variable name="r_22" units="mmol_per_second" public_interface="out"/>
+      <variable name="k" units="per_second" initial_value="3.025"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_22" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_22</ci>
+            <apply>
+               <times/>
+               <ci>c_1</ci>
+               <ci>k</ci>
+               <ci>x_22</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_23">
+      <variable name="r_23" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="117"/>
+      <variable name="gR" units="dimensionless" initial_value="5.12"/>
+      <variable name="Kf6p" units="mM" initial_value="0.438"/>
+      <variable name="Katp" units="mM" initial_value="0.008"/>
+      <variable name="L0" units="dimensionless" initial_value="0.66"/>
+      <variable name="Ciatp" units="dimensionless" initial_value="100"/>
+      <variable name="Kiatp" units="mM" initial_value="0.65"/>
+      <variable name="Camp" units="dimensionless" initial_value="0.0845"/>
+      <variable name="Kamp" units="mM" initial_value="0.0995"/>
+      <variable name="Cf26" units="dimensionless" initial_value="0.0174"/>
+      <variable name="Kf26" units="mM" initial_value="6.824e-5"/>
+      <variable name="Cf16" units="dimensionless" initial_value="0.397"/>
+      <variable name="Kf16" units="mM" initial_value="0.111"/>
+      <variable name="Catp" units="dimensionless" initial_value="3"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_05" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_08" units="mM" public_interface="in"/>
+      <variable name="x_09" units="mM" public_interface="in"/>
+      <variable name="x_10" units="mM" public_interface="in"/>
+      <variable name="x_77" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_23</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <ci>c_1</ci>
+                              <ci>x_77</ci>
+                              <ci>kcat</ci>
+                              <ci>gR</ci>
+                              <ci>x_10</ci>
+                           </apply>
+                           <ci>Kf6p</ci>
+                        </apply>
+                        <ci>x_06</ci>
+                     </apply>
+                     <ci>Katp</ci>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_10</ci>
+                        <ci>Kf6p</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <ci>gR</ci>
+                                 <ci>x_10</ci>
+                              </apply>
+                              <ci>Kf6p</ci>
+                           </apply>
+                           <ci>x_06</ci>
+                        </apply>
+                        <ci>Katp</ci>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <power/>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <divide/>
+                           <ci>x_10</ci>
+                           <ci>Kf6p</ci>
+                        </apply>
+                        <apply>
+                           <divide/>
+                           <ci>x_06</ci>
+                           <ci>Katp</ci>
+                        </apply>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <times/>
+                                    <ci>gR</ci>
+                                    <ci>x_10</ci>
+                                 </apply>
+                                 <ci>Kf6p</ci>
+                              </apply>
+                              <ci>x_06</ci>
+                           </apply>
+                           <ci>Katp</ci>
+                        </apply>
+                     </apply>
+                     <cn cellml:units="dimensionless">2</cn>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>L0</ci>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <times/>
+                                    <ci>Ciatp</ci>
+                                    <ci>x_06</ci>
+                                 </apply>
+                                 <ci>Kiatp</ci>
+                              </apply>
+                           </apply>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <ci>x_06</ci>
+                                 <ci>Kiatp</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <times/>
+                                    <ci>Camp</ci>
+                                    <ci>x_05</ci>
+                                 </apply>
+                                 <ci>Kamp</ci>
+                              </apply>
+                           </apply>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <ci>x_05</ci>
+                                 <ci>Kamp</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <times/>
+                                    <ci>Cf26</ci>
+                                    <ci>x_09</ci>
+                                 </apply>
+                                 <ci>Kf26</ci>
+                              </apply>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <times/>
+                                    <ci>Cf16</ci>
+                                    <ci>x_08</ci>
+                                 </apply>
+                                 <ci>Kf16</ci>
+                              </apply>
+                           </apply>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <ci>x_09</ci>
+                                 <ci>Kf26</ci>
+                              </apply>
+                              <apply>
+                                 <divide/>
+                                 <ci>x_08</ci>
+                                 <ci>Kf16</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <plus/>
+                           <cn cellml:units="dimensionless">1</cn>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <ci>Catp</ci>
+                                 <ci>x_06</ci>
+                              </apply>
+                              <ci>Katp</ci>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_24">
+      <variable name="r_24" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="58.85"/>
+      <variable name="Kbpg" units="mM" initial_value="0.003"/>
+      <variable name="Kadp" units="mM" initial_value="1.99"/>
+      <variable name="Kp3g" units="mM" initial_value="4.58"/>
+      <variable name="Katp" units="mM" initial_value="3.536"/>
+      <variable name="Keq" units="dimensionless" initial_value="3200"/>
+      <variable name="nHadp" units="dimensionless" initial_value="2"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_01" units="mM" public_interface="in"/>
+      <variable name="x_02" units="mM" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_33" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_24</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_33</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <power/>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp</ci>
+                     </apply>
+                     <apply>
+                        <minus/>
+                        <ci>nHadp</ci>
+                        <cn cellml:units="dimensionless">1</cn>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_02</ci>
+                           <ci>x_04</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kbpg</ci>
+                           <ci>Kadp</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_01</ci>
+                           <ci>x_06</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kbpg</ci>
+                           <ci>Kadp</ci>
+                           <ci>Keq</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_02</ci>
+                        <ci>Kbpg</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_01</ci>
+                        <ci>Kp3g</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <ci>x_04</ci>
+                           <ci>Kadp</ci>
+                        </apply>
+                        <ci>nHadp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_25">
+      <variable name="r_25" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="66.61"/>
+      <variable name="Kp3g" units="mM" initial_value="0.681"/>
+      <variable name="Keq_gpm" units="dimensionless" public_interface="in"/>
+      <variable name="Kp2g_gpm" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_01" units="mM" public_interface="in"/>
+      <variable name="x_13" units="mM" public_interface="in"/>
+      <variable name="x_63" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_25</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_63</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <ci>x_01</ci>
+                        <ci>Kp3g</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_13</ci>
+                        <apply>
+                           <times/>
+                           <ci>Kp3g</ci>
+                           <ci>Keq_gpm</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_01</ci>
+                     <ci>Kp3g</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <ci>x_13</ci>
+                     <ci>Kp2g_gpm</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_26">
+      <variable name="r_26" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="1.776"/>
+      <variable name="Kpyr" units="mM" initial_value="11.44"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_25" units="mM" public_interface="in"/>
+      <variable name="x_66" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_26</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>c_1</ci>
+                     <ci>x_66</ci>
+                     <ci>kcat</ci>
+                     <ci>x_25</ci>
+                  </apply>
+                  <ci>Kpyr</ci>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_25</ci>
+                     <ci>Kpyr</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_27">
+      <variable name="r_27" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="12.07"/>
+      <variable name="Kpyr" units="mM" initial_value="8.331"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_25" units="mM" public_interface="in"/>
+      <variable name="x_64" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_27</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>c_1</ci>
+                     <ci>x_64</ci>
+                     <ci>kcat</ci>
+                     <ci>x_25</ci>
+                  </apply>
+                  <ci>Kpyr</ci>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_25</ci>
+                     <ci>Kpyr</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_28">
+      <variable name="r_28" units="mmol_per_second" public_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_28</ci>
+            <cn cellml:units="mmol_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_29">
+      <variable name="r_29" units="mmol_per_second" public_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_29</ci>
+            <cn cellml:units="mmol_per_second">0</cn>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_30">
+      <variable name="r_30" units="mmol_per_second" public_interface="out"/>
+      <variable name="kcat" units="per_second" initial_value="20.13"/>
+      <variable name="Kpep" units="mM" initial_value="0.281"/>
+      <variable name="Kadp" units="mM" initial_value="0.243"/>
+      <variable name="Keq_pyk" units="dimensionless" initial_value="6500"/>
+      <variable name="Kpyr_pyk" units="mM" initial_value="0.6517"/>
+      <variable name="Katp_pyk" units="mM" public_interface="in"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_04" units="mM" public_interface="in"/>
+      <variable name="x_06" units="mM" public_interface="in"/>
+      <variable name="x_24" units="mM" public_interface="in"/>
+      <variable name="x_25" units="mM" public_interface="in"/>
+      <variable name="x_29" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_30</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>c_1</ci>
+                  <ci>x_29</ci>
+                  <ci>kcat</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_24</ci>
+                           <ci>x_04</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kpep</ci>
+                           <ci>Kadp</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>x_25</ci>
+                           <ci>x_06</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>Kpep</ci>
+                           <ci>Kadp</ci>
+                           <ci>Keq_pyk</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_24</ci>
+                        <ci>Kpep</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_25</ci>
+                        <ci>Kpyr_pyk</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <divide/>
+                        <ci>x_04</ci>
+                        <ci>Kadp</ci>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <ci>x_06</ci>
+                        <ci>Katp_pyk</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component xmlns="http://www.cellml.org/cellml/1.0#" name="r_31">
+      <variable name="r_31" units="mmol_per_second" public_interface="out"/>
+      <variable name="Keq" units="dimensionless" initial_value="0.0772"/>
+      <variable name="kcat" units="per_second" initial_value="556.7"/>
+      <variable name="Kdhap" units="mM" initial_value="6.454"/>
+      <variable name="Kgap" units="mM" initial_value="5.25"/>
+      <variable name="Kigap" units="mM" initial_value="35.1"/>
+      <variable name="c_1" units="litre" public_interface="in"/>
+      <variable name="x_14" units="mM" public_interface="in"/>
+      <variable name="x_16" units="mM" public_interface="in"/>
+      <variable name="x_36" units="mM" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_31</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>c_1</ci>
+                        <ci>x_36</ci>
+                        <ci>kcat</ci>
+                     </apply>
+                     <ci>Kdhap</ci>
+                  </apply>
+                  <apply>
+                     <minus/>
+                     <ci>x_14</ci>
+                     <apply>
+                        <divide/>
+                        <ci>x_16</ci>
+                        <ci>Keq</ci>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <ci>x_14</ci>
+                     <ci>Kdhap</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <apply>
+                        <divide/>
+                        <ci>x_16</ci>
+                        <ci>Kgap</ci>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <power/>
+                           <apply>
+                              <divide/>
+                              <ci>x_16</ci>
+                              <ci>Kigap</ci>
+                           </apply>
+                           <cn cellml:units="dimensionless">4</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="environment" component_2="cytoplasm"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="environment" component_2="extracellular"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_01" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_01" variable_2="r_01"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_05" variable_2="x_05"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_02" component_2="parameters"/>
+      <map_variables variable_1="Kacald_adh" variable_2="Kacald_adh"/>
+      <map_variables variable_1="Keq_adh" variable_2="Keq_adh"/>
+      <map_variables variable_1="Ketoh_adh" variable_2="Ketoh_adh"/>
+      <map_variables variable_1="Knad_adh" variable_2="Knad_adh"/>
+      <map_variables variable_1="Knadh_adh" variable_2="Knadh_adh"/>
+      <map_variables variable_1="Kiacald_adh" variable_2="Kiacald_adh"/>
+      <map_variables variable_1="Kietoh_adh" variable_2="Kietoh_adh"/>
+      <map_variables variable_1="Kinad_adh" variable_2="Kinad_adh"/>
+      <map_variables variable_1="Kinadh_adh" variable_2="Kinadh_adh"/>
+      <map_variables variable_1="kcat_adh" variable_2="kcat_adh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_02" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_02" variable_2="r_02"/>
+      <map_variables variable_1="x_03" variable_2="x_03"/>
+      <map_variables variable_1="x_15" variable_2="x_15"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_47" variable_2="x_47"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_03" component_2="parameters"/>
+      <map_variables variable_1="Kacald_adh" variable_2="Kacald_adh"/>
+      <map_variables variable_1="Keq_adh" variable_2="Keq_adh"/>
+      <map_variables variable_1="Ketoh_adh" variable_2="Ketoh_adh"/>
+      <map_variables variable_1="Knad_adh" variable_2="Knad_adh"/>
+      <map_variables variable_1="Knadh_adh" variable_2="Knadh_adh"/>
+      <map_variables variable_1="Kiacald_adh" variable_2="Kiacald_adh"/>
+      <map_variables variable_1="Kietoh_adh" variable_2="Kietoh_adh"/>
+      <map_variables variable_1="Kinad_adh" variable_2="Kinad_adh"/>
+      <map_variables variable_1="Kinadh_adh" variable_2="Kinadh_adh"/>
+      <map_variables variable_1="kcat_adh" variable_2="kcat_adh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_03" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_03" variable_2="r_03"/>
+      <map_variables variable_1="x_03" variable_2="x_03"/>
+      <map_variables variable_1="x_15" variable_2="x_15"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_30" variable_2="x_30"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_04" component_2="parameters"/>
+      <map_variables variable_1="Kacald_adh" variable_2="Kacald_adh"/>
+      <map_variables variable_1="Keq_adh" variable_2="Keq_adh"/>
+      <map_variables variable_1="Ketoh_adh" variable_2="Ketoh_adh"/>
+      <map_variables variable_1="Knad_adh" variable_2="Knad_adh"/>
+      <map_variables variable_1="Knadh_adh" variable_2="Knadh_adh"/>
+      <map_variables variable_1="Kiacald_adh" variable_2="Kiacald_adh"/>
+      <map_variables variable_1="Kietoh_adh" variable_2="Kietoh_adh"/>
+      <map_variables variable_1="Kinad_adh" variable_2="Kinad_adh"/>
+      <map_variables variable_1="Kinadh_adh" variable_2="Kinadh_adh"/>
+      <map_variables variable_1="kcat_adh" variable_2="kcat_adh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_04" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_04" variable_2="r_04"/>
+      <map_variables variable_1="x_03" variable_2="x_03"/>
+      <map_variables variable_1="x_15" variable_2="x_15"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_72" variable_2="x_72"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_05" component_2="cytoplasm"/>
+      <map_variables variable_1="r_05" variable_2="r_05"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_06" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_06" variable_2="r_06"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_07" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_07" variable_2="r_07"/>
+      <map_variables variable_1="x_25" variable_2="x_25"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_08" component_2="cytoplasm"/>
+      <map_variables variable_1="r_08" variable_2="r_08"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_09" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_09" variable_2="r_09"/>
+      <map_variables variable_1="x_13" variable_2="x_13"/>
+      <map_variables variable_1="x_24" variable_2="x_24"/>
+      <map_variables variable_1="x_51" variable_2="x_51"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_10" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_10" variable_2="r_10"/>
+      <map_variables variable_1="x_15" variable_2="x_15"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_11" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_11" variable_2="r_11"/>
+      <map_variables variable_1="x_08" variable_2="x_08"/>
+      <map_variables variable_1="x_14" variable_2="x_14"/>
+      <map_variables variable_1="x_16" variable_2="x_16"/>
+      <map_variables variable_1="x_62" variable_2="x_62"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_12" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_12" variable_2="r_12"/>
+      <map_variables variable_1="x_11" variable_2="x_11"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_12" component_2="extracellular"/>
+      <map_variables variable_1="x_26" variable_2="x_26"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_13" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_13" variable_2="r_13"/>
+      <map_variables variable_1="x_10" variable_2="x_10"/>
+      <map_variables variable_1="x_12" variable_2="x_12"/>
+      <map_variables variable_1="x_31" variable_2="x_31"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_14" component_2="parameters"/>
+      <map_variables variable_1="Kbpg_tdh" variable_2="Kbpg_tdh"/>
+      <map_variables variable_1="Keq_tdh" variable_2="Keq_tdh"/>
+      <map_variables variable_1="Knad_tdh" variable_2="Knad_tdh"/>
+      <map_variables variable_1="Knadh_tdh" variable_2="Knadh_tdh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_14" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_14" variable_2="r_14"/>
+      <map_variables variable_1="x_02" variable_2="x_02"/>
+      <map_variables variable_1="x_16" variable_2="x_16"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_57" variable_2="x_57"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_15" component_2="parameters"/>
+      <map_variables variable_1="Kbpg_tdh" variable_2="Kbpg_tdh"/>
+      <map_variables variable_1="Keq_tdh" variable_2="Keq_tdh"/>
+      <map_variables variable_1="Knad_tdh" variable_2="Knad_tdh"/>
+      <map_variables variable_1="Knadh_tdh" variable_2="Knadh_tdh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_15" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_15" variable_2="r_15"/>
+      <map_variables variable_1="x_02" variable_2="x_02"/>
+      <map_variables variable_1="x_16" variable_2="x_16"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_49" variable_2="x_49"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_16" component_2="parameters"/>
+      <map_variables variable_1="Kbpg_tdh" variable_2="Kbpg_tdh"/>
+      <map_variables variable_1="Keq_tdh" variable_2="Keq_tdh"/>
+      <map_variables variable_1="Knad_tdh" variable_2="Knad_tdh"/>
+      <map_variables variable_1="Knadh_tdh" variable_2="Knadh_tdh"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_16" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_16" variable_2="r_16"/>
+      <map_variables variable_1="x_02" variable_2="x_02"/>
+      <map_variables variable_1="x_16" variable_2="x_16"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+      <map_variables variable_1="x_60" variable_2="x_60"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_17" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_17" variable_2="r_17"/>
+      <map_variables variable_1="x_18" variable_2="x_18"/>
+      <map_variables variable_1="x_23" variable_2="x_23"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_18" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_18" variable_2="r_18"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_08" variable_2="x_08"/>
+      <map_variables variable_1="x_14" variable_2="x_14"/>
+      <map_variables variable_1="x_18" variable_2="x_18"/>
+      <map_variables variable_1="x_21" variable_2="x_21"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_19" component_2="parameters"/>
+      <map_variables variable_1="Kadp_hxk" variable_2="Kadp_hxk"/>
+      <map_variables variable_1="Keq_hxk" variable_2="Keq_hxk"/>
+      <map_variables variable_1="Kg6p_hxk" variable_2="Kg6p_hxk"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_19" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_19" variable_2="r_19"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_11" variable_2="x_11"/>
+      <map_variables variable_1="x_12" variable_2="x_12"/>
+      <map_variables variable_1="x_45" variable_2="x_45"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_20" component_2="parameters"/>
+      <map_variables variable_1="Kadp_hxk" variable_2="Kadp_hxk"/>
+      <map_variables variable_1="Keq_hxk" variable_2="Keq_hxk"/>
+      <map_variables variable_1="Kg6p_hxk" variable_2="Kg6p_hxk"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_20" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_20" variable_2="r_20"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_11" variable_2="x_11"/>
+      <map_variables variable_1="x_12" variable_2="x_12"/>
+      <map_variables variable_1="x_32" variable_2="x_32"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_21" component_2="parameters"/>
+      <map_variables variable_1="Kadp_hxk" variable_2="Kadp_hxk"/>
+      <map_variables variable_1="Keq_hxk" variable_2="Keq_hxk"/>
+      <map_variables variable_1="Kg6p_hxk" variable_2="Kg6p_hxk"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_21" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_21" variable_2="r_21"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_11" variable_2="x_11"/>
+      <map_variables variable_1="x_12" variable_2="x_12"/>
+      <map_variables variable_1="x_46" variable_2="x_46"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_22" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_22" variable_2="r_22"/>
+      <map_variables variable_1="x_22" variable_2="x_22"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_23" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_23" variable_2="r_23"/>
+      <map_variables variable_1="x_05" variable_2="x_05"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_08" variable_2="x_08"/>
+      <map_variables variable_1="x_09" variable_2="x_09"/>
+      <map_variables variable_1="x_10" variable_2="x_10"/>
+      <map_variables variable_1="x_77" variable_2="x_77"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_24" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_24" variable_2="r_24"/>
+      <map_variables variable_1="x_01" variable_2="x_01"/>
+      <map_variables variable_1="x_02" variable_2="x_02"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_33" variable_2="x_33"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_25" component_2="parameters"/>
+      <map_variables variable_1="Keq_gpm" variable_2="Keq_gpm"/>
+      <map_variables variable_1="Kp2g_gpm" variable_2="Kp2g_gpm"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_25" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_25" variable_2="r_25"/>
+      <map_variables variable_1="x_01" variable_2="x_01"/>
+      <map_variables variable_1="x_13" variable_2="x_13"/>
+      <map_variables variable_1="x_63" variable_2="x_63"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_26" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_26" variable_2="r_26"/>
+      <map_variables variable_1="x_25" variable_2="x_25"/>
+      <map_variables variable_1="x_66" variable_2="x_66"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_27" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_27" variable_2="r_27"/>
+      <map_variables variable_1="x_25" variable_2="x_25"/>
+      <map_variables variable_1="x_64" variable_2="x_64"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_28" component_2="cytoplasm"/>
+      <map_variables variable_1="r_28" variable_2="r_28"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_29" component_2="cytoplasm"/>
+      <map_variables variable_1="r_29" variable_2="r_29"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_30" component_2="parameters"/>
+      <map_variables variable_1="Katp_pyk" variable_2="Katp_pyk"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_30" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_30" variable_2="r_30"/>
+      <map_variables variable_1="x_04" variable_2="x_04"/>
+      <map_variables variable_1="x_06" variable_2="x_06"/>
+      <map_variables variable_1="x_24" variable_2="x_24"/>
+      <map_variables variable_1="x_25" variable_2="x_25"/>
+      <map_variables variable_1="x_29" variable_2="x_29"/>
+   </connection>
+   <connection xmlns="http://www.cellml.org/cellml/1.0#">
+      <map_components component_1="r_31" component_2="cytoplasm"/>
+      <map_variables variable_1="c_1" variable_2="c_1"/>
+      <map_variables variable_1="r_31" variable_2="r_31"/>
+      <map_variables variable_1="x_14" variable_2="x_14"/>
+      <map_variables variable_1="x_16" variable_2="x_16"/>
+      <map_variables variable_1="x_36" variable_2="x_36"/>
+   </connection>
+   
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nunns</vCard:Family>
+          <vCard:Given>Geoff</vCard:Given>
+		</vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>gnunns1@jhu.edu</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2010-04-29</dcterms:W3CDTF>
+      </dcterms:created>
+    </rdf:Description>
+	
+    <rdf:Description rdf:about="#malys_2010">
+      <bqs:reference rdf:parseType="Resource">
+        <dc:subject rdf:parseType="Resource">
+          <bqs:subject_type>keyword</bqs:subject_type>
+          <rdf:value>
+            <rdf:Bag>
+              <rdf:li>metabolism</rdf:li>
+              <rdf:li>glycolysis</rdf:li>
+			  <rdf:li>yeast</rdf:li>
+            </rdf:Bag>
+          </rdf:value>
+        </dc:subject>
+      </bqs:reference>
+
+      <bqs:reference rdf:parseType="Resource">
+        <!-- <bqs:Pubmed_id>18509469</bqs:Pubmed_id>  -->
+        <bqs:JournalArticle rdf:parseType="Resource">
+          <dc:creator>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Malys</vCard:Family>
+                    <vCard:Given>Naglis</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Messiha</vCard:Family>
+                    <vCard:Given>Hanan</vCard:Given>
+				  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Carroll</vCard:Family>
+                    <vCard:Given>Kathleen</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Dunn</vCard:Family>
+                    <vCard:Given>Warwick</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Khan</vCard:Family>
+                    <vCard:Given>Farid</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Hayes</vCard:Family>
+                    <vCard:Given>Neil</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Pir</vCard:Family>
+                    <vCard:Given>Pinar</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Simeonidis</vCard:Family>
+                    <vCard:Given>Evangelos</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Smallbone</vCard:Family>
+                    <vCard:Given>Kieran</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Spasic</vCard:Family>
+                    <vCard:Given>Irena</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Swainston</vCard:Family>
+                    <vCard:Given>Neil</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Jameson</vCard:Family>
+                    <vCard:Given>Daniel</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Villeger</vCard:Family>
+                    <vCard:Given>Alice</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Weichart</vCard:Family>
+                    <vCard:Given>Dieter</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Winder</vCard:Family>
+                    <vCard:Given>Cate</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Wishart</vCard:Family>
+                    <vCard:Given>Jill</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Broomhead</vCard:Family>
+                    <vCard:Given>David</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Gaskell</vCard:Family>
+                    <vCard:Given>Simon</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Kell</vCard:Family>
+                    <vCard:Given>Douglas</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>McCarthy</vCard:Family>
+                    <vCard:Given>John</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Oliver</vCard:Family>
+                    <vCard:Given>Stephen</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Paton</vCard:Family>
+                    <vCard:Given>Norman</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Westerhoff</vCard:Family>
+                    <vCard:Given>Hans</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Mendes</vCard:Family>
+                    <vCard:Given>Pedro</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+            </rdf:Seq>
+          </dc:creator>
+          <dc:title>
+           A systems biology pipeline for biochemical networks, and its application to yeast glycolysis
+          </dc:title>
+        <!--  <dcterms:issued rdf:parseType="Resource">
+            <dcterms:W3CDTF>2008-05-28</dcterms:W3CDTF>
+          </dcterms:issued>
+          <bqs:Journal rdf:parseType="Resource">
+            <dc:title>PLoS</dc:title>
+          </bqs:Journal>
+          <bqs:volume>3</bqs:volume>
+          <bqs:first_page>e2249</bqs:first_page> -->
+        </bqs:JournalArticle>
+      </bqs:reference>
+    </rdf:Description>
+  </rdf:RDF>
+</model>

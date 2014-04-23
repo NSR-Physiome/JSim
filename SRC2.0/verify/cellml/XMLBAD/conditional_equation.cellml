@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="TempCDa" name="TempCDa">
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Units.cellml">
+<units name="UnitP" units_ref="UnitP"/>
+<units name="UnitQ" units_ref="UnitQ"/>
+<units name="UnitCV" units_ref="UnitCV"/>
+<units name="UnitE" units_ref="UnitE"/>
+<units name="UnitV" units_ref="UnitV"/>
+<units name="UnitKp" units_ref="UnitKp"/>
+<units name="UnitKf" units_ref="UnitKf"/>
+<units name="UnitKb" units_ref="UnitKb"/>
+<units name="UnitKv" units_ref="UnitKv"/>
+<units name="UnitW" units_ref="UnitW"/>
+</import>
+
+<component name="TempCDa">
+<variable name="Pi" public_interface="out" units="UnitP"/>
+<variable name="Po" public_interface="in" units="UnitP"/>
+<variable name="Qi" public_interface="in" units="UnitQ"/>
+<variable name="Qo" public_interface="out" units="UnitQ"/>
+<variable name="CV" public_interface="in" units="UnitCV"/>
+<variable name="E" public_interface="in" units="UnitE"/>
+<variable name="t" public_interface="in" units="second"/>
+<variable initial_value="V0" name="V" units="UnitV"/>
+<variable name="Pini" public_interface="in" units="UnitP"/>
+<variable name="Vini" public_interface="in" units="UnitV"/>
+<variable name="Tao" public_interface="out" units="dimensionless"/>
+<variable name="V0" public_interface="in" units="UnitV"/>
+<variable initial_value="0" name="W" public_interface="out" units="UnitW"/>
+<variable initial_value="0" name="Ag" public_interface="out" units="radian"/>
+<variable name="AgMax" public_interface="in" units="radian"/>
+<variable name="Kp" public_interface="in" units="UnitKp"/>
+<variable name="Kf" public_interface="in" units="UnitKf"/>
+<variable name="Kb" public_interface="in" units="UnitKb"/>
+<variable name="Kv" public_interface="in" units="UnitKv"/>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+
+            <apply id="ValveV: Tao">
+                <eq/>
+                <ci>Tao</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <power/>
+                        <apply>
+                            <minus/>
+                            <cn>1</cn>
+                            <apply>
+                                <cos/>
+                                <ci>Ag</ci>
+                            </apply>
+                        </apply>
+                        <cn>2</cn>
+                    </apply>
+                    <apply>
+                        <power/>
+                        <apply>
+                            <minus/>
+                            <cn>1</cn>
+                            <apply>
+                                <cos/>
+                                <ci>AgMax</ci>
+                            </apply>
+                        </apply>
+                        <cn>2</cn>
+                    </apply>
+                </apply>
+            </apply>
+
+            <apply id="ValveV: Ag">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>Ag</ci>
+                </apply>
+                <ci>W</ci>
+            </apply>
+
+            <piecewise><piece><apply><eq id="Valve: W derivative"/><apply><diff/><bvar><ci>t</ci></bvar><ci>W</ci></apply><apply><plus/><apply><minus/><apply><times/><ci>Kp</ci><apply><minus/><ci>Pi</ci><ci>Po</ci></apply><apply><cos/><ci>Ag</ci></apply></apply><apply><times/><ci>Kf</ci><ci>W</ci></apply></apply><apply><times/><ci>Kb</ci><ci>Qo</ci><apply><cos/><ci>Ag</ci></apply></apply></apply></apply><apply><and/><apply><geq/><ci>Ag</ci><cn>-0.00001</cn></apply><apply><lt/><ci>Ag</ci><ci>AgMax</ci></apply></apply></piece><otherwise id="Valve: W"><apply><eq id="Valve: W"/><ci>W</ci><cn>0</cn></apply></otherwise></piecewise>
+
+<apply id="Atrium: Qo"><eq/><ci>Qo</ci><piecewise><piece><apply><times/><ci>CV</ci><ci>Tao</ci><apply><power/><apply><abs/><apply><minus/><ci>Pi</ci><ci>Po</ci></apply></apply><cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless">0.5</cn></apply></apply><apply><geq/><ci>Pi</ci><ci>Po</ci></apply></piece><piece><apply><times/><cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless">-1</cn><ci>CV</ci><ci>Tao</ci><apply><power/><apply><abs/><apply><minus/><ci>Po</ci><ci>Pi</ci></apply></apply><cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless">0.5</cn></apply></apply><apply><lt/><ci>Pi</ci><ci>Po</ci></apply></piece></piecewise></apply>
+
+<apply id="Atrium: V">
+<eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>V</ci></apply>
+<apply><minus/><ci>Qi</ci><ci>Qo</ci></apply></apply>
+
+<apply id="Atrium: Pi">
+<eq/><ci>Pi</ci><apply><plus/><ci>Pini</ci><apply><times/><ci>E</ci><apply><minus/><ci>V</ci><ci>Vini</ci></apply></apply></apply></apply>
+
+</math>
+
+</component>
+
+
+
+
+
+</model>

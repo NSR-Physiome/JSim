@@ -1,0 +1,197 @@
+/*NSRCOPYRIGHT
+	Copyright (C) 1999-2008 University of Washington
+	Developed by the National Simulation Resource
+	Department of Bioengineering,  Box 355061
+	University of Washington, Seattle, WA 98195-5061.
+	Dr. J. B. Bassingthwaighte, Director
+END_NSRCOPYRIGHT*/
+
+// XSim config file parser (generates CFParser.java)
+
+package JSim.xsim;
+
+import JSim.util.*;
+import java_cup.runtime.*;
+
+terminal MODEL, MENU, GROUP, BOX, 
+	COMMA, LPAREN, RPAREN, 
+	EQ, PLUS, TIMES, MINUS, DIVIDE;
+
+terminal String NUMBER, IDENT, STRING;
+
+non terminal content, 
+	items, item, model, group, menu, oitem,
+	gitems, gitem, box, 
+	mitemsx, mitems, mitem,
+	bitems, bitem, 
+	attrsx, attrs, attr, attreq;
+
+non terminal StringList names; 
+non terminal String name, numexpr;
+non terminal String[] dims;
+
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+
+// TOP LEVEL = content
+content ::= model items;
+
+model ::= MODEL LPAREN attrs RPAREN;
+
+items ::= items item | item;
+
+item ::=  group | menu | oitem;
+
+oitem ::= 
+	IDENT:i name:n  LPAREN {: 
+//	    System.err.println(
+//		"Processing " + i + " " + n); 
+	    parser.cfr.startItem(i, n);
+	:} attrs RPAREN;
+
+menu ::=  MENU LPAREN {:
+	    parser.cfr.startMenu(null);
+	  :} mitemsx RPAREN {:
+	    parser.cfr.doneMenu();
+	  :}
+	| MENU name:n {:
+	    parser.cfr.startMenu(n);
+	  :} LPAREN mitemsx RPAREN {:
+	    parser.cfr.doneMenu();
+	  :}
+	;
+
+mitemsx ::= mitems | mitems COMMA;
+
+mitems ::= mitems COMMA mitem | mitem;
+
+mitem ::= name:n {:
+	    parser.cfr.addMenuPage(n);
+	  :}
+	 | menu;
+
+group ::= GROUP name:n LPAREN {: 
+	    parser.cfr.startGroup(n); 
+	:} gitems RPAREN;
+
+gitems ::= gitems COMMA gitem | gitem;
+
+gitem ::= attr 
+	| IDENT:s name:n LPAREN {:
+	     parser.cfr.startGroupItem(s, n);
+	  :}
+	  dims:d {:
+	     parser.cfr.setDim(d);
+	  :} 
+          attrsx RPAREN {:
+	     parser.cfr.doneGroupItem();
+	  :}
+	| box
+	;
+
+box ::= BOX LPAREN dims:d COMMA {:
+	    parser.cfr.startBox(d);
+	:}
+	bitems RPAREN {:
+	    parser.cfr.doneBox();
+	:}
+	;
+
+bitems ::= bitems COMMA bitem | bitem;
+
+bitem ::= name:n1 {: 
+	    parser.cfr.startBoxPar(n1);
+	    parser.cfr.doneBoxPar();
+	  :} 
+	| LPAREN name:n2 {:
+	    parser.cfr.startBoxPar(n2);
+	  :}
+          attrsx RPAREN {:
+	    parser.cfr.doneBoxPar();
+	  :}
+	| attreq
+	;
+
+dims ::= numexpr:x COMMA numexpr:y COMMA numexpr:w COMMA numexpr:h {:
+	    RESULT = new String[] { x, y, w, h };
+	 :}
+	;
+
+attrsx ::= COMMA attrs | ;
+
+attrs ::= attrs COMMA attr | attr;
+
+attr ::= 
+	name:k {: 
+	    parser.cfr.setParseAttr(k, null); 
+	    :}
+ 	| attreq
+	;
+
+attreq ::= name:k EQ numexpr:v {:
+	    parser.cfr.setParseAttr(k, v); 
+	    :}
+ 	| name:k EQ name:v {:
+	    parser.cfr.setParseAttr(k, v); 
+	    :}
+	| name:k EQ LPAREN names:vs RPAREN {:
+	    parser.cfr.setParseAttrList(k, vs);
+	    :}
+	;
+
+names ::= 
+	names:ns name:n {:
+	    ns.add(n);
+	    RESULT = ns;
+	    :}
+	| names:ns COMMA name:n {:
+	    ns.add(n);
+	    RESULT = ns;
+	    :}
+	| name:n {:
+	    RESULT = new StringList(n);
+	    :}
+	;
+
+name ::= 
+	IDENT:i {: 
+	    RESULT = i; 
+	    :}
+	| STRING:s {: 
+	    RESULT = s; 
+	    :};
+
+numexpr ::= 
+	NUMBER:n {:
+	    double nv = Util.toDouble(n);
+	    RESULT = Util.pretty(nv); 
+	    :} 
+	| MINUS numexpr:n {:
+	    double nv = Util.toDouble(n);
+	    RESULT = Util.pretty(-nv); 
+	    :}
+	| LPAREN numexpr:n RPAREN {:
+	    RESULT = n;
+	    :}
+	| numexpr:a PLUS numexpr:b {:
+	    double av = Util.toDouble(a);
+	    double bv = Util.toDouble(b);
+	    RESULT = Util.pretty(av+bv); 
+	    :}
+	| numexpr:a MINUS numexpr:b {:
+	    double av = Util.toDouble(a);
+	    double bv = Util.toDouble(b);
+	    RESULT = Util.pretty(av-bv); 
+	    :}
+	| numexpr:a TIMES numexpr:b {:
+	    double av = Util.toDouble(a);
+	    double bv = Util.toDouble(b);
+	    RESULT = Util.pretty(av*bv); 
+	    :}
+	| numexpr:a DIVIDE numexpr:b {:
+	    double av = Util.toDouble(a);
+	    double bv = Util.toDouble(b);
+	    RESULT = Util.pretty(av/bv); 
+	    :}
+	;
+

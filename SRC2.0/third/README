@@ -1,0 +1,68 @@
+  This directory contains Java archives (.jar files) 
+that are distributed with JSim,  but were created by 
+programmers external to NSR.  It is our belief that the
+licensing of each of these products permits their distribution
+with JSim.  If you think otherwise,  please contact
+librarian@nsr.bioeng.washington.edu.
+
+== xercesImpl.jar, xmlParserAPIs.jar
+
+  These files implement the Xerces XML parser and DOM 
+implementation distributed by apache.org. 
+
+  Version unknown, downloaded Jan 2003.
+
+== cup_and_jlex.jar, java-cup-runtime.jar
+
+  The first file contains the complete Java Cup parser 
+generator and JLex lexical analyzer generator used when
+compiling JSim.  The second contains the portion
+of Java Cup required at run-time.  
+
+  JLex version 1.2 - Mar 31 2000.
+  CUP version v0.10j - Jul 23 1999.
+
+== jc.jar
+
+  This file contains the Java compiler used to compile 
+.java code at model build time.  It is distributed with 
+Sun's SDK,  but not with the JRE.  Since JSim distributes 
+only the JRE,  jc.jar is included here.  See www.sun.com.
+
+  Version unknown.  Should be tied to the JRE distributed 
+with JSim.
+
+== Jama-1.0.1.jar
+
+  This file contains the JAMA matrix package.  See 
+http://math.nist.gov/javanumerics/jama/
+
+  Version 1.0.1.
+
+== sgt_v30nsr.jar
+
+  This jar contains a locally modified version of the 
+Scientific Graphics Toolkit (SGT) used for plotting in 
+the JSim package.  See http://www.epic.noaa.gov/java/sgt/
+The unmodified SGT version was released 2003/09/19 23:14:24.
+Local mods may be found in $JSIMSRC/third/SGT.
+
+== AppleJavaExtensions.jar 
+
+  A non-functional placeholder for
+Mac application hooks to OSX.  This exists only to allow
+$JSIMSRC/JSim/gui classes to compile and load successfully.
+On MacOS,  the embedded java versions of these classes are found
+before the empty placeholders,  so that the required functionality 
+is present.
+
+== BrowserLauncher.jar
+
+  This jar, originally BrowserLauncher2-all-1_3.jar, is a backup
+for Desktop browser connections in the JSim GUI.  Downloaded 17 Jul
+2012, at which time Java's built-in Desktop.browse(URL) didn't work
+on some Linux desktops.
+
+
+
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.min</ci>
+          <cn>0</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.max</ci>
+          <cn>10</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.delta</ci>
+          <cn>.25</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>a</ci>
+          <apply>
+            <power/>
+            <ci>t</ci>
+            <cn>2</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>integral__call0</ci>
+          <apply>
+            <ci type="function">integral</ci>
+            <ci>a</ci>
+            <ci>t.min</ci>
+            <ci>t</ci>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b</ci>
+          <apply>
+            <int/>
+            <bvar>
+              <ci>t</ci>
+            </bvar>
+            <lowlimit>
+              <ci>t.min</ci>
+            </lowlimit>
+            <uplimit>
+              <ci>t</ci>
+            </uplimit>
+            <ci>a</ci>
+          </apply>
+        </apply>
+      </math>
+    </p>
+  </body>
+</html>
+

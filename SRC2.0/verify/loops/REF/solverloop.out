@@ -1,0 +1,3 @@
+u(t): solver.ode_Euler_nstep=2 = { (0,1) (1,2.25) (2,5.0625) (3,11.390625) } dimensionless
+u(t): solver.ode_Euler_nstep=4 = { (0,1) (1,2.4414062) (2,5.9604645) (3,14.55191523) } dimensionless
+u(t): solver.ode_Euler_nstep= 6 = { (0,1) (1,2.5216264) (2,6.3585996) (3,16.03401233) } dimensionless

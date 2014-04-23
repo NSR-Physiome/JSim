@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. ../run.common
+
+p=$1
+for i in LSFEA MacCormack Toms731 
+do
+    N="$p"_"$i"
+    echo ==== $N
+    $JSBATCH -f PROJ/$p".proj" -i solver.pde_which=$i -oprec 6 -ozero 1e-16 -oplot -out WORK/"$N".out
+done

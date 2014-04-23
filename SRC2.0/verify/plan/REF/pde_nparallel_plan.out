@@ -1,0 +1,284 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: int n
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: realDomain i
+  add var: real i.min
+  add var: real i.max
+  add var: int i.ct
+  add var: real i.delta
+  add var: real uIn(t)
+  add var: real u(t,x,i)
+  add var: real k(x)
+  add var: private real sum__call0(t,x)
+  add var: real uOut(t,x)
+  add var: real u:x(t,x,i)
+  add var: real u:t(t,x,i)
+  add var: real u:x:x(t,x,i)
+Loading Constraints
+  n=3 :: [n]
+  t.min=0 :: [t.min]
+  t.max=3 :: [t.max]
+  t.delta=.25 :: [t.delta]
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=.05 :: [x.delta]
+  i.min=1 :: [i.min]
+  i.max=n :: [i.max, n]
+  i.delta=1 :: [i.delta]
+  uIn=(1-exp(t*(-1))) :: [uIn, t]
+  k=x :: [k, x]
+  when (t=t.min) u=0 :: [u(t.min)]
+  when (x=x.min) u=uIn :: [u(x.min), uIn]
+  when (x=x.max) u:x=0 :: [u:x(x.max)]
+  u:t=(k*u:x:x-u:x) :: [u:t, k, u:x:x, u:x]
+  sum__call0=sum.1[u@i] :: [sum__call0, u(i.min)*, u(i.max)*]
+  uOut=sum(i,i.min,i.max,u) :: [uOut, sum__call0]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+  add tool: domain i
+Toolbox phase - cycle 1:
+  check eqn: n=3; [n]
+  add tool: n=3
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=3; [t.max]
+  add tool: t.max=3
+  check eqn: t.delta=.25; [t.delta]
+  add tool: t.delta=.25
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=.05; [x.delta]
+  add tool: x.delta=.05
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: i.min=1; [i.min]
+  add tool: i.min=1
+  check eqn: i.max=n; [i.max]
+  add tool: i.max=n
+  check eqn: i.delta=1; [i.delta]
+  add tool: i.delta=1
+  add tool: i.ct=(i.max-i.min)/i.delta+1.5
+  check eqn: uIn=(1-exp(t*(-1))); [uIn]
+  add tool: uIn=1-exp(t*(-1))
+  check eqn: k=x; [k]
+  add tool: k=x
+  check eqn: when (t=t.min) u=0; [u(t.min)]
+  add tool: u(t.min)=0
+  check eqn: when (x=x.min) u=uIn; [u(x.min)]
+  add tool: u(x.min)=uIn
+  check eqn: when (x=x.max) u:x=0; [u:x(x.max)]
+  add tool: u:x(x.max)=0
+  check eqn: u:t=(k*u:x:x-u:x); [u:t, u:x:x]
+  check eqn: sum__call0=sum.1[u@i]; [sum__call0, u(i.min)*]
+  check eqn: uOut=sum(i,i.min,i.max,u); [uOut, sum__call0]
+  add tool: PDE u: []
+  updated PDE(u) with u(t.min)=0
+  updated PDE(u) with u(x.min)=uIn
+  updated PDE(u) with u:x(x.max)=0
+Toolbox phase - cycle 1:
+  check eqn: u:t=(k*u:x:x-u:x); [u:t, u:x:x]
+  check eqn: sum__call0=sum.1[u@i]; [sum__call0, u(i.min)*]
+  check eqn: uOut=sum(i,i.min,i.max,u); [uOut, sum__call0]
+Toolbox phase - cycle 2:
+Toolbox phase - cycle 3:
+  updated PDE(u) with u:t=(k*u:x:x-u:x)
+    u is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: sum__call0=sum.1[u@i]; [sum__call0]
+  add tool: sum__call0=sum.1[u@i]
+  check eqn: uOut=sum(i,i.min,i.max,u); [uOut]
+  add tool: uOut=sum(i,i.min,i.max,u)
+Toolbox phase - cycle 1:
+Toolbox phase - all cycles completed
+  add var: real u__init(x,i)
+  add tool: u__init=0
+PDE(u) factors:  D=k*(-1)*(-1) P=u:x*(-1)*(-1)*(-1) B=(-1)*(-1) S=0
+  LHBC F1=1 F2=0 F3=uIn*(-1)*(-1)
+  RHBC F1=0 F2=1 F3=0
+  Solver LSFEA unsupported: Diffusion term k*(-1)*(-1) has spatial dependency
+  Solver MacCormack supported
+  Solver Toms731 supported
+  checking PDE(u) D=k*(-1)*(-1) for differentiability ...
+  adding variable k:x
+  add var: real k:x(x)
+  add tool: k:x=1
+  setting Dx=0+(0+k:x*(-1))*(-1)
+  adding DETool vreq: [k:x]
+  Tom731  C=1 Q=k:x*(-1)*(-1)*u:x-u:x*(-1) R=k*u:x
+  Toms731 LHBC:  Beta=0 Gamma=0
+  Toms731 RHBC:  Beta=1 Gamma=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @x k:x=1 :: [k:x]<<[]
+  @x@i u__init=0 :: [u__init]<<[]
+  @t@x uOut=sum(i,i.min,i.max,u) :: [uOut]<<[sum__call0]
+  @t@x sum__call0=sum.1[u@i] :: [sum__call0]<<[u(i.min)*, u(i.max)*]
+  @x k=x :: [k]<<[x]
+  @t@i PDE-1D u: u:t=(k*u:x:x-u:x) :: [u, u(t.max), u(x.max), u(x.min)]<<[k, uIn, u(t.min), k:x]
+  @t uIn=1-exp(t*(-1)) :: [uIn]<<[t]
+  i.delta=1 :: [i.delta]<<[]
+  i.ct=(i.max-i.min)/i.delta+1.5 :: [i.ct]<<[i.max, i.min, i.delta]
+  i.max=n :: [i.max]<<[n]
+  i.min=1 :: [i.min]<<[]
+  domain i :: [i]<<[i.min, i.max, i.ct, i.delta]
+  x.delta=.05 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.25 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=3 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  n=3 :: [n]<<[]
+  @x@i u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(i.min)*]<<[u]
+  adding query tool: query [u(i.max)*]<<[u]
+Creating MainGraph ...
+loopOrder=[t, x, i]
+  addNode k:x seqLoops=(x) phase=x#1 fft=null
+  addNode u__init seqLoops=(x,i) phase=x#1+i#1 fft=null
+  addNode uOut seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode sum__call0 seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode k seqLoops=(x) phase=x#1 fft=null
+  addNode u seqLoops=(t,i) phase=t#1+i#1 fft=t
+  addNode uIn seqLoops=(t) phase=t#1 fft=null
+  addNode i.delta seqLoops=() phase=main fft=null
+  addNode i.ct seqLoops=() phase=main fft=null
+  addNode i.max seqLoops=() phase=main fft=null
+  addNode i.min seqLoops=() phase=main fft=null
+  addNode i seqLoops=() phase=main fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(x,i) phase=x#1+i#1 fft=null
+  addNode u(i.min) seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode u(i.max) seqLoops=(t,x) phase=t#1+x#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding i.delta=1 to main
+  adding i.min=1 to main
+  adding x.delta=.05 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.25 to main
+  adding t.max=3 to main
+  adding t.min=0 to main
+  adding n=3 to main
+  adding i.max=n to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding i.ct=(i.max-i.min)/i.delta+1.5 to main
+  adding domain i to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding k:x=1 to loop-x
+  adding k=x to loop-x
+  subphase x#1+i#1 entryEdge=null
+building block for phase x#1+i#1
+  adding u__init=0 to loop-i
+  adding u(t.min)=u__init to loop-i
+  adding loop-i to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding uIn=1-exp(t*(-1)) to loop-t
+  subphase t#1+x#1 entryEdge=null
+building block for phase t#1+x#1
+  adding query [u(i.min)*] to loop-x
+  adding query [u(i.max)*] to loop-x
+  adding sum__call0=sum.1[u@i] to loop-x
+  adding uOut=sum(i,i.min,i.max,u) to loop-x
+  adding loop-x to loop-t
+  subphase t#1+i#1 entryEdge=null
+building block for phase t#1+i#1
+  adding PDE Block-t(x) [u] to loop-i
+  adding loop-i to loop-t
+  adding loop-t to main
+Building PDE Block-t(x) [u] ...
+PDE solver LSFEA: Diffusion term k*(-1)*(-1) has spatial dependency
+PDE solver MacCormack: supported
+PDE solver Toms731: supported
+  adding muTool k=x
+  adding muVar k
+  adding k=x to PDE Block-t(x) [u]
+Building PDE BC x=x.min [u] ...
+  adding muTool uIn=1-exp(t*(-1))
+  adding muVar uIn
+  adding uIn=1-exp(t*(-1)) to PDE BC x=x.min [u]
+Building PDE BC x=x.max [u] ...
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  i.delta=1
+  i.min=1
+  x.delta=.05
+  x.max=1
+  x.min=0
+  t.delta=.25
+  t.max=3
+  t.min=0
+  n=3
+  i.max=n
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  i.ct=(i.max-i.min)/i.delta+1.5
+  domain i
+  loop-x
+    k:x=1
+    k=x
+    loop-i
+      u__init=0
+      u(t.min)=u__init
+  loop-t
+    uIn=1-exp(t*(-1))
+    loop-x
+      query [u(i.min)*]
+      query [u(i.max)*]
+      sum__call0=sum.1[u@i]
+      uOut=sum(i,i.min,i.max,u)
+    loop-i
+      PDE Block-t(x) vmus=[t, x, u, k]
+        k=x
+        PDE BC x=x.min vmus=[t, u, uIn]
+          uIn=1-exp(t*(-1))
+        PDE BC x=x.max vmus=[t, u]
+

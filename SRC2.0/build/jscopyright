@@ -1,0 +1,61 @@
+#!/bin/sh
+
+noCP() {
+	OLD=$1
+	echo "$OLD UNTOUCHED"
+}
+
+replaceCP() {
+	OLD=$1
+	TMP="$OLD".tmp.$$
+	L1=`cat -n $OLD | fgrep $CPSTART | awk '{ print $1 }'`
+	L2=`cat -n $OLD | fgrep $CPEND | awk '{ print $1 }'`
+	echo "$OLD REPLACED $L1"-"$L2"
+	echo $CPSTART > $TMP
+	cat $CPFILE >> $TMP
+	echo $CPEND >> $TMP
+	sed -e "$L1","$L2"d $OLD >> $TMP
+	mv $TMP $OLD	
+}
+
+. jsbuild.path
+
+CPFILE=$JSIMSRC/build/copyright.txt
+if [ \! -r $CPFILE ]
+then
+  echo "Cannot read copyright file $CPFILE"
+  exit 1
+fi
+
+if [ $# -lt 1 ]
+then
+  SFILES=`jsbuild.jlist`
+  SFILES="$SFILES $JSIMSRC/JSim/*/*.lex"
+  SFILES="$SFILES $JSIMSRC/JSim/*/*.cup"
+  SFILES="$SFILES $JSIMSRC/JSim/nonJava/*/*.[cFh]"
+  SFILES="$SFILES $JSIMSRC/JSim/nonJava/*/*/*.[cFh]"
+else
+  SFILES="$*"
+fi
+
+CPCOMMON=NSRCOPYRIGHT
+CPSTART="/*$CPCOMMON"
+CPEND="END_$CPCOMMON""*/"
+
+for s in $SFILES
+do
+  WC=`fgrep $CPCOMMON $s | wc -l`
+  if [ $WC -eq 2 ]
+  then
+    replaceCP $s
+  elif [ $WC -eq 0 ]
+  then
+    noCP $s
+  else 
+    echo "$s: found $WC $CPCOMMON instances - edit manually !!!"
+  fi
+done
+
+exit 0
+
+

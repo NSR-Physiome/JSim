@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 txt
+
+$JSBATCH -f MOD/"$1".mod -oantimony -out WORK/"$1"_txt.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+

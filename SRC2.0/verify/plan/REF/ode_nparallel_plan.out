@@ -1,0 +1,205 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: int n
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: real uIn(t)
+  add var: real u(t,x)
+  add var: real k(x)
+  add var: private real sum__call0(t)
+  add var: real uOut(t)
+  add var: real u:t(t,x)
+Loading Constraints
+  n=3 :: [n]
+  t.min=0 :: [t.min]
+  t.max=3 :: [t.max]
+  t.delta=.25 :: [t.delta]
+  x.min=1 :: [x.min]
+  x.max=n :: [x.max, n]
+  x.delta=1 :: [x.delta]
+  uIn=t :: [uIn, t]
+  k=x :: [k, x]
+  when (t=t.min) u=uIn :: [u(t.min), uIn(t.min)]
+  u:t=(k*u*(-1)) :: [u:t, k, u]
+  sum__call0=sum.1[u@x] :: [sum__call0, u(x.min)*, u(x.max)*]
+  uOut=sum(x,x.min,x.max,u) :: [uOut, sum__call0]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: n=3; [n]
+  add tool: n=3
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=3; [t.max]
+  add tool: t.max=3
+  check eqn: t.delta=.25; [t.delta]
+  add tool: t.delta=.25
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=1; [x.min]
+  add tool: x.min=1
+  check eqn: x.max=n; [x.max]
+  add tool: x.max=n
+  check eqn: x.delta=1; [x.delta]
+  add tool: x.delta=1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: uIn=t; [uIn]
+  add tool: uIn=t
+  check eqn: k=x; [k]
+  add tool: k=x
+  check eqn: when (t=t.min) u=uIn; [u(t.min)]
+  add tool: u(t.min)=when (t=t.min) uIn
+  check eqn: u:t=(k*u*(-1)); [u:t, u]
+  check eqn: sum__call0=sum.1[u@x]; [sum__call0, u(x.min)*]
+  check eqn: uOut=sum(x,x.min,x.max,u); [uOut, sum__call0]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=when (t=t.min) uIn
+Toolbox phase - cycle 1:
+  check eqn: u:t=(k*u*(-1)); [u:t]
+  add tool: u:t=k*u*(-1)
+  check eqn: sum__call0=sum.1[u@x]; [sum__call0, u(x.min)*]
+  check eqn: uOut=sum(x,x.min,x.max,u); [uOut, sum__call0]
+  updated ODE(u) with u:t=k*u*(-1)
+    u is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: sum__call0=sum.1[u@x]; [sum__call0]
+  add tool: sum__call0=sum.1[u@x]
+  check eqn: uOut=sum(x,x.min,x.max,u); [uOut]
+  add tool: uOut=sum(x,x.min,x.max,u)
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @t@x u:t=k*u*(-1) :: [u:t]<<[k, u]
+  @t uOut=sum(x,x.min,x.max,u) :: [uOut]<<[sum__call0]
+  @t sum__call0=sum.1[u@x] :: [sum__call0]<<[u(x.min)*, u(x.max)*]
+  @x k=x :: [k]<<[x]
+  @t@x ODE u: u:t=k*u*(-1) :: [u, u(t.max)]<<[k, u(t.min), u:t]
+  @t uIn=t :: [uIn]<<[t]
+  x.delta=1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=n :: [x.max]<<[n]
+  x.min=1 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.25 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=3 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  n=3 :: [n]<<[]
+  @x u(t.min)=when (t=t.min) uIn :: [u(t.min)]<<[uIn(t.min)]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding reuse tool: when (t=t.min) uIn=t [uIn(t.min)]<<[t(min)]
+  adding query tool: query [u(x.min)*]<<[u]
+  adding query tool: query [u(x.max)*]<<[u]
+  adding query tool: query [t(min)]<<[t]
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode u:t seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode uOut seqLoops=(t) phase=t#1 fft=null
+  addNode sum__call0 seqLoops=(t) phase=t#1 fft=null
+  addNode k seqLoops=(x) phase=x#1 fft=null
+  addNode u seqLoops=(t,x) phase=t#1+x#1 fft=t
+  addNode uIn seqLoops=(t) phase=t#1 fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode uIn(t.min) seqLoops=() phase=main fft=null
+  addNode u(x.min) seqLoops=(t) phase=t#1 fft=null
+  addNode u(x.max) seqLoops=(t) phase=t#1 fft=null
+  addNode t(min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x.delta=1 to main
+  adding x.min=1 to main
+  adding t.delta=.25 to main
+  adding t.max=3 to main
+  adding t.min=0 to main
+  adding n=3 to main
+  adding x.max=n to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding query [t(min)] to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding when (t=t.min) uIn=t to main
+  subphase t#1 entryEdge=k->u:t
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding k=x to loop-x
+  adding u(t.min)=when (t=t.min) uIn to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding uIn=t to loop-t
+  adding query [u(x.min)*] to loop-t
+  adding query [u(x.max)*] to loop-t
+  adding sum__call0=sum.1[u@x] to loop-t
+  adding uOut=sum(x,x.min,x.max,u) to loop-t
+  subphase t#1+x#1 entryEdge=null
+building block for phase t#1+x#1
+  adding u:t=k*u*(-1) to loop-x
+  adding ODE Block-t [u] to loop-x
+  adding loop-x to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool u:t=k*u*(-1)
+  adding muVar u:t
+  adding u:t=k*u*(-1) to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x.delta=1
+  x.min=1
+  t.delta=.25
+  t.max=3
+  t.min=0
+  n=3
+  x.max=n
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  query [t(min)]
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  when (t=t.min) uIn=t
+  loop-x
+    k=x
+    u(t.min)=when (t=t.min) uIn
+  loop-t
+    uIn=t
+    query [u(x.min)*]
+    query [u(x.max)*]
+    sum__call0=sum.1[u@x]
+    uOut=sum(x,x.min,x.max,u)
+    loop-x
+      u:t=k*u*(-1)
+      ODE Block-t vmus=[t, u, u:t]
+        u:t=k*u*(-1)
+

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. ../run.common
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+rm -Rf WORK
+mkdir WORK
+
+for i in $MODS
+do
+  run1 $i
+done

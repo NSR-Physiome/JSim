@@ -1,0 +1,1032 @@
+/*
+ * Modelling Beta-adrenergic Control of Cardiac Myocyte Contractility
+ * in Silico
+ * 
+ * Model Status
+ * 
+ * This CellML version of the Saucerman and McCulloch 2003 model
+ * is a translation of Jeff Saucerman's original MATLAB code. It
+ * doesn't run in COR due to the presence of differential algebraic
+ * equations (DAEs). Use of additional RDF intial condition hints
+ * allow this version to run in the head revision of OpenCell using
+ * IDA as the solver. Exporting the CellML to MATLAB using OpenCell
+ * and then running the MATLAB output also works. It recreates
+ * the results of the original published model. Units require further
+ * correction and we are continuting to work on this model.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: The beta-adrenergic signaling pathway regulates cardiac
+ * myocyte contractility through a combination of feedforward and
+ * feedback mechanisms. We used systems analysis to investigate
+ * how the components and topology of this signaling network permit
+ * neurohormonal control of excitation-contraction coupling in
+ * the rat ventricular myocyte. A kinetic model integrating beta-adrenergic
+ * signaling with excitation-contraction coupling was formulated,
+ * and each subsystem was validated with independent biochemical
+ * and physiological measurements. Model analysis was used to investigate
+ * quantitatively the effects of specific molecular perturbations.
+ * 3-Fold overexpression of adenylyl cyclase in the model allowed
+ * an 85% higher rate of cyclic AMP synthesis than an equivalent
+ * overexpression of beta 1-adrenergic receptor, and manipulating
+ * the affinity of Gs alpha for adenylyl cyclase was a more potent
+ * regulator of cyclic AMP production. The model predicted that
+ * less than 40% of adenylyl cyclase molecules may be stimulated
+ * under maximal receptor activation, and an experimental protocol
+ * is suggested for validating this prediction. The model also
+ * predicted that the endogenous heat-stable protein kinase inhibitor
+ * may enhance basal cyclic AMP buffering by 68% and increasing
+ * the apparent Hill coefficient of protein kinase A activation
+ * from 1.0 to 2.0. Finally, phosphorylation of the L-type calcium
+ * channel and phospholamban were found sufficient to predict the
+ * dominant changes in myocyte contractility, including a 2.6x
+ * increase in systolic calcium (inotropy) and a 28% decrease in
+ * calcium half-relaxation time (lusitropy). By performing systems
+ * analysis, the consequences of molecular perturbations in the
+ * beta-adrenergic signaling network may be understood within the
+ * context of integrative cellular physiology.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Modeling beta-adrenergic control of cardiac myocyte contractility
+ * in silico , Jeffrey J. Saucerman, Laurence L. Brunton, Anushka
+ * P. Michailova, and Andrew D. McCulloch, 2003, Journal of Biological
+ * Chemistry, 48, 47997-48003. PubMed ID: 12972422
+ * 
+ * cell diagram
+ * 
+ * [[Image file: saucerman_mcculloch_2003.png]]
+ * 
+ * Schematic diagram of the integrated model components, including
+ * the beta-adrenergic network, calcium handling, and the electrophysiology
+ * of the rat ventricular myocyte.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 44 equation(s)
+unit conversion off;
+unit mM=1 meter^(-3)*mole^1;
+unit uM=1E-3 meter^(-3)*mole^1;
+unit per_sec=1 second^(-1);
+unit mM_per_sec=1 meter^(-3)*second^(-1)*mole^1;
+unit uM_per_sec=1E-3 meter^(-3)*second^(-1)*mole^1;
+unit per_mM_per_sec=1 meter^3*second^(-1)*mole^(-1);
+unit per_uM_per_sec=1E3 meter^3*second^(-1)*mole^(-1);
+unit uL=1E-9 meter^3;
+unit cm_per_sec=.01 meter^1*second^(-1);
+unit cm2=1E-4 meter^2;
+unit mV=.001 kilogram^1*meter^2*second^(-3)*ampere^(-1);
+unit per_mV=1E3 kilogram^(-1)*meter^(-2)*second^3*ampere^1;
+unit mV_per_sec=.001 kilogram^1*meter^2*second^(-4)*ampere^(-1);
+unit mS_per_uF=1E3 second^(-1);
+unit uA_per_uF=1 kilogram^1*meter^2*second^(-4)*ampere^(-1);
+unit joules_per_mole_kelvin=1 kilogram^1*meter^2*second^(-2)*kelvin^(-1)*mole^(-1);
+unit coulombs_per_mole=1 second^1*ampere^1*mole^(-1);
+unit unknown=1  dimensionless;
+// unit millisecond predefined
+property cellMLNames=string;
+
+math main {
+	realDomain time millisecond;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real protocol dimensionless;
+	protocol.cellMLNames="environment.protocol;Ion_Concentrations_and_Membrane_Potential.protocol";
+	protocol=0;
+	real L_totmax uM;
+	L_totmax.cellMLNames="b1_AR_Gs_parameters.L_totmax;b1_AR_module.L_totmax";
+	L_totmax=1;
+	real sum_b1_AR uM;
+	sum_b1_AR.cellMLNames="b1_AR_Gs_parameters.sum_b1_AR;b1_AR_module.sum_b1_AR";
+	sum_b1_AR=0.0132;
+	real Gs_tot uM;
+	Gs_tot.cellMLNames="b1_AR_Gs_parameters.Gs_tot;b1_AR_module.Gs_tot";
+	Gs_tot=3.83;
+	real Kl uM;
+	Kl.cellMLNames="b1_AR_Gs_parameters.Kl;b1_AR_module.Kl";
+	Kl=0.285;
+	real Kr uM;
+	Kr.cellMLNames="b1_AR_Gs_parameters.Kr;b1_AR_module.Kr";
+	Kr=0.062;
+	real Kc uM;
+	Kc.cellMLNames="b1_AR_Gs_parameters.Kc;b1_AR_module.Kc";
+	Kc=33;
+	real k_bar_kp per_sec;
+	k_bar_kp.cellMLNames="b1_AR_Gs_parameters.k_bar_kp;b1_AR_module.k_bar_kp";
+	k_bar_kp=1.1e-3;
+	real k_bar_km per_sec;
+	k_bar_km.cellMLNames="b1_AR_Gs_parameters.k_bar_km;b1_AR_module.k_bar_km";
+	k_bar_km=2.2e-3;
+	real k_p_kap per_uM_per_sec;
+	k_p_kap.cellMLNames="b1_AR_Gs_parameters.k_p_kap;b1_AR_module.k_p_kap";
+	k_p_kap=3.6e-3;
+	real k_p_kam per_sec;
+	k_p_kam.cellMLNames="b1_AR_Gs_parameters.k_p_kam;b1_AR_module.k_p_kam";
+	k_p_kam=2.2e-3;
+	real k_g_act per_sec;
+	k_g_act.cellMLNames="b1_AR_Gs_parameters.k_g_act;b1_AR_module.k_g_act";
+	k_g_act=16;
+	real k_hyd per_sec;
+	k_hyd.cellMLNames="b1_AR_Gs_parameters.k_hyd;b1_AR_module.k_hyd";
+	k_hyd=0.8;
+	real k_reassoc per_uM_per_sec;
+	k_reassoc.cellMLNames="b1_AR_Gs_parameters.k_reassoc;b1_AR_module.k_reassoc";
+	k_reassoc=1.21e3;
+	real AC_tot uM;
+	AC_tot.cellMLNames="cAMP_parameters.AC_tot;cAMP_module.AC_tot";
+	AC_tot=49.7e-3;
+	real ATP uM;
+	ATP.cellMLNames="cAMP_parameters.ATP;cAMP_module.ATP";
+	ATP=5e3;
+	real PDE_tot uM;
+	PDE_tot.cellMLNames="cAMP_parameters.PDE_tot;cAMP_module.PDE_tot";
+	PDE_tot=38.9e-3;
+	real IBMX_tot uM;
+	IBMX_tot.cellMLNames="cAMP_parameters.IBMX_tot;cAMP_module.IBMX_tot";
+	IBMX_tot=0;
+	real Fsk_tot uM;
+	Fsk_tot.cellMLNames="cAMP_parameters.Fsk_tot;cAMP_module.Fsk_tot";
+	Fsk_tot=0;
+	real k_ac_basal per_sec;
+	k_ac_basal.cellMLNames="cAMP_parameters.k_ac_basal;cAMP_module.k_ac_basal";
+	k_ac_basal=0.2;
+	real k_ac_gsa per_sec;
+	k_ac_gsa.cellMLNames="cAMP_parameters.k_ac_gsa;cAMP_module.k_ac_gsa";
+	k_ac_gsa=8.5;
+	real k_ac_fsk per_sec;
+	k_ac_fsk.cellMLNames="cAMP_parameters.k_ac_fsk;cAMP_module.k_ac_fsk";
+	k_ac_fsk=7.3;
+	real k_pde per_sec;
+	k_pde.cellMLNames="cAMP_parameters.k_pde;cAMP_module.k_pde";
+	k_pde=5;
+	real Km_basal uM;
+	Km_basal.cellMLNames="cAMP_parameters.Km_basal;cAMP_module.Km_basal";
+	Km_basal=1.03e3;
+	real Km_gsa uM;
+	Km_gsa.cellMLNames="cAMP_parameters.Km_gsa;cAMP_module.Km_gsa";
+	Km_gsa=315;
+	real Km_fsk uM;
+	Km_fsk.cellMLNames="cAMP_parameters.Km_fsk;cAMP_module.Km_fsk";
+	Km_fsk=860;
+	real Km_pde uM;
+	Km_pde.cellMLNames="cAMP_parameters.Km_pde;cAMP_module.Km_pde";
+	Km_pde=1.3;
+	real K_gsa uM;
+	K_gsa.cellMLNames="cAMP_parameters.K_gsa;cAMP_module.K_gsa";
+	K_gsa=0.4;
+	real K_fsk uM;
+	K_fsk.cellMLNames="cAMP_parameters.K_fsk;cAMP_module.K_fsk";
+	K_fsk=44;
+	real Ki_ibmx uM;
+	Ki_ibmx.cellMLNames="cAMP_parameters.Ki_ibmx;cAMP_module.Ki_ibmx";
+	Ki_ibmx=30;
+	real PKAI_tot uM;
+	PKAI_tot.cellMLNames="PKA_parameters.PKAI_tot;PKA_module.PKAI_tot";
+	PKAI_tot=0.59;
+	real PKAII_tot uM;
+	PKAII_tot.cellMLNames="PKA_parameters.PKAII_tot;PKA_module.PKAII_tot";
+	PKAII_tot=0.025;
+	real PKI_tot uM;
+	PKI_tot.cellMLNames="PKA_parameters.PKI_tot;PKA_module.PKI_tot";
+	PKI_tot=0.18;
+	real K_a uM;
+	K_a.cellMLNames="PKA_parameters.K_a;PKA_module.K_a";
+	K_a=9.14;
+	real K_b uM;
+	K_b.cellMLNames="PKA_parameters.K_b;PKA_module.K_b";
+	K_b=1.64;
+	real K_d uM;
+	K_d.cellMLNames="PKA_parameters.K_d;PKA_module.K_d";
+	K_d=4.375;
+	real Ki_pki uM;
+	Ki_pki.cellMLNames="PKA_parameters.Ki_pki;PKA_module.Ki_pki";
+	Ki_pki=0.2e-3;
+	real PLB_tot uM;
+	PLB_tot.cellMLNames="PLB_parameters.PLB_tot;PLB_module.PLB_tot";
+	PLB_tot=106;
+	real PP1_tot uM;
+	PP1_tot.cellMLNames="PLB_parameters.PP1_tot;PLB_module.PP1_tot";
+	PP1_tot=0.89;
+	real Inhib1_tot uM;
+	Inhib1_tot.cellMLNames="PLB_parameters.Inhib1_tot;PLB_module.Inhib1_tot";
+	Inhib1_tot=0.3;
+	real k_pka_plb per_sec;
+	k_pka_plb.cellMLNames="PLB_parameters.k_pka_plb;PLB_module.k_pka_plb";
+	k_pka_plb=54;
+	real Km_pka_plb uM;
+	Km_pka_plb.cellMLNames="PLB_parameters.Km_pka_plb;PLB_module.Km_pka_plb";
+	Km_pka_plb=21;
+	real k_pp1_plb per_sec;
+	k_pp1_plb.cellMLNames="PLB_parameters.k_pp1_plb;PLB_module.k_pp1_plb";
+	k_pp1_plb=8.5;
+	real Km_pp1_plb uM;
+	Km_pp1_plb.cellMLNames="PLB_parameters.Km_pp1_plb;PLB_module.Km_pp1_plb";
+	Km_pp1_plb=7;
+	real k_pka_i1 per_sec;
+	k_pka_i1.cellMLNames="PLB_parameters.k_pka_i1;PLB_module.k_pka_i1";
+	k_pka_i1=60;
+	real Km_pka_i1 uM;
+	Km_pka_i1.cellMLNames="PLB_parameters.Km_pka_i1;PLB_module.Km_pka_i1";
+	Km_pka_i1=1;
+	real Vmax_pp2a_i1 uM_per_sec;
+	Vmax_pp2a_i1.cellMLNames="PLB_parameters.Vmax_pp2a_i1;PLB_module.Vmax_pp2a_i1";
+	Vmax_pp2a_i1=14;
+	real Km_pp2a_i1 uM;
+	Km_pp2a_i1.cellMLNames="PLB_parameters.Km_pp2a_i1;PLB_module.Km_pp2a_i1";
+	Km_pp2a_i1=1;
+	real Ki_inhib1 uM;
+	Ki_inhib1.cellMLNames="PLB_parameters.Ki_inhib1;PLB_module.Ki_inhib1";
+	Ki_inhib1=1e-3;
+	real epsilon dimensionless;
+	epsilon.cellMLNames="LCC_parameters.epsilon;LCC_module.epsilon";
+	epsilon=10;
+	real LCC_tot uM;
+	LCC_tot.cellMLNames="LCC_parameters.LCC_tot;LCC_module.LCC_tot";
+	LCC_tot=25e-3;
+	real PP1_lcc_tot uM;
+	PP1_lcc_tot.cellMLNames="LCC_parameters.PP1_lcc_tot;LCC_module.PP1_lcc_tot";
+	PP1_lcc_tot=25e-3;
+	real PP2A_lcc_tot uM;
+	PP2A_lcc_tot.cellMLNames="LCC_parameters.PP2A_lcc_tot;LCC_module.PP2A_lcc_tot";
+	PP2A_lcc_tot=25e-3;
+	real k_pka_lcc per_sec;
+	k_pka_lcc.cellMLNames="LCC_parameters.k_pka_lcc;LCC_module.k_pka_lcc";
+	k_pka_lcc=54;
+	real Km_pka_lcc uM;
+	Km_pka_lcc.cellMLNames="LCC_parameters.Km_pka_lcc;LCC_module.Km_pka_lcc";
+	Km_pka_lcc=21;
+	real k_pp1_lcc per_sec;
+	k_pp1_lcc.cellMLNames="LCC_parameters.k_pp1_lcc;LCC_module.k_pp1_lcc";
+	k_pp1_lcc=8.52;
+	real Km_pp1_lcc uM;
+	Km_pp1_lcc.cellMLNames="LCC_parameters.Km_pp1_lcc;LCC_module.Km_pp1_lcc";
+	Km_pp1_lcc=3;
+	real k_pp2a_lcc per_sec;
+	k_pp2a_lcc.cellMLNames="LCC_parameters.k_pp2a_lcc;LCC_module.k_pp2a_lcc";
+	k_pp2a_lcc=10.1;
+	real Km_pp2a_lcc uM;
+	Km_pp2a_lcc.cellMLNames="LCC_parameters.Km_pp2a_lcc;LCC_module.Km_pp2a_lcc";
+	Km_pp2a_lcc=3;
+	real V_myo uL;
+	V_myo.cellMLNames="EC_Coupling_Parameters.V_myo;Other_SR_Fluxes_and_Concentrations.V_myo;Ion_Concentrations_and_Membrane_Potential.V_myo";
+	V_myo=20.8e-6;
+	real V_nsr uL;
+	V_nsr.cellMLNames="EC_Coupling_Parameters.V_nsr;Other_SR_Fluxes_and_Concentrations.V_nsr;Ion_Concentrations_and_Membrane_Potential.V_nsr";
+	V_nsr=9.88e-7;
+	real V_jsr uL;
+	V_jsr.cellMLNames="EC_Coupling_Parameters.V_jsr;Other_SR_Fluxes_and_Concentrations.V_jsr;Ion_Concentrations_and_Membrane_Potential.V_jsr";
+	V_jsr=9.3e-8;
+	real A_Cap cm2;
+	A_Cap.cellMLNames="EC_Coupling_Parameters.A_Cap;Ion_Concentrations_and_Membrane_Potential.A_Cap";
+	A_Cap=1.534e-4;
+	real Temp kelvin;
+	Temp.cellMLNames="EC_Coupling_Parameters.Temp;Nernst_Potentials.Temp";
+	Temp=310;
+	real Na_ext mM;
+	Na_ext.cellMLNames="EC_Coupling_Parameters.Na_ext;Nernst_Potentials.Na_ext;Na_Ca_Exchanger_Current.Na_ext;Na_K_Pump_Current.Na_ext";
+	Na_ext=140;
+	real K_ext mM;
+	K_ext.cellMLNames="EC_Coupling_Parameters.K_ext;Nernst_Potentials.K_ext;L_Type_Calcium_Current.K_ext;Time_Independent_K_Current.K_ext;Na_K_Pump_Current.K_ext";
+	K_ext=5.4;
+	real Ca_ext mM;
+	Ca_ext.cellMLNames="EC_Coupling_Parameters.Ca_ext;Nernst_Potentials.Ca_ext;L_Type_Calcium_Current.Ca_ext;Na_Ca_Exchanger_Current.Ca_ext";
+	Ca_ext=1.8;
+	real G_Na mS_per_uF;
+	G_Na.cellMLNames="EC_Coupling_Parameters.G_Na;Fast_Na_Current.G_Na";
+	G_Na=8;
+	real G_to mS_per_uF;
+	G_to.cellMLNames="EC_Coupling_Parameters.G_to;Transient_Outward_K_Current.G_to";
+	G_to=0.35;
+	real G_ss mS_per_uF;
+	G_ss.cellMLNames="EC_Coupling_Parameters.G_ss;Steady_State_K_Current.G_ss";
+	G_ss=0.07;
+	real G_Ki_bar mS_per_uF;
+	G_Ki_bar.cellMLNames="EC_Coupling_Parameters.G_Ki_bar;Time_Independent_K_Current.G_Ki_bar";
+	G_Ki_bar=0.24;
+	real G_Kp mS_per_uF;
+	G_Kp.cellMLNames="EC_Coupling_Parameters.G_Kp;Plateau_K_Current.G_Kp";
+	G_Kp=0.008;
+	real f per_sec;
+	f.cellMLNames="EC_Coupling_Parameters.f;L_Type_Calcium_Current.f";
+	f=300;
+	real g per_sec;
+	g.cellMLNames="EC_Coupling_Parameters.g;L_Type_Calcium_Current.g";
+	g=2e3;
+	real gamma_o per_mM_per_sec;
+	gamma_o.cellMLNames="EC_Coupling_Parameters.gamma_o;L_Type_Calcium_Current.gamma_o";
+	gamma_o=5187.5;
+	real omega per_sec;
+	omega.cellMLNames="EC_Coupling_Parameters.omega;L_Type_Calcium_Current.omega";
+	omega=10;
+	real p_Ca cm_per_sec;
+	p_Ca.cellMLNames="EC_Coupling_Parameters.p_Ca;L_Type_Calcium_Current.p_Ca";
+	p_Ca=1.7469e-8;
+	real p_K cm_per_sec;
+	p_K.cellMLNames="EC_Coupling_Parameters.p_K;L_Type_Calcium_Current.p_K";
+	p_K=3.234e-11;
+	real N_lcc dimensionless;
+	N_lcc.cellMLNames="EC_Coupling_Parameters.N_lcc;L_Type_Calcium_Current.N_lcc";
+	N_lcc=3e5;
+	real I_Ca05 uA_per_uF;
+	I_Ca05.cellMLNames="EC_Coupling_Parameters.I_Ca05;L_Type_Calcium_Current.I_Ca05";
+	I_Ca05=-0.458;
+	real k_NaCa uA_per_uF;
+	k_NaCa.cellMLNames="EC_Coupling_Parameters.k_NaCa;Na_Ca_Exchanger_Current.k_NaCa";
+	k_NaCa=1483;
+	real Km_Na mM;
+	Km_Na.cellMLNames="EC_Coupling_Parameters.Km_Na;Na_Ca_Exchanger_Current.Km_Na";
+	Km_Na=87.5;
+	real Km_Ca mM;
+	Km_Ca.cellMLNames="EC_Coupling_Parameters.Km_Ca;Na_Ca_Exchanger_Current.Km_Ca";
+	Km_Ca=1.38;
+	real k_sat dimensionless;
+	k_sat.cellMLNames="EC_Coupling_Parameters.k_sat;Na_Ca_Exchanger_Current.k_sat";
+	k_sat=0.1;
+	real eta dimensionless;
+	eta.cellMLNames="EC_Coupling_Parameters.eta;Na_Ca_Exchanger_Current.eta";
+	eta=0.35;
+	real I_bar_NaK uA_per_uF;
+	I_bar_NaK.cellMLNames="EC_Coupling_Parameters.I_bar_NaK;Na_K_Pump_Current.I_bar_NaK";
+	I_bar_NaK=1.1;
+	real Km_Nai mM;
+	Km_Nai.cellMLNames="EC_Coupling_Parameters.Km_Nai;Na_K_Pump_Current.Km_Nai";
+	Km_Nai=10;
+	real Km_Ko mM;
+	Km_Ko.cellMLNames="EC_Coupling_Parameters.Km_Ko;Na_K_Pump_Current.Km_Ko";
+	Km_Ko=1.5;
+	real I_bar_PCa uA_per_uF;
+	I_bar_PCa.cellMLNames="EC_Coupling_Parameters.I_bar_PCa;Sarcolemmal_Ca_Pump_Current.I_bar_PCa";
+	I_bar_PCa=1.15;
+	real Km_PCa mM;
+	Km_PCa.cellMLNames="EC_Coupling_Parameters.Km_PCa;Sarcolemmal_Ca_Pump_Current.Km_PCa";
+	Km_PCa=0.5e-3;
+	real G_CaB uA_per_uF;
+	G_CaB.cellMLNames="EC_Coupling_Parameters.G_CaB;Ca_Background_Current.G_CaB";
+	G_CaB=2.8e-3;
+	real G_NaB uA_per_uF;
+	G_NaB.cellMLNames="EC_Coupling_Parameters.G_NaB;Na_Background_Current.G_NaB";
+	G_NaB=1.18e-3;
+	real Pns dimensionless;
+	Pns.cellMLNames="EC_Coupling_Parameters.Pns";
+	Pns=0;
+	real Km_NS mM;
+	Km_NS.cellMLNames="EC_Coupling_Parameters.Km_NS";
+	Km_NS=1.2e-3;
+	real I_up_bar mM_per_sec;
+	I_up_bar.cellMLNames="EC_Coupling_Parameters.I_up_bar;Other_SR_Fluxes_and_Concentrations.I_up_bar";
+	I_up_bar=4.7;
+	real Km_up0 mM;
+	Km_up0.cellMLNames="EC_Coupling_Parameters.Km_up0;Other_SR_Fluxes_and_Concentrations.Km_up0";
+	Km_up0=3e-4;
+	real NSR_bar mM;
+	NSR_bar.cellMLNames="EC_Coupling_Parameters.NSR_bar;Other_SR_Fluxes_and_Concentrations.NSR_bar";
+	NSR_bar=15;
+	real tau_on second;
+	tau_on.cellMLNames="EC_Coupling_Parameters.tau_on;Calcium_Induced_Calcium_Release.tau_on";
+	tau_on=2e-3;
+	real tau_off second;
+	tau_off.cellMLNames="EC_Coupling_Parameters.tau_off;Calcium_Induced_Calcium_Release.tau_off";
+	tau_off=2e-3;
+	real G_max_rel mM_per_sec;
+	G_max_rel.cellMLNames="EC_Coupling_Parameters.G_max_rel;Calcium_Induced_Calcium_Release.G_max_rel";
+	G_max_rel=60e3;
+	real d_Cai_th mM;
+	d_Cai_th.cellMLNames="EC_Coupling_Parameters.d_Cai_th";
+	d_Cai_th=0.18e-3;
+	real Km_rel mM;
+	Km_rel.cellMLNames="EC_Coupling_Parameters.Km_rel";
+	Km_rel=0.8e-3;
+	real CSQN_th mM;
+	CSQN_th.cellMLNames="EC_Coupling_Parameters.CSQN_th";
+	CSQN_th=8.75;
+	real CSQN_bar mM;
+	CSQN_bar.cellMLNames="EC_Coupling_Parameters.CSQN_bar;Other_SR_Fluxes_and_Concentrations.CSQN_bar";
+	CSQN_bar=15;
+	real Km_CSQN mM;
+	Km_CSQN.cellMLNames="EC_Coupling_Parameters.Km_CSQN;Other_SR_Fluxes_and_Concentrations.Km_CSQN";
+	Km_CSQN=0.8;
+	real tau_tr second;
+	tau_tr.cellMLNames="EC_Coupling_Parameters.tau_tr;Other_SR_Fluxes_and_Concentrations.tau_tr";
+	tau_tr=5.7e-4;
+	real TRPN_bar mM;
+	TRPN_bar.cellMLNames="EC_Coupling_Parameters.TRPN_bar;Cytoplasmic_Calcium_Buffering.TRPN_bar";
+	TRPN_bar=0.07;
+	real CMDN_bar mM;
+	CMDN_bar.cellMLNames="EC_Coupling_Parameters.CMDN_bar;Cytoplasmic_Calcium_Buffering.CMDN_bar";
+	CMDN_bar=0.05;
+	real INDO_bar mM;
+	INDO_bar.cellMLNames="EC_Coupling_Parameters.INDO_bar;Cytoplasmic_Calcium_Buffering.INDO_bar";
+	INDO_bar=0.07;
+	real Km_TRPN mM;
+	Km_TRPN.cellMLNames="EC_Coupling_Parameters.Km_TRPN;Cytoplasmic_Calcium_Buffering.Km_TRPN";
+	Km_TRPN=0.5128e-3;
+	real Km_CMDN mM;
+	Km_CMDN.cellMLNames="EC_Coupling_Parameters.Km_CMDN;Cytoplasmic_Calcium_Buffering.Km_CMDN";
+	Km_CMDN=2.38e-3;
+	real Km_INDO mM;
+	Km_INDO.cellMLNames="EC_Coupling_Parameters.Km_INDO;Cytoplasmic_Calcium_Buffering.Km_INDO";
+	Km_INDO=8.44e-4;
+	real LR(time) uM;
+	LR.cellMLNames="b1_AR_module.LR";
+	real LRG(time) uM;
+	LRG.cellMLNames="b1_AR_module.LRG";
+	real RG(time) uM;
+	RG.cellMLNames="b1_AR_module.RG";
+	real BARK_DESENS(time) uM_per_sec;
+	BARK_DESENS.cellMLNames="b1_AR_module.BARK_DESENS";
+	real BARK_RESENS(time) uM_per_sec;
+	BARK_RESENS.cellMLNames="b1_AR_module.BARK_RESENS";
+	real PKA_DESENS(time) uM_per_sec;
+	PKA_DESENS.cellMLNames="b1_AR_module.PKA_DESENS";
+	real PKA_RESENS(time) uM_per_sec;
+	PKA_RESENS.cellMLNames="b1_AR_module.PKA_RESENS";
+	real G_ACT(time) uM_per_sec;
+	G_ACT.cellMLNames="b1_AR_module.G_ACT";
+	real HYD(time) uM_per_sec;
+	HYD.cellMLNames="b1_AR_module.HYD";
+	real REASSOC(time) per_sec;
+	REASSOC.cellMLNames="b1_AR_module.REASSOC";
+	real L(time) uM;
+	L.cellMLNames="b1_AR_module.L";
+	real b1_AR_module.R(time) uM;
+	b1_AR_module.R.cellMLNames="b1_AR_module.R";
+	real Gs(time) uM;
+	Gs.cellMLNames="b1_AR_module.Gs";
+	real b1_AR_tot(time) uM;
+	b1_AR_tot.cellMLNames="b1_AR_module.b1_AR_tot";
+	when(time=time.min) b1_AR_tot=0.01205;
+	real b1_AR_d(time) uM;
+	b1_AR_d.cellMLNames="b1_AR_module.b1_AR_d";
+	when(time=time.min) b1_AR_d=0;
+	real b1_AR_p(time) uM;
+	b1_AR_p.cellMLNames="b1_AR_module.b1_AR_p";
+	when(time=time.min) b1_AR_p=1.154e-3;
+	real Gs_agtp_tot(time) uM;
+	Gs_agtp_tot.cellMLNames="b1_AR_module.Gs_agtp_tot;cAMP_module.Gs_agtp_tot";
+	when(time=time.min) Gs_agtp_tot=0.02505;
+	real Gs_agdp(time) uM;
+	Gs_agdp.cellMLNames="b1_AR_module.Gs_agdp";
+	when(time=time.min) Gs_agdp=6.446e-4;
+	real Gs_bg(time) uM;
+	Gs_bg.cellMLNames="b1_AR_module.Gs_bg";
+	when(time=time.min) Gs_bg=0.02569;
+	real PKAC_I(time) uM;
+	PKAC_I.cellMLNames="b1_AR_module.PKAC_I;PKA_module.PKAC_I;PLB_module.PKAC_I";
+	real cAMP(time) uM;
+	cAMP.cellMLNames="cAMP_module.cAMP;PKA_module.cAMP";
+	real Gsa_GTP(time) uM;
+	Gsa_GTP.cellMLNames="cAMP_module.Gsa_GTP";
+	real Fsk(time) uM;
+	Fsk.cellMLNames="cAMP_module.Fsk";
+	real AC(time) uM;
+	AC.cellMLNames="cAMP_module.AC";
+	real PDE uM;
+	PDE.cellMLNames="cAMP_module.PDE";
+	real IBMX uM;
+	IBMX.cellMLNames="cAMP_module.IBMX";
+	real cAMP_tot(time) uM;
+	cAMP_tot.cellMLNames="cAMP_module.cAMP_tot;PKA_module.cAMP_tot";
+	when(time=time.min) cAMP_tot=0.8453;
+	real Gsa_GTP_AC(time) uM;
+	Gsa_GTP_AC.cellMLNames="cAMP_module.Gsa_GTP_AC";
+	real Fsk_AC(time) uM;
+	Fsk_AC.cellMLNames="cAMP_module.Fsk_AC";
+	real AC_ACT_GSA(time) uM;
+	AC_ACT_GSA.cellMLNames="cAMP_module.AC_ACT_GSA";
+	real AC_ACT_BASAL(time) uM;
+	AC_ACT_BASAL.cellMLNames="cAMP_module.AC_ACT_BASAL";
+	real AC_ACT_FSK(time) uM;
+	AC_ACT_FSK.cellMLNames="cAMP_module.AC_ACT_FSK";
+	real PDE_ACT(time) uM;
+	PDE_ACT.cellMLNames="cAMP_module.PDE_ACT";
+	real PDE_IBMX uM;
+	PDE_IBMX.cellMLNames="cAMP_module.PDE_IBMX";
+	real PKI(time) uM;
+	PKI.cellMLNames="PKA_module.PKI";
+	real A2RC_I(time) uM;
+	A2RC_I.cellMLNames="PKA_module.A2RC_I";
+	real A2R_I(time) uM;
+	A2R_I.cellMLNames="PKA_module.A2R_I";
+	real A2RC_II(time) uM;
+	A2RC_II.cellMLNames="PKA_module.A2RC_II";
+	real A2R_II(time) uM;
+	A2R_II.cellMLNames="PKA_module.A2R_II";
+	real ARC_I(time) uM;
+	ARC_I.cellMLNames="PKA_module.ARC_I";
+	real ARC_II(time) uM;
+	ARC_II.cellMLNames="PKA_module.ARC_II";
+	real PKA_temp(time) uM;
+	PKA_temp.cellMLNames="PKA_module.PKA_temp";
+	real PKAC_II(time) uM;
+	PKAC_II.cellMLNames="PKA_module.PKAC_II;LCC_module.PKAC_II";
+	real PLB(time) uM;
+	PLB.cellMLNames="PLB_module.PLB";
+	real PLB_PHOSPH(time) uM_per_sec;
+	PLB_PHOSPH.cellMLNames="PLB_module.PLB_PHOSPH";
+	real PLB_DEPHOSPH(time) uM_per_sec;
+	PLB_DEPHOSPH.cellMLNames="PLB_module.PLB_DEPHOSPH";
+	real Inhib1(time) uM;
+	Inhib1.cellMLNames="PLB_module.Inhib1";
+	real Inhib1p_PP1(time) uM;
+	Inhib1p_PP1.cellMLNames="PLB_module.Inhib1p_PP1";
+	real Inhib1_PHOSPH(time) uM_per_sec;
+	Inhib1_PHOSPH.cellMLNames="PLB_module.Inhib1_PHOSPH";
+	real Inhib1_DEPHOSPH(time) uM_per_sec;
+	Inhib1_DEPHOSPH.cellMLNames="PLB_module.Inhib1_DEPHOSPH";
+	real PLB_p(time) uM;
+	PLB_p.cellMLNames="PLB_module.PLB_p";
+	when(time=time.min) PLB_p=4.105;
+	real Inhib1p_tot(time) uM;
+	Inhib1p_tot.cellMLNames="PLB_module.Inhib1p_tot";
+	when(time=time.min) Inhib1p_tot=0.0526;
+	real Inhib1p(time) uM;
+	Inhib1p.cellMLNames="PLB_module.Inhib1p";
+	real PP1(time) uM;
+	PP1.cellMLNames="PLB_module.PP1";
+	real frac_PLB_p(time) dimensionless;
+	frac_PLB_p.cellMLNames="PLB_module.frac_PLB_p";
+	real frac_PLB(time) dimensionless;
+	frac_PLB.cellMLNames="PLB_module.frac_PLB;Other_SR_Fluxes_and_Concentrations.frac_PLB";
+	real frac_PLB_o dimensionless;
+	frac_PLB_o.cellMLNames="PLB_module.frac_PLB_o;Other_SR_Fluxes_and_Concentrations.frac_PLB_o";
+	real LCCa(time) uM;
+	LCCa.cellMLNames="LCC_module.LCCa";
+	real LCCa_PHOSPH(time) uM_per_sec;
+	LCCa_PHOSPH.cellMLNames="LCC_module.LCCa_PHOSPH";
+	real LCCa_DEPHOSPH(time) uM_per_sec;
+	LCCa_DEPHOSPH.cellMLNames="LCC_module.LCCa_DEPHOSPH";
+	real LCCb(time) uM;
+	LCCb.cellMLNames="LCC_module.LCCb";
+	real LCCb_PHOSPH(time) uM_per_sec;
+	LCCb_PHOSPH.cellMLNames="LCC_module.LCCb_PHOSPH";
+	real LCCb_DEPHOSPH(time) uM_per_sec;
+	LCCb_DEPHOSPH.cellMLNames="LCC_module.LCCb_DEPHOSPH";
+	real LCCa_p(time) uM;
+	LCCa_p.cellMLNames="LCC_module.LCCa_p";
+	when(time=time.min) LCCa_p=5.103e-3;
+	real LCCb_p(time) uM;
+	LCCb_p.cellMLNames="LCC_module.LCCb_p";
+	when(time=time.min) LCCb_p=5.841e-3;
+	real frac_LCCa_p(time) dimensionless;
+	frac_LCCa_p.cellMLNames="LCC_module.frac_LCCa_p;L_Type_Calcium_Current.frac_LCCa_p";
+	real frac_LCCa_po dimensionless;
+	frac_LCCa_po.cellMLNames="LCC_module.frac_LCCa_po;L_Type_Calcium_Current.frac_LCCa_po";
+	real frac_LCCb_p(time) dimensionless;
+	frac_LCCb_p.cellMLNames="LCC_module.frac_LCCb_p;L_Type_Calcium_Current.frac_LCCb_p";
+	real frac_LCCb_po dimensionless;
+	frac_LCCb_po.cellMLNames="LCC_module.frac_LCCb_po;L_Type_Calcium_Current.frac_LCCb_po";
+	real E_Na(time) mV;
+	E_Na.cellMLNames="Nernst_Potentials.E_Na;Fast_Na_Current.E_Na;Na_Background_Current.E_Na";
+	real E_K(time) mV;
+	E_K.cellMLNames="Nernst_Potentials.E_K;Transient_Outward_K_Current.E_K;Steady_State_K_Current.E_K;Time_Independent_K_Current.E_K;Plateau_K_Current.E_K";
+	real E_Ca(time) mV;
+	E_Ca.cellMLNames="Nernst_Potentials.E_Ca;Ca_Background_Current.E_Ca";
+	real E_Cl mV;
+	E_Cl.cellMLNames="Nernst_Potentials.E_Cl";
+	real Nernst_Potentials.R joules_per_mole_kelvin;
+	Nernst_Potentials.R.cellMLNames="Nernst_Potentials.R";
+	Nernst_Potentials.R=8314;
+	real Frdy coulombs_per_mole;
+	Frdy.cellMLNames="Nernst_Potentials.Frdy;L_Type_Calcium_Current.Frdy;Ion_Concentrations_and_Membrane_Potential.Frdy";
+	Frdy=96485;
+	real FoRT per_mV;
+	FoRT.cellMLNames="Nernst_Potentials.FoRT;L_Type_Calcium_Current.FoRT;Na_K_Pump_Current.FoRT;Na_Ca_Exchanger_Current.FoRT";
+	real z_Na dimensionless;
+	z_Na.cellMLNames="Nernst_Potentials.z_Na;Ion_Concentrations_and_Membrane_Potential.z_Na";
+	z_Na=1;
+	real z_K dimensionless;
+	z_K.cellMLNames="Nernst_Potentials.z_K;Ion_Concentrations_and_Membrane_Potential.z_K";
+	z_K=1;
+	real z_Ca dimensionless;
+	z_Ca.cellMLNames="Nernst_Potentials.z_Ca;Ion_Concentrations_and_Membrane_Potential.z_Ca";
+	z_Ca=2;
+	real Na_i(time) mM;
+	Na_i.cellMLNames="Nernst_Potentials.Na_i;Ion_Concentrations_and_Membrane_Potential.Na_i;Na_Ca_Exchanger_Current.Na_i;Na_K_Pump_Current.Na_i";
+	when(time=time.min) Na_i=16;
+	real K_i(time) mM;
+	K_i.cellMLNames="Nernst_Potentials.K_i;Ion_Concentrations_and_Membrane_Potential.K_i;L_Type_Calcium_Current.K_i";
+	when(time=time.min) K_i=145;
+	real Ca_i(time) mM;
+	Ca_i.cellMLNames="Nernst_Potentials.Ca_i;Ion_Concentrations_and_Membrane_Potential.Ca_i;Calcium_Induced_Calcium_Release.Ca_i;Other_SR_Fluxes_and_Concentrations.Ca_i;Cytoplasmic_Calcium_Buffering.Ca_i;L_Type_Calcium_Current.Ca_i;Na_Ca_Exchanger_Current.Ca_i;Sarcolemmal_Ca_Pump_Current.Ca_i";
+	when(time=time.min) Ca_i=1.58e-4;
+	real am(time) per_sec;
+	am.cellMLNames="Fast_Na_Current.am";
+	real bm(time) per_sec;
+	bm.cellMLNames="Fast_Na_Current.bm";
+	real ah(time) per_sec;
+	ah.cellMLNames="Fast_Na_Current.ah";
+	real aj(time) per_sec;
+	aj.cellMLNames="Fast_Na_Current.aj";
+	real bh(time) per_sec;
+	bh.cellMLNames="Fast_Na_Current.bh";
+	real bj(time) per_sec;
+	bj.cellMLNames="Fast_Na_Current.bj";
+	real m(time) dimensionless;
+	m.cellMLNames="Fast_Na_Current.m";
+	when(time=time.min) m=1.4e-3;
+	real h(time) dimensionless;
+	h.cellMLNames="Fast_Na_Current.h";
+	when(time=time.min) h=0.99;
+	real j(time) dimensionless;
+	j.cellMLNames="Fast_Na_Current.j";
+	when(time=time.min) j=0.99;
+	real I_Na(time) uA_per_uF;
+	I_Na.cellMLNames="Fast_Na_Current.I_Na;Total_Membrane_Currents.I_Na";
+	real V_m(time) mV;
+	V_m.cellMLNames="Fast_Na_Current.V_m;Ion_Concentrations_and_Membrane_Potential.V_m;Transient_Outward_K_Current.V_m;Steady_State_K_Current.V_m;Time_Independent_K_Current.V_m;Plateau_K_Current.V_m;Ca_Background_Current.V_m;Na_Background_Current.V_m;L_Type_Calcium_Current.V_m;Na_Ca_Exchanger_Current.V_m;Na_K_Pump_Current.V_m";
+	when(time=time.min) V_m=-85.66;
+	real a_lcc(time) per_sec;
+	a_lcc.cellMLNames="L_Type_Calcium_Current.a_lcc";
+	real b_lcc(time) per_sec;
+	b_lcc.cellMLNames="L_Type_Calcium_Current.b_lcc";
+	real f_lcc(time) dimensionless;
+	f_lcc.cellMLNames="L_Type_Calcium_Current.f_lcc";
+	real y_lcc_inf(time) dimensionless;
+	y_lcc_inf.cellMLNames="L_Type_Calcium_Current.y_lcc_inf";
+	real tau_y_lcc(time) second;
+	tau_y_lcc.cellMLNames="L_Type_Calcium_Current.tau_y_lcc";
+	real gamma(time) per_mM_per_sec;
+	gamma.cellMLNames="L_Type_Calcium_Current.gamma";
+	real v_gamma(time) per_mM_per_sec;
+	v_gamma.cellMLNames="L_Type_Calcium_Current.v_gamma";
+	real v_omega(time) dimensionless;
+	v_omega.cellMLNames="L_Type_Calcium_Current.v_omega";
+	real v(time) dimensionless;
+	v.cellMLNames="L_Type_Calcium_Current.v";
+	when(time=time.min) v=0;
+	real w(time) dimensionless;
+	w.cellMLNames="L_Type_Calcium_Current.w";
+	when(time=time.min) w=0;
+	real x(time) dimensionless;
+	x.cellMLNames="L_Type_Calcium_Current.x";
+	when(time=time.min) x=0.13;
+	real y(time) dimensionless;
+	y.cellMLNames="L_Type_Calcium_Current.y";
+	when(time=time.min) y=0.96;
+	real z(time) dimensionless;
+	z.cellMLNames="L_Type_Calcium_Current.z";
+	when(time=time.min) z=0.92;
+	real i_bar_Ca(time) dimensionless;
+	i_bar_Ca.cellMLNames="L_Type_Calcium_Current.i_bar_Ca";
+	real i_bar_K(time) dimensionless;
+	i_bar_K.cellMLNames="L_Type_Calcium_Current.i_bar_K";
+	real f_avail(time) dimensionless;
+	f_avail.cellMLNames="L_Type_Calcium_Current.f_avail";
+	real I_Ca(time) uA_per_uF;
+	I_Ca.cellMLNames="L_Type_Calcium_Current.I_Ca;Total_Membrane_Currents.I_Ca";
+	real I_CaK(time) uA_per_uF;
+	I_CaK.cellMLNames="L_Type_Calcium_Current.I_CaK;Total_Membrane_Currents.I_CaK";
+	real L_Type_Calcium_Current.I_Ca_tot(time) uA_per_uF;
+	L_Type_Calcium_Current.I_Ca_tot.cellMLNames="L_Type_Calcium_Current.I_Ca_tot";
+	real r_toss(time) dimensionless;
+	r_toss.cellMLNames="Transient_Outward_K_Current.r_toss";
+	real s_toss(time) dimensionless;
+	s_toss.cellMLNames="Transient_Outward_K_Current.s_toss";
+	real tau_r_to(time) second;
+	tau_r_to.cellMLNames="Transient_Outward_K_Current.tau_r_to";
+	real tau_s_to(time) second;
+	tau_s_to.cellMLNames="Transient_Outward_K_Current.tau_s_to";
+	real tau_ss_to(time) second;
+	tau_ss_to.cellMLNames="Transient_Outward_K_Current.tau_ss_to";
+	real r_to(time) dimensionless;
+	r_to.cellMLNames="Transient_Outward_K_Current.r_to";
+	when(time=time.min) r_to=1.4e-3;
+	real s_to(time) dimensionless;
+	s_to.cellMLNames="Transient_Outward_K_Current.s_to";
+	when(time=time.min) s_to=1;
+	real ss_to(time) dimensionless;
+	ss_to.cellMLNames="Transient_Outward_K_Current.ss_to";
+	when(time=time.min) ss_to=0.613;
+	real I_to(time) uA_per_uF;
+	I_to.cellMLNames="Transient_Outward_K_Current.I_to;Total_Membrane_Currents.I_to";
+	real r_ss_inf(time) dimensionless;
+	r_ss_inf.cellMLNames="Steady_State_K_Current.r_ss_inf";
+	real tau_r_ss(time) second;
+	tau_r_ss.cellMLNames="Steady_State_K_Current.tau_r_ss";
+	real s_ss_inf(time) dimensionless;
+	s_ss_inf.cellMLNames="Steady_State_K_Current.s_ss_inf";
+	real tau_s_ss second;
+	tau_s_ss.cellMLNames="Steady_State_K_Current.tau_s_ss";
+	real r_ss(time) dimensionless;
+	r_ss.cellMLNames="Steady_State_K_Current.r_ss";
+	when(time=time.min) r_ss=198e-3;
+	real s_ss(time) dimensionless;
+	s_ss.cellMLNames="Steady_State_K_Current.s_ss";
+	when(time=time.min) s_ss=0.43;
+	real I_ss(time) uA_per_uF;
+	I_ss.cellMLNames="Steady_State_K_Current.I_ss;Total_Membrane_Currents.I_ss";
+	real a_Ki(time) dimensionless;
+	a_Ki.cellMLNames="Time_Independent_K_Current.a_Ki";
+	real b_Ki(time) dimensionless;
+	b_Ki.cellMLNames="Time_Independent_K_Current.b_Ki";
+	real Ki_ss(time) dimensionless;
+	Ki_ss.cellMLNames="Time_Independent_K_Current.Ki_ss";
+	real I_Ki(time) uA_per_uF;
+	I_Ki.cellMLNames="Time_Independent_K_Current.I_Ki;Total_Membrane_Currents.I_Ki";
+	real Kp(time) dimensionless;
+	Kp.cellMLNames="Plateau_K_Current.Kp";
+	real I_Kp(time) uA_per_uF;
+	I_Kp.cellMLNames="Plateau_K_Current.I_Kp;Total_Membrane_Currents.I_Kp";
+	real s4(time) dimensionless;
+	s4.cellMLNames="Na_Ca_Exchanger_Current.s4";
+	real s5(time) dimensionless;
+	s5.cellMLNames="Na_Ca_Exchanger_Current.s5";
+	real I_NCX(time) uA_per_uF;
+	I_NCX.cellMLNames="Na_Ca_Exchanger_Current.I_NCX;Total_Membrane_Currents.I_NCX";
+	real sigma dimensionless;
+	sigma.cellMLNames="Na_K_Pump_Current.sigma";
+	real f_NaK(time) dimensionless;
+	f_NaK.cellMLNames="Na_K_Pump_Current.f_NaK";
+	real I_NaK(time) uA_per_uF;
+	I_NaK.cellMLNames="Na_K_Pump_Current.I_NaK;Total_Membrane_Currents.I_NaK";
+	real I_PCa(time) uA_per_uF;
+	I_PCa.cellMLNames="Sarcolemmal_Ca_Pump_Current.I_PCa;Total_Membrane_Currents.I_PCa";
+	real I_CaB(time) uA_per_uF;
+	I_CaB.cellMLNames="Ca_Background_Current.I_CaB;Total_Membrane_Currents.I_CaB";
+	real I_NaB(time) uA_per_uF;
+	I_NaB.cellMLNames="Na_Background_Current.I_NaB;Total_Membrane_Currents.I_NaB";
+	real I_Na_tot(time) uA_per_uF;
+	I_Na_tot.cellMLNames="Total_Membrane_Currents.I_Na_tot;Ion_Concentrations_and_Membrane_Potential.I_Na_tot";
+	real I_K_tot(time) uA_per_uF;
+	I_K_tot.cellMLNames="Total_Membrane_Currents.I_K_tot;Ion_Concentrations_and_Membrane_Potential.I_K_tot";
+	real Total_Membrane_Currents.I_Ca_tot(time) uA_per_uF;
+	Total_Membrane_Currents.I_Ca_tot.cellMLNames="Total_Membrane_Currents.I_Ca_tot;Calcium_Induced_Calcium_Release.I_Ca_tot;Ion_Concentrations_and_Membrane_Potential.I_Ca_tot";
+	real t_rel(time) second;
+	t_rel.cellMLNames="Calcium_Induced_Calcium_Release.t_rel";
+	real ryr_on(time) dimensionless;
+	ryr_on.cellMLNames="Calcium_Induced_Calcium_Release.ryr_on";
+	real ryr_off(time) dimensionless;
+	ryr_off.cellMLNames="Calcium_Induced_Calcium_Release.ryr_off";
+	real g_rel(time) per_sec;
+	g_rel.cellMLNames="Calcium_Induced_Calcium_Release.g_rel";
+	real I_rel(time) mM_per_sec;
+	I_rel.cellMLNames="Calcium_Induced_Calcium_Release.I_rel;Other_SR_Fluxes_and_Concentrations.I_rel;Ion_Concentrations_and_Membrane_Potential.I_rel";
+	real Ca_jsr(time) mM;
+	Ca_jsr.cellMLNames="Calcium_Induced_Calcium_Release.Ca_jsr;Other_SR_Fluxes_and_Concentrations.Ca_jsr";
+	when(time=time.min) Ca_jsr=1.92;
+	real trel(time) second;
+	trel.cellMLNames="Calcium_Induced_Calcium_Release.trel;Ion_Concentrations_and_Membrane_Potential.trel";
+	when(time=time.min) trel=0.9;
+	real Km_up(time) mM;
+	Km_up.cellMLNames="Other_SR_Fluxes_and_Concentrations.Km_up";
+	real I_up(time) mM_per_sec;
+	I_up.cellMLNames="Other_SR_Fluxes_and_Concentrations.I_up;Ion_Concentrations_and_Membrane_Potential.I_up";
+	real I_leak(time) mM_per_sec;
+	I_leak.cellMLNames="Other_SR_Fluxes_and_Concentrations.I_leak;Ion_Concentrations_and_Membrane_Potential.I_leak";
+	real I_tr(time) mM_per_sec;
+	I_tr.cellMLNames="Other_SR_Fluxes_and_Concentrations.I_tr";
+	real B_jsr(time) dimensionless;
+	B_jsr.cellMLNames="Other_SR_Fluxes_and_Concentrations.B_jsr";
+	real Ca_nsr(time) mM;
+	Ca_nsr.cellMLNames="Other_SR_Fluxes_and_Concentrations.Ca_nsr";
+	when(time=time.min) Ca_nsr=1.92;
+	real SR_content(time) uM;
+	SR_content.cellMLNames="Other_SR_Fluxes_and_Concentrations.SR_content";
+	real b_trpn(time) dimensionless;
+	b_trpn.cellMLNames="Cytoplasmic_Calcium_Buffering.b_trpn";
+	real b_cmdn(time) dimensionless;
+	b_cmdn.cellMLNames="Cytoplasmic_Calcium_Buffering.b_cmdn";
+	real b_indo(time) dimensionless;
+	b_indo.cellMLNames="Cytoplasmic_Calcium_Buffering.b_indo";
+	real B_myo(time) dimensionless;
+	B_myo.cellMLNames="Cytoplasmic_Calcium_Buffering.B_myo;Ion_Concentrations_and_Membrane_Potential.B_myo";
+	real I_app(time) uA_per_uF;
+	I_app.cellMLNames="Ion_Concentrations_and_Membrane_Potential.I_app";
+	real V_hold mV;
+	V_hold.cellMLNames="Ion_Concentrations_and_Membrane_Potential.V_hold";
+	V_hold=-40;
+	real V_test mV;
+	V_test.cellMLNames="Ion_Concentrations_and_Membrane_Potential.V_test";
+	V_test=-10;
+	real V_clamp(time) mV;
+	V_clamp.cellMLNames="Ion_Concentrations_and_Membrane_Potential.V_clamp";
+	real R_clamp dimensionless;
+	R_clamp.cellMLNames="Ion_Concentrations_and_Membrane_Potential.R_clamp";
+	R_clamp=0.02;
+	real I_pace(time) uA_per_uF;
+	I_pace.cellMLNames="Ion_Concentrations_and_Membrane_Potential.I_pace;Pacing.I_pace";
+
+	// <component name="environment">
+
+	// <component name="b1_AR_Gs_parameters">
+
+	// <component name="cAMP_parameters">
+
+	// <component name="PKA_parameters">
+
+	// <component name="PLB_parameters">
+
+	// <component name="LCC_parameters">
+
+	// <component name="EC_Coupling_Parameters">
+
+	// <component name="b1_AR_module">
+	LR=(L*b1_AR_module.R/Kl);
+	LRG=(LR*Gs/Kr);
+	RG=(b1_AR_module.R*Gs/Kc);
+	BARK_DESENS=(k_bar_kp*(LR+LRG));
+	BARK_RESENS=(k_bar_km*b1_AR_d);
+	PKA_DESENS=(k_p_kap*PKAC_I*b1_AR_tot);
+	PKA_RESENS=(k_p_kam*b1_AR_p);
+	G_ACT=(k_g_act*(RG+LRG));
+	HYD=(k_hyd*Gs_agtp_tot);
+	REASSOC=(k_reassoc*Gs_agdp*Gs_bg);
+	L=(L_totmax-LR-LRG);
+	b1_AR_module.R=(b1_AR_tot-LR-LRG-RG);
+	Gs=(Gs_tot-LRG-RG);
+	b1_AR_tot:time=(BARK_RESENS-BARK_DESENS+(PKA_RESENS-PKA_DESENS));
+	b1_AR_d:time=(BARK_DESENS-BARK_RESENS);
+	b1_AR_p:time=(PKA_DESENS-PKA_RESENS);
+	Gs_agtp_tot:time=(G_ACT-HYD);
+	Gs_agdp:time=(HYD-REASSOC);
+	Gs_bg:time=(G_ACT-REASSOC);
+
+	// <component name="cAMP_module">
+	Gsa_GTP_AC=(Gsa_GTP*AC/K_gsa);
+	Fsk_AC=(Fsk*AC/K_fsk);
+	AC_ACT_BASAL=(k_ac_basal*AC*ATP/(Km_basal+ATP));
+	AC_ACT_GSA=(k_ac_gsa*Gsa_GTP_AC*ATP/(Km_gsa+ATP));
+	AC_ACT_FSK=(k_ac_fsk*Fsk_AC*ATP/(Km_fsk+ATP));
+	PDE_ACT=(k_pde*PDE*cAMP/(Km_pde+cAMP));
+	PDE_IBMX=(PDE*IBMX/Ki_ibmx);
+	Gsa_GTP=(Gs_agtp_tot-Gsa_GTP_AC);
+	Fsk=(Fsk_tot-Fsk_AC);
+	AC=(AC_tot-Gsa_GTP_AC);
+	PDE=(PDE_tot-PDE_IBMX);
+	IBMX=(IBMX_tot-PDE_IBMX);
+	cAMP_tot:time=(AC_ACT_BASAL+AC_ACT_GSA+AC_ACT_FSK-PDE_ACT);
+
+	// <component name="PKA_module">
+	PKI=(PKI_tot*Ki_pki/(Ki_pki+PKAC_I+PKAC_II));
+	A2RC_I=(PKAC_I/K_d*PKAC_I*(1+PKI/Ki_pki));
+	A2R_I=(PKAC_I*(1+PKI/Ki_pki));
+	A2RC_II=(PKAC_II/K_d*PKAC_II*(1+PKI/Ki_pki));
+	A2R_II=(PKAC_II*(1+PKI/Ki_pki));
+	ARC_I=(K_a/cAMP*A2RC_I);
+	ARC_II=(K_a/cAMP*A2RC_II);
+	PKA_temp=(K_a*K_b/K_d+K_a*cAMP/K_d+cAMP^2/K_d);
+	cAMP=(cAMP_tot-(ARC_I+2*A2RC_I+2*A2R_I)-(ARC_II+2*A2RC_II+2*A2R_II));
+	0=(2*PKAI_tot*cAMP^2-PKAC_I*(1+PKI/Ki_pki)*(PKA_temp*PKAC_I+cAMP^2));
+	0=(2*PKAII_tot*cAMP^2-PKAC_II*(1+PKI/Ki_pki)*(PKA_temp*PKAC_II+cAMP^2));
+
+	// <component name="PLB_module">
+	PLB=(PLB_tot-PLB_p);
+	PLB_PHOSPH=(k_pka_plb*PKAC_I*PLB/(Km_pka_plb+PLB));
+	PLB_DEPHOSPH=(k_pp1_plb*PP1*PLB_p/(Km_pp1_plb+PLB_p));
+	Inhib1=(Inhib1_tot-Inhib1p_tot);
+	Inhib1p_PP1=(Inhib1p*PP1/Ki_inhib1);
+	Inhib1_PHOSPH=(k_pka_i1*PKAC_I*Inhib1/(Km_pka_i1+Inhib1));
+	Inhib1_DEPHOSPH=(Vmax_pp2a_i1*Inhib1p_tot/(Km_pp2a_i1+Inhib1p_tot));
+	PLB_p:time=(PLB_PHOSPH-PLB_DEPHOSPH);
+	Inhib1p_tot:time=(Inhib1_PHOSPH-Inhib1_DEPHOSPH);
+	Inhib1p=(Inhib1p_tot-Inhib1p_PP1);
+	PP1=(PP1_tot-Inhib1p_PP1);
+	frac_PLB_p=(PLB_p/PLB_tot);
+	frac_PLB=(PLB/PLB_tot);
+	frac_PLB_o=.9613;
+
+	// <component name="LCC_module">
+	LCCa=(LCC_tot-LCCa_p);
+	LCCa_PHOSPH=(epsilon*k_pka_lcc*PKAC_II*LCCa/(Km_pka_lcc+epsilon*LCCa));
+	LCCa_DEPHOSPH=(epsilon*k_pp2a_lcc*PP2A_lcc_tot*LCCa_p/(Km_pp2a_lcc+epsilon*LCCa_p));
+	LCCb=(LCC_tot-LCCb_p);
+	LCCb_PHOSPH=(epsilon*k_pka_lcc*PKAC_II*LCCb/(Km_pka_lcc+epsilon*LCCb));
+	LCCb_DEPHOSPH=(epsilon*k_pp1_lcc*PP1_lcc_tot*LCCb_p/(Km_pp1_lcc+epsilon*LCCb_p));
+	LCCa_p:time=(LCCa_PHOSPH-LCCa_DEPHOSPH);
+	LCCb_p:time=(LCCb_PHOSPH-LCCb_DEPHOSPH);
+	frac_LCCa_p=(LCCa_p/LCC_tot);
+	frac_LCCa_po=.2041;
+	frac_LCCb_p=(LCCb_p/LCC_tot);
+	frac_LCCb_po=.2336;
+
+	// <component name="Nernst_Potentials">
+	FoRT=(Frdy/Nernst_Potentials.R/Temp);
+	E_Na=(1/(FoRT*z_Na)*ln(Na_ext/Na_i));
+	E_K=(1/(FoRT*z_K)*ln(K_ext/K_i));
+	E_Ca=(1/(FoRT*z_Ca)*ln(Ca_ext/Ca_i));
+	E_Cl=((-1)*(40 mV));
+
+	// <component name="Fast_Na_Current">
+	am=(.32*(V_m+(47.13 mV))/((1 mV)-exp((-1)*(.1 per_mV)*(V_m+(47.13 mV)))));
+	bm=(.08*exp((-1)*V_m/(11 mV)));
+	ah=(if (V_m>=((-1)*(40 mV))) 0 else .135*exp(((80 mV)+V_m)/((-1)*(6.8 mV))));
+	aj=(if (V_m>=((-1)*(40 mV))) 0 else ((-1)*127140.00000000001*exp((.2444 per_mV)*V_m)-3.4739999999999996E-5*exp((-1)*(.04391 per_mV)*V_m))*(V_m+(37.78 mV))/(1+exp((.311 per_mV)*(V_m+(79.23 mV)))));
+	bh=(if (V_m>=((-1)*(40 mV))) 1/(.13*(1+exp((-1)*(V_m+(10.66 mV))/(11.1 mV)))) else 3.56*exp((.079 per_mV)*V_m)+3.1E5*exp((.35 per_mV)*V_m));
+	bj=(if (V_m>=((-1)*(40 mV))) .3*exp((-1)*(2.575E-7 per_mV)*V_m)/(1+exp((-1)*(.1 per_mV)*(V_m+(32 mV)))) else .1212*exp((-1)*(.01052 per_mV)*V_m)/(1+exp((-1)*(.1378 per_mV)*(V_m+(40.14 mV)))));
+	m:time=(1E3*(am*(1-m)-bm*m));
+	h:time=(1E3*(ah*(1-h)-bh*h));
+	j:time=(1E3*(aj*(1-j)-bj*j));
+	I_Na=(G_Na*m^3*h*j*(V_m-E_Na));
+
+	// <component name="L_Type_Calcium_Current">
+	a_lcc=((400 per_sec)*exp((V_m+(2 mV))/(10 mV)));
+	b_lcc=((50 per_sec)*exp((-1)*1*(V_m+(2 mV))/(13 mV)));
+	f_lcc=(f*(.375*frac_LCCa_p/frac_LCCa_po+.625));
+	y_lcc_inf=(1/(1+exp((V_m+(55 mV))/(7.5 mV)))+.1/(1+exp(((-1)*V_m+(21 mV))/(6 mV))));
+	tau_y_lcc=((.02 second)+(.3 second)/(1+exp((V_m+(30 mV))/(9.5 mV))));
+	gamma=(gamma_o*Ca_i);
+	v_gamma=(gamma*((1-v)^4+2*v*(1-v)^3+4*v^2*(1-v)^2+8*v^3*(1-v)+16*v^4*(1-f_lcc/g)));
+	v_omega=(omega*((1-w)^4+.5*w*(1-w)^3+.25*w^2*(1-w)^2+.125*w^3*(1-w)+.0625*w^4));
+	v:time=(a_lcc*(1-v)-b_lcc*v);
+	w:time=(2*a_lcc*(1-w)-b_lcc/2*w);
+	x:time=(f_lcc*(1-x)-g*x);
+	y:time=((y_lcc_inf-y)/tau_y_lcc);
+	z:time=(v_omega*(1-z)-v_gamma*z);
+	i_bar_Ca=(p_Ca*4*V_m*Frdy*FoRT*(.001*exp(2*V_m*FoRT)-.341*Ca_ext)/(exp(2*V_m*FoRT)-1));
+	i_bar_K=(p_K*V_m*Frdy*FoRT*(K_i*exp(V_m*FoRT)-K_ext)/(exp(V_m*FoRT)-1));
+	f_avail=(.5*(.4*frac_LCCb_p/frac_LCCb_po+.6));
+	I_Ca=(i_bar_Ca*N_lcc*f_avail*v^4*x*y*z);
+	I_CaK=(i_bar_K/(1+I_Ca/I_Ca05)*N_lcc*f_avail*v^4*x*y*z);
+	L_Type_Calcium_Current.I_Ca_tot=(I_Ca+I_CaK);
+
+	// <component name="Transient_Outward_K_Current">
+	r_toss=(1/(1+exp((V_m+(10.6 mV))/((-1)*(11.42 mV)))));
+	s_toss=(1/(1+exp((V_m+(43.5 mV))/(6.8841 mV))));
+	tau_r_to=(1/(45.16*exp((.03577 per_mV)*(V_m+(50 mV)))+98.9*exp((-1)*(.1 per_mV)*(V_m+(38 mV)))));
+	tau_s_to=((.35 second)*exp((-1)*1*((V_m+(70 mV))/15)^2)+(.035 second));
+	tau_ss_to=((3.7 second)*exp((-1)*1*((V_m+(70 mV))/30)^2)+(.035 second));
+	r_to:time=((r_toss-r_to)/tau_r_to);
+	s_to:time=((s_toss-s_to)/tau_s_to);
+	ss_to:time=((s_toss-ss_to)/tau_ss_to);
+	I_to=(G_to*r_to*(.886*s_to+.114*ss_to)*(V_m-E_K));
+
+	// <component name="Steady_State_K_Current">
+	r_ss_inf=(1/(1+exp((V_m+(11.5 mV))/((-1)*(11.82 mV)))));
+	tau_r_ss=(10/(45.16*exp((.03577 per_mV)*(V_m+(50 mV)))+98.9*exp((-1)*(.1 per_mV)*(V_m+(38 mV)))));
+	s_ss_inf=(1/(1+exp((V_m+(87.5 mV))/(10.3 mV))));
+	tau_s_ss=2.1;
+	r_ss:time=((r_ss_inf-r_ss)/tau_r_ss);
+	s_ss:time=((s_ss_inf-s_ss)/tau_s_ss);
+	I_ss=(G_ss*r_ss*s_ss*(V_m-E_K));
+
+	// <component name="Time_Independent_K_Current">
+	a_Ki=(1.02/(1+exp((.2385 per_mV)*(V_m-E_K-(59.215 mV)))));
+	b_Ki=((.49124*exp((.08032 per_mV)*(V_m+(5.476 mV)-E_K))+exp((.06175 per_mV)*(V_m-E_K-(594.31 mV))))/(1+exp((-1)*(.5143 per_mV)*(V_m-E_K+(4.753 mV)))));
+	Ki_ss=(a_Ki/(a_Ki+b_Ki));
+	I_Ki=(G_Ki_bar*sqrt(K_ext/5.4)*Ki_ss*(V_m-E_K));
+
+	// <component name="Plateau_K_Current">
+	Kp=(1/(1+exp(((7.488 mV)-V_m)/(5.98 mV))));
+	I_Kp=(G_Kp*Kp*(V_m-E_K));
+
+	// <component name="Na_Ca_Exchanger_Current">
+	s4=(exp(eta*V_m*FoRT)*Na_i^3*Ca_ext);
+	s5=(exp((eta-1)*V_m*FoRT)*Na_ext^3*Ca_i);
+	I_NCX=(k_NaCa/((Km_Na^3+Na_ext^3)*(Km_Ca+Ca_ext)*(1+k_sat*exp((eta-1)*V_m*FoRT)))*(s4-s5));
+
+	// <component name="Na_K_Pump_Current">
+	sigma=((exp(Na_ext/(67.3 mM))-1)/7);
+	f_NaK=(1/(1+.1245*exp((-1)*.1*V_m*FoRT)+.0365*sigma*exp((-1)*V_m*FoRT)));
+	I_NaK=(I_bar_NaK*f_NaK/(1+(Km_Nai/Na_i)^1.5)*K_ext/(K_ext+Km_Ko));
+
+	// <component name="Sarcolemmal_Ca_Pump_Current">
+	I_PCa=(I_bar_PCa*Ca_i/(Km_PCa+Ca_i));
+
+	// <component name="Ca_Background_Current">
+	I_CaB=(G_CaB*(V_m-E_Ca));
+
+	// <component name="Na_Background_Current">
+	I_NaB=(G_NaB*(V_m-E_Na));
+
+	// <component name="Total_Membrane_Currents">
+	I_Na_tot=(I_Na+I_NaB+3*I_NCX+3*I_NaK);
+	I_K_tot=(I_to+I_ss+I_Ki+I_Kp-2*I_NaK+I_CaK);
+	Total_Membrane_Currents.I_Ca_tot=(I_Ca+I_CaB+I_PCa-2*I_NCX);
+
+	// <component name="Calcium_Induced_Calcium_Release">
+	t_rel=(trel+.002);
+	ryr_on=(1-exp((-1)*t_rel/tau_on));
+	ryr_off=exp((-1)*t_rel/tau_off);
+	g_rel=(G_max_rel/(1+exp((Total_Membrane_Currents.I_Ca_tot+5)/.9)));
+	I_rel=(g_rel*ryr_on*ryr_off*(Ca_jsr-Ca_i));
+
+	// <component name="Other_SR_Fluxes_and_Concentrations">
+	Km_up=(Km_up0*(1+2*frac_PLB)/(1+2*frac_PLB_o));
+	I_up=(I_up_bar*Ca_i^2/(Km_up^2+Ca_i^2));
+	I_leak=(I_up_bar*Ca_nsr/NSR_bar);
+	I_tr=((Ca_nsr-Ca_jsr)/tau_tr);
+	B_jsr=(1/(1+CSQN_bar*Km_CSQN/(Km_CSQN+Ca_jsr)^2));
+	Ca_nsr:time=(I_up-I_leak-I_tr*V_jsr/V_nsr);
+	Ca_jsr:time=(B_jsr*(I_tr-I_rel));
+	SR_content=(1E3*((Ca_jsr+Ca_jsr/B_jsr)*V_jsr/V_myo+Ca_nsr*V_nsr/V_myo));
+
+	// <component name="Cytoplasmic_Calcium_Buffering">
+	b_trpn=(TRPN_bar*Km_TRPN/(Km_TRPN+Ca_i)^2);
+	b_cmdn=(CMDN_bar*Km_CMDN/(Km_CMDN+Ca_i)^2);
+	b_indo=(INDO_bar*Km_INDO/(Km_INDO+Ca_i)^2);
+	B_myo=(1/(1+b_cmdn+b_trpn+b_trpn+b_indo));
+
+	// <component name="Ion_Concentrations_and_Membrane_Potential">
+	V_clamp=(if ((time>(59.1 second)) and (time<(59.5 second))) V_test else V_hold);
+	I_app=(if (protocol=0) 0 else if (protocol=1) I_pace else (V_clamp-V_m)/.02);
+	Na_i:time=((-1)*1E3*I_Na_tot*A_Cap/(V_myo*z_Na*Frdy));
+	K_i:time=((-1)*1E3*I_K_tot*A_Cap/(V_myo*z_K*Frdy));
+	Ca_i:time=((-1)*B_myo*(1E3*Total_Membrane_Currents.I_Ca_tot*A_Cap/(V_myo*z_Ca*Frdy)+(I_up-I_leak)*V_nsr/V_myo-I_rel*V_jsr/V_myo));
+	V_m:time=((-1)*1E3*(Total_Membrane_Currents.I_Ca_tot+I_K_tot+I_Na_tot-I_app));
+	trel:time=(if (((-1)*1E3*(Total_Membrane_Currents.I_Ca_tot+I_K_tot+I_Na_tot-I_app))>(3E4 mV_per_sec)) (1 second)-1E4*trel else (1 second));
+
+	// <component name="Pacing">
+	I_pace=(if ((rem(time,(1E3 millisecond)))<(5 millisecond)) (10 uA_per_uF) else (0 uA_per_uF));
+}
+

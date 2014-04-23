@@ -1,0 +1,477 @@
+/*NSRCOPYRIGHT
+	Copyright (C) 1999-2008 University of Washington
+	Developed by the National Simulation Resource
+	Department of Bioengineering,  Box 355061
+	University of Washington, Seattle, WA 98195-5061.
+	Dr. J. B. Bassingthwaighte, Director
+END_NSRCOPYRIGHT*/
+
+package JSim.mml;
+
+import JSim.util.*;
+import JSim.expr.*;
+import java_cup.runtime.*;
+
+terminal JSIM, IMPORT, 
+	UNIT, CONVERSION, FUNDAMENTAL, PREFIX, PREFIXABLE,
+	PROPERTY, CLASS, FUNCTION, PROCEDURE, NATIVE, SOURCE, 
+	TEMPLATE, OVERRIDE, ANTIMONY,
+	PUBLIC, PRIVATE, EXTERN, 
+	WHEN, EVENT,
+	PLUS, TIMES, MINUS, DIVIDE, POWER, DERIV, FORALL,
+	SEMI, COMMA,  
+	LPAREN, RPAREN, LBRACE, RBRACE, 
+	EQ, NE, APPROX, LT, LE, GT, GE, AND, OR, IF, ELSE, PI,
+	TRUE, FALSE, INTEGRAL, SUM, TO;
+
+terminal String NUMBER, IDENT, VERSION, STRING;
+
+non terminal model, topstmts, topstmt, 
+	importstmt, externcode, antimonystmt, classtempl,  comptempl, 
+	xfunc, xfunccodes, xfunccode,
+	unitstmt, unitDecls, unitDecl, 
+	propstmt, props, prop,
+	overstmt, 
+	compstmt, compstmt1, comps, comp, comp1,
+	stmts, stmt, accstmt, whenstmt, eventstmt, 
+	eqns, eqn;
+non terminal Expr.List exprs;
+non terminal Expr expr;
+non terminal Range range;
+non terminal Unit unitexpr, punitexpr;
+non terminal Boolean unitPrefixable;
+non terminal Double pnumber;
+non terminal Comp.List accs;
+non terminal StringList idents, xfuncparmlist, xfuncparms;
+non terminal String jsversion, xfunctype, xfuncret, xfuncparm;
+
+precedence left AND, OR;
+precedence left EQ, NE, APPROX, LT, LE, GT, GE;
+precedence left FORALL;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence right POWER;
+precedence left DERIV;
+
+/////////////// TOP LEVEL
+
+// file containing modules and unit definitions
+model ::= jsversion:v
+	       {: parser.mr.version(v); :}
+	  topstmts;
+
+jsversion ::= JSIM VERSION:v 
+	       {: RESULT=v; :}
+	   |  
+	       {: RESULT=null; :}
+	   ;
+
+// top level statements
+topstmts ::= topstmts topstmt | topstmt;
+topstmt  ::= importstmt | propstmt | unitstmt | externcode |
+	classtempl | comptempl | xfunc | 
+	overstmt | compstmt | accstmt | antimonystmt;
+
+//////////////// IMPORT / EXTERN CODE
+
+// import a library modulefile
+importstmt ::= IMPORT STRING:f SEMI
+		{: parser.mr.importLib(f); :}
+	   |   IMPORT IDENT:f SEMI
+		{: parser.mr.importLib(f); :}
+	   ;
+
+// extern (auxillary) code used by model
+externcode ::= EXTERN IDENT:f STRING:c SEMI
+		{: parser.mr.addExternCode(f, c); :}
+	   ;
+
+
+//////////////// ANTIMONY BLOCK
+antimonystmt ::= ANTIMONY STRING:txt
+	 	{: parser.mr.addAntimony(txt); :}
+	   ;
+
+//////////////// PROPERTIES
+
+// a property declaration
+propstmt ::= PROPERTY props SEMI;
+
+// list of properties
+props ::= props COMMA prop | prop;
+
+// one property
+prop ::= IDENT:n EQ IDENT:t 
+	    {: parser.mr.addDefProp(n, t); :}
+	;
+	
+//////////////// UNITS
+
+// a unit statement
+unitstmt ::= UNIT unitDecls SEMI;
+
+// one or more unit declarations
+unitDecls ::= unitDecls COMMA unitDecl | unitDecl;
+
+// 1 unit declaration
+unitDecl ::= IDENT:n EQ NUMBER:d unitexpr:u unitPrefixable:p
+	 	{: double f = u.f * Util.toDouble(d);
+		   Unit uu = new Unit(n, f, u.dim);
+		   parser.mr.units.add(uu);
+		   if (p.booleanValue()) 
+			parser.mr.units.setPrefixable(n); :}
+	   | IDENT:n EQ NUMBER:d0 TIMES NUMBER:d1 unitexpr:u unitPrefixable:p
+	 	{: double f = u.f * (Util.toDouble(d0) * Util.toDouble(d1));
+		   Unit uu = new Unit(n, f, u.dim);
+		   parser.mr.units.add(uu); 
+		   if (p.booleanValue()) 
+			parser.mr.units.setPrefixable(n); :}
+	   | IDENT:n EQ NUMBER:d0 DIVIDE NUMBER:d1 unitexpr:u unitPrefixable:p
+	 	{: double f = u.f * (Util.toDouble(d0) / Util.toDouble(d1));
+		   Unit uu = new Unit(n, f, u.dim);
+		   parser.mr.units.add(uu); 
+		   if (p.booleanValue()) 
+			parser.mr.units.setPrefixable(n); :}
+	   | IDENT:n EQ unitexpr:u unitPrefixable:p
+	 	{: parser.mr.units.add(n,u); 
+		   if (p.booleanValue()) 
+			parser.mr.units.setPrefixable(n); :}
+	   | IDENT:n EQ FUNDAMENTAL unitPrefixable:p
+	 	{: parser.mr.units.addFund(n); 
+		   if (p.booleanValue()) 
+			parser.mr.units.setPrefixable(n); :}
+	   | CONVERSION IDENT:s
+		{: parser.mr.setUnitControl(s); :}
+	   | PREFIX IDENT:s EQ NUMBER:d0
+		{: double f = Util.toDouble(d0);
+		   parser.mr.units.addPrefix(s, f); :}
+	   ;
+
+unitPrefixable ::= PREFIXABLE
+	       {: RESULT=new Boolean(true); :}
+	   |  
+	       {: RESULT=new Boolean(false); :}
+	   ;
+
+// unitexpr may not begin with a LPAREN
+//   need separate unitexpr/punitexpr cases for a/b/c parsing
+unitexpr ::= IDENT:n
+		{: RESULT = parser.mr.unitByName(n); :}
+ 	  |  IDENT:n POWER pnumber:p
+		{: Unit a  = parser.mr.unitByName(n);
+		   RESULT = a.power(p); :}
+	  |  unitexpr:a TIMES unitexpr:b
+		{: RESULT = a.mult(b); :}
+	  |  unitexpr:a TIMES punitexpr:b
+		{: RESULT = a.mult(b); :}
+	  |  unitexpr:a DIVIDE unitexpr:b
+		{: RESULT = a.div(b); :}
+	  |  unitexpr:a DIVIDE punitexpr:b
+		{: RESULT = a.div(b); :}
+	  |  NUMBER:n DIVIDE unitexpr:b
+		{: Unit a = new Unit(n);
+		   RESULT = a.div(b); :}
+	  |  NUMBER:n DIVIDE punitexpr:b
+		{: Unit a = new Unit(n);
+		   RESULT = a.div(b); :}
+	  ;
+
+
+// possibly parenthetical unit expr
+punitexpr ::= LPAREN unitexpr:u RPAREN
+		{: RESULT = u; :}
+	  |  LPAREN punitexpr:u RPAREN
+		{: RESULT = u; :}
+	  |  LPAREN unitexpr:u RPAREN POWER pnumber:p 
+		{: RESULT = u.power(p); :}
+	  |  LPAREN punitexpr:u RPAREN POWER pnumber:p 
+		{: RESULT = u.power(p); :}
+	  ;
+
+
+pnumber  ::= NUMBER:n
+		{: RESULT = new Double(Util.toDouble(n)); :}
+	  |  MINUS pnumber:n
+		{: RESULT = new Double(-n.doubleValue()); :}
+	  |  PLUS pnumber:n
+		{: RESULT = new Double(n.doubleValue()); :}
+	  |  LPAREN pnumber:n RPAREN
+		{: RESULT = n; :}
+	  ;
+
+///////////// FUNCTIONs & PROCDUREs
+
+xfunc ::= xfunctype:ft xfuncret:fr IDENT:n xfuncparmlist:p LBRACE
+		{: parser.mr.newXFunc(ft, fr, n, p);  :}
+		xfunccodes RBRACE
+		{: parser.mr.doneXFunc(); :}
+	  ;
+
+xfunctype ::= NATIVE      {: RESULT="native"; :}
+	  |   SOURCE      {: RESULT="source"; :}
+	  |   CLASS       {: RESULT="class"; :}
+	  ;
+
+xfuncret ::= PROCEDURE      {: RESULT="void"; :}
+          |   IDENT:d FUNCTION {: RESULT=d; :}
+	  ;
+
+xfuncparmlist ::=
+		{: RESULT=null; :}
+	  | LPAREN xfuncparms:p RPAREN
+		{: RESULT=p; :}
+	  ;
+
+xfuncparms ::= xfuncparms:l COMMA xfuncparm:n
+		{: l.add(n);
+		   RESULT=l; :}
+	  | xfuncparms:l SEMI xfuncparm:n
+		{: l.add(null); 
+		   l.add(n);
+		   RESULT=l; :}
+	  | xfuncparm:n
+		{: StringList l = new StringList(1);
+		   l.add(n);
+		   RESULT=l; :}
+	  ;
+
+xfuncparm ::= IDENT:n
+		{: RESULT=n; :}
+	  |  xfuncparm:p FORALL IDENT:t
+		{: p = p + "@" + t;
+		   RESULT=p; :}
+	  ;
+
+xfunccodes ::= xfunccodes xfunccode | xfunccode;
+
+xfunccode  ::= IDENT:n EQ STRING:code SEMI
+		{: parser.mr.addXFuncCode(n, code); :}
+	  |    CLASS EQ STRING:code SEMI
+	  	{: parser.mr.addXFuncCode("class", code); :}
+	  ;
+
+///////////// TEMPLATES
+
+classtempl ::= CLASS TEMPLATE IDENT:n 
+		LBRACE CLASS EQ STRING:cname SEMI RBRACE
+		{: new JavaTempl(parser.mr, n, cname); :}
+	  ;
+
+comptempl ::= IDENT:t TEMPLATE IDENT:n LBRACE
+		{: parser.mr.newCompTempl(n, t, null); :}
+		stmts RBRACE
+		{: parser.mr.doneCompTempl(); :}
+	  |   IDENT:t TEMPLATE IDENT:n LPAREN idents:p RPAREN LBRACE
+		{: parser.mr.newCompTempl(n, t, p); :}
+		stmts RBRACE
+		{: parser.mr.doneCompTempl(); :}
+	  ;
+
+// comma-sep list of IDENTs (formal parameter names)
+idents   ::= idents:l COMMA IDENT:n
+		{: l.add(n);
+		   RESULT=l; :}
+	  |  IDENT:n
+		{: StringList l = new StringList(1);
+		   l.add(n);
+		   RESULT=l; :}
+	  ;
+
+///////////// OVERRIDE statement
+
+overstmt  ::= OVERRIDE CLASS IDENT:o EQ STRING:n SEMI
+		{: parser.mr.classOverride(o, n); :}
+	  ;
+
+///////////// COMPONENT DECLARATION
+
+// component stmt
+compstmt ::= IDENT:t 
+		{: parser.mr.setTempl(t, Comp.PUBLIC); :}
+	       compstmt1
+		{: parser.mr.doneTempl(); :}	       
+	  |  PUBLIC IDENT:t
+		{: parser.mr.setTempl(t, Comp.PUBLIC); :}
+	       compstmt1
+		{: parser.mr.doneTempl(); :}	       
+	  |  PRIVATE IDENT:t
+		{: parser.mr.setTempl(t, Comp.PRIVATE); :}
+	       compstmt1
+		{: parser.mr.doneTempl(); :}	       
+	  |  EXTERN IDENT:t
+		{: parser.mr.setTempl(t, Comp.EXTERN); :}
+	       compstmt1 
+		{: parser.mr.doneTempl(); :}	       
+	  ;
+	
+// component stmt after template set
+compstmt1 ::= comp LBRACE stmts RBRACE
+	     {: parser.mr.doneComp(); :}
+	  |  comps SEMI
+	  ;
+
+// component declaration(s)
+comps ::= comps COMMA comp 
+	     {: parser.mr.doneComp(); :}
+	  |  comp
+	     {: parser.mr.doneComp(); :}
+	  ;
+comp  ::=   comp1
+	  | comp1 unitexpr:u
+	    {: parser.mr.setCompUnit(u); :}
+	  | IDENT:n EQ expr:e	// don't use comp1 - wrong e.parent
+	    {:  parser.mr.parseComp(n,null);
+		parser.mr.addEqn(e, null); :}
+	  | IDENT:n EQ expr:e unitexpr:u	// ditto
+	    {:  parser.mr.parseComp(n,null);
+		parser.mr.addEqn(e, u); :}
+	  | IDENT:n LPAREN exprs:a RPAREN EQ expr:e // ditto
+	    {:  parser.mr.parseComp(n,a);
+		parser.mr.addEqn(e, null); :}
+	  | IDENT:n LPAREN exprs:a RPAREN EQ expr:e unitexpr:u // ditto
+	    {:  parser.mr.parseComp(n,a);
+		parser.mr.addEqn(e, u); :}
+	  ;
+comp1 ::=   IDENT:n
+	    {:  parser.mr.parseComp(n,null); :}
+	  | IDENT:n LPAREN exprs:a RPAREN
+	    {:  parser.mr.parseComp(n,a); :}
+	  ;
+
+// statements within a component
+stmts   ::= stmts stmt | stmt ;
+stmt    ::= compstmt | eqn | accstmt | whenstmt | eventstmt;
+
+// access statement
+accstmt ::= PRIVATE accs:l SEMI
+		{: parser.mr.setAccess(l, Comp.PRIVATE); :}
+	  | EXTERN accs:l SEMI
+		{: parser.mr.setAccess(l, Comp.EXTERN); :}
+	  | PUBLIC accs:l SEMI
+		{: parser.mr.setAccess(l, Comp.PUBLIC); :}
+	  ;
+
+// access comp list
+accs  ::= accs:l COMMA IDENT:n
+		{: RESULT=parser.mr.listAccess(l, n); :}
+	  | IDENT:n
+		{: RESULT=parser.mr.listAccess(null, n); :}
+	  ;
+
+// when clause for equations
+whenstmt ::= WHEN LPAREN expr:sd RPAREN LBRACE 
+		{: parser.mr.sd = sd; :}
+	     eqns RBRACE
+		{: parser.mr.sd = null; :}
+	  |  WHEN LPAREN expr:sd RPAREN  
+		{: parser.mr.sd = sd; :}
+	     eqn 
+		{: parser.mr.sd = null; :}
+	  ;
+
+// event trigger and actions
+eventstmt ::= EVENT LPAREN expr:trig RPAREN LBRACE
+		{: parser.mr.beginEvent(trig); :}
+	      eqns RBRACE
+		{: parser.mr.endEvent(); :}
+	  |  EVENT LPAREN expr:trig RPAREN  
+		{: parser.mr.beginEvent(trig); :}
+	     eqn 
+		{: parser.mr.endEvent(); :}
+	  ;
+
+// equations
+eqns    ::= eqns eqn | eqn ;
+eqn	::= expr:e SEMI 
+		{: parser.mr.addStmt(e); :}
+	  ;
+
+// comma-sep list of expressions
+exprs   ::= exprs:l COMMA expr:e
+		{: l.add(e);
+		   RESULT=l; :}
+	  | expr:e
+		{: Expr.List l = new Expr.List(1);
+		   l.add(e);
+		   RESULT=l; :}
+	  |
+	  	{: RESULT=new Expr.List(1); :}
+	  ;
+
+// algebraic expression containing number and/or variables
+expr    ::= NUMBER:n
+	     {: RESULT=new RealConst(n); :}
+	  | LPAREN expr:e unitexpr:u RPAREN
+	     {: if (!e.isConst()) throw new Xcept(e, 
+		    "constant expression required");
+		RESULT=new RealConst(e.constRealVal(), u); :}
+//	  | LPAREN expr:e UNIT unitexpr:u RPAREN
+//	     {: RESULT=new UnitCast(e, u); :}
+	  | PI
+	     {: RESULT=Expr.pi; :}
+	  | TRUE
+	     {: RESULT=Expr.truex; :}
+	  | FALSE
+	     {: RESULT=Expr.falsex; :}
+	  | IDENT:n
+	     {: RESULT=parser.mr.compByName(n); :}
+	  | STRING:n
+	     {: RESULT=new StringConst(n); :}	
+          | expr:l MINUS expr:r
+	     {: RESULT=l.sub(r); :}
+          | expr:l PLUS expr:r
+	     {: RESULT=l.add(r); :}
+	  | expr:l TIMES expr:r
+	     {: RESULT=l.mult(r); :}
+          | expr:l POWER expr:r
+	     {: RESULT=l.pow(r); :}
+          | expr:l DIVIDE expr:r
+	     {: RESULT=l.div(r); :}
+          | expr:l DERIV expr:r
+	     {: RESULT=parser.mr.makeDeriv(l, r); :}
+          | expr:l FORALL expr:r
+	     {: RESULT=new ForallExpr(l, r); :}
+ 	  | IDENT:f LPAREN exprs:e RPAREN
+	     {: RESULT=parser.mr.funcCall(f, e); :}
+	  | IF LPAREN expr:e1 RPAREN expr:e2 ELSE expr:e3
+	     {: int op = IExpr.IF;
+		RESULT=new IfExpr(e1, e2, e3); :}
+	  | LPAREN expr:e RPAREN
+	     {: RESULT=e; :}
+          | MINUS expr:e
+	     {: RESULT=e.mult(Expr.negone); :}
+          | PLUS expr:e
+	     {: RESULT=e; :}
+          | expr:l EQ expr:r
+	     {: RESULT=new CompareExpr(IExpr.EQ, l, r); :}
+          | expr:l NE expr:r
+	     {: RESULT=new CompareExpr(IExpr.NE, l, r); :}
+          | expr:l APPROX expr:r
+	     {: RESULT=new CompareExpr(IExpr.APPROX, l, r); :}
+          | expr:l LT expr:r
+	     {: RESULT=new CompareExpr(IExpr.LT, l, r); :}
+          | expr:l LE expr:r
+	     {: RESULT=new CompareExpr(IExpr.LE, l, r); :}
+          | expr:l GT expr:r
+	     {: RESULT=new CompareExpr(IExpr.GT, l, r); :}
+          | expr:l GE expr:r
+	     {: RESULT=new CompareExpr(IExpr.GE, l, r); :}
+          | expr:l AND expr:r
+	     {: RESULT=new LogicalExpr(IExpr.AND, l, r); :}
+          | expr:l OR expr:r
+	     {: RESULT=new LogicalExpr(IExpr.OR, l, r); :}
+	  | INTEGRAL LPAREN range:r COMMA expr:u RPAREN
+	     {: RESULT=parser.mr.makeIntegral(r, u); :}
+	  | INTEGRAL LPAREN expr:u RPAREN
+	     {: RESULT=parser.mr.makeIntegral(u); :}
+	  | SUM LPAREN range:r COMMA expr:u RPAREN
+	     {: RESULT=parser.mr.makeSum(r, u); :}
+	  | SUM LPAREN expr:u RPAREN
+	     {: RESULT=parser.mr.makeSum(u); :}
+	  ;
+
+// integral/sum range
+range   ::= IDENT:t EQ expr:min TO expr:max
+	      {: RESULT=new Range(t, min, max); :}
+	  ;
+

@@ -1,0 +1,24 @@
+JSim v1.1
+
+
+unit dimensionless = 1  dimensionless;
+unit radian = 1  dimensionless;
+math example1 {
+	realDomain t;
+	real C.vol;
+	real C.A(t);
+	real C.B(t);
+	real R.kf(t);
+	real R.kb(t);
+	t.min = 0;
+	t.max = 10;
+	t.delta = 1;
+	C.vol = 10;
+	R.kf = 1;
+	R.kb = 0;
+	when (t=t.min) C.A = 0;
+	C.A:t = R.kb*C.B^2-R.kf*C.A;
+	when (t=t.min) C.B = 0;
+	C.B:t = (R.kf*C.A-R.kb*C.B^2)*2;
+}
+

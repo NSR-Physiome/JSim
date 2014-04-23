@@ -1,0 +1,136 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t min
+  add var: real t.min min
+  add var: real t.max min
+  add var: int t.ct
+  add var: real t.delta min
+  add var: real d sec
+  add var: real u(t)
+  add var: real v(t)
+  add var: real u:t(t)
+Loading Constraints
+  t.min=0 :: [t.min]
+  t.max=10 :: [t.max]
+  t.delta=1 :: [t.delta]
+  d=1 :: [d]
+  when (t=t.min) u=1 :: [u(t.min)]
+  u:t=v :: [u:t, v]
+  v=u(if (t<d) t.min else t-d) :: [v, t, d, t.min, u(t.delay)*]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=10; [t.max]
+  add tool: t.max=10
+  check eqn: t.delta=1; [t.delta]
+  add tool: t.delta=1
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: d=1; [d]
+  add tool: d=1
+  check eqn: when (t=t.min) u=1; [u(t.min)]
+  add tool: u(t.min)=1
+  check eqn: u:t=v; [u:t, v]
+  check eqn: v=u(if (t<d) t.min else t-d); [v, u(t.delay)*]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=1
+Toolbox phase - cycle 1:
+  check eqn: u:t=v; [u:t, v]
+  check eqn: v=u(if (t<d) t.min else t-d); [v]
+  add tool: v=u(if (t<d) t.min else t-d)
+Toolbox phase - cycle 1:
+  check eqn: u:t=v; [u:t]
+  add tool: u:t=v
+  updated ODE(u) with u:t=v
+    u is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real u__init
+  add tool: u__init=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  u__init=1 :: [u__init]<<[]
+  @t u:t=v :: [u:t]<<[v]
+  @t v=u(if (t<d) t.min else t-d) :: [v]<<[t, d, t.min, u(t.delay)*]
+  @t ODE u: u:t=v :: [u, u(t.max)]<<[v, u(t.min), u:t]
+  d=1 :: [d]<<[]
+  t.delta=1 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=10 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(t.delay)*]<<[u]
+Creating MainGraph ...
+loopOrder=[t]
+  addNode u__init seqLoops=() phase=main fft=null
+  addNode u:t seqLoops=(t) phase=t#1 fft=null
+  addNode v seqLoops=(t) phase=t#1 fft=null
+  addNode u seqLoops=(t) phase=t#1 fft=t
+  addNode d seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=() phase=main fft=null
+  addNode u(t.delay) seqLoops=(t) phase=t#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding u__init=1 to main
+  adding d=1 to main
+  adding t.delta=1 to main
+  adding t.max=10 to main
+  adding t.min=0 to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding u(t.min)=u__init to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding query [u(t.delay)*] to loop-t
+  adding v=u(if (t<d) t.min else t-d) to loop-t
+  adding u:t=v to loop-t
+  adding ODE Block-t [u] to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool v=u(if (t<d) t.min else t-d)
+  adding muVar v
+  adding muTool query [u(t.delay)*]
+  adding muVar u(t.delay)*
+  adding muTool u:t=v
+  adding muVar u:t
+  adding query [u(t.delay)*] to ODE Block-t [u]
+  adding v=u(if (t<d) t.min else t-d) to ODE Block-t [u]
+  adding u:t=v to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  u__init=1
+  d=1
+  t.delta=1
+  t.max=10
+  t.min=0
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  u(t.min)=u__init
+  loop-t
+    query [u(t.delay)*]
+    v=u(if (t<d) t.min else t-d)
+    u:t=v
+    ODE Block-t vmus=[t, u, v, u(t.delay)*, u:t]
+      query [u(t.delay)*]
+      v=u(if (t<d) t.min else t-d)
+      u:t=v
+

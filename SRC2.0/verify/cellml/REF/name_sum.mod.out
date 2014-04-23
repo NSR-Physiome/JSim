@@ -1,0 +1,284 @@
+/*
+ * Mathematical Model of the Cell Division Cycle of Fission Yeast
+ * 
+ * Model Status
+ * 
+ * This CellML version of the model has been checked in COR and
+ * PCEnv and the model runs to replicate the results in the original
+ * published paper. The units have been checked and are consistent.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: Much is known about the genes and proteins controlling
+ * the cell cycle of fission yeast. Can these molecular components
+ * be spun together into a consistent mechanism that accounts for
+ * the observed behavior of growth and division in fission yeast
+ * cells? To answer this question, we propose a mechanism for the
+ * control system, convert it into a set of 14 differential and
+ * algebraic equations, study these equations by numerical simulation
+ * and bifurcation theory, and compare our results to the physiology
+ * of wild-type and mutant cells. In wild-type cells, progress
+ * through the cell cycle (G1-->S-->G2-->M) is related to cyclic
+ * progression around a hysteresis loop, driven by cell growth
+ * and chromosome alignment on the metaphase plate. However, the
+ * control system operates much differently in double-mutant cells,
+ * wee1(-) cdc25Delta, which are defective in progress through
+ * the latter half of the cell cycle (G2 and M phases). These cells
+ * exhibit "quantized" cycles (interdivision times clustering around
+ * 90, 160, and 230 min). We show that these quantized cycles are
+ * associated with a supercritical Hopf bifurcation in the mechanism,
+ * when the wee1 and cdc25 genes are disabled. (c) 2001 American
+ * Institute of Physics.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Mathematical model of the cell division cycle of fission yeast,
+ * Bela Novak, and Zsuzsa Pataki, 2001, CHAOS, 11, 277-286. PubMed
+ * ID: 12779461
+ * 
+ * reaction diagram
+ * 
+ * [[Image file: novak_2001.png]]
+ * 
+ * Diagram of the fission-yeast cell cycle. In the middle of the
+ * diagram is Cdc2/Cdc13 (MPF), which is regulated by proteolysis
+ * of the Cdc13 component, phosphorylation of the Cdc2 component,
+ * and stoichiometric inhibition of the complex.
+ */
+
+import nsrunit;
+unit conversion on;
+unit minute=60 second^1;
+unit first_order_rate_constant=.01666667 second^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time minute;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real Cdc13T(time) dimensionless;
+	Cdc13T.cellMLNames="Cdc13T.Cdc13T;preMPF.Cdc13T;Trimer.Cdc13T;MPF.Cdc13T";
+	when(time=time.min) Cdc13T=0.2;
+	real k1 first_order_rate_constant;
+	k1.cellMLNames="Cdc13T.k1";
+	k1=0.03;
+	real k2_v1 first_order_rate_constant;
+	k2_v1.cellMLNames="Cdc13T.k2_;kinetic_parameters.k2_;preMPF.k2_";
+	k2_v1=0.03;
+	real k2_v2 first_order_rate_constant;
+	k2_v2.cellMLNames="Cdc13T.k2__;kinetic_parameters.k2__;preMPF.k2__";
+	k2_v2=1;
+	real k2_v3 first_order_rate_constant;
+	k2_v3.cellMLNames="Cdc13T.k2___;kinetic_parameters.k2___;preMPF.k2___";
+	k2_v3=0.1;
+	real M(time) dimensionless;
+	M.cellMLNames="Cdc13T.M;M.M;TF.M";
+	when(time=time.min) M=1;
+	real Ste9(time) dimensionless;
+	Ste9.cellMLNames="Cdc13T.Ste9;Ste9.Ste9;preMPF.Ste9";
+	when(time=time.min) Ste9=1;
+	real Slp1(time) dimensionless;
+	Slp1.cellMLNames="Cdc13T.Slp1;Slp1.Slp1;preMPF.Slp1;Ste9.Slp1";
+	when(time=time.min) Slp1=2.2;
+	real preMPF(time) dimensionless;
+	preMPF.cellMLNames="preMPF.preMPF;MPF.preMPF";
+	when(time=time.min) preMPF=0;
+	real kwee(time) first_order_rate_constant;
+	kwee.cellMLNames="preMPF.kwee";
+	real kwee_v1 first_order_rate_constant;
+	kwee_v1.cellMLNames="preMPF.kwee_";
+	kwee_v1=0.15;
+	real kwee_v2 first_order_rate_constant;
+	kwee_v2.cellMLNames="preMPF.kwee__";
+	kwee_v2=1.3;
+	real Vawee first_order_rate_constant;
+	Vawee.cellMLNames="preMPF.Vawee";
+	Vawee=0.25;
+	real Viwee first_order_rate_constant;
+	Viwee.cellMLNames="preMPF.Viwee";
+	Viwee=1;
+	real Jawee dimensionless;
+	Jawee.cellMLNames="preMPF.Jawee";
+	Jawee=0.01;
+	real Jiwee dimensionless;
+	Jiwee.cellMLNames="preMPF.Jiwee";
+	Jiwee=0.01;
+	real k25(time) first_order_rate_constant;
+	k25.cellMLNames="preMPF.k25";
+	real k25_v1 first_order_rate_constant;
+	k25_v1.cellMLNames="preMPF.k25_";
+	k25_v1=0.05;
+	real k25_v2 first_order_rate_constant;
+	k25_v2.cellMLNames="preMPF.k25__";
+	k25_v2=5;
+	real Va25 first_order_rate_constant;
+	Va25.cellMLNames="preMPF.Va25";
+	Va25=1;
+	real Vi25 first_order_rate_constant;
+	Vi25.cellMLNames="preMPF.Vi25";
+	Vi25=0.25;
+	real Ja25 dimensionless;
+	Ja25.cellMLNames="preMPF.Ja25";
+	Ja25=0.01;
+	real Ji25 dimensionless;
+	Ji25.cellMLNames="preMPF.Ji25";
+	Ji25=0.01;
+	real MPF(time) dimensionless;
+	MPF.cellMLNames="preMPF.MPF;MPF.MPF;Ste9.MPF;Slp1T.MPF;IEP.MPF;Rum1T.MPF;TF.MPF";
+	real k3_v1 first_order_rate_constant;
+	k3_v1.cellMLNames="Ste9.k3_";
+	k3_v1=1;
+	real k3_v2 first_order_rate_constant;
+	k3_v2.cellMLNames="Ste9.k3__";
+	k3_v2=10;
+	real k4 first_order_rate_constant;
+	k4.cellMLNames="Ste9.k4";
+	k4=35;
+	real k4_ first_order_rate_constant;
+	k4_.cellMLNames="Ste9.k4_";
+	k4_=2;
+	real J3 dimensionless;
+	J3.cellMLNames="Ste9.J3";
+	J3=0.01;
+	real J4 dimensionless;
+	J4.cellMLNames="Ste9.J4";
+	J4=0.01;
+	real SK(time) dimensionless;
+	SK.cellMLNames="Ste9.SK;SK.SK;Rum1T.SK";
+	when(time=time.min) SK=0;
+	real Slp1T(time) dimensionless;
+	Slp1T.cellMLNames="Slp1T.Slp1T;Slp1.Slp1T";
+	when(time=time.min) Slp1T=0;
+	real k5_v1 first_order_rate_constant;
+	k5_v1.cellMLNames="Slp1T.k5_";
+	k5_v1=0.005;
+	real k5_v2 first_order_rate_constant;
+	k5_v2.cellMLNames="Slp1T.k5__";
+	k5_v2=0.3;
+	real J5 dimensionless;
+	J5.cellMLNames="Slp1T.J5";
+	J5=0.3;
+	real k6 first_order_rate_constant;
+	k6.cellMLNames="Slp1T.k6;kinetic_parameters.k6;Slp1.k6";
+	k6=0.1;
+	real k7 first_order_rate_constant;
+	k7.cellMLNames="Slp1.k7";
+	k7=1;
+	real k8 first_order_rate_constant;
+	k8.cellMLNames="Slp1.k8";
+	k8=0.25;
+	real J7 dimensionless;
+	J7.cellMLNames="Slp1.J7";
+	J7=0.001;
+	real J8 dimensionless;
+	J8.cellMLNames="Slp1.J8";
+	J8=0.001;
+	real IEP(time) dimensionless;
+	IEP.cellMLNames="Slp1.IEP;IEP.IEP";
+	when(time=time.min) IEP=0;
+	real k9 first_order_rate_constant;
+	k9.cellMLNames="IEP.k9";
+	k9=0.1;
+	real k10 first_order_rate_constant;
+	k10.cellMLNames="IEP.k10";
+	k10=0.04;
+	real J9 dimensionless;
+	J9.cellMLNames="IEP.J9";
+	J9=0.01;
+	real J10 dimensionless;
+	J10.cellMLNames="IEP.J10";
+	J10=0.01;
+	real Rum1T(time) dimensionless;
+	Rum1T.cellMLNames="Rum1T.Rum1T;Trimer.Rum1T";
+	when(time=time.min) Rum1T=0;
+	real k11 first_order_rate_constant;
+	k11.cellMLNames="Rum1T.k11";
+	k11=0.1;
+	real k12 first_order_rate_constant;
+	k12.cellMLNames="Rum1T.k12";
+	k12=0.01;
+	real k12_v1 first_order_rate_constant;
+	k12_v1.cellMLNames="Rum1T.k12_";
+	k12_v1=1;
+	real k12_v2 first_order_rate_constant;
+	k12_v2.cellMLNames="Rum1T.k12__";
+	k12_v2=3;
+	real k13 first_order_rate_constant;
+	k13.cellMLNames="SK.k13";
+	k13=0.1;
+	real k14 first_order_rate_constant;
+	k14.cellMLNames="SK.k14";
+	k14=0.1;
+	real TF(time) dimensionless;
+	TF.cellMLNames="SK.TF;TF.TF";
+	real mu first_order_rate_constant;
+	mu.cellMLNames="M.mu";
+	mu=0.005;
+	real Trimer(time) dimensionless;
+	Trimer.cellMLNames="Trimer.Trimer;MPF.Trimer";
+	real was_sum(time) dimensionless;
+	was_sum.cellMLNames="Trimer.sum";
+	real Kdiss dimensionless;
+	Kdiss.cellMLNames="Trimer.Kdiss";
+	Kdiss=0.001;
+	real k15 first_order_rate_constant;
+	k15.cellMLNames="TF.k15";
+	k15=1.5;
+	real k16_v1 first_order_rate_constant;
+	k16_v1.cellMLNames="TF.k16_";
+	k16_v1=1;
+	real k16_v2 first_order_rate_constant;
+	k16_v2.cellMLNames="TF.k16__";
+	k16_v2=2;
+	real J15 dimensionless;
+	J15.cellMLNames="TF.J15";
+	J15=0.01;
+	real J16 dimensionless;
+	J16.cellMLNames="TF.J16";
+	J16=0.01;
+
+	// <component name="environment">
+
+	// <component name="Cdc13T">
+	Cdc13T:time=(k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T);
+
+	// <component name="preMPF">
+	preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF);
+	kwee=(kwee_v1+(kwee_v2-kwee_v1)*2*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-4*Vawee*Jiwee*(Viwee*MPF-Vawee))));
+	k25=(k25_v1+(k25_v2-k25_v1)*2*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-4*Va25*MPF*Ji25*(Vi25-Va25*MPF))));
+
+	// <component name="Ste9">
+	Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9));
+
+	// <component name="Slp1T">
+	Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T);
+
+	// <component name="Slp1">
+	Slp1:time=(k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1));
+
+	// <component name="IEP">
+	IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP));
+
+	// <component name="Rum1T">
+	Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T);
+
+	// <component name="SK">
+	SK:time=(k13*TF-k14*SK);
+
+	// <component name="M">
+	M:time=(mu*M);
+
+	// <component name="Trimer">
+	Trimer=(2*Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-4*Cdc13T*Rum1T)));
+	was_sum=(Cdc13T+Rum1T+Kdiss);
+
+	// <component name="MPF">
+	MPF=((Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T);
+
+	// <component name="TF">
+	TF=(2*k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-4*k15*M*J16*(k16_v1+k16_v2*MPF-k15*M))));
+
+	// <component name="kinetic_parameters">
+}
+

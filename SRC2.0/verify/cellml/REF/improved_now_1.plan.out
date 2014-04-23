@@ -1,0 +1,900 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time day
+  add var: real time.min day
+  add var: extern real time.max day
+  add var: int time.ct
+  add var: extern real time.delta day
+  add var: real rho per_day
+  add var: real d per_day
+  add var: real n(time) generation_number
+  add var: real pr dimensionless
+  add var: real pr1 dimensionless
+  add var: real pr2(time) dimensionless
+  add var: real eta(time) dimensionless
+  add var: extern real Ag_min per_particle
+  add var: real Ag(time) per_particle
+  add var: real K_AgAb(time) per_particle
+  add var: real C1(time) cell_number
+  add var: real C2(time) cell_number
+  add var: real k_on per_day_per_particle
+  add var: real k dimensionless
+  add var: real u particle_per_cell_day
+  add var: real C(time) cell_number
+  add var: real Cs(time) cell_number
+  add var: real Ab(time) per_particle
+  add var: real beta antibody_per_day_cell
+  add var: real AFC(time) cell_number
+  add var: real theta(time) dimensionless
+  add var: real s(time) dimensionless
+  add var: real s1(time) dimensionless
+  add var: real s2(time) dimensionless
+  add var: real h dimensionless
+  add var: real f dimensionless
+  add var: real sc dimensionless
+  add var: real zeta(time) dimensionless
+  add var: real delta_c per_day
+  add var: real m dimensionless
+  add var: real B(time) cell_number
+  add var: real B1(time) cell_number
+  add var: real B2(time) cell_number
+  add var: real Cs1(time) cell_number
+  add var: real Cs2(time) cell_number
+  add var: real mu(time) per_day
+  add var: real mu1(time) per_day
+  add var: real mu2(time) per_day
+  add var: real M11 dimensionless
+  add var: real M12 dimensionless
+  add var: extern real M21 dimensionless
+  add var: extern real M22 dimensionless
+  add var: real M(time) cell_number
+  add var: real M1(time) cell_number
+  add var: real M2(time) cell_number
+  add var: real Ag:time(time) per_particle/day
+  add var: real Ab:time(time) per_particle/day
+  add var: real K_AgAb:time(time) per_particle/day
+  add var: real B:time(time) cell_number/day
+  add var: real B1:time(time) cell_number/day
+  add var: real B2:time(time) cell_number/day
+  add var: real C:time(time) cell_number/day
+  add var: real C1:time(time) cell_number/day
+  add var: real C2:time(time) cell_number/day
+  add var: real Cs:time(time) cell_number/day
+  add var: real Cs1:time(time) cell_number/day
+  add var: real Cs2:time(time) cell_number/day
+  add var: real M:time(time) cell_number/day
+  add var: real M1:time(time) cell_number/day
+  add var: real M2:time(time) cell_number/day
+  add var: real AFC:time(time) cell_number/day
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) Ag=2500 :: [Ag(time.min)]
+  when (time=time.min) K_AgAb=0 :: [K_AgAb(time.min)]
+  when (time=time.min) C1=0 :: [C1(time.min)]
+  when (time=time.min) C2=0 :: [C2(time.min)]
+  k_on=5E-13 :: [k_on]
+  k=0 :: [k]
+  u=1E-4 :: [u]
+  when (time=time.min) C=0 :: [C(time.min)]
+  when (time=time.min) Cs=0 :: [Cs(time.min)]
+  when (time=time.min) Ab=0 :: [Ab(time.min)]
+  beta=1E8 :: [beta]
+  when (time=time.min) AFC=0 :: [AFC(time.min)]
+  h=.07 :: [h]
+  f=.35 :: [f]
+  sc=.45 :: [sc]
+  m=.72 :: [m]
+  when (time=time.min) B=0 :: [B(time.min)]
+  when (time=time.min) B1=0 :: [B1(time.min)]
+  when (time=time.min) B2=0 :: [B2(time.min)]
+  when (time=time.min) Cs1=0 :: [Cs1(time.min)]
+  when (time=time.min) Cs2=0 :: [Cs2(time.min)]
+  when (time=time.min) M=0 :: [M(time.min)]
+  when (time=time.min) M1=0 :: [M1(time.min)]
+  when (time=time.min) M2=0 :: [M2(time.min)]
+  rho=(24*.6931471805599453*.15384615384615385) :: [rho]
+  d=(12*.6931471805599453) :: [d]
+  pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2) :: [pr, Ag, n, Ag_min]
+  pr1=.95 :: [pr1]
+  pr2=(eta*.7) :: [pr2, eta]
+  eta=(if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1) :: [eta, K_AgAb, C1, C2]
+  Ag:time=((u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab) :: [Ag:time, u, k, C, Cs, Ag, k_on, Ab]
+  Ab:time=(beta*AFC-k_on*Ag*Ab) :: [Ab:time, beta, AFC, k_on, Ag, Ab]
+  K_AgAb:time=(k_on*Ag*Ab) :: [K_AgAb:time, k_on, Ag, Ab]
+  theta=(Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3) :: [theta, Ag, C1, C2, K_AgAb]
+  s=(sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))) :: [s, sc, h, f, Ag_min, n, Ag]
+  sc=(delta_c/(d*(pr*m*2-1)+delta_c)) :: [sc, delta_c, d, pr, m]
+  s1=(.01+zeta*.09) :: [s1, zeta]
+  s2=(.1+zeta*.85) :: [s2, zeta]
+  zeta=(Ag/(C1+C2)) :: [zeta, Ag, C1, C2]
+  B:time=(rho*B) :: [B:time, rho, B]
+  B1:time=(pr1*rho*Cs1-rho*B1) :: [B1:time, pr1, rho, Cs1, B1]
+  B2:time=(pr2*rho*Cs2-rho*B2) :: [B2:time, pr2, rho, Cs2, B2]
+  C:time=(rho*m*B*2-mu*C) :: [C:time, rho, m, B, mu, C]
+  C1:time=(rho*m*(M11+B1)*(M12+B2)*2-mu1*C1) :: [C1:time, rho, m, M11, B1, M12, B2, mu1, C1]
+  C2:time=(rho*m*(M21+B1)*(M22+B2)*2-mu2*C2) :: [C2:time, rho, m, M21, B1, M22, B2, mu2, C2]
+  mu=(d*s+delta_c*(1-s)) :: [mu, d, s, delta_c]
+  mu1=(d*s1+delta_c*(1-s1)) :: [mu1, d, s1, delta_c]
+  mu2=(d*s2+delta_c*(1-s2)) :: [mu2, d, s2, delta_c]
+  delta_c=(1.5*.6931471805599453) :: [delta_c]
+  M11=(1-M21) :: [M11, M21]
+  M12=(1-M22) :: [M12, M22]
+  Cs:time=(d*s*C-rho*Cs) :: [Cs:time, d, s, C, rho, Cs]
+  Cs1:time=(d*s1*C1-rho*Cs1) :: [Cs1:time, d, s1, C1, rho, Cs1]
+  Cs2:time=(d*s2*C2-rho*Cs2) :: [Cs2:time, d, s2, C2, rho, Cs2]
+  M:time=((1-theta)*rho*(1-pr)*Cs) :: [M:time, theta, rho, pr, Cs]
+  M1:time=((1-pr1)*Cs1) :: [M1:time, pr1, Cs1]
+  M2:time=((1-pr2)*Cs2) :: [M2:time, pr2, Cs2]
+  AFC:time=(theta*rho*(1-pr)*Cs) :: [AFC:time, theta, rho, pr, Cs]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+  add tool: extern Ag_min
+  add tool: extern M21
+  add tool: extern M22
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) Ag=2500; [Ag(time.min)]
+  add tool: Ag(time.min)=2500
+  check eqn: when (time=time.min) K_AgAb=0; [K_AgAb(time.min)]
+  add tool: K_AgAb(time.min)=0
+  check eqn: when (time=time.min) C1=0; [C1(time.min)]
+  add tool: C1(time.min)=0
+  check eqn: when (time=time.min) C2=0; [C2(time.min)]
+  add tool: C2(time.min)=0
+  check eqn: k_on=5E-13; [k_on]
+  add tool: k_on=5E-13
+  check eqn: k=0; [k]
+  add tool: k=0
+  check eqn: u=1E-4; [u]
+  add tool: u=1E-4
+  check eqn: when (time=time.min) C=0; [C(time.min)]
+  add tool: C(time.min)=0
+  check eqn: when (time=time.min) Cs=0; [Cs(time.min)]
+  add tool: Cs(time.min)=0
+  check eqn: when (time=time.min) Ab=0; [Ab(time.min)]
+  add tool: Ab(time.min)=0
+  check eqn: beta=1E8; [beta]
+  add tool: beta=1E8
+  check eqn: when (time=time.min) AFC=0; [AFC(time.min)]
+  add tool: AFC(time.min)=0
+  check eqn: h=.07; [h]
+  add tool: h=.07
+  check eqn: f=.35; [f]
+  add tool: f=.35
+  check eqn: sc=.45; [sc]
+  add tool: sc=.45
+  check eqn: m=.72; [m]
+  add tool: m=.72
+  check eqn: when (time=time.min) B=0; [B(time.min)]
+  add tool: B(time.min)=0
+  check eqn: when (time=time.min) B1=0; [B1(time.min)]
+  add tool: B1(time.min)=0
+  check eqn: when (time=time.min) B2=0; [B2(time.min)]
+  add tool: B2(time.min)=0
+  check eqn: when (time=time.min) Cs1=0; [Cs1(time.min)]
+  add tool: Cs1(time.min)=0
+  check eqn: when (time=time.min) Cs2=0; [Cs2(time.min)]
+  add tool: Cs2(time.min)=0
+  check eqn: when (time=time.min) M=0; [M(time.min)]
+  add tool: M(time.min)=0
+  check eqn: when (time=time.min) M1=0; [M1(time.min)]
+  add tool: M1(time.min)=0
+  check eqn: when (time=time.min) M2=0; [M2(time.min)]
+  add tool: M2(time.min)=0
+  check eqn: rho=(24*.6931471805599453*.15384615384615385); [rho]
+  add tool: rho=24*.6931471805599453*.15384615384615385
+  check eqn: d=(12*.6931471805599453); [d]
+  add tool: d=12*.6931471805599453
+  check eqn: pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2); [pr, Ag]
+  check eqn: pr1=.95; [pr1]
+  add tool: pr1=.95
+  check eqn: pr2=(eta*.7); [pr2, eta]
+  check eqn: eta=(if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1); [eta, K_AgAb]
+  check eqn: Ag:time=((u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab); [Ag:time, C]
+  check eqn: Ab:time=(beta*AFC-k_on*Ag*Ab); [Ab:time, AFC]
+  check eqn: K_AgAb:time=(k_on*Ag*Ab); [K_AgAb:time, Ag]
+  check eqn: theta=(Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3); [theta, Ag]
+  check eqn: s=(sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))); [s, n]
+  check eqn: sc=(delta_c/(d*(pr*m*2-1)+delta_c)); [delta_c, pr]
+  check eqn: s1=(.01+zeta*.09); [s1, zeta]
+  check eqn: s2=(.1+zeta*.85); [s2, zeta]
+  check eqn: zeta=(Ag/(C1+C2)); [zeta, Ag]
+  check eqn: B:time=(rho*B); [B:time, B]
+  check eqn: B1:time=(pr1*rho*Cs1-rho*B1); [B1:time, Cs1]
+  check eqn: B2:time=(pr2*rho*Cs2-rho*B2); [B2:time, pr2]
+  check eqn: C:time=(rho*m*B*2-mu*C); [C:time, B]
+  check eqn: C1:time=(rho*m*(M11+B1)*(M12+B2)*2-mu1*C1); [C1:time, M11]
+  check eqn: C2:time=(rho*m*(M21+B1)*(M22+B2)*2-mu2*C2); [C2:time, B1]
+  check eqn: mu=(d*s+delta_c*(1-s)); [mu, s]
+  check eqn: mu1=(d*s1+delta_c*(1-s1)); [mu1, s1]
+  check eqn: mu2=(d*s2+delta_c*(1-s2)); [mu2, s2]
+  check eqn: delta_c=(1.5*.6931471805599453); [delta_c]
+  add tool: delta_c=1.5*.6931471805599453
+  check eqn: M11=(1-M21); [M11]
+  add tool: M11=1-M21
+  check eqn: M12=(1-M22); [M12]
+  add tool: M12=1-M22
+  check eqn: Cs:time=(d*s*C-rho*Cs); [Cs:time, s]
+  check eqn: Cs1:time=(d*s1*C1-rho*Cs1); [Cs1:time, s1]
+  check eqn: Cs2:time=(d*s2*C2-rho*Cs2); [Cs2:time, s2]
+  check eqn: M:time=((1-theta)*rho*(1-pr)*Cs); [M:time, theta]
+  check eqn: M1:time=((1-pr1)*Cs1); [M1:time, Cs1]
+  check eqn: M2:time=((1-pr2)*Cs2); [M2:time, pr2]
+  check eqn: AFC:time=(theta*rho*(1-pr)*Cs); [AFC:time, theta]
+  add tool: ODE Ag: []
+  updated ODE(Ag) with Ag(time.min)=2500
+  add tool: ODE K_AgAb: []
+  updated ODE(K_AgAb) with K_AgAb(time.min)=0
+  add tool: ODE C1: []
+  updated ODE(C1) with C1(time.min)=0
+  add tool: ODE C2: []
+  updated ODE(C2) with C2(time.min)=0
+  add tool: ODE C: []
+  updated ODE(C) with C(time.min)=0
+  add tool: ODE Cs: []
+  updated ODE(Cs) with Cs(time.min)=0
+  add tool: ODE Ab: []
+  updated ODE(Ab) with Ab(time.min)=0
+  add tool: ODE AFC: []
+  updated ODE(AFC) with AFC(time.min)=0
+  add tool: ODE B: []
+  updated ODE(B) with B(time.min)=0
+  add tool: ODE B1: []
+  updated ODE(B1) with B1(time.min)=0
+  add tool: ODE B2: []
+  updated ODE(B2) with B2(time.min)=0
+  add tool: ODE Cs1: []
+  updated ODE(Cs1) with Cs1(time.min)=0
+  add tool: ODE Cs2: []
+  updated ODE(Cs2) with Cs2(time.min)=0
+  add tool: ODE M: []
+  updated ODE(M) with M(time.min)=0
+  add tool: ODE M1: []
+  updated ODE(M1) with M1(time.min)=0
+  add tool: ODE M2: []
+  updated ODE(M2) with M2(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2); [pr, n]
+  check eqn: pr2=(eta*.7); [pr2, eta]
+  check eqn: eta=(if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1); [eta]
+  add tool: eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1
+  check eqn: Ag:time=((u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab); [Ag:time]
+  add tool: Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab
+  check eqn: Ab:time=(beta*AFC-k_on*Ag*Ab); [Ab:time]
+  add tool: Ab:time=beta*AFC-k_on*Ag*Ab
+  check eqn: K_AgAb:time=(k_on*Ag*Ab); [K_AgAb:time]
+  add tool: K_AgAb:time=k_on*Ag*Ab
+  check eqn: theta=(Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3); [theta]
+  add tool: theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3
+  check eqn: s=(sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))); [s, n]
+  check eqn: sc=(delta_c/(d*(pr*m*2-1)+delta_c)); [pr]
+  add tool: pr=((delta_c/sc-delta_c)/d+1)/2/m
+  check eqn: s1=(.01+zeta*.09); [s1, zeta]
+  check eqn: s2=(.1+zeta*.85); [s2, zeta]
+  check eqn: zeta=(Ag/(C1+C2)); [zeta]
+  add tool: zeta=Ag/(C1+C2)
+  check eqn: B:time=(rho*B); [B:time]
+  add tool: B:time=rho*B
+  check eqn: B1:time=(pr1*rho*Cs1-rho*B1); [B1:time]
+  add tool: B1:time=pr1*rho*Cs1-rho*B1
+  check eqn: B2:time=(pr2*rho*Cs2-rho*B2); [B2:time, pr2]
+  check eqn: C:time=(rho*m*B*2-mu*C); [C:time, mu]
+  check eqn: C1:time=(rho*m*(M11+B1)*(M12+B2)*2-mu1*C1); [C1:time, mu1]
+  check eqn: C2:time=(rho*m*(M21+B1)*(M22+B2)*2-mu2*C2); [C2:time, mu2]
+  check eqn: mu=(d*s+delta_c*(1-s)); [mu, s]
+  check eqn: mu1=(d*s1+delta_c*(1-s1)); [mu1, s1]
+  check eqn: mu2=(d*s2+delta_c*(1-s2)); [mu2, s2]
+  check eqn: Cs:time=(d*s*C-rho*Cs); [Cs:time, s]
+  check eqn: Cs1:time=(d*s1*C1-rho*Cs1); [Cs1:time, s1]
+  check eqn: Cs2:time=(d*s2*C2-rho*Cs2); [Cs2:time, s2]
+  check eqn: M:time=((1-theta)*rho*(1-pr)*Cs); [M:time]
+  add tool: M:time=(1-theta)*rho*(1-pr)*Cs
+  check eqn: M1:time=((1-pr1)*Cs1); [M1:time]
+  add tool: M1:time=(1-pr1)*Cs1
+  check eqn: M2:time=((1-pr2)*Cs2); [M2:time, pr2]
+  check eqn: AFC:time=(theta*rho*(1-pr)*Cs); [AFC:time]
+  add tool: AFC:time=theta*rho*(1-pr)*Cs
+  updated ODE(Ag) with Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab
+    Ag is now entirely solved
+  updated ODE(Ab) with Ab:time=beta*AFC-k_on*Ag*Ab
+    Ab is now entirely solved
+  updated ODE(K_AgAb) with K_AgAb:time=k_on*Ag*Ab
+    K_AgAb is now entirely solved
+  updated ODE(B) with B:time=rho*B
+    B is now entirely solved
+  updated ODE(B1) with B1:time=pr1*rho*Cs1-rho*B1
+    B1 is now entirely solved
+  updated ODE(M) with M:time=(1-theta)*rho*(1-pr)*Cs
+    M is now entirely solved
+  updated ODE(M1) with M1:time=(1-pr1)*Cs1
+    M1 is now entirely solved
+  updated ODE(AFC) with AFC:time=theta*rho*(1-pr)*Cs
+    AFC is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2); [n]
+  Implicit tool non-linear in [n]
+  add tool: [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)]
+  check eqn: pr2=(eta*.7); [pr2]
+  add tool: pr2=eta*.7
+  check eqn: s=(sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))); [s]
+  add tool: s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))
+  check eqn: s1=(.01+zeta*.09); [s1]
+  add tool: s1=.01+zeta*.09
+  check eqn: s2=(.1+zeta*.85); [s2]
+  add tool: s2=.1+zeta*.85
+  check eqn: B2:time=(pr2*rho*Cs2-rho*B2); [B2:time]
+  add tool: B2:time=pr2*rho*Cs2-rho*B2
+  check eqn: C:time=(rho*m*B*2-mu*C); [C:time, mu]
+  check eqn: C1:time=(rho*m*(M11+B1)*(M12+B2)*2-mu1*C1); [C1:time, mu1]
+  check eqn: C2:time=(rho*m*(M21+B1)*(M22+B2)*2-mu2*C2); [C2:time, mu2]
+  check eqn: mu=(d*s+delta_c*(1-s)); [mu]
+  add tool: mu=d*s+delta_c*(1-s)
+  check eqn: mu1=(d*s1+delta_c*(1-s1)); [mu1]
+  add tool: mu1=d*s1+delta_c*(1-s1)
+  check eqn: mu2=(d*s2+delta_c*(1-s2)); [mu2]
+  add tool: mu2=d*s2+delta_c*(1-s2)
+  check eqn: Cs:time=(d*s*C-rho*Cs); [Cs:time]
+  add tool: Cs:time=d*s*C-rho*Cs
+  check eqn: Cs1:time=(d*s1*C1-rho*Cs1); [Cs1:time]
+  add tool: Cs1:time=d*s1*C1-rho*Cs1
+  check eqn: Cs2:time=(d*s2*C2-rho*Cs2); [Cs2:time]
+  add tool: Cs2:time=d*s2*C2-rho*Cs2
+  check eqn: M2:time=((1-pr2)*Cs2); [M2:time]
+  add tool: M2:time=(1-pr2)*Cs2
+  updated ODE(B2) with B2:time=pr2*rho*Cs2-rho*B2
+    B2 is now entirely solved
+  updated ODE(Cs) with Cs:time=d*s*C-rho*Cs
+    Cs is now entirely solved
+  updated ODE(Cs1) with Cs1:time=d*s1*C1-rho*Cs1
+    Cs1 is now entirely solved
+  updated ODE(Cs2) with Cs2:time=d*s2*C2-rho*Cs2
+    Cs2 is now entirely solved
+  updated ODE(M2) with M2:time=(1-pr2)*Cs2
+    M2 is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: C:time=(rho*m*B*2-mu*C); [C:time]
+  add tool: C:time=rho*m*B*2-mu*C
+  check eqn: C1:time=(rho*m*(M11+B1)*(M12+B2)*2-mu1*C1); [C1:time]
+  add tool: C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1
+  check eqn: C2:time=(rho*m*(M21+B1)*(M22+B2)*2-mu2*C2); [C2:time]
+  add tool: C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2
+  updated ODE(C) with C:time=rho*m*B*2-mu*C
+    C is now entirely solved
+  updated ODE(C1) with C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1
+    C1 is now entirely solved
+  updated ODE(C2) with C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2
+    C2 is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Ag__init per_particle
+  add tool: Ag__init=2500
+  add var: real K_AgAb__init per_particle
+  add tool: K_AgAb__init=0
+  add var: real C1__init cell_number
+  add tool: C1__init=0
+  add var: real C2__init cell_number
+  add tool: C2__init=0
+  add var: real C__init cell_number
+  add tool: C__init=0
+  add var: real Cs__init cell_number
+  add tool: Cs__init=0
+  add var: real Ab__init per_particle
+  add tool: Ab__init=0
+  add var: real AFC__init cell_number
+  add tool: AFC__init=0
+  add var: real B__init cell_number
+  add tool: B__init=0
+  add var: real B1__init cell_number
+  add tool: B1__init=0
+  add var: real B2__init cell_number
+  add tool: B2__init=0
+  add var: real Cs1__init cell_number
+  add tool: Cs1__init=0
+  add var: real Cs2__init cell_number
+  add tool: Cs2__init=0
+  add var: real M__init cell_number
+  add tool: M__init=0
+  add var: real M1__init cell_number
+  add tool: M1__init=0
+  add var: real M2__init cell_number
+  add tool: M2__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  M2__init=0 :: [M2__init]<<[]
+  M1__init=0 :: [M1__init]<<[]
+  M__init=0 :: [M__init]<<[]
+  Cs2__init=0 :: [Cs2__init]<<[]
+  Cs1__init=0 :: [Cs1__init]<<[]
+  B2__init=0 :: [B2__init]<<[]
+  B1__init=0 :: [B1__init]<<[]
+  B__init=0 :: [B__init]<<[]
+  AFC__init=0 :: [AFC__init]<<[]
+  Ab__init=0 :: [Ab__init]<<[]
+  Cs__init=0 :: [Cs__init]<<[]
+  C__init=0 :: [C__init]<<[]
+  C2__init=0 :: [C2__init]<<[]
+  C1__init=0 :: [C1__init]<<[]
+  K_AgAb__init=0 :: [K_AgAb__init]<<[]
+  Ag__init=2500 :: [Ag__init]<<[]
+  @time AFC:time=theta*rho*(1-pr)*Cs :: [AFC:time]<<[theta, rho, pr, Cs]
+  @time M2:time=(1-pr2)*Cs2 :: [M2:time]<<[pr2, Cs2]
+  @time M1:time=(1-pr1)*Cs1 :: [M1:time]<<[pr1, Cs1]
+  @time M:time=(1-theta)*rho*(1-pr)*Cs :: [M:time]<<[theta, rho, pr, Cs]
+  @time Cs2:time=d*s2*C2-rho*Cs2 :: [Cs2:time]<<[d, s2, C2, rho, Cs2]
+  @time Cs1:time=d*s1*C1-rho*Cs1 :: [Cs1:time]<<[d, s1, C1, rho, Cs1]
+  @time Cs:time=d*s*C-rho*Cs :: [Cs:time]<<[d, s, C, rho, Cs]
+  @time C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2 :: [C2:time]<<[rho, m, M21, B1, M22, B2, mu2, C2]
+  @time C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1 :: [C1:time]<<[rho, m, M11, B1, M12, B2, mu1, C1]
+  @time C:time=rho*m*B*2-mu*C :: [C:time]<<[rho, m, B, mu, C]
+  @time B2:time=pr2*rho*Cs2-rho*B2 :: [B2:time]<<[pr2, rho, Cs2, B2]
+  @time B1:time=pr1*rho*Cs1-rho*B1 :: [B1:time]<<[pr1, rho, Cs1, B1]
+  @time B:time=rho*B :: [B:time]<<[rho, B]
+  @time K_AgAb:time=k_on*Ag*Ab :: [K_AgAb:time]<<[k_on, Ag, Ab]
+  @time Ab:time=beta*AFC-k_on*Ag*Ab :: [Ab:time]<<[beta, AFC, k_on, Ag, Ab]
+  @time Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab :: [Ag:time]<<[u, k, C, Cs, Ag, k_on, Ab]
+  @time ODE M2: M2:time=(1-pr2)*Cs2 :: [M2, M2(time.max)]<<[pr2, Cs2, M2(time.min), M2:time]
+  @time ODE M1: M1:time=(1-pr1)*Cs1 :: [M1, M1(time.max)]<<[pr1, Cs1, M1(time.min), M1:time]
+  @time ODE M: M:time=(1-theta)*rho*(1-pr)*Cs :: [M, M(time.max)]<<[theta, rho, pr, Cs, M(time.min), M:time]
+  extern M22 :: [M22]<<[]
+  extern M21 :: [M21]<<[]
+  M12=1-M22 :: [M12]<<[M22]
+  M11=1-M21 :: [M11]<<[M21]
+  @time mu2=d*s2+delta_c*(1-s2) :: [mu2]<<[d, s2, delta_c]
+  @time mu1=d*s1+delta_c*(1-s1) :: [mu1]<<[d, s1, delta_c]
+  @time mu=d*s+delta_c*(1-s) :: [mu]<<[d, s, delta_c]
+  @time ODE Cs2: Cs2:time=d*s2*C2-rho*Cs2 :: [Cs2, Cs2(time.max)]<<[d, s2, C2, rho, Cs2(time.min), Cs2:time]
+  @time ODE Cs1: Cs1:time=d*s1*C1-rho*Cs1 :: [Cs1, Cs1(time.max)]<<[d, s1, C1, rho, Cs1(time.min), Cs1:time]
+  @time ODE B2: B2:time=pr2*rho*Cs2-rho*B2 :: [B2, B2(time.max)]<<[pr2, rho, Cs2, B2(time.min), B2:time]
+  @time ODE B1: B1:time=pr1*rho*Cs1-rho*B1 :: [B1, B1(time.max)]<<[pr1, rho, Cs1, B1(time.min), B1:time]
+  @time ODE B: B:time=rho*B :: [B, B(time.max)]<<[rho, B(time.min), B:time]
+  m=.72 :: [m]<<[]
+  delta_c=1.5*.6931471805599453 :: [delta_c]<<[]
+  @time zeta=Ag/(C1+C2) :: [zeta]<<[Ag, C1, C2]
+  sc=.45 :: [sc]<<[]
+  f=.35 :: [f]<<[]
+  h=.07 :: [h]<<[]
+  @time s2=.1+zeta*.85 :: [s2]<<[zeta]
+  @time s1=.01+zeta*.09 :: [s1]<<[zeta]
+  @time s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n))) :: [s]<<[sc, h, f, Ag_min, n, Ag]
+  @time theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3 :: [theta]<<[Ag, C1, C2, K_AgAb]
+  @time ODE AFC: AFC:time=theta*rho*(1-pr)*Cs :: [AFC, AFC(time.max)]<<[theta, rho, pr, Cs, AFC(time.min), AFC:time]
+  beta=1E8 :: [beta]<<[]
+  @time ODE Ab: Ab:time=beta*AFC-k_on*Ag*Ab :: [Ab, Ab(time.max)]<<[beta, AFC, k_on, Ag, Ab(time.min), Ab:time]
+  @time ODE Cs: Cs:time=d*s*C-rho*Cs :: [Cs, Cs(time.max)]<<[d, s, C, rho, Cs(time.min), Cs:time]
+  @time ODE C: C:time=rho*m*B*2-mu*C :: [C, C(time.max)]<<[rho, m, B, mu, C(time.min), C:time]
+  u=1E-4 :: [u]<<[]
+  k=0 :: [k]<<[]
+  k_on=5E-13 :: [k_on]<<[]
+  @time ODE C2: C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2 :: [C2, C2(time.max)]<<[rho, m, M21, B1, M22, B2, mu2, C2(time.min), C2:time]
+  @time ODE C1: C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1 :: [C1, C1(time.max)]<<[rho, m, M11, B1, M12, B2, mu1, C1(time.min), C1:time]
+  @time ODE K_AgAb: K_AgAb:time=k_on*Ag*Ab :: [K_AgAb, K_AgAb(time.max)]<<[k_on, Ag, Ab, K_AgAb(time.min), K_AgAb:time]
+  @time ODE Ag: Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab :: [Ag, Ag(time.max)]<<[u, k, C, Cs, k_on, Ab, Ag(time.min), Ag:time]
+  extern Ag_min :: [Ag_min]<<[]
+  @time eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1 :: [eta]<<[K_AgAb, C1, C2]
+  @time pr2=eta*.7 :: [pr2]<<[eta]
+  pr1=.95 :: [pr1]<<[]
+  pr=((delta_c/sc-delta_c)/d+1)/2/m :: [pr]<<[delta_c, sc, d, m]
+  @time [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)] :: [n]<<[pr, Ag, Ag_min]
+  d=12*.6931471805599453 :: [d]<<[]
+  rho=24*.6931471805599453*.15384615384615385 :: [rho]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  M2(time.min)=M2__init :: [M2(time.min)]<<[M2__init]
+  M1(time.min)=M1__init :: [M1(time.min)]<<[M1__init]
+  M(time.min)=M__init :: [M(time.min)]<<[M__init]
+  Cs2(time.min)=Cs2__init :: [Cs2(time.min)]<<[Cs2__init]
+  Cs1(time.min)=Cs1__init :: [Cs1(time.min)]<<[Cs1__init]
+  B2(time.min)=B2__init :: [B2(time.min)]<<[B2__init]
+  B1(time.min)=B1__init :: [B1(time.min)]<<[B1__init]
+  B(time.min)=B__init :: [B(time.min)]<<[B__init]
+  AFC(time.min)=AFC__init :: [AFC(time.min)]<<[AFC__init]
+  Ab(time.min)=Ab__init :: [Ab(time.min)]<<[Ab__init]
+  Cs(time.min)=Cs__init :: [Cs(time.min)]<<[Cs__init]
+  C(time.min)=C__init :: [C(time.min)]<<[C__init]
+  C2(time.min)=C2__init :: [C2(time.min)]<<[C2__init]
+  C1(time.min)=C1__init :: [C1(time.min)]<<[C1__init]
+  K_AgAb(time.min)=K_AgAb__init :: [K_AgAb(time.min)]<<[K_AgAb__init]
+  Ag(time.min)=Ag__init :: [Ag(time.min)]<<[Ag__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode M2__init seqLoops=() phase=main fft=null
+  addNode M1__init seqLoops=() phase=main fft=null
+  addNode M__init seqLoops=() phase=main fft=null
+  addNode Cs2__init seqLoops=() phase=main fft=null
+  addNode Cs1__init seqLoops=() phase=main fft=null
+  addNode B2__init seqLoops=() phase=main fft=null
+  addNode B1__init seqLoops=() phase=main fft=null
+  addNode B__init seqLoops=() phase=main fft=null
+  addNode AFC__init seqLoops=() phase=main fft=null
+  addNode Ab__init seqLoops=() phase=main fft=null
+  addNode Cs__init seqLoops=() phase=main fft=null
+  addNode C__init seqLoops=() phase=main fft=null
+  addNode C2__init seqLoops=() phase=main fft=null
+  addNode C1__init seqLoops=() phase=main fft=null
+  addNode K_AgAb__init seqLoops=() phase=main fft=null
+  addNode Ag__init seqLoops=() phase=main fft=null
+  addNode AFC:time seqLoops=(time) phase=time#1 fft=null
+  addNode M2:time seqLoops=(time) phase=time#1 fft=null
+  addNode M1:time seqLoops=(time) phase=time#1 fft=null
+  addNode M:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cs2:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cs1:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cs:time seqLoops=(time) phase=time#1 fft=null
+  addNode C2:time seqLoops=(time) phase=time#1 fft=null
+  addNode C1:time seqLoops=(time) phase=time#1 fft=null
+  addNode C:time seqLoops=(time) phase=time#1 fft=null
+  addNode B2:time seqLoops=(time) phase=time#1 fft=null
+  addNode B1:time seqLoops=(time) phase=time#1 fft=null
+  addNode B:time seqLoops=(time) phase=time#1 fft=null
+  addNode K_AgAb:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ab:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ag:time seqLoops=(time) phase=time#1 fft=null
+  addNode M2 seqLoops=(time) phase=time#1 fft=time
+  addNode M1 seqLoops=(time) phase=time#1 fft=time
+  addNode M seqLoops=(time) phase=time#1 fft=time
+  addNode M22 seqLoops=() phase=main fft=null
+  addNode M21 seqLoops=() phase=main fft=null
+  addNode M12 seqLoops=() phase=main fft=null
+  addNode M11 seqLoops=() phase=main fft=null
+  addNode mu2 seqLoops=(time) phase=time#1 fft=null
+  addNode mu1 seqLoops=(time) phase=time#1 fft=null
+  addNode mu seqLoops=(time) phase=time#1 fft=null
+  addNode Cs2 seqLoops=(time) phase=time#1 fft=time
+  addNode Cs1 seqLoops=(time) phase=time#1 fft=time
+  addNode B2 seqLoops=(time) phase=time#1 fft=time
+  addNode B1 seqLoops=(time) phase=time#1 fft=time
+  addNode B seqLoops=(time) phase=time#1 fft=time
+  addNode m seqLoops=() phase=main fft=null
+  addNode delta_c seqLoops=() phase=main fft=null
+  addNode zeta seqLoops=(time) phase=time#1 fft=null
+  addNode sc seqLoops=() phase=main fft=null
+  addNode f seqLoops=() phase=main fft=null
+  addNode h seqLoops=() phase=main fft=null
+  addNode s2 seqLoops=(time) phase=time#1 fft=null
+  addNode s1 seqLoops=(time) phase=time#1 fft=null
+  addNode s seqLoops=(time) phase=time#1 fft=null
+  addNode theta seqLoops=(time) phase=time#1 fft=null
+  addNode AFC seqLoops=(time) phase=time#1 fft=time
+  addNode beta seqLoops=() phase=main fft=null
+  addNode Ab seqLoops=(time) phase=time#1 fft=time
+  addNode Cs seqLoops=(time) phase=time#1 fft=time
+  addNode C seqLoops=(time) phase=time#1 fft=time
+  addNode u seqLoops=() phase=main fft=null
+  addNode k seqLoops=() phase=main fft=null
+  addNode k_on seqLoops=() phase=main fft=null
+  addNode C2 seqLoops=(time) phase=time#1 fft=time
+  addNode C1 seqLoops=(time) phase=time#1 fft=time
+  addNode K_AgAb seqLoops=(time) phase=time#1 fft=time
+  addNode Ag seqLoops=(time) phase=time#1 fft=time
+  addNode Ag_min seqLoops=() phase=main fft=null
+  addNode eta seqLoops=(time) phase=time#1 fft=null
+  addNode pr2 seqLoops=(time) phase=time#1 fft=null
+  addNode pr1 seqLoops=() phase=main fft=null
+  addNode pr seqLoops=() phase=main fft=null
+  addNode n seqLoops=(time) phase=time#1 fft=null
+  addNode d seqLoops=() phase=main fft=null
+  addNode rho seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode M2(time.min) seqLoops=() phase=main fft=null
+  addNode M1(time.min) seqLoops=() phase=main fft=null
+  addNode M(time.min) seqLoops=() phase=main fft=null
+  addNode Cs2(time.min) seqLoops=() phase=main fft=null
+  addNode Cs1(time.min) seqLoops=() phase=main fft=null
+  addNode B2(time.min) seqLoops=() phase=main fft=null
+  addNode B1(time.min) seqLoops=() phase=main fft=null
+  addNode B(time.min) seqLoops=() phase=main fft=null
+  addNode AFC(time.min) seqLoops=() phase=main fft=null
+  addNode Ab(time.min) seqLoops=() phase=main fft=null
+  addNode Cs(time.min) seqLoops=() phase=main fft=null
+  addNode C(time.min) seqLoops=() phase=main fft=null
+  addNode C2(time.min) seqLoops=() phase=main fft=null
+  addNode C1(time.min) seqLoops=() phase=main fft=null
+  addNode K_AgAb(time.min) seqLoops=() phase=main fft=null
+  addNode Ag(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding M2__init=0 to main
+  adding M1__init=0 to main
+  adding M__init=0 to main
+  adding Cs2__init=0 to main
+  adding Cs1__init=0 to main
+  adding B2__init=0 to main
+  adding B1__init=0 to main
+  adding B__init=0 to main
+  adding AFC__init=0 to main
+  adding Ab__init=0 to main
+  adding Cs__init=0 to main
+  adding C__init=0 to main
+  adding C2__init=0 to main
+  adding C1__init=0 to main
+  adding K_AgAb__init=0 to main
+  adding Ag__init=2500 to main
+  adding extern M22 to main
+  adding extern M21 to main
+  adding M12=1-M22 to main
+  adding M11=1-M21 to main
+  adding m=.72 to main
+  adding delta_c=1.5*.6931471805599453 to main
+  adding sc=.45 to main
+  adding f=.35 to main
+  adding h=.07 to main
+  adding beta=1E8 to main
+  adding u=1E-4 to main
+  adding k=0 to main
+  adding k_on=5E-13 to main
+  adding extern Ag_min to main
+  adding pr1=.95 to main
+  adding d=12*.6931471805599453 to main
+  adding rho=24*.6931471805599453*.15384615384615385 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding pr=((delta_c/sc-delta_c)/d+1)/2/m to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding M2(time.min)=M2__init to main
+  adding M1(time.min)=M1__init to main
+  adding M(time.min)=M__init to main
+  adding Cs2(time.min)=Cs2__init to main
+  adding Cs1(time.min)=Cs1__init to main
+  adding B2(time.min)=B2__init to main
+  adding B1(time.min)=B1__init to main
+  adding B(time.min)=B__init to main
+  adding AFC(time.min)=AFC__init to main
+  adding Ab(time.min)=Ab__init to main
+  adding Cs(time.min)=Cs__init to main
+  adding C(time.min)=C__init to main
+  adding C2(time.min)=C2__init to main
+  adding C1(time.min)=C1__init to main
+  adding K_AgAb(time.min)=K_AgAb__init to main
+  adding Ag(time.min)=Ag__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding M1:time=(1-pr1)*Cs1 to loop-time
+  adding B1:time=pr1*rho*Cs1-rho*B1 to loop-time
+  adding B:time=rho*B to loop-time
+  adding K_AgAb:time=k_on*Ag*Ab to loop-time
+  adding Ab:time=beta*AFC-k_on*Ag*Ab to loop-time
+  adding Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab to loop-time
+  adding zeta=Ag/(C1+C2) to loop-time
+  adding s2=.1+zeta*.85 to loop-time
+  adding s1=.01+zeta*.09 to loop-time
+  adding theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3 to loop-time
+  adding eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1 to loop-time
+  adding pr2=eta*.7 to loop-time
+  adding [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)] to loop-time
+  adding AFC:time=theta*rho*(1-pr)*Cs to loop-time
+  adding M2:time=(1-pr2)*Cs2 to loop-time
+  adding M:time=(1-theta)*rho*(1-pr)*Cs to loop-time
+  adding Cs2:time=d*s2*C2-rho*Cs2 to loop-time
+  adding Cs1:time=d*s1*C1-rho*Cs1 to loop-time
+  adding B2:time=pr2*rho*Cs2-rho*B2 to loop-time
+  adding mu2=d*s2+delta_c*(1-s2) to loop-time
+  adding mu1=d*s1+delta_c*(1-s1) to loop-time
+  adding s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n))) to loop-time
+  adding Cs:time=d*s*C-rho*Cs to loop-time
+  adding C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2 to loop-time
+  adding C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1 to loop-time
+  adding mu=d*s+delta_c*(1-s) to loop-time
+  adding C:time=rho*m*B*2-mu*C to loop-time
+  adding ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag] to loop-time
+  adding loop-time to main
+Building ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag] ...
+  adding muTool eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1
+  adding muTool pr2=eta*.7
+  adding muVar pr2
+  adding muVar eta
+  adding muTool M2:time=(1-pr2)*Cs2
+  adding muVar M2:time
+  adding muTool M1:time=(1-pr1)*Cs1
+  adding muVar M1:time
+  adding muTool theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3
+  adding muVar theta
+  adding muTool M:time=(1-theta)*rho*(1-pr)*Cs
+  adding muVar M:time
+  adding muTool zeta=Ag/(C1+C2)
+  adding muTool s2=.1+zeta*.85
+  adding muVar s2
+  adding muVar zeta
+  adding muTool Cs2:time=d*s2*C2-rho*Cs2
+  adding muVar Cs2:time
+  adding muTool s1=.01+zeta*.09
+  adding muVar s1
+  adding muTool Cs1:time=d*s1*C1-rho*Cs1
+  adding muVar Cs1:time
+  adding muTool B2:time=pr2*rho*Cs2-rho*B2
+  adding muVar B2:time
+  adding muTool B1:time=pr1*rho*Cs1-rho*B1
+  adding muVar B1:time
+  adding muTool B:time=rho*B
+  adding muVar B:time
+  adding muTool AFC:time=theta*rho*(1-pr)*Cs
+  adding muVar AFC:time
+  adding muTool Ab:time=beta*AFC-k_on*Ag*Ab
+  adding muVar Ab:time
+  adding muTool [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)]
+  adding muTool s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))
+  adding muVar s
+  adding muVar n
+  adding muTool Cs:time=d*s*C-rho*Cs
+  adding muVar Cs:time
+  adding muTool mu=d*s+delta_c*(1-s)
+  adding muVar mu
+  adding muTool C:time=rho*m*B*2-mu*C
+  adding muVar C:time
+  adding muTool mu2=d*s2+delta_c*(1-s2)
+  adding muVar mu2
+  adding muTool C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2
+  adding muVar C2:time
+  adding muTool mu1=d*s1+delta_c*(1-s1)
+  adding muVar mu1
+  adding muTool C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1
+  adding muVar C1:time
+  adding muTool K_AgAb:time=k_on*Ag*Ab
+  adding muVar K_AgAb:time
+  adding muTool Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab
+  adding muVar Ag:time
+  adding eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding pr2=eta*.7 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding M2:time=(1-pr2)*Cs2 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding M1:time=(1-pr1)*Cs1 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding M:time=(1-theta)*rho*(1-pr)*Cs to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding zeta=Ag/(C1+C2) to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding s2=.1+zeta*.85 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding Cs2:time=d*s2*C2-rho*Cs2 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding s1=.01+zeta*.09 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding Cs1:time=d*s1*C1-rho*Cs1 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding B2:time=pr2*rho*Cs2-rho*B2 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding B1:time=pr1*rho*Cs1-rho*B1 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding B:time=rho*B to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding AFC:time=theta*rho*(1-pr)*Cs to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding Ab:time=beta*AFC-k_on*Ag*Ab to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)] to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n))) to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding Cs:time=d*s*C-rho*Cs to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding mu=d*s+delta_c*(1-s) to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding C:time=rho*m*B*2-mu*C to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding mu2=d*s2+delta_c*(1-s2) to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding mu1=d*s1+delta_c*(1-s1) to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1 to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding K_AgAb:time=k_on*Ag*Ab to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+  adding Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab to ODE Block-time [M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  M2__init=0
+  M1__init=0
+  M__init=0
+  Cs2__init=0
+  Cs1__init=0
+  B2__init=0
+  B1__init=0
+  B__init=0
+  AFC__init=0
+  Ab__init=0
+  Cs__init=0
+  C__init=0
+  C2__init=0
+  C1__init=0
+  K_AgAb__init=0
+  Ag__init=2500
+  extern M22
+  extern M21
+  M12=1-M22
+  M11=1-M21
+  m=.72
+  delta_c=1.5*.6931471805599453
+  sc=.45
+  f=.35
+  h=.07
+  beta=1E8
+  u=1E-4
+  k=0
+  k_on=5E-13
+  extern Ag_min
+  pr1=.95
+  d=12*.6931471805599453
+  rho=24*.6931471805599453*.15384615384615385
+  extern time.delta
+  extern time.max
+  time.min=0
+  pr=((delta_c/sc-delta_c)/d+1)/2/m
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  M2(time.min)=M2__init
+  M1(time.min)=M1__init
+  M(time.min)=M__init
+  Cs2(time.min)=Cs2__init
+  Cs1(time.min)=Cs1__init
+  B2(time.min)=B2__init
+  B1(time.min)=B1__init
+  B(time.min)=B__init
+  AFC(time.min)=AFC__init
+  Ab(time.min)=Ab__init
+  Cs(time.min)=Cs__init
+  C(time.min)=C__init
+  C2(time.min)=C2__init
+  C1(time.min)=C1__init
+  K_AgAb(time.min)=K_AgAb__init
+  Ag(time.min)=Ag__init
+  loop-time
+    M1:time=(1-pr1)*Cs1
+    B1:time=pr1*rho*Cs1-rho*B1
+    B:time=rho*B
+    K_AgAb:time=k_on*Ag*Ab
+    Ab:time=beta*AFC-k_on*Ag*Ab
+    Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab
+    zeta=Ag/(C1+C2)
+    s2=.1+zeta*.85
+    s1=.01+zeta*.09
+    theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3
+    eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1
+    pr2=eta*.7
+    [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)]
+    AFC:time=theta*rho*(1-pr)*Cs
+    M2:time=(1-pr2)*Cs2
+    M:time=(1-theta)*rho*(1-pr)*Cs
+    Cs2:time=d*s2*C2-rho*Cs2
+    Cs1:time=d*s1*C1-rho*Cs1
+    B2:time=pr2*rho*Cs2-rho*B2
+    mu2=d*s2+delta_c*(1-s2)
+    mu1=d*s1+delta_c*(1-s1)
+    s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))
+    Cs:time=d*s*C-rho*Cs
+    C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2
+    C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1
+    mu=d*s+delta_c*(1-s)
+    C:time=rho*m*B*2-mu*C
+    ODE Block-time vmus=[time, M2, M1, M, Cs2, Cs1, B2, B1, B, AFC, Ab, Cs, C, C2, C1, K_AgAb, Ag, pr2, eta, M2:time, M1:time, theta, M:time, s2, zeta, Cs2:time, s1, Cs1:time, B2:time, B1:time, B:time, AFC:time, Ab:time, s, n, Cs:time, mu, C:time, mu2, C2:time, mu1, C1:time, K_AgAb:time, Ag:time]
+      eta=if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1
+      pr2=eta*.7
+      M2:time=(1-pr2)*Cs2
+      M1:time=(1-pr1)*Cs1
+      theta=Ag/(C1+C2)*(Ag/(Ag+K_AgAb))*.3
+      M:time=(1-theta)*rho*(1-pr)*Cs
+      zeta=Ag/(C1+C2)
+      s2=.1+zeta*.85
+      Cs2:time=d*s2*C2-rho*Cs2
+      s1=.01+zeta*.09
+      Cs1:time=d*s1*C1-rho*Cs1
+      B2:time=pr2*rho*Cs2-rho*B2
+      B1:time=pr1*rho*Cs1-rho*B1
+      B:time=rho*B
+      AFC:time=theta*rho*(1-pr)*Cs
+      Ab:time=beta*AFC-k_on*Ag*Ab
+      [pr=(.6+Ag^n/(Ag^n+Ag_min^n)*.2)]
+      s=sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n)))
+      Cs:time=d*s*C-rho*Cs
+      mu=d*s+delta_c*(1-s)
+      C:time=rho*m*B*2-mu*C
+      mu2=d*s2+delta_c*(1-s2)
+      C2:time=rho*m*(M21+B1)*(M22+B2)*2-mu2*C2
+      mu1=d*s1+delta_c*(1-s1)
+      C1:time=rho*m*(M11+B1)*(M12+B2)*2-mu1*C1
+      K_AgAb:time=k_on*Ag*Ab
+      Ag:time=(u*k*C+u*Cs*(1-k))*Ag*(-1)-k_on*Ag*Ab
+

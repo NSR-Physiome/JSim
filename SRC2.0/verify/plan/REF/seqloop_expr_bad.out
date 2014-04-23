@@ -1,0 +1,5 @@
+
+JSim.util.Xcept: Model seqloop_expr
+aborted: Can't sequence b=a: source var a has free domain(s) (t) missing in solved var(s): [b]
+
+

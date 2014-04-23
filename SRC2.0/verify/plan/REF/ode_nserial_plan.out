@@ -1,0 +1,185 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: int n
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: real Cin(t)
+  add var: real u(t,x)
+  add var: real k(x)
+  add var: real u:t(t,x)
+Loading Constraints
+  n=3 :: [n]
+  t.min=0 :: [t.min]
+  t.max=3 :: [t.max]
+  t.delta=.25 :: [t.delta]
+  x.min=1 :: [x.min]
+  x.max=n :: [x.max, n]
+  x.delta=1 :: [x.delta]
+  Cin=(1-exp(t*(-1))) :: [Cin, t]
+  k=x :: [k, x]
+  when (t=t.min) u=0 :: [u(t.min)]
+  u:t=(k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)) :: [u:t, k, x, x.min, Cin, t, u(x.delay)*, u]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: n=3; [n]
+  add tool: n=3
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=3; [t.max]
+  add tool: t.max=3
+  check eqn: t.delta=.25; [t.delta]
+  add tool: t.delta=.25
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=1; [x.min]
+  add tool: x.min=1
+  check eqn: x.max=n; [x.max]
+  add tool: x.max=n
+  check eqn: x.delta=1; [x.delta]
+  add tool: x.delta=1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: Cin=(1-exp(t*(-1))); [Cin]
+  add tool: Cin=1-exp(t*(-1))
+  check eqn: k=x; [k]
+  add tool: k=x
+  check eqn: when (t=t.min) u=0; [u(t.min)]
+  add tool: u(t.min)=0
+  check eqn: u:t=(k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)); [u:t, u(x.delay)*]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=0
+Toolbox phase - cycle 1:
+  check eqn: u:t=(k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)); [u:t]
+  add tool: u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)
+  updated ODE(u) with u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)
+    u is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real u__init(x)
+  add tool: u__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @x u__init=0 :: [u__init]<<[]
+  @t@x u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1) :: [u:t]<<[k, x, x.min, Cin, t, u(x.delay)*, u]
+  @x k=x :: [k]<<[x]
+  @t@x ODE u: u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1) :: [u, u(t.max)]<<[k, x, x.min, Cin, t, u(x.delay)*, u(t.min), u:t]
+  @t Cin=1-exp(t*(-1)) :: [Cin]<<[t]
+  x.delta=1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=n :: [x.max]<<[n]
+  x.min=1 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.25 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=3 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  n=3 :: [n]<<[]
+  @x u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(x.delay)*]<<[u]
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode u__init seqLoops=(x) phase=x#1 fft=null
+  addNode u:t seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode k seqLoops=(x) phase=x#1 fft=null
+  addNode u seqLoops=(t,x) phase=t#1+x#1 fft=t
+  addNode Cin seqLoops=(t) phase=t#1 fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode u(x.delay) seqLoops=(t,x) phase=t#1+x#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x.delta=1 to main
+  adding x.min=1 to main
+  adding t.delta=.25 to main
+  adding t.max=3 to main
+  adding t.min=0 to main
+  adding n=3 to main
+  adding x.max=n to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding u__init=0 to loop-x
+  adding k=x to loop-x
+  adding u(t.min)=u__init to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding Cin=1-exp(t*(-1)) to loop-t
+  subphase t#1+x#1 entryEdge=null
+building block for phase t#1+x#1
+  adding query [u(x.delay)*] to loop-x
+  adding u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1) to loop-x
+  adding ODE Block-t [u] to loop-x
+  adding loop-x to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool Cin=1-exp(t*(-1))
+  adding muVar Cin
+  adding muTool query [u(x.delay)*]
+  adding muVar u(x.delay)*
+  adding muTool u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)
+  adding muVar u:t
+  adding Cin=1-exp(t*(-1)) to ODE Block-t [u]
+  adding query [u(x.delay)*] to ODE Block-t [u]
+  adding u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1) to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x.delta=1
+  x.min=1
+  t.delta=.25
+  t.max=3
+  t.min=0
+  n=3
+  x.max=n
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  loop-x
+    u__init=0
+    k=x
+    u(t.min)=u__init
+  loop-t
+    Cin=1-exp(t*(-1))
+    loop-x
+      query [u(x.delay)*]
+      u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)
+      ODE Block-t vmus=[t, u, Cin, u(x.delay)*, u:t]
+        Cin=1-exp(t*(-1))
+        query [u(x.delay)*]
+        u:t=k*((if (x=x.min) Cin else u(t,x-1))-u)*(-1)
+

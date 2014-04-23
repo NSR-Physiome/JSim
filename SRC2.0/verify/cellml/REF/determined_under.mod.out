@@ -1,0 +1,305 @@
+/*
+ * Mitochondrial Ca2+ Handling
+ * 
+ * Model Status
+ * 
+ * This is the original unchecked version of the model imported
+ * from the previous CellML model repository, 24-Jan-2006.
+ * 
+ * Model Structure
+ * 
+ * In 1997 Gerhard Magnus and Joel Keizer published a minimal mathematical
+ * model to describe Ca2+ handling by mitochondria in the pancreatic
+ * beta-cell. Their kinetic model includes six transport mechanisms
+ * in the inner mitochondrial membrane, including proton pumping
+ * via respiration and proton pumping by the F0F1-ATPase, a proton
+ * leak, adenine nucleotide exchange, the Ca2+ uniporter and Na+/Ca2+
+ * exchange (see below).
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * Minimal model of beta-cell mitochondrial Ca2+ handling, Gerhard
+ * Magnus and Joel Keizer, 1997, 273, C717-C733. PubMed ID: 9277370
+ * 
+ * The raw CellML description of the mitochondrial Ca2+ handling
+ * model can be downloaded in various formats as described in .
+ * For an example of a more complete documentation for an electrophysiological
+ * model, see The Hodgkin-Huxley Squid Axon Model, 1952.
+ * 
+ * diagram of the mitochondrial Ca2+ handling model showing ionic
+ * currents across the mitochondrial membrane
+ * 
+ * [[Image file: magnus_1997.png]]
+ * 
+ * A schematic representation of the ion fluxes through the mitochondrial
+ * inner membrane that are included in the Magnus-Keizer minimal
+ * model.
+ * 
+ * the cellml rendering of the mitochondrial Ca2+ handling model
+ * 
+ * [[Image file: cellml_rendering.gif]]
+ * 
+ * The network defined in the CellML description of the mitochondrial
+ * Ca2+ handling model.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 11 equation(s)
+unit conversion off;
+unit minute=60 second^1;
+unit per_second=1 second^(-1);
+// unit millivolt predefined
+// unit millimolar predefined
+// unit micromolar predefined
+// unit nanomolar predefined
+unit nanomole_per_mg=.001 kilogram^(-1)*mole^1;
+unit nanomole_per_minute_per_mg=1.6666667E-5 kilogram^(-1)*second^(-1)*mole^1;
+unit capacitance_units=1 kilogram^(-2)*meter^(-2)*second^3*ampere^1*mole^1;
+unit conductance_units=.01666667 kilogram^(-2)*meter^(-2)*second^2*ampere^1*mole^1;
+unit millijoule_per_mole_kelvin=.001 kilogram^1*meter^2*second^(-2)*kelvin^(-1)*mole^(-1);
+unit coulomb_per_mole=1 second^1*ampere^1*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  V, pH_m, NAD_m, ADP_m, ATP_i, ATP_ADP_exchange.ATP_m,
+	//  ADP_i, Ca_i, Ca_m
+	realDomain time minute;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real V(time) millivolt;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	V.cellMLNames="membrane.V;proton_pump.V;F0_F1_ATPase.V;ATP_ADP_exchange.V;Ca_uniporter.V;Na_Ca_exchanger.V";
+	when(time=time.min) V=0;
+	real V_B millivolt;
+	V_B.cellMLNames="membrane.V_B;proton_pump.V_B;F0_F1_ATPase.V_B";
+	V_B=50.0;
+	real R millijoule_per_mole_kelvin;
+	R.cellMLNames="membrane.R;proton_pump.R;F0_F1_ATPase.R;ATP_ADP_exchange.R;Ca_uniporter.R;Na_Ca_exchanger.R";
+	R=8314.0;
+	real T kelvin;
+	T.cellMLNames="membrane.T;proton_pump.T;F0_F1_ATPase.T;ATP_ADP_exchange.T;Ca_uniporter.T;Na_Ca_exchanger.T";
+	T=310.0;
+	real F coulomb_per_mole;
+	F.cellMLNames="membrane.F;proton_pump.F;F0_F1_ATPase.F;ATP_ADP_exchange.F;Ca_uniporter.F;Na_Ca_exchanger.F";
+	F=96845.0;
+	real delta_pH dimensionless;
+	delta_pH.cellMLNames="membrane.delta_pH;proton_pump.delta_pH;F0_F1_ATPase.delta_pH";
+	delta_pH=-0.4;
+	real proton_motive_force(time) nanomole_per_minute_per_mg;
+	proton_motive_force.cellMLNames="membrane.proton_motive_force;proton_leak.proton_motive_force";
+	real g_H conductance_units;
+	g_H.cellMLNames="membrane.g_H;proton_leak.g_H";
+	g_H=0.2;
+	real Cmito capacitance_units;
+	Cmito.cellMLNames="membrane.Cmito";
+	Cmito=0.00145;
+	real pH_i dimensionless;
+	pH_i.cellMLNames="membrane.pH_i";
+	extern real pH_m dimensionless;
+	pH_m.cellMLNames="membrane.pH_m";
+	real JH_res(time) nanomole_per_minute_per_mg;
+	JH_res.cellMLNames="membrane.JH_res;proton_pump.JH_res";
+	real JH_leak(time) nanomole_per_minute_per_mg;
+	JH_leak.cellMLNames="membrane.JH_leak;proton_leak.JH_leak";
+	real JH_F1(time) nanomole_per_minute_per_mg;
+	JH_F1.cellMLNames="membrane.JH_F1;F0_F1_ATPase.JH_F1";
+	real J_ant(time) nanomole_per_minute_per_mg;
+	J_ant.cellMLNames="membrane.J_ant;ATP_ADP_exchange.J_ant";
+	real J_uni(time) nanomole_per_minute_per_mg;
+	J_uni.cellMLNames="membrane.J_uni;Ca_uniporter.J_uni;Na_Ca_exchanger.J_uni";
+	real Jo(time) nanomole_per_minute_per_mg;
+	Jo.cellMLNames="proton_pump.Jo";
+	real A_res dimensionless;
+	A_res.cellMLNames="proton_pump.A_res";
+	real K_res millimolar;
+	K_res.cellMLNames="proton_pump.K_res";
+	K_res=135000000000000000.0;
+	real total_NAD_m nanomolar;
+	total_NAD_m.cellMLNames="proton_pump.total_NAD_m";
+	total_NAD_m=8.0;
+	extern real NAD_m nanomolar;
+	NAD_m.cellMLNames="proton_pump.NAD_m";
+	real NADH_m nanomolar;
+	NADH_m.cellMLNames="proton_pump.NADH_m";
+	real rho_res nanomole_per_mg;
+	rho_res.cellMLNames="proton_pump.rho_res";
+	rho_res=0.4;
+	real r1 dimensionless;
+	r1.cellMLNames="proton_pump.r1";
+	r1=0.000000000000000002077;
+	real r2 dimensionless;
+	r2.cellMLNames="proton_pump.r2";
+	r2=0.000000001728;
+	real r3 dimensionless;
+	r3.cellMLNames="proton_pump.r3";
+	r3=0.00000000000000000000000001059;
+	real ra per_second;
+	ra.cellMLNames="proton_pump.ra";
+	ra=0.0000000006394;
+	real rb per_second;
+	rb.cellMLNames="proton_pump.rb";
+	rb=0.0000000000001762;
+	real rc1 per_second;
+	rc1.cellMLNames="proton_pump.rc1";
+	rc1=0.0000000000000000002656;
+	real rc2 per_second;
+	rc2.cellMLNames="proton_pump.rc2";
+	rc2=0.000000000000000000000000008632;
+	real g dimensionless;
+	g.cellMLNames="proton_pump.g";
+	g=0.85;
+	real Jp_F1(time) nanomole_per_minute_per_mg;
+	Jp_F1.cellMLNames="F0_F1_ATPase.Jp_F1;ATP_ADP_exchange.Jp_F1";
+	real rho_F1 nanomole_per_mg;
+	rho_F1.cellMLNames="F0_F1_ATPase.rho_F1";
+	rho_F1=0.7;
+	real K_F1 millimolar;
+	K_F1.cellMLNames="F0_F1_ATPase.K_F1";
+	K_F1=1710000.0;
+	real A_F1(time) dimensionless;
+	A_F1.cellMLNames="F0_F1_ATPase.A_F1";
+	real total_mitochondrial_adenosine_phosphate nanomolar;
+	total_mitochondrial_adenosine_phosphate.cellMLNames="F0_F1_ATPase.total_mitochondrial_adenosine_phosphate";
+	total_mitochondrial_adenosine_phosphate=12.0;
+	real F0_F1_ATPase.ATP_m(time) nanomolar;
+	F0_F1_ATPase.ATP_m.cellMLNames="F0_F1_ATPase.ATP_m";
+	real ADP_m_free(time) nanomolar;
+	ADP_m_free.cellMLNames="F0_F1_ATPase.ADP_m_free";
+	real Pi_m millimolar;
+	Pi_m.cellMLNames="F0_F1_ATPase.Pi_m";
+	Pi_m=20.0;
+	real p1 dimensionless;
+	p1.cellMLNames="F0_F1_ATPase.p1";
+	p1=0.00000001346;
+	real p2 dimensionless;
+	p2.cellMLNames="F0_F1_ATPase.p2";
+	p2=0.0000007739;
+	real p3 dimensionless;
+	p3.cellMLNames="F0_F1_ATPase.p3";
+	p3=0.00000000000000665;
+	real pa per_second;
+	pa.cellMLNames="F0_F1_ATPase.pa";
+	pa=0.00001656;
+	real pb per_second;
+	pb.cellMLNames="F0_F1_ATPase.pb";
+	pb=0.0000003373;
+	real pc1 per_second;
+	pc1.cellMLNames="F0_F1_ATPase.pc1";
+	pc1=0.00000000000009651;
+	real pc2 per_second;
+	pc2.cellMLNames="F0_F1_ATPase.pc2";
+	pc2=0.0000000000000000004845;
+	real ADP_m(time) nanomolar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	ADP_m.cellMLNames="F0_F1_ATPase.ADP_m;ATP_ADP_exchange.ADP_m";
+	when(time=time.min) ADP_m=0;
+	real Jmax_ant nanomole_per_minute_per_mg;
+	Jmax_ant.cellMLNames="ATP_ADP_exchange.Jmax_ant";
+	Jmax_ant=1000.0;
+	extern real ATP_i nanomolar;
+	ATP_i.cellMLNames="ATP_ADP_exchange.ATP_i";
+	extern real ATP_ADP_exchange.ATP_m nanomolar;
+	ATP_ADP_exchange.ATP_m.cellMLNames="ATP_ADP_exchange.ATP_m";
+	extern real ADP_i nanomolar;
+	ADP_i.cellMLNames="ATP_ADP_exchange.ADP_i";
+	real ATP4_i nanomolar;
+	ATP4_i.cellMLNames="ATP_ADP_exchange.ATP4_i";
+	real ATP4_m nanomolar;
+	ATP4_m.cellMLNames="ATP_ADP_exchange.ATP4_m";
+	real ADP3_i nanomolar;
+	ADP3_i.cellMLNames="ATP_ADP_exchange.ADP3_i";
+	real ADP3_m(time) nanomolar;
+	ADP3_m.cellMLNames="ATP_ADP_exchange.ADP3_m";
+	real f dimensionless;
+	f.cellMLNames="ATP_ADP_exchange.f";
+	f=0.5;
+	real V_offset millivolt;
+	V_offset.cellMLNames="Ca_uniporter.V_offset;Na_Ca_exchanger.V_offset";
+	V_offset=91.0;
+	real Jmax_uni nanomole_per_minute_per_mg;
+	Jmax_uni.cellMLNames="Ca_uniporter.Jmax_uni";
+	Jmax_uni=300.0;
+	extern real Ca_i nanomolar;
+	Ca_i.cellMLNames="Ca_uniporter.Ca_i";
+	real K_trans micromolar;
+	K_trans.cellMLNames="Ca_uniporter.K_trans";
+	K_trans=19.0;
+	real K_act micromolar;
+	K_act.cellMLNames="Ca_uniporter.K_act";
+	K_act=0.38;
+	real L dimensionless;
+	L.cellMLNames="Ca_uniporter.L";
+	L=110.0;
+	real na dimensionless;
+	na.cellMLNames="Ca_uniporter.na";
+	na=2.8;
+	real J_Na_Ca(time) nanomole_per_minute_per_mg;
+	J_Na_Ca.cellMLNames="Na_Ca_exchanger.J_Na_Ca";
+	real Jmax_Na_Ca nanomole_per_minute_per_mg;
+	Jmax_Na_Ca.cellMLNames="Na_Ca_exchanger.Jmax_Na_Ca";
+	Jmax_Na_Ca=25.0;
+	real Ca_m(time) nanomolar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ca_m.cellMLNames="Na_Ca_exchanger.Ca_m";
+	when(time=time.min) Ca_m=0;
+	real Na_i millimolar;
+	Na_i.cellMLNames="Na_Ca_exchanger.Na_i";
+	Na_i=30.0;
+	real K_Na millimolar;
+	K_Na.cellMLNames="Na_Ca_exchanger.K_Na";
+	K_Na=9.4;
+	real K_Ca nanomole_per_mg;
+	K_Ca.cellMLNames="Na_Ca_exchanger.K_Ca";
+	K_Ca=0.003;
+	real b dimensionless;
+	b.cellMLNames="Na_Ca_exchanger.b";
+	b=0.0;
+	real n dimensionless;
+	n.cellMLNames="Na_Ca_exchanger.n";
+	n=2.0;
+	real fm dimensionless;
+	fm.cellMLNames="Na_Ca_exchanger.fm";
+	fm=0.0003;
+
+	// <component name="environment">
+
+	// <component name="membrane">
+	V:time=((-1)/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res));
+	delta_pH=(pH_i-pH_m);
+	proton_motive_force=(V-2.303*R*T/F*delta_pH);
+
+	// <component name="proton_pump">
+	JH_res=(360*rho_res*((ra*10^(6*delta_pH)*exp(F*A_res/(R*T))+rb*10^(6*delta_pH)-(ra+rb)*exp(g*6*F*V/(R*T)))/((1+r1*exp(F*A_res/(R*T)))*exp(6*F*V_B/(R*T))+(r2+r3*exp(F*A_res/(R*T)))*exp(g*6*F*V/(R*T)))));
+	Jo=(30*rho_res*(((ra*10^(6*delta_pH)+rc1*exp(6*F*V_B/(R*T)))*exp(F*A_res/(R*T))-ra*exp(g*6*F*V/(R*T))+rc2*exp(F*A_res/(R*T))*exp(g*6*F*V/(R*T)))/((1+r1*exp(F*A_res/(R*T)))*exp(6*F*V_B/(R*T))+(r2+r3*exp(F*A_res/(R*T)))*exp(g*6*F*V/(R*T)))));
+	A_res=(R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m)));
+	total_NAD_m=(NADH_m+NAD_m);
+
+	// <component name="proton_leak">
+	JH_leak=(g_H*proton_motive_force);
+
+	// <component name="F0_F1_ATPase">
+	JH_F1=((-180)*rho_F1*((pa*10^(3*delta_pH)*exp(F*A_F1/(R*T))+pb*10^(3*delta_pH)-(pa+pb)*exp(3*F*V/(R*T)))/((1+p1*exp(F*A_F1/(R*T)))*exp(3*F*V_B/(R*T))+(p2+p3*exp(F*A_F1/(R*T)))*exp(3*F*V/(R*T)))));
+	Jp_F1=((-60)*rho_F1*(((pa*10^(3*delta_pH)+pc1*exp(3*F*V_B/(R*T)))*exp(F*A_F1/(R*T))-pa*exp(3*F*V/(R*T))+pc2*exp(F*A_F1/(R*T))*exp(3*F*V/(R*T)))/((1+p1*exp(F*A_F1/(R*T)))*exp(3*F*V_B/(R*T))+(p2+p3*exp(F*A_F1/(R*T)))*exp(3*F*V/(R*T)))));
+	A_F1=(R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m)));
+	total_mitochondrial_adenosine_phosphate=(F0_F1_ATPase.ATP_m+ADP_m);
+	ADP_m_free=(.8*ADP_m);
+
+	// <component name="ATP_ADP_exchange">
+	J_ant=(Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp((-1)*F*V/(R*T)))/((1+ATP4_i/ADP3_i*exp((-1)*f*F*V/(R*T)))*(1+ADP3_m/ATP4_m))));
+	ADP_m:time=(J_ant-Jp_F1);
+	ADP3_m=(.45*.8*ADP_m);
+	ADP3_i=(.45*1*ADP_i);
+	ATP4_m=(.05*ATP_ADP_exchange.ATP_m);
+	ATP4_i=(.05*ATP_i);
+
+	// <component name="Ca_uniporter">
+	J_uni=(Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(2*F*(V-V_offset)/(R*T)/(1-exp((-2)*F*(V-V_offset)/(R*T)))));
+
+	// <component name="Na_Ca_exchanger">
+	J_Na_Ca=(Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m))));
+	Ca_m:time=(fm*(J_uni-J_Na_Ca));
+}
+

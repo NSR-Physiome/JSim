@@ -1,0 +1,29 @@
+//Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  S2 := 0.2 / compartment_;
+  reaction4 := compartment_ * k4 * S3 * S4;
+  reaction3 := compartment_ * k3 * S2;
+  reaction2 := compartment_ * k2 * S2;
+  reaction1 := compartment_ * k1 * S1;
+
+  // Rate Rules:
+  S4' = (reaction3 + reaction4 * -1) / compartment_;
+  S3' = (reaction3 + reaction4 * -1) / compartment_;
+  S1' = (reaction1 * -1 + reaction2) / compartment_;
+
+  // Variable initializations:
+  S4 = 0;
+  S3 = 0;
+  S1 = 0.1 / compartment_;
+  compartment_ = 1;
+  k4 = 0.1;
+  k3 = 0.1;
+  k2 = 0.25;
+  k1 = 0.75;
+
+  //Other declarations:
+  var S4, S3, S2, S1, reaction4, reaction3, reaction2, reaction1;
+end
+

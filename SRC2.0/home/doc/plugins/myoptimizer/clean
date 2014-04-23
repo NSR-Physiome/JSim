@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# cleanup after build
+rm My*.class My*.jar

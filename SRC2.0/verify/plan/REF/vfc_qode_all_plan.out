@@ -1,0 +1,186 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: real d
+  add var: real u(t)
+  add var: real wmin(t)
+  add var: real wdelay1(t)
+  add var: real wdelay2(t)
+  add var: real wmax(t)
+  add var: real wxexpr(t)
+  add var: real wexpr(t)
+  add var: real u:t(t)
+Loading Constraints
+  t.min=0 :: [t.min]
+  t.max=1 :: [t.max]
+  t.delta=.1 :: [t.delta]
+  d=.1 :: [d]
+  when (t=t.min) u=1 :: [u(t.min)]
+  u:t=(u*(-1)) :: [u:t, u]
+  wmin=u(t.min) :: [wmin, t.min, u(t.min)]
+  wdelay1=(if (t<d) u(t.min) else u(t-d)) :: [wdelay1, t, d, t.min, u(t.min), u(t.delay)*]
+  wdelay2=u(if (t<d) t.min else t-d) :: [wdelay2, t, d, t.min, u(t.delay)*]
+  wmax=u(t.max) :: [wmax, t.max, u(t.max)]
+  wxexpr=u(t^2) :: [wxexpr, t, u(t.xexpr)*]
+  wexpr=u(d) :: [wexpr, d, u(t.expr)*]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=1; [t.max]
+  add tool: t.max=1
+  check eqn: t.delta=.1; [t.delta]
+  add tool: t.delta=.1
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: d=.1; [d]
+  add tool: d=.1
+  check eqn: when (t=t.min) u=1; [u(t.min)]
+  add tool: u(t.min)=1
+  check eqn: u:t=(u*(-1)); [u:t, u]
+  check eqn: wmin=u(t.min); [wmin]
+  add tool: wmin=u(t.min)
+  check eqn: wdelay1=(if (t<d) u(t.min) else u(t-d)); [wdelay1, u(t.delay)*]
+  check eqn: wdelay2=u(if (t<d) t.min else t-d); [wdelay2, u(t.delay)*]
+  check eqn: wmax=u(t.max); [wmax, u(t.max)]
+  check eqn: wxexpr=u(t^2); [wxexpr, u(t.xexpr)*]
+  check eqn: wexpr=u(d); [wexpr, u(t.expr)*]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=1
+Toolbox phase - cycle 1:
+  check eqn: u:t=(u*(-1)); [u:t]
+  add tool: u:t=u*(-1)
+  check eqn: wdelay1=(if (t<d) u(t.min) else u(t-d)); [wdelay1]
+  add tool: wdelay1=if (t<d) u(t.min) else u(t-d)
+  check eqn: wdelay2=u(if (t<d) t.min else t-d); [wdelay2]
+  add tool: wdelay2=u(if (t<d) t.min else t-d)
+  check eqn: wmax=u(t.max); [wmax, u(t.max)]
+  check eqn: wxexpr=u(t^2); [wxexpr]
+  add tool: wxexpr=u(t^2)
+  check eqn: wexpr=u(d); [wexpr]
+  add tool: wexpr=u(d)
+  updated ODE(u) with u:t=u*(-1)
+    u is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: wmax=u(t.max); [wmax]
+  add tool: wmax=u(t.max)
+Toolbox phase - all cycles completed
+  add var: real u__init
+  add tool: u__init=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  u__init=1 :: [u__init]<<[]
+  @t u:t=u*(-1) :: [u:t]<<[u]
+  @t wexpr=u(d) :: [wexpr]<<[d, u(t.expr)*]
+  @t wxexpr=u(t^2) :: [wxexpr]<<[t, u(t.xexpr)*]
+  @t wmax=u(t.max) :: [wmax]<<[t.max, u(t.max)]
+  @t wdelay2=u(if (t<d) t.min else t-d) :: [wdelay2]<<[t, d, t.min, u(t.delay)*]
+  @t wdelay1=if (t<d) u(t.min) else u(t-d) :: [wdelay1]<<[t, d, t.min, u(t.min), u(t.delay)*]
+  @t wmin=u(t.min) :: [wmin]<<[t.min, u(t.min)]
+  @t ODE u: u:t=u*(-1) :: [u, u(t.max)]<<[u(t.min), u:t]
+  d=.1 :: [d]<<[]
+  t.delta=.1 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=1 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(t.delay)*]<<[u]
+  adding query tool: query [u(t.xexpr)*]<<[u]
+  adding query tool: query [u(t.expr)*]<<[u]
+Creating MainGraph ...
+loopOrder=[t]
+  addNode u__init seqLoops=() phase=main fft=null
+  addNode u:t seqLoops=(t) phase=t#1 fft=null
+  addNode wexpr seqLoops=(t) phase=t#1 fft=null
+  addNode wxexpr seqLoops=(t) phase=t#1 fft=null
+  addNode wmax seqLoops=(t) phase=t#1 fft=null
+  addNode wdelay2 seqLoops=(t) phase=t#1 fft=null
+  addNode wdelay1 seqLoops=(t) phase=t#1 fft=null
+  addNode wmin seqLoops=(t) phase=t#1 fft=null
+  addNode u seqLoops=(t) phase=t#1 fft=t
+  addNode d seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=() phase=main fft=null
+  addNode u(t.delay) seqLoops=(t) phase=t#1 fft=null
+  addNode u(t.xexpr) seqLoops=(t) phase=t#1 fft=null
+  addNode u(t.expr) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding u__init=1 to main
+  adding d=.1 to main
+  adding t.delta=.1 to main
+  adding t.max=1 to main
+  adding t.min=0 to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding u(t.min)=u__init to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding u:t=u*(-1) to loop-t
+  adding wmax=u(t.max) to loop-t
+  adding wmin=u(t.min) to loop-t
+  adding query [u(t.delay)*] to loop-t
+  adding query [u(t.xexpr)*] to loop-t
+  adding wxexpr=u(t^2) to loop-t
+  adding wdelay2=u(if (t<d) t.min else t-d) to loop-t
+  adding wdelay1=if (t<d) u(t.min) else u(t-d) to loop-t
+  adding ODE Block-t [u] to loop-t
+  adding loop-t to main
+  subphase t#2 entryEdge=u(t.expr)->wexpr
+  adding query [u(t.expr)*] to main
+  subphase t#2 entryEdge=null
+building block for phase t#2
+  adding wexpr=u(d) to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool u:t=u*(-1)
+  adding muVar u:t
+  adding u:t=u*(-1) to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  u__init=1
+  d=.1
+  t.delta=.1
+  t.max=1
+  t.min=0
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  u(t.min)=u__init
+  loop-t
+    u:t=u*(-1)
+    wmax=u(t.max)
+    wmin=u(t.min)
+    query [u(t.delay)*]
+    query [u(t.xexpr)*]
+    wxexpr=u(t^2)
+    wdelay2=u(if (t<d) t.min else t-d)
+    wdelay1=if (t<d) u(t.min) else u(t-d)
+    ODE Block-t vmus=[t, u, u:t]
+      u:t=u*(-1)
+  query [u(t.expr)*]
+  loop-t
+    wexpr=u(d)
+

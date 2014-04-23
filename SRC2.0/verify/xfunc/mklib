@@ -1,0 +1,15 @@
+#!/bin/sh
+
+./mkclean
+
+cd LIB
+
+# JSCOMPILE first, since may use non-SRC JSIMHOME
+#   Note: $PWD not current for Cygwin
+cp $JSCOMPILE_C jscompile_c
+./jscompile_c $JSIMHOME "`pwd`" EBCommon
+
+# below assumes JSIMJRE contains javac !!!
+. jsbuild.path
+$JSIMJRE/bin/javac -g -d . EB*.java
+

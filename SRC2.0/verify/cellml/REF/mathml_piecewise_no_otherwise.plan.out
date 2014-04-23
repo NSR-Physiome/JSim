@@ -1,0 +1,362 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time hour
+  add var: real time.min hour
+  add var: extern real time.max hour
+  add var: int time.ct
+  add var: extern real time.delta hour
+  add var: real Ado micromolar
+  add var: real Met(time) micromolar
+  add var: real Hcy(time) micromolar
+  add var: real AdoHcy(time) micromolar
+  add var: real K_AHC micromolar
+  add var: real AdoMet(time) micromolar
+  add var: real V_MET(time) flux
+  add var: real V_GNMT(time) flux
+  add var: real V_MATI(time) flux
+  add var: real V_MATIII(time) flux
+  add var: real V_D(time) flux
+  add var: real V_MATImax flux
+  add var: real Km_MATI micromolar
+  add var: real Ki_MATI micromolar
+  add var: real V_MATIIImax flux
+  add var: real Km1_MATIII(time) micromolar
+  add var: real Km2_MATIII micromolar
+  add var: real V_METmax flux
+  add var: real Km1_MET(time) micromolar
+  add var: real Km2_MET_A dimensionless
+  add var: real V_GNMTmax flux
+  add var: real Km_GNMT micromolar
+  add var: real Ki_GNMT micromolar
+  add var: real alpha_d first_order_rate_constant
+  add var: real AdoMet:time(time) micromolar/hour
+  add var: real AdoHcy:time(time) micromolar/hour
+Loading Constraints
+  time.min=0 :: [time.min]
+  Ado=1 :: [Ado]
+  when (time=time.min) AdoHcy=3 :: [AdoHcy(time.min)]
+  K_AHC=.1 :: [K_AHC]
+  when (time=time.min) AdoMet=60 :: [AdoMet(time.min)]
+  V_MATImax=561 :: [V_MATImax]
+  Km_MATI=41 :: [Km_MATI]
+  Ki_MATI=50 :: [Ki_MATI]
+  V_MATIIImax=22870 :: [V_MATIIImax]
+  Km2_MATIII=21.1 :: [Km2_MATIII]
+  V_METmax=4544 :: [V_METmax]
+  Km2_MET_A=10 :: [Km2_MET_A]
+  V_GNMTmax=10600 :: [V_GNMTmax]
+  Km_GNMT=4500 :: [Km_GNMT]
+  Ki_GNMT=20 :: [Ki_GNMT]
+  alpha_d=1333 :: [alpha_d]
+  Met=(if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0) :: [Met, time]
+  Hcy=(AdoHcy*K_AHC/Ado) :: [Hcy, AdoHcy, K_AHC, Ado]
+  AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT)) :: [AdoMet:time, V_MATI, V_MATIII, V_MET, V_GNMT]
+  AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)) :: [AdoHcy:time, V_MET, V_GNMT, V_D, K_AHC, Ado]
+  V_MATI=(V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))) :: [V_MATI, V_MATImax, Km_MATI, Met, AdoMet, Ki_MATI]
+  V_MATIII=(V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))) :: [V_MATIII, V_MATIIImax, Km1_MATIII, Km2_MATIII, Met]
+  Km1_MATIII=(2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)) :: [Km1_MATIII, AdoMet]
+  V_MET=(V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)) :: [V_MET, V_METmax, Km1_MET, AdoMet, Km2_MET_A]
+  Km1_MET=(10*(1+AdoHcy/4)) :: [Km1_MET, AdoHcy]
+  V_GNMT=(V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)) :: [V_GNMT, V_GNMTmax, Km_GNMT, AdoMet, AdoHcy, Ki_GNMT]
+  V_D=(alpha_d*Hcy) :: [V_D, alpha_d, Hcy]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: Ado=1; [Ado]
+  add tool: Ado=1
+  check eqn: when (time=time.min) AdoHcy=3; [AdoHcy(time.min)]
+  add tool: AdoHcy(time.min)=3
+  check eqn: K_AHC=.1; [K_AHC]
+  add tool: K_AHC=.1
+  check eqn: when (time=time.min) AdoMet=60; [AdoMet(time.min)]
+  add tool: AdoMet(time.min)=60
+  check eqn: V_MATImax=561; [V_MATImax]
+  add tool: V_MATImax=561
+  check eqn: Km_MATI=41; [Km_MATI]
+  add tool: Km_MATI=41
+  check eqn: Ki_MATI=50; [Ki_MATI]
+  add tool: Ki_MATI=50
+  check eqn: V_MATIIImax=22870; [V_MATIIImax]
+  add tool: V_MATIIImax=22870
+  check eqn: Km2_MATIII=21.1; [Km2_MATIII]
+  add tool: Km2_MATIII=21.1
+  check eqn: V_METmax=4544; [V_METmax]
+  add tool: V_METmax=4544
+  check eqn: Km2_MET_A=10; [Km2_MET_A]
+  add tool: Km2_MET_A=10
+  check eqn: V_GNMTmax=10600; [V_GNMTmax]
+  add tool: V_GNMTmax=10600
+  check eqn: Km_GNMT=4500; [Km_GNMT]
+  add tool: Km_GNMT=4500
+  check eqn: Ki_GNMT=20; [Ki_GNMT]
+  add tool: Ki_GNMT=20
+  check eqn: alpha_d=1333; [alpha_d]
+  add tool: alpha_d=1333
+  check eqn: Met=(if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0); [Met]
+  add tool: Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0
+  check eqn: Hcy=(AdoHcy*K_AHC/Ado); [Hcy, AdoHcy]
+  check eqn: AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT)); [AdoMet:time, V_MATI]
+  check eqn: AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)); [AdoHcy:time, V_MET]
+  check eqn: V_MATI=(V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))); [V_MATI, AdoMet]
+  check eqn: V_MATIII=(V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))); [V_MATIII, Km1_MATIII]
+  check eqn: Km1_MATIII=(2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)); [Km1_MATIII, AdoMet]
+  check eqn: V_MET=(V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)); [V_MET, Km1_MET]
+  check eqn: Km1_MET=(10*(1+AdoHcy/4)); [Km1_MET, AdoHcy]
+  check eqn: V_GNMT=(V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)); [V_GNMT, AdoMet]
+  check eqn: V_D=(alpha_d*Hcy); [V_D, Hcy]
+  add tool: ODE AdoHcy: []
+  updated ODE(AdoHcy) with AdoHcy(time.min)=3
+  add tool: ODE AdoMet: []
+  updated ODE(AdoMet) with AdoMet(time.min)=60
+Toolbox phase - cycle 1:
+  check eqn: Hcy=(AdoHcy*K_AHC/Ado); [Hcy]
+  add tool: Hcy=AdoHcy*K_AHC/Ado
+  check eqn: AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT)); [AdoMet:time, V_MATI]
+  check eqn: AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)); [AdoHcy:time, V_MET]
+  check eqn: V_MATI=(V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))); [V_MATI]
+  add tool: V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))
+  check eqn: V_MATIII=(V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))); [V_MATIII, Km1_MATIII]
+  check eqn: Km1_MATIII=(2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)); [Km1_MATIII]
+  add tool: Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)
+  check eqn: V_MET=(V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)); [V_MET, Km1_MET]
+  check eqn: Km1_MET=(10*(1+AdoHcy/4)); [Km1_MET]
+  add tool: Km1_MET=10*(1+AdoHcy/4)
+  check eqn: V_GNMT=(V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)); [V_GNMT]
+  add tool: V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)
+  check eqn: V_D=(alpha_d*Hcy); [V_D]
+  add tool: V_D=alpha_d*Hcy
+Toolbox phase - cycle 1:
+  check eqn: AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT)); [AdoMet:time, V_MATIII]
+  check eqn: AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)); [AdoHcy:time, V_MET]
+  check eqn: V_MATIII=(V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))); [V_MATIII]
+  add tool: V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))
+  check eqn: V_MET=(V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)); [V_MET]
+  add tool: V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)
+Toolbox phase - cycle 1:
+  check eqn: AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT)); [AdoMet:time]
+  add tool: AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT)
+  check eqn: AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)); [AdoHcy:time]
+  add tool: AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)
+  updated ODE(AdoMet) with AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT)
+    AdoMet is now entirely solved
+  updated ODE(AdoHcy) with AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)
+    AdoHcy is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real AdoHcy__init micromolar
+  add tool: AdoHcy__init=3
+  add var: real AdoMet__init micromolar
+  add tool: AdoMet__init=60
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  AdoMet__init=60 :: [AdoMet__init]<<[]
+  AdoHcy__init=3 :: [AdoHcy__init]<<[]
+  @time AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado) :: [AdoHcy:time]<<[V_MET, V_GNMT, V_D, K_AHC, Ado]
+  @time AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT) :: [AdoMet:time]<<[V_MATI, V_MATIII, V_MET, V_GNMT]
+  alpha_d=1333 :: [alpha_d]<<[]
+  Ki_GNMT=20 :: [Ki_GNMT]<<[]
+  Km_GNMT=4500 :: [Km_GNMT]<<[]
+  V_GNMTmax=10600 :: [V_GNMTmax]<<[]
+  Km2_MET_A=10 :: [Km2_MET_A]<<[]
+  @time Km1_MET=10*(1+AdoHcy/4) :: [Km1_MET]<<[AdoHcy]
+  V_METmax=4544 :: [V_METmax]<<[]
+  Km2_MATIII=21.1 :: [Km2_MATIII]<<[]
+  @time Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7) :: [Km1_MATIII]<<[AdoMet]
+  V_MATIIImax=22870 :: [V_MATIIImax]<<[]
+  Ki_MATI=50 :: [Ki_MATI]<<[]
+  Km_MATI=41 :: [Km_MATI]<<[]
+  V_MATImax=561 :: [V_MATImax]<<[]
+  @time V_D=alpha_d*Hcy :: [V_D]<<[alpha_d, Hcy]
+  @time V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII)) :: [V_MATIII]<<[V_MATIIImax, Km1_MATIII, Km2_MATIII, Met]
+  @time V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI)) :: [V_MATI]<<[V_MATImax, Km_MATI, Met, AdoMet, Ki_MATI]
+  @time V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT) :: [V_GNMT]<<[V_GNMTmax, Km_GNMT, AdoMet, AdoHcy, Ki_GNMT]
+  @time V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet) :: [V_MET]<<[V_METmax, Km1_MET, AdoMet, Km2_MET_A]
+  @time ODE AdoMet: AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT) :: [AdoMet, AdoMet(time.max)]<<[V_MATI, V_MATIII, V_MET, V_GNMT, AdoMet(time.min), AdoMet:time]
+  K_AHC=.1 :: [K_AHC]<<[]
+  @time ODE AdoHcy: AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado) :: [AdoHcy, AdoHcy(time.max)]<<[V_MET, V_GNMT, V_D, K_AHC, Ado, AdoHcy(time.min), AdoHcy:time]
+  @time Hcy=AdoHcy*K_AHC/Ado :: [Hcy]<<[AdoHcy, K_AHC, Ado]
+  @time Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0 :: [Met]<<[time]
+  Ado=1 :: [Ado]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  AdoMet(time.min)=AdoMet__init :: [AdoMet(time.min)]<<[AdoMet__init]
+  AdoHcy(time.min)=AdoHcy__init :: [AdoHcy(time.min)]<<[AdoHcy__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode AdoMet__init seqLoops=() phase=main fft=null
+  addNode AdoHcy__init seqLoops=() phase=main fft=null
+  addNode AdoHcy:time seqLoops=(time) phase=time#1 fft=null
+  addNode AdoMet:time seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_d seqLoops=() phase=main fft=null
+  addNode Ki_GNMT seqLoops=() phase=main fft=null
+  addNode Km_GNMT seqLoops=() phase=main fft=null
+  addNode V_GNMTmax seqLoops=() phase=main fft=null
+  addNode Km2_MET_A seqLoops=() phase=main fft=null
+  addNode Km1_MET seqLoops=(time) phase=time#1 fft=null
+  addNode V_METmax seqLoops=() phase=main fft=null
+  addNode Km2_MATIII seqLoops=() phase=main fft=null
+  addNode Km1_MATIII seqLoops=(time) phase=time#1 fft=null
+  addNode V_MATIIImax seqLoops=() phase=main fft=null
+  addNode Ki_MATI seqLoops=() phase=main fft=null
+  addNode Km_MATI seqLoops=() phase=main fft=null
+  addNode V_MATImax seqLoops=() phase=main fft=null
+  addNode V_D seqLoops=(time) phase=time#1 fft=null
+  addNode V_MATIII seqLoops=(time) phase=time#1 fft=null
+  addNode V_MATI seqLoops=(time) phase=time#1 fft=null
+  addNode V_GNMT seqLoops=(time) phase=time#1 fft=null
+  addNode V_MET seqLoops=(time) phase=time#1 fft=null
+  addNode AdoMet seqLoops=(time) phase=time#1 fft=time
+  addNode K_AHC seqLoops=() phase=main fft=null
+  addNode AdoHcy seqLoops=(time) phase=time#1 fft=time
+  addNode Hcy seqLoops=(time) phase=time#1 fft=null
+  addNode Met seqLoops=(time) phase=time#1 fft=null
+  addNode Ado seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode AdoMet(time.min) seqLoops=() phase=main fft=null
+  addNode AdoHcy(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding AdoMet__init=60 to main
+  adding AdoHcy__init=3 to main
+  adding alpha_d=1333 to main
+  adding Ki_GNMT=20 to main
+  adding Km_GNMT=4500 to main
+  adding V_GNMTmax=10600 to main
+  adding Km2_MET_A=10 to main
+  adding V_METmax=4544 to main
+  adding Km2_MATIII=21.1 to main
+  adding V_MATIIImax=22870 to main
+  adding Ki_MATI=50 to main
+  adding Km_MATI=41 to main
+  adding V_MATImax=561 to main
+  adding K_AHC=.1 to main
+  adding Ado=1 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding AdoMet(time.min)=AdoMet__init to main
+  adding AdoHcy(time.min)=AdoHcy__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding Km1_MET=10*(1+AdoHcy/4) to loop-time
+  adding Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7) to loop-time
+  adding V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT) to loop-time
+  adding V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet) to loop-time
+  adding Hcy=AdoHcy*K_AHC/Ado to loop-time
+  adding Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0 to loop-time
+  adding V_D=alpha_d*Hcy to loop-time
+  adding V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII)) to loop-time
+  adding V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI)) to loop-time
+  adding AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado) to loop-time
+  adding AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT) to loop-time
+  adding ODE Block-time [AdoMet, AdoHcy] to loop-time
+  adding loop-time to main
+Building ODE Block-time [AdoMet, AdoHcy] ...
+  adding muTool Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0
+  adding muTool V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))
+  adding muVar V_MATI
+  adding muVar Met
+  adding muTool Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)
+  adding muTool V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))
+  adding muVar V_MATIII
+  adding muVar Km1_MATIII
+  adding muTool Km1_MET=10*(1+AdoHcy/4)
+  adding muTool V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)
+  adding muVar V_MET
+  adding muVar Km1_MET
+  adding muTool V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)
+  adding muVar V_GNMT
+  adding muTool AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT)
+  adding muVar AdoMet:time
+  adding muTool Hcy=AdoHcy*K_AHC/Ado
+  adding muTool V_D=alpha_d*Hcy
+  adding muVar V_D
+  adding muVar Hcy
+  adding muTool AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)
+  adding muVar AdoHcy:time
+  adding Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0 to ODE Block-time [AdoMet, AdoHcy]
+  adding V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI)) to ODE Block-time [AdoMet, AdoHcy]
+  adding Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7) to ODE Block-time [AdoMet, AdoHcy]
+  adding V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII)) to ODE Block-time [AdoMet, AdoHcy]
+  adding Km1_MET=10*(1+AdoHcy/4) to ODE Block-time [AdoMet, AdoHcy]
+  adding V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet) to ODE Block-time [AdoMet, AdoHcy]
+  adding V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT) to ODE Block-time [AdoMet, AdoHcy]
+  adding AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT) to ODE Block-time [AdoMet, AdoHcy]
+  adding Hcy=AdoHcy*K_AHC/Ado to ODE Block-time [AdoMet, AdoHcy]
+  adding V_D=alpha_d*Hcy to ODE Block-time [AdoMet, AdoHcy]
+  adding AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado) to ODE Block-time [AdoMet, AdoHcy]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  AdoMet__init=60
+  AdoHcy__init=3
+  alpha_d=1333
+  Ki_GNMT=20
+  Km_GNMT=4500
+  V_GNMTmax=10600
+  Km2_MET_A=10
+  V_METmax=4544
+  Km2_MATIII=21.1
+  V_MATIIImax=22870
+  Ki_MATI=50
+  Km_MATI=41
+  V_MATImax=561
+  K_AHC=.1
+  Ado=1
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  AdoMet(time.min)=AdoMet__init
+  AdoHcy(time.min)=AdoHcy__init
+  loop-time
+    Km1_MET=10*(1+AdoHcy/4)
+    Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)
+    V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)
+    V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)
+    Hcy=AdoHcy*K_AHC/Ado
+    Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0
+    V_D=alpha_d*Hcy
+    V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))
+    V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))
+    AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)
+    AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT)
+    ODE Block-time vmus=[time, AdoMet, AdoHcy, V_MATI, Met, V_MATIII, Km1_MATIII, V_MET, Km1_MET, V_GNMT, AdoMet:time, V_D, Hcy, AdoHcy:time]
+      Met=if (((time=0) or (time>0)) and (time<5)) 45 else if (((time=5) or (time>5)) and (time<15)) 52 else if (((time=15) or (time>15)) and (time<60)) 55 else if (((time=60) or (time>60)) and (time<75)) 52 else if ((time=75) or (time>75)) 45 else 0
+      V_MATI=V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI))
+      Km1_MATIII=2E4/(1+(AdoMet/(AdoMet+600))^2*5.7)
+      V_MATIII=V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII))
+      Km1_MET=10*(1+AdoHcy/4)
+      V_MET=V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet)
+      V_GNMT=V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)/(1+AdoHcy/Ki_GNMT)
+      AdoMet:time=V_MATI+V_MATIII-(V_MET+V_GNMT)
+      Hcy=AdoHcy*K_AHC/Ado
+      V_D=alpha_d*Hcy
+      AdoHcy:time=(V_MET+V_GNMT-V_D)/(1+K_AHC/Ado)
+

@@ -1,0 +1,7 @@
+t.min = { 0 } sec
+t.max = { 5 } sec
+t.ct = { 6 } dimensionless
+t.delta = { 1 } sec
+v = { 42.5 } m*sec
+t = { 0 1 2 3 4 5 } sec
+u(t) = { (0,0) (1,1) (2,4) (3,9) (4,16) (5,25) } m

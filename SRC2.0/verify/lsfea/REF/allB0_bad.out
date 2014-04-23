@@ -1,0 +1,5 @@
+==== JSim version 2.02f: Fatal Error
+
+JSim.util.Xcept: Model allB0_bad
+aborted: Solver failure: convection terms cannot be all zero. Try other solvers.
+

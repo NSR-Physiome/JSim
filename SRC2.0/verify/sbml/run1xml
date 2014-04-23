@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 xml
+
+$JSBATCH -f MOD/"$1".mod -osbml -out WORK/"$1"_xml.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+

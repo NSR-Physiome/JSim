@@ -1,0 +1,219 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: int n
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain k
+  add var: real k.min
+  add var: real k.max
+  add var: int k.ct
+  add var: real k.delta
+  add var: real Cin(t)
+  add var: real u(t,k)
+  add var: real D(k)
+  add var: real ufwd(t,k)
+  add var: real ubwd(t,k)
+  add var: real u:t(t,k)
+Loading Constraints
+  n=3 :: [n]
+  t.min=0 :: [t.min]
+  t.max=3 :: [t.max]
+  t.delta=.25 :: [t.delta]
+  k.min=1 :: [k.min]
+  k.max=n :: [k.max, n]
+  k.delta=1 :: [k.delta]
+  Cin=(1-exp(t*(-1))) :: [Cin, t]
+  D=k :: [D, k]
+  when (t=t.min) u=0 :: [u(t.min)]
+  ufwd=(if (k=k.min) Cin else u(t,k-1)) :: [ufwd, k, k.min, Cin, t, u(k.delay)*]
+  ubwd=(if (k=k.max) 0 else u(t,k+1)) :: [ubwd, k, k.max, t, u(k.xexpr)*]
+  u:t=(D*(ufwd+ubwd-u*2)) :: [u:t, D, ufwd, ubwd, u]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain k
+Toolbox phase - cycle 1:
+  check eqn: n=3; [n]
+  add tool: n=3
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=3; [t.max]
+  add tool: t.max=3
+  check eqn: t.delta=.25; [t.delta]
+  add tool: t.delta=.25
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: k.min=1; [k.min]
+  add tool: k.min=1
+  check eqn: k.max=n; [k.max]
+  add tool: k.max=n
+  check eqn: k.delta=1; [k.delta]
+  add tool: k.delta=1
+  add tool: k.ct=(k.max-k.min)/k.delta+1.5
+  check eqn: Cin=(1-exp(t*(-1))); [Cin]
+  add tool: Cin=1-exp(t*(-1))
+  check eqn: D=k; [D]
+  add tool: D=k
+  check eqn: when (t=t.min) u=0; [u(t.min)]
+  add tool: u(t.min)=0
+  check eqn: ufwd=(if (k=k.min) Cin else u(t,k-1)); [ufwd, u(k.delay)*]
+  check eqn: ubwd=(if (k=k.max) 0 else u(t,k+1)); [ubwd, u(k.xexpr)*]
+  check eqn: u:t=(D*(ufwd+ubwd-u*2)); [u:t, ufwd]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=0
+Toolbox phase - cycle 1:
+  check eqn: ufwd=(if (k=k.min) Cin else u(t,k-1)); [ufwd]
+  add tool: ufwd=if (k=k.min) Cin else u(t,k-1)
+  check eqn: ubwd=(if (k=k.max) 0 else u(t,k+1)); [ubwd]
+  add tool: ubwd=if (k=k.max) 0 else u(t,k+1)
+  check eqn: u:t=(D*(ufwd+ubwd-u*2)); [u:t]
+  add tool: u:t=D*(ufwd+ubwd-u*2)
+  updated ODE(u) with u:t=D*(ufwd+ubwd-u*2)
+    u is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real u__init(k)
+  add tool: u__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @k u__init=0 :: [u__init]<<[]
+  @t@k u:t=D*(ufwd+ubwd-u*2) :: [u:t]<<[D, ufwd, ubwd, u]
+  @t@k ubwd=if (k=k.max) 0 else u(t,k+1) :: [ubwd]<<[k, k.max, t, u(k.xexpr)*]
+  @t@k ufwd=if (k=k.min) Cin else u(t,k-1) :: [ufwd]<<[k, k.min, Cin, t, u(k.delay)*]
+  @k D=k :: [D]<<[k]
+  @t@k ODE u: u:t=D*(ufwd+ubwd-u*2) :: [u, u(t.max)]<<[D, ufwd, ubwd, u(t.min), u:t]
+  @t Cin=1-exp(t*(-1)) :: [Cin]<<[t]
+  k.delta=1 :: [k.delta]<<[]
+  k.ct=(k.max-k.min)/k.delta+1.5 :: [k.ct]<<[k.max, k.min, k.delta]
+  k.max=n :: [k.max]<<[n]
+  k.min=1 :: [k.min]<<[]
+  domain k :: [k]<<[k.min, k.max, k.ct, k.delta]
+  t.delta=.25 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=3 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  n=3 :: [n]<<[]
+  @k u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(k.delay)*]<<[u]
+  adding query tool: query [u(k.xexpr)*]<<[u]
+Creating MainGraph ...
+loopOrder=[t, k]
+  addNode u__init seqLoops=(k) phase=k#1 fft=null
+  addNode u:t seqLoops=(t,k) phase=t#1+k#1 fft=null
+  addNode ubwd seqLoops=(t,k) phase=t#1+k#1 fft=null
+  addNode ufwd seqLoops=(t,k) phase=t#1+k#1 fft=null
+  addNode D seqLoops=(k) phase=k#1 fft=null
+  addNode u seqLoops=(t,k) phase=t#1+k#1 fft=t
+  addNode Cin seqLoops=(t) phase=t#1 fft=null
+  addNode k.delta seqLoops=() phase=main fft=null
+  addNode k.ct seqLoops=() phase=main fft=null
+  addNode k.max seqLoops=() phase=main fft=null
+  addNode k.min seqLoops=() phase=main fft=null
+  addNode k seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(k) phase=k#1 fft=null
+  addNode u(k.delay) seqLoops=(t,k) phase=t#1+k#1 fft=null
+  addNode u(k.xexpr) seqLoops=(t,k) phase=t#1+k#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding k.delta=1 to main
+  adding k.min=1 to main
+  adding t.delta=.25 to main
+  adding t.max=3 to main
+  adding t.min=0 to main
+  adding n=3 to main
+  adding k.max=n to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding k.ct=(k.max-k.min)/k.delta+1.5 to main
+  adding domain k to main
+  subphase k#1 entryEdge=null
+building block for phase k#1
+  adding u__init=0 to loop-k
+  adding D=k to loop-k
+  adding u(t.min)=u__init to loop-k
+  adding loop-k to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding Cin=1-exp(t*(-1)) to loop-t
+  subphase t#1+k#1 entryEdge=null
+building block for phase t#1+k#1
+  adding query [u(k.delay)*] to loop-k
+  adding query [u(k.xexpr)*] to loop-k
+  adding ubwd=if (k=k.max) 0 else u(t,k+1) to loop-k
+  adding ufwd=if (k=k.min) Cin else u(t,k-1) to loop-k
+  adding u:t=D*(ufwd+ubwd-u*2) to loop-k
+  adding ODE Block-t [u] to loop-k
+  adding loop-k to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool Cin=1-exp(t*(-1))
+  adding muTool ufwd=if (k=k.min) Cin else u(t,k-1)
+  adding muVar ufwd
+  adding muVar Cin
+  adding muTool query [u(k.delay)*]
+  adding muVar u(k.delay)*
+  adding muTool ubwd=if (k=k.max) 0 else u(t,k+1)
+  adding muVar ubwd
+  adding muTool query [u(k.xexpr)*]
+  adding muVar u(k.xexpr)*
+  adding muTool u:t=D*(ufwd+ubwd-u*2)
+  adding muVar u:t
+  adding Cin=1-exp(t*(-1)) to ODE Block-t [u]
+  adding query [u(k.delay)*] to ODE Block-t [u]
+  adding query [u(k.xexpr)*] to ODE Block-t [u]
+  adding ufwd=if (k=k.min) Cin else u(t,k-1) to ODE Block-t [u]
+  adding ubwd=if (k=k.max) 0 else u(t,k+1) to ODE Block-t [u]
+  adding u:t=D*(ufwd+ubwd-u*2) to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  k.delta=1
+  k.min=1
+  t.delta=.25
+  t.max=3
+  t.min=0
+  n=3
+  k.max=n
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  k.ct=(k.max-k.min)/k.delta+1.5
+  domain k
+  loop-k
+    u__init=0
+    D=k
+    u(t.min)=u__init
+  loop-t
+    Cin=1-exp(t*(-1))
+    loop-k
+      query [u(k.delay)*]
+      query [u(k.xexpr)*]
+      ubwd=if (k=k.max) 0 else u(t,k+1)
+      ufwd=if (k=k.min) Cin else u(t,k-1)
+      u:t=D*(ufwd+ubwd-u*2)
+      ODE Block-t vmus=[t, u, ufwd, Cin, u(k.delay)*, ubwd, u(k.xexpr)*, u:t]
+        Cin=1-exp(t*(-1))
+        query [u(k.delay)*]
+        query [u(k.xexpr)*]
+        ufwd=if (k=k.min) Cin else u(t,k-1)
+        ubwd=if (k=k.max) 0 else u(t,k+1)
+        u:t=D*(ufwd+ubwd-u*2)
+

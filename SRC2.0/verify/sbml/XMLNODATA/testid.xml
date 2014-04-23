@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by sblToSBML version 1.0 -->
+<sbml level = "2" version = "1" xmlns = "http://www.sbml.org/sbml/level2" >
+<model id = "mod" name = "mod">
+
+<listOfCompartments>
+  <compartment id = "comp1" size = "10" />
+</listOfCompartments>
+
+<listOfSpecies>
+   <species compartment="comp1" id="_AmtAmtAssn"   hasOnlySubstanceUnits="true" initialAmount = "5" />
+</listOfSpecies>
+ 
+<listOfRules>
+  <algebraicRule >
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <plus/>
+	<ci> time </ci>
+	<ci> _AmtAmtAssn </ci>
+      </apply>
+    </math>
+  </algebraicRule>
+</listOfRules>
+
+</model>
+</sbml>

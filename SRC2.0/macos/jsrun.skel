@@ -1,0 +1,60 @@
+#!/bin/sh
+
+PROG="$0"
+
+if [ "$JSIMHOME" = "" ]
+then
+  echo "$PROG"": JSIMHOME undefined"
+  exit 1
+fi
+
+# Adjust JSIMHOME for backwards compatibility if it is set to the folder enclosing JSim.app 
+if [ ! -d "$JSIMHOME"/lib ]
+then
+  JSIMHOME="$JSIMHOME"/JSim.app/Contents/Resources
+fi
+
+if [ "$JAVARTE" = "" ]
+then
+  JAVARTE=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home
+fi
+
+# set CLASSPATH
+CLASSPATH="$JSIMHOME"/lib/JSimClient.jar
+CLASSPATH="$CLASSPATH":"$JSIMHOME"/lib/JSimServer.jar
+
+# native libraries accessed via DYLD_LIBRARY_PATH
+JSIMNATIVE="$JSIMHOME"/macos/lib
+DYLD_LIBRARY_PATH="$JSIMNATIVE"
+
+# JSIM user dir
+if [ "$JSIMUSERDIR" = "" ]
+then
+  UARG=
+else
+  UARG="-Djsim.userdir=$JSIMUSERDIR"
+fi
+
+# default JSIMMEM
+if [ "$JSIMMEM" = "" ]
+then
+  JSIMMEM=1500
+fi
+
+export CLASSPATH DYLD_LIBRARY_PATH JSIMMEM
+
+# use 32-bit mode switch, if available
+JAVA="$JAVARTE"/bin/java
+if [ `$JAVA -help | fgrep " -d32" | wc -l` -gt 0 ]
+then
+  D32="-d32"
+else
+  D32=""
+fi
+
+JSMESSAGE
+$JAVA $D32 -Djsim.home="$JSIMHOME" -Xmx"$JSIMMEM"m \
+  -Xdock:name=JSim:icon="$JSIMHOME"/macos/lib/JSim.icns \
+  $UARG JSCLASS $* JSSUBMIT
+
+

@@ -1,0 +1,2838 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time second
+  add var: real time.min second
+  add var: extern real time.max second
+  add var: int time.ct
+  add var: extern real time.delta second
+  add var: real cell_volume litre
+  add var: real Kacald_adh mM
+  add var: real Kadp_hxk mM
+  add var: real Katp_pyk mM
+  add var: real Kbpg_tdh mM
+  add var: real kcat_adh per_second
+  add var: real Keq_adh dimensionless
+  add var: real Keq_gpm dimensionless
+  add var: real Keq_hxk dimensionless
+  add var: real Keq_tdh dimensionless
+  add var: real Ketoh_adh mM
+  add var: real Kg6p_hxk mM
+  add var: real Kiacald_adh mM
+  add var: real Kietoh_adh mM
+  add var: real Kinad_adh mM
+  add var: real Kinadh_adh mM
+  add var: real Knad_adh mM
+  add var: real Knad_tdh mM
+  add var: real Knadh_adh mM
+  add var: real Knadh_tdh mM
+  add var: real Kp2g_gpm mM
+  add var: real N_A per_mmol
+  add var: real percentage_cell_wall dimensionless
+  add var: real percentage_cytoplasm dimensionless
+  add var: real c_1 litre
+  add var: real x_01(time) mM
+  add var: real x_02(time) mM
+  add var: real x_03(time) mM
+  add var: real x_04(time) mM
+  add var: real x_05(time) mM
+  add var: real x_06(time) mM
+  add var: real x_08(time) mM
+  add var: real x_09(time) mM
+  add var: real x_10(time) mM
+  add var: real x_11(time) mM
+  add var: real x_12(time) mM
+  add var: real x_13(time) mM
+  add var: real x_14(time) mM
+  add var: real x_15(time) mM
+  add var: real x_16(time) mM
+  add var: real x_17(time) mM
+  add var: real x_18(time) mM
+  add var: real x_21(time) mM
+  add var: real x_22(time) mM
+  add var: real x_23(time) mM
+  add var: real x_24(time) mM
+  add var: real x_25(time) mM
+  add var: real x_29(time) mM
+  add var: real x_30(time) mM
+  add var: real x_31(time) mM
+  add var: real x_32(time) mM
+  add var: real x_33(time) mM
+  add var: real x_36(time) mM
+  add var: real x_45(time) mM
+  add var: real x_46(time) mM
+  add var: real x_47(time) mM
+  add var: real x_48(time) mM
+  add var: real x_49(time) mM
+  add var: real x_50(time) mM
+  add var: real x_51(time) mM
+  add var: real x_55(time) mM
+  add var: real x_57(time) mM
+  add var: real x_60(time) mM
+  add var: real x_62(time) mM
+  add var: real x_63(time) mM
+  add var: real x_64(time) mM
+  add var: real x_66(time) mM
+  add var: real x_68(time) mM
+  add var: real x_69(time) mM
+  add var: real x_72(time) mM
+  add var: real x_74(time) mM
+  add var: real x_77(time) mM
+  add var: real r_01(time) mmol_per_second
+  add var: real r_02(time) mmol_per_second
+  add var: real r_03(time) mmol_per_second
+  add var: real r_04(time) mmol_per_second
+  add var: real r_05 mmol_per_second
+  add var: real r_06(time) mmol_per_second
+  add var: real r_07(time) mmol_per_second
+  add var: real r_08 mmol_per_second
+  add var: real r_09(time) mmol_per_second
+  add var: real r_10(time) mmol_per_second
+  add var: real r_11(time) mmol_per_second
+  add var: real r_12(time) mmol_per_second
+  add var: real r_13(time) mmol_per_second
+  add var: real r_14(time) mmol_per_second
+  add var: real r_15(time) mmol_per_second
+  add var: real r_16(time) mmol_per_second
+  add var: real r_17(time) mmol_per_second
+  add var: real r_18(time) mmol_per_second
+  add var: real r_19(time) mmol_per_second
+  add var: real r_20(time) mmol_per_second
+  add var: real r_21(time) mmol_per_second
+  add var: real r_22(time) mmol_per_second
+  add var: real r_23(time) mmol_per_second
+  add var: real r_24(time) mmol_per_second
+  add var: real r_25(time) mmol_per_second
+  add var: real r_26(time) mmol_per_second
+  add var: real r_27(time) mmol_per_second
+  add var: real r_28 mmol_per_second
+  add var: real r_29 mmol_per_second
+  add var: real r_30(time) mmol_per_second
+  add var: real r_31(time) mmol_per_second
+  add var: real extracellular.size litre
+  add var: real x_26(time) mM
+  add var: real plasma_membrane.size litre
+  add var: real r_01.k per_mM_per_second
+  add var: real r_01.Keq dimensionless
+  add var: real Kacald mM
+  add var: real r_06.k per_second
+  add var: real r_07.k per_second
+  add var: real r_09.kcat per_second
+  add var: real Kp2g mM
+  add var: real r_09.Keq dimensionless
+  add var: real r_09.Kpep mM
+  add var: real r_10.k per_second
+  add var: real r_11.kcat per_second
+  add var: real r_11.Kf16bp mM
+  add var: real r_11.Kdhap mM
+  add var: real r_11.Kgap mM
+  add var: real r_11.Kigap mM
+  add var: real r_11.Keq mM
+  add var: real r_12.Vmax mM_per_second
+  add var: real r_12.Kglc mM
+  add var: real Ki dimensionless
+  add var: real r_13.kcat per_second
+  add var: real Kg6p mM
+  add var: real r_13.Kf6p mM
+  add var: real r_13.Keq dimensionless
+  add var: real r_14.kcat per_second
+  add var: real r_14.Kgap mM
+  add var: real r_15.kcat per_second
+  add var: real r_15.Kgap mM
+  add var: real r_15.Kbpg mM
+  add var: real r_16.kcat per_second
+  add var: real r_16.Kgap mM
+  add var: real r_17.Vmax mM_per_second
+  add var: real r_17.Kg3p mM
+  add var: real Kphi mM
+  add var: real r_18.Vmax mM_per_second
+  add var: real Knadh mM
+  add var: real r_18.Kdhap mM
+  add var: real Knad mM
+  add var: real r_18.Kg3p mM
+  add var: real r_18.Kf16bp mM
+  add var: real r_18.Katp mM
+  add var: real r_18.Kadp mM
+  add var: real r_18.Keq dimensionless
+  add var: real r_19.kcat per_second
+  add var: real r_19.Kglc mM
+  add var: real r_19.Katp mM
+  add var: real r_20.kcat per_second
+  add var: real r_20.Kglc mM
+  add var: real r_20.Katp mM
+  add var: real r_21.kcat per_second
+  add var: real r_21.Kglc mM
+  add var: real r_21.Katp mM
+  add var: real r_22.k per_second
+  add var: real r_23.kcat per_second
+  add var: real gR dimensionless
+  add var: real r_23.Kf6p mM
+  add var: real r_23.Katp mM
+  add var: real L0 dimensionless
+  add var: real Ciatp dimensionless
+  add var: real Kiatp mM
+  add var: real Camp dimensionless
+  add var: real Kamp mM
+  add var: real Cf26 dimensionless
+  add var: real Kf26 mM
+  add var: real Cf16 dimensionless
+  add var: real Kf16 mM
+  add var: real Catp dimensionless
+  add var: real r_24.kcat per_second
+  add var: real r_24.Kbpg mM
+  add var: real r_24.Kadp mM
+  add var: real r_24.Kp3g mM
+  add var: real r_24.Katp mM
+  add var: real r_24.Keq dimensionless
+  add var: real nHadp dimensionless
+  add var: real r_25.kcat per_second
+  add var: real r_25.Kp3g mM
+  add var: real r_26.kcat per_second
+  add var: real r_26.Kpyr mM
+  add var: real r_27.kcat per_second
+  add var: real r_27.Kpyr mM
+  add var: real r_30.kcat per_second
+  add var: real r_30.Kpep mM
+  add var: real r_30.Kadp mM
+  add var: real Keq_pyk dimensionless
+  add var: real Kpyr_pyk mM
+  add var: real r_31.Keq dimensionless
+  add var: real r_31.kcat per_second
+  add var: real r_31.Kdhap mM
+  add var: real r_31.Kgap mM
+  add var: real r_31.Kigap mM
+  add var: real x_01:time(time) mM/second
+  add var: real x_02:time(time) mM/second
+  add var: real x_03:time(time) mM/second
+  add var: real x_04:time(time) mM/second
+  add var: real x_05:time(time) mM/second
+  add var: real x_06:time(time) mM/second
+  add var: real x_08:time(time) mM/second
+  add var: real x_09:time(time) mM/second
+  add var: real x_10:time(time) mM/second
+  add var: real x_11:time(time) mM/second
+  add var: real x_12:time(time) mM/second
+  add var: real x_13:time(time) mM/second
+  add var: real x_14:time(time) mM/second
+  add var: real x_15:time(time) mM/second
+  add var: real x_16:time(time) mM/second
+  add var: real x_17:time(time) mM/second
+  add var: real x_18:time(time) mM/second
+  add var: real x_21:time(time) mM/second
+  add var: real x_22:time(time) mM/second
+  add var: real x_23:time(time) mM/second
+  add var: real x_24:time(time) mM/second
+  add var: real x_25:time(time) mM/second
+  add var: real x_29:time(time) mM/second
+  add var: real x_30:time(time) mM/second
+  add var: real x_31:time(time) mM/second
+  add var: real x_32:time(time) mM/second
+  add var: real x_33:time(time) mM/second
+  add var: real x_36:time(time) mM/second
+  add var: real x_45:time(time) mM/second
+  add var: real x_46:time(time) mM/second
+  add var: real x_47:time(time) mM/second
+  add var: real x_48:time(time) mM/second
+  add var: real x_49:time(time) mM/second
+  add var: real x_50:time(time) mM/second
+  add var: real x_51:time(time) mM/second
+  add var: real x_55:time(time) mM/second
+  add var: real x_57:time(time) mM/second
+  add var: real x_60:time(time) mM/second
+  add var: real x_62:time(time) mM/second
+  add var: real x_63:time(time) mM/second
+  add var: real x_64:time(time) mM/second
+  add var: real x_66:time(time) mM/second
+  add var: real x_68:time(time) mM/second
+  add var: real x_69:time(time) mM/second
+  add var: real x_72:time(time) mM/second
+  add var: real x_74:time(time) mM/second
+  add var: real x_77:time(time) mM/second
+  add var: real x_26:time(time) mM/second
+Loading Constraints
+  time.min=0 :: [time.min]
+  cell_volume=2.155E-14 :: [cell_volume]
+  Kacald_adh=1.11 :: [Kacald_adh]
+  Kadp_hxk=.23 :: [Kadp_hxk]
+  Katp_pyk=1.5 :: [Katp_pyk]
+  Kbpg_tdh=.909 :: [Kbpg_tdh]
+  kcat_adh=112.3 :: [kcat_adh]
+  Keq_adh=6.9E-5 :: [Keq_adh]
+  Keq_gpm=.19 :: [Keq_gpm]
+  Keq_hxk=2E3 :: [Keq_hxk]
+  Keq_tdh=.005334 :: [Keq_tdh]
+  Ketoh_adh=17 :: [Ketoh_adh]
+  Kg6p_hxk=30 :: [Kg6p_hxk]
+  Kiacald_adh=1.1 :: [Kiacald_adh]
+  Kietoh_adh=90 :: [Kietoh_adh]
+  Kinad_adh=.92 :: [Kinad_adh]
+  Kinadh_adh=.031 :: [Kinadh_adh]
+  Knad_adh=.17 :: [Knad_adh]
+  Knad_tdh=.09 :: [Knad_tdh]
+  Knadh_adh=.11 :: [Knadh_adh]
+  Knadh_tdh=.06 :: [Knadh_tdh]
+  Kp2g_gpm=.08 :: [Kp2g_gpm]
+  N_A=6.02214179E20 :: [N_A]
+  percentage_cell_wall=21.8 :: [percentage_cell_wall]
+  percentage_cytoplasm=47.5 :: [percentage_cytoplasm]
+  c_1=1.023625E-14 :: [c_1]
+  when (time=time.min) x_01=.329796102 :: [x_01(time.min)]
+  when (time=time.min) x_02=.005534 :: [x_02(time.min)]
+  when (time=time.min) x_03=.1781 :: [x_03(time.min)]
+  when (time=time.min) x_04=1.138794213 :: [x_04(time.min)]
+  when (time=time.min) x_05=.655861111 :: [x_05(time.min)]
+  when (time=time.min) x_06=4.394577666 :: [x_06(time.min)]
+  when (time=time.min) x_08=2.045611826 :: [x_08(time.min)]
+  when (time=time.min) x_09=.02 :: [x_09(time.min)]
+  when (time=time.min) x_10=.114998749 :: [x_10(time.min)]
+  when (time=time.min) x_11=2.728563911 :: [x_11(time.min)]
+  when (time=time.min) x_12=.484555315 :: [x_12(time.min)]
+  when (time=time.min) x_13=.047547092 :: [x_13(time.min)]
+  when (time=time.min) x_14=1.072770104 :: [x_14(time.min)]
+  when (time=time.min) x_15=108.3801159 :: [x_15(time.min)]
+  when (time=time.min) x_16=.081078255 :: [x_16(time.min)]
+  when (time=time.min) x_17=36.32137097 :: [x_17(time.min)]
+  when (time=time.min) x_18=.133832653 :: [x_18(time.min)]
+  when (time=time.min) x_21=1.503 :: [x_21(time.min)]
+  when (time=time.min) x_22=.08671 :: [x_22(time.min)]
+  when (time=time.min) x_23=1 :: [x_23(time.min)]
+  when (time=time.min) x_24=.223865529 :: [x_24(time.min)]
+  when (time=time.min) x_25=1.604207403 :: [x_25(time.min)]
+  when (time=time.min) x_29=.985981656 :: [x_29(time.min)]
+  when (time=time.min) x_30=0 :: [x_30(time.min)]
+  when (time=time.min) x_31=.050093968 :: [x_31(time.min)]
+  when (time=time.min) x_32=.020212786 :: [x_32(time.min)]
+  when (time=time.min) x_33=.456977678 :: [x_33(time.min)]
+  when (time=time.min) x_36=.535655056 :: [x_36(time.min)]
+  when (time=time.min) x_45=.010026905 :: [x_45(time.min)]
+  when (time=time.min) x_46=.022824551 :: [x_46(time.min)]
+  when (time=time.min) x_47=.014453927 :: [x_47(time.min)]
+  when (time=time.min) x_48=.005698838 :: [x_48(time.min)]
+  when (time=time.min) x_49=2.597164579 :: [x_49(time.min)]
+  when (time=time.min) x_50=.027610082 :: [x_50(time.min)]
+  when (time=time.min) x_51=.76828054 :: [x_51(time.min)]
+  when (time=time.min) x_55=1.103267726 :: [x_55(time.min)]
+  when (time=time.min) x_57=.111300101 :: [x_57(time.min)]
+  when (time=time.min) x_60=.223216643 :: [x_60(time.min)]
+  when (time=time.min) x_62=.966352867 :: [x_62(time.min)]
+  when (time=time.min) x_63=.537277269 :: [x_63(time.min)]
+  when (time=time.min) x_64=.770064975 :: [x_64(time.min)]
+  when (time=time.min) x_66=0 :: [x_66(time.min)]
+  when (time=time.min) x_68=.027610082 :: [x_68(time.min)]
+  when (time=time.min) x_69=0 :: [x_69(time.min)]
+  when (time=time.min) x_72=.079456041 :: [x_72(time.min)]
+  when (time=time.min) x_74=.004407555 :: [x_74(time.min)]
+  when (time=time.min) x_77=.027610082 :: [x_77(time.min)]
+  extracellular.size=1 :: [extracellular.size]
+  when (time=time.min) x_26=51.11 :: [x_26(time.min)]
+  plasma_membrane.size=4.6979E-15 :: [plasma_membrane.size]
+  r_01.k=1.667 :: [r_01.k]
+  r_01.Keq=.45 :: [r_01.Keq]
+  Kacald=.4622 :: [Kacald]
+  r_06.k=.4011 :: [r_06.k]
+  r_07.k=.319 :: [r_07.k]
+  r_09.kcat=26.5 :: [r_09.kcat]
+  Kp2g=.066 :: [Kp2g]
+  r_09.Keq=6.7 :: [r_09.Keq]
+  r_09.Kpep=.5 :: [r_09.Kpep]
+  r_10.k=.01384 :: [r_10.k]
+  r_11.kcat=4.139 :: [r_11.kcat]
+  r_11.Kf16bp=.4507 :: [r_11.Kf16bp]
+  r_11.Kdhap=2 :: [r_11.Kdhap]
+  r_11.Kgap=2.4 :: [r_11.Kgap]
+  r_11.Kigap=10 :: [r_11.Kigap]
+  r_11.Keq=.069 :: [r_11.Keq]
+  r_12.Vmax=3.774 :: [r_12.Vmax]
+  r_12.Kglc=1.192 :: [r_12.Kglc]
+  Ki=.91 :: [Ki]
+  r_13.kcat=487.4 :: [r_13.kcat]
+  Kg6p=1.03 :: [Kg6p]
+  r_13.Kf6p=.307 :: [r_13.Kf6p]
+  r_13.Keq=.29 :: [r_13.Keq]
+  r_14.kcat=19.12 :: [r_14.kcat]
+  r_14.Kgap=.495 :: [r_14.Kgap]
+  r_15.kcat=18.16 :: [r_15.kcat]
+  r_15.Kgap=.423 :: [r_15.Kgap]
+  r_15.Kbpg=.909 :: [r_15.Kbpg]
+  r_16.kcat=15.58 :: [r_16.kcat]
+  r_16.Kgap=.21 :: [r_16.Kgap]
+  r_17.Vmax=13.54 :: [r_17.Vmax]
+  r_17.Kg3p=3.5 :: [r_17.Kg3p]
+  Kphi=1 :: [Kphi]
+  r_18.Vmax=5.282 :: [r_18.Vmax]
+  Knadh=.023 :: [Knadh]
+  r_18.Kdhap=.54 :: [r_18.Kdhap]
+  Knad=.93 :: [Knad]
+  r_18.Kg3p=1.2 :: [r_18.Kg3p]
+  r_18.Kf16bp=4.8 :: [r_18.Kf16bp]
+  r_18.Katp=.73 :: [r_18.Katp]
+  r_18.Kadp=2 :: [r_18.Kadp]
+  r_18.Keq=1E4 :: [r_18.Keq]
+  r_19.kcat=10.2 :: [r_19.kcat]
+  r_19.Kglc=.15 :: [r_19.Kglc]
+  r_19.Katp=.293 :: [r_19.Katp]
+  r_20.kcat=.0721 :: [r_20.kcat]
+  r_20.Kglc=.0106 :: [r_20.Kglc]
+  r_20.Katp=.865 :: [r_20.Katp]
+  r_21.kcat=63.1 :: [r_21.kcat]
+  r_21.Kglc=.2 :: [r_21.Kglc]
+  r_21.Katp=.195 :: [r_21.Katp]
+  r_22.k=3.025 :: [r_22.k]
+  r_23.kcat=117 :: [r_23.kcat]
+  gR=5.12 :: [gR]
+  r_23.Kf6p=.438 :: [r_23.Kf6p]
+  r_23.Katp=.008 :: [r_23.Katp]
+  L0=.66 :: [L0]
+  Ciatp=100 :: [Ciatp]
+  Kiatp=.65 :: [Kiatp]
+  Camp=.0845 :: [Camp]
+  Kamp=.0995 :: [Kamp]
+  Cf26=.0174 :: [Cf26]
+  Kf26=6.824E-5 :: [Kf26]
+  Cf16=.397 :: [Cf16]
+  Kf16=.111 :: [Kf16]
+  Catp=3 :: [Catp]
+  r_24.kcat=58.85 :: [r_24.kcat]
+  r_24.Kbpg=.003 :: [r_24.Kbpg]
+  r_24.Kadp=1.99 :: [r_24.Kadp]
+  r_24.Kp3g=4.58 :: [r_24.Kp3g]
+  r_24.Katp=3.536 :: [r_24.Katp]
+  r_24.Keq=3200 :: [r_24.Keq]
+  nHadp=2 :: [nHadp]
+  r_25.kcat=66.61 :: [r_25.kcat]
+  r_25.Kp3g=.681 :: [r_25.Kp3g]
+  r_26.kcat=1.776 :: [r_26.kcat]
+  r_26.Kpyr=11.44 :: [r_26.Kpyr]
+  r_27.kcat=12.07 :: [r_27.kcat]
+  r_27.Kpyr=8.331 :: [r_27.Kpyr]
+  r_30.kcat=20.13 :: [r_30.kcat]
+  r_30.Kpep=.281 :: [r_30.Kpep]
+  r_30.Kadp=.243 :: [r_30.Kadp]
+  Keq_pyk=6500 :: [Keq_pyk]
+  Kpyr_pyk=.6517 :: [Kpyr_pyk]
+  r_31.Keq=.0772 :: [r_31.Keq]
+  r_31.kcat=556.7 :: [r_31.kcat]
+  r_31.Kdhap=6.454 :: [r_31.Kdhap]
+  r_31.Kgap=5.25 :: [r_31.Kgap]
+  r_31.Kigap=35.1 :: [r_31.Kigap]
+  x_01:time=((r_24-r_25)/c_1) :: [x_01:time, r_24, r_25, c_1]
+  x_02:time=((r_14+r_15+r_16-r_24)/c_1) :: [x_02:time, r_14, r_15, r_16, r_24, c_1]
+  x_03:time=((r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1) :: [x_03:time, r_05, r_26, r_27, r_28, r_02, r_03, r_04, c_1]
+  x_04:time=((r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1) :: [x_04:time, r_01, r_06, r_19, r_20, r_21, r_23, r_24, r_29, r_30, c_1]
+  x_05:time=(r_01/c_1*(-1)) :: [x_05:time, r_01, c_1]
+  x_06:time=((r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1) :: [x_06:time, r_24, r_29, r_30, r_01, r_06, r_19, r_20, r_21, r_23, c_1]
+  x_08:time=((r_23-r_11)/c_1) :: [x_08:time, r_23, r_11, c_1]
+  x_09:time=0 :: [x_09:time]
+  x_10:time=((r_13-r_23)/c_1) :: [x_10:time, r_13, r_23, c_1]
+  x_11:time=((r_12-r_19-r_20-r_21)/c_1) :: [x_11:time, r_12, r_19, r_20, r_21, c_1]
+  x_12:time=((r_19+r_20+r_21-r_13)/c_1) :: [x_12:time, r_19, r_20, r_21, r_13, c_1]
+  x_13:time=((r_25-r_08-r_09)/c_1) :: [x_13:time, r_25, r_08, r_09, c_1]
+  x_14:time=((r_11-r_18-r_31)/c_1) :: [x_14:time, r_11, r_18, r_31, c_1]
+  x_15:time=((r_02+r_03+r_04-r_05-r_10)/c_1) :: [x_15:time, r_02, r_03, r_04, r_05, r_10, c_1]
+  x_16:time=((r_11+r_31-r_14-r_15-r_16)/c_1) :: [x_16:time, r_11, r_31, r_14, r_15, r_16, c_1]
+  x_17:time=0 :: [x_17:time]
+  x_18:time=((r_18-r_17)/c_1) :: [x_18:time, r_18, r_17, c_1]
+  x_21:time=((r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1) :: [x_21:time, r_02, r_03, r_04, r_18, r_22, r_05, r_14, r_15, r_16, c_1]
+  x_22:time=((r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1) :: [x_22:time, r_05, r_14, r_15, r_16, r_02, r_03, r_04, r_18, r_22, c_1]
+  x_23:time=0 :: [x_23:time]
+  x_24:time=((r_08+r_09-r_29-r_30)/c_1) :: [x_24:time, r_08, r_09, r_29, r_30, c_1]
+  x_25:time=((r_29+r_30-r_07-r_26-r_27-r_28)/c_1) :: [x_25:time, r_29, r_30, r_07, r_26, r_27, r_28, c_1]
+  x_29:time=0 :: [x_29:time]
+  x_30:time=0 :: [x_30:time]
+  x_31:time=0 :: [x_31:time]
+  x_32:time=0 :: [x_32:time]
+  x_33:time=0 :: [x_33:time]
+  x_36:time=0 :: [x_36:time]
+  x_45:time=0 :: [x_45:time]
+  x_46:time=0 :: [x_46:time]
+  x_47:time=0 :: [x_47:time]
+  x_48:time=0 :: [x_48:time]
+  x_49:time=0 :: [x_49:time]
+  x_50:time=0 :: [x_50:time]
+  x_51:time=0 :: [x_51:time]
+  x_55:time=0 :: [x_55:time]
+  x_57:time=0 :: [x_57:time]
+  x_60:time=0 :: [x_60:time]
+  x_62:time=0 :: [x_62:time]
+  x_63:time=0 :: [x_63:time]
+  x_64:time=0 :: [x_64:time]
+  x_66:time=0 :: [x_66:time]
+  x_68:time=0 :: [x_68:time]
+  x_69:time=0 :: [x_69:time]
+  x_72:time=0 :: [x_72:time]
+  x_74:time=0 :: [x_74:time]
+  x_77:time=0 :: [x_77:time]
+  x_26:time=0 :: [x_26:time]
+  r_01=(c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)) :: [r_01, c_1, r_01.k, x_06, x_05, x_04, r_01.Keq]
+  r_02=(c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)) :: [r_02, c_1, x_47, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald_adh, Kiacald_adh, Kietoh_adh]
+  r_03=(c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)) :: [r_03, c_1, x_30, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald_adh, Kiacald_adh, Kietoh_adh]
+  r_04=(c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)) :: [r_04, c_1, x_72, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald, Kiacald_adh, Kietoh_adh]
+  r_05=0 :: [r_05]
+  r_06=(c_1*r_06.k*x_06) :: [r_06, c_1, r_06.k, x_06]
+  r_07=(c_1*r_07.k*x_25) :: [r_07, c_1, r_07.k, x_25]
+  r_08=0 :: [r_08]
+  r_09=(c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)) :: [r_09, c_1, x_51, r_09.kcat, x_13, Kp2g, x_24, r_09.Keq, r_09.Kpep]
+  r_10=(c_1*r_10.k*x_15) :: [r_10, c_1, r_10.k, x_15]
+  r_11=(c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))) :: [r_11, c_1, x_62, r_11.kcat, x_08, r_11.Kf16bp, x_14, x_16, r_11.Keq, r_11.Kdhap, r_11.Kgap, r_11.Kigap]
+  r_12=(c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)) :: [r_12, c_1, r_12.Vmax, x_26, x_11, r_12.Kglc, Ki]
+  r_13=(c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)) :: [r_13, c_1, x_31, r_13.kcat, x_12, Kg6p, x_10, r_13.Keq, r_13.Kf6p]
+  r_14=(c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))) :: [r_14, c_1, x_57, r_14.kcat, x_16, x_21, r_14.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, Kbpg_tdh, Knadh_tdh]
+  r_15=(c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))) :: [r_15, c_1, x_49, r_15.kcat, x_16, x_21, r_15.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, r_15.Kbpg, Knadh_tdh]
+  r_16=(c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))) :: [r_16, c_1, x_60, r_16.kcat, x_16, x_21, r_16.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, Kbpg_tdh, Knadh_tdh]
+  r_17=(c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))) :: [r_17, c_1, r_17.Vmax, x_18, r_17.Kg3p, x_23, Kphi]
+  r_18=(c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))) :: [r_18, c_1, r_18.Vmax, Knadh, r_18.Kdhap, x_22, x_14, x_21, x_18, r_18.Keq, x_08, r_18.Kf16bp, x_06, r_18.Katp, x_04, r_18.Kadp, Knad, r_18.Kg3p]
+  r_19=(c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))) :: [r_19, c_1, x_45, r_19.kcat, x_11, x_06, r_19.Kglc, r_19.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  r_20=(c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))) :: [r_20, c_1, x_32, r_20.kcat, x_11, x_06, r_20.Kglc, r_20.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  r_21=(c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))) :: [r_21, c_1, x_46, r_21.kcat, x_11, x_06, r_21.Kglc, r_21.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  r_22=(c_1*r_22.k*x_22) :: [r_22, c_1, r_22.k, x_22]
+  r_23=(c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)) :: [r_23, c_1, x_77, r_23.kcat, gR, x_10, r_23.Kf6p, x_06, r_23.Katp, L0, Ciatp, Kiatp, Camp, x_05, Kamp, Cf26, x_09, Kf26, Cf16, x_08, Kf16, Catp]
+  r_24=(c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))) :: [r_24, c_1, x_33, r_24.kcat, x_04, r_24.Kadp, nHadp, x_02, r_24.Kbpg, x_01, x_06, r_24.Keq, r_24.Kp3g, r_24.Katp]
+  r_25=(c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)) :: [r_25, c_1, x_63, r_25.kcat, x_01, r_25.Kp3g, x_13, Keq_gpm, Kp2g_gpm]
+  r_26=(c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)) :: [r_26, c_1, x_66, r_26.kcat, x_25, r_26.Kpyr]
+  r_27=(c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)) :: [r_27, c_1, x_64, r_27.kcat, x_25, r_27.Kpyr]
+  r_28=0 :: [r_28]
+  r_29=0 :: [r_29]
+  r_30=(c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))) :: [r_30, c_1, x_29, r_30.kcat, x_24, x_04, r_30.Kpep, r_30.Kadp, x_25, x_06, Keq_pyk, Kpyr_pyk, Katp_pyk]
+  r_31=(c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))) :: [r_31, c_1, x_36, r_31.kcat, r_31.Kdhap, x_14, x_16, r_31.Keq, r_31.Kgap, r_31.Kigap]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: cell_volume=2.155E-14; [cell_volume]
+  add tool: cell_volume=2.155E-14
+  check eqn: Kacald_adh=1.11; [Kacald_adh]
+  add tool: Kacald_adh=1.11
+  check eqn: Kadp_hxk=.23; [Kadp_hxk]
+  add tool: Kadp_hxk=.23
+  check eqn: Katp_pyk=1.5; [Katp_pyk]
+  add tool: Katp_pyk=1.5
+  check eqn: Kbpg_tdh=.909; [Kbpg_tdh]
+  add tool: Kbpg_tdh=.909
+  check eqn: kcat_adh=112.3; [kcat_adh]
+  add tool: kcat_adh=112.3
+  check eqn: Keq_adh=6.9E-5; [Keq_adh]
+  add tool: Keq_adh=6.9E-5
+  check eqn: Keq_gpm=.19; [Keq_gpm]
+  add tool: Keq_gpm=.19
+  check eqn: Keq_hxk=2E3; [Keq_hxk]
+  add tool: Keq_hxk=2E3
+  check eqn: Keq_tdh=.005334; [Keq_tdh]
+  add tool: Keq_tdh=.005334
+  check eqn: Ketoh_adh=17; [Ketoh_adh]
+  add tool: Ketoh_adh=17
+  check eqn: Kg6p_hxk=30; [Kg6p_hxk]
+  add tool: Kg6p_hxk=30
+  check eqn: Kiacald_adh=1.1; [Kiacald_adh]
+  add tool: Kiacald_adh=1.1
+  check eqn: Kietoh_adh=90; [Kietoh_adh]
+  add tool: Kietoh_adh=90
+  check eqn: Kinad_adh=.92; [Kinad_adh]
+  add tool: Kinad_adh=.92
+  check eqn: Kinadh_adh=.031; [Kinadh_adh]
+  add tool: Kinadh_adh=.031
+  check eqn: Knad_adh=.17; [Knad_adh]
+  add tool: Knad_adh=.17
+  check eqn: Knad_tdh=.09; [Knad_tdh]
+  add tool: Knad_tdh=.09
+  check eqn: Knadh_adh=.11; [Knadh_adh]
+  add tool: Knadh_adh=.11
+  check eqn: Knadh_tdh=.06; [Knadh_tdh]
+  add tool: Knadh_tdh=.06
+  check eqn: Kp2g_gpm=.08; [Kp2g_gpm]
+  add tool: Kp2g_gpm=.08
+  check eqn: N_A=6.02214179E20; [N_A]
+  add tool: N_A=6.02214179E20
+  check eqn: percentage_cell_wall=21.8; [percentage_cell_wall]
+  add tool: percentage_cell_wall=21.8
+  check eqn: percentage_cytoplasm=47.5; [percentage_cytoplasm]
+  add tool: percentage_cytoplasm=47.5
+  check eqn: c_1=1.023625E-14; [c_1]
+  add tool: c_1=1.023625E-14
+  check eqn: when (time=time.min) x_01=.329796102; [x_01(time.min)]
+  add tool: x_01(time.min)=.329796102
+  check eqn: when (time=time.min) x_02=.005534; [x_02(time.min)]
+  add tool: x_02(time.min)=.005534
+  check eqn: when (time=time.min) x_03=.1781; [x_03(time.min)]
+  add tool: x_03(time.min)=.1781
+  check eqn: when (time=time.min) x_04=1.138794213; [x_04(time.min)]
+  add tool: x_04(time.min)=1.138794213
+  check eqn: when (time=time.min) x_05=.655861111; [x_05(time.min)]
+  add tool: x_05(time.min)=.655861111
+  check eqn: when (time=time.min) x_06=4.394577666; [x_06(time.min)]
+  add tool: x_06(time.min)=4.394577666
+  check eqn: when (time=time.min) x_08=2.045611826; [x_08(time.min)]
+  add tool: x_08(time.min)=2.045611826
+  check eqn: when (time=time.min) x_09=.02; [x_09(time.min)]
+  add tool: x_09(time.min)=.02
+  check eqn: when (time=time.min) x_10=.114998749; [x_10(time.min)]
+  add tool: x_10(time.min)=.114998749
+  check eqn: when (time=time.min) x_11=2.728563911; [x_11(time.min)]
+  add tool: x_11(time.min)=2.728563911
+  check eqn: when (time=time.min) x_12=.484555315; [x_12(time.min)]
+  add tool: x_12(time.min)=.484555315
+  check eqn: when (time=time.min) x_13=.047547092; [x_13(time.min)]
+  add tool: x_13(time.min)=.047547092
+  check eqn: when (time=time.min) x_14=1.072770104; [x_14(time.min)]
+  add tool: x_14(time.min)=1.072770104
+  check eqn: when (time=time.min) x_15=108.3801159; [x_15(time.min)]
+  add tool: x_15(time.min)=108.3801159
+  check eqn: when (time=time.min) x_16=.081078255; [x_16(time.min)]
+  add tool: x_16(time.min)=.081078255
+  check eqn: when (time=time.min) x_17=36.32137097; [x_17(time.min)]
+  add tool: x_17(time.min)=36.32137097
+  check eqn: when (time=time.min) x_18=.133832653; [x_18(time.min)]
+  add tool: x_18(time.min)=.133832653
+  check eqn: when (time=time.min) x_21=1.503; [x_21(time.min)]
+  add tool: x_21(time.min)=1.503
+  check eqn: when (time=time.min) x_22=.08671; [x_22(time.min)]
+  add tool: x_22(time.min)=.08671
+  check eqn: when (time=time.min) x_23=1; [x_23(time.min)]
+  add tool: x_23(time.min)=1
+  check eqn: when (time=time.min) x_24=.223865529; [x_24(time.min)]
+  add tool: x_24(time.min)=.223865529
+  check eqn: when (time=time.min) x_25=1.604207403; [x_25(time.min)]
+  add tool: x_25(time.min)=1.604207403
+  check eqn: when (time=time.min) x_29=.985981656; [x_29(time.min)]
+  add tool: x_29(time.min)=.985981656
+  check eqn: when (time=time.min) x_30=0; [x_30(time.min)]
+  add tool: x_30(time.min)=0
+  check eqn: when (time=time.min) x_31=.050093968; [x_31(time.min)]
+  add tool: x_31(time.min)=.050093968
+  check eqn: when (time=time.min) x_32=.020212786; [x_32(time.min)]
+  add tool: x_32(time.min)=.020212786
+  check eqn: when (time=time.min) x_33=.456977678; [x_33(time.min)]
+  add tool: x_33(time.min)=.456977678
+  check eqn: when (time=time.min) x_36=.535655056; [x_36(time.min)]
+  add tool: x_36(time.min)=.535655056
+  check eqn: when (time=time.min) x_45=.010026905; [x_45(time.min)]
+  add tool: x_45(time.min)=.010026905
+  check eqn: when (time=time.min) x_46=.022824551; [x_46(time.min)]
+  add tool: x_46(time.min)=.022824551
+  check eqn: when (time=time.min) x_47=.014453927; [x_47(time.min)]
+  add tool: x_47(time.min)=.014453927
+  check eqn: when (time=time.min) x_48=.005698838; [x_48(time.min)]
+  add tool: x_48(time.min)=.005698838
+  check eqn: when (time=time.min) x_49=2.597164579; [x_49(time.min)]
+  add tool: x_49(time.min)=2.597164579
+  check eqn: when (time=time.min) x_50=.027610082; [x_50(time.min)]
+  add tool: x_50(time.min)=.027610082
+  check eqn: when (time=time.min) x_51=.76828054; [x_51(time.min)]
+  add tool: x_51(time.min)=.76828054
+  check eqn: when (time=time.min) x_55=1.103267726; [x_55(time.min)]
+  add tool: x_55(time.min)=1.103267726
+  check eqn: when (time=time.min) x_57=.111300101; [x_57(time.min)]
+  add tool: x_57(time.min)=.111300101
+  check eqn: when (time=time.min) x_60=.223216643; [x_60(time.min)]
+  add tool: x_60(time.min)=.223216643
+  check eqn: when (time=time.min) x_62=.966352867; [x_62(time.min)]
+  add tool: x_62(time.min)=.966352867
+  check eqn: when (time=time.min) x_63=.537277269; [x_63(time.min)]
+  add tool: x_63(time.min)=.537277269
+  check eqn: when (time=time.min) x_64=.770064975; [x_64(time.min)]
+  add tool: x_64(time.min)=.770064975
+  check eqn: when (time=time.min) x_66=0; [x_66(time.min)]
+  add tool: x_66(time.min)=0
+  check eqn: when (time=time.min) x_68=.027610082; [x_68(time.min)]
+  add tool: x_68(time.min)=.027610082
+  check eqn: when (time=time.min) x_69=0; [x_69(time.min)]
+  add tool: x_69(time.min)=0
+  check eqn: when (time=time.min) x_72=.079456041; [x_72(time.min)]
+  add tool: x_72(time.min)=.079456041
+  check eqn: when (time=time.min) x_74=.004407555; [x_74(time.min)]
+  add tool: x_74(time.min)=.004407555
+  check eqn: when (time=time.min) x_77=.027610082; [x_77(time.min)]
+  add tool: x_77(time.min)=.027610082
+  check eqn: extracellular.size=1; [extracellular.size]
+  add tool: extracellular.size=1
+  check eqn: when (time=time.min) x_26=51.11; [x_26(time.min)]
+  add tool: x_26(time.min)=51.11
+  check eqn: plasma_membrane.size=4.6979E-15; [plasma_membrane.size]
+  add tool: plasma_membrane.size=4.6979E-15
+  check eqn: r_01.k=1.667; [r_01.k]
+  add tool: r_01.k=1.667
+  check eqn: r_01.Keq=.45; [r_01.Keq]
+  add tool: r_01.Keq=.45
+  check eqn: Kacald=.4622; [Kacald]
+  add tool: Kacald=.4622
+  check eqn: r_06.k=.4011; [r_06.k]
+  add tool: r_06.k=.4011
+  check eqn: r_07.k=.319; [r_07.k]
+  add tool: r_07.k=.319
+  check eqn: r_09.kcat=26.5; [r_09.kcat]
+  add tool: r_09.kcat=26.5
+  check eqn: Kp2g=.066; [Kp2g]
+  add tool: Kp2g=.066
+  check eqn: r_09.Keq=6.7; [r_09.Keq]
+  add tool: r_09.Keq=6.7
+  check eqn: r_09.Kpep=.5; [r_09.Kpep]
+  add tool: r_09.Kpep=.5
+  check eqn: r_10.k=.01384; [r_10.k]
+  add tool: r_10.k=.01384
+  check eqn: r_11.kcat=4.139; [r_11.kcat]
+  add tool: r_11.kcat=4.139
+  check eqn: r_11.Kf16bp=.4507; [r_11.Kf16bp]
+  add tool: r_11.Kf16bp=.4507
+  check eqn: r_11.Kdhap=2; [r_11.Kdhap]
+  add tool: r_11.Kdhap=2
+  check eqn: r_11.Kgap=2.4; [r_11.Kgap]
+  add tool: r_11.Kgap=2.4
+  check eqn: r_11.Kigap=10; [r_11.Kigap]
+  add tool: r_11.Kigap=10
+  check eqn: r_11.Keq=.069; [r_11.Keq]
+  add tool: r_11.Keq=.069
+  check eqn: r_12.Vmax=3.774; [r_12.Vmax]
+  add tool: r_12.Vmax=3.774
+  check eqn: r_12.Kglc=1.192; [r_12.Kglc]
+  add tool: r_12.Kglc=1.192
+  check eqn: Ki=.91; [Ki]
+  add tool: Ki=.91
+  check eqn: r_13.kcat=487.4; [r_13.kcat]
+  add tool: r_13.kcat=487.4
+  check eqn: Kg6p=1.03; [Kg6p]
+  add tool: Kg6p=1.03
+  check eqn: r_13.Kf6p=.307; [r_13.Kf6p]
+  add tool: r_13.Kf6p=.307
+  check eqn: r_13.Keq=.29; [r_13.Keq]
+  add tool: r_13.Keq=.29
+  check eqn: r_14.kcat=19.12; [r_14.kcat]
+  add tool: r_14.kcat=19.12
+  check eqn: r_14.Kgap=.495; [r_14.Kgap]
+  add tool: r_14.Kgap=.495
+  check eqn: r_15.kcat=18.16; [r_15.kcat]
+  add tool: r_15.kcat=18.16
+  check eqn: r_15.Kgap=.423; [r_15.Kgap]
+  add tool: r_15.Kgap=.423
+  check eqn: r_15.Kbpg=.909; [r_15.Kbpg]
+  add tool: r_15.Kbpg=.909
+  check eqn: r_16.kcat=15.58; [r_16.kcat]
+  add tool: r_16.kcat=15.58
+  check eqn: r_16.Kgap=.21; [r_16.Kgap]
+  add tool: r_16.Kgap=.21
+  check eqn: r_17.Vmax=13.54; [r_17.Vmax]
+  add tool: r_17.Vmax=13.54
+  check eqn: r_17.Kg3p=3.5; [r_17.Kg3p]
+  add tool: r_17.Kg3p=3.5
+  check eqn: Kphi=1; [Kphi]
+  add tool: Kphi=1
+  check eqn: r_18.Vmax=5.282; [r_18.Vmax]
+  add tool: r_18.Vmax=5.282
+  check eqn: Knadh=.023; [Knadh]
+  add tool: Knadh=.023
+  check eqn: r_18.Kdhap=.54; [r_18.Kdhap]
+  add tool: r_18.Kdhap=.54
+  check eqn: Knad=.93; [Knad]
+  add tool: Knad=.93
+  check eqn: r_18.Kg3p=1.2; [r_18.Kg3p]
+  add tool: r_18.Kg3p=1.2
+  check eqn: r_18.Kf16bp=4.8; [r_18.Kf16bp]
+  add tool: r_18.Kf16bp=4.8
+  check eqn: r_18.Katp=.73; [r_18.Katp]
+  add tool: r_18.Katp=.73
+  check eqn: r_18.Kadp=2; [r_18.Kadp]
+  add tool: r_18.Kadp=2
+  check eqn: r_18.Keq=1E4; [r_18.Keq]
+  add tool: r_18.Keq=1E4
+  check eqn: r_19.kcat=10.2; [r_19.kcat]
+  add tool: r_19.kcat=10.2
+  check eqn: r_19.Kglc=.15; [r_19.Kglc]
+  add tool: r_19.Kglc=.15
+  check eqn: r_19.Katp=.293; [r_19.Katp]
+  add tool: r_19.Katp=.293
+  check eqn: r_20.kcat=.0721; [r_20.kcat]
+  add tool: r_20.kcat=.0721
+  check eqn: r_20.Kglc=.0106; [r_20.Kglc]
+  add tool: r_20.Kglc=.0106
+  check eqn: r_20.Katp=.865; [r_20.Katp]
+  add tool: r_20.Katp=.865
+  check eqn: r_21.kcat=63.1; [r_21.kcat]
+  add tool: r_21.kcat=63.1
+  check eqn: r_21.Kglc=.2; [r_21.Kglc]
+  add tool: r_21.Kglc=.2
+  check eqn: r_21.Katp=.195; [r_21.Katp]
+  add tool: r_21.Katp=.195
+  check eqn: r_22.k=3.025; [r_22.k]
+  add tool: r_22.k=3.025
+  check eqn: r_23.kcat=117; [r_23.kcat]
+  add tool: r_23.kcat=117
+  check eqn: gR=5.12; [gR]
+  add tool: gR=5.12
+  check eqn: r_23.Kf6p=.438; [r_23.Kf6p]
+  add tool: r_23.Kf6p=.438
+  check eqn: r_23.Katp=.008; [r_23.Katp]
+  add tool: r_23.Katp=.008
+  check eqn: L0=.66; [L0]
+  add tool: L0=.66
+  check eqn: Ciatp=100; [Ciatp]
+  add tool: Ciatp=100
+  check eqn: Kiatp=.65; [Kiatp]
+  add tool: Kiatp=.65
+  check eqn: Camp=.0845; [Camp]
+  add tool: Camp=.0845
+  check eqn: Kamp=.0995; [Kamp]
+  add tool: Kamp=.0995
+  check eqn: Cf26=.0174; [Cf26]
+  add tool: Cf26=.0174
+  check eqn: Kf26=6.824E-5; [Kf26]
+  add tool: Kf26=6.824E-5
+  check eqn: Cf16=.397; [Cf16]
+  add tool: Cf16=.397
+  check eqn: Kf16=.111; [Kf16]
+  add tool: Kf16=.111
+  check eqn: Catp=3; [Catp]
+  add tool: Catp=3
+  check eqn: r_24.kcat=58.85; [r_24.kcat]
+  add tool: r_24.kcat=58.85
+  check eqn: r_24.Kbpg=.003; [r_24.Kbpg]
+  add tool: r_24.Kbpg=.003
+  check eqn: r_24.Kadp=1.99; [r_24.Kadp]
+  add tool: r_24.Kadp=1.99
+  check eqn: r_24.Kp3g=4.58; [r_24.Kp3g]
+  add tool: r_24.Kp3g=4.58
+  check eqn: r_24.Katp=3.536; [r_24.Katp]
+  add tool: r_24.Katp=3.536
+  check eqn: r_24.Keq=3200; [r_24.Keq]
+  add tool: r_24.Keq=3200
+  check eqn: nHadp=2; [nHadp]
+  add tool: nHadp=2
+  check eqn: r_25.kcat=66.61; [r_25.kcat]
+  add tool: r_25.kcat=66.61
+  check eqn: r_25.Kp3g=.681; [r_25.Kp3g]
+  add tool: r_25.Kp3g=.681
+  check eqn: r_26.kcat=1.776; [r_26.kcat]
+  add tool: r_26.kcat=1.776
+  check eqn: r_26.Kpyr=11.44; [r_26.Kpyr]
+  add tool: r_26.Kpyr=11.44
+  check eqn: r_27.kcat=12.07; [r_27.kcat]
+  add tool: r_27.kcat=12.07
+  check eqn: r_27.Kpyr=8.331; [r_27.Kpyr]
+  add tool: r_27.Kpyr=8.331
+  check eqn: r_30.kcat=20.13; [r_30.kcat]
+  add tool: r_30.kcat=20.13
+  check eqn: r_30.Kpep=.281; [r_30.Kpep]
+  add tool: r_30.Kpep=.281
+  check eqn: r_30.Kadp=.243; [r_30.Kadp]
+  add tool: r_30.Kadp=.243
+  check eqn: Keq_pyk=6500; [Keq_pyk]
+  add tool: Keq_pyk=6500
+  check eqn: Kpyr_pyk=.6517; [Kpyr_pyk]
+  add tool: Kpyr_pyk=.6517
+  check eqn: r_31.Keq=.0772; [r_31.Keq]
+  add tool: r_31.Keq=.0772
+  check eqn: r_31.kcat=556.7; [r_31.kcat]
+  add tool: r_31.kcat=556.7
+  check eqn: r_31.Kdhap=6.454; [r_31.Kdhap]
+  add tool: r_31.Kdhap=6.454
+  check eqn: r_31.Kgap=5.25; [r_31.Kgap]
+  add tool: r_31.Kgap=5.25
+  check eqn: r_31.Kigap=35.1; [r_31.Kigap]
+  add tool: r_31.Kigap=35.1
+  check eqn: x_01:time=((r_24-r_25)/c_1); [x_01:time, r_24]
+  check eqn: x_02:time=((r_14+r_15+r_16-r_24)/c_1); [x_02:time, r_14]
+  check eqn: x_03:time=((r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1); [x_03:time, r_05]
+  check eqn: x_04:time=((r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1); [x_04:time, r_01]
+  check eqn: x_05:time=(r_01/c_1*(-1)); [x_05:time, r_01]
+  check eqn: x_06:time=((r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1); [x_06:time, r_24]
+  check eqn: x_08:time=((r_23-r_11)/c_1); [x_08:time, r_23]
+  check eqn: x_09:time=0; [x_09:time]
+  add tool: x_09:time=0
+  check eqn: x_10:time=((r_13-r_23)/c_1); [x_10:time, r_13]
+  check eqn: x_11:time=((r_12-r_19-r_20-r_21)/c_1); [x_11:time, r_12]
+  check eqn: x_12:time=((r_19+r_20+r_21-r_13)/c_1); [x_12:time, r_19]
+  check eqn: x_13:time=((r_25-r_08-r_09)/c_1); [x_13:time, r_25]
+  check eqn: x_14:time=((r_11-r_18-r_31)/c_1); [x_14:time, r_11]
+  check eqn: x_15:time=((r_02+r_03+r_04-r_05-r_10)/c_1); [x_15:time, r_02]
+  check eqn: x_16:time=((r_11+r_31-r_14-r_15-r_16)/c_1); [x_16:time, r_11]
+  check eqn: x_17:time=0; [x_17:time]
+  add tool: x_17:time=0
+  check eqn: x_18:time=((r_18-r_17)/c_1); [x_18:time, r_18]
+  check eqn: x_21:time=((r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1); [x_21:time, r_02]
+  check eqn: x_22:time=((r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1); [x_22:time, r_05]
+  check eqn: x_23:time=0; [x_23:time]
+  add tool: x_23:time=0
+  check eqn: x_24:time=((r_08+r_09-r_29-r_30)/c_1); [x_24:time, r_08]
+  check eqn: x_25:time=((r_29+r_30-r_07-r_26-r_27-r_28)/c_1); [x_25:time, r_29]
+  check eqn: x_29:time=0; [x_29:time]
+  add tool: x_29:time=0
+  check eqn: x_30:time=0; [x_30:time]
+  add tool: x_30:time=0
+  check eqn: x_31:time=0; [x_31:time]
+  add tool: x_31:time=0
+  check eqn: x_32:time=0; [x_32:time]
+  add tool: x_32:time=0
+  check eqn: x_33:time=0; [x_33:time]
+  add tool: x_33:time=0
+  check eqn: x_36:time=0; [x_36:time]
+  add tool: x_36:time=0
+  check eqn: x_45:time=0; [x_45:time]
+  add tool: x_45:time=0
+  check eqn: x_46:time=0; [x_46:time]
+  add tool: x_46:time=0
+  check eqn: x_47:time=0; [x_47:time]
+  add tool: x_47:time=0
+  check eqn: x_48:time=0; [x_48:time]
+  add tool: x_48:time=0
+  check eqn: x_49:time=0; [x_49:time]
+  add tool: x_49:time=0
+  check eqn: x_50:time=0; [x_50:time]
+  add tool: x_50:time=0
+  check eqn: x_51:time=0; [x_51:time]
+  add tool: x_51:time=0
+  check eqn: x_55:time=0; [x_55:time]
+  add tool: x_55:time=0
+  check eqn: x_57:time=0; [x_57:time]
+  add tool: x_57:time=0
+  check eqn: x_60:time=0; [x_60:time]
+  add tool: x_60:time=0
+  check eqn: x_62:time=0; [x_62:time]
+  add tool: x_62:time=0
+  check eqn: x_63:time=0; [x_63:time]
+  add tool: x_63:time=0
+  check eqn: x_64:time=0; [x_64:time]
+  add tool: x_64:time=0
+  check eqn: x_66:time=0; [x_66:time]
+  add tool: x_66:time=0
+  check eqn: x_68:time=0; [x_68:time]
+  add tool: x_68:time=0
+  check eqn: x_69:time=0; [x_69:time]
+  add tool: x_69:time=0
+  check eqn: x_72:time=0; [x_72:time]
+  add tool: x_72:time=0
+  check eqn: x_74:time=0; [x_74:time]
+  add tool: x_74:time=0
+  check eqn: x_77:time=0; [x_77:time]
+  add tool: x_77:time=0
+  check eqn: x_26:time=0; [x_26:time]
+  add tool: x_26:time=0
+  check eqn: r_01=(c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)); [r_01, x_06]
+  check eqn: r_02=(c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)); [r_02, x_47]
+  check eqn: r_03=(c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)); [r_03, x_30]
+  check eqn: r_04=(c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)); [r_04, x_72]
+  check eqn: r_05=0; [r_05]
+  add tool: r_05=0
+  check eqn: r_06=(c_1*r_06.k*x_06); [r_06, x_06]
+  check eqn: r_07=(c_1*r_07.k*x_25); [r_07, x_25]
+  check eqn: r_08=0; [r_08]
+  add tool: r_08=0
+  check eqn: r_09=(c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)); [r_09, x_51]
+  check eqn: r_10=(c_1*r_10.k*x_15); [r_10, x_15]
+  check eqn: r_11=(c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))); [r_11, x_62]
+  check eqn: r_12=(c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)); [r_12, x_26]
+  check eqn: r_13=(c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)); [r_13, x_31]
+  check eqn: r_14=(c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_14, x_57]
+  check eqn: r_15=(c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_15, x_49]
+  check eqn: r_16=(c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_16, x_60]
+  check eqn: r_17=(c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))); [r_17, x_18]
+  check eqn: r_18=(c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))); [r_18, x_22]
+  check eqn: r_19=(c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))); [r_19, x_45]
+  check eqn: r_20=(c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))); [r_20, x_32]
+  check eqn: r_21=(c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))); [r_21, x_46]
+  check eqn: r_22=(c_1*r_22.k*x_22); [r_22, x_22]
+  check eqn: r_23=(c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)); [r_23, x_77]
+  check eqn: r_24=(c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))); [r_24, x_33]
+  check eqn: r_25=(c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)); [r_25, x_63]
+  check eqn: r_26=(c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)); [r_26, x_66]
+  check eqn: r_27=(c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)); [r_27, x_64]
+  check eqn: r_28=0; [r_28]
+  add tool: r_28=0
+  check eqn: r_29=0; [r_29]
+  add tool: r_29=0
+  check eqn: r_30=(c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))); [r_30, x_29]
+  check eqn: r_31=(c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))); [r_31, x_36]
+  add tool: ODE x_01: []
+  updated ODE(x_01) with x_01(time.min)=.329796102
+  add tool: ODE x_02: []
+  updated ODE(x_02) with x_02(time.min)=.005534
+  add tool: ODE x_03: []
+  updated ODE(x_03) with x_03(time.min)=.1781
+  add tool: ODE x_04: []
+  updated ODE(x_04) with x_04(time.min)=1.138794213
+  add tool: ODE x_05: []
+  updated ODE(x_05) with x_05(time.min)=.655861111
+  add tool: ODE x_06: []
+  updated ODE(x_06) with x_06(time.min)=4.394577666
+  add tool: ODE x_08: []
+  updated ODE(x_08) with x_08(time.min)=2.045611826
+  add tool: ODE x_09: []
+  updated ODE(x_09) with x_09(time.min)=.02
+  add tool: ODE x_10: []
+  updated ODE(x_10) with x_10(time.min)=.114998749
+  add tool: ODE x_11: []
+  updated ODE(x_11) with x_11(time.min)=2.728563911
+  add tool: ODE x_12: []
+  updated ODE(x_12) with x_12(time.min)=.484555315
+  add tool: ODE x_13: []
+  updated ODE(x_13) with x_13(time.min)=.047547092
+  add tool: ODE x_14: []
+  updated ODE(x_14) with x_14(time.min)=1.072770104
+  add tool: ODE x_15: []
+  updated ODE(x_15) with x_15(time.min)=108.3801159
+  add tool: ODE x_16: []
+  updated ODE(x_16) with x_16(time.min)=.081078255
+  add tool: ODE x_17: []
+  updated ODE(x_17) with x_17(time.min)=36.32137097
+  add tool: ODE x_18: []
+  updated ODE(x_18) with x_18(time.min)=.133832653
+  add tool: ODE x_21: []
+  updated ODE(x_21) with x_21(time.min)=1.503
+  add tool: ODE x_22: []
+  updated ODE(x_22) with x_22(time.min)=.08671
+  add tool: ODE x_23: []
+  updated ODE(x_23) with x_23(time.min)=1
+  add tool: ODE x_24: []
+  updated ODE(x_24) with x_24(time.min)=.223865529
+  add tool: ODE x_25: []
+  updated ODE(x_25) with x_25(time.min)=1.604207403
+  add tool: ODE x_29: []
+  updated ODE(x_29) with x_29(time.min)=.985981656
+  add tool: ODE x_30: []
+  updated ODE(x_30) with x_30(time.min)=0
+  add tool: ODE x_31: []
+  updated ODE(x_31) with x_31(time.min)=.050093968
+  add tool: ODE x_32: []
+  updated ODE(x_32) with x_32(time.min)=.020212786
+  add tool: ODE x_33: []
+  updated ODE(x_33) with x_33(time.min)=.456977678
+  add tool: ODE x_36: []
+  updated ODE(x_36) with x_36(time.min)=.535655056
+  add tool: ODE x_45: []
+  updated ODE(x_45) with x_45(time.min)=.010026905
+  add tool: ODE x_46: []
+  updated ODE(x_46) with x_46(time.min)=.022824551
+  add tool: ODE x_47: []
+  updated ODE(x_47) with x_47(time.min)=.014453927
+  add tool: ODE x_48: []
+  updated ODE(x_48) with x_48(time.min)=.005698838
+  add tool: ODE x_49: []
+  updated ODE(x_49) with x_49(time.min)=2.597164579
+  add tool: ODE x_50: []
+  updated ODE(x_50) with x_50(time.min)=.027610082
+  add tool: ODE x_51: []
+  updated ODE(x_51) with x_51(time.min)=.76828054
+  add tool: ODE x_55: []
+  updated ODE(x_55) with x_55(time.min)=1.103267726
+  add tool: ODE x_57: []
+  updated ODE(x_57) with x_57(time.min)=.111300101
+  add tool: ODE x_60: []
+  updated ODE(x_60) with x_60(time.min)=.223216643
+  add tool: ODE x_62: []
+  updated ODE(x_62) with x_62(time.min)=.966352867
+  add tool: ODE x_63: []
+  updated ODE(x_63) with x_63(time.min)=.537277269
+  add tool: ODE x_64: []
+  updated ODE(x_64) with x_64(time.min)=.770064975
+  add tool: ODE x_66: []
+  updated ODE(x_66) with x_66(time.min)=0
+  add tool: ODE x_68: []
+  updated ODE(x_68) with x_68(time.min)=.027610082
+  add tool: ODE x_69: []
+  updated ODE(x_69) with x_69(time.min)=0
+  add tool: ODE x_72: []
+  updated ODE(x_72) with x_72(time.min)=.079456041
+  add tool: ODE x_74: []
+  updated ODE(x_74) with x_74(time.min)=.004407555
+  add tool: ODE x_77: []
+  updated ODE(x_77) with x_77(time.min)=.027610082
+  add tool: ODE x_26: []
+  updated ODE(x_26) with x_26(time.min)=51.11
+  updated ODE(x_09) with x_09:time=0
+    x_09 is now entirely solved
+  updated ODE(x_17) with x_17:time=0
+    x_17 is now entirely solved
+  updated ODE(x_23) with x_23:time=0
+    x_23 is now entirely solved
+  updated ODE(x_29) with x_29:time=0
+    x_29 is now entirely solved
+  updated ODE(x_30) with x_30:time=0
+    x_30 is now entirely solved
+  updated ODE(x_31) with x_31:time=0
+    x_31 is now entirely solved
+  updated ODE(x_32) with x_32:time=0
+    x_32 is now entirely solved
+  updated ODE(x_33) with x_33:time=0
+    x_33 is now entirely solved
+  updated ODE(x_36) with x_36:time=0
+    x_36 is now entirely solved
+  updated ODE(x_45) with x_45:time=0
+    x_45 is now entirely solved
+  updated ODE(x_46) with x_46:time=0
+    x_46 is now entirely solved
+  updated ODE(x_47) with x_47:time=0
+    x_47 is now entirely solved
+  updated ODE(x_48) with x_48:time=0
+    x_48 is now entirely solved
+  updated ODE(x_49) with x_49:time=0
+    x_49 is now entirely solved
+  updated ODE(x_50) with x_50:time=0
+    x_50 is now entirely solved
+  updated ODE(x_51) with x_51:time=0
+    x_51 is now entirely solved
+  updated ODE(x_55) with x_55:time=0
+    x_55 is now entirely solved
+  updated ODE(x_57) with x_57:time=0
+    x_57 is now entirely solved
+  updated ODE(x_60) with x_60:time=0
+    x_60 is now entirely solved
+  updated ODE(x_62) with x_62:time=0
+    x_62 is now entirely solved
+  updated ODE(x_63) with x_63:time=0
+    x_63 is now entirely solved
+  updated ODE(x_64) with x_64:time=0
+    x_64 is now entirely solved
+  updated ODE(x_66) with x_66:time=0
+    x_66 is now entirely solved
+  updated ODE(x_68) with x_68:time=0
+    x_68 is now entirely solved
+  updated ODE(x_69) with x_69:time=0
+    x_69 is now entirely solved
+  updated ODE(x_72) with x_72:time=0
+    x_72 is now entirely solved
+  updated ODE(x_74) with x_74:time=0
+    x_74 is now entirely solved
+  updated ODE(x_77) with x_77:time=0
+    x_77 is now entirely solved
+  updated ODE(x_26) with x_26:time=0
+    x_26 is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: x_01:time=((r_24-r_25)/c_1); [x_01:time, r_24]
+  check eqn: x_02:time=((r_14+r_15+r_16-r_24)/c_1); [x_02:time, r_14]
+  check eqn: x_03:time=((r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1); [x_03:time, r_26]
+  check eqn: x_04:time=((r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1); [x_04:time, r_01]
+  check eqn: x_05:time=(r_01/c_1*(-1)); [x_05:time, r_01]
+  check eqn: x_06:time=((r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1); [x_06:time, r_24]
+  check eqn: x_08:time=((r_23-r_11)/c_1); [x_08:time, r_23]
+  check eqn: x_10:time=((r_13-r_23)/c_1); [x_10:time, r_13]
+  check eqn: x_11:time=((r_12-r_19-r_20-r_21)/c_1); [x_11:time, r_12]
+  check eqn: x_12:time=((r_19+r_20+r_21-r_13)/c_1); [x_12:time, r_19]
+  check eqn: x_13:time=((r_25-r_08-r_09)/c_1); [x_13:time, r_25]
+  check eqn: x_14:time=((r_11-r_18-r_31)/c_1); [x_14:time, r_11]
+  check eqn: x_15:time=((r_02+r_03+r_04-r_05-r_10)/c_1); [x_15:time, r_02]
+  check eqn: x_16:time=((r_11+r_31-r_14-r_15-r_16)/c_1); [x_16:time, r_11]
+  check eqn: x_18:time=((r_18-r_17)/c_1); [x_18:time, r_18]
+  check eqn: x_21:time=((r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1); [x_21:time, r_02]
+  check eqn: x_22:time=((r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1); [x_22:time, r_14]
+  check eqn: x_24:time=((r_08+r_09-r_29-r_30)/c_1); [x_24:time, r_09]
+  check eqn: x_25:time=((r_29+r_30-r_07-r_26-r_27-r_28)/c_1); [x_25:time, r_30]
+  check eqn: r_01=(c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)); [r_01]
+  add tool: r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)
+  check eqn: r_02=(c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)); [r_02]
+  add tool: r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+  check eqn: r_03=(c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)); [r_03]
+  add tool: r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+  check eqn: r_04=(c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)); [r_04]
+  add tool: r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)
+  check eqn: r_06=(c_1*r_06.k*x_06); [r_06]
+  add tool: r_06=c_1*r_06.k*x_06
+  check eqn: r_07=(c_1*r_07.k*x_25); [r_07]
+  add tool: r_07=c_1*r_07.k*x_25
+  check eqn: r_09=(c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)); [r_09]
+  add tool: r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)
+  check eqn: r_10=(c_1*r_10.k*x_15); [r_10]
+  add tool: r_10=c_1*r_10.k*x_15
+  check eqn: r_11=(c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))); [r_11]
+  add tool: r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))
+  check eqn: r_12=(c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)); [r_12]
+  add tool: r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)
+  check eqn: r_13=(c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)); [r_13]
+  add tool: r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)
+  check eqn: r_14=(c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_14]
+  add tool: r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  check eqn: r_15=(c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_15]
+  add tool: r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  check eqn: r_16=(c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))); [r_16]
+  add tool: r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  check eqn: r_17=(c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))); [r_17]
+  add tool: r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))
+  check eqn: r_18=(c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))); [r_18]
+  add tool: r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))
+  check eqn: r_19=(c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))); [r_19]
+  add tool: r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))
+  check eqn: r_20=(c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))); [r_20]
+  add tool: r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))
+  check eqn: r_21=(c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))); [r_21]
+  add tool: r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))
+  check eqn: r_22=(c_1*r_22.k*x_22); [r_22]
+  add tool: r_22=c_1*r_22.k*x_22
+  check eqn: r_23=(c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)); [r_23]
+  add tool: r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)
+  check eqn: r_24=(c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))); [r_24]
+  add tool: r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))
+  check eqn: r_25=(c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)); [r_25]
+  add tool: r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)
+  check eqn: r_26=(c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)); [r_26]
+  add tool: r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)
+  check eqn: r_27=(c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)); [r_27]
+  add tool: r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)
+  check eqn: r_30=(c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))); [r_30]
+  add tool: r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))
+  check eqn: r_31=(c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))); [r_31]
+  add tool: r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))
+Toolbox phase - cycle 1:
+  check eqn: x_01:time=((r_24-r_25)/c_1); [x_01:time]
+  add tool: x_01:time=(r_24-r_25)/c_1
+  check eqn: x_02:time=((r_14+r_15+r_16-r_24)/c_1); [x_02:time]
+  add tool: x_02:time=(r_14+r_15+r_16-r_24)/c_1
+  check eqn: x_03:time=((r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1); [x_03:time]
+  add tool: x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1
+  check eqn: x_04:time=((r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1); [x_04:time]
+  add tool: x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1
+  check eqn: x_05:time=(r_01/c_1*(-1)); [x_05:time]
+  add tool: x_05:time=r_01/c_1*(-1)
+  check eqn: x_06:time=((r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1); [x_06:time]
+  add tool: x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1
+  check eqn: x_08:time=((r_23-r_11)/c_1); [x_08:time]
+  add tool: x_08:time=(r_23-r_11)/c_1
+  check eqn: x_10:time=((r_13-r_23)/c_1); [x_10:time]
+  add tool: x_10:time=(r_13-r_23)/c_1
+  check eqn: x_11:time=((r_12-r_19-r_20-r_21)/c_1); [x_11:time]
+  add tool: x_11:time=(r_12-r_19-r_20-r_21)/c_1
+  check eqn: x_12:time=((r_19+r_20+r_21-r_13)/c_1); [x_12:time]
+  add tool: x_12:time=(r_19+r_20+r_21-r_13)/c_1
+  check eqn: x_13:time=((r_25-r_08-r_09)/c_1); [x_13:time]
+  add tool: x_13:time=(r_25-r_08-r_09)/c_1
+  check eqn: x_14:time=((r_11-r_18-r_31)/c_1); [x_14:time]
+  add tool: x_14:time=(r_11-r_18-r_31)/c_1
+  check eqn: x_15:time=((r_02+r_03+r_04-r_05-r_10)/c_1); [x_15:time]
+  add tool: x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1
+  check eqn: x_16:time=((r_11+r_31-r_14-r_15-r_16)/c_1); [x_16:time]
+  add tool: x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1
+  check eqn: x_18:time=((r_18-r_17)/c_1); [x_18:time]
+  add tool: x_18:time=(r_18-r_17)/c_1
+  check eqn: x_21:time=((r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1); [x_21:time]
+  add tool: x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1
+  check eqn: x_22:time=((r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1); [x_22:time]
+  add tool: x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1
+  check eqn: x_24:time=((r_08+r_09-r_29-r_30)/c_1); [x_24:time]
+  add tool: x_24:time=(r_08+r_09-r_29-r_30)/c_1
+  check eqn: x_25:time=((r_29+r_30-r_07-r_26-r_27-r_28)/c_1); [x_25:time]
+  add tool: x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1
+  updated ODE(x_01) with x_01:time=(r_24-r_25)/c_1
+    x_01 is now entirely solved
+  updated ODE(x_02) with x_02:time=(r_14+r_15+r_16-r_24)/c_1
+    x_02 is now entirely solved
+  updated ODE(x_03) with x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1
+    x_03 is now entirely solved
+  updated ODE(x_04) with x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1
+    x_04 is now entirely solved
+  updated ODE(x_05) with x_05:time=r_01/c_1*(-1)
+    x_05 is now entirely solved
+  updated ODE(x_06) with x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1
+    x_06 is now entirely solved
+  updated ODE(x_08) with x_08:time=(r_23-r_11)/c_1
+    x_08 is now entirely solved
+  updated ODE(x_10) with x_10:time=(r_13-r_23)/c_1
+    x_10 is now entirely solved
+  updated ODE(x_11) with x_11:time=(r_12-r_19-r_20-r_21)/c_1
+    x_11 is now entirely solved
+  updated ODE(x_12) with x_12:time=(r_19+r_20+r_21-r_13)/c_1
+    x_12 is now entirely solved
+  updated ODE(x_13) with x_13:time=(r_25-r_08-r_09)/c_1
+    x_13 is now entirely solved
+  updated ODE(x_14) with x_14:time=(r_11-r_18-r_31)/c_1
+    x_14 is now entirely solved
+  updated ODE(x_15) with x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1
+    x_15 is now entirely solved
+  updated ODE(x_16) with x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1
+    x_16 is now entirely solved
+  updated ODE(x_18) with x_18:time=(r_18-r_17)/c_1
+    x_18 is now entirely solved
+  updated ODE(x_21) with x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1
+    x_21 is now entirely solved
+  updated ODE(x_22) with x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1
+    x_22 is now entirely solved
+  updated ODE(x_24) with x_24:time=(r_08+r_09-r_29-r_30)/c_1
+    x_24 is now entirely solved
+  updated ODE(x_25) with x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1
+    x_25 is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real x_01__init mM
+  add tool: x_01__init=.329796102
+  add var: real x_02__init mM
+  add tool: x_02__init=.005534
+  add var: real x_03__init mM
+  add tool: x_03__init=.1781
+  add var: real x_04__init mM
+  add tool: x_04__init=1.138794213
+  add var: real x_05__init mM
+  add tool: x_05__init=.655861111
+  add var: real x_06__init mM
+  add tool: x_06__init=4.394577666
+  add var: real x_08__init mM
+  add tool: x_08__init=2.045611826
+  add var: real x_09__init mM
+  add tool: x_09__init=.02
+  add var: real x_10__init mM
+  add tool: x_10__init=.114998749
+  add var: real x_11__init mM
+  add tool: x_11__init=2.728563911
+  add var: real x_12__init mM
+  add tool: x_12__init=.484555315
+  add var: real x_13__init mM
+  add tool: x_13__init=.047547092
+  add var: real x_14__init mM
+  add tool: x_14__init=1.072770104
+  add var: real x_15__init mM
+  add tool: x_15__init=108.3801159
+  add var: real x_16__init mM
+  add tool: x_16__init=.081078255
+  add var: real x_17__init mM
+  add tool: x_17__init=36.32137097
+  add var: real x_18__init mM
+  add tool: x_18__init=.133832653
+  add var: real x_21__init mM
+  add tool: x_21__init=1.503
+  add var: real x_22__init mM
+  add tool: x_22__init=.08671
+  add var: real x_23__init mM
+  add tool: x_23__init=1
+  add var: real x_24__init mM
+  add tool: x_24__init=.223865529
+  add var: real x_25__init mM
+  add tool: x_25__init=1.604207403
+  add var: real x_29__init mM
+  add tool: x_29__init=.985981656
+  add var: real x_30__init mM
+  add tool: x_30__init=0
+  add var: real x_31__init mM
+  add tool: x_31__init=.050093968
+  add var: real x_32__init mM
+  add tool: x_32__init=.020212786
+  add var: real x_33__init mM
+  add tool: x_33__init=.456977678
+  add var: real x_36__init mM
+  add tool: x_36__init=.535655056
+  add var: real x_45__init mM
+  add tool: x_45__init=.010026905
+  add var: real x_46__init mM
+  add tool: x_46__init=.022824551
+  add var: real x_47__init mM
+  add tool: x_47__init=.014453927
+  add var: real x_48__init mM
+  add tool: x_48__init=.005698838
+  add var: real x_49__init mM
+  add tool: x_49__init=2.597164579
+  add var: real x_50__init mM
+  add tool: x_50__init=.027610082
+  add var: real x_51__init mM
+  add tool: x_51__init=.76828054
+  add var: real x_55__init mM
+  add tool: x_55__init=1.103267726
+  add var: real x_57__init mM
+  add tool: x_57__init=.111300101
+  add var: real x_60__init mM
+  add tool: x_60__init=.223216643
+  add var: real x_62__init mM
+  add tool: x_62__init=.966352867
+  add var: real x_63__init mM
+  add tool: x_63__init=.537277269
+  add var: real x_64__init mM
+  add tool: x_64__init=.770064975
+  add var: real x_66__init mM
+  add tool: x_66__init=0
+  add var: real x_68__init mM
+  add tool: x_68__init=.027610082
+  add var: real x_69__init mM
+  add tool: x_69__init=0
+  add var: real x_72__init mM
+  add tool: x_72__init=.079456041
+  add var: real x_74__init mM
+  add tool: x_74__init=.004407555
+  add var: real x_77__init mM
+  add tool: x_77__init=.027610082
+  add var: real x_26__init mM
+  add tool: x_26__init=51.11
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  x_26__init=51.11 :: [x_26__init]<<[]
+  x_77__init=.027610082 :: [x_77__init]<<[]
+  x_74__init=.004407555 :: [x_74__init]<<[]
+  x_72__init=.079456041 :: [x_72__init]<<[]
+  x_69__init=0 :: [x_69__init]<<[]
+  x_68__init=.027610082 :: [x_68__init]<<[]
+  x_66__init=0 :: [x_66__init]<<[]
+  x_64__init=.770064975 :: [x_64__init]<<[]
+  x_63__init=.537277269 :: [x_63__init]<<[]
+  x_62__init=.966352867 :: [x_62__init]<<[]
+  x_60__init=.223216643 :: [x_60__init]<<[]
+  x_57__init=.111300101 :: [x_57__init]<<[]
+  x_55__init=1.103267726 :: [x_55__init]<<[]
+  x_51__init=.76828054 :: [x_51__init]<<[]
+  x_50__init=.027610082 :: [x_50__init]<<[]
+  x_49__init=2.597164579 :: [x_49__init]<<[]
+  x_48__init=.005698838 :: [x_48__init]<<[]
+  x_47__init=.014453927 :: [x_47__init]<<[]
+  x_46__init=.022824551 :: [x_46__init]<<[]
+  x_45__init=.010026905 :: [x_45__init]<<[]
+  x_36__init=.535655056 :: [x_36__init]<<[]
+  x_33__init=.456977678 :: [x_33__init]<<[]
+  x_32__init=.020212786 :: [x_32__init]<<[]
+  x_31__init=.050093968 :: [x_31__init]<<[]
+  x_30__init=0 :: [x_30__init]<<[]
+  x_29__init=.985981656 :: [x_29__init]<<[]
+  x_25__init=1.604207403 :: [x_25__init]<<[]
+  x_24__init=.223865529 :: [x_24__init]<<[]
+  x_23__init=1 :: [x_23__init]<<[]
+  x_22__init=.08671 :: [x_22__init]<<[]
+  x_21__init=1.503 :: [x_21__init]<<[]
+  x_18__init=.133832653 :: [x_18__init]<<[]
+  x_17__init=36.32137097 :: [x_17__init]<<[]
+  x_16__init=.081078255 :: [x_16__init]<<[]
+  x_15__init=108.3801159 :: [x_15__init]<<[]
+  x_14__init=1.072770104 :: [x_14__init]<<[]
+  x_13__init=.047547092 :: [x_13__init]<<[]
+  x_12__init=.484555315 :: [x_12__init]<<[]
+  x_11__init=2.728563911 :: [x_11__init]<<[]
+  x_10__init=.114998749 :: [x_10__init]<<[]
+  x_09__init=.02 :: [x_09__init]<<[]
+  x_08__init=2.045611826 :: [x_08__init]<<[]
+  x_06__init=4.394577666 :: [x_06__init]<<[]
+  x_05__init=.655861111 :: [x_05__init]<<[]
+  x_04__init=1.138794213 :: [x_04__init]<<[]
+  x_03__init=.1781 :: [x_03__init]<<[]
+  x_02__init=.005534 :: [x_02__init]<<[]
+  x_01__init=.329796102 :: [x_01__init]<<[]
+  @time x_26:time=0 :: [x_26:time]<<[]
+  @time x_77:time=0 :: [x_77:time]<<[]
+  @time x_74:time=0 :: [x_74:time]<<[]
+  @time x_72:time=0 :: [x_72:time]<<[]
+  @time x_69:time=0 :: [x_69:time]<<[]
+  @time x_68:time=0 :: [x_68:time]<<[]
+  @time x_66:time=0 :: [x_66:time]<<[]
+  @time x_64:time=0 :: [x_64:time]<<[]
+  @time x_63:time=0 :: [x_63:time]<<[]
+  @time x_62:time=0 :: [x_62:time]<<[]
+  @time x_60:time=0 :: [x_60:time]<<[]
+  @time x_57:time=0 :: [x_57:time]<<[]
+  @time x_55:time=0 :: [x_55:time]<<[]
+  @time x_51:time=0 :: [x_51:time]<<[]
+  @time x_50:time=0 :: [x_50:time]<<[]
+  @time x_49:time=0 :: [x_49:time]<<[]
+  @time x_48:time=0 :: [x_48:time]<<[]
+  @time x_47:time=0 :: [x_47:time]<<[]
+  @time x_46:time=0 :: [x_46:time]<<[]
+  @time x_45:time=0 :: [x_45:time]<<[]
+  @time x_36:time=0 :: [x_36:time]<<[]
+  @time x_33:time=0 :: [x_33:time]<<[]
+  @time x_32:time=0 :: [x_32:time]<<[]
+  @time x_31:time=0 :: [x_31:time]<<[]
+  @time x_30:time=0 :: [x_30:time]<<[]
+  @time x_29:time=0 :: [x_29:time]<<[]
+  @time x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1 :: [x_25:time]<<[r_29, r_30, r_07, r_26, r_27, r_28, c_1]
+  @time x_24:time=(r_08+r_09-r_29-r_30)/c_1 :: [x_24:time]<<[r_08, r_09, r_29, r_30, c_1]
+  @time x_23:time=0 :: [x_23:time]<<[]
+  @time x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1 :: [x_22:time]<<[r_05, r_14, r_15, r_16, r_02, r_03, r_04, r_18, r_22, c_1]
+  @time x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1 :: [x_21:time]<<[r_02, r_03, r_04, r_18, r_22, r_05, r_14, r_15, r_16, c_1]
+  @time x_18:time=(r_18-r_17)/c_1 :: [x_18:time]<<[r_18, r_17, c_1]
+  @time x_17:time=0 :: [x_17:time]<<[]
+  @time x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1 :: [x_16:time]<<[r_11, r_31, r_14, r_15, r_16, c_1]
+  @time x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1 :: [x_15:time]<<[r_02, r_03, r_04, r_05, r_10, c_1]
+  @time x_14:time=(r_11-r_18-r_31)/c_1 :: [x_14:time]<<[r_11, r_18, r_31, c_1]
+  @time x_13:time=(r_25-r_08-r_09)/c_1 :: [x_13:time]<<[r_25, r_08, r_09, c_1]
+  @time x_12:time=(r_19+r_20+r_21-r_13)/c_1 :: [x_12:time]<<[r_19, r_20, r_21, r_13, c_1]
+  @time x_11:time=(r_12-r_19-r_20-r_21)/c_1 :: [x_11:time]<<[r_12, r_19, r_20, r_21, c_1]
+  @time x_10:time=(r_13-r_23)/c_1 :: [x_10:time]<<[r_13, r_23, c_1]
+  @time x_09:time=0 :: [x_09:time]<<[]
+  @time x_08:time=(r_23-r_11)/c_1 :: [x_08:time]<<[r_23, r_11, c_1]
+  @time x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1 :: [x_06:time]<<[r_24, r_29, r_30, r_01, r_06, r_19, r_20, r_21, r_23, c_1]
+  @time x_05:time=r_01/c_1*(-1) :: [x_05:time]<<[r_01, c_1]
+  @time x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1 :: [x_04:time]<<[r_01, r_06, r_19, r_20, r_21, r_23, r_24, r_29, r_30, c_1]
+  @time x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1 :: [x_03:time]<<[r_05, r_26, r_27, r_28, r_02, r_03, r_04, c_1]
+  @time x_02:time=(r_14+r_15+r_16-r_24)/c_1 :: [x_02:time]<<[r_14, r_15, r_16, r_24, c_1]
+  @time x_01:time=(r_24-r_25)/c_1 :: [x_01:time]<<[r_24, r_25, c_1]
+  r_31.Kigap=35.1 :: [r_31.Kigap]<<[]
+  r_31.Kgap=5.25 :: [r_31.Kgap]<<[]
+  r_31.Kdhap=6.454 :: [r_31.Kdhap]<<[]
+  r_31.kcat=556.7 :: [r_31.kcat]<<[]
+  r_31.Keq=.0772 :: [r_31.Keq]<<[]
+  Kpyr_pyk=.6517 :: [Kpyr_pyk]<<[]
+  Keq_pyk=6500 :: [Keq_pyk]<<[]
+  r_30.Kadp=.243 :: [r_30.Kadp]<<[]
+  r_30.Kpep=.281 :: [r_30.Kpep]<<[]
+  r_30.kcat=20.13 :: [r_30.kcat]<<[]
+  r_27.Kpyr=8.331 :: [r_27.Kpyr]<<[]
+  r_27.kcat=12.07 :: [r_27.kcat]<<[]
+  r_26.Kpyr=11.44 :: [r_26.Kpyr]<<[]
+  r_26.kcat=1.776 :: [r_26.kcat]<<[]
+  r_25.Kp3g=.681 :: [r_25.Kp3g]<<[]
+  r_25.kcat=66.61 :: [r_25.kcat]<<[]
+  nHadp=2 :: [nHadp]<<[]
+  r_24.Keq=3200 :: [r_24.Keq]<<[]
+  r_24.Katp=3.536 :: [r_24.Katp]<<[]
+  r_24.Kp3g=4.58 :: [r_24.Kp3g]<<[]
+  r_24.Kadp=1.99 :: [r_24.Kadp]<<[]
+  r_24.Kbpg=.003 :: [r_24.Kbpg]<<[]
+  r_24.kcat=58.85 :: [r_24.kcat]<<[]
+  Catp=3 :: [Catp]<<[]
+  Kf16=.111 :: [Kf16]<<[]
+  Cf16=.397 :: [Cf16]<<[]
+  Kf26=6.824E-5 :: [Kf26]<<[]
+  Cf26=.0174 :: [Cf26]<<[]
+  Kamp=.0995 :: [Kamp]<<[]
+  Camp=.0845 :: [Camp]<<[]
+  Kiatp=.65 :: [Kiatp]<<[]
+  Ciatp=100 :: [Ciatp]<<[]
+  L0=.66 :: [L0]<<[]
+  r_23.Katp=.008 :: [r_23.Katp]<<[]
+  r_23.Kf6p=.438 :: [r_23.Kf6p]<<[]
+  gR=5.12 :: [gR]<<[]
+  r_23.kcat=117 :: [r_23.kcat]<<[]
+  r_22.k=3.025 :: [r_22.k]<<[]
+  r_21.Katp=.195 :: [r_21.Katp]<<[]
+  r_21.Kglc=.2 :: [r_21.Kglc]<<[]
+  r_21.kcat=63.1 :: [r_21.kcat]<<[]
+  r_20.Katp=.865 :: [r_20.Katp]<<[]
+  r_20.Kglc=.0106 :: [r_20.Kglc]<<[]
+  r_20.kcat=.0721 :: [r_20.kcat]<<[]
+  r_19.Katp=.293 :: [r_19.Katp]<<[]
+  r_19.Kglc=.15 :: [r_19.Kglc]<<[]
+  r_19.kcat=10.2 :: [r_19.kcat]<<[]
+  r_18.Keq=1E4 :: [r_18.Keq]<<[]
+  r_18.Kadp=2 :: [r_18.Kadp]<<[]
+  r_18.Katp=.73 :: [r_18.Katp]<<[]
+  r_18.Kf16bp=4.8 :: [r_18.Kf16bp]<<[]
+  r_18.Kg3p=1.2 :: [r_18.Kg3p]<<[]
+  Knad=.93 :: [Knad]<<[]
+  r_18.Kdhap=.54 :: [r_18.Kdhap]<<[]
+  Knadh=.023 :: [Knadh]<<[]
+  r_18.Vmax=5.282 :: [r_18.Vmax]<<[]
+  Kphi=1 :: [Kphi]<<[]
+  r_17.Kg3p=3.5 :: [r_17.Kg3p]<<[]
+  r_17.Vmax=13.54 :: [r_17.Vmax]<<[]
+  r_16.Kgap=.21 :: [r_16.Kgap]<<[]
+  r_16.kcat=15.58 :: [r_16.kcat]<<[]
+  r_15.Kbpg=.909 :: [r_15.Kbpg]<<[]
+  r_15.Kgap=.423 :: [r_15.Kgap]<<[]
+  r_15.kcat=18.16 :: [r_15.kcat]<<[]
+  r_14.Kgap=.495 :: [r_14.Kgap]<<[]
+  r_14.kcat=19.12 :: [r_14.kcat]<<[]
+  r_13.Keq=.29 :: [r_13.Keq]<<[]
+  r_13.Kf6p=.307 :: [r_13.Kf6p]<<[]
+  Kg6p=1.03 :: [Kg6p]<<[]
+  r_13.kcat=487.4 :: [r_13.kcat]<<[]
+  Ki=.91 :: [Ki]<<[]
+  r_12.Kglc=1.192 :: [r_12.Kglc]<<[]
+  r_12.Vmax=3.774 :: [r_12.Vmax]<<[]
+  r_11.Keq=.069 :: [r_11.Keq]<<[]
+  r_11.Kigap=10 :: [r_11.Kigap]<<[]
+  r_11.Kgap=2.4 :: [r_11.Kgap]<<[]
+  r_11.Kdhap=2 :: [r_11.Kdhap]<<[]
+  r_11.Kf16bp=.4507 :: [r_11.Kf16bp]<<[]
+  r_11.kcat=4.139 :: [r_11.kcat]<<[]
+  r_10.k=.01384 :: [r_10.k]<<[]
+  r_09.Kpep=.5 :: [r_09.Kpep]<<[]
+  r_09.Keq=6.7 :: [r_09.Keq]<<[]
+  Kp2g=.066 :: [Kp2g]<<[]
+  r_09.kcat=26.5 :: [r_09.kcat]<<[]
+  r_07.k=.319 :: [r_07.k]<<[]
+  r_06.k=.4011 :: [r_06.k]<<[]
+  Kacald=.4622 :: [Kacald]<<[]
+  r_01.Keq=.45 :: [r_01.Keq]<<[]
+  r_01.k=1.667 :: [r_01.k]<<[]
+  plasma_membrane.size=4.6979E-15 :: [plasma_membrane.size]<<[]
+  @time ODE x_26: x_26:time=0 :: [x_26, x_26(time.max)]<<[x_26(time.min), x_26:time]
+  extracellular.size=1 :: [extracellular.size]<<[]
+  @time r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4)) :: [r_31]<<[c_1, x_36, r_31.kcat, r_31.Kdhap, x_14, x_16, r_31.Keq, r_31.Kgap, r_31.Kigap]
+  @time r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk)) :: [r_30]<<[c_1, x_29, r_30.kcat, x_24, x_04, r_30.Kpep, r_30.Kadp, x_25, x_06, Keq_pyk, Kpyr_pyk, Katp_pyk]
+  r_29=0 :: [r_29]<<[]
+  r_28=0 :: [r_28]<<[]
+  @time r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr) :: [r_27]<<[c_1, x_64, r_27.kcat, x_25, r_27.Kpyr]
+  @time r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr) :: [r_26]<<[c_1, x_66, r_26.kcat, x_25, r_26.Kpyr]
+  @time r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm) :: [r_25]<<[c_1, x_63, r_25.kcat, x_01, r_25.Kp3g, x_13, Keq_gpm, Kp2g_gpm]
+  @time r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp)) :: [r_24]<<[c_1, x_33, r_24.kcat, x_04, r_24.Kadp, nHadp, x_02, r_24.Kbpg, x_01, x_06, r_24.Keq, r_24.Kp3g, r_24.Katp]
+  @time r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2) :: [r_23]<<[c_1, x_77, r_23.kcat, gR, x_10, r_23.Kf6p, x_06, r_23.Katp, L0, Ciatp, Kiatp, Camp, x_05, Kamp, Cf26, x_09, Kf26, Cf16, x_08, Kf16, Catp]
+  @time r_22=c_1*r_22.k*x_22 :: [r_22]<<[c_1, r_22.k, x_22]
+  @time r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk)) :: [r_21]<<[c_1, x_46, r_21.kcat, x_11, x_06, r_21.Kglc, r_21.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  @time r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk)) :: [r_20]<<[c_1, x_32, r_20.kcat, x_11, x_06, r_20.Kglc, r_20.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  @time r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk)) :: [r_19]<<[c_1, x_45, r_19.kcat, x_11, x_06, r_19.Kglc, r_19.Katp, x_12, x_04, Keq_hxk, Kg6p_hxk, Kadp_hxk]
+  @time r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p)) :: [r_18]<<[c_1, r_18.Vmax, Knadh, r_18.Kdhap, x_22, x_14, x_21, x_18, r_18.Keq, x_08, r_18.Kf16bp, x_06, r_18.Katp, x_04, r_18.Kadp, Knad, r_18.Kg3p]
+  @time r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi)) :: [r_17]<<[c_1, r_17.Vmax, x_18, r_17.Kg3p, x_23, Kphi]
+  @time r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) :: [r_16]<<[c_1, x_60, r_16.kcat, x_16, x_21, r_16.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, Kbpg_tdh, Knadh_tdh]
+  @time r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) :: [r_15]<<[c_1, x_49, r_15.kcat, x_16, x_21, r_15.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, r_15.Kbpg, Knadh_tdh]
+  @time r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) :: [r_14]<<[c_1, x_57, r_14.kcat, x_16, x_21, r_14.Kgap, Knad_tdh, x_02, x_22, Keq_tdh, Kbpg_tdh, Knadh_tdh]
+  @time r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p) :: [r_13]<<[c_1, x_31, r_13.kcat, x_12, Kg6p, x_10, r_13.Keq, r_13.Kf6p]
+  @time r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc) :: [r_12]<<[c_1, r_12.Vmax, x_26, x_11, r_12.Kglc, Ki]
+  @time r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap)) :: [r_11]<<[c_1, x_62, r_11.kcat, x_08, r_11.Kf16bp, x_14, x_16, r_11.Keq, r_11.Kdhap, r_11.Kgap, r_11.Kigap]
+  @time r_10=c_1*r_10.k*x_15 :: [r_10]<<[c_1, r_10.k, x_15]
+  @time r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep) :: [r_09]<<[c_1, x_51, r_09.kcat, x_13, Kp2g, x_24, r_09.Keq, r_09.Kpep]
+  r_08=0 :: [r_08]<<[]
+  @time r_07=c_1*r_07.k*x_25 :: [r_07]<<[c_1, r_07.k, x_25]
+  @time r_06=c_1*r_06.k*x_06 :: [r_06]<<[c_1, r_06.k, x_06]
+  r_05=0 :: [r_05]<<[]
+  @time r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1) :: [r_04]<<[c_1, x_72, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald, Kiacald_adh, Kietoh_adh]
+  @time r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) :: [r_03]<<[c_1, x_30, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald_adh, Kiacald_adh, Kietoh_adh]
+  @time r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) :: [r_02]<<[c_1, x_47, kcat_adh, x_15, x_21, Ketoh_adh, Kinad_adh, x_03, x_22, Keq_adh, Knad_adh, Knadh_adh, Kinadh_adh, Kacald_adh, Kiacald_adh, Kietoh_adh]
+  @time r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq) :: [r_01]<<[c_1, r_01.k, x_06, x_05, x_04, r_01.Keq]
+  @time ODE x_77: x_77:time=0 :: [x_77, x_77(time.max)]<<[x_77(time.min), x_77:time]
+  @time ODE x_74: x_74:time=0 :: [x_74, x_74(time.max)]<<[x_74(time.min), x_74:time]
+  @time ODE x_72: x_72:time=0 :: [x_72, x_72(time.max)]<<[x_72(time.min), x_72:time]
+  @time ODE x_69: x_69:time=0 :: [x_69, x_69(time.max)]<<[x_69(time.min), x_69:time]
+  @time ODE x_68: x_68:time=0 :: [x_68, x_68(time.max)]<<[x_68(time.min), x_68:time]
+  @time ODE x_66: x_66:time=0 :: [x_66, x_66(time.max)]<<[x_66(time.min), x_66:time]
+  @time ODE x_64: x_64:time=0 :: [x_64, x_64(time.max)]<<[x_64(time.min), x_64:time]
+  @time ODE x_63: x_63:time=0 :: [x_63, x_63(time.max)]<<[x_63(time.min), x_63:time]
+  @time ODE x_62: x_62:time=0 :: [x_62, x_62(time.max)]<<[x_62(time.min), x_62:time]
+  @time ODE x_60: x_60:time=0 :: [x_60, x_60(time.max)]<<[x_60(time.min), x_60:time]
+  @time ODE x_57: x_57:time=0 :: [x_57, x_57(time.max)]<<[x_57(time.min), x_57:time]
+  @time ODE x_55: x_55:time=0 :: [x_55, x_55(time.max)]<<[x_55(time.min), x_55:time]
+  @time ODE x_51: x_51:time=0 :: [x_51, x_51(time.max)]<<[x_51(time.min), x_51:time]
+  @time ODE x_50: x_50:time=0 :: [x_50, x_50(time.max)]<<[x_50(time.min), x_50:time]
+  @time ODE x_49: x_49:time=0 :: [x_49, x_49(time.max)]<<[x_49(time.min), x_49:time]
+  @time ODE x_48: x_48:time=0 :: [x_48, x_48(time.max)]<<[x_48(time.min), x_48:time]
+  @time ODE x_47: x_47:time=0 :: [x_47, x_47(time.max)]<<[x_47(time.min), x_47:time]
+  @time ODE x_46: x_46:time=0 :: [x_46, x_46(time.max)]<<[x_46(time.min), x_46:time]
+  @time ODE x_45: x_45:time=0 :: [x_45, x_45(time.max)]<<[x_45(time.min), x_45:time]
+  @time ODE x_36: x_36:time=0 :: [x_36, x_36(time.max)]<<[x_36(time.min), x_36:time]
+  @time ODE x_33: x_33:time=0 :: [x_33, x_33(time.max)]<<[x_33(time.min), x_33:time]
+  @time ODE x_32: x_32:time=0 :: [x_32, x_32(time.max)]<<[x_32(time.min), x_32:time]
+  @time ODE x_31: x_31:time=0 :: [x_31, x_31(time.max)]<<[x_31(time.min), x_31:time]
+  @time ODE x_30: x_30:time=0 :: [x_30, x_30(time.max)]<<[x_30(time.min), x_30:time]
+  @time ODE x_29: x_29:time=0 :: [x_29, x_29(time.max)]<<[x_29(time.min), x_29:time]
+  @time ODE x_25: x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1 :: [x_25, x_25(time.max)]<<[r_29, r_30, r_07, r_26, r_27, r_28, c_1, x_25(time.min), x_25:time]
+  @time ODE x_24: x_24:time=(r_08+r_09-r_29-r_30)/c_1 :: [x_24, x_24(time.max)]<<[r_08, r_09, r_29, r_30, c_1, x_24(time.min), x_24:time]
+  @time ODE x_23: x_23:time=0 :: [x_23, x_23(time.max)]<<[x_23(time.min), x_23:time]
+  @time ODE x_22: x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1 :: [x_22, x_22(time.max)]<<[r_05, r_14, r_15, r_16, r_02, r_03, r_04, r_18, r_22, c_1, x_22(time.min), x_22:time]
+  @time ODE x_21: x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1 :: [x_21, x_21(time.max)]<<[r_02, r_03, r_04, r_18, r_22, r_05, r_14, r_15, r_16, c_1, x_21(time.min), x_21:time]
+  @time ODE x_18: x_18:time=(r_18-r_17)/c_1 :: [x_18, x_18(time.max)]<<[r_18, r_17, c_1, x_18(time.min), x_18:time]
+  @time ODE x_17: x_17:time=0 :: [x_17, x_17(time.max)]<<[x_17(time.min), x_17:time]
+  @time ODE x_16: x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1 :: [x_16, x_16(time.max)]<<[r_11, r_31, r_14, r_15, r_16, c_1, x_16(time.min), x_16:time]
+  @time ODE x_15: x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1 :: [x_15, x_15(time.max)]<<[r_02, r_03, r_04, r_05, r_10, c_1, x_15(time.min), x_15:time]
+  @time ODE x_14: x_14:time=(r_11-r_18-r_31)/c_1 :: [x_14, x_14(time.max)]<<[r_11, r_18, r_31, c_1, x_14(time.min), x_14:time]
+  @time ODE x_13: x_13:time=(r_25-r_08-r_09)/c_1 :: [x_13, x_13(time.max)]<<[r_25, r_08, r_09, c_1, x_13(time.min), x_13:time]
+  @time ODE x_12: x_12:time=(r_19+r_20+r_21-r_13)/c_1 :: [x_12, x_12(time.max)]<<[r_19, r_20, r_21, r_13, c_1, x_12(time.min), x_12:time]
+  @time ODE x_11: x_11:time=(r_12-r_19-r_20-r_21)/c_1 :: [x_11, x_11(time.max)]<<[r_12, r_19, r_20, r_21, c_1, x_11(time.min), x_11:time]
+  @time ODE x_10: x_10:time=(r_13-r_23)/c_1 :: [x_10, x_10(time.max)]<<[r_13, r_23, c_1, x_10(time.min), x_10:time]
+  @time ODE x_09: x_09:time=0 :: [x_09, x_09(time.max)]<<[x_09(time.min), x_09:time]
+  @time ODE x_08: x_08:time=(r_23-r_11)/c_1 :: [x_08, x_08(time.max)]<<[r_23, r_11, c_1, x_08(time.min), x_08:time]
+  @time ODE x_06: x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1 :: [x_06, x_06(time.max)]<<[r_24, r_29, r_30, r_01, r_06, r_19, r_20, r_21, r_23, c_1, x_06(time.min), x_06:time]
+  @time ODE x_05: x_05:time=r_01/c_1*(-1) :: [x_05, x_05(time.max)]<<[r_01, c_1, x_05(time.min), x_05:time]
+  @time ODE x_04: x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1 :: [x_04, x_04(time.max)]<<[r_01, r_06, r_19, r_20, r_21, r_23, r_24, r_29, r_30, c_1, x_04(time.min), x_04:time]
+  @time ODE x_03: x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1 :: [x_03, x_03(time.max)]<<[r_05, r_26, r_27, r_28, r_02, r_03, r_04, c_1, x_03(time.min), x_03:time]
+  @time ODE x_02: x_02:time=(r_14+r_15+r_16-r_24)/c_1 :: [x_02, x_02(time.max)]<<[r_14, r_15, r_16, r_24, c_1, x_02(time.min), x_02:time]
+  @time ODE x_01: x_01:time=(r_24-r_25)/c_1 :: [x_01, x_01(time.max)]<<[r_24, r_25, c_1, x_01(time.min), x_01:time]
+  c_1=1.023625E-14 :: [c_1]<<[]
+  percentage_cytoplasm=47.5 :: [percentage_cytoplasm]<<[]
+  percentage_cell_wall=21.8 :: [percentage_cell_wall]<<[]
+  N_A=6.02214179E20 :: [N_A]<<[]
+  Kp2g_gpm=.08 :: [Kp2g_gpm]<<[]
+  Knadh_tdh=.06 :: [Knadh_tdh]<<[]
+  Knadh_adh=.11 :: [Knadh_adh]<<[]
+  Knad_tdh=.09 :: [Knad_tdh]<<[]
+  Knad_adh=.17 :: [Knad_adh]<<[]
+  Kinadh_adh=.031 :: [Kinadh_adh]<<[]
+  Kinad_adh=.92 :: [Kinad_adh]<<[]
+  Kietoh_adh=90 :: [Kietoh_adh]<<[]
+  Kiacald_adh=1.1 :: [Kiacald_adh]<<[]
+  Kg6p_hxk=30 :: [Kg6p_hxk]<<[]
+  Ketoh_adh=17 :: [Ketoh_adh]<<[]
+  Keq_tdh=.005334 :: [Keq_tdh]<<[]
+  Keq_hxk=2E3 :: [Keq_hxk]<<[]
+  Keq_gpm=.19 :: [Keq_gpm]<<[]
+  Keq_adh=6.9E-5 :: [Keq_adh]<<[]
+  kcat_adh=112.3 :: [kcat_adh]<<[]
+  Kbpg_tdh=.909 :: [Kbpg_tdh]<<[]
+  Katp_pyk=1.5 :: [Katp_pyk]<<[]
+  Kadp_hxk=.23 :: [Kadp_hxk]<<[]
+  Kacald_adh=1.11 :: [Kacald_adh]<<[]
+  cell_volume=2.155E-14 :: [cell_volume]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  x_26(time.min)=x_26__init :: [x_26(time.min)]<<[x_26__init]
+  x_77(time.min)=x_77__init :: [x_77(time.min)]<<[x_77__init]
+  x_74(time.min)=x_74__init :: [x_74(time.min)]<<[x_74__init]
+  x_72(time.min)=x_72__init :: [x_72(time.min)]<<[x_72__init]
+  x_69(time.min)=x_69__init :: [x_69(time.min)]<<[x_69__init]
+  x_68(time.min)=x_68__init :: [x_68(time.min)]<<[x_68__init]
+  x_66(time.min)=x_66__init :: [x_66(time.min)]<<[x_66__init]
+  x_64(time.min)=x_64__init :: [x_64(time.min)]<<[x_64__init]
+  x_63(time.min)=x_63__init :: [x_63(time.min)]<<[x_63__init]
+  x_62(time.min)=x_62__init :: [x_62(time.min)]<<[x_62__init]
+  x_60(time.min)=x_60__init :: [x_60(time.min)]<<[x_60__init]
+  x_57(time.min)=x_57__init :: [x_57(time.min)]<<[x_57__init]
+  x_55(time.min)=x_55__init :: [x_55(time.min)]<<[x_55__init]
+  x_51(time.min)=x_51__init :: [x_51(time.min)]<<[x_51__init]
+  x_50(time.min)=x_50__init :: [x_50(time.min)]<<[x_50__init]
+  x_49(time.min)=x_49__init :: [x_49(time.min)]<<[x_49__init]
+  x_48(time.min)=x_48__init :: [x_48(time.min)]<<[x_48__init]
+  x_47(time.min)=x_47__init :: [x_47(time.min)]<<[x_47__init]
+  x_46(time.min)=x_46__init :: [x_46(time.min)]<<[x_46__init]
+  x_45(time.min)=x_45__init :: [x_45(time.min)]<<[x_45__init]
+  x_36(time.min)=x_36__init :: [x_36(time.min)]<<[x_36__init]
+  x_33(time.min)=x_33__init :: [x_33(time.min)]<<[x_33__init]
+  x_32(time.min)=x_32__init :: [x_32(time.min)]<<[x_32__init]
+  x_31(time.min)=x_31__init :: [x_31(time.min)]<<[x_31__init]
+  x_30(time.min)=x_30__init :: [x_30(time.min)]<<[x_30__init]
+  x_29(time.min)=x_29__init :: [x_29(time.min)]<<[x_29__init]
+  x_25(time.min)=x_25__init :: [x_25(time.min)]<<[x_25__init]
+  x_24(time.min)=x_24__init :: [x_24(time.min)]<<[x_24__init]
+  x_23(time.min)=x_23__init :: [x_23(time.min)]<<[x_23__init]
+  x_22(time.min)=x_22__init :: [x_22(time.min)]<<[x_22__init]
+  x_21(time.min)=x_21__init :: [x_21(time.min)]<<[x_21__init]
+  x_18(time.min)=x_18__init :: [x_18(time.min)]<<[x_18__init]
+  x_17(time.min)=x_17__init :: [x_17(time.min)]<<[x_17__init]
+  x_16(time.min)=x_16__init :: [x_16(time.min)]<<[x_16__init]
+  x_15(time.min)=x_15__init :: [x_15(time.min)]<<[x_15__init]
+  x_14(time.min)=x_14__init :: [x_14(time.min)]<<[x_14__init]
+  x_13(time.min)=x_13__init :: [x_13(time.min)]<<[x_13__init]
+  x_12(time.min)=x_12__init :: [x_12(time.min)]<<[x_12__init]
+  x_11(time.min)=x_11__init :: [x_11(time.min)]<<[x_11__init]
+  x_10(time.min)=x_10__init :: [x_10(time.min)]<<[x_10__init]
+  x_09(time.min)=x_09__init :: [x_09(time.min)]<<[x_09__init]
+  x_08(time.min)=x_08__init :: [x_08(time.min)]<<[x_08__init]
+  x_06(time.min)=x_06__init :: [x_06(time.min)]<<[x_06__init]
+  x_05(time.min)=x_05__init :: [x_05(time.min)]<<[x_05__init]
+  x_04(time.min)=x_04__init :: [x_04(time.min)]<<[x_04__init]
+  x_03(time.min)=x_03__init :: [x_03(time.min)]<<[x_03__init]
+  x_02(time.min)=x_02__init :: [x_02(time.min)]<<[x_02__init]
+  x_01(time.min)=x_01__init :: [x_01(time.min)]<<[x_01__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode x_26__init seqLoops=() phase=main fft=null
+  addNode x_77__init seqLoops=() phase=main fft=null
+  addNode x_74__init seqLoops=() phase=main fft=null
+  addNode x_72__init seqLoops=() phase=main fft=null
+  addNode x_69__init seqLoops=() phase=main fft=null
+  addNode x_68__init seqLoops=() phase=main fft=null
+  addNode x_66__init seqLoops=() phase=main fft=null
+  addNode x_64__init seqLoops=() phase=main fft=null
+  addNode x_63__init seqLoops=() phase=main fft=null
+  addNode x_62__init seqLoops=() phase=main fft=null
+  addNode x_60__init seqLoops=() phase=main fft=null
+  addNode x_57__init seqLoops=() phase=main fft=null
+  addNode x_55__init seqLoops=() phase=main fft=null
+  addNode x_51__init seqLoops=() phase=main fft=null
+  addNode x_50__init seqLoops=() phase=main fft=null
+  addNode x_49__init seqLoops=() phase=main fft=null
+  addNode x_48__init seqLoops=() phase=main fft=null
+  addNode x_47__init seqLoops=() phase=main fft=null
+  addNode x_46__init seqLoops=() phase=main fft=null
+  addNode x_45__init seqLoops=() phase=main fft=null
+  addNode x_36__init seqLoops=() phase=main fft=null
+  addNode x_33__init seqLoops=() phase=main fft=null
+  addNode x_32__init seqLoops=() phase=main fft=null
+  addNode x_31__init seqLoops=() phase=main fft=null
+  addNode x_30__init seqLoops=() phase=main fft=null
+  addNode x_29__init seqLoops=() phase=main fft=null
+  addNode x_25__init seqLoops=() phase=main fft=null
+  addNode x_24__init seqLoops=() phase=main fft=null
+  addNode x_23__init seqLoops=() phase=main fft=null
+  addNode x_22__init seqLoops=() phase=main fft=null
+  addNode x_21__init seqLoops=() phase=main fft=null
+  addNode x_18__init seqLoops=() phase=main fft=null
+  addNode x_17__init seqLoops=() phase=main fft=null
+  addNode x_16__init seqLoops=() phase=main fft=null
+  addNode x_15__init seqLoops=() phase=main fft=null
+  addNode x_14__init seqLoops=() phase=main fft=null
+  addNode x_13__init seqLoops=() phase=main fft=null
+  addNode x_12__init seqLoops=() phase=main fft=null
+  addNode x_11__init seqLoops=() phase=main fft=null
+  addNode x_10__init seqLoops=() phase=main fft=null
+  addNode x_09__init seqLoops=() phase=main fft=null
+  addNode x_08__init seqLoops=() phase=main fft=null
+  addNode x_06__init seqLoops=() phase=main fft=null
+  addNode x_05__init seqLoops=() phase=main fft=null
+  addNode x_04__init seqLoops=() phase=main fft=null
+  addNode x_03__init seqLoops=() phase=main fft=null
+  addNode x_02__init seqLoops=() phase=main fft=null
+  addNode x_01__init seqLoops=() phase=main fft=null
+  addNode x_26:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_77:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_74:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_72:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_69:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_68:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_66:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_64:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_63:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_62:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_60:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_57:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_55:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_51:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_50:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_49:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_48:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_47:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_46:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_45:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_36:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_33:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_32:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_31:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_30:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_29:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_25:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_24:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_23:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_22:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_21:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_18:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_17:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_16:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_15:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_14:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_13:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_12:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_11:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_10:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_09:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_08:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_06:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_05:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_04:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_03:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_02:time seqLoops=(time) phase=time#1 fft=null
+  addNode x_01:time seqLoops=(time) phase=time#1 fft=null
+  addNode r_31.Kigap seqLoops=() phase=main fft=null
+  addNode r_31.Kgap seqLoops=() phase=main fft=null
+  addNode r_31.Kdhap seqLoops=() phase=main fft=null
+  addNode r_31.kcat seqLoops=() phase=main fft=null
+  addNode r_31.Keq seqLoops=() phase=main fft=null
+  addNode Kpyr_pyk seqLoops=() phase=main fft=null
+  addNode Keq_pyk seqLoops=() phase=main fft=null
+  addNode r_30.Kadp seqLoops=() phase=main fft=null
+  addNode r_30.Kpep seqLoops=() phase=main fft=null
+  addNode r_30.kcat seqLoops=() phase=main fft=null
+  addNode r_27.Kpyr seqLoops=() phase=main fft=null
+  addNode r_27.kcat seqLoops=() phase=main fft=null
+  addNode r_26.Kpyr seqLoops=() phase=main fft=null
+  addNode r_26.kcat seqLoops=() phase=main fft=null
+  addNode r_25.Kp3g seqLoops=() phase=main fft=null
+  addNode r_25.kcat seqLoops=() phase=main fft=null
+  addNode nHadp seqLoops=() phase=main fft=null
+  addNode r_24.Keq seqLoops=() phase=main fft=null
+  addNode r_24.Katp seqLoops=() phase=main fft=null
+  addNode r_24.Kp3g seqLoops=() phase=main fft=null
+  addNode r_24.Kadp seqLoops=() phase=main fft=null
+  addNode r_24.Kbpg seqLoops=() phase=main fft=null
+  addNode r_24.kcat seqLoops=() phase=main fft=null
+  addNode Catp seqLoops=() phase=main fft=null
+  addNode Kf16 seqLoops=() phase=main fft=null
+  addNode Cf16 seqLoops=() phase=main fft=null
+  addNode Kf26 seqLoops=() phase=main fft=null
+  addNode Cf26 seqLoops=() phase=main fft=null
+  addNode Kamp seqLoops=() phase=main fft=null
+  addNode Camp seqLoops=() phase=main fft=null
+  addNode Kiatp seqLoops=() phase=main fft=null
+  addNode Ciatp seqLoops=() phase=main fft=null
+  addNode L0 seqLoops=() phase=main fft=null
+  addNode r_23.Katp seqLoops=() phase=main fft=null
+  addNode r_23.Kf6p seqLoops=() phase=main fft=null
+  addNode gR seqLoops=() phase=main fft=null
+  addNode r_23.kcat seqLoops=() phase=main fft=null
+  addNode r_22.k seqLoops=() phase=main fft=null
+  addNode r_21.Katp seqLoops=() phase=main fft=null
+  addNode r_21.Kglc seqLoops=() phase=main fft=null
+  addNode r_21.kcat seqLoops=() phase=main fft=null
+  addNode r_20.Katp seqLoops=() phase=main fft=null
+  addNode r_20.Kglc seqLoops=() phase=main fft=null
+  addNode r_20.kcat seqLoops=() phase=main fft=null
+  addNode r_19.Katp seqLoops=() phase=main fft=null
+  addNode r_19.Kglc seqLoops=() phase=main fft=null
+  addNode r_19.kcat seqLoops=() phase=main fft=null
+  addNode r_18.Keq seqLoops=() phase=main fft=null
+  addNode r_18.Kadp seqLoops=() phase=main fft=null
+  addNode r_18.Katp seqLoops=() phase=main fft=null
+  addNode r_18.Kf16bp seqLoops=() phase=main fft=null
+  addNode r_18.Kg3p seqLoops=() phase=main fft=null
+  addNode Knad seqLoops=() phase=main fft=null
+  addNode r_18.Kdhap seqLoops=() phase=main fft=null
+  addNode Knadh seqLoops=() phase=main fft=null
+  addNode r_18.Vmax seqLoops=() phase=main fft=null
+  addNode Kphi seqLoops=() phase=main fft=null
+  addNode r_17.Kg3p seqLoops=() phase=main fft=null
+  addNode r_17.Vmax seqLoops=() phase=main fft=null
+  addNode r_16.Kgap seqLoops=() phase=main fft=null
+  addNode r_16.kcat seqLoops=() phase=main fft=null
+  addNode r_15.Kbpg seqLoops=() phase=main fft=null
+  addNode r_15.Kgap seqLoops=() phase=main fft=null
+  addNode r_15.kcat seqLoops=() phase=main fft=null
+  addNode r_14.Kgap seqLoops=() phase=main fft=null
+  addNode r_14.kcat seqLoops=() phase=main fft=null
+  addNode r_13.Keq seqLoops=() phase=main fft=null
+  addNode r_13.Kf6p seqLoops=() phase=main fft=null
+  addNode Kg6p seqLoops=() phase=main fft=null
+  addNode r_13.kcat seqLoops=() phase=main fft=null
+  addNode Ki seqLoops=() phase=main fft=null
+  addNode r_12.Kglc seqLoops=() phase=main fft=null
+  addNode r_12.Vmax seqLoops=() phase=main fft=null
+  addNode r_11.Keq seqLoops=() phase=main fft=null
+  addNode r_11.Kigap seqLoops=() phase=main fft=null
+  addNode r_11.Kgap seqLoops=() phase=main fft=null
+  addNode r_11.Kdhap seqLoops=() phase=main fft=null
+  addNode r_11.Kf16bp seqLoops=() phase=main fft=null
+  addNode r_11.kcat seqLoops=() phase=main fft=null
+  addNode r_10.k seqLoops=() phase=main fft=null
+  addNode r_09.Kpep seqLoops=() phase=main fft=null
+  addNode r_09.Keq seqLoops=() phase=main fft=null
+  addNode Kp2g seqLoops=() phase=main fft=null
+  addNode r_09.kcat seqLoops=() phase=main fft=null
+  addNode r_07.k seqLoops=() phase=main fft=null
+  addNode r_06.k seqLoops=() phase=main fft=null
+  addNode Kacald seqLoops=() phase=main fft=null
+  addNode r_01.Keq seqLoops=() phase=main fft=null
+  addNode r_01.k seqLoops=() phase=main fft=null
+  addNode plasma_membrane.size seqLoops=() phase=main fft=null
+  addNode x_26 seqLoops=(time) phase=time#1 fft=time
+  addNode extracellular.size seqLoops=() phase=main fft=null
+  addNode r_31 seqLoops=(time) phase=time#1 fft=null
+  addNode r_30 seqLoops=(time) phase=time#1 fft=null
+  addNode r_29 seqLoops=() phase=main fft=null
+  addNode r_28 seqLoops=() phase=main fft=null
+  addNode r_27 seqLoops=(time) phase=time#1 fft=null
+  addNode r_26 seqLoops=(time) phase=time#1 fft=null
+  addNode r_25 seqLoops=(time) phase=time#1 fft=null
+  addNode r_24 seqLoops=(time) phase=time#1 fft=null
+  addNode r_23 seqLoops=(time) phase=time#1 fft=null
+  addNode r_22 seqLoops=(time) phase=time#1 fft=null
+  addNode r_21 seqLoops=(time) phase=time#1 fft=null
+  addNode r_20 seqLoops=(time) phase=time#1 fft=null
+  addNode r_19 seqLoops=(time) phase=time#1 fft=null
+  addNode r_18 seqLoops=(time) phase=time#1 fft=null
+  addNode r_17 seqLoops=(time) phase=time#1 fft=null
+  addNode r_16 seqLoops=(time) phase=time#1 fft=null
+  addNode r_15 seqLoops=(time) phase=time#1 fft=null
+  addNode r_14 seqLoops=(time) phase=time#1 fft=null
+  addNode r_13 seqLoops=(time) phase=time#1 fft=null
+  addNode r_12 seqLoops=(time) phase=time#1 fft=null
+  addNode r_11 seqLoops=(time) phase=time#1 fft=null
+  addNode r_10 seqLoops=(time) phase=time#1 fft=null
+  addNode r_09 seqLoops=(time) phase=time#1 fft=null
+  addNode r_08 seqLoops=() phase=main fft=null
+  addNode r_07 seqLoops=(time) phase=time#1 fft=null
+  addNode r_06 seqLoops=(time) phase=time#1 fft=null
+  addNode r_05 seqLoops=() phase=main fft=null
+  addNode r_04 seqLoops=(time) phase=time#1 fft=null
+  addNode r_03 seqLoops=(time) phase=time#1 fft=null
+  addNode r_02 seqLoops=(time) phase=time#1 fft=null
+  addNode r_01 seqLoops=(time) phase=time#1 fft=null
+  addNode x_77 seqLoops=(time) phase=time#1 fft=time
+  addNode x_74 seqLoops=(time) phase=time#1 fft=time
+  addNode x_72 seqLoops=(time) phase=time#1 fft=time
+  addNode x_69 seqLoops=(time) phase=time#1 fft=time
+  addNode x_68 seqLoops=(time) phase=time#1 fft=time
+  addNode x_66 seqLoops=(time) phase=time#1 fft=time
+  addNode x_64 seqLoops=(time) phase=time#1 fft=time
+  addNode x_63 seqLoops=(time) phase=time#1 fft=time
+  addNode x_62 seqLoops=(time) phase=time#1 fft=time
+  addNode x_60 seqLoops=(time) phase=time#1 fft=time
+  addNode x_57 seqLoops=(time) phase=time#1 fft=time
+  addNode x_55 seqLoops=(time) phase=time#1 fft=time
+  addNode x_51 seqLoops=(time) phase=time#1 fft=time
+  addNode x_50 seqLoops=(time) phase=time#1 fft=time
+  addNode x_49 seqLoops=(time) phase=time#1 fft=time
+  addNode x_48 seqLoops=(time) phase=time#1 fft=time
+  addNode x_47 seqLoops=(time) phase=time#1 fft=time
+  addNode x_46 seqLoops=(time) phase=time#1 fft=time
+  addNode x_45 seqLoops=(time) phase=time#1 fft=time
+  addNode x_36 seqLoops=(time) phase=time#1 fft=time
+  addNode x_33 seqLoops=(time) phase=time#1 fft=time
+  addNode x_32 seqLoops=(time) phase=time#1 fft=time
+  addNode x_31 seqLoops=(time) phase=time#1 fft=time
+  addNode x_30 seqLoops=(time) phase=time#1 fft=time
+  addNode x_29 seqLoops=(time) phase=time#1 fft=time
+  addNode x_25 seqLoops=(time) phase=time#1 fft=time
+  addNode x_24 seqLoops=(time) phase=time#1 fft=time
+  addNode x_23 seqLoops=(time) phase=time#1 fft=time
+  addNode x_22 seqLoops=(time) phase=time#1 fft=time
+  addNode x_21 seqLoops=(time) phase=time#1 fft=time
+  addNode x_18 seqLoops=(time) phase=time#1 fft=time
+  addNode x_17 seqLoops=(time) phase=time#1 fft=time
+  addNode x_16 seqLoops=(time) phase=time#1 fft=time
+  addNode x_15 seqLoops=(time) phase=time#1 fft=time
+  addNode x_14 seqLoops=(time) phase=time#1 fft=time
+  addNode x_13 seqLoops=(time) phase=time#1 fft=time
+  addNode x_12 seqLoops=(time) phase=time#1 fft=time
+  addNode x_11 seqLoops=(time) phase=time#1 fft=time
+  addNode x_10 seqLoops=(time) phase=time#1 fft=time
+  addNode x_09 seqLoops=(time) phase=time#1 fft=time
+  addNode x_08 seqLoops=(time) phase=time#1 fft=time
+  addNode x_06 seqLoops=(time) phase=time#1 fft=time
+  addNode x_05 seqLoops=(time) phase=time#1 fft=time
+  addNode x_04 seqLoops=(time) phase=time#1 fft=time
+  addNode x_03 seqLoops=(time) phase=time#1 fft=time
+  addNode x_02 seqLoops=(time) phase=time#1 fft=time
+  addNode x_01 seqLoops=(time) phase=time#1 fft=time
+  addNode c_1 seqLoops=() phase=main fft=null
+  addNode percentage_cytoplasm seqLoops=() phase=main fft=null
+  addNode percentage_cell_wall seqLoops=() phase=main fft=null
+  addNode N_A seqLoops=() phase=main fft=null
+  addNode Kp2g_gpm seqLoops=() phase=main fft=null
+  addNode Knadh_tdh seqLoops=() phase=main fft=null
+  addNode Knadh_adh seqLoops=() phase=main fft=null
+  addNode Knad_tdh seqLoops=() phase=main fft=null
+  addNode Knad_adh seqLoops=() phase=main fft=null
+  addNode Kinadh_adh seqLoops=() phase=main fft=null
+  addNode Kinad_adh seqLoops=() phase=main fft=null
+  addNode Kietoh_adh seqLoops=() phase=main fft=null
+  addNode Kiacald_adh seqLoops=() phase=main fft=null
+  addNode Kg6p_hxk seqLoops=() phase=main fft=null
+  addNode Ketoh_adh seqLoops=() phase=main fft=null
+  addNode Keq_tdh seqLoops=() phase=main fft=null
+  addNode Keq_hxk seqLoops=() phase=main fft=null
+  addNode Keq_gpm seqLoops=() phase=main fft=null
+  addNode Keq_adh seqLoops=() phase=main fft=null
+  addNode kcat_adh seqLoops=() phase=main fft=null
+  addNode Kbpg_tdh seqLoops=() phase=main fft=null
+  addNode Katp_pyk seqLoops=() phase=main fft=null
+  addNode Kadp_hxk seqLoops=() phase=main fft=null
+  addNode Kacald_adh seqLoops=() phase=main fft=null
+  addNode cell_volume seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode x_26(time.min) seqLoops=() phase=main fft=null
+  addNode x_77(time.min) seqLoops=() phase=main fft=null
+  addNode x_74(time.min) seqLoops=() phase=main fft=null
+  addNode x_72(time.min) seqLoops=() phase=main fft=null
+  addNode x_69(time.min) seqLoops=() phase=main fft=null
+  addNode x_68(time.min) seqLoops=() phase=main fft=null
+  addNode x_66(time.min) seqLoops=() phase=main fft=null
+  addNode x_64(time.min) seqLoops=() phase=main fft=null
+  addNode x_63(time.min) seqLoops=() phase=main fft=null
+  addNode x_62(time.min) seqLoops=() phase=main fft=null
+  addNode x_60(time.min) seqLoops=() phase=main fft=null
+  addNode x_57(time.min) seqLoops=() phase=main fft=null
+  addNode x_55(time.min) seqLoops=() phase=main fft=null
+  addNode x_51(time.min) seqLoops=() phase=main fft=null
+  addNode x_50(time.min) seqLoops=() phase=main fft=null
+  addNode x_49(time.min) seqLoops=() phase=main fft=null
+  addNode x_48(time.min) seqLoops=() phase=main fft=null
+  addNode x_47(time.min) seqLoops=() phase=main fft=null
+  addNode x_46(time.min) seqLoops=() phase=main fft=null
+  addNode x_45(time.min) seqLoops=() phase=main fft=null
+  addNode x_36(time.min) seqLoops=() phase=main fft=null
+  addNode x_33(time.min) seqLoops=() phase=main fft=null
+  addNode x_32(time.min) seqLoops=() phase=main fft=null
+  addNode x_31(time.min) seqLoops=() phase=main fft=null
+  addNode x_30(time.min) seqLoops=() phase=main fft=null
+  addNode x_29(time.min) seqLoops=() phase=main fft=null
+  addNode x_25(time.min) seqLoops=() phase=main fft=null
+  addNode x_24(time.min) seqLoops=() phase=main fft=null
+  addNode x_23(time.min) seqLoops=() phase=main fft=null
+  addNode x_22(time.min) seqLoops=() phase=main fft=null
+  addNode x_21(time.min) seqLoops=() phase=main fft=null
+  addNode x_18(time.min) seqLoops=() phase=main fft=null
+  addNode x_17(time.min) seqLoops=() phase=main fft=null
+  addNode x_16(time.min) seqLoops=() phase=main fft=null
+  addNode x_15(time.min) seqLoops=() phase=main fft=null
+  addNode x_14(time.min) seqLoops=() phase=main fft=null
+  addNode x_13(time.min) seqLoops=() phase=main fft=null
+  addNode x_12(time.min) seqLoops=() phase=main fft=null
+  addNode x_11(time.min) seqLoops=() phase=main fft=null
+  addNode x_10(time.min) seqLoops=() phase=main fft=null
+  addNode x_09(time.min) seqLoops=() phase=main fft=null
+  addNode x_08(time.min) seqLoops=() phase=main fft=null
+  addNode x_06(time.min) seqLoops=() phase=main fft=null
+  addNode x_05(time.min) seqLoops=() phase=main fft=null
+  addNode x_04(time.min) seqLoops=() phase=main fft=null
+  addNode x_03(time.min) seqLoops=() phase=main fft=null
+  addNode x_02(time.min) seqLoops=() phase=main fft=null
+  addNode x_01(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x_26__init=51.11 to main
+  adding x_77__init=.027610082 to main
+  adding x_74__init=.004407555 to main
+  adding x_72__init=.079456041 to main
+  adding x_69__init=0 to main
+  adding x_68__init=.027610082 to main
+  adding x_66__init=0 to main
+  adding x_64__init=.770064975 to main
+  adding x_63__init=.537277269 to main
+  adding x_62__init=.966352867 to main
+  adding x_60__init=.223216643 to main
+  adding x_57__init=.111300101 to main
+  adding x_55__init=1.103267726 to main
+  adding x_51__init=.76828054 to main
+  adding x_50__init=.027610082 to main
+  adding x_49__init=2.597164579 to main
+  adding x_48__init=.005698838 to main
+  adding x_47__init=.014453927 to main
+  adding x_46__init=.022824551 to main
+  adding x_45__init=.010026905 to main
+  adding x_36__init=.535655056 to main
+  adding x_33__init=.456977678 to main
+  adding x_32__init=.020212786 to main
+  adding x_31__init=.050093968 to main
+  adding x_30__init=0 to main
+  adding x_29__init=.985981656 to main
+  adding x_25__init=1.604207403 to main
+  adding x_24__init=.223865529 to main
+  adding x_23__init=1 to main
+  adding x_22__init=.08671 to main
+  adding x_21__init=1.503 to main
+  adding x_18__init=.133832653 to main
+  adding x_17__init=36.32137097 to main
+  adding x_16__init=.081078255 to main
+  adding x_15__init=108.3801159 to main
+  adding x_14__init=1.072770104 to main
+  adding x_13__init=.047547092 to main
+  adding x_12__init=.484555315 to main
+  adding x_11__init=2.728563911 to main
+  adding x_10__init=.114998749 to main
+  adding x_09__init=.02 to main
+  adding x_08__init=2.045611826 to main
+  adding x_06__init=4.394577666 to main
+  adding x_05__init=.655861111 to main
+  adding x_04__init=1.138794213 to main
+  adding x_03__init=.1781 to main
+  adding x_02__init=.005534 to main
+  adding x_01__init=.329796102 to main
+  adding r_31.Kigap=35.1 to main
+  adding r_31.Kgap=5.25 to main
+  adding r_31.Kdhap=6.454 to main
+  adding r_31.kcat=556.7 to main
+  adding r_31.Keq=.0772 to main
+  adding Kpyr_pyk=.6517 to main
+  adding Keq_pyk=6500 to main
+  adding r_30.Kadp=.243 to main
+  adding r_30.Kpep=.281 to main
+  adding r_30.kcat=20.13 to main
+  adding r_27.Kpyr=8.331 to main
+  adding r_27.kcat=12.07 to main
+  adding r_26.Kpyr=11.44 to main
+  adding r_26.kcat=1.776 to main
+  adding r_25.Kp3g=.681 to main
+  adding r_25.kcat=66.61 to main
+  adding nHadp=2 to main
+  adding r_24.Keq=3200 to main
+  adding r_24.Katp=3.536 to main
+  adding r_24.Kp3g=4.58 to main
+  adding r_24.Kadp=1.99 to main
+  adding r_24.Kbpg=.003 to main
+  adding r_24.kcat=58.85 to main
+  adding Catp=3 to main
+  adding Kf16=.111 to main
+  adding Cf16=.397 to main
+  adding Kf26=6.824E-5 to main
+  adding Cf26=.0174 to main
+  adding Kamp=.0995 to main
+  adding Camp=.0845 to main
+  adding Kiatp=.65 to main
+  adding Ciatp=100 to main
+  adding L0=.66 to main
+  adding r_23.Katp=.008 to main
+  adding r_23.Kf6p=.438 to main
+  adding gR=5.12 to main
+  adding r_23.kcat=117 to main
+  adding r_22.k=3.025 to main
+  adding r_21.Katp=.195 to main
+  adding r_21.Kglc=.2 to main
+  adding r_21.kcat=63.1 to main
+  adding r_20.Katp=.865 to main
+  adding r_20.Kglc=.0106 to main
+  adding r_20.kcat=.0721 to main
+  adding r_19.Katp=.293 to main
+  adding r_19.Kglc=.15 to main
+  adding r_19.kcat=10.2 to main
+  adding r_18.Keq=1E4 to main
+  adding r_18.Kadp=2 to main
+  adding r_18.Katp=.73 to main
+  adding r_18.Kf16bp=4.8 to main
+  adding r_18.Kg3p=1.2 to main
+  adding Knad=.93 to main
+  adding r_18.Kdhap=.54 to main
+  adding Knadh=.023 to main
+  adding r_18.Vmax=5.282 to main
+  adding Kphi=1 to main
+  adding r_17.Kg3p=3.5 to main
+  adding r_17.Vmax=13.54 to main
+  adding r_16.Kgap=.21 to main
+  adding r_16.kcat=15.58 to main
+  adding r_15.Kbpg=.909 to main
+  adding r_15.Kgap=.423 to main
+  adding r_15.kcat=18.16 to main
+  adding r_14.Kgap=.495 to main
+  adding r_14.kcat=19.12 to main
+  adding r_13.Keq=.29 to main
+  adding r_13.Kf6p=.307 to main
+  adding Kg6p=1.03 to main
+  adding r_13.kcat=487.4 to main
+  adding Ki=.91 to main
+  adding r_12.Kglc=1.192 to main
+  adding r_12.Vmax=3.774 to main
+  adding r_11.Keq=.069 to main
+  adding r_11.Kigap=10 to main
+  adding r_11.Kgap=2.4 to main
+  adding r_11.Kdhap=2 to main
+  adding r_11.Kf16bp=.4507 to main
+  adding r_11.kcat=4.139 to main
+  adding r_10.k=.01384 to main
+  adding r_09.Kpep=.5 to main
+  adding r_09.Keq=6.7 to main
+  adding Kp2g=.066 to main
+  adding r_09.kcat=26.5 to main
+  adding r_07.k=.319 to main
+  adding r_06.k=.4011 to main
+  adding Kacald=.4622 to main
+  adding r_01.Keq=.45 to main
+  adding r_01.k=1.667 to main
+  adding plasma_membrane.size=4.6979E-15 to main
+  adding extracellular.size=1 to main
+  adding r_29=0 to main
+  adding r_28=0 to main
+  adding r_08=0 to main
+  adding r_05=0 to main
+  adding c_1=1.023625E-14 to main
+  adding percentage_cytoplasm=47.5 to main
+  adding percentage_cell_wall=21.8 to main
+  adding N_A=6.02214179E20 to main
+  adding Kp2g_gpm=.08 to main
+  adding Knadh_tdh=.06 to main
+  adding Knadh_adh=.11 to main
+  adding Knad_tdh=.09 to main
+  adding Knad_adh=.17 to main
+  adding Kinadh_adh=.031 to main
+  adding Kinad_adh=.92 to main
+  adding Kietoh_adh=90 to main
+  adding Kiacald_adh=1.1 to main
+  adding Kg6p_hxk=30 to main
+  adding Ketoh_adh=17 to main
+  adding Keq_tdh=.005334 to main
+  adding Keq_hxk=2E3 to main
+  adding Keq_gpm=.19 to main
+  adding Keq_adh=6.9E-5 to main
+  adding kcat_adh=112.3 to main
+  adding Kbpg_tdh=.909 to main
+  adding Katp_pyk=1.5 to main
+  adding Kadp_hxk=.23 to main
+  adding Kacald_adh=1.11 to main
+  adding cell_volume=2.155E-14 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding x_26(time.min)=x_26__init to main
+  adding x_77(time.min)=x_77__init to main
+  adding x_74(time.min)=x_74__init to main
+  adding x_72(time.min)=x_72__init to main
+  adding x_69(time.min)=x_69__init to main
+  adding x_68(time.min)=x_68__init to main
+  adding x_66(time.min)=x_66__init to main
+  adding x_64(time.min)=x_64__init to main
+  adding x_63(time.min)=x_63__init to main
+  adding x_62(time.min)=x_62__init to main
+  adding x_60(time.min)=x_60__init to main
+  adding x_57(time.min)=x_57__init to main
+  adding x_55(time.min)=x_55__init to main
+  adding x_51(time.min)=x_51__init to main
+  adding x_50(time.min)=x_50__init to main
+  adding x_49(time.min)=x_49__init to main
+  adding x_48(time.min)=x_48__init to main
+  adding x_47(time.min)=x_47__init to main
+  adding x_46(time.min)=x_46__init to main
+  adding x_45(time.min)=x_45__init to main
+  adding x_36(time.min)=x_36__init to main
+  adding x_33(time.min)=x_33__init to main
+  adding x_32(time.min)=x_32__init to main
+  adding x_31(time.min)=x_31__init to main
+  adding x_30(time.min)=x_30__init to main
+  adding x_29(time.min)=x_29__init to main
+  adding x_25(time.min)=x_25__init to main
+  adding x_24(time.min)=x_24__init to main
+  adding x_23(time.min)=x_23__init to main
+  adding x_22(time.min)=x_22__init to main
+  adding x_21(time.min)=x_21__init to main
+  adding x_18(time.min)=x_18__init to main
+  adding x_17(time.min)=x_17__init to main
+  adding x_16(time.min)=x_16__init to main
+  adding x_15(time.min)=x_15__init to main
+  adding x_14(time.min)=x_14__init to main
+  adding x_13(time.min)=x_13__init to main
+  adding x_12(time.min)=x_12__init to main
+  adding x_11(time.min)=x_11__init to main
+  adding x_10(time.min)=x_10__init to main
+  adding x_09(time.min)=x_09__init to main
+  adding x_08(time.min)=x_08__init to main
+  adding x_06(time.min)=x_06__init to main
+  adding x_05(time.min)=x_05__init to main
+  adding x_04(time.min)=x_04__init to main
+  adding x_03(time.min)=x_03__init to main
+  adding x_02(time.min)=x_02__init to main
+  adding x_01(time.min)=x_01__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding x_26:time=0 to loop-time
+  adding x_77:time=0 to loop-time
+  adding x_74:time=0 to loop-time
+  adding x_72:time=0 to loop-time
+  adding x_69:time=0 to loop-time
+  adding x_68:time=0 to loop-time
+  adding x_66:time=0 to loop-time
+  adding x_64:time=0 to loop-time
+  adding x_63:time=0 to loop-time
+  adding x_62:time=0 to loop-time
+  adding x_60:time=0 to loop-time
+  adding x_57:time=0 to loop-time
+  adding x_55:time=0 to loop-time
+  adding x_51:time=0 to loop-time
+  adding x_50:time=0 to loop-time
+  adding x_49:time=0 to loop-time
+  adding x_48:time=0 to loop-time
+  adding x_47:time=0 to loop-time
+  adding x_46:time=0 to loop-time
+  adding x_45:time=0 to loop-time
+  adding x_36:time=0 to loop-time
+  adding x_33:time=0 to loop-time
+  adding x_32:time=0 to loop-time
+  adding x_31:time=0 to loop-time
+  adding x_30:time=0 to loop-time
+  adding x_29:time=0 to loop-time
+  adding x_23:time=0 to loop-time
+  adding x_17:time=0 to loop-time
+  adding x_09:time=0 to loop-time
+  adding r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4)) to loop-time
+  adding r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk)) to loop-time
+  adding r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr) to loop-time
+  adding r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr) to loop-time
+  adding r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm) to loop-time
+  adding r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp)) to loop-time
+  adding r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2) to loop-time
+  adding r_22=c_1*r_22.k*x_22 to loop-time
+  adding r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk)) to loop-time
+  adding r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk)) to loop-time
+  adding r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk)) to loop-time
+  adding r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p)) to loop-time
+  adding r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi)) to loop-time
+  adding r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to loop-time
+  adding r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to loop-time
+  adding r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to loop-time
+  adding r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p) to loop-time
+  adding r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc) to loop-time
+  adding r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap)) to loop-time
+  adding r_10=c_1*r_10.k*x_15 to loop-time
+  adding r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep) to loop-time
+  adding r_07=c_1*r_07.k*x_25 to loop-time
+  adding r_06=c_1*r_06.k*x_06 to loop-time
+  adding r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1) to loop-time
+  adding r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) to loop-time
+  adding r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) to loop-time
+  adding r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq) to loop-time
+  adding x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1 to loop-time
+  adding x_24:time=(r_08+r_09-r_29-r_30)/c_1 to loop-time
+  adding x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1 to loop-time
+  adding x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1 to loop-time
+  adding x_18:time=(r_18-r_17)/c_1 to loop-time
+  adding x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1 to loop-time
+  adding x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1 to loop-time
+  adding x_14:time=(r_11-r_18-r_31)/c_1 to loop-time
+  adding x_13:time=(r_25-r_08-r_09)/c_1 to loop-time
+  adding x_12:time=(r_19+r_20+r_21-r_13)/c_1 to loop-time
+  adding x_11:time=(r_12-r_19-r_20-r_21)/c_1 to loop-time
+  adding x_10:time=(r_13-r_23)/c_1 to loop-time
+  adding x_08:time=(r_23-r_11)/c_1 to loop-time
+  adding x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1 to loop-time
+  adding x_05:time=r_01/c_1*(-1) to loop-time
+  adding x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1 to loop-time
+  adding x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1 to loop-time
+  adding x_02:time=(r_14+r_15+r_16-r_24)/c_1 to loop-time
+  adding x_01:time=(r_24-r_25)/c_1 to loop-time
+  adding ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01] to loop-time
+  adding loop-time to main
+Building ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01] ...
+  adding muTool r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))
+  adding muVar r_30
+  adding muTool r_07=c_1*r_07.k*x_25
+  adding muVar r_07
+  adding muTool r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)
+  adding muVar r_26
+  adding muTool r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)
+  adding muVar r_27
+  adding muTool x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1
+  adding muVar x_25:time
+  adding muTool r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)
+  adding muVar r_09
+  adding muTool x_24:time=(r_08+r_09-r_29-r_30)/c_1
+  adding muVar x_24:time
+  adding muTool r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  adding muVar r_14
+  adding muTool r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  adding muVar r_15
+  adding muTool r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+  adding muVar r_16
+  adding muTool r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+  adding muVar r_02
+  adding muTool r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+  adding muVar r_03
+  adding muTool r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)
+  adding muVar r_04
+  adding muTool r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))
+  adding muVar r_18
+  adding muTool r_22=c_1*r_22.k*x_22
+  adding muVar r_22
+  adding muTool x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1
+  adding muVar x_22:time
+  adding muTool x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1
+  adding muVar x_21:time
+  adding muTool r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))
+  adding muVar r_17
+  adding muTool x_18:time=(r_18-r_17)/c_1
+  adding muVar x_18:time
+  adding muTool r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))
+  adding muVar r_11
+  adding muTool r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))
+  adding muVar r_31
+  adding muTool x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1
+  adding muVar x_16:time
+  adding muTool r_10=c_1*r_10.k*x_15
+  adding muVar r_10
+  adding muTool x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1
+  adding muVar x_15:time
+  adding muTool x_14:time=(r_11-r_18-r_31)/c_1
+  adding muVar x_14:time
+  adding muTool r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)
+  adding muVar r_25
+  adding muTool x_13:time=(r_25-r_08-r_09)/c_1
+  adding muVar x_13:time
+  adding muTool r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))
+  adding muVar r_19
+  adding muTool r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))
+  adding muVar r_20
+  adding muTool r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))
+  adding muVar r_21
+  adding muTool r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)
+  adding muVar r_13
+  adding muTool x_12:time=(r_19+r_20+r_21-r_13)/c_1
+  adding muVar x_12:time
+  adding muTool r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)
+  adding muVar r_12
+  adding muTool x_11:time=(r_12-r_19-r_20-r_21)/c_1
+  adding muVar x_11:time
+  adding muTool r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)
+  adding muVar r_23
+  adding muTool x_10:time=(r_13-r_23)/c_1
+  adding muVar x_10:time
+  adding muTool x_08:time=(r_23-r_11)/c_1
+  adding muVar x_08:time
+  adding muTool r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))
+  adding muVar r_24
+  adding muTool r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)
+  adding muVar r_01
+  adding muTool r_06=c_1*r_06.k*x_06
+  adding muVar r_06
+  adding muTool x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1
+  adding muVar x_06:time
+  adding muTool x_05:time=r_01/c_1*(-1)
+  adding muVar x_05:time
+  adding muTool x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1
+  adding muVar x_04:time
+  adding muTool x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1
+  adding muVar x_03:time
+  adding muTool x_02:time=(r_14+r_15+r_16-r_24)/c_1
+  adding muVar x_02:time
+  adding muTool x_01:time=(r_24-r_25)/c_1
+  adding muVar x_01:time
+  adding r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_07=c_1*r_07.k*x_25 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_24:time=(r_08+r_09-r_29-r_30)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_22=c_1*r_22.k*x_22 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_18:time=(r_18-r_17)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_10=c_1*r_10.k*x_15 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_14:time=(r_11-r_18-r_31)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_13:time=(r_25-r_08-r_09)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_12:time=(r_19+r_20+r_21-r_13)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_11:time=(r_12-r_19-r_20-r_21)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_10:time=(r_13-r_23)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_08:time=(r_23-r_11)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp)) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding r_06=c_1*r_06.k*x_06 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_05:time=r_01/c_1*(-1) to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_02:time=(r_14+r_15+r_16-r_24)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+  adding x_01:time=(r_24-r_25)/c_1 to ODE Block-time [x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x_26__init=51.11
+  x_77__init=.027610082
+  x_74__init=.004407555
+  x_72__init=.079456041
+  x_69__init=0
+  x_68__init=.027610082
+  x_66__init=0
+  x_64__init=.770064975
+  x_63__init=.537277269
+  x_62__init=.966352867
+  x_60__init=.223216643
+  x_57__init=.111300101
+  x_55__init=1.103267726
+  x_51__init=.76828054
+  x_50__init=.027610082
+  x_49__init=2.597164579
+  x_48__init=.005698838
+  x_47__init=.014453927
+  x_46__init=.022824551
+  x_45__init=.010026905
+  x_36__init=.535655056
+  x_33__init=.456977678
+  x_32__init=.020212786
+  x_31__init=.050093968
+  x_30__init=0
+  x_29__init=.985981656
+  x_25__init=1.604207403
+  x_24__init=.223865529
+  x_23__init=1
+  x_22__init=.08671
+  x_21__init=1.503
+  x_18__init=.133832653
+  x_17__init=36.32137097
+  x_16__init=.081078255
+  x_15__init=108.3801159
+  x_14__init=1.072770104
+  x_13__init=.047547092
+  x_12__init=.484555315
+  x_11__init=2.728563911
+  x_10__init=.114998749
+  x_09__init=.02
+  x_08__init=2.045611826
+  x_06__init=4.394577666
+  x_05__init=.655861111
+  x_04__init=1.138794213
+  x_03__init=.1781
+  x_02__init=.005534
+  x_01__init=.329796102
+  r_31.Kigap=35.1
+  r_31.Kgap=5.25
+  r_31.Kdhap=6.454
+  r_31.kcat=556.7
+  r_31.Keq=.0772
+  Kpyr_pyk=.6517
+  Keq_pyk=6500
+  r_30.Kadp=.243
+  r_30.Kpep=.281
+  r_30.kcat=20.13
+  r_27.Kpyr=8.331
+  r_27.kcat=12.07
+  r_26.Kpyr=11.44
+  r_26.kcat=1.776
+  r_25.Kp3g=.681
+  r_25.kcat=66.61
+  nHadp=2
+  r_24.Keq=3200
+  r_24.Katp=3.536
+  r_24.Kp3g=4.58
+  r_24.Kadp=1.99
+  r_24.Kbpg=.003
+  r_24.kcat=58.85
+  Catp=3
+  Kf16=.111
+  Cf16=.397
+  Kf26=6.824E-5
+  Cf26=.0174
+  Kamp=.0995
+  Camp=.0845
+  Kiatp=.65
+  Ciatp=100
+  L0=.66
+  r_23.Katp=.008
+  r_23.Kf6p=.438
+  gR=5.12
+  r_23.kcat=117
+  r_22.k=3.025
+  r_21.Katp=.195
+  r_21.Kglc=.2
+  r_21.kcat=63.1
+  r_20.Katp=.865
+  r_20.Kglc=.0106
+  r_20.kcat=.0721
+  r_19.Katp=.293
+  r_19.Kglc=.15
+  r_19.kcat=10.2
+  r_18.Keq=1E4
+  r_18.Kadp=2
+  r_18.Katp=.73
+  r_18.Kf16bp=4.8
+  r_18.Kg3p=1.2
+  Knad=.93
+  r_18.Kdhap=.54
+  Knadh=.023
+  r_18.Vmax=5.282
+  Kphi=1
+  r_17.Kg3p=3.5
+  r_17.Vmax=13.54
+  r_16.Kgap=.21
+  r_16.kcat=15.58
+  r_15.Kbpg=.909
+  r_15.Kgap=.423
+  r_15.kcat=18.16
+  r_14.Kgap=.495
+  r_14.kcat=19.12
+  r_13.Keq=.29
+  r_13.Kf6p=.307
+  Kg6p=1.03
+  r_13.kcat=487.4
+  Ki=.91
+  r_12.Kglc=1.192
+  r_12.Vmax=3.774
+  r_11.Keq=.069
+  r_11.Kigap=10
+  r_11.Kgap=2.4
+  r_11.Kdhap=2
+  r_11.Kf16bp=.4507
+  r_11.kcat=4.139
+  r_10.k=.01384
+  r_09.Kpep=.5
+  r_09.Keq=6.7
+  Kp2g=.066
+  r_09.kcat=26.5
+  r_07.k=.319
+  r_06.k=.4011
+  Kacald=.4622
+  r_01.Keq=.45
+  r_01.k=1.667
+  plasma_membrane.size=4.6979E-15
+  extracellular.size=1
+  r_29=0
+  r_28=0
+  r_08=0
+  r_05=0
+  c_1=1.023625E-14
+  percentage_cytoplasm=47.5
+  percentage_cell_wall=21.8
+  N_A=6.02214179E20
+  Kp2g_gpm=.08
+  Knadh_tdh=.06
+  Knadh_adh=.11
+  Knad_tdh=.09
+  Knad_adh=.17
+  Kinadh_adh=.031
+  Kinad_adh=.92
+  Kietoh_adh=90
+  Kiacald_adh=1.1
+  Kg6p_hxk=30
+  Ketoh_adh=17
+  Keq_tdh=.005334
+  Keq_hxk=2E3
+  Keq_gpm=.19
+  Keq_adh=6.9E-5
+  kcat_adh=112.3
+  Kbpg_tdh=.909
+  Katp_pyk=1.5
+  Kadp_hxk=.23
+  Kacald_adh=1.11
+  cell_volume=2.155E-14
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  x_26(time.min)=x_26__init
+  x_77(time.min)=x_77__init
+  x_74(time.min)=x_74__init
+  x_72(time.min)=x_72__init
+  x_69(time.min)=x_69__init
+  x_68(time.min)=x_68__init
+  x_66(time.min)=x_66__init
+  x_64(time.min)=x_64__init
+  x_63(time.min)=x_63__init
+  x_62(time.min)=x_62__init
+  x_60(time.min)=x_60__init
+  x_57(time.min)=x_57__init
+  x_55(time.min)=x_55__init
+  x_51(time.min)=x_51__init
+  x_50(time.min)=x_50__init
+  x_49(time.min)=x_49__init
+  x_48(time.min)=x_48__init
+  x_47(time.min)=x_47__init
+  x_46(time.min)=x_46__init
+  x_45(time.min)=x_45__init
+  x_36(time.min)=x_36__init
+  x_33(time.min)=x_33__init
+  x_32(time.min)=x_32__init
+  x_31(time.min)=x_31__init
+  x_30(time.min)=x_30__init
+  x_29(time.min)=x_29__init
+  x_25(time.min)=x_25__init
+  x_24(time.min)=x_24__init
+  x_23(time.min)=x_23__init
+  x_22(time.min)=x_22__init
+  x_21(time.min)=x_21__init
+  x_18(time.min)=x_18__init
+  x_17(time.min)=x_17__init
+  x_16(time.min)=x_16__init
+  x_15(time.min)=x_15__init
+  x_14(time.min)=x_14__init
+  x_13(time.min)=x_13__init
+  x_12(time.min)=x_12__init
+  x_11(time.min)=x_11__init
+  x_10(time.min)=x_10__init
+  x_09(time.min)=x_09__init
+  x_08(time.min)=x_08__init
+  x_06(time.min)=x_06__init
+  x_05(time.min)=x_05__init
+  x_04(time.min)=x_04__init
+  x_03(time.min)=x_03__init
+  x_02(time.min)=x_02__init
+  x_01(time.min)=x_01__init
+  loop-time
+    x_26:time=0
+    x_77:time=0
+    x_74:time=0
+    x_72:time=0
+    x_69:time=0
+    x_68:time=0
+    x_66:time=0
+    x_64:time=0
+    x_63:time=0
+    x_62:time=0
+    x_60:time=0
+    x_57:time=0
+    x_55:time=0
+    x_51:time=0
+    x_50:time=0
+    x_49:time=0
+    x_48:time=0
+    x_47:time=0
+    x_46:time=0
+    x_45:time=0
+    x_36:time=0
+    x_33:time=0
+    x_32:time=0
+    x_31:time=0
+    x_30:time=0
+    x_29:time=0
+    x_23:time=0
+    x_17:time=0
+    x_09:time=0
+    r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))
+    r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))
+    r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)
+    r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)
+    r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)
+    r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))
+    r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)
+    r_22=c_1*r_22.k*x_22
+    r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))
+    r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))
+    r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))
+    r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))
+    r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))
+    r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+    r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+    r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+    r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)
+    r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)
+    r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))
+    r_10=c_1*r_10.k*x_15
+    r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)
+    r_07=c_1*r_07.k*x_25
+    r_06=c_1*r_06.k*x_06
+    r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)
+    r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+    r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+    r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)
+    x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1
+    x_24:time=(r_08+r_09-r_29-r_30)/c_1
+    x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1
+    x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1
+    x_18:time=(r_18-r_17)/c_1
+    x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1
+    x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1
+    x_14:time=(r_11-r_18-r_31)/c_1
+    x_13:time=(r_25-r_08-r_09)/c_1
+    x_12:time=(r_19+r_20+r_21-r_13)/c_1
+    x_11:time=(r_12-r_19-r_20-r_21)/c_1
+    x_10:time=(r_13-r_23)/c_1
+    x_08:time=(r_23-r_11)/c_1
+    x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1
+    x_05:time=r_01/c_1*(-1)
+    x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1
+    x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1
+    x_02:time=(r_14+r_15+r_16-r_24)/c_1
+    x_01:time=(r_24-r_25)/c_1
+    ODE Block-time vmus=[time, x_26, x_77, x_74, x_72, x_69, x_68, x_66, x_64, x_63, x_62, x_60, x_57, x_55, x_51, x_50, x_49, x_48, x_47, x_46, x_45, x_36, x_33, x_32, x_31, x_30, x_29, x_25, x_24, x_23, x_22, x_21, x_18, x_17, x_16, x_15, x_14, x_13, x_12, x_11, x_10, x_09, x_08, x_06, x_05, x_04, x_03, x_02, x_01, r_30, r_07, r_26, r_27, x_25:time, r_09, x_24:time, r_14, r_15, r_16, r_02, r_03, r_04, r_18, r_22, x_22:time, x_21:time, r_17, x_18:time, r_11, r_31, x_16:time, r_10, x_15:time, x_14:time, r_25, x_13:time, r_19, r_20, r_21, r_13, x_12:time, r_12, x_11:time, r_23, x_10:time, x_08:time, r_24, r_01, r_06, x_06:time, x_05:time, x_04:time, x_03:time, x_02:time, x_01:time]
+      r_30=c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk))
+      r_07=c_1*r_07.k*x_25
+      r_26=c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr)
+      r_27=c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr)
+      x_25:time=(r_29+r_30-r_07-r_26-r_27-r_28)/c_1
+      r_09=c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep)
+      x_24:time=(r_08+r_09-r_29-r_30)/c_1
+      r_14=c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+      r_15=c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+      r_16=c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh))
+      r_02=c_1*x_47*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+      r_03=c_1*x_30*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh))*(-1)
+      r_04=c_1*x_72*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald))*(-1)
+      r_18=c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p))
+      r_22=c_1*r_22.k*x_22
+      x_22:time=(r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1
+      x_21:time=(r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1
+      r_17=c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi))
+      x_18:time=(r_18-r_17)/c_1
+      r_11=c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap))
+      r_31=c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4))
+      x_16:time=(r_11+r_31-r_14-r_15-r_16)/c_1
+      r_10=c_1*r_10.k*x_15
+      x_15:time=(r_02+r_03+r_04-r_05-r_10)/c_1
+      x_14:time=(r_11-r_18-r_31)/c_1
+      r_25=c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm)
+      x_13:time=(r_25-r_08-r_09)/c_1
+      r_19=c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk))
+      r_20=c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk))
+      r_21=c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk))
+      r_13=c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p)
+      x_12:time=(r_19+r_20+r_21-r_13)/c_1
+      r_12=c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc)
+      x_11:time=(r_12-r_19-r_20-r_21)/c_1
+      r_23=c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2)
+      x_10:time=(r_13-r_23)/c_1
+      x_08:time=(r_23-r_11)/c_1
+      r_24=c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp))
+      r_01=c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq)
+      r_06=c_1*r_06.k*x_06
+      x_06:time=(r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1
+      x_05:time=r_01/c_1*(-1)
+      x_04:time=(r_01*2+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1
+      x_03:time=(r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1
+      x_02:time=(r_14+r_15+r_16-r_24)/c_1
+      x_01:time=(r_24-r_25)/c_1
+

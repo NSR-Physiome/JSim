@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. ../run.common
+
+rm -Rf WORK
+mkdir WORK
+
+cd PROJ
+PROJS=`ls *.proj | sed -e 's/.proj//'`
+cd ..
+
+cd PROJLOOP
+PROJLOOPS=`ls *.proj | sed -e 's/.proj//'`
+cd ..
+
+for i in $PROJS
+do
+  run1 $i
+done
+
+for i in $PROJLOOPS
+do
+  run1loop $i
+done
+
+
+

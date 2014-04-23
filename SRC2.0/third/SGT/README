@@ -1,0 +1,61 @@
+== 2013/11/21 EB
+
+Collection.java modified: old version used enum as field name which
+  is now a java keyword.
+  
+Added boolean NSRLogScale property so axis title (label) positions
+correctly.
+
+== 2005/05/20 EB
+
+Added javac overrides so can build using Sun's JDK
+  even though Linux-distriuted ant uses gcj
+  which (as of this date) is missing some needed classes (e.g. java.beans.XMLDecoder)
+
+Building SGT for JSim on Linux:
+  make sure javac is in /usr/local/jdk
+    if not,  modify ./build_sgt.xml accordingly
+  download SGT source from Denbo's site to $SGTDIR
+    last time used $HOME/SERVER/SGT
+  ./sgtcopy $SGTDIR
+     which copies mods from this directory into source
+  cd $SGTDIR
+  ant -f build_sgt.xml
+     overrides
+     builds sgt_v30.jar in $SGTDIR
+  copy sgt_v30.jar as appropriate into $JSIMSRC, e.g.
+     cp jars/sgt_v30.jar $JSIMSRC/third/client/sgt_v30nsr.jar
+
+== 2004/10/01
+
+$JSIMSRC/home/ext/sgt_v30.jar was built from David Denbo's SGT v30
+source distribution with the modified files listed below.  This
+original versions of these files (from Denbo) are in the ORIG directory.
+
+build_sgt.xml           A locally modified version of the ant build file
+                            shipped with sgt_src_v30.jar.  To use, check 
+                            that you have a working version of Ant (the 
+                            version shipped with, e.g., RHEL WS/ES, was 
+                            broken), make sure JSIMSRC is defined in your
+                            environment, then run "ant -f build_sgt.xml"
+                            while at a prompt in the directory above the 
+                            "src" directory created by unpacking the 
+                            sgt_src_v30.jar file.
+
+
+PlainAxis.java          from
+			added .setTicArray() methods for SGTGraph
+
+-- the following were modified to catch SecurityExceptions generated from
+System.getProperty() or .getProperties() calls.  Uncaught these exceptions
+inhibit functionality in untrusted applets.
+
+JClassTree.java		from src/gov/noaa/pmel/sgt/swing/
+
+GridAttributeDialog.java from src/gov/noaa/pmel/sgt/swing/prop/
+
+JSystemPropertiesDialog.java from src/gov/noaa/pmel/swing/
+
+MRJUtil.java		from src/gov/noaa/pmel/swing/MRJUtil.java
+
+

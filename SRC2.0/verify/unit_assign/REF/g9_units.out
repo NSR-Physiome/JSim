@@ -1,0 +1,5 @@
+Cin=f1 f1.domain0=t f1.which=Pulse1 f1.Pulse1.timeToRepeat=20 -func f1
+a = { 1 } cm/sec
+b = { 30 } cm/min
+Cin(t) = { (0,1) (10,0) (20,1) (30,0) (40,1) (50,0) (60,1) } min
+Cout(t) = { (0,.9) (10,0) (20,.9) (30,0) (40,.9) (50,0) (60,.9) } m

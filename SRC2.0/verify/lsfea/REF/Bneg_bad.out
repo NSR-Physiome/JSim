@@ -1,0 +1,5 @@
+==== JSim version 2.02f: Fatal Error
+
+JSim.util.Xcept: Model Bneg_bad
+aborted: LSFEA PDE solver - variable u: Negative advection requires non-zero g1 (use MacCormack or Toms731 instead)
+

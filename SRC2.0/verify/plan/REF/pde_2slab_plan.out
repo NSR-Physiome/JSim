@@ -1,0 +1,365 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real D1 cm^2/sec
+  add var: real D2 cm^2/sec
+  add var: real C1_0 mM
+  add var: real C2_0 mM
+  add var: real delx cm
+  add var: realDomain t sec
+  add var: real t.min sec
+  add var: real t.max sec
+  add var: int t.ct
+  add var: real t.delta sec
+  add var: realDomain x cm
+  add var: real x.min cm
+  add var: real x.max cm
+  add var: int x.ct
+  add var: real x.delta cm
+  add var: real C1(x,t) mM
+  add var: real C2(x,t) mM
+  add var: real C1del(t) mM
+  add var: real C1int(t) mM
+  add var: real C2del(t) mM
+  add var: real C2int(t) mM
+  add var: real Q1mid(t) mM*cm/sec
+  add var: real Q2mid(t) mM*cm/sec
+  add var: real C1:x(x,t) mM/cm
+  add var: real C1:t(x,t) mM/sec
+  add var: real C1:x:x(x,t) mM/cm^2
+  add var: real C2:t(x,t) mM/sec
+  add var: real C2:x(x,t) mM/cm
+  add var: real C2:x:x(x,t) mM/cm^2
+Loading Constraints
+  D1=.1 :: [D1]
+  D2=.01 :: [D2]
+  C1_0=10 :: [C1_0]
+  C2_0=10 :: [C2_0]
+  delx=.001 :: [delx]
+  t.min=0 :: [t.min]
+  t.max=50 :: [t.max]
+  t.delta=.05 :: [t.delta]
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=.01 :: [x.delta]
+  when (t=t.min) C1=(if (x=x.min) C1_0 else 0) :: [C1(t.min), x, x.min, C1_0]
+  when (t=t.min) C2=(if (x=x.min) C2_0 else 0) :: [C2(t.min), x, x.min, C2_0]
+  when (x=x.min) C1=C1_0 :: [C1(x.min), C1_0]
+  when (x=x.min) C2=C2_0 :: [C2(x.min), C2_0]
+  when (x=x.max) C1:x=(Q2mid/D1*(-1)) :: [C1:x(x.max), Q2mid, D1]
+  when (x=x.max) C2=C1int :: [C2(x.max), C1int]
+  C1del=C1(x.max-delx,t) :: [C1del, x.max, delx, t, C1(x.expr)*]
+  C1int=C1(x.max,t) :: [C1int, x.max, t, C1(x.max)]
+  C2del=C2(x.max-delx,t) :: [C2del, x.max, delx, t, C2(x.expr)*]
+  C2int=C2(x.max,t) :: [C2int, x.max, t, C2(x.max)]
+  Q1mid=(D1*(C1del-C1int)/delx) :: [Q1mid, D1, C1del, C1int, delx]
+  Q2mid=(D2*(C2int-C2del)/delx) :: [Q2mid, D2, C2int, C2del, delx]
+  C1:t=(D1*C1:x:x) :: [C1:t, D1, C1:x:x]
+  C2:t=(D2*C2:x:x) :: [C2:t, D2, C2:x:x]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: D1=.1; [D1]
+  add tool: D1=.1
+  check eqn: D2=.01; [D2]
+  add tool: D2=.01
+  check eqn: C1_0=10; [C1_0]
+  add tool: C1_0=10
+  check eqn: C2_0=10; [C2_0]
+  add tool: C2_0=10
+  check eqn: delx=.001; [delx]
+  add tool: delx=.001
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=50; [t.max]
+  add tool: t.max=50
+  check eqn: t.delta=.05; [t.delta]
+  add tool: t.delta=.05
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=.01; [x.delta]
+  add tool: x.delta=.01
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: when (t=t.min) C1=(if (x=x.min) C1_0 else 0); [C1(t.min)]
+  add tool: C1(t.min)=if (x=x.min) C1_0 else 0
+  check eqn: when (t=t.min) C2=(if (x=x.min) C2_0 else 0); [C2(t.min)]
+  add tool: C2(t.min)=if (x=x.min) C2_0 else 0
+  check eqn: when (x=x.min) C1=C1_0; [C1(x.min)]
+  add tool: C1(x.min)=C1_0
+  check eqn: when (x=x.min) C2=C2_0; [C2(x.min)]
+  add tool: C2(x.min)=C2_0
+  check eqn: when (x=x.max) C1:x=(Q2mid/D1*(-1)); [C1:x(x.max), Q2mid]
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max), C1int]
+  check eqn: C1del=C1(x.max-delx,t); [C1del, C1(x.expr)*]
+  check eqn: C1int=C1(x.max,t); [C1int, C1(x.max)]
+  check eqn: C2del=C2(x.max-delx,t); [C2del, C2(x.expr)*]
+  check eqn: C2int=C2(x.max,t); [C2int, C2(x.max)]
+  check eqn: Q1mid=(D1*(C1del-C1int)/delx); [Q1mid, C1del]
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid, C2int]
+  check eqn: C1:t=(D1*C1:x:x); [C1:t, C1:x:x]
+  check eqn: C2:t=(D2*C2:x:x); [C2:t, C2:x:x]
+  add tool: PDE C1: []
+  updated PDE(C1) with C1(t.min)=if (x=x.min) C1_0 else 0
+  add tool: PDE C2: []
+  updated PDE(C2) with C2(t.min)=if (x=x.min) C2_0 else 0
+  updated PDE(C1) with C1(x.min)=C1_0
+  updated PDE(C2) with C2(x.min)=C2_0
+Toolbox phase - cycle 1:
+  check eqn: when (x=x.max) C1:x=(Q2mid/D1*(-1)); [C1:x(x.max), Q2mid]
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max), C1int]
+  check eqn: C1del=C1(x.max-delx,t); [C1del]
+  add tool: C1del=C1(x.max-delx,t)
+  check eqn: C1int=C1(x.max,t); [C1int, C1(x.max)]
+  check eqn: C2del=C2(x.max-delx,t); [C2del]
+  add tool: C2del=C2(x.max-delx,t)
+  check eqn: C2int=C2(x.max,t); [C2int, C2(x.max)]
+  check eqn: Q1mid=(D1*(C1del-C1int)/delx); [Q1mid, C1int]
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid, C2int]
+  check eqn: C1:t=(D1*C1:x:x); [C1:t, C1:x:x]
+  check eqn: C2:t=(D2*C2:x:x); [C2:t, C2:x:x]
+Toolbox phase - cycle 1:
+  check eqn: when (x=x.max) C1:x=(Q2mid/D1*(-1)); [C1:x(x.max), Q2mid]
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max), C1int]
+  check eqn: C1int=C1(x.max,t); [C1int, C1(x.max)]
+  check eqn: C2int=C2(x.max,t); [C2int, C2(x.max)]
+  check eqn: Q1mid=(D1*(C1del-C1int)/delx); [Q1mid, C1int]
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid, C2int]
+  check eqn: C1:t=(D1*C1:x:x); [C1:t, C1:x:x]
+  check eqn: C2:t=(D2*C2:x:x); [C2:t, C2:x:x]
+Toolbox phase - cycle 2:
+  implicit block (8 2)=28.0
+  implicit block (8 3)=56.0
+  implicit block (8 4)=70.0
+  implicit block (8 5)=56.0
+  implicit block (8 6)=28.0
+  implicit block (8 7)=8.0
+  implicit block (8 8)=1.0
+Toolbox phase - cycle 3:
+  updated PDE(C1) with C1:t=(D1*C1:x:x)
+  updated PDE(C2) with C2:t=(D2*C2:x:x)
+Toolbox phase - cycle 1:
+  check eqn: when (x=x.max) C1:x=(Q2mid/D1*(-1)); [C1:x(x.max), Q2mid]
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max), C1int]
+  check eqn: C1int=C1(x.max,t); [C1int, C1(x.max)]
+  check eqn: C2int=C2(x.max,t); [C2int, C2(x.max)]
+  check eqn: Q1mid=(D1*(C1del-C1int)/delx); [Q1mid, C1int]
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid, C2int]
+Toolbox phase - cycle 2:
+  implicit block (6 2)=15.0
+  implicit block (6 3)=20.0
+  implicit block (6 4)=15.0
+  implicit block (6 5)=6.0
+  implicit block (6 6)=1.0
+Toolbox phase - cycle 3:
+Toolbox phase - cycle 4:
+  updated PDE(C1) with when (x=x.max) C1:x=(Q2mid/D1*(-1))
+    C1 is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max), C1int]
+  check eqn: C1int=C1(x.max,t); [C1int]
+  add tool: C1int=C1(x.max,t)
+  check eqn: C2int=C2(x.max,t); [C2int, C2(x.max)]
+  check eqn: Q1mid=(D1*(C1del-C1int)/delx); [Q1mid]
+  add tool: Q1mid=D1*(C1del-C1int)/delx
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid, C2int]
+Toolbox phase - cycle 1:
+  check eqn: when (x=x.max) C2=C1int; [C2(x.max)]
+  add tool: C2(x.max)=C1int
+  check eqn: C2int=C2(x.max,t); [C2int]
+  add tool: C2int=C2(x.max,t)
+  check eqn: Q2mid=(D2*(C2int-C2del)/delx); [Q2mid]
+  add tool: Q2mid=D2*(C2int-C2del)/delx
+  updated PDE(C2) with C2(x.max)=C1int
+    C2 is now entirely solved
+Toolbox phase - cycle 1:
+Toolbox phase - all cycles completed
+PDE(C1) factors:  D=D1*(-1)*(-1) P=0 B=0 S=0
+  LHBC F1=1 F2=0 F3=C1_0*(-1)*(-1)
+  RHBC F1=0 F2=1 F3=Q2mid/D1*(-1)
+  Solver LSFEA unsupported: Zero advection requires zero f1, f3, g1 and g3
+  Solver MacCormack supported
+  Solver Toms731 supported
+  checking PDE(C1) D=D1*(-1)*(-1) for differentiability ...
+  setting Dx=0+0
+  Tom731  C=1 Q=0 R=D1*C1:x
+  Toms731 LHBC:  Beta=0 Gamma=0
+  Toms731 RHBC:  Beta=1 Gamma=1
+PDE(C2) factors:  D=D2*(-1)*(-1) P=0 B=0 S=0
+  LHBC F1=1 F2=0 F3=C2_0*(-1)*(-1)
+  RHBC F1=1 F2=0 F3=C1int*(-1)*(-1)
+  Solver LSFEA unsupported: Zero advection requires zero f1, f3, g1 and g3
+  Solver MacCormack supported
+  Solver Toms731 supported
+  checking PDE(C2) D=D2*(-1)*(-1) for differentiability ...
+  setting Dx=0+0
+  Tom731  C=1 Q=0 R=D2*C2:x
+  Toms731 LHBC:  Beta=0 Gamma=0
+  Toms731 RHBC:  Beta=0 Gamma=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @t Q2mid=D2*(C2int-C2del)/delx :: [Q2mid]<<[D2, C2int, C2del, delx]
+  @t Q1mid=D1*(C1del-C1int)/delx :: [Q1mid]<<[D1, C1del, C1int, delx]
+  @t C2int=C2(x.max,t) :: [C2int]<<[x.max, t, C2(x.max)]
+  @t C2del=C2(x.max-delx,t) :: [C2del]<<[x.max, delx, t, C2(x.expr)*]
+  @t C1int=C1(x.max,t) :: [C1int]<<[x.max, t, C1(x.max)]
+  @t C1del=C1(x.max-delx,t) :: [C1del]<<[x.max, delx, t, C1(x.expr)*]
+  @t PDE-1D C2: C2:t=(D2*C2:x:x) :: [C2, C2(t.max), C2(x.max), C2(x.min)]<<[D2, C2_0, C1int, C2(t.min)]
+  @t PDE-1D C1: C1:t=(D1*C1:x:x) :: [C1, C1(t.max), C1(x.max), C1(x.min)]<<[D1, C1_0, Q2mid, C1(t.min)]
+  x.delta=.01 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.05 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=50 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  delx=.001 :: [delx]<<[]
+  C2_0=10 :: [C2_0]<<[]
+  C1_0=10 :: [C1_0]<<[]
+  D2=.01 :: [D2]<<[]
+  D1=.1 :: [D1]<<[]
+  @x C2(t.min)=if (x=x.min) C2_0 else 0 :: [C2(t.min)]<<[x, x.min, C2_0]
+  @x C1(t.min)=if (x=x.min) C1_0 else 0 :: [C1(t.min)]<<[x, x.min, C1_0]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [C1(x.expr)*]<<[C1]
+  adding query tool: query [C2(x.expr)*]<<[C2]
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode Q2mid seqLoops=(t) phase=t#1 fft=null
+  addNode Q1mid seqLoops=(t) phase=t#1 fft=null
+  addNode C2int seqLoops=(t) phase=t#1 fft=null
+  addNode C2del seqLoops=(t) phase=t#1 fft=null
+  addNode C1int seqLoops=(t) phase=t#1 fft=null
+  addNode C1del seqLoops=(t) phase=t#1 fft=null
+  addNode C2 seqLoops=(t) phase=t#1 fft=t
+  addNode C1 seqLoops=(t) phase=t#1 fft=t
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode delx seqLoops=() phase=main fft=null
+  addNode C2_0 seqLoops=() phase=main fft=null
+  addNode C1_0 seqLoops=() phase=main fft=null
+  addNode D2 seqLoops=() phase=main fft=null
+  addNode D1 seqLoops=() phase=main fft=null
+  addNode C2(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode C1(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode C1(x.expr) seqLoops=(t) phase=t#1 fft=null
+  addNode C2(x.expr) seqLoops=(t) phase=t#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x.delta=.01 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.05 to main
+  adding t.max=50 to main
+  adding t.min=0 to main
+  adding delx=.001 to main
+  adding C2_0=10 to main
+  adding C1_0=10 to main
+  adding D2=.01 to main
+  adding D1=.1 to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  subphase t#1 entryEdge=C2(t.min)->C2
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding C2(t.min)=if (x=x.min) C2_0 else 0 to loop-x
+  adding C1(t.min)=if (x=x.min) C1_0 else 0 to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding C2int=C2(x.max,t) to loop-t
+  adding C1int=C1(x.max,t) to loop-t
+  adding query [C1(x.expr)*] to loop-t
+  adding query [C2(x.expr)*] to loop-t
+  adding C2del=C2(x.max-delx,t) to loop-t
+  adding C1del=C1(x.max-delx,t) to loop-t
+  adding Q2mid=D2*(C2int-C2del)/delx to loop-t
+  adding Q1mid=D1*(C1del-C1int)/delx to loop-t
+  adding PDE Block-t(x) [C2, C1] to loop-t
+  adding loop-t to main
+Building PDE Block-t(x) [C2, C1] ...
+PDE solver LSFEA: Zero advection requires zero f1, f3, g1 and g3
+PDE solver MacCormack: supported
+PDE solver Toms731: supported
+Building PDE BC x=x.min [C2, C1] ...
+Building PDE BC x=x.max [C2, C1] ...
+  adding muTool C1int=C1(x.max,t)
+  adding muVar C1int
+  adding muTool C2int=C2(x.max,t)
+  adding muTool Q2mid=D2*(C2int-C2del)/delx
+  adding muVar Q2mid
+  adding muVar C2int
+  adding muTool C2del=C2(x.max-delx,t)
+  adding muVar C2del
+  adding muTool query [C2(x.expr)*]
+  adding muVar C2(x.expr)*
+  adding C1int=C1(x.max,t) to PDE BC x=x.max [C2, C1]
+  adding C2int=C2(x.max,t) to PDE BC x=x.max [C2, C1]
+  adding query [C2(x.expr)*] to PDE BC x=x.max [C2, C1]
+  adding C2del=C2(x.max-delx,t) to PDE BC x=x.max [C2, C1]
+  adding Q2mid=D2*(C2int-C2del)/delx to PDE BC x=x.max [C2, C1]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x.delta=.01
+  x.max=1
+  x.min=0
+  t.delta=.05
+  t.max=50
+  t.min=0
+  delx=.001
+  C2_0=10
+  C1_0=10
+  D2=.01
+  D1=.1
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  loop-x
+    C2(t.min)=if (x=x.min) C2_0 else 0
+    C1(t.min)=if (x=x.min) C1_0 else 0
+  loop-t
+    C2int=C2(x.max,t)
+    C1int=C1(x.max,t)
+    query [C1(x.expr)*]
+    query [C2(x.expr)*]
+    C2del=C2(x.max-delx,t)
+    C1del=C1(x.max-delx,t)
+    Q2mid=D2*(C2int-C2del)/delx
+    Q1mid=D1*(C1del-C1int)/delx
+    PDE Block-t(x) vmus=[t, x, C2, C1]
+      PDE BC x=x.min vmus=[t, C2, C1]
+      PDE BC x=x.max vmus=[t, C2, C1, C1int, Q2mid, C2int, C2del, C2(x.expr)*]
+        C1int=C1(x.max,t)
+        C2int=C2(x.max,t)
+        query [C2(x.expr)*]
+        C2del=C2(x.max-delx,t)
+        Q2mid=D2*(C2int-C2del)/delx
+

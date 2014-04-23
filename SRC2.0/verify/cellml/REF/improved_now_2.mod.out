@@ -1,0 +1,237 @@
+/*
+ * Computational Model of GCSF Endocytic Trafficking Dynamics
+ * 
+ * Model Status
+ * 
+ * Version 02 was created from Version 01 on 30/04/07 by James
+ * Lawson. The variable N was defined using an equation from the
+ * Sarkar and Lauffenburger 2003 paper. Version 03 was created
+ * from Version 02 by James Lawson on 01/05/07 and now includes
+ * the pharmacological simulations described in the paper. This
+ * file is known to read in PCEnv.
+ * 
+ * Model Structure
+ * 
+ * Currently, drug design and development takes, on average, 12
+ * years and costs more than 800 million US dollars. Much of this
+ * time and money is spent on experiments and drugs that fail.
+ * There is very little mechanistic understanding as to how the
+ * various levels of biological complexity - from molecular interactions,
+ * to cellular function, to tissue organisation, to whole organs
+ * and beyond - are integrated. Hierarchical mathematical models
+ * provide a method for integrating this data. Specifically, in
+ * the model described here, Sarkar and Lauffenburger focus on
+ * the case of granulocyte colony-stimulating factor (GCSF).
+ * 
+ * GCSF is of great clinical importance, especially for cancer
+ * patients undergoing chemotherapy. The drug is injected into
+ * the blood stream where it then diffuses to the bone marrow and
+ * binds to its receptor GCSFR on precursor cells, inducing them
+ * to replicate and differentiate into mature neutrophils. In this
+ * way, the neutrophil count of immunocompromised patients is significantly
+ * increased. However, the bone marrow precursor cells engulf and
+ * degrade the GCSF, a negative feedback mechanism that reduces
+ * its potency. In addition, mature bone cells express the receptor
+ * GCSFR, and they bind, engulf and degrade the drug from the bloodstream.
+ * Thus, there is a significant negative feedback loop that reduces
+ * the lifetime of the drug.
+ * 
+ * The mathematical model developed by Sarkar and Lauffenburger
+ * relates extracellular GCSF depletion to the molecular properties
+ * of the ligand and the cells expressing the GCSF receptor (see
+ * the figure below). The authors then further integrated this
+ * cell-level model into a physiologically relevant pharmacokinetic/pharmacodynamic
+ * model.
+ * 
+ * The model has been described here in CellML (the raw CellML
+ * description of the Sarkar and Lauffenburger 2003 model can be
+ * downloaded in various formats as described in ).
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * Cell-Level Pharmacokinetic Model of Granulocyte Colony-Stimulating
+ * Factor: Implications for Ligand Lifetime and Potency in Vivo,
+ * Casim A. Sarkar and Douglas A. Lauffenburger, 2003, Molecular
+ * Pharmacology, 63, 147-158. PubMed ID: 12488547
+ * 
+ * reaction diagram
+ * 
+ * [[Image file: sarkar_2003.png]]
+ * 
+ * Cell-level trafficking model for the GCSF/GCSFR system.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 7 equation(s)
+unit conversion off;
+// unit molar predefined
+unit number_per_cell = fundamental;
+unit number_per_litre = fundamental;
+unit molecule = fundamental;
+unit minute=60 second^1;
+unit molecule_per_mole=1 mole^(-1)*molecule^1;
+unit first_order_rate_constant=.01666667 second^(-1);
+unit second_order_rate_constant=1.6666667E-5 meter^3*second^(-1)*mole^(-1);
+unit per_litre_per_minute=.01666667 second^(-1)*number_per_litre^1;
+unit litres_per_minute=1.6666667E-5 meter^3*second^(-1);
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  Rs, Cs, Li, Ci, Ri, Ld, n, L4, n1, n2
+	realDomain time minute;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real Rs(time) number_per_cell;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Rs.cellMLNames="Rs.Rs;Cs.Rs;L.Rs;Ci.Rs;Ri.Rs";
+	when(time=time.min) Rs=0;
+	real keR first_order_rate_constant;
+	keR.cellMLNames="Rs.keR;parameters.keR;Ri.keR";
+	keR=0.005;
+	real kr first_order_rate_constant;
+	kr.cellMLNames="Rs.kr;parameters.kr;Cs.kr;L.kr";
+	kr=0.03;
+	real kf second_order_rate_constant;
+	kf.cellMLNames="Rs.kf;parameters.kf;Cs.kf;L.kf";
+	kf=2.0E8;
+	real Vs first_order_rate_constant;
+	Vs.cellMLNames="Rs.Vs;parameters.Vs";
+	Vs=25.0;
+	real Cs(time) number_per_cell;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Cs.cellMLNames="Rs.Cs;Cs.Cs;Ci.Cs;L.Cs";
+	when(time=time.min) Cs=0;
+	real N(time) number_per_litre;
+	N.cellMLNames="Rs.N;parameters.N;Cs.N;Li.N;Ri.N;Ci.N;L.N;Ld.N";
+	real L(time) molar;
+	L.cellMLNames="Rs.L;L.L;Cs.L;N.L;PKPD.L";
+	when(time=time.min) L=0.0001;
+	real keC first_order_rate_constant;
+	keC.cellMLNames="Cs.keC;parameters.keC;Ci.keC";
+	keC=0.10;
+	real Li(time) molar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Li.cellMLNames="Li.Li;Ri.Li;Ci.Li;L.Li";
+	when(time=time.min) Li=0;
+	real krec first_order_rate_constant;
+	krec.cellMLNames="Li.krec;parameters.krec;L.krec";
+	krec=0.15;
+	real kri first_order_rate_constant;
+	kri.cellMLNames="Li.kri;parameters.kri;Ri.kri;Ci.kri";
+	kri=3.0;
+	real kfi second_order_rate_constant;
+	kfi.cellMLNames="Li.kfi;parameters.kfi;Ri.kfi;Ci.kfi";
+	kfi=235294117.6;
+	real Ve litre;
+	Ve.cellMLNames="Li.Ve;parameters.Ve;L.Ve";
+	Ve=1.0E-14;
+	real Ci(time) number_per_cell;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ci.cellMLNames="Li.Ci;Ci.Ci;Ri.Ci;Ld.Ci";
+	when(time=time.min) Ci=0;
+	real NA molecule_per_mole;
+	NA.cellMLNames="Li.NA;parameters.NA;L.NA";
+	NA=6.02E23;
+	real Ri(time) number_per_cell;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ri.cellMLNames="Li.Ri;Ri.Ri;Ci.Ri";
+	when(time=time.min) Ri=0;
+	real kdeg first_order_rate_constant;
+	kdeg.cellMLNames="Ri.kdeg;parameters.kdeg;Ci.kdeg;Ld.kdeg";
+	kdeg=0.059;
+	real kl_WT first_order_rate_constant;
+	kl_WT.cellMLNames="L.kl_WT;parameters.kl_WT";
+	kl_WT=4.17E-5;
+	real Ld(time) number_per_cell;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ld.cellMLNames="Ld.Ld";
+	when(time=time.min) Ld=0;
+	real n(time) number_per_litre;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	n.cellMLNames="parameters.n;N.n";
+	when(time=time.min) n=0;
+	real Kin per_litre_per_minute;
+	Kin.cellMLNames="N.Kin";
+	Kin=3.13E-6;
+	real emax dimensionless;
+	emax.cellMLNames="N.emax";
+	emax=12.7;
+	real ec50 molar;
+	ec50.cellMLNames="N.ec50";
+	ec50=2.53E-10;
+	real kdiwt molar;
+	kdiwt.cellMLNames="N.kdiwt";
+	kdiwt=1.275E-8;
+	real kd molar;
+	kd.cellMLNames="N.kd";
+	kd=1.5E-10;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real gamma dimensionless;
+//	gamma.cellMLNames="N.gamma";
+//	gamma=1.34;
+	real kout first_order_rate_constant;
+	kout.cellMLNames="N.kout";
+	kout=7.57E-4;
+	real L4(time) molar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	L4.cellMLNames="PKPD.L4";
+	when(time=time.min) L4=0;
+	real V4 litre;
+	V4.cellMLNames="PKPD.V4";
+	V4=0.249;
+	real Q litres_per_minute;
+	Q.cellMLNames="PKPD.Q";
+	Q=4.65E-4;
+	real n1(time) mole;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	n1.cellMLNames="PKPD.n1";
+	when(time=time.min) n1=0;
+	real k13 first_order_rate_constant;
+	k13.cellMLNames="PKPD.k13";
+	k13=0.0044;
+	real n2(time) mole;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	n2.cellMLNames="PKPD.n2";
+	when(time=time.min) n2=0;
+	real k23 first_order_rate_constant;
+	k23.cellMLNames="PKPD.k23";
+	k23=0.0033;
+
+	// <component name="environment">
+
+	// <component name="Rs">
+	Rs:time=((kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N);
+
+	// <component name="Cs">
+	Cs:time=((-1)*(kf*L*Cs+kr*Cs+keC*Cs)*N);
+
+	// <component name="Li">
+	Li:time=(((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N);
+
+	// <component name="Ri">
+	Ri:time=((kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N);
+
+	// <component name="Ci">
+	Ci:time=((kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N);
+
+	// <component name="L">
+	L:time=((krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L);
+
+	// <component name="Ld">
+	Ld:time=(kdeg*Ci*N);
+
+	// <component name="parameters">
+	n=N;
+
+	// <component name="N">
+	n:time=(Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n);
+
+	// <component name="PKPD">
+	L4:time=(Q/V4*(L-L4));
+	n1:time=(k13*n1);
+	n2:time=(k23*n2);
+}
+

@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model vfc_uode_expr
+aborted: Circular variable dependency: [u,u(t.expr),u:t,u]
+
+
+

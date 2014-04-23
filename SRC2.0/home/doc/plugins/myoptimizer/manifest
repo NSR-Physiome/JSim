@@ -1,0 +1,3 @@
+JSimPluginType: Optimizer
+JSimPluginVariant: mine
+JSimPluginClass: MyOptimizer

@@ -1,0 +1,10 @@
+time.min = { 0 } second
+time.max = { 10 } second
+time.ct = { 21 } dimensionless
+time.delta = { .5 } second
+P1 = { 6.0221E23 } dimensionless
+P2 = { 6.0221E23 } dimensionless
+P3 = { 6.0221E23 } dimensionless
+P4 = { 6.0221E23 } dimensionless
+P5 = { 4.179E18 } dimensionless
+time = { 0 .5 1 1.5 2 2.5 3 3.5 4 4.5 5 5.5 6 6.5 7 7.5 8 8.5 9 9.5 10 } second

@@ -1,0 +1,257 @@
+/*
+ * Numerical analysis of a comprehensive model of M-phase control
+ * in Xenopus oocyte extracts and intact embryos
+ * 
+ * Model Status
+ * 
+ * This CellML version of the model has been checked in COR and
+ * OpenCell. This variant of the model runs to replicate the original
+ * published results as depicted in figure 4A of the paper. Please
+ * note that actual concentrations are displayed by this model,
+ * instead of the percentage concentrations used in the paper.
+ * The units have been checked and they are consistent.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: To contribute to a deeper understanding of M-phase
+ * control in eukaryotic cells, we have constructed a model based
+ * on the biochemistry of M-phase promoting factor (MPF) in Xenopus
+ * oocyte extracts, where there is evidence for two positive feedback
+ * loops (MPF stimulates its own production by activating Cdc25
+ * and inhibiting Wee1) and a negative feedback loop (MPF stimulates
+ * its own destruction by indirectly activating the ubiquitin pathway
+ * that degrades its cyclin subunit). To uncover the full dynamical
+ * possibilities of the control system, we translate the regulatory
+ * network into a set of differential equations and study these
+ * equations by graphical techniques and computer simulation. The
+ * positive feedback loops in the model account for thresholds
+ * and time lags in cyclin-induced and MPF-induced activation of
+ * MPF, and the model can be fitted quantitatively to these experimental
+ * observations. The negative feedback loop is consistent with
+ * observed time lags in MPF-induced cyclin degradation. Furthermore,
+ * our model indicates that there are two possible mechanisms for
+ * autonomous oscillations. One is driven by the positive feedback
+ * loops, resulting in phosphorylation and abrupt dephosphorylation
+ * of the Cdc2 subunit at an inhibitory tyrosine residue. These
+ * oscillations are typical of oocyte extracts. The other type
+ * is driven by the negative feedback loop, involving rapid cyclin
+ * turnover and negligible phosphorylation of the tyrosine residue
+ * of Cdc2. The early mitotic cycles of intact embryos exhibit
+ * such characteristics. In addition, by assuming that unreplicated
+ * DNA interferes with M-phase initiation by activating the phosphatases
+ * that oppose MPF in the positive feedback loops, we can simulate
+ * the effect of addition of sperm nuclei to oocyte extracts, and
+ * the lengthening of cycle times at the mid-blastula transition
+ * of intact embryos.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Numerical analysis of a comprehensive model of M-phase control
+ * in Xenopus oocyte extracts and intact embryos, Bela Novak and
+ * John J. Tyson, 1993, Journal of Cell Science, 106, 1153-1168.
+ * PubMed ID: 8126097
+ * 
+ * Figure 1
+ * 
+ * [[Image file: novak_1993a.png]]
+ * 
+ * The phosphorylation states of MPF.
+ * 
+ * Figure 2
+ * 
+ * [[Image file: novak_1993b.png]]
+ * 
+ * The positive feedback loops.
+ * 
+ * Figure 3
+ * 
+ * [[Image file: novak_1993c.png]]
+ * 
+ * The negative feedback loop.
+ */
+
+import nsrunit;
+unit conversion on;
+unit minute=60 second^1;
+unit first_order_rate_constant=.01666667 second^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time minute;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real k1AA first_order_rate_constant;
+	k1AA.cellMLNames="rate_constants.k1AA;cyclin.k1AA";
+	k1AA=0;
+	real k3 first_order_rate_constant;
+	k3.cellMLNames="rate_constants.k3;cyclin.k3;cyclin_Cdc2.k3";
+	k3=0.01;
+	real kinh first_order_rate_constant;
+	kinh.cellMLNames="rate_constants.kinh;cyclin_Cdc2.kinh;Tyr15P_dimer.kinh;MPF_pre.kinh;MPF_active.kinh";
+	kinh=0.025;
+	real kcak first_order_rate_constant;
+	kcak.cellMLNames="rate_constants.kcak;cyclin_Cdc2.kcak;Tyr15P_dimer.kcak;MPF_pre.kcak;MPF_active.kcak";
+	kcak=0.25;
+	real kbPPase first_order_rate_constant;
+	kbPPase.cellMLNames="rate_constants.kbPPase;Cdc25_P.kbPPase";
+	kbPPase=0.125;
+	real kfPPase first_order_rate_constant;
+	kfPPase.cellMLNames="rate_constants.kfPPase;Wee1_P.kfPPase";
+	kfPPase=0.1;
+	real khPPase first_order_rate_constant;
+	khPPase.cellMLNames="rate_constants.khPPase;IE_P.khPPase";
+	khPPase=0.087;
+	real kd_antiIE first_order_rate_constant;
+	kd_antiIE.cellMLNames="rate_constants.kd_antiIE;UbE.kd_antiIE";
+	kd_antiIE=0.095;
+	real ka first_order_rate_constant;
+	ka.cellMLNames="rate_constants.ka;Cdc25_P.ka";
+	ka=0.01;
+	real kc first_order_rate_constant;
+	kc.cellMLNames="rate_constants.kc;UbE.kc";
+	kc=0.1;
+	real ke first_order_rate_constant;
+	ke.cellMLNames="rate_constants.ke;Wee1_P.ke";
+	ke=0.0133;
+	real kg first_order_rate_constant;
+	kg.cellMLNames="rate_constants.kg;IE_P.kg";
+	kg=0.0065;
+	real V2_v1 first_order_rate_constant;
+	V2_v1.cellMLNames="rate_constants.V2_";
+	V2_v1=0;
+	real V2_v2 first_order_rate_constant;
+	V2_v2.cellMLNames="rate_constants.V2__";
+	V2_v2=0;
+	real V25_v1 first_order_rate_constant;
+	V25_v1.cellMLNames="rate_constants.V25_";
+	V25_v1=0.1;
+	real V25_v2 first_order_rate_constant;
+	V25_v2.cellMLNames="rate_constants.V25__";
+	V25_v2=2;
+	real Vwee_v1 first_order_rate_constant;
+	Vwee_v1.cellMLNames="rate_constants.Vwee_";
+	Vwee_v1=0.1;
+	real Vwee_v2 first_order_rate_constant;
+	Vwee_v2.cellMLNames="rate_constants.Vwee__";
+	Vwee_v2=1;
+	real K_a dimensionless;
+	K_a.cellMLNames="rate_constants.K_a;Cdc25_P.K_a";
+	K_a=0.1;
+	real K_b dimensionless;
+	K_b.cellMLNames="rate_constants.K_b;Cdc25_P.K_b";
+	K_b=0.1;
+	real K_c dimensionless;
+	K_c.cellMLNames="rate_constants.K_c;UbE.K_c";
+	K_c=0.01;
+	real K_d dimensionless;
+	K_d.cellMLNames="rate_constants.K_d;UbE.K_d";
+	K_d=0.01;
+	real K_e dimensionless;
+	K_e.cellMLNames="rate_constants.K_e;Wee1_P.K_e";
+	K_e=0.3;
+	real K_f dimensionless;
+	K_f.cellMLNames="rate_constants.K_f;Wee1_P.K_f";
+	K_f=0.3;
+	real K_g dimensionless;
+	K_g.cellMLNames="rate_constants.K_g;IE_P.K_g";
+	K_g=0.01;
+	real K_h dimensionless;
+	K_h.cellMLNames="rate_constants.K_h;IE_P.K_h";
+	K_h=0.01;
+	real Cdc25_T dimensionless;
+	Cdc25_T.cellMLNames="rate_constants.Cdc25_T;concentration_variables.Cdc25_T;Cdc25_P.Cdc25_T";
+	Cdc25_T=1;
+	real Cdc25_P(time) dimensionless;
+	Cdc25_P.cellMLNames="rate_constants.Cdc25_P;Cdc25_P.Cdc25_P";
+	when(time=time.min) Cdc25_P=0;
+	real Wee1_P(time) dimensionless;
+	Wee1_P.cellMLNames="rate_constants.Wee1_P;Wee1_P.Wee1_P";
+	when(time=time.min) Wee1_P=0;
+	real Wee1_T dimensionless;
+	Wee1_T.cellMLNames="rate_constants.Wee1_T;concentration_variables.Wee1_T;Wee1_P.Wee1_T";
+	Wee1_T=1;
+	real UbE_T dimensionless;
+	UbE_T.cellMLNames="rate_constants.UbE_T;concentration_variables.UbE_T;UbE.UbE_T";
+	UbE_T=1;
+	real UbE(time) dimensionless;
+	UbE.cellMLNames="rate_constants.UbE;UbE.UbE";
+	when(time=time.min) UbE=0;
+	real k25(time) first_order_rate_constant;
+	k25.cellMLNames="rate_constants.k25;cyclin_Cdc2.k25;Tyr15P_dimer.k25;MPF_pre.k25;MPF_active.k25";
+	real kwee(time) first_order_rate_constant;
+	kwee.cellMLNames="rate_constants.kwee;cyclin_Cdc2.kwee;Tyr15P_dimer.kwee;MPF_pre.kwee;MPF_active.kwee";
+	real k2(time) first_order_rate_constant;
+	k2.cellMLNames="rate_constants.k2;cyclin.k2;cyclin_Cdc2.k2;Tyr15P_dimer.k2;MPF_pre.k2;MPF_active.k2";
+	real Cdc2_T dimensionless;
+	Cdc2_T.cellMLNames="concentration_variables.Cdc2_T;Cdc2.Cdc2_T";
+	Cdc2_T=100;
+	real IE_T dimensionless;
+	IE_T.cellMLNames="concentration_variables.IE_T;IE_P.IE_T";
+	IE_T=1;
+	real cyclin(time) dimensionless;
+	cyclin.cellMLNames="cyclin.cyclin;cyclin_Cdc2.cyclin;cyclin_T.cyclin";
+	when(time=time.min) cyclin=1;
+	real Cdc2(time) dimensionless;
+	Cdc2.cellMLNames="cyclin.Cdc2;Cdc2.Cdc2;cyclin_Cdc2.Cdc2";
+	real cyclin_Cdc2(time) dimensionless;
+	cyclin_Cdc2.cellMLNames="cyclin_Cdc2.cyclin_Cdc2;MPF_active.cyclin_Cdc2;Tyr15P_dimer.cyclin_Cdc2;Cdc2.cyclin_Cdc2;cyclin_T.cyclin_Cdc2";
+	when(time=time.min) cyclin_Cdc2=0;
+	real MPF_active(time) dimensionless;
+	MPF_active.cellMLNames="cyclin_Cdc2.MPF_active;MPF_active.MPF_active;MPF_pre.MPF_active;Cdc2.MPF_active;cyclin_T.MPF_active;Cdc25_P.MPF_active;Wee1_P.MPF_active;IE_P.MPF_active";
+	when(time=time.min) MPF_active=0;
+	real Tyr15P_dimer(time) dimensionless;
+	Tyr15P_dimer.cellMLNames="cyclin_Cdc2.Tyr15P_dimer;Tyr15P_dimer.Tyr15P_dimer;MPF_pre.Tyr15P_dimer;Cdc2.Tyr15P_dimer;cyclin_T.Tyr15P_dimer";
+	when(time=time.min) Tyr15P_dimer=0;
+	real MPF_pre(time) dimensionless;
+	MPF_pre.cellMLNames="Tyr15P_dimer.MPF_pre;MPF_pre.MPF_pre;MPF_active.MPF_pre;Cdc2.MPF_pre;cyclin_T.MPF_pre";
+	when(time=time.min) MPF_pre=0;
+	real cyclin_T(time) dimensionless;
+	cyclin_T.cellMLNames="cyclin_T.cyclin_T";
+	real IE_P(time) dimensionless;
+	IE_P.cellMLNames="IE_P.IE_P;UbE.IE_P";
+	when(time=time.min) IE_P=0;
+
+	// <component name="environment">
+
+	// <component name="rate_constants">
+	k25=(V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P);
+	kwee=(Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P));
+	k2=(V2_v1*(UbE_T-UbE)+V2_v2*UbE);
+
+	// <component name="concentration_variables">
+
+	// <component name="cyclin">
+	cyclin:time=(k1AA-k2*cyclin-k3*cyclin*Cdc2);
+
+	// <component name="cyclin_Cdc2">
+	cyclin_Cdc2:time=(kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2);
+
+	// <component name="Tyr15P_dimer">
+	Tyr15P_dimer:time=(kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre);
+
+	// <component name="MPF_pre">
+	MPF_pre:time=(kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer);
+
+	// <component name="MPF_active">
+	MPF_active:time=(kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre);
+
+	// <component name="Cdc2">
+	Cdc2=(Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer));
+
+	// <component name="cyclin_T">
+	cyclin_T=(cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer);
+
+	// <component name="Cdc25_P">
+	Cdc25_P:time=(ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P));
+
+	// <component name="Wee1_P">
+	Wee1_P:time=(ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P));
+
+	// <component name="IE_P">
+	IE_P:time=(kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P));
+
+	// <component name="UbE">
+	UbE:time=(kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE));
+}
+

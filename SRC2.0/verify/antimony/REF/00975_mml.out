@@ -1,0 +1,31 @@
+antimony {{
+  //Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  J2 := k3 * S2;
+  J1 := k2 * S1 / S2;
+  J0 := k1;
+
+  // Rate Rules:
+  S2' = modelconv * (J1 * 3 + J2 * -1) / default_compartment;
+  S1' = modelconv * (J0 + J1 * -2) / default_compartment;
+
+  // Variable initializations:
+  S2 = 0.001 / default_compartment;
+  default_compartment = 1;
+  S1 = 0;
+  k3 = 1.4;
+  k2 = 3;
+  S1conv = 3;
+  k1 = 1;
+  modelconv = 4;
+
+  //Other declarations:
+  var J2, J1, J0, S2, S1;
+end
+
+
+
+}}
+

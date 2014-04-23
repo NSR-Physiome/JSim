@@ -1,0 +1,113 @@
+#!/bin/sh
+
+# build parsers
+
+. jsbuild.path
+
+sub() {
+  DIR=$1
+  NAME=$2
+  CLASS=$3
+  INSTANCE=$4
+  LOG=build"$NAME".log
+
+  PNAME="$NAME"Parser
+  PNAME1="$PNAME"1
+  PSYMNAME="$NAME"ParserSym
+  SNAME="$NAME"Scanner
+  PLOG="$PNAME".log
+  SLOG="$SNAME".log
+
+  # clean?
+  if [ $CLEAN -gt 0 ]
+  then
+    echo "cleaning $NAME parser"
+    rm -f "$PNAME".java "$PNAME1".java "$PSYMNAME".java "$SNAME".java "$PLOG" "$SLOG"
+    return
+  fi
+  
+  echo "building $NAME parser"
+  cd $JSIMSRC/JSim/$DIR
+
+  # JFlex
+  LEXSRC="$SNAME".flex
+  if [ ! -r $LEXSRC ]
+  then
+    LEXSRC="$SNAME".lex
+  fi
+  java -Xmx128m JFlex.Main $LEXSRC >& "$SLOG"
+  STAT=$?
+  rm -f "$SNAME"."java~"
+  if [ "$STAT" != 0 ]
+  then
+    cat "$SNAME".log
+    echo "JFlex failed with status=$STAT, exiting now"
+    exit 1
+  fi
+
+  # Cup
+  java -Xmx128m java_cup.Main -parser "$PNAME" -symbols "$PSYMNAME" "$PNAME".cup >& "$PLOG"
+  STAT=$?
+  if [ "$STAT" != 0 ]
+  then
+    cat "$PLOG"
+    echo "CUP failed with status=$STAT, exiting now"
+    exit 1
+  fi
+
+  # add helper field to parser class
+  if [ "$CLASS" = "" ]
+  then
+    return
+  fi
+  LNO=`cat -n "$PNAME".java | grep "public class "$PNAME" " | awk '{ print $1 }'`
+  mv "$PNAME".java "$PNAME1".java
+  head -"$LNO" "$PNAME1".java > "$PNAME".java
+  echo "  public $CLASS $INSTANCE ;" >> "$PNAME".java
+  sed -e "1,""$LNO"d "$PNAME1".java >> "$PNAME".java
+  rm -f "$PNAME1".java
+}
+
+
+CLEAN=0
+if [ "$1" = "-clean" ]
+then
+  CLEAN=1
+  shift
+fi
+
+if [ $# -eq 0 ]
+then
+  LIST="Expr Unit Model CF"
+else
+  LIST="$*"
+fi
+
+for i in $LIST
+do
+   case $i in
+     Expr )
+       sub expr Expr NameSpace ns
+       ;;
+     Unit )
+       sub expr PrettyUnit 
+       ;;
+     Model )
+       sub mml Model ModelReader mr
+       ;;
+     Model2 )
+       sub mml2 MML MMLReader mr
+       ;;
+     CF )
+       sub xsim CF CFReader cfr
+       ;;
+     sla )
+       sub project/sla SLAScript SLAScriptReader cr
+       ;;
+     * )
+       echo "Unknown parser $i"
+       exit 1
+       ;;
+  esac
+done
+

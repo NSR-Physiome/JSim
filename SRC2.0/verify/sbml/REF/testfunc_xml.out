@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfParameters>
+      <parameter id="comp1" value="10" units="litre" constant="true"/>
+      <parameter id="X3" units="mole" constant="false"/>
+      <parameter id="X2" value="33" units="mole" constant="true"/>
+      <parameter id="X1" value="22" units="mole" constant="true"/>
+      <parameter id="f1_call0" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="X3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> f1_call0 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="f1_call0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> X1 </ci>
+            <ci> X2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

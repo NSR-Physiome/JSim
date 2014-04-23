@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.min</ci>
+          <cn>0</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.max</ci>
+          <cn>10</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>t.delta</ci>
+          <cn>.25</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <forall/>
+          <bvar>
+            <ci>t</ci>
+          </bvar>
+          <condition>
+            <apply>
+              <eq/>
+              <ci>t</ci>
+              <ci>t.min</ci>
+            </apply>
+          </condition>
+          <apply>
+            <eq/>
+            <ci>u</ci>
+            <cn>1</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <apply>
+            <diff/>
+            <bvar>
+              <ci>t</ci>
+            </bvar>
+            <ci>u</ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci>u</ci>
+            <cn>-1</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+  </body>
+</html>
+

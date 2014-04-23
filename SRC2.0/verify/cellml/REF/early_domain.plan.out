@@ -1,0 +1,143 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time hour
+  add var: real time.min hour
+  add var: extern real time.max hour
+  add var: int time.ct
+  add var: extern real time.delta hour
+  add var: extern real vs flux
+  add var: extern real vm flux
+  add var: extern real Km nanomolar
+  add var: extern real KI nanomolar
+  add var: extern real kd first_order_rate_constant
+  add var: extern real CN nanomolar
+  add var: extern real n dimensionless
+  add var: extern real M_init nanomolar
+  add var: real M(time) nanomolar
+  add var: real M:time(time) nanomolar/hour
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) M=M_init :: [M(time.min), M_init]
+  M:time=(vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)) :: [M:time, vs, KI, n, CN, vm, M, Km, kd]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+  add tool: extern vs
+  add tool: extern vm
+  add tool: extern Km
+  add tool: extern KI
+  add tool: extern kd
+  add tool: extern CN
+  add tool: extern n
+  add tool: extern M_init
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) M=M_init; [M(time.min)]
+  add tool: M(time.min)=M_init
+  check eqn: M:time=(vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)); [M:time, M]
+  add tool: ODE M: []
+  updated ODE(M) with M(time.min)=M_init
+Toolbox phase - cycle 1:
+  check eqn: M:time=(vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)); [M:time]
+  add tool: M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)
+  updated ODE(M) with M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)
+    M is now entirely solved
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @time M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M) :: [M:time]<<[vs, KI, n, CN, vm, M, Km, kd]
+  @time ODE M: M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M) :: [M, M(time.max)]<<[vs, KI, n, CN, vm, Km, kd, M(time.min), M:time]
+  extern M_init :: [M_init]<<[]
+  extern n :: [n]<<[]
+  extern CN :: [CN]<<[]
+  extern kd :: [kd]<<[]
+  extern KI :: [KI]<<[]
+  extern Km :: [Km]<<[]
+  extern vm :: [vm]<<[]
+  extern vs :: [vs]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  M(time.min)=M_init :: [M(time.min)]<<[M_init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode M:time seqLoops=(time) phase=time#1 fft=null
+  addNode M seqLoops=(time) phase=time#1 fft=time
+  addNode M_init seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode CN seqLoops=() phase=main fft=null
+  addNode kd seqLoops=() phase=main fft=null
+  addNode KI seqLoops=() phase=main fft=null
+  addNode Km seqLoops=() phase=main fft=null
+  addNode vm seqLoops=() phase=main fft=null
+  addNode vs seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode M(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding extern M_init to main
+  adding extern n to main
+  adding extern CN to main
+  adding extern kd to main
+  adding extern KI to main
+  adding extern Km to main
+  adding extern vm to main
+  adding extern vs to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding M(time.min)=M_init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M) to loop-time
+  adding ODE Block-time [M] to loop-time
+  adding loop-time to main
+Building ODE Block-time [M] ...
+  adding muTool M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)
+  adding muVar M:time
+  adding M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M) to ODE Block-time [M]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  extern M_init
+  extern n
+  extern CN
+  extern kd
+  extern KI
+  extern Km
+  extern vm
+  extern vs
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  M(time.min)=M_init
+  loop-time
+    M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)
+    ODE Block-time vmus=[time, M, M:time]
+      M:time=vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M)
+

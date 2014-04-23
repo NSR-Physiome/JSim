@@ -1,0 +1,294 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time hour
+  add var: real time.min hour
+  add var: extern real time.max hour
+  add var: int time.ct
+  add var: extern real time.delta hour
+  add var: real T_a kelvin
+  add var: real T_b kelvin
+  add var: real delta_T kelvin
+  add var: real kinc W_per_kg_C2
+  add var: real M_c(time) W_per_kg
+  add var: real t_day hour
+  add var: real t_night hour
+  add var: real tprime(time) second
+  add var: real day_length second
+  add var: real M_day W_per_kg
+  add var: real M_night W_per_kg
+  add var: real M(time) W_per_kg
+  add var: real km per_hour
+  add var: real T(time) kelvin
+  add var: real c kJ_per_kg_C
+  add var: real k(time) W_per_kg_C
+  add var: real kb W_per_kg_C
+  add var: real T_day kelvin
+  add var: real T_night kelvin
+  add var: real M_b W_per_kg
+  add var: real M:time(time) W_per_kg/hour
+  add var: real T:time(time) kelvin/hour
+Loading Constraints
+  time.min=0 :: [time.min]
+  T_a=21 :: [T_a]
+  T_b=38 :: [T_b]
+  delta_T=1.57 :: [delta_T]
+  kinc=.0258 :: [kinc]
+  t_day=17.5 :: [t_day]
+  t_night=6.73 :: [t_night]
+  day_length=86400 :: [day_length]
+  when (time=time.min) M=3.5 :: [M(time.min)]
+  km=1.1375 :: [km]
+  when (time=time.min) T=38.785 :: [T(time.min)]
+  c=3.47 :: [c]
+  M_b=3 :: [M_b]
+  tprime=(rem(time*3600*1,day_length)) :: [tprime, time, day_length]
+  M_c=(if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day) :: [M_c, tprime, t_night, t_day, M_night, M_day]
+  M:time=(km*(M-M_c)*(-1)) :: [M:time, km, M, M_c]
+  T:time=(c^(-1)*(M-k*(T-T_a))*3.600000000000001) :: [T:time, c, M, k, T, T_a]
+  k=(kb+kinc*(T-T_b)) :: [k, kb, kinc, T, T_b]
+  T_day=(T_b+delta_T*.5) :: [T_day, T_b, delta_T]
+  T_night=(T_b-delta_T*.5) :: [T_night, T_b, delta_T]
+  kb=(M_b/(T_b-T_a)) :: [kb, M_b, T_b, T_a]
+  M_day=((kb+kinc*(T_day-T_b))*(T_day-T_a)) :: [M_day, kb, kinc, T_day, T_b, T_a]
+  M_night=((kb+kinc*(T_night-T_b))*(T_night-T_a)) :: [M_night, kb, kinc, T_night, T_b, T_a]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: T_a=21; [T_a]
+  add tool: T_a=21
+  check eqn: T_b=38; [T_b]
+  add tool: T_b=38
+  check eqn: delta_T=1.57; [delta_T]
+  add tool: delta_T=1.57
+  check eqn: kinc=.0258; [kinc]
+  add tool: kinc=.0258
+  check eqn: t_day=17.5; [t_day]
+  add tool: t_day=17.5
+  check eqn: t_night=6.73; [t_night]
+  add tool: t_night=6.73
+  check eqn: day_length=86400; [day_length]
+  add tool: day_length=86400
+  check eqn: when (time=time.min) M=3.5; [M(time.min)]
+  add tool: M(time.min)=3.5
+  check eqn: km=1.1375; [km]
+  add tool: km=1.1375
+  check eqn: when (time=time.min) T=38.785; [T(time.min)]
+  add tool: T(time.min)=38.785
+  check eqn: c=3.47; [c]
+  add tool: c=3.47
+  check eqn: M_b=3; [M_b]
+  add tool: M_b=3
+  check eqn: tprime=(rem(time*3600*1,day_length)); [tprime]
+  add tool: tprime=rem(time*3600*1,day_length)
+  check eqn: M_c=(if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day); [M_c, M_night]
+  check eqn: M:time=(km*(M-M_c)*(-1)); [M:time, M]
+  check eqn: T:time=(c^(-1)*(M-k*(T-T_a))*3.600000000000001); [T:time, M]
+  check eqn: k=(kb+kinc*(T-T_b)); [k, kb]
+  check eqn: T_day=(T_b+delta_T*.5); [T_day]
+  add tool: T_day=T_b+delta_T*.5
+  check eqn: T_night=(T_b-delta_T*.5); [T_night]
+  add tool: T_night=T_b-delta_T*.5
+  check eqn: kb=(M_b/(T_b-T_a)); [kb]
+  add tool: kb=M_b/(T_b-T_a)
+  check eqn: M_day=((kb+kinc*(T_day-T_b))*(T_day-T_a)); [M_day]
+  add tool: M_day=(kb+kinc*(T_day-T_b))*(T_day-T_a)
+  check eqn: M_night=((kb+kinc*(T_night-T_b))*(T_night-T_a)); [M_night]
+  add tool: M_night=(kb+kinc*(T_night-T_b))*(T_night-T_a)
+  add tool: ODE M: []
+  updated ODE(M) with M(time.min)=3.5
+  add tool: ODE T: []
+  updated ODE(T) with T(time.min)=38.785
+Toolbox phase - cycle 1:
+  check eqn: M_c=(if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day); [M_c]
+  add tool: M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day
+  check eqn: M:time=(km*(M-M_c)*(-1)); [M:time]
+  add tool: M:time=km*(M-M_c)*(-1)
+  check eqn: T:time=(c^(-1)*(M-k*(T-T_a))*3.600000000000001); [T:time, k]
+  check eqn: k=(kb+kinc*(T-T_b)); [k]
+  add tool: k=kb+kinc*(T-T_b)
+  updated ODE(M) with M:time=km*(M-M_c)*(-1)
+    M is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: T:time=(c^(-1)*(M-k*(T-T_a))*3.600000000000001); [T:time]
+  add tool: T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001
+  updated ODE(T) with T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001
+    T is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real M__init W_per_kg
+  add tool: M__init=3.5
+  add var: real T__init kelvin
+  add tool: T__init=38.785
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  T__init=38.785 :: [T__init]<<[]
+  M__init=3.5 :: [M__init]<<[]
+  @time T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001 :: [T:time]<<[c, M, k, T, T_a]
+  @time M:time=km*(M-M_c)*(-1) :: [M:time]<<[km, M, M_c]
+  M_b=3 :: [M_b]<<[]
+  T_night=T_b-delta_T*.5 :: [T_night]<<[T_b, delta_T]
+  T_day=T_b+delta_T*.5 :: [T_day]<<[T_b, delta_T]
+  kb=M_b/(T_b-T_a) :: [kb]<<[M_b, T_b, T_a]
+  @time k=kb+kinc*(T-T_b) :: [k]<<[kb, kinc, T, T_b]
+  c=3.47 :: [c]<<[]
+  @time ODE T: T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001 :: [T, T(time.max)]<<[c, M, k, T_a, T(time.min), T:time]
+  km=1.1375 :: [km]<<[]
+  @time ODE M: M:time=km*(M-M_c)*(-1) :: [M, M(time.max)]<<[km, M_c, M(time.min), M:time]
+  M_night=(kb+kinc*(T_night-T_b))*(T_night-T_a) :: [M_night]<<[kb, kinc, T_night, T_b, T_a]
+  M_day=(kb+kinc*(T_day-T_b))*(T_day-T_a) :: [M_day]<<[kb, kinc, T_day, T_b, T_a]
+  day_length=86400 :: [day_length]<<[]
+  @time tprime=rem(time*3600*1,day_length) :: [tprime]<<[time, day_length]
+  t_night=6.73 :: [t_night]<<[]
+  t_day=17.5 :: [t_day]<<[]
+  @time M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day :: [M_c]<<[tprime, t_night, t_day, M_night, M_day]
+  kinc=.0258 :: [kinc]<<[]
+  delta_T=1.57 :: [delta_T]<<[]
+  T_b=38 :: [T_b]<<[]
+  T_a=21 :: [T_a]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  T(time.min)=T__init :: [T(time.min)]<<[T__init]
+  M(time.min)=M__init :: [M(time.min)]<<[M__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode T__init seqLoops=() phase=main fft=null
+  addNode M__init seqLoops=() phase=main fft=null
+  addNode T:time seqLoops=(time) phase=time#1 fft=null
+  addNode M:time seqLoops=(time) phase=time#1 fft=null
+  addNode M_b seqLoops=() phase=main fft=null
+  addNode T_night seqLoops=() phase=main fft=null
+  addNode T_day seqLoops=() phase=main fft=null
+  addNode kb seqLoops=() phase=main fft=null
+  addNode k seqLoops=(time) phase=time#1 fft=null
+  addNode c seqLoops=() phase=main fft=null
+  addNode T seqLoops=(time) phase=time#1 fft=time
+  addNode km seqLoops=() phase=main fft=null
+  addNode M seqLoops=(time) phase=time#1 fft=time
+  addNode M_night seqLoops=() phase=main fft=null
+  addNode M_day seqLoops=() phase=main fft=null
+  addNode day_length seqLoops=() phase=main fft=null
+  addNode tprime seqLoops=(time) phase=time#1 fft=null
+  addNode t_night seqLoops=() phase=main fft=null
+  addNode t_day seqLoops=() phase=main fft=null
+  addNode M_c seqLoops=(time) phase=time#1 fft=null
+  addNode kinc seqLoops=() phase=main fft=null
+  addNode delta_T seqLoops=() phase=main fft=null
+  addNode T_b seqLoops=() phase=main fft=null
+  addNode T_a seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode T(time.min) seqLoops=() phase=main fft=null
+  addNode M(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding T__init=38.785 to main
+  adding M__init=3.5 to main
+  adding M_b=3 to main
+  adding c=3.47 to main
+  adding km=1.1375 to main
+  adding day_length=86400 to main
+  adding t_night=6.73 to main
+  adding t_day=17.5 to main
+  adding kinc=.0258 to main
+  adding delta_T=1.57 to main
+  adding T_b=38 to main
+  adding T_a=21 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding T_night=T_b-delta_T*.5 to main
+  adding T_day=T_b+delta_T*.5 to main
+  adding kb=M_b/(T_b-T_a) to main
+  adding M_night=(kb+kinc*(T_night-T_b))*(T_night-T_a) to main
+  adding M_day=(kb+kinc*(T_day-T_b))*(T_day-T_a) to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding T(time.min)=T__init to main
+  adding M(time.min)=M__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding k=kb+kinc*(T-T_b) to loop-time
+  adding tprime=rem(time*3600*1,day_length) to loop-time
+  adding M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day to loop-time
+  adding T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001 to loop-time
+  adding M:time=km*(M-M_c)*(-1) to loop-time
+  adding ODE Block-time [T, M] to loop-time
+  adding loop-time to main
+Building ODE Block-time [T, M] ...
+  adding muTool k=kb+kinc*(T-T_b)
+  adding muVar k
+  adding muTool T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001
+  adding muVar T:time
+  adding muTool tprime=rem(time*3600*1,day_length)
+  adding muTool M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day
+  adding muVar M_c
+  adding muVar tprime
+  adding muTool M:time=km*(M-M_c)*(-1)
+  adding muVar M:time
+  adding k=kb+kinc*(T-T_b) to ODE Block-time [T, M]
+  adding T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001 to ODE Block-time [T, M]
+  adding tprime=rem(time*3600*1,day_length) to ODE Block-time [T, M]
+  adding M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day to ODE Block-time [T, M]
+  adding M:time=km*(M-M_c)*(-1) to ODE Block-time [T, M]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  T__init=38.785
+  M__init=3.5
+  M_b=3
+  c=3.47
+  km=1.1375
+  day_length=86400
+  t_night=6.73
+  t_day=17.5
+  kinc=.0258
+  delta_T=1.57
+  T_b=38
+  T_a=21
+  extern time.delta
+  extern time.max
+  time.min=0
+  T_night=T_b-delta_T*.5
+  T_day=T_b+delta_T*.5
+  kb=M_b/(T_b-T_a)
+  M_night=(kb+kinc*(T_night-T_b))*(T_night-T_a)
+  M_day=(kb+kinc*(T_day-T_b))*(T_day-T_a)
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  T(time.min)=T__init
+  M(time.min)=M__init
+  loop-time
+    k=kb+kinc*(T-T_b)
+    tprime=rem(time*3600*1,day_length)
+    M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day
+    T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001
+    M:time=km*(M-M_c)*(-1)
+    ODE Block-time vmus=[time, T, M, k, T:time, M_c, tprime, M:time]
+      k=kb+kinc*(T-T_b)
+      T:time=c^(-1)*(M-k*(T-T_a))*3.600000000000001
+      tprime=rem(time*3600*1,day_length)
+      M_c=if ((((tprime/3600)=t_night) or ((tprime/3600)>t_night)) and ((tprime/3600)<t_day)) M_night else M_day
+      M:time=km*(M-M_c)*(-1)
+

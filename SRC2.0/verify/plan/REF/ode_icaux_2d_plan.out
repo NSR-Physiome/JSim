@@ -1,0 +1,236 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: real u(t)
+  add var: real v(t,x)
+  add var: real w1(t,x)
+  add var: real w2(t,x)
+  add var: real u:t(t)
+  add var: real w1:t(t,x)
+  add var: real w2:x(t,x)
+Loading Constraints
+  t.min=0 :: [t.min]
+  t.max=5 :: [t.max]
+  t.delta=.2 :: [t.delta]
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.ct=6 :: [x.ct]
+  when (t=t.min) u=1 :: [u(t.min)]
+  when (t=t.min) w1=(v*.5) :: [w1(t.min), v(t.min)]
+  when (x=x.min) w2=(v*.5) :: [w2(x.min), v(x.min)]
+  u:t=(u*(-1)) :: [u:t, u]
+  v=(u+x) :: [v, u, x]
+  w1:t=(v*(-1)) :: [w1:t, v]
+  w2:x=(v*(-1)) :: [w2:x, v]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=5; [t.max]
+  add tool: t.max=5
+  check eqn: t.delta=.2; [t.delta]
+  add tool: t.delta=.2
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.ct=6; [x.ct]
+  add tool: x.ct=6
+  add tool: x.delta=(x.max-x.min)/(x.ct-1)
+  check eqn: when (t=t.min) u=1; [u(t.min)]
+  add tool: u(t.min)=1
+  check eqn: when (t=t.min) w1=(v*.5); [w1(t.min), v(t.min)]
+  check eqn: when (x=x.min) w2=(v*.5); [w2(x.min), v(x.min)]
+  check eqn: u:t=(u*(-1)); [u:t, u]
+  check eqn: v=(u+x); [v, u]
+  check eqn: w1:t=(v*(-1)); [w1:t, v]
+  check eqn: w2:x=(v*(-1)); [w2:x, v]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=1
+Toolbox phase - cycle 1:
+  check eqn: when (t=t.min) w1=(v*.5); [w1(t.min), v(t.min)]
+  check eqn: when (x=x.min) w2=(v*.5); [w2(x.min), v(x.min)]
+  check eqn: u:t=(u*(-1)); [u:t]
+  add tool: u:t=u*(-1)
+  check eqn: v=(u+x); [v]
+  add tool: v=u+x
+  check eqn: w1:t=(v*(-1)); [w1:t]
+  add tool: w1:t=v*(-1)
+  check eqn: w2:x=(v*(-1)); [w2:x]
+  add tool: w2:x=v*(-1)
+  updated ODE(u) with u:t=u*(-1)
+    u is now entirely solved
+  add tool: ODE w1: []
+  updated ODE(w1) with w1:t=v*(-1)
+  add tool: ODE w2: []
+  updated ODE(w2) with w2:x=v*(-1)
+Toolbox phase - cycle 1:
+  check eqn: when (t=t.min) w1=(v*.5); [w1(t.min)]
+  add tool: w1(t.min)=when (t=t.min) v*.5
+  check eqn: when (x=x.min) w2=(v*.5); [w2(x.min)]
+  add tool: w2(x.min)=when (x=x.min) v*.5
+  updated ODE(w1) with w1(t.min)=when (t=t.min) v*.5
+    w1 is now entirely solved
+  updated ODE(w2) with w2(x.min)=when (x=x.min) v*.5
+    w2 is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real u__init
+  add tool: u__init=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  u__init=1 :: [u__init]<<[]
+  @t@x w2:x=v*(-1) :: [w2:x]<<[v]
+  @t@x w1:t=v*(-1) :: [w1:t]<<[v]
+  @t u:t=u*(-1) :: [u:t]<<[u]
+  @t@x ODE w2: w2:x=v*(-1) :: [w2, w2(x.max)]<<[v, w2(x.min), w2:x]
+  @t@x ODE w1: w1:t=v*(-1) :: [w1, w1(t.max)]<<[v, w1(t.min), w1:t]
+  @t@x v=u+x :: [v]<<[u, x]
+  @t ODE u: u:t=u*(-1) :: [u, u(t.max)]<<[u(t.min), u:t]
+  x.delta=(x.max-x.min)/(x.ct-1) :: [x.delta]<<[x.max, x.min, x.ct]
+  x.ct=6 :: [x.ct]<<[]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.2 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=5 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  @t w2(x.min)=when (x=x.min) v*.5 :: [w2(x.min)]<<[v(x.min)]
+  @x w1(t.min)=when (t=t.min) v*.5 :: [w1(t.min)]<<[v(t.min)]
+  u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding reuse tool: when (t=t.min) v=u+x [v(t.min)]<<[u(t.min), x]
+  adding reuse tool: when (x=x.min) v=u+x [v(x.min)]<<[u, x(min)]
+  adding query tool: query [x(min)]<<[x]
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode u__init seqLoops=() phase=main fft=null
+  addNode w2:x seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode w1:t seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode u:t seqLoops=(t) phase=t#1 fft=null
+  addNode w2 seqLoops=(t,x) phase=t#1+x#1 fft=x
+  addNode w1 seqLoops=(t,x) phase=t#1+x#1 fft=t
+  addNode v seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode u seqLoops=(t) phase=t#1 fft=t
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode w2(x.min) seqLoops=(t) phase=t#1 fft=null
+  addNode w1(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode u(t.min) seqLoops=() phase=main fft=null
+  addNode v(t.min) seqLoops=(x) phase=x#1 fft=null
+  addNode v(x.min) seqLoops=(t) phase=t#1 fft=null
+  addNode x(min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding u__init=1 to main
+  adding x.ct=6 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.2 to main
+  adding t.max=5 to main
+  adding t.min=0 to main
+  adding x.delta=(x.max-x.min)/(x.ct-1) to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding u(t.min)=u__init to main
+  adding query [x(min)] to main
+  subphase t#1 entryEdge=w1(t.min)->w1
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding when (t=t.min) v=u+x to loop-x
+  adding w1(t.min)=when (t=t.min) v*.5 to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding u:t=u*(-1) to loop-t
+  adding when (x=x.min) v=u+x to loop-t
+  adding w2(x.min)=when (x=x.min) v*.5 to loop-t
+  subphase t#1+x#1 entryEdge=null
+building block for phase t#1+x#1
+  adding v=u+x to loop-x
+  adding w2:x=v*(-1) to loop-x
+  adding w1:t=v*(-1) to loop-x
+  adding ODE Block-t [w1] to loop-x
+  adding ODE Block-x [w2] to loop-x
+  adding loop-x to loop-t
+  adding ODE Block-t [u] to loop-t
+  adding loop-t to main
+Building ODE Block-t [w1] ...
+Building ODE Block-x [w2] ...
+  adding muTool v=u+x
+  adding muVar v
+  adding muTool w2:x=v*(-1)
+  adding muVar w2:x
+  adding v=u+x to ODE Block-x [w2]
+  adding w2:x=v*(-1) to ODE Block-x [w2]
+Building ODE Block-t [u] ...
+  adding muTool u:t=u*(-1)
+  adding muVar u:t
+  adding u:t=u*(-1) to ODE Block-t [u]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  u__init=1
+  x.ct=6
+  x.max=1
+  x.min=0
+  t.delta=.2
+  t.max=5
+  t.min=0
+  x.delta=(x.max-x.min)/(x.ct-1)
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  u(t.min)=u__init
+  query [x(min)]
+  loop-x
+    when (t=t.min) v=u+x
+    w1(t.min)=when (t=t.min) v*.5
+  loop-t
+    u:t=u*(-1)
+    when (x=x.min) v=u+x
+    w2(x.min)=when (x=x.min) v*.5
+    loop-x
+      v=u+x
+      w2:x=v*(-1)
+      w1:t=v*(-1)
+      ODE Block-t vmus=[t, w1]
+      ODE Block-x vmus=[x, w2, v, w2:x]
+        v=u+x
+        w2:x=v*(-1)
+    ODE Block-t vmus=[t, u, u:t]
+      u:t=u*(-1)
+

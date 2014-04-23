@@ -1,0 +1,21 @@
+//Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  reaction1 := C * k1 * S1;
+
+  // Rate Rules:
+  S2' = reaction1 / C;
+  S1' = reaction1 * -1 / C;
+
+  // Variable initializations:
+  C = 1;
+  k1 = 1;
+  S2 = 0;
+  S1 = 0.00015;
+
+  //Other declarations:
+  var reaction1, S2, S1;
+end
+
+

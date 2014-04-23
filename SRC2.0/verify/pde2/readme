@@ -1,0 +1,29 @@
+xp01.proj  simple advection-diffusion equation (a BTEX10)
+xp02.proj  two variable PDE system (a BTEX20)
+xp03.proj  two variable PDE with additional variables in block
+           BTEX20 with separately computed flux (PS exchange terms)
+xp07.proj  PDE->ODE (Cin->BTEX10->Comp1->)
+xp08.proj  ODE->PDE (Cin->Comp1->BTEX10)
+xp09.proj  ODE->PDE->ODE->PDE (Cin->Comp1->BTEX10->Comp1->BTEX10->)
+xp10.proj  ODE->PDE->ODE->PDE->RECIRCULATING
+           (Cin+Recirc->Comp1->BTEX10->Comp1->BTEX10->Recirc)
+xp11.proj  PDE->PDE->RECIRCULATING (Cin+Recirc->BTEX10->BTEX10->Recirc)
+xp12.proj  PDE->ODE->RECIRCULATING (Cin+Recirc->BTEX10->Comp1->Recirc)
+xp13.proj  PDE with outflow (Cin->BTEX10 (no diffusion)->)
+xp14.proj  PDE->PDE (Cin->BTEX10->BTEX10->)
+xp15.proj  ODE->PDE->ODE->PDE loop PDEs w/same x and cross connections
+           Two comp1's at ends connected with two BTEX10 pipes, one with
+           flow from left and the other with flow to right
+xp16.proj ODE->PDE->ODE->PDE loop PDEs w/different x's and cross connections
+           Two comp1's at ends connected with two BTEX10 pipes, one with
+           flow from left and the other with flow to right
+xp18.mod  PDE w/ 2D muVar in BC Analytic test Case
+          when(x=x.min) w=sin(x-t)+cos(x-t);
+          when(x=x.max) w:x=cos(x.max-t)-sin(x.max-t);
+MISSING   Did not do xp19.proj
+
+xp20.proj PDE with symb derive processing in state equation
+          Analytic test case (same as xp17.mod, but PDE modified from
+          w:t=w:x:x-w:x+w;
+          to
+          w:t=w:x:x-w:x/2 -wanalytic:x/2 +wanalytic; 

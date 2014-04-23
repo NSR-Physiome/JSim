@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="C" value="1" units="litre" constant="true"/>
+      <parameter id="division_call0" constant="false"/>
+      <parameter id="reaction1" units="katal" constant="false"/>
+      <parameter id="k2" value="50" constant="true"/>
+      <parameter id="k1" constant="false"/>
+      <parameter id="S2" units="M" constant="false"/>
+      <parameter id="S1" units="M" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1.5 </cn>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="division_call0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k2 </ci>
+            <cn> 0.01 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="k1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> division_call0 </ci>
+        </math>
+      </assignmentRule>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> reaction1 </ci>
+              <cn> -1 </cn>
+            </apply>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> reaction1 </ci>
+            <ci> C </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="reaction1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C </ci>
+            <ci> k1 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

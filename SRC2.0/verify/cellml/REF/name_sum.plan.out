@@ -1,0 +1,842 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time minute
+  add var: real time.min minute
+  add var: extern real time.max minute
+  add var: int time.ct
+  add var: extern real time.delta minute
+  add var: real Cdc13T(time) dimensionless
+  add var: real k1 first_order_rate_constant
+  add var: real k2_v1 first_order_rate_constant
+  add var: real k2_v2 first_order_rate_constant
+  add var: real k2_v3 first_order_rate_constant
+  add var: real M(time) dimensionless
+  add var: real Ste9(time) dimensionless
+  add var: real Slp1(time) dimensionless
+  add var: real preMPF(time) dimensionless
+  add var: real kwee(time) first_order_rate_constant
+  add var: real kwee_v1 first_order_rate_constant
+  add var: real kwee_v2 first_order_rate_constant
+  add var: real Vawee first_order_rate_constant
+  add var: real Viwee first_order_rate_constant
+  add var: real Jawee dimensionless
+  add var: real Jiwee dimensionless
+  add var: real k25(time) first_order_rate_constant
+  add var: real k25_v1 first_order_rate_constant
+  add var: real k25_v2 first_order_rate_constant
+  add var: real Va25 first_order_rate_constant
+  add var: real Vi25 first_order_rate_constant
+  add var: real Ja25 dimensionless
+  add var: real Ji25 dimensionless
+  add var: real MPF(time) dimensionless
+  add var: real k3_v1 first_order_rate_constant
+  add var: real k3_v2 first_order_rate_constant
+  add var: real k4 first_order_rate_constant
+  add var: real k4_ first_order_rate_constant
+  add var: real J3 dimensionless
+  add var: real J4 dimensionless
+  add var: real SK(time) dimensionless
+  add var: real Slp1T(time) dimensionless
+  add var: real k5_v1 first_order_rate_constant
+  add var: real k5_v2 first_order_rate_constant
+  add var: real J5 dimensionless
+  add var: real k6 first_order_rate_constant
+  add var: real k7 first_order_rate_constant
+  add var: real k8 first_order_rate_constant
+  add var: real J7 dimensionless
+  add var: real J8 dimensionless
+  add var: real IEP(time) dimensionless
+  add var: real k9 first_order_rate_constant
+  add var: real k10 first_order_rate_constant
+  add var: real J9 dimensionless
+  add var: real J10 dimensionless
+  add var: real Rum1T(time) dimensionless
+  add var: real k11 first_order_rate_constant
+  add var: real k12 first_order_rate_constant
+  add var: real k12_v1 first_order_rate_constant
+  add var: real k12_v2 first_order_rate_constant
+  add var: real k13 first_order_rate_constant
+  add var: real k14 first_order_rate_constant
+  add var: real TF(time) dimensionless
+  add var: real mu first_order_rate_constant
+  add var: real Trimer(time) dimensionless
+  add var: real was_sum(time) dimensionless
+  add var: real Kdiss dimensionless
+  add var: real k15 first_order_rate_constant
+  add var: real k16_v1 first_order_rate_constant
+  add var: real k16_v2 first_order_rate_constant
+  add var: real J15 dimensionless
+  add var: real J16 dimensionless
+  add var: real Cdc13T:time(time) 1/minute
+  add var: real preMPF:time(time) 1/minute
+  add var: real Ste9:time(time) 1/minute
+  add var: real Slp1T:time(time) 1/minute
+  add var: real Slp1:time(time) 1/minute
+  add var: real IEP:time(time) 1/minute
+  add var: real Rum1T:time(time) 1/minute
+  add var: real SK:time(time) 1/minute
+  add var: real M:time(time) 1/minute
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) Cdc13T=.2 :: [Cdc13T(time.min)]
+  k1=.03 :: [k1]
+  k2_v1=.03 :: [k2_v1]
+  k2_v2=1 :: [k2_v2]
+  k2_v3=.1 :: [k2_v3]
+  when (time=time.min) M=1 :: [M(time.min)]
+  when (time=time.min) Ste9=1 :: [Ste9(time.min)]
+  when (time=time.min) Slp1=2.2 :: [Slp1(time.min)]
+  when (time=time.min) preMPF=0 :: [preMPF(time.min)]
+  kwee_v1=.15 :: [kwee_v1]
+  kwee_v2=1.3 :: [kwee_v2]
+  Vawee=.25 :: [Vawee]
+  Viwee=1 :: [Viwee]
+  Jawee=.01 :: [Jawee]
+  Jiwee=.01 :: [Jiwee]
+  k25_v1=.05 :: [k25_v1]
+  k25_v2=5 :: [k25_v2]
+  Va25=1 :: [Va25]
+  Vi25=.25 :: [Vi25]
+  Ja25=.01 :: [Ja25]
+  Ji25=.01 :: [Ji25]
+  k3_v1=1 :: [k3_v1]
+  k3_v2=10 :: [k3_v2]
+  k4=35 :: [k4]
+  k4_=2 :: [k4_]
+  J3=.01 :: [J3]
+  J4=.01 :: [J4]
+  when (time=time.min) SK=0 :: [SK(time.min)]
+  when (time=time.min) Slp1T=0 :: [Slp1T(time.min)]
+  k5_v1=.005 :: [k5_v1]
+  k5_v2=.3 :: [k5_v2]
+  J5=.3 :: [J5]
+  k6=.1 :: [k6]
+  k7=1 :: [k7]
+  k8=.25 :: [k8]
+  J7=.001 :: [J7]
+  J8=.001 :: [J8]
+  when (time=time.min) IEP=0 :: [IEP(time.min)]
+  k9=.1 :: [k9]
+  k10=.04 :: [k10]
+  J9=.01 :: [J9]
+  J10=.01 :: [J10]
+  when (time=time.min) Rum1T=0 :: [Rum1T(time.min)]
+  k11=.1 :: [k11]
+  k12=.01 :: [k12]
+  k12_v1=1 :: [k12_v1]
+  k12_v2=3 :: [k12_v2]
+  k13=.1 :: [k13]
+  k14=.1 :: [k14]
+  mu=.005 :: [mu]
+  Kdiss=.001 :: [Kdiss]
+  k15=1.5 :: [k15]
+  k16_v1=1 :: [k16_v1]
+  k16_v2=2 :: [k16_v2]
+  J15=.01 :: [J15]
+  J16=.01 :: [J16]
+  Cdc13T:time=(k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T) :: [Cdc13T:time, k1, M, k2_v1, k2_v2, Ste9, k2_v3, Slp1, Cdc13T]
+  preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF) :: [preMPF:time, kwee, Cdc13T, preMPF, k25, k2_v1, k2_v2, Ste9, k2_v3, Slp1]
+  kwee=(kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2) :: [kwee, kwee_v1, kwee_v2, Vawee, Jiwee, Viwee, MPF, Jawee]
+  k25=(k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2) :: [k25, k25_v1, k25_v2, Va25, MPF, Ji25, Vi25, Ja25]
+  Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)) :: [Ste9:time, k3_v1, k3_v2, Slp1, Ste9, J3, k4_, SK, k4, MPF, J4]
+  Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T) :: [Slp1T:time, k5_v1, k5_v2, MPF, J5, k6, Slp1T]
+  Slp1:time=(k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)) :: [Slp1:time, k7, IEP, Slp1T, Slp1, J7, k8, J8, k6]
+  IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)) :: [IEP:time, k9, MPF, IEP, J9, k10, J10]
+  Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T) :: [Rum1T:time, k11, k12, k12_v1, SK, k12_v2, MPF, Rum1T]
+  SK:time=(k13*TF-k14*SK) :: [SK:time, k13, TF, k14, SK]
+  M:time=(mu*M) :: [M:time, mu, M]
+  Trimer=(Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2) :: [Trimer, Cdc13T, Rum1T, was_sum]
+  was_sum=(Cdc13T+Rum1T+Kdiss) :: [was_sum, Cdc13T, Rum1T, Kdiss]
+  MPF=((Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T) :: [MPF, Cdc13T, preMPF, Trimer]
+  TF=(k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2) :: [TF, k15, M, J16, k16_v1, k16_v2, MPF, J15]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) Cdc13T=.2; [Cdc13T(time.min)]
+  add tool: Cdc13T(time.min)=.2
+  check eqn: k1=.03; [k1]
+  add tool: k1=.03
+  check eqn: k2_v1=.03; [k2_v1]
+  add tool: k2_v1=.03
+  check eqn: k2_v2=1; [k2_v2]
+  add tool: k2_v2=1
+  check eqn: k2_v3=.1; [k2_v3]
+  add tool: k2_v3=.1
+  check eqn: when (time=time.min) M=1; [M(time.min)]
+  add tool: M(time.min)=1
+  check eqn: when (time=time.min) Ste9=1; [Ste9(time.min)]
+  add tool: Ste9(time.min)=1
+  check eqn: when (time=time.min) Slp1=2.2; [Slp1(time.min)]
+  add tool: Slp1(time.min)=2.2
+  check eqn: when (time=time.min) preMPF=0; [preMPF(time.min)]
+  add tool: preMPF(time.min)=0
+  check eqn: kwee_v1=.15; [kwee_v1]
+  add tool: kwee_v1=.15
+  check eqn: kwee_v2=1.3; [kwee_v2]
+  add tool: kwee_v2=1.3
+  check eqn: Vawee=.25; [Vawee]
+  add tool: Vawee=.25
+  check eqn: Viwee=1; [Viwee]
+  add tool: Viwee=1
+  check eqn: Jawee=.01; [Jawee]
+  add tool: Jawee=.01
+  check eqn: Jiwee=.01; [Jiwee]
+  add tool: Jiwee=.01
+  check eqn: k25_v1=.05; [k25_v1]
+  add tool: k25_v1=.05
+  check eqn: k25_v2=5; [k25_v2]
+  add tool: k25_v2=5
+  check eqn: Va25=1; [Va25]
+  add tool: Va25=1
+  check eqn: Vi25=.25; [Vi25]
+  add tool: Vi25=.25
+  check eqn: Ja25=.01; [Ja25]
+  add tool: Ja25=.01
+  check eqn: Ji25=.01; [Ji25]
+  add tool: Ji25=.01
+  check eqn: k3_v1=1; [k3_v1]
+  add tool: k3_v1=1
+  check eqn: k3_v2=10; [k3_v2]
+  add tool: k3_v2=10
+  check eqn: k4=35; [k4]
+  add tool: k4=35
+  check eqn: k4_=2; [k4_]
+  add tool: k4_=2
+  check eqn: J3=.01; [J3]
+  add tool: J3=.01
+  check eqn: J4=.01; [J4]
+  add tool: J4=.01
+  check eqn: when (time=time.min) SK=0; [SK(time.min)]
+  add tool: SK(time.min)=0
+  check eqn: when (time=time.min) Slp1T=0; [Slp1T(time.min)]
+  add tool: Slp1T(time.min)=0
+  check eqn: k5_v1=.005; [k5_v1]
+  add tool: k5_v1=.005
+  check eqn: k5_v2=.3; [k5_v2]
+  add tool: k5_v2=.3
+  check eqn: J5=.3; [J5]
+  add tool: J5=.3
+  check eqn: k6=.1; [k6]
+  add tool: k6=.1
+  check eqn: k7=1; [k7]
+  add tool: k7=1
+  check eqn: k8=.25; [k8]
+  add tool: k8=.25
+  check eqn: J7=.001; [J7]
+  add tool: J7=.001
+  check eqn: J8=.001; [J8]
+  add tool: J8=.001
+  check eqn: when (time=time.min) IEP=0; [IEP(time.min)]
+  add tool: IEP(time.min)=0
+  check eqn: k9=.1; [k9]
+  add tool: k9=.1
+  check eqn: k10=.04; [k10]
+  add tool: k10=.04
+  check eqn: J9=.01; [J9]
+  add tool: J9=.01
+  check eqn: J10=.01; [J10]
+  add tool: J10=.01
+  check eqn: when (time=time.min) Rum1T=0; [Rum1T(time.min)]
+  add tool: Rum1T(time.min)=0
+  check eqn: k11=.1; [k11]
+  add tool: k11=.1
+  check eqn: k12=.01; [k12]
+  add tool: k12=.01
+  check eqn: k12_v1=1; [k12_v1]
+  add tool: k12_v1=1
+  check eqn: k12_v2=3; [k12_v2]
+  add tool: k12_v2=3
+  check eqn: k13=.1; [k13]
+  add tool: k13=.1
+  check eqn: k14=.1; [k14]
+  add tool: k14=.1
+  check eqn: mu=.005; [mu]
+  add tool: mu=.005
+  check eqn: Kdiss=.001; [Kdiss]
+  add tool: Kdiss=.001
+  check eqn: k15=1.5; [k15]
+  add tool: k15=1.5
+  check eqn: k16_v1=1; [k16_v1]
+  add tool: k16_v1=1
+  check eqn: k16_v2=2; [k16_v2]
+  add tool: k16_v2=2
+  check eqn: J15=.01; [J15]
+  add tool: J15=.01
+  check eqn: J16=.01; [J16]
+  add tool: J16=.01
+  check eqn: Cdc13T:time=(k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T); [Cdc13T:time, M]
+  check eqn: preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF); [preMPF:time, kwee]
+  check eqn: kwee=(kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2); [kwee, MPF]
+  check eqn: k25=(k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2); [k25, MPF]
+  check eqn: Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)); [Ste9:time, Slp1]
+  check eqn: Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T); [Slp1T:time, MPF]
+  check eqn: Slp1:time=(k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)); [Slp1:time, IEP]
+  check eqn: IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)); [IEP:time, MPF]
+  check eqn: Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T); [Rum1T:time, SK]
+  check eqn: SK:time=(k13*TF-k14*SK); [SK:time, TF]
+  check eqn: M:time=(mu*M); [M:time, M]
+  check eqn: Trimer=(Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2); [Trimer, Cdc13T]
+  check eqn: was_sum=(Cdc13T+Rum1T+Kdiss); [was_sum, Cdc13T]
+  check eqn: MPF=((Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T); [MPF, Cdc13T]
+  check eqn: TF=(k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2); [TF, M]
+  add tool: ODE Cdc13T: []
+  updated ODE(Cdc13T) with Cdc13T(time.min)=.2
+  add tool: ODE M: []
+  updated ODE(M) with M(time.min)=1
+  add tool: ODE Ste9: []
+  updated ODE(Ste9) with Ste9(time.min)=1
+  add tool: ODE Slp1: []
+  updated ODE(Slp1) with Slp1(time.min)=2.2
+  add tool: ODE preMPF: []
+  updated ODE(preMPF) with preMPF(time.min)=0
+  add tool: ODE SK: []
+  updated ODE(SK) with SK(time.min)=0
+  add tool: ODE Slp1T: []
+  updated ODE(Slp1T) with Slp1T(time.min)=0
+  add tool: ODE IEP: []
+  updated ODE(IEP) with IEP(time.min)=0
+  add tool: ODE Rum1T: []
+  updated ODE(Rum1T) with Rum1T(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: Cdc13T:time=(k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T); [Cdc13T:time]
+  add tool: Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T
+  check eqn: preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF); [preMPF:time, kwee]
+  check eqn: kwee=(kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2); [kwee, MPF]
+  check eqn: k25=(k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2); [k25, MPF]
+  check eqn: Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)); [Ste9:time, MPF]
+  check eqn: Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T); [Slp1T:time, MPF]
+  check eqn: Slp1:time=(k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)); [Slp1:time]
+  add tool: Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)
+  check eqn: IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)); [IEP:time, MPF]
+  check eqn: Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T); [Rum1T:time, MPF]
+  check eqn: SK:time=(k13*TF-k14*SK); [SK:time, TF]
+  check eqn: M:time=(mu*M); [M:time]
+  add tool: M:time=mu*M
+  check eqn: Trimer=(Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2); [Trimer, was_sum]
+  check eqn: was_sum=(Cdc13T+Rum1T+Kdiss); [was_sum]
+  add tool: was_sum=Cdc13T+Rum1T+Kdiss
+  check eqn: MPF=((Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T); [MPF, Trimer]
+  check eqn: TF=(k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2); [TF, MPF]
+  updated ODE(Cdc13T) with Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T
+    Cdc13T is now entirely solved
+  updated ODE(Slp1) with Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)
+    Slp1 is now entirely solved
+  updated ODE(M) with M:time=mu*M
+    M is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF); [preMPF:time, kwee]
+  check eqn: kwee=(kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2); [kwee, MPF]
+  check eqn: k25=(k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2); [k25, MPF]
+  check eqn: Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)); [Ste9:time, MPF]
+  check eqn: Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T); [Slp1T:time, MPF]
+  check eqn: IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)); [IEP:time, MPF]
+  check eqn: Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T); [Rum1T:time, MPF]
+  check eqn: SK:time=(k13*TF-k14*SK); [SK:time, TF]
+  check eqn: Trimer=(Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2); [Trimer]
+  add tool: Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2
+  check eqn: MPF=((Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T); [MPF]
+  add tool: MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T
+  check eqn: TF=(k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2); [TF]
+  add tool: TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2
+Toolbox phase - cycle 1:
+  check eqn: preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF); [preMPF:time, kwee]
+  check eqn: kwee=(kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2); [kwee]
+  add tool: kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2
+  check eqn: k25=(k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2); [k25]
+  add tool: k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2
+  check eqn: Ste9:time=((k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)); [Ste9:time]
+  add tool: Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)
+  check eqn: Slp1T:time=(k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T); [Slp1T:time]
+  add tool: Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T
+  check eqn: IEP:time=(k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)); [IEP:time]
+  add tool: IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)
+  check eqn: Rum1T:time=(k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T); [Rum1T:time]
+  add tool: Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T
+  check eqn: SK:time=(k13*TF-k14*SK); [SK:time]
+  add tool: SK:time=k13*TF-k14*SK
+  updated ODE(Ste9) with Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)
+    Ste9 is now entirely solved
+  updated ODE(Slp1T) with Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T
+    Slp1T is now entirely solved
+  updated ODE(IEP) with IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)
+    IEP is now entirely solved
+  updated ODE(Rum1T) with Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T
+    Rum1T is now entirely solved
+  updated ODE(SK) with SK:time=k13*TF-k14*SK
+    SK is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: preMPF:time=(kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF); [preMPF:time]
+  add tool: preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF
+  updated ODE(preMPF) with preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF
+    preMPF is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Cdc13T__init dimensionless
+  add tool: Cdc13T__init=.2
+  add var: real M__init dimensionless
+  add tool: M__init=1
+  add var: real Ste9__init dimensionless
+  add tool: Ste9__init=1
+  add var: real Slp1__init dimensionless
+  add tool: Slp1__init=2.2
+  add var: real preMPF__init dimensionless
+  add tool: preMPF__init=0
+  add var: real SK__init dimensionless
+  add tool: SK__init=0
+  add var: real Slp1T__init dimensionless
+  add tool: Slp1T__init=0
+  add var: real IEP__init dimensionless
+  add tool: IEP__init=0
+  add var: real Rum1T__init dimensionless
+  add tool: Rum1T__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  Rum1T__init=0 :: [Rum1T__init]<<[]
+  IEP__init=0 :: [IEP__init]<<[]
+  Slp1T__init=0 :: [Slp1T__init]<<[]
+  SK__init=0 :: [SK__init]<<[]
+  preMPF__init=0 :: [preMPF__init]<<[]
+  Slp1__init=2.2 :: [Slp1__init]<<[]
+  Ste9__init=1 :: [Ste9__init]<<[]
+  M__init=1 :: [M__init]<<[]
+  Cdc13T__init=.2 :: [Cdc13T__init]<<[]
+  @time M:time=mu*M :: [M:time]<<[mu, M]
+  @time SK:time=k13*TF-k14*SK :: [SK:time]<<[k13, TF, k14, SK]
+  @time Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T :: [Rum1T:time]<<[k11, k12, k12_v1, SK, k12_v2, MPF, Rum1T]
+  @time IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP) :: [IEP:time]<<[k9, MPF, IEP, J9, k10, J10]
+  @time Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1) :: [Slp1:time]<<[k7, IEP, Slp1T, Slp1, J7, k8, J8, k6]
+  @time Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T :: [Slp1T:time]<<[k5_v1, k5_v2, MPF, J5, k6, Slp1T]
+  @time Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9) :: [Ste9:time]<<[k3_v1, k3_v2, Slp1, Ste9, J3, k4_, SK, k4, MPF, J4]
+  @time preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF :: [preMPF:time]<<[kwee, Cdc13T, preMPF, k25, k2_v1, k2_v2, Ste9, k2_v3, Slp1]
+  @time Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T :: [Cdc13T:time]<<[k1, M, k2_v1, k2_v2, Ste9, k2_v3, Slp1, Cdc13T]
+  J16=.01 :: [J16]<<[]
+  J15=.01 :: [J15]<<[]
+  k16_v2=2 :: [k16_v2]<<[]
+  k16_v1=1 :: [k16_v1]<<[]
+  k15=1.5 :: [k15]<<[]
+  Kdiss=.001 :: [Kdiss]<<[]
+  @time was_sum=Cdc13T+Rum1T+Kdiss :: [was_sum]<<[Cdc13T, Rum1T, Kdiss]
+  @time Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2 :: [Trimer]<<[Cdc13T, Rum1T, was_sum]
+  mu=.005 :: [mu]<<[]
+  @time TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2 :: [TF]<<[k15, M, J16, k16_v1, k16_v2, MPF, J15]
+  k14=.1 :: [k14]<<[]
+  k13=.1 :: [k13]<<[]
+  k12_v2=3 :: [k12_v2]<<[]
+  k12_v1=1 :: [k12_v1]<<[]
+  k12=.01 :: [k12]<<[]
+  k11=.1 :: [k11]<<[]
+  @time ODE Rum1T: Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T :: [Rum1T, Rum1T(time.max)]<<[k11, k12, k12_v1, SK, k12_v2, MPF, Rum1T(time.min), Rum1T:time]
+  J10=.01 :: [J10]<<[]
+  J9=.01 :: [J9]<<[]
+  k10=.04 :: [k10]<<[]
+  k9=.1 :: [k9]<<[]
+  @time ODE IEP: IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP) :: [IEP, IEP(time.max)]<<[k9, MPF, J9, k10, J10, IEP(time.min), IEP:time]
+  J8=.001 :: [J8]<<[]
+  J7=.001 :: [J7]<<[]
+  k8=.25 :: [k8]<<[]
+  k7=1 :: [k7]<<[]
+  k6=.1 :: [k6]<<[]
+  J5=.3 :: [J5]<<[]
+  k5_v2=.3 :: [k5_v2]<<[]
+  k5_v1=.005 :: [k5_v1]<<[]
+  @time ODE Slp1T: Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T :: [Slp1T, Slp1T(time.max)]<<[k5_v1, k5_v2, MPF, J5, k6, Slp1T(time.min), Slp1T:time]
+  @time ODE SK: SK:time=k13*TF-k14*SK :: [SK, SK(time.max)]<<[k13, TF, k14, SK(time.min), SK:time]
+  J4=.01 :: [J4]<<[]
+  J3=.01 :: [J3]<<[]
+  k4_=2 :: [k4_]<<[]
+  k4=35 :: [k4]<<[]
+  k3_v2=10 :: [k3_v2]<<[]
+  k3_v1=1 :: [k3_v1]<<[]
+  @time MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T :: [MPF]<<[Cdc13T, preMPF, Trimer]
+  Ji25=.01 :: [Ji25]<<[]
+  Ja25=.01 :: [Ja25]<<[]
+  Vi25=.25 :: [Vi25]<<[]
+  Va25=1 :: [Va25]<<[]
+  k25_v2=5 :: [k25_v2]<<[]
+  k25_v1=.05 :: [k25_v1]<<[]
+  @time k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2 :: [k25]<<[k25_v1, k25_v2, Va25, MPF, Ji25, Vi25, Ja25]
+  Jiwee=.01 :: [Jiwee]<<[]
+  Jawee=.01 :: [Jawee]<<[]
+  Viwee=1 :: [Viwee]<<[]
+  Vawee=.25 :: [Vawee]<<[]
+  kwee_v2=1.3 :: [kwee_v2]<<[]
+  kwee_v1=.15 :: [kwee_v1]<<[]
+  @time kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2 :: [kwee]<<[kwee_v1, kwee_v2, Vawee, Jiwee, Viwee, MPF, Jawee]
+  @time ODE preMPF: preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF :: [preMPF, preMPF(time.max)]<<[kwee, Cdc13T, k25, k2_v1, k2_v2, Ste9, k2_v3, Slp1, preMPF(time.min), preMPF:time]
+  @time ODE Slp1: Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1) :: [Slp1, Slp1(time.max)]<<[k7, IEP, Slp1T, J7, k8, J8, k6, Slp1(time.min), Slp1:time]
+  @time ODE Ste9: Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9) :: [Ste9, Ste9(time.max)]<<[k3_v1, k3_v2, Slp1, J3, k4_, SK, k4, MPF, J4, Ste9(time.min), Ste9:time]
+  @time ODE M: M:time=mu*M :: [M, M(time.max)]<<[mu, M(time.min), M:time]
+  k2_v3=.1 :: [k2_v3]<<[]
+  k2_v2=1 :: [k2_v2]<<[]
+  k2_v1=.03 :: [k2_v1]<<[]
+  k1=.03 :: [k1]<<[]
+  @time ODE Cdc13T: Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T :: [Cdc13T, Cdc13T(time.max)]<<[k1, M, k2_v1, k2_v2, Ste9, k2_v3, Slp1, Cdc13T(time.min), Cdc13T:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  Rum1T(time.min)=Rum1T__init :: [Rum1T(time.min)]<<[Rum1T__init]
+  IEP(time.min)=IEP__init :: [IEP(time.min)]<<[IEP__init]
+  Slp1T(time.min)=Slp1T__init :: [Slp1T(time.min)]<<[Slp1T__init]
+  SK(time.min)=SK__init :: [SK(time.min)]<<[SK__init]
+  preMPF(time.min)=preMPF__init :: [preMPF(time.min)]<<[preMPF__init]
+  Slp1(time.min)=Slp1__init :: [Slp1(time.min)]<<[Slp1__init]
+  Ste9(time.min)=Ste9__init :: [Ste9(time.min)]<<[Ste9__init]
+  M(time.min)=M__init :: [M(time.min)]<<[M__init]
+  Cdc13T(time.min)=Cdc13T__init :: [Cdc13T(time.min)]<<[Cdc13T__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode Rum1T__init seqLoops=() phase=main fft=null
+  addNode IEP__init seqLoops=() phase=main fft=null
+  addNode Slp1T__init seqLoops=() phase=main fft=null
+  addNode SK__init seqLoops=() phase=main fft=null
+  addNode preMPF__init seqLoops=() phase=main fft=null
+  addNode Slp1__init seqLoops=() phase=main fft=null
+  addNode Ste9__init seqLoops=() phase=main fft=null
+  addNode M__init seqLoops=() phase=main fft=null
+  addNode Cdc13T__init seqLoops=() phase=main fft=null
+  addNode M:time seqLoops=(time) phase=time#1 fft=null
+  addNode SK:time seqLoops=(time) phase=time#1 fft=null
+  addNode Rum1T:time seqLoops=(time) phase=time#1 fft=null
+  addNode IEP:time seqLoops=(time) phase=time#1 fft=null
+  addNode Slp1:time seqLoops=(time) phase=time#1 fft=null
+  addNode Slp1T:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ste9:time seqLoops=(time) phase=time#1 fft=null
+  addNode preMPF:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cdc13T:time seqLoops=(time) phase=time#1 fft=null
+  addNode J16 seqLoops=() phase=main fft=null
+  addNode J15 seqLoops=() phase=main fft=null
+  addNode k16_v2 seqLoops=() phase=main fft=null
+  addNode k16_v1 seqLoops=() phase=main fft=null
+  addNode k15 seqLoops=() phase=main fft=null
+  addNode Kdiss seqLoops=() phase=main fft=null
+  addNode was_sum seqLoops=(time) phase=time#1 fft=null
+  addNode Trimer seqLoops=(time) phase=time#1 fft=null
+  addNode mu seqLoops=() phase=main fft=null
+  addNode TF seqLoops=(time) phase=time#1 fft=null
+  addNode k14 seqLoops=() phase=main fft=null
+  addNode k13 seqLoops=() phase=main fft=null
+  addNode k12_v2 seqLoops=() phase=main fft=null
+  addNode k12_v1 seqLoops=() phase=main fft=null
+  addNode k12 seqLoops=() phase=main fft=null
+  addNode k11 seqLoops=() phase=main fft=null
+  addNode Rum1T seqLoops=(time) phase=time#1 fft=time
+  addNode J10 seqLoops=() phase=main fft=null
+  addNode J9 seqLoops=() phase=main fft=null
+  addNode k10 seqLoops=() phase=main fft=null
+  addNode k9 seqLoops=() phase=main fft=null
+  addNode IEP seqLoops=(time) phase=time#1 fft=time
+  addNode J8 seqLoops=() phase=main fft=null
+  addNode J7 seqLoops=() phase=main fft=null
+  addNode k8 seqLoops=() phase=main fft=null
+  addNode k7 seqLoops=() phase=main fft=null
+  addNode k6 seqLoops=() phase=main fft=null
+  addNode J5 seqLoops=() phase=main fft=null
+  addNode k5_v2 seqLoops=() phase=main fft=null
+  addNode k5_v1 seqLoops=() phase=main fft=null
+  addNode Slp1T seqLoops=(time) phase=time#1 fft=time
+  addNode SK seqLoops=(time) phase=time#1 fft=time
+  addNode J4 seqLoops=() phase=main fft=null
+  addNode J3 seqLoops=() phase=main fft=null
+  addNode k4_ seqLoops=() phase=main fft=null
+  addNode k4 seqLoops=() phase=main fft=null
+  addNode k3_v2 seqLoops=() phase=main fft=null
+  addNode k3_v1 seqLoops=() phase=main fft=null
+  addNode MPF seqLoops=(time) phase=time#1 fft=null
+  addNode Ji25 seqLoops=() phase=main fft=null
+  addNode Ja25 seqLoops=() phase=main fft=null
+  addNode Vi25 seqLoops=() phase=main fft=null
+  addNode Va25 seqLoops=() phase=main fft=null
+  addNode k25_v2 seqLoops=() phase=main fft=null
+  addNode k25_v1 seqLoops=() phase=main fft=null
+  addNode k25 seqLoops=(time) phase=time#1 fft=null
+  addNode Jiwee seqLoops=() phase=main fft=null
+  addNode Jawee seqLoops=() phase=main fft=null
+  addNode Viwee seqLoops=() phase=main fft=null
+  addNode Vawee seqLoops=() phase=main fft=null
+  addNode kwee_v2 seqLoops=() phase=main fft=null
+  addNode kwee_v1 seqLoops=() phase=main fft=null
+  addNode kwee seqLoops=(time) phase=time#1 fft=null
+  addNode preMPF seqLoops=(time) phase=time#1 fft=time
+  addNode Slp1 seqLoops=(time) phase=time#1 fft=time
+  addNode Ste9 seqLoops=(time) phase=time#1 fft=time
+  addNode M seqLoops=(time) phase=time#1 fft=time
+  addNode k2_v3 seqLoops=() phase=main fft=null
+  addNode k2_v2 seqLoops=() phase=main fft=null
+  addNode k2_v1 seqLoops=() phase=main fft=null
+  addNode k1 seqLoops=() phase=main fft=null
+  addNode Cdc13T seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode Rum1T(time.min) seqLoops=() phase=main fft=null
+  addNode IEP(time.min) seqLoops=() phase=main fft=null
+  addNode Slp1T(time.min) seqLoops=() phase=main fft=null
+  addNode SK(time.min) seqLoops=() phase=main fft=null
+  addNode preMPF(time.min) seqLoops=() phase=main fft=null
+  addNode Slp1(time.min) seqLoops=() phase=main fft=null
+  addNode Ste9(time.min) seqLoops=() phase=main fft=null
+  addNode M(time.min) seqLoops=() phase=main fft=null
+  addNode Cdc13T(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding Rum1T__init=0 to main
+  adding IEP__init=0 to main
+  adding Slp1T__init=0 to main
+  adding SK__init=0 to main
+  adding preMPF__init=0 to main
+  adding Slp1__init=2.2 to main
+  adding Ste9__init=1 to main
+  adding M__init=1 to main
+  adding Cdc13T__init=.2 to main
+  adding J16=.01 to main
+  adding J15=.01 to main
+  adding k16_v2=2 to main
+  adding k16_v1=1 to main
+  adding k15=1.5 to main
+  adding Kdiss=.001 to main
+  adding mu=.005 to main
+  adding k14=.1 to main
+  adding k13=.1 to main
+  adding k12_v2=3 to main
+  adding k12_v1=1 to main
+  adding k12=.01 to main
+  adding k11=.1 to main
+  adding J10=.01 to main
+  adding J9=.01 to main
+  adding k10=.04 to main
+  adding k9=.1 to main
+  adding J8=.001 to main
+  adding J7=.001 to main
+  adding k8=.25 to main
+  adding k7=1 to main
+  adding k6=.1 to main
+  adding J5=.3 to main
+  adding k5_v2=.3 to main
+  adding k5_v1=.005 to main
+  adding J4=.01 to main
+  adding J3=.01 to main
+  adding k4_=2 to main
+  adding k4=35 to main
+  adding k3_v2=10 to main
+  adding k3_v1=1 to main
+  adding Ji25=.01 to main
+  adding Ja25=.01 to main
+  adding Vi25=.25 to main
+  adding Va25=1 to main
+  adding k25_v2=5 to main
+  adding k25_v1=.05 to main
+  adding Jiwee=.01 to main
+  adding Jawee=.01 to main
+  adding Viwee=1 to main
+  adding Vawee=.25 to main
+  adding kwee_v2=1.3 to main
+  adding kwee_v1=.15 to main
+  adding k2_v3=.1 to main
+  adding k2_v2=1 to main
+  adding k2_v1=.03 to main
+  adding k1=.03 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding Rum1T(time.min)=Rum1T__init to main
+  adding IEP(time.min)=IEP__init to main
+  adding Slp1T(time.min)=Slp1T__init to main
+  adding SK(time.min)=SK__init to main
+  adding preMPF(time.min)=preMPF__init to main
+  adding Slp1(time.min)=Slp1__init to main
+  adding Ste9(time.min)=Ste9__init to main
+  adding M(time.min)=M__init to main
+  adding Cdc13T(time.min)=Cdc13T__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding M:time=mu*M to loop-time
+  adding Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1) to loop-time
+  adding Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T to loop-time
+  adding was_sum=Cdc13T+Rum1T+Kdiss to loop-time
+  adding Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2 to loop-time
+  adding MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T to loop-time
+  adding k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2 to loop-time
+  adding kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2 to loop-time
+  adding Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T to loop-time
+  adding IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP) to loop-time
+  adding Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T to loop-time
+  adding Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9) to loop-time
+  adding preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF to loop-time
+  adding TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2 to loop-time
+  adding SK:time=k13*TF-k14*SK to loop-time
+  adding ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T] to loop-time
+  adding loop-time to main
+Building ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T] ...
+  adding muTool MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T
+  adding muVar MPF
+  adding muTool Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2
+  adding muVar Trimer
+  adding muTool was_sum=Cdc13T+Rum1T+Kdiss
+  adding muVar was_sum
+  adding muTool Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T
+  adding muVar Rum1T:time
+  adding muTool IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)
+  adding muVar IEP:time
+  adding muTool Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T
+  adding muVar Slp1T:time
+  adding muTool TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2
+  adding muVar TF
+  adding muTool SK:time=k13*TF-k14*SK
+  adding muVar SK:time
+  adding muTool kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2
+  adding muVar kwee
+  adding muTool k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2
+  adding muVar k25
+  adding muTool preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF
+  adding muVar preMPF:time
+  adding muTool Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)
+  adding muVar Slp1:time
+  adding muTool Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)
+  adding muVar Ste9:time
+  adding muTool M:time=mu*M
+  adding muVar M:time
+  adding muTool Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T
+  adding muVar Cdc13T:time
+  adding was_sum=Cdc13T+Rum1T+Kdiss to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1) to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding M:time=mu*M to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2 to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP) to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2 to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding SK:time=k13*TF-k14*SK to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2 to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2 to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+  adding Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9) to ODE Block-time [Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  Rum1T__init=0
+  IEP__init=0
+  Slp1T__init=0
+  SK__init=0
+  preMPF__init=0
+  Slp1__init=2.2
+  Ste9__init=1
+  M__init=1
+  Cdc13T__init=.2
+  J16=.01
+  J15=.01
+  k16_v2=2
+  k16_v1=1
+  k15=1.5
+  Kdiss=.001
+  mu=.005
+  k14=.1
+  k13=.1
+  k12_v2=3
+  k12_v1=1
+  k12=.01
+  k11=.1
+  J10=.01
+  J9=.01
+  k10=.04
+  k9=.1
+  J8=.001
+  J7=.001
+  k8=.25
+  k7=1
+  k6=.1
+  J5=.3
+  k5_v2=.3
+  k5_v1=.005
+  J4=.01
+  J3=.01
+  k4_=2
+  k4=35
+  k3_v2=10
+  k3_v1=1
+  Ji25=.01
+  Ja25=.01
+  Vi25=.25
+  Va25=1
+  k25_v2=5
+  k25_v1=.05
+  Jiwee=.01
+  Jawee=.01
+  Viwee=1
+  Vawee=.25
+  kwee_v2=1.3
+  kwee_v1=.15
+  k2_v3=.1
+  k2_v2=1
+  k2_v1=.03
+  k1=.03
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  Rum1T(time.min)=Rum1T__init
+  IEP(time.min)=IEP__init
+  Slp1T(time.min)=Slp1T__init
+  SK(time.min)=SK__init
+  preMPF(time.min)=preMPF__init
+  Slp1(time.min)=Slp1__init
+  Ste9(time.min)=Ste9__init
+  M(time.min)=M__init
+  Cdc13T(time.min)=Cdc13T__init
+  loop-time
+    M:time=mu*M
+    Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)
+    Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T
+    was_sum=Cdc13T+Rum1T+Kdiss
+    Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2
+    MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T
+    k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2
+    kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2
+    Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T
+    IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)
+    Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T
+    Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)
+    preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF
+    TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2
+    SK:time=k13*TF-k14*SK
+    ODE Block-time vmus=[time, Rum1T, IEP, Slp1T, SK, preMPF, Slp1, Ste9, M, Cdc13T, MPF, Trimer, was_sum, Rum1T:time, IEP:time, Slp1T:time, TF, SK:time, kwee, k25, preMPF:time, Slp1:time, Ste9:time, M:time, Cdc13T:time]
+      was_sum=Cdc13T+Rum1T+Kdiss
+      Slp1:time=k7*IEP*(Slp1T-Slp1)/(J7+Slp1T-Slp1)-(k8*Slp1/(J8+Slp1)+k6*Slp1)
+      M:time=mu*M
+      Cdc13T:time=k1*M-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*Cdc13T
+      Trimer=Cdc13T*Rum1T/(was_sum+sqrt(was_sum^2-Cdc13T*Rum1T*4))*2
+      MPF=(Cdc13T-preMPF)*(Cdc13T-Trimer)/Cdc13T
+      Rum1T:time=k11-(k12+k12_v1*SK+k12_v2*MPF)*Rum1T
+      IEP:time=k9*MPF*(1-IEP)/(J9+1-IEP)-k10*IEP/(J10+IEP)
+      Slp1T:time=k5_v1+k5_v2*MPF^4/(J5^4+MPF^4)-k6*Slp1T
+      TF=k15*M*J16/(k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16+sqrt((k16_v1+k16_v2*MPF-k15*M+(k16_v1+k16_v2*MPF)*J15+k15*M*J16)^2-k15*M*J16*(k16_v1+k16_v2*MPF-k15*M)*4))*2
+      SK:time=k13*TF-k14*SK
+      kwee=kwee_v1+(kwee_v2-kwee_v1)*Vawee*Jiwee/(Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee+sqrt((Viwee*MPF-Vawee+Viwee*MPF*Jawee+Vawee*Jiwee)^2-Vawee*Jiwee*(Viwee*MPF-Vawee)*4))*2
+      k25=k25_v1+(k25_v2-k25_v1)*Va25*MPF*Ji25/(Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25+sqrt((Vi25-Va25*MPF+Vi25*Ja25+Va25*MPF*Ji25)^2-Va25*MPF*Ji25*(Vi25-Va25*MPF)*4))*2
+      preMPF:time=kwee*(Cdc13T-preMPF)-k25*preMPF-(k2_v1+k2_v2*Ste9+k2_v3*Slp1)*preMPF
+      Ste9:time=(k3_v1+k3_v2*Slp1)*(1-Ste9)/(J3+1-Ste9)-(k4_*SK+k4*MPF)*Ste9/(J4+Ste9)
+

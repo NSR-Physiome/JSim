@@ -1,0 +1,338 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time second
+  add var: real time.min second
+  add var: extern real time.max second
+  add var: int time.ct
+  add var: extern real time.delta second
+  add var: real J_pm(time) nanomolar_per_second
+  add var: real J_leak(time) nanomolar_per_second
+  add var: real J_extru(time) nanomolar_per_second
+  add var: real k_leak per_second
+  add var: real Vmax_extru nanomolar_per_second
+  add var: real EC50_extru nanomolar
+  add var: real n_extru dimensionless
+  add var: real Ca_o nanomolar
+  add var: real Ca_i(time) nanomolar
+  add var: real J_uni(time) nanomolar_per_second
+  add var: real kuni_max per_second
+  add var: real EC50_uni micromolar
+  add var: real n_uni dimensionless
+  add var: real J_NaCa(time) nanomolar_per_second
+  add var: real Ca_inhibited_J_NaCa(time) nanomolar_per_second
+  add var: real J_mito(time) nanomolar_per_second
+  add var: real Vmax_NaCa nanomolar_per_second
+  add var: real EC50_NaCa nanomolar
+  add var: real n_inhib dimensionless
+  add var: real k_inhib nanomolar
+  add var: real delta_Ca_i(time) dimensionless
+  add var: real Ca_m(time) nanomolar
+  add var: real gamma dimensionless
+  add var: real Ca_i:time(time) nanomolar/second
+  add var: real Ca_m:time(time) nanomolar/second
+Loading Constraints
+  time.min=0 :: [time.min]
+  k_leak=3.7E-7 :: [k_leak]
+  Vmax_extru=28.3 :: [Vmax_extru]
+  EC50_extru=378.8 :: [EC50_extru]
+  n_extru=1.8 :: [n_extru]
+  Ca_o=.002 :: [Ca_o]
+  when (time=time.min) Ca_i=.002 :: [Ca_i(time.min)]
+  kuni_max=75.9 :: [kuni_max]
+  EC50_uni=10 :: [EC50_uni]
+  n_uni=2 :: [n_uni]
+  Vmax_NaCa=(-35) :: [Vmax_NaCa]
+  EC50_NaCa=307 :: [EC50_NaCa]
+  n_inhib=6 :: [n_inhib]
+  k_inhib=500 :: [k_inhib]
+  when (time=time.min) Ca_m=5E-8 :: [Ca_m(time.min)]
+  gamma=2 :: [gamma]
+  J_pm=(J_leak+J_extru) :: [J_pm, J_leak, J_extru]
+  J_leak=(k_leak*(Ca_i-Ca_o)) :: [J_leak, k_leak, Ca_i, Ca_o]
+  J_extru=(Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)) :: [J_extru, Vmax_extru, EC50_extru, Ca_i, n_extru]
+  J_uni=(kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)) :: [J_uni, kuni_max, Ca_i, EC50_uni, n_uni]
+  J_NaCa=(Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)) :: [J_NaCa, Vmax_NaCa, EC50_NaCa, Ca_m]
+  Ca_inhibited_J_NaCa=(delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)) :: [Ca_inhibited_J_NaCa, delta_Ca_i, Vmax_NaCa, EC50_NaCa, Ca_i]
+  delta_Ca_i=(1-1/(1-(k_inhib/Ca_i)^n_inhib)) :: [delta_Ca_i, k_inhib, Ca_i, n_inhib]
+  J_mito=(J_uni+J_NaCa) :: [J_mito, J_uni, J_NaCa]
+  Ca_i:time=((J_pm+J_mito)*(-1)) :: [Ca_i:time, J_pm, J_mito]
+  Ca_m:time=(J_mito/gamma) :: [Ca_m:time, J_mito, gamma]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: k_leak=3.7E-7; [k_leak]
+  add tool: k_leak=3.7E-7
+  check eqn: Vmax_extru=28.3; [Vmax_extru]
+  add tool: Vmax_extru=28.3
+  check eqn: EC50_extru=378.8; [EC50_extru]
+  add tool: EC50_extru=378.8
+  check eqn: n_extru=1.8; [n_extru]
+  add tool: n_extru=1.8
+  check eqn: Ca_o=.002; [Ca_o]
+  add tool: Ca_o=.002
+  check eqn: when (time=time.min) Ca_i=.002; [Ca_i(time.min)]
+  add tool: Ca_i(time.min)=.002
+  check eqn: kuni_max=75.9; [kuni_max]
+  add tool: kuni_max=75.9
+  check eqn: EC50_uni=10; [EC50_uni]
+  add tool: EC50_uni=10
+  check eqn: n_uni=2; [n_uni]
+  add tool: n_uni=2
+  check eqn: Vmax_NaCa=(-35); [Vmax_NaCa]
+  add tool: Vmax_NaCa=-35
+  check eqn: EC50_NaCa=307; [EC50_NaCa]
+  add tool: EC50_NaCa=307
+  check eqn: n_inhib=6; [n_inhib]
+  add tool: n_inhib=6
+  check eqn: k_inhib=500; [k_inhib]
+  add tool: k_inhib=500
+  check eqn: when (time=time.min) Ca_m=5E-8; [Ca_m(time.min)]
+  add tool: Ca_m(time.min)=5E-8
+  check eqn: gamma=2; [gamma]
+  add tool: gamma=2
+  check eqn: J_pm=(J_leak+J_extru); [J_pm, J_leak]
+  check eqn: J_leak=(k_leak*(Ca_i-Ca_o)); [J_leak, Ca_i]
+  check eqn: J_extru=(Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)); [J_extru, Ca_i]
+  check eqn: J_uni=(kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)); [J_uni, Ca_i]
+  check eqn: J_NaCa=(Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)); [J_NaCa, Ca_m]
+  check eqn: Ca_inhibited_J_NaCa=(delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)); [Ca_inhibited_J_NaCa, delta_Ca_i]
+  check eqn: delta_Ca_i=(1-1/(1-(k_inhib/Ca_i)^n_inhib)); [delta_Ca_i, Ca_i]
+  check eqn: J_mito=(J_uni+J_NaCa); [J_mito, J_uni]
+  check eqn: Ca_i:time=((J_pm+J_mito)*(-1)); [Ca_i:time, J_pm]
+  check eqn: Ca_m:time=(J_mito/gamma); [Ca_m:time, J_mito]
+  add tool: ODE Ca_i: []
+  updated ODE(Ca_i) with Ca_i(time.min)=.002
+  add tool: ODE Ca_m: []
+  updated ODE(Ca_m) with Ca_m(time.min)=5E-8
+Toolbox phase - cycle 1:
+  check eqn: J_pm=(J_leak+J_extru); [J_pm, J_leak]
+  check eqn: J_leak=(k_leak*(Ca_i-Ca_o)); [J_leak]
+  add tool: J_leak=k_leak*(Ca_i-Ca_o)
+  check eqn: J_extru=(Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)); [J_extru]
+  add tool: J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)
+  check eqn: J_uni=(kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)); [J_uni]
+  add tool: J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)
+  check eqn: J_NaCa=(Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)); [J_NaCa]
+  add tool: J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)
+  check eqn: Ca_inhibited_J_NaCa=(delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)); [Ca_inhibited_J_NaCa, delta_Ca_i]
+  check eqn: delta_Ca_i=(1-1/(1-(k_inhib/Ca_i)^n_inhib)); [delta_Ca_i]
+  add tool: delta_Ca_i=1-1/(1-(k_inhib/Ca_i)^n_inhib)
+  check eqn: J_mito=(J_uni+J_NaCa); [J_mito]
+  add tool: J_mito=J_uni+J_NaCa
+  check eqn: Ca_i:time=((J_pm+J_mito)*(-1)); [Ca_i:time, J_pm]
+  check eqn: Ca_m:time=(J_mito/gamma); [Ca_m:time]
+  add tool: Ca_m:time=J_mito/gamma
+  updated ODE(Ca_m) with Ca_m:time=J_mito/gamma
+    Ca_m is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: J_pm=(J_leak+J_extru); [J_pm]
+  add tool: J_pm=J_leak+J_extru
+  check eqn: Ca_inhibited_J_NaCa=(delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)); [Ca_inhibited_J_NaCa]
+  add tool: Ca_inhibited_J_NaCa=delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)
+  check eqn: Ca_i:time=((J_pm+J_mito)*(-1)); [Ca_i:time]
+  add tool: Ca_i:time=(J_pm+J_mito)*(-1)
+  updated ODE(Ca_i) with Ca_i:time=(J_pm+J_mito)*(-1)
+    Ca_i is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Ca_i__init nanomolar
+  add tool: Ca_i__init=.002
+  add var: real Ca_m__init nanomolar
+  add tool: Ca_m__init=5E-8
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  Ca_m__init=5E-8 :: [Ca_m__init]<<[]
+  Ca_i__init=.002 :: [Ca_i__init]<<[]
+  @time Ca_m:time=J_mito/gamma :: [Ca_m:time]<<[J_mito, gamma]
+  @time Ca_i:time=(J_pm+J_mito)*(-1) :: [Ca_i:time]<<[J_pm, J_mito]
+  gamma=2 :: [gamma]<<[]
+  @time ODE Ca_m: Ca_m:time=J_mito/gamma :: [Ca_m, Ca_m(time.max)]<<[J_mito, gamma, Ca_m(time.min), Ca_m:time]
+  @time delta_Ca_i=1-1/(1-(k_inhib/Ca_i)^n_inhib) :: [delta_Ca_i]<<[k_inhib, Ca_i, n_inhib]
+  k_inhib=500 :: [k_inhib]<<[]
+  n_inhib=6 :: [n_inhib]<<[]
+  EC50_NaCa=307 :: [EC50_NaCa]<<[]
+  Vmax_NaCa=-35 :: [Vmax_NaCa]<<[]
+  @time J_mito=J_uni+J_NaCa :: [J_mito]<<[J_uni, J_NaCa]
+  @time Ca_inhibited_J_NaCa=delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1) :: [Ca_inhibited_J_NaCa]<<[delta_Ca_i, Vmax_NaCa, EC50_NaCa, Ca_i]
+  @time J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1) :: [J_NaCa]<<[Vmax_NaCa, EC50_NaCa, Ca_m]
+  n_uni=2 :: [n_uni]<<[]
+  EC50_uni=10 :: [EC50_uni]<<[]
+  kuni_max=75.9 :: [kuni_max]<<[]
+  @time J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni) :: [J_uni]<<[kuni_max, Ca_i, EC50_uni, n_uni]
+  @time ODE Ca_i: Ca_i:time=(J_pm+J_mito)*(-1) :: [Ca_i, Ca_i(time.max)]<<[J_pm, J_mito, Ca_i(time.min), Ca_i:time]
+  Ca_o=.002 :: [Ca_o]<<[]
+  n_extru=1.8 :: [n_extru]<<[]
+  EC50_extru=378.8 :: [EC50_extru]<<[]
+  Vmax_extru=28.3 :: [Vmax_extru]<<[]
+  k_leak=3.7E-7 :: [k_leak]<<[]
+  @time J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru) :: [J_extru]<<[Vmax_extru, EC50_extru, Ca_i, n_extru]
+  @time J_leak=k_leak*(Ca_i-Ca_o) :: [J_leak]<<[k_leak, Ca_i, Ca_o]
+  @time J_pm=J_leak+J_extru :: [J_pm]<<[J_leak, J_extru]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  Ca_m(time.min)=Ca_m__init :: [Ca_m(time.min)]<<[Ca_m__init]
+  Ca_i(time.min)=Ca_i__init :: [Ca_i(time.min)]<<[Ca_i__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode Ca_m__init seqLoops=() phase=main fft=null
+  addNode Ca_i__init seqLoops=() phase=main fft=null
+  addNode Ca_m:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_i:time seqLoops=(time) phase=time#1 fft=null
+  addNode gamma seqLoops=() phase=main fft=null
+  addNode Ca_m seqLoops=(time) phase=time#1 fft=time
+  addNode delta_Ca_i seqLoops=(time) phase=time#1 fft=null
+  addNode k_inhib seqLoops=() phase=main fft=null
+  addNode n_inhib seqLoops=() phase=main fft=null
+  addNode EC50_NaCa seqLoops=() phase=main fft=null
+  addNode Vmax_NaCa seqLoops=() phase=main fft=null
+  addNode J_mito seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_inhibited_J_NaCa seqLoops=(time) phase=time#1 fft=null
+  addNode J_NaCa seqLoops=(time) phase=time#1 fft=null
+  addNode n_uni seqLoops=() phase=main fft=null
+  addNode EC50_uni seqLoops=() phase=main fft=null
+  addNode kuni_max seqLoops=() phase=main fft=null
+  addNode J_uni seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_i seqLoops=(time) phase=time#1 fft=time
+  addNode Ca_o seqLoops=() phase=main fft=null
+  addNode n_extru seqLoops=() phase=main fft=null
+  addNode EC50_extru seqLoops=() phase=main fft=null
+  addNode Vmax_extru seqLoops=() phase=main fft=null
+  addNode k_leak seqLoops=() phase=main fft=null
+  addNode J_extru seqLoops=(time) phase=time#1 fft=null
+  addNode J_leak seqLoops=(time) phase=time#1 fft=null
+  addNode J_pm seqLoops=(time) phase=time#1 fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode Ca_m(time.min) seqLoops=() phase=main fft=null
+  addNode Ca_i(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding Ca_m__init=5E-8 to main
+  adding Ca_i__init=.002 to main
+  adding gamma=2 to main
+  adding k_inhib=500 to main
+  adding n_inhib=6 to main
+  adding EC50_NaCa=307 to main
+  adding Vmax_NaCa=-35 to main
+  adding n_uni=2 to main
+  adding EC50_uni=10 to main
+  adding kuni_max=75.9 to main
+  adding Ca_o=.002 to main
+  adding n_extru=1.8 to main
+  adding EC50_extru=378.8 to main
+  adding Vmax_extru=28.3 to main
+  adding k_leak=3.7E-7 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding Ca_m(time.min)=Ca_m__init to main
+  adding Ca_i(time.min)=Ca_i__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding delta_Ca_i=1-1/(1-(k_inhib/Ca_i)^n_inhib) to loop-time
+  adding Ca_inhibited_J_NaCa=delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1) to loop-time
+  adding J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1) to loop-time
+  adding J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni) to loop-time
+  adding J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru) to loop-time
+  adding J_leak=k_leak*(Ca_i-Ca_o) to loop-time
+  adding J_pm=J_leak+J_extru to loop-time
+  adding J_mito=J_uni+J_NaCa to loop-time
+  adding Ca_m:time=J_mito/gamma to loop-time
+  adding Ca_i:time=(J_pm+J_mito)*(-1) to loop-time
+  adding ODE Block-time [Ca_m, Ca_i] to loop-time
+  adding loop-time to main
+Building ODE Block-time [Ca_m, Ca_i] ...
+  adding muTool J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)
+  adding muTool J_mito=J_uni+J_NaCa
+  adding muVar J_mito
+  adding muVar J_uni
+  adding muTool J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)
+  adding muVar J_NaCa
+  adding muTool Ca_m:time=J_mito/gamma
+  adding muVar Ca_m:time
+  adding muTool J_leak=k_leak*(Ca_i-Ca_o)
+  adding muTool J_pm=J_leak+J_extru
+  adding muVar J_pm
+  adding muVar J_leak
+  adding muTool J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)
+  adding muVar J_extru
+  adding muTool Ca_i:time=(J_pm+J_mito)*(-1)
+  adding muVar Ca_i:time
+  adding J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni) to ODE Block-time [Ca_m, Ca_i]
+  adding J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1) to ODE Block-time [Ca_m, Ca_i]
+  adding J_leak=k_leak*(Ca_i-Ca_o) to ODE Block-time [Ca_m, Ca_i]
+  adding J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru) to ODE Block-time [Ca_m, Ca_i]
+  adding J_mito=J_uni+J_NaCa to ODE Block-time [Ca_m, Ca_i]
+  adding Ca_m:time=J_mito/gamma to ODE Block-time [Ca_m, Ca_i]
+  adding J_pm=J_leak+J_extru to ODE Block-time [Ca_m, Ca_i]
+  adding Ca_i:time=(J_pm+J_mito)*(-1) to ODE Block-time [Ca_m, Ca_i]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  Ca_m__init=5E-8
+  Ca_i__init=.002
+  gamma=2
+  k_inhib=500
+  n_inhib=6
+  EC50_NaCa=307
+  Vmax_NaCa=-35
+  n_uni=2
+  EC50_uni=10
+  kuni_max=75.9
+  Ca_o=.002
+  n_extru=1.8
+  EC50_extru=378.8
+  Vmax_extru=28.3
+  k_leak=3.7E-7
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  Ca_m(time.min)=Ca_m__init
+  Ca_i(time.min)=Ca_i__init
+  loop-time
+    delta_Ca_i=1-1/(1-(k_inhib/Ca_i)^n_inhib)
+    Ca_inhibited_J_NaCa=delta_Ca_i*Vmax_NaCa/(1+EC50_NaCa/Ca_i)*(-1)
+    J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)
+    J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)
+    J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)
+    J_leak=k_leak*(Ca_i-Ca_o)
+    J_pm=J_leak+J_extru
+    J_mito=J_uni+J_NaCa
+    Ca_m:time=J_mito/gamma
+    Ca_i:time=(J_pm+J_mito)*(-1)
+    ODE Block-time vmus=[time, Ca_m, Ca_i, J_mito, J_uni, J_NaCa, Ca_m:time, J_pm, J_leak, J_extru, Ca_i:time]
+      J_uni=kuni_max*Ca_i/(1+(EC50_uni/Ca_i*1E3)^n_uni)
+      J_NaCa=Vmax_NaCa/(1+EC50_NaCa/Ca_m)*(-1)
+      J_leak=k_leak*(Ca_i-Ca_o)
+      J_extru=Vmax_extru/(1+(EC50_extru/Ca_i)^n_extru)
+      J_mito=J_uni+J_NaCa
+      Ca_m:time=J_mito/gamma
+      J_pm=J_leak+J_extru
+      Ca_i:time=(J_pm+J_mito)*(-1)
+

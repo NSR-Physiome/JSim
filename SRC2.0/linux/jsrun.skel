@@ -1,0 +1,42 @@
+#!/bin/sh
+
+PROG="$0"
+
+if [ "$JSIMHOME" = "" ]
+then
+  echo "$PROG"": JSIMHOME undefined"
+  exit 1
+fi
+
+if [ "$JAVARTE" = "" ]
+then
+  JAVARTE=$JSIMHOME/JSOSARCH/jre
+fi
+
+# set CLASSPATH
+CLASSPATH="$JAVARTE"/lib/rt.jar:"$JSIMHOME"/lib/JSimClient.jar
+CLASSPATH="$CLASSPATH":"$JSIMHOME"/lib/JSimServer.jar
+
+# native libraries accessed via LD_LIBRARY_PATH
+JSIMNATIVE=$JSIMHOME/JSOSARCH/lib
+LD_LIBRARY_PATH=$JAVARTE/lib/JSARCH:$JSIMNATIVE
+
+# JSIM user dir
+if [ "$JSIMUSERDIR" = "" ]
+then
+  UARG=
+else
+  UARG="-Djsim.userdir=$JSIMUSERDIR"
+fi
+
+# default JSIMMEM
+if [ "$JSIMMEM" = "" ]
+then
+  JSIMMEM=1500
+fi
+
+export CLASSPATH LD_LIBRARY_PATH JSIMMEM
+
+JSMESSAGE
+$JAVARTE/bin/java -Djsim.home=$JSIMHOME -Xmx"$JSIMMEM"m $UARG JSCLASS $* JSSUBMIT
+

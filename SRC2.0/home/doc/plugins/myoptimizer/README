@@ -1,0 +1,16 @@
+  To build the plugin (MyOptimizer.jar):
+
+./build
+
+  To run a plugin test:
+
+jsim -f lopt1.proj -plugin MyOptimizer.jar
+
+Model o01 -> Optimizer
+
+Choose algorithm "mine" 
+
+Run optimizer
+ 
+Examine optimization results in "Report" tab
+

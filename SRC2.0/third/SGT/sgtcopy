@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# copy modified SGT files into SRC distribution
+
+if [ $# != 1 ]
+then
+  echo "Usage: sgtcopy SGTDIR"
+  exit 1
+fi
+SGTDIR="$1"
+
+for i in *.xml *.java
+do 
+  DEST=`find $SGTDIR -name $i -print`
+  cp -v $i $DEST
+done
+

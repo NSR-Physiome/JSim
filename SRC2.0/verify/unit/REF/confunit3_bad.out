@@ -1,0 +1,5 @@
+
+JSim.util.Xcept: Model confunit3
+aborted:  near line 7 token ";" Units m for A conflict with previously declared units mm
+
+

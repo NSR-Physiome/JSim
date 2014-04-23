@@ -1,0 +1,5 @@
+
+JSim.util.Xcept: Model seqloop_pde_bc
+aborted: Can't calculate LHBC due to unspecified domain(s) (y): when (x=x.min) (u+u:x)=a
+
+

@@ -1,0 +1,34 @@
+// This model generated automatically from SBML
+// WARNING: Renamed variable _AmtAmtAssn to xxx_AmtAmtAssn due to JSim namespace restrictions
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real comp1 = 10 L;
+  real xxx_AmtAmtAssn(time) mol;
+
+  // equations
+  time+xxx_AmtAmtAssn = 0;
+
+  // variable properties
+  comp1.sbmlRole="compartment";
+  xxx_AmtAmtAssn.sbmlRole="species";
+  xxx_AmtAmtAssn.sbmlName="_AmtAmtAssn";
+  xxx_AmtAmtAssn.sbmlCompartment="comp1";
+}
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 plan
+
+$JSBATCH -f XML/"$1".cellml -oplan -out WORK/"$1".plan.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

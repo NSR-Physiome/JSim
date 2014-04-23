@@ -1,0 +1,186 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: real u(t,x)
+  add var: real v(t,x)
+  add var: real u:t(t,x)
+  add var: real v:x(t,x)
+Loading Constraints
+  t.min=0 :: [t.min]
+  t.max=5 :: [t.max]
+  t.delta=.2 :: [t.delta]
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=.1 :: [x.delta]
+  when (t=t.min) u=1 :: [u(t.min)]
+  when (x=x.min) v=0 :: [v(x.min)]
+  u:t=(v-u) :: [u:t, v, u]
+  v:x=(u-v) :: [v:x, u, v]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=5; [t.max]
+  add tool: t.max=5
+  check eqn: t.delta=.2; [t.delta]
+  add tool: t.delta=.2
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=.1; [x.delta]
+  add tool: x.delta=.1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: when (t=t.min) u=1; [u(t.min)]
+  add tool: u(t.min)=1
+  check eqn: when (x=x.min) v=0; [v(x.min)]
+  add tool: v(x.min)=0
+  check eqn: u:t=(v-u); [u:t, v]
+  check eqn: v:x=(u-v); [v:x, u]
+  add tool: ODE u: []
+  updated ODE(u) with u(t.min)=1
+  add tool: ODE v: []
+  updated ODE(v) with v(x.min)=0
+Toolbox phase - cycle 1:
+  check eqn: u:t=(v-u); [u:t]
+  add tool: u:t=v-u
+  check eqn: v:x=(u-v); [v:x]
+  add tool: v:x=u-v
+  updated ODE(u) with u:t=v-u
+    u is now entirely solved
+  updated ODE(v) with v:x=u-v
+    v is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real u__init(x)
+  add tool: u__init=1
+  add var: real v__init(t)
+  add tool: v__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @t v__init=0 :: [v__init]<<[]
+  @x u__init=1 :: [u__init]<<[]
+  @t@x v:x=u-v :: [v:x]<<[u, v]
+  @t@x u:t=v-u :: [u:t]<<[v, u]
+  @t@x ODE v: v:x=u-v :: [v, v(x.max)]<<[u, v(x.min), v:x]
+  @t@x ODE u: u:t=v-u :: [u, u(t.max)]<<[v, u(t.min), u:t]
+  x.delta=.1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.2 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=5 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  @t v(x.min)=v__init :: [v(x.min)]<<[v__init]
+  @x u(t.min)=u__init :: [u(t.min)]<<[u__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode v__init seqLoops=(t) phase=t#1 fft=null
+  addNode u__init seqLoops=(x) phase=x#1 fft=null
+  addNode v:x seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode u:t seqLoops=(t,x) phase=t#1+x#1 fft=null
+  addNode v seqLoops=(t,x) phase=t#1+x#1 fft=x
+  addNode u seqLoops=(t,x) phase=t#1+x#1 fft=t
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode v(x.min) seqLoops=(t) phase=t#1 fft=null
+  addNode u(t.min) seqLoops=(x) phase=x#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x.delta=.1 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.2 to main
+  adding t.max=5 to main
+  adding t.min=0 to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  subphase t#1 entryEdge=u(t.min)->u
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding u__init=1 to loop-x
+  adding u(t.min)=u__init to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding v__init=0 to loop-t
+  adding v(x.min)=v__init to loop-t
+  subphase t#1+x#1 entryEdge=null
+building block for phase t#1+x#1
+  adding v:x=u-v to loop-x
+  adding u:t=v-u to loop-x
+  adding ODE Block-t [u] to loop-x
+  adding ODE Block-x [v] to loop-x
+  adding loop-x to loop-t
+  adding loop-t to main
+Building ODE Block-t [u] ...
+  adding muTool u:t=v-u
+  adding muVar u:t
+  adding u:t=v-u to ODE Block-t [u]
+Building ODE Block-x [v] ...
+  adding muTool v:x=u-v
+  adding muVar v:x
+  adding v:x=u-v to ODE Block-x [v]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x.delta=.1
+  x.max=1
+  x.min=0
+  t.delta=.2
+  t.max=5
+  t.min=0
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  loop-x
+    u__init=1
+    u(t.min)=u__init
+  loop-t
+    v__init=0
+    v(x.min)=v__init
+    loop-x
+      v:x=u-v
+      u:t=v-u
+      ODE Block-t vmus=[t, u, u:t]
+        u:t=v-u
+      ODE Block-x vmus=[x, v, v:x]
+        v:x=u-v
+

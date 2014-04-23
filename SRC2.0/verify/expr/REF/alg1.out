@@ -1,0 +1,156 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real a
+  add var: real b
+  add var: real x1
+  add var: real x2
+  add var: real x3
+  add var: real x4
+  add var: real x5
+  add var: real x6
+  add var: real x7
+  add var: real x8
+  add var: real x9
+  add var: real y1
+  add var: real y2
+  add var: real y3
+  add var: real y4
+  add var: real z1
+Loading Constraints
+  a=2 :: [a]
+  b=3 :: [b]
+  (x1+a)=b :: [x1, a, b]
+  (a+x2)=b :: [a, x2, b]
+  (x3-a)=b :: [x3, a, b]
+  (a-x4)=b :: [a, x4, b]
+  (x5*a)=b :: [x5, a, b]
+  (a*x6)=b :: [a, x6, b]
+  (x7/a)=b :: [x7, a, b]
+  (a/x8)=b :: [a, x8, b]
+  (a^x9)=b :: [a, x9, b]
+  ln(y1)=a :: [y1, a]
+  log(y2)=a :: [y2, a]
+  exp(y3)=a :: [y3, a]
+  sqrt(y4)=a :: [y4, a]
+  (3-sqrt(z1*b))=a :: [z1, b, a]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+Toolbox phase - cycle 1:
+  check eqn: a=2; [a]
+  add tool: a=2
+  check eqn: b=3; [b]
+  add tool: b=3
+  check eqn: (x1+a)=b; [x1]
+  add tool: x1=b-a
+  check eqn: (a+x2)=b; [x2]
+  add tool: x2=b-a
+  check eqn: (x3-a)=b; [x3]
+  add tool: x3=b+a
+  check eqn: (a-x4)=b; [x4]
+  add tool: x4=a-b
+  check eqn: (x5*a)=b; [x5]
+  add tool: x5=b/a
+  check eqn: (a*x6)=b; [x6]
+  add tool: x6=b/a
+  check eqn: (x7/a)=b; [x7]
+  add tool: x7=a*b
+  check eqn: (a/x8)=b; [x8]
+  add tool: x8=a/b
+  check eqn: (a^x9)=b; [x9]
+  add tool: x9=ln(b)/ln(a)
+  check eqn: ln(y1)=a; [y1]
+  add tool: y1=exp(a)
+  check eqn: log(y2)=a; [y2]
+  add tool: y2=10^a
+  check eqn: exp(y3)=a; [y3]
+  add tool: y3=ln(a)
+  check eqn: sqrt(y4)=a; [y4]
+  add tool: y4=a^2
+  check eqn: (3-sqrt(z1*b))=a; [z1]
+  add tool: z1=(3-a)^2/b
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  z1=(3-a)^2/b :: [z1]<<[a, b]
+  y4=a^2 :: [y4]<<[a]
+  y3=ln(a) :: [y3]<<[a]
+  y2=10^a :: [y2]<<[a]
+  y1=exp(a) :: [y1]<<[a]
+  x9=ln(b)/ln(a) :: [x9]<<[b, a]
+  x8=a/b :: [x8]<<[a, b]
+  x7=a*b :: [x7]<<[a, b]
+  x6=b/a :: [x6]<<[b, a]
+  x5=b/a :: [x5]<<[b, a]
+  x4=a-b :: [x4]<<[a, b]
+  x3=b+a :: [x3]<<[b, a]
+  x2=b-a :: [x2]<<[b, a]
+  x1=b-a :: [x1]<<[b, a]
+  b=3 :: [b]<<[]
+  a=2 :: [a]<<[]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode z1 seqLoops=() phase=main fft=null
+  addNode y4 seqLoops=() phase=main fft=null
+  addNode y3 seqLoops=() phase=main fft=null
+  addNode y2 seqLoops=() phase=main fft=null
+  addNode y1 seqLoops=() phase=main fft=null
+  addNode x9 seqLoops=() phase=main fft=null
+  addNode x8 seqLoops=() phase=main fft=null
+  addNode x7 seqLoops=() phase=main fft=null
+  addNode x6 seqLoops=() phase=main fft=null
+  addNode x5 seqLoops=() phase=main fft=null
+  addNode x4 seqLoops=() phase=main fft=null
+  addNode x3 seqLoops=() phase=main fft=null
+  addNode x2 seqLoops=() phase=main fft=null
+  addNode x1 seqLoops=() phase=main fft=null
+  addNode b seqLoops=() phase=main fft=null
+  addNode a seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding b=3 to main
+  adding a=2 to main
+  adding z1=(3-a)^2/b to main
+  adding y4=a^2 to main
+  adding y3=ln(a) to main
+  adding y2=10^a to main
+  adding y1=exp(a) to main
+  adding x9=ln(b)/ln(a) to main
+  adding x8=a/b to main
+  adding x7=a*b to main
+  adding x6=b/a to main
+  adding x5=b/a to main
+  adding x4=a-b to main
+  adding x3=b+a to main
+  adding x2=b-a to main
+  adding x1=b-a to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  b=3
+  a=2
+  z1=(3-a)^2/b
+  y4=a^2
+  y3=ln(a)
+  y2=10^a
+  y1=exp(a)
+  x9=ln(b)/ln(a)
+  x8=a/b
+  x7=a*b
+  x6=b/a
+  x5=b/a
+  x4=a-b
+  x3=b+a
+  x2=b-a
+  x1=b-a
+

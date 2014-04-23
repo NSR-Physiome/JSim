@@ -1,0 +1,36 @@
+Test RealNData and RT variable interpolation
+
+== 1D data interp
+
+OK
+  jsbatch.db -f tx1a.proj -oplot
+  jsbatch.db -f tx1b.proj -oplot
+
+== 2D data interp  
+
+OK
+  jsbatch.db -f tx2b.proj -oplot -tbl
+  jsbatch.db -f tx2a.proj -oplot -tbl
+
+== 2D variable interp
+
+OK
+  jsbatch.db -f MOD/tx2.mod -o "u(1.3,t)" -tbl
+  jsbatch.db -f MOD/tx2.mod -o  "u(x,1.3)" -tbl
+
+  jsbatch.db -f MOD/tx2.mod -o "u(y,y)" -tbl -i y.min=-1 y.max=8
+
+== AS: new tests for Multilinear and Veldhuizen algs
+
+lin 2 and lin3 - linear tests for two and three dimensions - should
+give identical results with all implementations. Tests smoothness and
+contiguousness at the borders between intervals. The original points
+should be recovered after switching between grids with different delta.
+
+point 2 and point 3: test the behavior of a single node (all other
+nodes are set to zero).
+The latter two tests give different results for multilinear and
+Veldhuizen algorithms. They are here to test the behavior of the
+algorithms according to Veldhuizen's thesis, Figure 2.12 and 2.12.
+(Note: figure number is missing from Fig. 2.12).
+

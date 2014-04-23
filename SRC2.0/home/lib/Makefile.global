@@ -1,0 +1,54 @@
+# JSim common makefile
+#   some values may be overridden in OS-specific makefiles
+
+# Programs
+RM      = /bin/rm
+AR      = /usr/bin/ar
+RANLIB  = /usr/bin/ranlib
+ifdef JSIMMAKE
+  MAKE = $(JSIMMAKE) 
+else
+  MAKE = make
+endif
+
+# standard compile/link flags
+ifeq ($(JSIMOS),macos)
+  OSBASE    = $(JSIMHOME)/$(JSIMOS)
+else
+  OSBASE    = $(JSIMHOME)/$(JSIMOSARCH)
+endif
+IBASE    = $(OSBASE)/include
+IFLAGS   = -I $(IBASE)/$(JSIMOS) -I $(IBASE)
+NMLDIR   = $(OSBASE)/lib
+XSLIB    = $(NMLDIR)/xscom.a
+APILIB   = $(NMLDIR)/$(LIBPFX)jsimapi$(LIBSFX)
+
+# Compile macros
+CCOMPILE = $(CC) -c $(DFLAGS) $(IFLAGS) $(CFLAGS)
+FCOMPILE = $(FORTRAN) $(DFLAGS) $(IFLAGS) $(FFLAGS) -c
+LINK     = $(LD) $(OBJS) $(LDFLAGS) -o
+
+# standard C & Fortran compilation rules
+.SUFFIXES: .c .f .F
+.c.o:
+	$(CCOMPILE) $<
+.f.o:
+	$(FCOMPILE) $<
+.F.o:
+	$(FCOMPILE) $<
+
+# C language F&P library creation rule, used by jscompile_c*
+.SUFFIXES: .cfp
+.c.cfp:
+	$(CCOMPILE) $<
+	$(LD) $(LDFLAGS) -o $(LIBPFX)$*$(LIBSFX) $*.o $(APILIB)
+
+# XSIM library wrap,  used by jsxwrap*
+.SUFFIXES: .xfp
+.c.xfp:
+	$(CCOMPILE) $<
+	$(LD) -o $(LIBPFX)$*$(LIBSFX) $*.o $(XFP_OBJS) $(FP_LDFLAGS) 
+
+# OS-specific macros
+include $(JSIMHOME)/lib/Makefile.global.$(JSIMOS)
+

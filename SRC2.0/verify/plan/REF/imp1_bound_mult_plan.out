@@ -1,0 +1,73 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real b sec
+  add var: real c sec^2
+  add var: real umax min
+  add var: real u sec
+Loading Constraints
+  b=(-5) :: [b]
+  c=6 :: [c]
+  umax=1 :: [umax]
+  (u^2+b*u+c)=0 :: [u, b, c]
+  u>=0 :: [u]
+  umax>=(u*.016666666666666666) :: [umax, u]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+Toolbox phase - cycle 1:
+  check eqn: b=(-5); [b]
+  add tool: b=-5
+  check eqn: c=6; [c]
+  add tool: c=6
+  check eqn: umax=1; [umax]
+  add tool: umax=1
+  check eqn: (u^2+b*u+c)=0; [u]
+  Implicit tool non-linear in [u]
+  add tool: [(u^2+b*u+c)=0]
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  [(u^2+b*u+c)=0] :: [u]<<[b, c]
+  umax=1 :: [umax]<<[]
+  c=6 :: [c]<<[]
+  b=-5 :: [b]<<[]
+Events to seqence:
+Relations to sequence:
+  u>=0 :: []<<[u]
+  umax>=(u*.016666666666666666) :: []<<[umax, u]
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode u seqLoops=() phase=main fft=null
+  addNode umax seqLoops=() phase=main fft=null
+  addNode c seqLoops=() phase=main fft=null
+  addNode b seqLoops=() phase=main fft=null
+  addNode bound u >= 0 seqLoops=() phase=main fft=null
+  addNode bound u <= umax/.016666666666666666 seqLoops=() phase=main fft=null
+  addNode u>=0 seqLoops=() phase=main fft=null
+  addNode umax>=(u*.016666666666666666) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding umax=1 to main
+  adding c=6 to main
+  adding b=-5 to main
+  adding [(u^2+b*u+c)=0] with 2 bounds to main
+  adding u>=0 to main
+  adding umax>=(u*.016666666666666666) to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  umax=1
+  c=6
+  b=-5
+  [(u^2+b*u+c)=0] with 2 bounds
+  u>=0
+  umax>=(u*.016666666666666666)
+

@@ -1,0 +1,64 @@
+/*
+ * Limit cycle models for circadian rhythms based on transcriptional
+ * regulation in Drosophila and Neurospora
+ * 
+ * Model Status
+ * 
+ * This is an import for the model "leloup_1999_1.1model.cellml".
+ * It is used to define a reoccuring structure within the model
+ * and may be used for multiple equations in the model. This file
+ * is known to run only in OpenCell in conjunction with the base
+ * file.
+ * 
+ * Model Structure
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Limit Cycle Models for Circadian Rhythms Based on Transcriptional
+ * Regulation in Drosophila and Neurospora, Jean-Christophe Leloup,
+ * Didier Gonze, and Albert Goldbeter, 1999, Journal of Biological
+ * Rhythms, 14, 433-448. PubMed ID: 10643740
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 1 equation(s)
+unit conversion off;
+// unit nanomolar predefined
+unit hour=3600 second^1;
+unit flux=2.7777778E-10 meter^(-3)*second^(-1)*mole^1;
+unit first_order_rate_constant=2.7777778E-4 second^(-1);
+unit second_order_rate_constant=2.7777778E2 meter^3*second^(-1)*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  vs, vm, Km, KI, kd, CN, n, M_init
+	realDomain time hour;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	extern real vs flux;
+	vs.cellMLNames="interface.vs";
+	extern real vm flux;
+	vm.cellMLNames="interface.vm";
+	extern real Km nanomolar;
+	Km.cellMLNames="interface.Km";
+	extern real KI nanomolar;
+	KI.cellMLNames="interface.KI";
+	extern real kd first_order_rate_constant;
+	kd.cellMLNames="interface.kd";
+	extern real CN nanomolar;
+	CN.cellMLNames="interface.CN";
+	extern real n dimensionless;
+	n.cellMLNames="interface.n";
+	extern real M_init nanomolar;
+	M_init.cellMLNames="interface.M_init";
+	real M(time) nanomolar;
+	M.cellMLNames="interface.M";
+	when(time=time.min) M=M_init;
+
+	// <component name="interface">
+	M:time=(vs*(KI^n/(KI^n+CN^n))-(vm*(M/(Km+M))+kd*M));
+}
+

@@ -1,0 +1,5 @@
+Cin=bogie
+==== JSim version 2.00x3: Fatal Error
+
+JSim.util.Xcept: Cin=bogie : Unknown variable: bogie while parsing expression bogie
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 mml
+
+$JSBATCH -f XML*/"$1".xml -omml -out WORK/"$1"_mml.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+

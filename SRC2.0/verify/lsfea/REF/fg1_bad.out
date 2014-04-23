@@ -1,0 +1,5 @@
+==== JSim version 2.02f: Fatal Error
+
+JSim.util.Xcept: Model fg1_bad
+aborted: LSFEA PDE solver - variable u: At least one of f1 and g1 must be zero (use MacCormack or Toms731 instead)
+

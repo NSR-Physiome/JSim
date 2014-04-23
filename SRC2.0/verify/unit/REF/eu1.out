@@ -1,0 +1,8 @@
+t.min = { 0 } sec
+t.max = { 5 } sec
+t.ct = { 6 } dimensionless
+t.delta = { 1 } sec
+m = { 1 } m
+kg = { 1 } kg
+t = { 0 1 2 3 4 5 } sec
+g(t) = { (0,1) (1,1) (2,1) (3,2E3) (4,2E3) (5,2E3) } g

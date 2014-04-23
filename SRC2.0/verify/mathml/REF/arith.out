@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>a</ci>
+          <pi/>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b1</ci>
+          <apply>
+            <plus/>
+            <ci>a</ci>
+            <cn>1</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b2</ci>
+          <apply>
+            <minus/>
+            <ci>a</ci>
+            <cn>2</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b3</ci>
+          <apply>
+            <times/>
+            <ci>a</ci>
+            <cn>3</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b4</ci>
+          <apply>
+            <times/>
+            <ci>a</ci>
+            <cn>.25</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>b5</ci>
+          <apply>
+            <power/>
+            <ci>a</ci>
+            <cn>5</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+  </body>
+</html>
+

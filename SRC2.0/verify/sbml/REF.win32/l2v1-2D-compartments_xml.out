@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="microkatal" name="microkatal">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1e-006"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="uM" name="uM">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="0.001"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="umol_per_um2" name="umol/um^2">
+        <listOfUnits>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="1000000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="uM_per_second" name="uM/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="0.001"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="um2" name="um^2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1e-012"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="Ca_channel" units="microkatal" constant="false"/>
+      <parameter id="Kf_CalciumCalbindin_BoundCytosol" value="20" constant="true"/>
+      <parameter id="J0" value="0.014" constant="true"/>
+      <parameter id="CaB_C" value="3.96" units="uM" constant="false"/>
+      <parameter id="Kr_CalciumBuffer_BoundCytosol" value="1" constant="true"/>
+      <parameter id="Ca_EC" value="1000" units="uM" constant="false"/>
+      <parameter id="CaBP_C" value="202.83" units="uM" constant="false"/>
+      <parameter id="Kc" value="0.5" constant="true"/>
+      <parameter id="Kf_CalciumBuffer_BoundCytosol" value="0.1" constant="true"/>
+      <parameter id="B_C" value="396.04" units="uM" constant="false"/>
+      <parameter id="Ca_Pump" units="microkatal" constant="false"/>
+      <parameter id="CaCh_PM" value="1" units="umol_per_um2" constant="true"/>
+      <parameter id="PlasmaMembrane" value="1" units="um2" constant="true"/>
+      <parameter id="CaBPB_C" value="47.17" units="uM" constant="false"/>
+      <parameter id="Ca_C" value="0.1" units="uM" constant="false"/>
+      <parameter id="Vmax" value="-4000" constant="true"/>
+      <parameter id="Kr_CalciumCalbindin_BoundCytosol" value="8.6" constant="true"/>
+      <parameter id="kP" value="0.25" constant="true"/>
+      <parameter id="CalciumBuffer_gt_BoundCytosol" units="microkatal" constant="false"/>
+      <parameter id="Cytosol" value="1" units="litre" constant="true"/>
+      <parameter id="Extracellular" value="1" units="litre" constant="true"/>
+      <parameter id="Ca_Rest" value="0.1" constant="true"/>
+      <parameter id="CalciumCalbindin_gt_BoundCytosol" units="microkatal" constant="false"/>
+      <parameter id="CaPump_PM" value="1" units="umol_per_um2" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="Ca_Pump">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> Vmax </ci>
+              <ci> kP </ci>
+              <ci> CaPump_PM </ci>
+              <apply>
+                <minus/>
+                <ci> Ca_C </ci>
+                <ci> Ca_Rest </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <plus/>
+                <ci> Ca_C </ci>
+                <ci> kP </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> Ca_Rest </ci>
+                <ci> kP </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Ca_channel">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> CaCh_PM </ci>
+              <ci> J0 </ci>
+              <ci> Kc </ci>
+              <apply>
+                <minus/>
+                <ci> Ca_EC </ci>
+                <ci> Ca_C </ci>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> Kc </ci>
+              <ci> Ca_C </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="CaBPB_C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> CalciumCalbindin_gt_BoundCytosol </ci>
+            <ci> Cytosol </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="B_C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> CalciumBuffer_gt_BoundCytosol </ci>
+              <cn> -1 </cn>
+            </apply>
+            <ci> Cytosol </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="CaB_C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> CalciumBuffer_gt_BoundCytosol </ci>
+            <ci> Cytosol </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Ca_EC">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> Ca_Pump </ci>
+              <apply>
+                <times/>
+                <ci> Ca_channel </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> Extracellular </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Ca_C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> CalciumCalbindin_gt_BoundCytosol </ci>
+                <cn> -1 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> CalciumBuffer_gt_BoundCytosol </ci>
+                <cn> -1 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Ca_Pump </ci>
+                <cn> -1 </cn>
+              </apply>
+              <ci> Ca_channel </ci>
+            </apply>
+            <ci> Cytosol </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="CaBP_C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> CalciumCalbindin_gt_BoundCytosol </ci>
+              <cn> -1 </cn>
+            </apply>
+            <ci> Cytosol </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="CalciumCalbindin_gt_BoundCytosol">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> Kf_CalciumCalbindin_BoundCytosol </ci>
+              <ci> CaBP_C </ci>
+              <ci> Ca_C </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> Kr_CalciumCalbindin_BoundCytosol </ci>
+              <ci> CaBPB_C </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="CalciumBuffer_gt_BoundCytosol">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> Kf_CalciumBuffer_BoundCytosol </ci>
+              <ci> Ca_C </ci>
+              <ci> B_C </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> Kr_CalciumBuffer_BoundCytosol </ci>
+              <ci> CaB_C </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

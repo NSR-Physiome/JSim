@@ -1,0 +1,146 @@
+// This model generated automatically from SBML
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real P1;
+  real P2;
+  real P3;
+  real P4;
+  real P5;
+  real P6;
+  real P7;
+  real P8;
+  real P9;
+  real P10;
+  real P11;
+  real P12;
+  real P13;
+  real P14;
+  real P15;
+  real P16;
+  real P17;
+  real P18;
+  real P19;
+  real P20;
+  real P21;
+  real P22;
+  real P23;
+  real P24;
+  real P25;
+  real P26;
+  real P27;
+  real P28;
+  real P29;
+  real P30;
+  real P31;
+  real P32;
+  real P33;
+  real P34;
+  real P35;
+  real P36;
+  real P37;
+  real P38;
+  real P39;
+  real P40;
+
+  // equations
+  P1 = 3.7;
+  P2 = abs(-1);
+  P3 = abs(1);
+  P4 = acos(-1);
+  P5 = acos(.5);
+  P6 = asin(1);
+  P7 = asin(-0.5);
+  P8 = atan(1,2.8);
+  P9 = atan(1,-7.09);
+  P10 = ceil(.5);
+  P11 = ceil(3.55);
+  P12 = ceil(-4.6);
+  P13 = cos(9.1);
+  P14 = cos(-0.22);
+  P15 = exp(0);
+  P16 = exp(1);
+  P17 = exp(.77);
+  P18 = floor(-4.6);
+  P19 = floor(9.1);
+  P20 = ln(.2);
+  P21 = ln(1);
+  P22 = log(.2);
+  P23 = log(1);
+  P24 = 1^2;
+  P25 = 2^2;
+  P26 = 1.4^5.1;
+  P27 = 4^2;
+  P28 = 3.1^2;
+  P29 = 4^(1/2);
+  P30 = 7.4^(1/2);
+  P31 = sin(2.1);
+  P32 = sin(0);
+  P33 = sin(-5.9);
+  P34 = tan(0);
+  P35 = tan(1.11);
+  P36 = tan(-6);
+  P37 = 1+2;
+  P38 = 1-2;
+  P39 = 5/2;
+  P40 = 8*3;
+
+  // variable properties
+  P1.sbmlRole="parameter";
+  P2.sbmlRole="parameter";
+  P3.sbmlRole="parameter";
+  P4.sbmlRole="parameter";
+  P5.sbmlRole="parameter";
+  P6.sbmlRole="parameter";
+  P7.sbmlRole="parameter";
+  P8.sbmlRole="parameter";
+  P9.sbmlRole="parameter";
+  P10.sbmlRole="parameter";
+  P11.sbmlRole="parameter";
+  P12.sbmlRole="parameter";
+  P13.sbmlRole="parameter";
+  P14.sbmlRole="parameter";
+  P15.sbmlRole="parameter";
+  P16.sbmlRole="parameter";
+  P17.sbmlRole="parameter";
+  P18.sbmlRole="parameter";
+  P19.sbmlRole="parameter";
+  P20.sbmlRole="parameter";
+  P21.sbmlRole="parameter";
+  P22.sbmlRole="parameter";
+  P23.sbmlRole="parameter";
+  P24.sbmlRole="parameter";
+  P25.sbmlRole="parameter";
+  P26.sbmlRole="parameter";
+  P27.sbmlRole="parameter";
+  P28.sbmlRole="parameter";
+  P29.sbmlRole="parameter";
+  P30.sbmlRole="parameter";
+  P31.sbmlRole="parameter";
+  P32.sbmlRole="parameter";
+  P33.sbmlRole="parameter";
+  P34.sbmlRole="parameter";
+  P35.sbmlRole="parameter";
+  P36.sbmlRole="parameter";
+  P37.sbmlRole="parameter";
+  P38.sbmlRole="parameter";
+  P39.sbmlRole="parameter";
+  P40.sbmlRole="parameter";
+}
+

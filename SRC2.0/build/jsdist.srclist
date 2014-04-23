@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# create list of files in JSim source distribution
+
+# list all files matching spec in dir
+list() {
+  DIR="$1"
+  SPEC="$2"
+  
+  find "$DIR" -name "$SPEC" |\
+    sed -e s:^\./:: |\
+    sed /CVS/d |\
+    sed /OLD/d |\
+    sed /\.class/d |\
+    sed /JSim.mml2/d |\
+    sed /JSim.unit/d |\
+    sed /JSim.expr2/d
+}
+
+if [ "$1" = "" ]
+then
+  WIN32=0
+elif [ "$1" = "-win32" ]
+then
+  WIN32=1
+else
+  echo "Illegal switch: jsdist.srclist $1"
+  exit 1
+fi 
+
+. jsbuild.path
+
+cd $JSIMSRC
+
+list build "*"
+list home "*" | sed "/.*plugins.*\.jar/d"
+list JSim "*.cup"
+list JSim "*.lex"
+list JSim "*.java" | sed /Parser/d | sed /Scanner/d
+list JSim "*.h"
+list JSim "*.c"
+list JSim "*.f"
+list JSim "*.F"
+list JSim "Makefile*"
+list JSim "*.txt"
+list JSim "*.xml"
+list JSim "*.gif"
+list JSim "*.png"
+echo license.html
+list linux "*" 
+list macos "*" 
+echo README
+list third "*"
+list unix "*"
+list win32 "*" 
+list verify "*"
+

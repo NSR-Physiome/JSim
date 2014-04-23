@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model proc_circdep
+aborted: Circular variable dependency: [u(t.min),v,v(t.max),u(t.min)]
+
+
+

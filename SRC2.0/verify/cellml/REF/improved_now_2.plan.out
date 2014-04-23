@@ -1,0 +1,628 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time minute
+  add var: real time.min minute
+  add var: extern real time.max minute
+  add var: int time.ct
+  add var: extern real time.delta minute
+  add var: real Rs(time) number_per_cell
+  add var: real keR first_order_rate_constant
+  add var: real kr first_order_rate_constant
+  add var: real kf second_order_rate_constant
+  add var: real Vs first_order_rate_constant
+  add var: real Cs(time) number_per_cell
+  add var: real N(time) number_per_litre
+  add var: real L(time) molar
+  add var: real keC first_order_rate_constant
+  add var: real Li(time) molar
+  add var: real krec first_order_rate_constant
+  add var: real kri first_order_rate_constant
+  add var: real kfi second_order_rate_constant
+  add var: real Ve litre
+  add var: real Ci(time) number_per_cell
+  add var: real NA molecule_per_mole
+  add var: real Ri(time) number_per_cell
+  add var: real kdeg first_order_rate_constant
+  add var: real kl_WT first_order_rate_constant
+  add var: real Ld(time) number_per_cell
+  add var: real n(time) number_per_litre
+  add var: real Kin per_litre_per_minute
+  add var: real emax dimensionless
+  add var: real ec50 molar
+  add var: real kdiwt molar
+  add var: real kd molar
+  add var: real kout first_order_rate_constant
+  add var: real L4(time) molar
+  add var: real V4 litre
+  add var: real Q litres_per_minute
+  add var: real n1(time) mole
+  add var: real k13 first_order_rate_constant
+  add var: real n2(time) mole
+  add var: real k23 first_order_rate_constant
+  add var: real Rs:time(time) number_per_cell/minute
+  add var: real Cs:time(time) number_per_cell/minute
+  add var: real Li:time(time) molar/minute
+  add var: real Ri:time(time) number_per_cell/minute
+  add var: real Ci:time(time) number_per_cell/minute
+  add var: real L:time(time) molar/minute
+  add var: real Ld:time(time) number_per_cell/minute
+  add var: real n:time(time) number_per_litre/minute
+  add var: real L4:time(time) molar/minute
+  add var: real n1:time(time) mole/minute
+  add var: real n2:time(time) mole/minute
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) Rs=0 :: [Rs(time.min)]
+  keR=.005 :: [keR]
+  kr=.03 :: [kr]
+  kf=2E8 :: [kf]
+  Vs=25 :: [Vs]
+  when (time=time.min) Cs=0 :: [Cs(time.min)]
+  when (time=time.min) L=1E-4 :: [L(time.min)]
+  keC=.1 :: [keC]
+  when (time=time.min) Li=0 :: [Li(time.min)]
+  krec=.15 :: [krec]
+  kri=3 :: [kri]
+  kfi=2.352941176E8 :: [kfi]
+  Ve=1E-14 :: [Ve]
+  when (time=time.min) Ci=0 :: [Ci(time.min)]
+  NA=6.02E23 :: [NA]
+  when (time=time.min) Ri=0 :: [Ri(time.min)]
+  kdeg=.059 :: [kdeg]
+  kl_WT=4.17E-5 :: [kl_WT]
+  when (time=time.min) Ld=0 :: [Ld(time.min)]
+  when (time=time.min) n=0 :: [n(time.min)]
+  Kin=3.13E-6 :: [Kin]
+  emax=12.7 :: [emax]
+  ec50=2.53E-10 :: [ec50]
+  kdiwt=1.275E-8 :: [kdiwt]
+  kd=1.5E-10 :: [kd]
+  kout=7.57E-4 :: [kout]
+  when (time=time.min) L4=0 :: [L4(time.min)]
+  V4=.249 :: [V4]
+  Q=4.65E-4 :: [Q]
+  when (time=time.min) n1=0 :: [n1(time.min)]
+  k13=.0044 :: [k13]
+  when (time=time.min) n2=0 :: [n2(time.min)]
+  k23=.0033 :: [k23]
+  Rs:time=((kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N) :: [Rs:time, kr, Cs, Vs, kf, L, Rs, keR, N]
+  Cs:time=((kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)) :: [Cs:time, kf, L, Cs, kr, keC, N]
+  Li:time=(((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N) :: [Li:time, kri, Ci, kfi, Li, Ri, NA, Ve, krec, N]
+  Ri:time=((kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N) :: [Ri:time, kri, Ci, keR, Rs, kfi, Li, Ri, kdeg, N]
+  Ci:time=((kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N) :: [Ci:time, kfi, Li, Ri, keC, Cs, kri, Ci, kdeg, Rs, N]
+  L:time=((krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L) :: [L:time, krec, Li, Ve, NA, kr, Cs, kf, L, Rs, N, kl_WT]
+  Ld:time=(kdeg*Ci*N) :: [Ld:time, kdeg, Ci, N]
+  n=N :: [n, N]
+  n:time=(Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n) :: [n:time, Kin, emax, L, kdiwt, kd, ec50, kout, n]
+  L4:time=(Q/V4*(L-L4)) :: [L4:time, Q, V4, L, L4]
+  n1:time=(k13*n1) :: [n1:time, k13, n1]
+  n2:time=(k23*n2) :: [n2:time, k23, n2]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) Rs=0; [Rs(time.min)]
+  add tool: Rs(time.min)=0
+  check eqn: keR=.005; [keR]
+  add tool: keR=.005
+  check eqn: kr=.03; [kr]
+  add tool: kr=.03
+  check eqn: kf=2E8; [kf]
+  add tool: kf=2E8
+  check eqn: Vs=25; [Vs]
+  add tool: Vs=25
+  check eqn: when (time=time.min) Cs=0; [Cs(time.min)]
+  add tool: Cs(time.min)=0
+  check eqn: when (time=time.min) L=1E-4; [L(time.min)]
+  add tool: L(time.min)=1E-4
+  check eqn: keC=.1; [keC]
+  add tool: keC=.1
+  check eqn: when (time=time.min) Li=0; [Li(time.min)]
+  add tool: Li(time.min)=0
+  check eqn: krec=.15; [krec]
+  add tool: krec=.15
+  check eqn: kri=3; [kri]
+  add tool: kri=3
+  check eqn: kfi=2.352941176E8; [kfi]
+  add tool: kfi=2.352941176E8
+  check eqn: Ve=1E-14; [Ve]
+  add tool: Ve=1E-14
+  check eqn: when (time=time.min) Ci=0; [Ci(time.min)]
+  add tool: Ci(time.min)=0
+  check eqn: NA=6.02E23; [NA]
+  add tool: NA=6.02E23
+  check eqn: when (time=time.min) Ri=0; [Ri(time.min)]
+  add tool: Ri(time.min)=0
+  check eqn: kdeg=.059; [kdeg]
+  add tool: kdeg=.059
+  check eqn: kl_WT=4.17E-5; [kl_WT]
+  add tool: kl_WT=4.17E-5
+  check eqn: when (time=time.min) Ld=0; [Ld(time.min)]
+  add tool: Ld(time.min)=0
+  check eqn: when (time=time.min) n=0; [n(time.min)]
+  add tool: n(time.min)=0
+  check eqn: Kin=3.13E-6; [Kin]
+  add tool: Kin=3.13E-6
+  check eqn: emax=12.7; [emax]
+  add tool: emax=12.7
+  check eqn: ec50=2.53E-10; [ec50]
+  add tool: ec50=2.53E-10
+  check eqn: kdiwt=1.275E-8; [kdiwt]
+  add tool: kdiwt=1.275E-8
+  check eqn: kd=1.5E-10; [kd]
+  add tool: kd=1.5E-10
+  check eqn: kout=7.57E-4; [kout]
+  add tool: kout=7.57E-4
+  check eqn: when (time=time.min) L4=0; [L4(time.min)]
+  add tool: L4(time.min)=0
+  check eqn: V4=.249; [V4]
+  add tool: V4=.249
+  check eqn: Q=4.65E-4; [Q]
+  add tool: Q=4.65E-4
+  check eqn: when (time=time.min) n1=0; [n1(time.min)]
+  add tool: n1(time.min)=0
+  check eqn: k13=.0044; [k13]
+  add tool: k13=.0044
+  check eqn: when (time=time.min) n2=0; [n2(time.min)]
+  add tool: n2(time.min)=0
+  check eqn: k23=.0033; [k23]
+  add tool: k23=.0033
+  check eqn: Rs:time=((kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N); [Rs:time, Cs]
+  check eqn: Cs:time=((kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)); [Cs:time, L]
+  check eqn: Li:time=(((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N); [Li:time, Ci]
+  check eqn: Ri:time=((kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N); [Ri:time, Ci]
+  check eqn: Ci:time=((kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N); [Ci:time, Li]
+  check eqn: L:time=((krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L); [L:time, Li]
+  check eqn: Ld:time=(kdeg*Ci*N); [Ld:time, Ci]
+  check eqn: n=N; [n, N]
+  check eqn: n:time=(Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n); [n:time, L]
+  check eqn: L4:time=(Q/V4*(L-L4)); [L4:time, L]
+  check eqn: n1:time=(k13*n1); [n1:time, n1]
+  check eqn: n2:time=(k23*n2); [n2:time, n2]
+  add tool: ODE Rs: []
+  updated ODE(Rs) with Rs(time.min)=0
+  add tool: ODE Cs: []
+  updated ODE(Cs) with Cs(time.min)=0
+  add tool: ODE L: []
+  updated ODE(L) with L(time.min)=1E-4
+  add tool: ODE Li: []
+  updated ODE(Li) with Li(time.min)=0
+  add tool: ODE Ci: []
+  updated ODE(Ci) with Ci(time.min)=0
+  add tool: ODE Ri: []
+  updated ODE(Ri) with Ri(time.min)=0
+  add tool: ODE Ld: []
+  updated ODE(Ld) with Ld(time.min)=0
+  add tool: ODE n: []
+  updated ODE(n) with n(time.min)=0
+  add tool: ODE L4: []
+  updated ODE(L4) with L4(time.min)=0
+  add tool: ODE n1: []
+  updated ODE(n1) with n1(time.min)=0
+  add tool: ODE n2: []
+  updated ODE(n2) with n2(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: Rs:time=((kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N); [Rs:time, N]
+  check eqn: Cs:time=((kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)); [Cs:time, N]
+  check eqn: Li:time=(((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N); [Li:time, N]
+  check eqn: Ri:time=((kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N); [Ri:time, N]
+  check eqn: Ci:time=((kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N); [Ci:time, N]
+  check eqn: L:time=((krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L); [L:time, N]
+  check eqn: Ld:time=(kdeg*Ci*N); [Ld:time, N]
+  check eqn: n=N; [N]
+  add tool: N=n
+  check eqn: n:time=(Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n); [n:time]
+  add tool: n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n
+  check eqn: L4:time=(Q/V4*(L-L4)); [L4:time]
+  add tool: L4:time=Q/V4*(L-L4)
+  check eqn: n1:time=(k13*n1); [n1:time]
+  add tool: n1:time=k13*n1
+  check eqn: n2:time=(k23*n2); [n2:time]
+  add tool: n2:time=k23*n2
+  updated ODE(n) with n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n
+    n is now entirely solved
+  updated ODE(L4) with L4:time=Q/V4*(L-L4)
+    L4 is now entirely solved
+  updated ODE(n1) with n1:time=k13*n1
+    n1 is now entirely solved
+  updated ODE(n2) with n2:time=k23*n2
+    n2 is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: Rs:time=((kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N); [Rs:time]
+  add tool: Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N
+  check eqn: Cs:time=((kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)); [Cs:time]
+  add tool: Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)
+  check eqn: Li:time=(((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N); [Li:time]
+  add tool: Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N
+  check eqn: Ri:time=((kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N); [Ri:time]
+  add tool: Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N
+  check eqn: Ci:time=((kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N); [Ci:time]
+  add tool: Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N
+  check eqn: L:time=((krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L); [L:time]
+  add tool: L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L
+  check eqn: Ld:time=(kdeg*Ci*N); [Ld:time]
+  add tool: Ld:time=kdeg*Ci*N
+  updated ODE(Rs) with Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N
+    Rs is now entirely solved
+  updated ODE(Cs) with Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)
+    Cs is now entirely solved
+  updated ODE(Li) with Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N
+    Li is now entirely solved
+  updated ODE(Ri) with Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N
+    Ri is now entirely solved
+  updated ODE(Ci) with Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N
+    Ci is now entirely solved
+  updated ODE(L) with L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L
+    L is now entirely solved
+  updated ODE(Ld) with Ld:time=kdeg*Ci*N
+    Ld is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Rs__init number_per_cell
+  add tool: Rs__init=0
+  add var: real Cs__init number_per_cell
+  add tool: Cs__init=0
+  add var: real L__init molar
+  add tool: L__init=1E-4
+  add var: real Li__init molar
+  add tool: Li__init=0
+  add var: real Ci__init number_per_cell
+  add tool: Ci__init=0
+  add var: real Ri__init number_per_cell
+  add tool: Ri__init=0
+  add var: real Ld__init number_per_cell
+  add tool: Ld__init=0
+  add var: real n__init number_per_litre
+  add tool: n__init=0
+  add var: real L4__init molar
+  add tool: L4__init=0
+  add var: real n1__init mole
+  add tool: n1__init=0
+  add var: real n2__init mole
+  add tool: n2__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  n2__init=0 :: [n2__init]<<[]
+  n1__init=0 :: [n1__init]<<[]
+  L4__init=0 :: [L4__init]<<[]
+  n__init=0 :: [n__init]<<[]
+  Ld__init=0 :: [Ld__init]<<[]
+  Ri__init=0 :: [Ri__init]<<[]
+  Ci__init=0 :: [Ci__init]<<[]
+  Li__init=0 :: [Li__init]<<[]
+  L__init=1E-4 :: [L__init]<<[]
+  Cs__init=0 :: [Cs__init]<<[]
+  Rs__init=0 :: [Rs__init]<<[]
+  @time n2:time=k23*n2 :: [n2:time]<<[k23, n2]
+  @time n1:time=k13*n1 :: [n1:time]<<[k13, n1]
+  @time L4:time=Q/V4*(L-L4) :: [L4:time]<<[Q, V4, L, L4]
+  @time n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n :: [n:time]<<[Kin, emax, L, kdiwt, kd, ec50, kout, n]
+  @time Ld:time=kdeg*Ci*N :: [Ld:time]<<[kdeg, Ci, N]
+  @time L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L :: [L:time]<<[krec, Li, Ve, NA, kr, Cs, kf, L, Rs, N, kl_WT]
+  @time Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N :: [Ci:time]<<[kfi, Li, Ri, keC, Cs, kri, Ci, kdeg, Rs, N]
+  @time Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N :: [Ri:time]<<[kri, Ci, keR, Rs, kfi, Li, Ri, kdeg, N]
+  @time Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N :: [Li:time]<<[kri, Ci, kfi, Li, Ri, NA, Ve, krec, N]
+  @time Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1) :: [Cs:time]<<[kf, L, Cs, kr, keC, N]
+  @time Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N :: [Rs:time]<<[kr, Cs, Vs, kf, L, Rs, keR, N]
+  k23=.0033 :: [k23]<<[]
+  @time ODE n2: n2:time=k23*n2 :: [n2, n2(time.max)]<<[k23, n2(time.min), n2:time]
+  k13=.0044 :: [k13]<<[]
+  @time ODE n1: n1:time=k13*n1 :: [n1, n1(time.max)]<<[k13, n1(time.min), n1:time]
+  Q=4.65E-4 :: [Q]<<[]
+  V4=.249 :: [V4]<<[]
+  @time ODE L4: L4:time=Q/V4*(L-L4) :: [L4, L4(time.max)]<<[Q, V4, L, L4(time.min), L4:time]
+  kout=7.57E-4 :: [kout]<<[]
+  kd=1.5E-10 :: [kd]<<[]
+  kdiwt=1.275E-8 :: [kdiwt]<<[]
+  ec50=2.53E-10 :: [ec50]<<[]
+  emax=12.7 :: [emax]<<[]
+  Kin=3.13E-6 :: [Kin]<<[]
+  @time ODE n: n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n :: [n, n(time.max)]<<[Kin, emax, L, kdiwt, kd, ec50, kout, n(time.min), n:time]
+  @time ODE Ld: Ld:time=kdeg*Ci*N :: [Ld, Ld(time.max)]<<[kdeg, Ci, N, Ld(time.min), Ld:time]
+  kl_WT=4.17E-5 :: [kl_WT]<<[]
+  kdeg=.059 :: [kdeg]<<[]
+  @time ODE Ri: Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N :: [Ri, Ri(time.max)]<<[kri, Ci, keR, Rs, kfi, Li, kdeg, N, Ri(time.min), Ri:time]
+  NA=6.02E23 :: [NA]<<[]
+  @time ODE Ci: Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N :: [Ci, Ci(time.max)]<<[kfi, Li, Ri, keC, Cs, kri, kdeg, Rs, N, Ci(time.min), Ci:time]
+  Ve=1E-14 :: [Ve]<<[]
+  kfi=2.352941176E8 :: [kfi]<<[]
+  kri=3 :: [kri]<<[]
+  krec=.15 :: [krec]<<[]
+  @time ODE Li: Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N :: [Li, Li(time.max)]<<[kri, Ci, kfi, Ri, NA, Ve, krec, N, Li(time.min), Li:time]
+  keC=.1 :: [keC]<<[]
+  @time ODE L: L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L :: [L, L(time.max)]<<[krec, Li, Ve, NA, kr, Cs, kf, Rs, N, kl_WT, L(time.min), L:time]
+  @time N=n :: [N]<<[n]
+  @time ODE Cs: Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1) :: [Cs, Cs(time.max)]<<[kf, L, kr, keC, N, Cs(time.min), Cs:time]
+  Vs=25 :: [Vs]<<[]
+  kf=2E8 :: [kf]<<[]
+  kr=.03 :: [kr]<<[]
+  keR=.005 :: [keR]<<[]
+  @time ODE Rs: Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N :: [Rs, Rs(time.max)]<<[kr, Cs, Vs, kf, L, keR, N, Rs(time.min), Rs:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  n2(time.min)=n2__init :: [n2(time.min)]<<[n2__init]
+  n1(time.min)=n1__init :: [n1(time.min)]<<[n1__init]
+  L4(time.min)=L4__init :: [L4(time.min)]<<[L4__init]
+  n(time.min)=n__init :: [n(time.min)]<<[n__init]
+  Ld(time.min)=Ld__init :: [Ld(time.min)]<<[Ld__init]
+  Ri(time.min)=Ri__init :: [Ri(time.min)]<<[Ri__init]
+  Ci(time.min)=Ci__init :: [Ci(time.min)]<<[Ci__init]
+  Li(time.min)=Li__init :: [Li(time.min)]<<[Li__init]
+  L(time.min)=L__init :: [L(time.min)]<<[L__init]
+  Cs(time.min)=Cs__init :: [Cs(time.min)]<<[Cs__init]
+  Rs(time.min)=Rs__init :: [Rs(time.min)]<<[Rs__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode n2__init seqLoops=() phase=main fft=null
+  addNode n1__init seqLoops=() phase=main fft=null
+  addNode L4__init seqLoops=() phase=main fft=null
+  addNode n__init seqLoops=() phase=main fft=null
+  addNode Ld__init seqLoops=() phase=main fft=null
+  addNode Ri__init seqLoops=() phase=main fft=null
+  addNode Ci__init seqLoops=() phase=main fft=null
+  addNode Li__init seqLoops=() phase=main fft=null
+  addNode L__init seqLoops=() phase=main fft=null
+  addNode Cs__init seqLoops=() phase=main fft=null
+  addNode Rs__init seqLoops=() phase=main fft=null
+  addNode n2:time seqLoops=(time) phase=time#1 fft=null
+  addNode n1:time seqLoops=(time) phase=time#1 fft=null
+  addNode L4:time seqLoops=(time) phase=time#1 fft=null
+  addNode n:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ld:time seqLoops=(time) phase=time#1 fft=null
+  addNode L:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ci:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ri:time seqLoops=(time) phase=time#1 fft=null
+  addNode Li:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cs:time seqLoops=(time) phase=time#1 fft=null
+  addNode Rs:time seqLoops=(time) phase=time#1 fft=null
+  addNode k23 seqLoops=() phase=main fft=null
+  addNode n2 seqLoops=(time) phase=time#1 fft=time
+  addNode k13 seqLoops=() phase=main fft=null
+  addNode n1 seqLoops=(time) phase=time#1 fft=time
+  addNode Q seqLoops=() phase=main fft=null
+  addNode V4 seqLoops=() phase=main fft=null
+  addNode L4 seqLoops=(time) phase=time#1 fft=time
+  addNode kout seqLoops=() phase=main fft=null
+  addNode kd seqLoops=() phase=main fft=null
+  addNode kdiwt seqLoops=() phase=main fft=null
+  addNode ec50 seqLoops=() phase=main fft=null
+  addNode emax seqLoops=() phase=main fft=null
+  addNode Kin seqLoops=() phase=main fft=null
+  addNode n seqLoops=(time) phase=time#1 fft=time
+  addNode Ld seqLoops=(time) phase=time#1 fft=time
+  addNode kl_WT seqLoops=() phase=main fft=null
+  addNode kdeg seqLoops=() phase=main fft=null
+  addNode Ri seqLoops=(time) phase=time#1 fft=time
+  addNode NA seqLoops=() phase=main fft=null
+  addNode Ci seqLoops=(time) phase=time#1 fft=time
+  addNode Ve seqLoops=() phase=main fft=null
+  addNode kfi seqLoops=() phase=main fft=null
+  addNode kri seqLoops=() phase=main fft=null
+  addNode krec seqLoops=() phase=main fft=null
+  addNode Li seqLoops=(time) phase=time#1 fft=time
+  addNode keC seqLoops=() phase=main fft=null
+  addNode L seqLoops=(time) phase=time#1 fft=time
+  addNode N seqLoops=(time) phase=time#1 fft=null
+  addNode Cs seqLoops=(time) phase=time#1 fft=time
+  addNode Vs seqLoops=() phase=main fft=null
+  addNode kf seqLoops=() phase=main fft=null
+  addNode kr seqLoops=() phase=main fft=null
+  addNode keR seqLoops=() phase=main fft=null
+  addNode Rs seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode n2(time.min) seqLoops=() phase=main fft=null
+  addNode n1(time.min) seqLoops=() phase=main fft=null
+  addNode L4(time.min) seqLoops=() phase=main fft=null
+  addNode n(time.min) seqLoops=() phase=main fft=null
+  addNode Ld(time.min) seqLoops=() phase=main fft=null
+  addNode Ri(time.min) seqLoops=() phase=main fft=null
+  addNode Ci(time.min) seqLoops=() phase=main fft=null
+  addNode Li(time.min) seqLoops=() phase=main fft=null
+  addNode L(time.min) seqLoops=() phase=main fft=null
+  addNode Cs(time.min) seqLoops=() phase=main fft=null
+  addNode Rs(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding n2__init=0 to main
+  adding n1__init=0 to main
+  adding L4__init=0 to main
+  adding n__init=0 to main
+  adding Ld__init=0 to main
+  adding Ri__init=0 to main
+  adding Ci__init=0 to main
+  adding Li__init=0 to main
+  adding L__init=1E-4 to main
+  adding Cs__init=0 to main
+  adding Rs__init=0 to main
+  adding k23=.0033 to main
+  adding k13=.0044 to main
+  adding Q=4.65E-4 to main
+  adding V4=.249 to main
+  adding kout=7.57E-4 to main
+  adding kd=1.5E-10 to main
+  adding kdiwt=1.275E-8 to main
+  adding ec50=2.53E-10 to main
+  adding emax=12.7 to main
+  adding Kin=3.13E-6 to main
+  adding kl_WT=4.17E-5 to main
+  adding kdeg=.059 to main
+  adding NA=6.02E23 to main
+  adding Ve=1E-14 to main
+  adding kfi=2.352941176E8 to main
+  adding kri=3 to main
+  adding krec=.15 to main
+  adding keC=.1 to main
+  adding Vs=25 to main
+  adding kf=2E8 to main
+  adding kr=.03 to main
+  adding keR=.005 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding n2(time.min)=n2__init to main
+  adding n1(time.min)=n1__init to main
+  adding L4(time.min)=L4__init to main
+  adding n(time.min)=n__init to main
+  adding Ld(time.min)=Ld__init to main
+  adding Ri(time.min)=Ri__init to main
+  adding Ci(time.min)=Ci__init to main
+  adding Li(time.min)=Li__init to main
+  adding L(time.min)=L__init to main
+  adding Cs(time.min)=Cs__init to main
+  adding Rs(time.min)=Rs__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding n2:time=k23*n2 to loop-time
+  adding n1:time=k13*n1 to loop-time
+  adding L4:time=Q/V4*(L-L4) to loop-time
+  adding n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n to loop-time
+  adding N=n to loop-time
+  adding Ld:time=kdeg*Ci*N to loop-time
+  adding L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L to loop-time
+  adding Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N to loop-time
+  adding Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N to loop-time
+  adding Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N to loop-time
+  adding Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1) to loop-time
+  adding Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N to loop-time
+  adding ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs] to loop-time
+  adding loop-time to main
+Building ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs] ...
+  adding muTool n2:time=k23*n2
+  adding muVar n2:time
+  adding muTool n1:time=k13*n1
+  adding muVar n1:time
+  adding muTool L4:time=Q/V4*(L-L4)
+  adding muVar L4:time
+  adding muTool n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n
+  adding muVar n:time
+  adding muTool N=n
+  adding muVar N
+  adding muTool Ld:time=kdeg*Ci*N
+  adding muVar Ld:time
+  adding muTool Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N
+  adding muVar Ri:time
+  adding muTool Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N
+  adding muVar Ci:time
+  adding muTool Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N
+  adding muVar Li:time
+  adding muTool L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L
+  adding muVar L:time
+  adding muTool Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)
+  adding muVar Cs:time
+  adding muTool Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N
+  adding muVar Rs:time
+  adding n2:time=k23*n2 to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding n1:time=k13*n1 to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding L4:time=Q/V4*(L-L4) to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding N=n to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Ld:time=kdeg*Ci*N to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1) to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+  adding Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N to ODE Block-time [n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  n2__init=0
+  n1__init=0
+  L4__init=0
+  n__init=0
+  Ld__init=0
+  Ri__init=0
+  Ci__init=0
+  Li__init=0
+  L__init=1E-4
+  Cs__init=0
+  Rs__init=0
+  k23=.0033
+  k13=.0044
+  Q=4.65E-4
+  V4=.249
+  kout=7.57E-4
+  kd=1.5E-10
+  kdiwt=1.275E-8
+  ec50=2.53E-10
+  emax=12.7
+  Kin=3.13E-6
+  kl_WT=4.17E-5
+  kdeg=.059
+  NA=6.02E23
+  Ve=1E-14
+  kfi=2.352941176E8
+  kri=3
+  krec=.15
+  keC=.1
+  Vs=25
+  kf=2E8
+  kr=.03
+  keR=.005
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  n2(time.min)=n2__init
+  n1(time.min)=n1__init
+  L4(time.min)=L4__init
+  n(time.min)=n__init
+  Ld(time.min)=Ld__init
+  Ri(time.min)=Ri__init
+  Ci(time.min)=Ci__init
+  Li(time.min)=Li__init
+  L(time.min)=L__init
+  Cs(time.min)=Cs__init
+  Rs(time.min)=Rs__init
+  loop-time
+    n2:time=k23*n2
+    n1:time=k13*n1
+    L4:time=Q/V4*(L-L4)
+    n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n
+    N=n
+    Ld:time=kdeg*Ci*N
+    L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L
+    Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N
+    Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N
+    Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N
+    Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)
+    Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N
+    ODE Block-time vmus=[time, n2, n1, L4, n, Ld, Ri, Ci, Li, L, Cs, Rs, n2:time, n1:time, L4:time, n:time, N, Ld:time, Ri:time, Ci:time, Li:time, L:time, Cs:time, Rs:time]
+      n2:time=k23*n2
+      n1:time=k13*n1
+      L4:time=Q/V4*(L-L4)
+      n:time=Kin*(1+emax*(L*kdiwt/kd)^1.34/(ec50^1.34+(L*kdiwt/kd)^1.34))-kout*n
+      N=n
+      Ld:time=kdeg*Ci*N
+      Ri:time=(kri*Ci+keR*Rs-(kfi*Li*Ri+kdeg*Ri))*N
+      Ci:time=(kfi*Li*Ri+keC*Cs-(kri*Ci+kdeg*Rs))*N
+      Li:time=((kri*Ci-kfi*Li*Ri)*(1/(NA*Ve))-krec*Li)*N
+      L:time=(krec*Li*Ve*NA+kr*Cs-kf*L*Rs)*(N/NA)-kl_WT*L
+      Cs:time=(kf*L*Cs+kr*Cs+keC*Cs)*N*(-1)
+      Rs:time=(kr*Cs+Vs-(kf*L*Rs+keR*Rs))*N
+

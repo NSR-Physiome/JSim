@@ -1,0 +1,5 @@
+
+JSim.util.Xcept: Model seqloop_ode_sta
+aborted: Can't sequence u:t:t=u+a-u:t: source var a has free domain(s) (x) missing in solved var(s): [u:t:t]
+
+

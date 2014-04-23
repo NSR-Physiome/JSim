@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# create nonJava JNI .h headers via javah 
+
+. jsbuild.path
+
+cd $JSIMSRC/JSim/nonJava
+
+rm -f */JSim_nml_*.h
+
+cd math
+$JSIMSDK/bin/javah -jni JSim.nml.math.NatMath
+cd ..
+
+cd ode1
+$JSIMSDK/bin/javah -jni JSim.nml.ode1.ODE1Solver
+cd radau
+$JSIMSDK/bin/javah -jni JSim.nml.ode1.ODE1SolverRadau
+cd ../dopri5
+$JSIMSDK/bin/javah -jni JSim.nml.ode1.ODE1SolverDopri5
+cd ../cvode
+$JSIMSDK/bin/javah -jni JSim.nml.ode1.ODE1SolverCVode
+cd ../..
+
+cd pde1
+$JSIMSDK/bin/javah -jni JSim.nml.pde1.PDE1Solver
+$JSIMSDK/bin/javah -jni JSim.nml.pde1.PDE1SolverToms731
+cd ..
+
+cd opt
+$JSIMSDK/bin/javah -jni JSim.nml.opt.Optimizer
+cd simplex
+$JSIMSDK/bin/javah -jni JSim.nml.opt.Simplex
+cd ../ggopt/
+$JSIMSDK/bin/javah -jni JSim.nml.opt.GGopt
+cd ../nl2sol/
+$JSIMSDK/bin/javah -jni JSim.nml.opt.NL2sol
+cd ../..
+
+

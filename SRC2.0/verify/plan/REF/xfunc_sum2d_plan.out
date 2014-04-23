@@ -1,0 +1,140 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: realDomain y
+  add var: real y.min
+  add var: real y.max
+  add var: int y.ct
+  add var: real y.delta
+  add var: real u(x,y)
+  add var: real w
+Loading Constraints
+  x.min=1 :: [x.min]
+  x.max=3 :: [x.max]
+  x.delta=1 :: [x.delta]
+  y.min=1 :: [y.min]
+  y.max=2 :: [y.max]
+  y.delta=1 :: [y.delta]
+  u=(x+y) :: [u, x, y]
+  w=dosum.1[(u@x)@y] :: [w, u(x.min,y.min)*, u(x.max,y.min)*, u(x.min,y.max)*, u(x.max,y.max)*]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain x
+  add tool: domain y
+Toolbox phase - cycle 1:
+  check eqn: x.min=1; [x.min]
+  add tool: x.min=1
+  check eqn: x.max=3; [x.max]
+  add tool: x.max=3
+  check eqn: x.delta=1; [x.delta]
+  add tool: x.delta=1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: y.min=1; [y.min]
+  add tool: y.min=1
+  check eqn: y.max=2; [y.max]
+  add tool: y.max=2
+  check eqn: y.delta=1; [y.delta]
+  add tool: y.delta=1
+  add tool: y.ct=(y.max-y.min)/y.delta+1.5
+  check eqn: u=(x+y); [u]
+  add tool: u=x+y
+  check eqn: w=dosum.1[(u@x)@y]; [w]
+  add tool: w=dosum.1[(u@x)@y]
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  w=dosum.1[(u@x)@y] :: [w]<<[u(x.min,y.min)*, u(x.max,y.min)*, u(x.min,y.max)*, u(x.max,y.max)*]
+  @x@y u=x+y :: [u]<<[x, y]
+  y.delta=1 :: [y.delta]<<[]
+  y.ct=(y.max-y.min)/y.delta+1.5 :: [y.ct]<<[y.max, y.min, y.delta]
+  y.max=2 :: [y.max]<<[]
+  y.min=1 :: [y.min]<<[]
+  domain y :: [y]<<[y.min, y.max, y.ct, y.delta]
+  x.delta=1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=3 :: [x.max]<<[]
+  x.min=1 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+  adding query tool: query [u(x.min,y.min)*]<<[u]
+  adding query tool: query [u(x.max,y.min)*]<<[u]
+  adding query tool: query [u(x.min,y.max)*]<<[u]
+  adding query tool: query [u(x.max,y.max)*]<<[u]
+Creating MainGraph ...
+loopOrder=[x, y]
+  addNode w seqLoops=() phase=main fft=null
+  addNode u seqLoops=(x,y) phase=x#1+y#1 fft=null
+  addNode y.delta seqLoops=() phase=main fft=null
+  addNode y.ct seqLoops=() phase=main fft=null
+  addNode y.max seqLoops=() phase=main fft=null
+  addNode y.min seqLoops=() phase=main fft=null
+  addNode y seqLoops=() phase=main fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode u(x.min,y.min) seqLoops=() phase=main fft=null
+  addNode u(x.max,y.min) seqLoops=() phase=main fft=null
+  addNode u(x.min,y.max) seqLoops=() phase=main fft=null
+  addNode u(x.max,y.max) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding y.delta=1 to main
+  adding y.max=2 to main
+  adding y.min=1 to main
+  adding x.delta=1 to main
+  adding x.max=3 to main
+  adding x.min=1 to main
+  adding y.ct=(y.max-y.min)/y.delta+1.5 to main
+  adding domain y to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  subphase x#1+y#1 entryEdge=null
+building block for phase x#1+y#1
+  adding u=x+y to loop-y
+  adding loop-y to loop-x
+  adding loop-x to main
+  adding query [u(x.min,y.min)*] to main
+  adding query [u(x.max,y.min)*] to main
+  adding query [u(x.min,y.max)*] to main
+  adding query [u(x.max,y.max)*] to main
+  adding w=dosum.1[(u@x)@y] to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  y.delta=1
+  y.max=2
+  y.min=1
+  x.delta=1
+  x.max=3
+  x.min=1
+  y.ct=(y.max-y.min)/y.delta+1.5
+  domain y
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  loop-x
+    loop-y
+      u=x+y
+  query [u(x.min,y.min)*]
+  query [u(x.max,y.min)*]
+  query [u(x.min,y.max)*]
+  query [u(x.max,y.max)*]
+  w=dosum.1[(u@x)@y]
+

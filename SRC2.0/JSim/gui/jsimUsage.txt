@@ -1,0 +1,25 @@
+Usage: jsim [ switches ]
+
+Switches:
+  -f file ...             load project, model and other files
+  -v                      verbose mode
+  -userurl url            load -f files relative to URL
+  -userdir dir            set user directory
+  -path path              set search path
+  -server name            connect to remote server
+  -plugin file ...        load optional plugin
+  -usage                  print usage message and exit
+  -stack                  print stack dump on error
+  -noscrub                don't scrub build directory at exit
+  -sandbox [path [path]]  run application is safe sandbox
+  -nosandbox              don't use sandbox (default)
+  -securityMgr class-name install security manager
+  -mp N                   enable up to N processor multiprocessing        
+  -noprefs                ignore user preferences file
+  -rgb REDxGREENxBLUE     specify base color (0-255)
+  -fs size                specify base font size (points)
+  -ws WIDTHxHEIGHT        specify project window size (pixels)
+  -popout                 create initial project in new frame (applet only)
+  -demo [ expr ... ]      compile model, show model and plot tabs
+  -sbwregister            register with SBW broken and exit
+  -sbwmodule              run JSim as an SBW module

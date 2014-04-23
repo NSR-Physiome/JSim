@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfParameters>
+      <parameter id="a" value="1" constant="true"/>
+      <parameter id="u" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="u">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> a </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="u">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> u </ci>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+

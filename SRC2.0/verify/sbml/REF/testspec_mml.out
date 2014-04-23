@@ -1,0 +1,127 @@
+// This model generated automatically from SBML
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// AmtAmtReac: => AmtAmtReac 
+// AmtNoneReac: => AmtNoneReac 
+// ConcAmtReac: => ConcAmtReac 
+// ConcConcReac: => ConcConcReac 
+// ConcNoneReac: => ConcNoneReac 
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real comp1 = 10 L;
+  real AmtAmtNone = 5 mol;
+  extern real AmtNoneNone mol;
+  real ConcAmtNone M;
+  real ConcConcNone = 5 M;
+  extern real ConcNoneNone M;
+  real AmtAmtAssn(time) mol;
+  real AmtNoneAssn(time) mol;
+  real ConcAmtAssn(time) M;
+  real ConcConcAssn(time) M;
+  real ConcNoneAssn(time) M;
+  real AmtAmtRate(time) mol;
+  extern real AmtNoneRate_init mol;
+  real AmtNoneRate(time) mol;
+  real ConcAmtRate(time) M;
+  real ConcConcRate(time) M;
+  extern real ConcNoneRate_init M;
+  real ConcNoneRate(time) M;
+  real AmtAmtReac(time) mol;
+  extern real AmtNoneReac_init mol;
+  real AmtNoneReac(time) mol;
+  real ConcAmtReac(time) M;
+  real ConcConcReac(time) M;
+  extern real ConcNoneReac_init M;
+  real ConcNoneReac(time) M;
+
+  // equations
+  ConcAmtNone = 5/comp1;
+  AmtAmtAssn = time;
+  AmtNoneAssn = time;
+  ConcAmtAssn = time;
+  ConcConcAssn = time;
+  ConcNoneAssn = time;
+  when (time=time.min) AmtAmtRate = 5;
+  AmtAmtRate:time = time;
+  when (time=time.min) AmtNoneRate = AmtNoneRate_init;
+  AmtNoneRate:time = time;
+  when (time=time.min) ConcAmtRate = 5/comp1;
+  ConcAmtRate:time = time;
+  when (time=time.min) ConcConcRate = 5;
+  ConcConcRate:time = time;
+  when (time=time.min) ConcNoneRate = ConcNoneRate_init;
+  ConcNoneRate:time = time;
+  when (time=time.min) AmtAmtReac = 5;
+  AmtAmtReac:time = AmtAmtReac;
+  when (time=time.min) AmtNoneReac = AmtNoneReac_init;
+  AmtNoneReac:time = AmtNoneReac;
+  when (time=time.min) ConcAmtReac = 5/comp1;
+  (ConcAmtReac*comp1):time = ConcAmtReac;
+  when (time=time.min) ConcConcReac = 5;
+  (ConcConcReac*comp1):time = ConcConcReac;
+  when (time=time.min) ConcNoneReac = ConcNoneReac_init;
+  (ConcNoneReac*comp1):time = ConcNoneReac;
+
+  // variable properties
+  comp1.sbmlRole="compartment";
+  AmtAmtNone.sbmlRole="species";
+  AmtAmtNone.sbmlCompartment="comp1";
+  AmtNoneNone.sbmlRole="species";
+  AmtNoneNone.sbmlCompartment="comp1";
+  ConcAmtNone.sbmlRole="species";
+  ConcAmtNone.sbmlCompartment="comp1";
+  ConcConcNone.sbmlRole="species";
+  ConcConcNone.sbmlCompartment="comp1";
+  ConcNoneNone.sbmlRole="species";
+  ConcNoneNone.sbmlCompartment="comp1";
+  AmtAmtAssn.sbmlRole="species";
+  AmtAmtAssn.sbmlCompartment="comp1";
+  AmtNoneAssn.sbmlRole="species";
+  AmtNoneAssn.sbmlCompartment="comp1";
+  ConcAmtAssn.sbmlRole="species";
+  ConcAmtAssn.sbmlCompartment="comp1";
+  ConcConcAssn.sbmlRole="species";
+  ConcConcAssn.sbmlCompartment="comp1";
+  ConcNoneAssn.sbmlRole="species";
+  ConcNoneAssn.sbmlCompartment="comp1";
+  AmtAmtRate.sbmlRole="species";
+  AmtAmtRate.sbmlCompartment="comp1";
+  AmtNoneRate_init.sbmlRole="derived";
+  AmtNoneRate.sbmlRole="species";
+  AmtNoneRate.sbmlCompartment="comp1";
+  ConcAmtRate.sbmlRole="species";
+  ConcAmtRate.sbmlCompartment="comp1";
+  ConcConcRate.sbmlRole="species";
+  ConcConcRate.sbmlCompartment="comp1";
+  ConcNoneRate_init.sbmlRole="derived";
+  ConcNoneRate.sbmlRole="species";
+  ConcNoneRate.sbmlCompartment="comp1";
+  AmtAmtReac.sbmlRole="species";
+  AmtAmtReac.sbmlCompartment="comp1";
+  AmtNoneReac_init.sbmlRole="derived";
+  AmtNoneReac.sbmlRole="species";
+  AmtNoneReac.sbmlCompartment="comp1";
+  ConcAmtReac.sbmlRole="species";
+  ConcAmtReac.sbmlCompartment="comp1";
+  ConcConcReac.sbmlRole="species";
+  ConcConcReac.sbmlCompartment="comp1";
+  ConcNoneReac_init.sbmlRole="derived";
+  ConcNoneReac.sbmlRole="species";
+  ConcNoneReac.sbmlCompartment="comp1";
+}
+

@@ -1,0 +1,6 @@
+Cin=t b=b+a
+==== JSim version 1.6.85: Fatal Error
+
+JSim.util.Xcept: Model nounits
+aborted: Input variable assignments have circular dependencies
+

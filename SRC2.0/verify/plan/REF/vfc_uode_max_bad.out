@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model vfc_uode_max
+aborted: ODE u: u:t=u(t.max) requires self-solved variable u(t.max)
+
+
+

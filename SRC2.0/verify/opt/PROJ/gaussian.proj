@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSim version="1.6.97b">
+  <project name="proj1">
+    <plotpage name="plotpage_1">
+      <control name="desc" value=""/>
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="liveUpdate" value="false"/>
+      <control name="showConf" value="true"/>
+      <control name="showXRule" value="false"/>
+      <control name="xRule" value=".5"/>
+      <control name="showYRule" value="false"/>
+      <control name="yRule" value=".5"/>
+      <control name="showMinMaxSliders" value="false"/>
+      <control name="animeDuration" value="10"/>
+      <control name="animeRate" value="10"/>
+      <control name="animeLoop" value="false"/>
+      <control name="animeDir" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="2"/>
+        <control name="title" value="Figure 1: Run Optimizer: Default"/>
+        <control name="titleX" value=".5"/>
+        <control name="titleY" value="1"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="showTitle" value="true"/>
+        <control name="showFooter" value="false"/>
+        <control name="legendX" value="1"/>
+        <control name="legendY" value="1"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="1"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="xi (dimensionless)"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="log"/>
+          <control name="autoscale" value="false"/>
+          <control name="label" value="Values (dimensionless)"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="9.999999E-5"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="DigitizedFigure1"/>
+          <control name="expr" value="yi"/>
+          <control name="color" value="black"/>
+          <control name="size" value="big"/>
+          <control name="shape" value="circle"/>
+          <control name="line" value="none"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item1">
+          <control name="src" value="model"/>
+          <control name="expr" value="f"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="thick"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <model name="model">
+      <control name="desc" value=""/>
+      <control name="easelVariant" value=""/>
+      <control name="notes">Parameter        Start           Min            Max      
+     theta1           2              -5             5       
+     theta2           2              -5             5       
+     theta3           2              -5             5       
+
+Data to Match:
+   Curve        Par/Expr         Point Wgts     Curve Wgt   
+    yi              f           (f/12)^(1/2)        1       
+
+Optimization Results:
+   termination status   Met parameter step size stopping criterion
+   # evaluations        72
+   best RMS error       .0447 on run #72
+   best parameter values:
+   Parm       value     +/- 1SD     90%       95%       99%   
+  theta1    .47401553    .0499     .0889     .1087     .1524  
+  theta2    1.2558188    .3848     .6859     .8384     1.175  
+  theta3    .01990685    .2004     .3572     .4366     .6121  
+===================</control>
+      <control name="modelSource">/* MODEL NUMBER
+   MODEL NAME: Gaussian
+   SHORT DESCRIPTION: Fits data digitized from Figure 1 in reference.
+*/
+
+math Gaussian {
+
+// Gaussian, data digitized from reference
+realDomain xi; xi.min=-7/2; xi.max=7/2; xi.delta=1/2;
+
+real theta1=2,
+     theta2=2,
+     theta3=2;
+real f(xi);
+f(xi)=theta1*exp(-0.5*theta2* (xi-theta3)^2 );
+
+}
+/*
+
+DETAILED DESCRIPTION:
+
+Results will not exactly match reference because of digitization
+errors and additionally because SENSOP requires lower and upper 
+bounds not given in reference and the reference uses a L2 norm of
+relative parameter changes of 0.0001 which is assumed to be similar
+to a minimum parameter step of 0.01, given that the parameters are
+O(1).
+
+The unweighted fitting (results in Table 2 of reference) for
+starting values theta1-theta2=theta3=2 are given here:
+
+            theta1      theta2      theta3
+Reference:  0.4547      1.1952      0.1198
+Optimized:  0.4542      1.2106      0.0742
+
+which is presumed excellent given the standard deviation in
+the digitized xi coordinate is 0.035 and unknown for the y coordinate.
+
+REFERENCE: 
+I.S. Chan, A.A. Goldstein, and J.B. Bassingthwaighte.
+SENSOP&quot; A Derivative-Free Solver for Nonlinear Lease Squares
+with Sensitivity Scaling. Annals of Biomedical Engineering,
+Vol. 21, pp. 621-631.
+*/</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value=""/>
+      <control name="parSetModified" value="true"/>
+      <control name="built" value="true"/>
+      <control name="customRTML"></control>
+      <control name="customBuilt" value="false"/>
+      <options name="buildOptions">
+        <control name="maxBuildTime" value="120"/>
+        <control name="maxImplicitBlock" value="3"/>
+        <control name="initNaN" value="false"/>
+        <control name="abortNaN" value="false"/>
+        <control name="traceNaN" value="false"/>
+        <control name="traceVars" value=""/>
+        <control name="ignoreAllOverspec" value="false"/>
+        <control name="ignoreAllUnderspec" value="false"/>
+      </options>
+      <vars name="vars"/>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1E-7"/>
+            <control name="ode_Dopri5_abstol" value="1E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value=".9"/>
+            <control name="ode_Dopri5_loselect" value=".2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value=".04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_RK2_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1E-4"/>
+            <control name="ode_Fehlberg_maxstep" value=".1"/>
+            <control name="ode_Fehlberg_tol" value="1E-6"/>
+            <control name="ode_KM_minstep" value="1E-4"/>
+            <control name="ode_KM_maxstep" value=".1"/>
+            <control name="ode_KM_tol" value="1E-6"/>
+            <control name="ode_Radau_reltol" value="1E-4"/>
+            <control name="ode_Radau_abstol" value="1E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1E-16"/>
+            <control name="ode_Radau_safety" value=".9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="7"/>
+            <control name="ode_Radau_jacob" value=".001"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value=".2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value=".002"/>
+            <control name="ode_Radau_hicontract" value=".8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value=".8"/>
+            <control name="ode_RK4_nstep" value="2"/>
+            <control name="ode_CVode_reltol" value="1E-7"/>
+            <control name="ode_CVode_abstol" value="1E-8"/>
+            <control name="ode_CVode_maxsteps" value="100000"/>
+            <control name="ode_CVode_stiff" value="false"/>
+            <control name="pde_which" value="MacCormack"/>
+            <control name="pde_MacCormack_FCT" value="false"/>
+            <control name="fzero_unbound" value=""/>
+            <control name="fzero_bound" value=""/>
+            <control name="fzero_errtol" value="1E-6"/>
+            <control name="fzero_maxcalls" value="500"/>
+            <control name="fzero_maxiters" value="100"/>
+            <control name="fzero_eps" value="1E-6"/>
+            <control name="fzero_istep" value=".01"/>
+            <control name="fzero_npoints" value="5"/>
+            <control name="fzero_randseed" value="0"/>
+            <control name="fzero_inittemp" value="100"/>
+            <control name="random_seed" value="0"/>
+          </solver>
+          <assign name="vars">
+            <control name="xi.min" value="-3.5"/>
+            <control name="xi.max" value="3.5"/>
+            <control name="xi.delta" value=".5"/>
+            <control name="theta1" value="2"/>
+            <control name="theta2" value="2"/>
+            <control name="theta3" value="2"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="locked" value="false"/>
+        <control name="notes"></control>
+      </parset>
+      <imageset name="images"/>
+      <loops name="loops">
+        <loop name="outer">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+        <loop name="inner">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+      </loops>
+      <sens name="sens">
+        <control name="npars" value="1"/>
+        <senspar name="senspar0">
+          <control name="par" value=""/>
+          <control name="delta" value=".01"/>
+          <control name="enabled" value="true"/>
+        </senspar>
+      </sens>
+      <optim name="optim">
+        <control name="npars" value="4"/>
+        <control name="nmatches" value="2"/>
+        <control name="alg" value="sensop"/>
+        <control name="maxCalls" value="1000"/>
+        <control name="maxIters" value="10"/>
+        <control name="errTol" value="0"/>
+        <control name="stepTol" value=".01"/>
+        <control name="gradTol" value="0"/>
+        <control name="npoints" value="5"/>
+        <control name="eps" value="1E-6"/>
+        <control name="randomSeed" value="0"/>
+        <control name="initTemp" value="100"/>
+        <control name="populationSize" value="10"/>
+        <control name="mutationRate" value=".1"/>
+        <control name="crossoverRate" value="1"/>
+        <control name="calcCovMat" value="true"/>
+        <optgraph name="pars">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="normPars">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="rmsError">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="dataToMatch">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="unwgtResid">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="wgtResid">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="pointWgts">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optpar name="optpar0">
+          <control name="par" value="theta1"/>
+          <control name="min" value="0"/>
+          <control name="max" value="5"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch0">
+          <control name="src" value="DigitizedFigure1"/>
+          <control name="data" value="yi"/>
+          <control name="expr" value="f"/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+        <optpar name="optpar1">
+          <control name="par" value="theta2"/>
+          <control name="min" value="0"/>
+          <control name="max" value="5"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optpar name="optpar2">
+          <control name="par" value="theta3"/>
+          <control name="min" value="0"/>
+          <control name="max" value="5"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optpar name="optpar3">
+          <control name="par" value=""/>
+          <control name="min" value="NaN"/>
+          <control name="max" value="NaN"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch1">
+          <control name="src" value="DigitizedFigure1"/>
+          <control name="data" value=""/>
+          <control name="expr" value=""/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+      </optim>
+      <rtml name="rtml"/>
+    </model>
+    <dataset coding="ascii" name="DigitizedFigure1" precision="19" version="1.6.97b">
+      <ndata desc="" name="yi">
+        <grid desc="xi" nsamples="15" tag="grid_0">
+          <samples>  -3.47853  -2.98667  -2.49773  -2.02465  -1.5334  -1.04005  -0.53251  -0.0496539
+  0.446875  0.957386  1.45381  1.95695  2.46485  2.99139  3.49284</samples>
+        </grid>
+        <samples>  9.53846E-4  0.00294387  0.0188376  0.0362149  0.130315  0.277539  0.226464  0.501167
+  0.482912  0.187637  0.185488  0.0343189  0.0256047  0.002405  6.78683E-4</samples>
+      </ndata>
+      <control name="desc" value=""/>
+      <control name="notes"></control>
+      <control name="origFile" value="/user2/garyr/SENSOPTESTS/p387.cdata"/>
+      <control name="encoding" value="ascii"/>
+      <control name="filterType" value="crop"/>
+      <control name="filterDim" value="0"/>
+      <control name="filterMin" value="0"/>
+      <control name="filterMax" value="100"/>
+      <control name="filterDelta" value=".1"/>
+    </dataset>
+    <parset name="Default">
+      <vars name="vars">
+                        <solver name="solver">
+                              <control name="ode_which" value="Auto"/>
+
+
+                              <control name="ode_Dopri5_reltol" value="1E-7"/>
+
+
+                              <control name="ode_Dopri5_abstol" value="1E-7"/>
+
+
+                              <control name="ode_Dopri5_nstep" value="100000"/>
+
+
+                              <control name="ode_Dopri5_stiff" value="1000"/>
+
+
+                              <control name="ode_Dopri5_round" value="2.3E-16"/>
+
+
+                              <control name="ode_Dopri5_safety" value=".9"/>
+
+
+                              <control name="ode_Dopri5_loselect" value=".2"/>
+
+
+                              <control name="ode_Dopri5_hiselect" value="10"/>
+
+
+                              <control name="ode_Dopri5_beta" value=".04"/>
+
+
+                              <control name="ode_Euler_nstep" value="2"/>
+
+
+                              <control name="ode_RK2_nstep" value="2"/>
+
+
+                              <control name="ode_Fehlberg_minstep" value="1E-4"/>
+
+
+                              <control name="ode_Fehlberg_maxstep" value=".1"/>
+
+
+                              <control name="ode_Fehlberg_tol" value="1E-6"/>
+
+
+                              <control name="ode_KM_minstep" value="1E-4"/>
+
+
+                              <control name="ode_KM_maxstep" value=".1"/>
+
+
+                              <control name="ode_KM_tol" value="1E-6"/>
+
+
+                              <control name="ode_Radau_reltol" value="1E-4"/>
+
+
+                              <control name="ode_Radau_abstol" value="1E-7"/>
+
+
+                              <control name="ode_Radau_nstep" value="100000"/>
+
+
+                              <control name="ode_Radau_round" value="1E-16"/>
+
+
+                              <control name="ode_Radau_safety" value=".9"/>
+
+
+                              <control name="ode_Radau_minord" value="3"/>
+
+
+                              <control name="ode_Radau_maxord" value="7"/>
+
+
+                              <control name="ode_Radau_initord" value="3"/>
+
+
+                              <control name="ode_Radau_newton" value="7"/>
+
+
+                              <control name="ode_Radau_jacob" value=".001"/>
+
+
+                              <control name="ode_Radau_losize" value="1"/>
+
+
+                              <control name="ode_Radau_hisize" value="1.2"/>
+
+
+                              <control name="ode_Radau_loselect" value=".2"/>
+
+
+                              <control name="ode_Radau_hiselect" value="8"/>
+
+
+                              <control name="ode_Radau_locontract" value=".002"/>
+
+
+                              <control name="ode_Radau_hicontract" value=".8"/>
+
+
+                              <control name="ode_Radau_hiorder" value="1.2"/>
+
+
+                              <control name="ode_Radau_loorder" value=".8"/>
+
+
+                              <control name="ode_RK4_nstep" value="2"/>
+
+
+                              <control name="ode_CVode_reltol" value="1E-7"/>
+
+
+                              <control name="ode_CVode_abstol" value="1E-8"/>
+
+
+                              <control name="ode_CVode_maxsteps" value="100000"/>
+
+
+                              <control name="ode_CVode_stiff" value="false"/>
+
+
+                              <control name="pde_which" value="MacCormack"/>
+
+
+                              <control name="pde_MacCormack_FCT" value="false"/>
+
+
+                              <control name="fzero_unbound" value=""/>
+
+
+                              <control name="fzero_bound" value=""/>
+
+
+                              <control name="fzero_errtol" value="1E-6"/>
+
+
+                              <control name="fzero_maxcalls" value="500"/>
+
+
+                              <control name="fzero_maxiters" value="100"/>
+
+
+                              <control name="fzero_eps" value="1E-6"/>
+
+
+                              <control name="fzero_istep" value=".01"/>
+
+
+                              <control name="fzero_npoints" value="5"/>
+
+
+                              <control name="fzero_randseed" value="0"/>
+
+
+                              <control name="fzero_inittemp" value="100"/>
+
+
+                              <control name="random_seed" value="0"/>
+
+
+        </solver>
+
+
+                        <assign name="vars">
+                              <control name="xi.min" value="-3.5"/>
+
+
+                              <control name="xi.max" value="3.5"/>
+
+
+                              <control name="xi.delta" value=".5"/>
+
+
+                              <control name="theta1" value="2"/>
+
+
+                              <control name="theta2" value="2"/>
+
+
+                              <control name="theta3" value="2"/>
+
+
+        </assign>
+
+
+      </vars>
+      <control name="desc" value=""/>
+      <control name="locked" value="false"/>
+      <control name="notes"></control>
+    </parset>
+  </project>
+</JSim>

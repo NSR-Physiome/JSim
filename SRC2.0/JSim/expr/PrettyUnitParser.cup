@@ -1,0 +1,55 @@
+/*NSRCOPYRIGHT
+	Copyright (C) 1999-2008 University of Washington
+	Developed by the National Simulation Resource
+	Department of Bioengineering,  Box 355061
+	University of Washington, Seattle, WA 98195-5061.
+	Dr. J. B. Bassingthwaighte, Director
+END_NSRCOPYRIGHT*/
+
+package JSim.expr;
+
+import JSim.util.*;
+
+import java_cup.runtime.*;
+
+terminal LPAREN, RPAREN, MINUS, TIMES, DIVIDE, POWER;
+
+terminal String NUMBER, NAME;
+
+non terminal PrettyUnit unitexpr;
+non terminal String IDENT;
+non terminal Double pnumber;
+
+precedence left TIMES, DIVIDE;
+precedence right POWER;
+
+
+// unitexpr may not begin with a LPAREN
+unitexpr ::= IDENT:n
+		{: RESULT = new PrettyUnit(n); :}
+	  |  unitexpr:a TIMES unitexpr:b
+		{: RESULT = new PrettyUnit(a, b, true); :}
+	  |  unitexpr:a DIVIDE unitexpr:b
+		{: RESULT = new PrettyUnit(a, b, false); :}
+	  |  unitexpr:a POWER pnumber:p
+		{: RESULT = new PrettyUnit(a, p.doubleValue()); :}
+	  |  NUMBER:n DIVIDE unitexpr:b
+		{: PrettyUnit a = new PrettyUnit(n);
+		   RESULT = new PrettyUnit(a, b, false); :}
+	  |  LPAREN unitexpr:u RPAREN
+		{: RESULT = u; :}
+	  ;
+
+IDENT ::=   NAME:na
+		{: RESULT = na; :}
+	  | NUMBER:nu
+		{: RESULT = nu; :}
+	  ;
+
+pnumber ::= NUMBER:n
+		{: RESULT = new Double(Util.toDouble(n)); :}
+	  | LPAREN pnumber:p RPAREN
+		{: RESULT = p; :}
+	  | MINUS pnumber:p
+		{: RESULT = new Double(-p.doubleValue()); :}
+	  ;

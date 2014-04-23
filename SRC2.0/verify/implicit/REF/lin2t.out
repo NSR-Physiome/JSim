@@ -1,0 +1,9 @@
+t.min = { 0 } dimensionless
+t.max = { 5 } dimensionless
+t.ct = { 6 } dimensionless
+t.delta = { 1 } dimensionless
+t = { 0 1 2 3 4 5 } dimensionless
+a(t) = { (0,1) (1,2) (2,5) (3,10) (4,17) (5,26) } dimensionless
+b(t) = { (0,-0) (1,2) (2,4) (3,6) (4,8) (5,10) } dimensionless
+aexact(t) = { (0,1) (1,2) (2,5) (3,10) (4,17) (5,26) } dimensionless
+bexact(t) = { (0,0) (1,2) (2,4) (3,6) (4,8) (5,10) } dimensionless

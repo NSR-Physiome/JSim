@@ -1,0 +1,201 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t
+  add var: real t.min
+  add var: real t.max
+  add var: int t.ct
+  add var: real t.delta
+  add var: realDomain x
+  add var: real x.min
+  add var: real x.max
+  add var: int x.ct
+  add var: real x.delta
+  add var: real a
+  add var: real b
+  add var: real d(x)
+  add var: real u(t,x)
+  add var: real u:x(t,x)
+  add var: real u:t(t,x)
+  add var: real u:x:x(t,x)
+Loading Constraints
+  x.min=0 :: [x.min]
+  x.max=1 :: [x.max]
+  x.delta=.1 :: [x.delta]
+  t.min=0 :: [t.min]
+  t.max=5 :: [t.max]
+  t.delta=.2 :: [t.delta]
+  a=1 :: [a]
+  b=1 :: [b]
+  d=(a*(1-x^2)+b*x^2) :: [d, a, x, b]
+  when (t=t.min) u=(x+1) :: [u(t.min), x]
+  when (x=x.min) u:x=0 :: [u:x(x.min)]
+  when (x=x.max) u:x=0 :: [u:x(x.max)]
+  u:t=(d*u:x:x) :: [u:t, d, u:x:x]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: domain x
+Toolbox phase - cycle 1:
+  check eqn: x.min=0; [x.min]
+  add tool: x.min=0
+  check eqn: x.max=1; [x.max]
+  add tool: x.max=1
+  check eqn: x.delta=.1; [x.delta]
+  add tool: x.delta=.1
+  add tool: x.ct=(x.max-x.min)/x.delta+1.5
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  check eqn: t.max=5; [t.max]
+  add tool: t.max=5
+  check eqn: t.delta=.2; [t.delta]
+  add tool: t.delta=.2
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: a=1; [a]
+  add tool: a=1
+  check eqn: b=1; [b]
+  add tool: b=1
+  check eqn: d=(a*(1-x^2)+b*x^2); [d]
+  add tool: d=a*(1-x^2)+b*x^2
+  check eqn: when (t=t.min) u=(x+1); [u(t.min)]
+  add tool: u(t.min)=x+1
+  check eqn: when (x=x.min) u:x=0; [u:x(x.min)]
+  add tool: u:x(x.min)=0
+  check eqn: when (x=x.max) u:x=0; [u:x(x.max)]
+  add tool: u:x(x.max)=0
+  check eqn: u:t=(d*u:x:x); [u:t, u:x:x]
+  add tool: PDE u: []
+  updated PDE(u) with u(t.min)=x+1
+  updated PDE(u) with u:x(x.min)=0
+  updated PDE(u) with u:x(x.max)=0
+Toolbox phase - cycle 1:
+  check eqn: u:t=(d*u:x:x); [u:t, u:x:x]
+Toolbox phase - cycle 2:
+Toolbox phase - cycle 3:
+  updated PDE(u) with u:t=(d*u:x:x)
+    u is now entirely solved
+Toolbox phase - cycle 1:
+Toolbox phase - all cycles completed
+PDE(u) factors:  D=d*(-1)*(-1) P=0 B=0 S=0
+  LHBC F1=0 F2=1 F3=0
+  RHBC F1=0 F2=1 F3=0
+  Solver LSFEA unsupported: Diffusion term d*(-1)*(-1) has spatial dependency
+  Solver MacCormack supported
+  Solver Toms731 supported
+  checking PDE(u) D=d*(-1)*(-1) for differentiability ...
+  adding variable d:x
+  add var: real d:x(x)
+  add tool: d:x=a*(x*(-2))+b*(x*2)
+  setting Dx=0+(0+d:x*(-1))*(-1)
+  adding DETool vreq: [d:x]
+  Tom731  C=1 Q=d:x*(-1)*(-1)*u:x R=d*u:x
+  Toms731 LHBC:  Beta=1 Gamma=1
+  Toms731 RHBC:  Beta=1 Gamma=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @x d:x=a*(x*(-2))+b*(x*2) :: [d:x]<<[a, x, b]
+  @t PDE-1D u: u:t=(d*u:x:x) :: [u, u(t.max), u(x.max), u(x.min)]<<[d, u(t.min), d:x]
+  @x d=a*(1-x^2)+b*x^2 :: [d]<<[a, x, b]
+  b=1 :: [b]<<[]
+  a=1 :: [a]<<[]
+  x.delta=.1 :: [x.delta]<<[]
+  x.ct=(x.max-x.min)/x.delta+1.5 :: [x.ct]<<[x.max, x.min, x.delta]
+  x.max=1 :: [x.max]<<[]
+  x.min=0 :: [x.min]<<[]
+  domain x :: [x]<<[x.min, x.max, x.ct, x.delta]
+  t.delta=.2 :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  t.max=5 :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  @x u(t.min)=x+1 :: [u(t.min)]<<[x]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[t, x]
+  addNode d:x seqLoops=(x) phase=x#1 fft=null
+  addNode u seqLoops=(t) phase=t#1 fft=t
+  addNode d seqLoops=(x) phase=x#1 fft=null
+  addNode b seqLoops=() phase=main fft=null
+  addNode a seqLoops=() phase=main fft=null
+  addNode x.delta seqLoops=() phase=main fft=null
+  addNode x.ct seqLoops=() phase=main fft=null
+  addNode x.max seqLoops=() phase=main fft=null
+  addNode x.min seqLoops=() phase=main fft=null
+  addNode x seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode u(t.min) seqLoops=(x) phase=x#1 fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding b=1 to main
+  adding a=1 to main
+  adding x.delta=.1 to main
+  adding x.max=1 to main
+  adding x.min=0 to main
+  adding t.delta=.2 to main
+  adding t.max=5 to main
+  adding t.min=0 to main
+  adding x.ct=(x.max-x.min)/x.delta+1.5 to main
+  adding domain x to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  subphase x#1 entryEdge=null
+building block for phase x#1
+  adding d:x=a*(x*(-2))+b*(x*2) to loop-x
+  adding d=a*(1-x^2)+b*x^2 to loop-x
+  adding u(t.min)=x+1 to loop-x
+  adding loop-x to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding PDE Block-t(x) [u] to loop-t
+  adding loop-t to main
+Building PDE Block-t(x) [u] ...
+PDE solver LSFEA: Diffusion term d*(-1)*(-1) has spatial dependency
+PDE solver MacCormack: supported
+PDE solver Toms731: supported
+  adding muTool d=a*(1-x^2)+b*x^2
+  adding muVar d
+  adding muTool d:x=a*(x*(-2))+b*(x*2)
+  adding muVar d:x
+  adding d=a*(1-x^2)+b*x^2 to PDE Block-t(x) [u]
+  adding d:x=a*(x*(-2))+b*(x*2) to PDE Block-t(x) [u]
+Building PDE BC x=x.min [u] ...
+Building PDE BC x=x.max [u] ...
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  b=1
+  a=1
+  x.delta=.1
+  x.max=1
+  x.min=0
+  t.delta=.2
+  t.max=5
+  t.min=0
+  x.ct=(x.max-x.min)/x.delta+1.5
+  domain x
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  loop-x
+    d:x=a*(x*(-2))+b*(x*2)
+    d=a*(1-x^2)+b*x^2
+    u(t.min)=x+1
+  loop-t
+    PDE Block-t(x) vmus=[t, x, u, d, d:x]
+      d=a*(1-x^2)+b*x^2
+      d:x=a*(x*(-2))+b*(x*2)
+      PDE BC x=x.min vmus=[t, u]
+      PDE BC x=x.max vmus=[t, u]
+

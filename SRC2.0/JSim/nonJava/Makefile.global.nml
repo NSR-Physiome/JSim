@@ -1,0 +1,38 @@
+# NML source-build global makefile
+# uses following symbols:
+#   SRCS_F, SRCS_f, SRCS_c, SUBDIRS, XOBJS
+#   TARGET_LIB must be defined for top-level dirs, but not subdirs
+#   lib target must be shlib or arch
+
+include $(JSIMHOME)/lib/Makefile.global
+
+# additional compilation flags
+IBASE    = $(JSIMSRC)/JSim/nonJava/include
+IFLAGS   = -I. -I $(IBASE)/$(JSIMOS) -I $(IBASE)
+NMLDIR   = $(JSIMSRC)/native/$(JSIMOSARCH)/nml
+
+# files to compile
+SRCS    = $(SRCS_F) $(SRCS_f) $(SRCS_c)
+LOBJS   = $(SRCS_c:%.c=%.o) $(SRCS_F:%.F=%.o) $(SRCS_f:%.f=%.o)
+OBJS    = $(LOBJS) $(XOBJS)
+
+# targets
+all: lib install
+
+shlib: objs $(LOBJS) 
+	@for i in $(SUBDIRS); do cd $$i; make objs; cd ..; done
+	$(LINK) $(TARGET_LIB)
+
+arch: objs $(LOBJS)
+	@for i in $(SUBDIRS); do cd $$i; make objs; cd ..; done
+	$(AR) -cr $(TARGET_LIB) $(OBJS)
+	$(RANLIB) $(TARGET_LIB)
+
+objs: $(LOBJS)
+
+install: $(TARGET_LIB)
+	cp -p $(TARGET_LIB) $(NMLDIR)
+	
+clean:
+	$(RM) -f $(OBJS) $(SRCS_clean) $(TARGET_LIB) 
+	$(RM) -f *.so # for reentrance tests on MacOS

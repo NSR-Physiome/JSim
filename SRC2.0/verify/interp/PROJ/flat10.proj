@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<JSim version="1.6.67alpha">
+  <project name="proj1">
+    <plotpage name="plotpage_1">
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="liveUpdate" value="false"/>
+      <control name="showConf" value="true"/>
+      <control name="showXRule" value="false"/>
+      <control name="xRule" value="0.5"/>
+      <control name="showYRule" value="false"/>
+      <control name="yRule" value="0.5"/>
+      <control name="showMinMaxSliders" value="false"/>
+      <control name="animeDuration" value="10"/>
+      <control name="animeRate" value="10"/>
+      <control name="animeLoop" value="false"/>
+      <control name="animeDir" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="2"/>
+        <control name="title" value="[Title]"/>
+        <control name="titleX" value="0.5"/>
+        <control name="titleY" value="1"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="showTitle" value="true"/>
+        <control name="showFooter" value="true"/>
+        <control name="legendX" value="1"/>
+        <control name="legendY" value="1"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="0"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="model_1"/>
+          <control name="expr" value="u1"/>
+          <control name="color" value="black"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item1">
+          <control name="src" value="model_1"/>
+          <control name="expr" value=""/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <model name="model_1">
+      <control name="desc" value=""/>
+      <control name="easelVariant" value=""/>
+      <control name="notes">
+</control>
+      <control name="modelSource">
+JSim v1.1
+
+math test {
+ realDomain t; t.min = -1; t.max = 1; t.delta = 0.01;
+ realDomain x1; x1.min = -1; x1.max = 1; x1.delta = 1;
+ realDomain x2; x2.min = -1; x2.max = 1; x2.delta = 1;
+ realDomain x3; x3.min = -1; x3.max = 1; x3.delta = 1;
+ realDomain x4; x4.min = -1; x4.max = 1; x4.delta = 1;
+ realDomain x5; x5.min = -1; x5.max = 1; x5.delta = 1;
+ realDomain x6; x6.min = -1; x6.max = 1; x6.delta = 1;
+ realDomain x7; x7.min = -1; x7.max = 1; x7.delta = 1;
+ realDomain x8; x8.min = -1; x8.max = 1; x8.delta = 1;
+ realDomain x9; x9.min = -1; x9.max = 1; x9.delta = 1;
+ realDomain x10; x10.min = -1; x10.max = 1; x10.delta = 1;
+ 
+ real u(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10) = 1;
+
+ real u1(t) = u(t,t,t,t,t,t,t,t,t,t);
+}
+</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value=""/>
+      <control name="parSetModified" value="true"/>
+      <control name="built" value="true"/>
+      <control name="customRTML">
+</control>
+      <control name="customBuilt" value="false"/>
+      <vars name="vars"/>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1E-7"/>
+            <control name="ode_Dopri5_abstol" value="1E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value="0.9"/>
+            <control name="ode_Dopri5_loselect" value="0.2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value="0.04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1E-4"/>
+            <control name="ode_Fehlberg_maxstep" value="0.1"/>
+            <control name="ode_Fehlberg_tol" value="1E-6"/>
+            <control name="ode_KM_minstep" value="1E-4"/>
+            <control name="ode_KM_maxstep" value="0.1"/>
+            <control name="ode_KM_tol" value="1E-6"/>
+            <control name="ode_Radau_reltol" value="1E-4"/>
+            <control name="ode_Radau_abstol" value="1E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1E-16"/>
+            <control name="ode_Radau_safety" value="0.9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="7"/>
+            <control name="ode_Radau_jacob" value="0.001"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value="0.2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value="0.002"/>
+            <control name="ode_Radau_hicontract" value="0.8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value="0.8"/>
+            <control name="ode_RK4_nstep" value="2"/>
+            <control name="ode_CVode_reltol" value="1E-7"/>
+            <control name="ode_CVode_abstol" value="1E-8"/>
+            <control name="ode_CVode_maxsteps" value="100000"/>
+            <control name="ode_CVode_stiff" value="false"/>
+            <control name="pde_which" value="LSFEA"/>
+            <control name="pde_Toms690_order" value="3"/>
+            <control name="pde_MacCormack_FCT" value="false"/>
+            <control name="fzero_unbound" value="ggopt"/>
+            <control name="fzero_bound" value="simplex"/>
+            <control name="fzero_errtol" value="1E-6"/>
+            <control name="fzero_maxcalls" value="500"/>
+            <control name="fzero_maxiters" value="100"/>
+            <control name="fzero_eps" value="1E-6"/>
+            <control name="fzero_istep" value="0.01"/>
+          </solver>
+          <assign name="vars">
+            <control name="t.min" value="-1"/>
+            <control name="t.max" value="1"/>
+            <control name="t.delta" value="0.01"/>
+            <control name="x1.min" value="-1"/>
+            <control name="x1.max" value="1"/>
+            <control name="x1.delta" value="1"/>
+            <control name="x2.min" value="-1"/>
+            <control name="x2.max" value="1"/>
+            <control name="x2.delta" value="1"/>
+            <control name="x3.min" value="-1"/>
+            <control name="x3.max" value="1"/>
+            <control name="x3.delta" value="1"/>
+            <control name="x4.min" value="-1"/>
+            <control name="x4.max" value="1"/>
+            <control name="x4.delta" value="1"/>
+            <control name="x5.min" value="-1"/>
+            <control name="x5.max" value="1"/>
+            <control name="x5.delta" value="1"/>
+            <control name="x6.min" value="-1"/>
+            <control name="x6.max" value="1"/>
+            <control name="x6.delta" value="1"/>
+            <control name="x7.min" value="-1"/>
+            <control name="x7.max" value="1"/>
+            <control name="x7.delta" value="1"/>
+            <control name="x8.min" value="-1"/>
+            <control name="x8.max" value="1"/>
+            <control name="x8.delta" value="1"/>
+            <control name="x9.min" value="-1"/>
+            <control name="x9.max" value="1"/>
+            <control name="x9.delta" value="1"/>
+            <control name="x10.min" value="-1"/>
+            <control name="x10.max" value="1"/>
+            <control name="x10.delta" value="1"/>
+            <control name="u" value="1"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="notes">
+</control>
+      </parset>
+      <imageset name="images"/>
+      <loops name="loops">
+        <loop name="outer">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+        <loop name="inner">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+      </loops>
+      <sens name="sens">
+        <control name="npars" value="1"/>
+        <senspar name="senspar0">
+          <control name="par" value=""/>
+          <control name="delta" value="0.01"/>
+          <control name="enabled" value="true"/>
+        </senspar>
+      </sens>
+      <optim name="optim">
+        <control name="npars" value="1"/>
+        <control name="nmatches" value="1"/>
+        <control name="alg" value="simplex"/>
+        <control name="maxCalls" value="50"/>
+        <control name="maxIters" value="10"/>
+        <control name="errTol" value="0.001"/>
+        <control name="stepTol" value="1E-6"/>
+        <control name="gradTol" value="1E-6"/>
+        <control name="eps" value="1E-6"/>
+        <optpar name="optpar0">
+          <control name="par" value=""/>
+          <control name="min" value="NaN"/>
+          <control name="max" value="NaN"/>
+          <control name="step" value="0.01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch0">
+          <control name="src" value=""/>
+          <control name="data" value=""/>
+          <control name="expr" value=""/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+      </optim>
+      <rtml name="rtml"/>
+    </model>
+  </project>
+</JSim>

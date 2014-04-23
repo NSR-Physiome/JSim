@@ -1,0 +1,29 @@
+antimony {{
+  //Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  reaction2 := compartment_ * reaction2_k * S2;
+  reaction1 := compartment_ * k * S1;
+
+  // Rate Rules:
+  S3' = reaction2 / compartment_;
+  S2' = (reaction1 + reaction2 * -1) / compartment_;
+  S1' = reaction1 * -1 / compartment_;
+
+  // Variable initializations:
+  k = 1;
+  compartment_ = 1;
+  reaction2_k = 2;
+  S3 = 0;
+  S2 = 0;
+  S1 = 0.0003 / compartment_;
+
+  //Other declarations:
+  var reaction2, reaction1, S3, S2, S1;
+end
+
+
+
+}}
+

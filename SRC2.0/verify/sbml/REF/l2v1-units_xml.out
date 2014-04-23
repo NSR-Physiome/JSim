@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="millikatal" name="millikatal">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="0.001"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM" name="mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_per_second" name="mM/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmol" name="mmol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="0.001"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmol_per_L_per_s" name="mmol/L/s">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="cell" value="1" units="litre" constant="true"/>
+      <parameter id="s2" value="1" units="mM" constant="false"/>
+      <parameter id="v3" units="millikatal" constant="false"/>
+      <parameter id="s1" value="1" units="mM" constant="false"/>
+      <parameter id="v2" units="millikatal" constant="false"/>
+      <parameter id="km" value="2" units="mmol" constant="true"/>
+      <parameter id="v1" units="millikatal" constant="false"/>
+      <parameter id="x1" value="1" units="mM" constant="false"/>
+      <parameter id="x0" value="1" units="mM" constant="false"/>
+      <parameter id="vm" value="2" units="mmol_per_L_per_s" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="x0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> v1 </ci>
+              <cn> -1 </cn>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="x1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> v3 </ci>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="s1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> v1 </ci>
+              <apply>
+                <times/>
+                <ci> v2 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="s2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> v2 </ci>
+              <apply>
+                <times/>
+                <ci> v3 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="v1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> vm </ci>
+                <ci> s1 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> km </ci>
+                <ci> s1 </ci>
+              </apply>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="v2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> vm </ci>
+                <ci> s2 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> km </ci>
+                <ci> s2 </ci>
+              </apply>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="v3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> vm </ci>
+                <ci> x1 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> km </ci>
+                <ci> x1 </ci>
+              </apply>
+            </apply>
+            <ci> cell </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

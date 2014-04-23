@@ -1,0 +1,312 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time day
+  add var: real time.min day
+  add var: extern real time.max day
+  add var: int time.ct
+  add var: extern real time.delta day
+  add var: real x1(time) cell
+  add var: real alpha1 flux
+  add var: real beta1 first_order_rate_constant
+  add var: real g11 dimensionless
+  add var: real g21(time) dimensionless
+  add var: real x2(time) cell
+  add var: real alpha2 first_order_rate_constant
+  add var: real beta2 first_order_rate_constant
+  add var: real z(time) percent_
+  add var: real k1 percent_per_cell_per_day
+  add var: real k2 percent_per_cell_per_day
+  add var: real y1(time) cell
+  add var: real y2(time) cell
+  add var: real x1_bar(time) cell
+  add var: real x2_bar(time) cell
+  add var: real gamma(time) dimensionless
+  add var: real x1:time(time) cell/day
+  add var: real x2:time(time) cell/day
+  add var: real z:time(time) percent_/day
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) x1=10.06066 :: [x1(time.min)]
+  alpha1=3 :: [alpha1]
+  beta1=.2 :: [beta1]
+  g11=.5 :: [g11]
+  when (time=time.min) x2=212.132 :: [x2(time.min)]
+  alpha2=4 :: [alpha2]
+  beta2=.02 :: [beta2]
+  when (time=time.min) z=100 :: [z(time.min)]
+  k1=.24 :: [k1]
+  k2=.0017 :: [k2]
+  x1:time=(alpha1*x1^g11*x2^g21-beta1*x1) :: [x1:time, alpha1, x1, g11, x2, g21, beta1]
+  x2:time=(alpha2*x1*1-beta2*x2) :: [x2:time, alpha2, x1, beta2, x2]
+  z:time=(k2*y2-k1*y1) :: [z:time, k2, y2, k1, y1]
+  y1=(if (x1>x1_bar) x1-x1_bar else 0) :: [y1, x1, x1_bar]
+  y2=(if (x2>x2_bar) x2-x2_bar else 0) :: [y2, x2, x2_bar]
+  x1_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)) :: [x1_bar, beta1, alpha1, gamma, beta2, alpha2, g21]
+  x2_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)) :: [x2_bar, beta1, alpha1, gamma, beta2, alpha2, g11]
+  gamma=(g21-(1-g11)*1) :: [gamma, g21, g11]
+  g21=(if (((time=1) or (time>1)) and (time<2)) .15 else -0.5) :: [g21, time]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) x1=10.06066; [x1(time.min)]
+  add tool: x1(time.min)=10.06066
+  check eqn: alpha1=3; [alpha1]
+  add tool: alpha1=3
+  check eqn: beta1=.2; [beta1]
+  add tool: beta1=.2
+  check eqn: g11=.5; [g11]
+  add tool: g11=.5
+  check eqn: when (time=time.min) x2=212.132; [x2(time.min)]
+  add tool: x2(time.min)=212.132
+  check eqn: alpha2=4; [alpha2]
+  add tool: alpha2=4
+  check eqn: beta2=.02; [beta2]
+  add tool: beta2=.02
+  check eqn: when (time=time.min) z=100; [z(time.min)]
+  add tool: z(time.min)=100
+  check eqn: k1=.24; [k1]
+  add tool: k1=.24
+  check eqn: k2=.0017; [k2]
+  add tool: k2=.0017
+  check eqn: x1:time=(alpha1*x1^g11*x2^g21-beta1*x1); [x1:time, x1]
+  check eqn: x2:time=(alpha2*x1*1-beta2*x2); [x2:time, x1]
+  check eqn: z:time=(k2*y2-k1*y1); [z:time, y2]
+  check eqn: y1=(if (x1>x1_bar) x1-x1_bar else 0); [y1, x1]
+  check eqn: y2=(if (x2>x2_bar) x2-x2_bar else 0); [y2, x2]
+  check eqn: x1_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)); [x1_bar, gamma]
+  check eqn: x2_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)); [x2_bar, gamma]
+  check eqn: gamma=(g21-(1-g11)*1); [gamma, g21]
+  check eqn: g21=(if (((time=1) or (time>1)) and (time<2)) .15 else -0.5); [g21]
+  add tool: g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5
+  add tool: ODE x1: []
+  updated ODE(x1) with x1(time.min)=10.06066
+  add tool: ODE x2: []
+  updated ODE(x2) with x2(time.min)=212.132
+  add tool: ODE z: []
+  updated ODE(z) with z(time.min)=100
+Toolbox phase - cycle 1:
+  check eqn: x1:time=(alpha1*x1^g11*x2^g21-beta1*x1); [x1:time]
+  add tool: x1:time=alpha1*x1^g11*x2^g21-beta1*x1
+  check eqn: x2:time=(alpha2*x1*1-beta2*x2); [x2:time]
+  add tool: x2:time=alpha2*x1*1-beta2*x2
+  check eqn: z:time=(k2*y2-k1*y1); [z:time, y2]
+  check eqn: y1=(if (x1>x1_bar) x1-x1_bar else 0); [y1, x1_bar]
+  check eqn: y2=(if (x2>x2_bar) x2-x2_bar else 0); [y2, x2_bar]
+  check eqn: x1_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)); [x1_bar, gamma]
+  check eqn: x2_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)); [x2_bar, gamma]
+  check eqn: gamma=(g21-(1-g11)*1); [gamma]
+  add tool: gamma=g21-(1-g11)*1
+  updated ODE(x1) with x1:time=alpha1*x1^g11*x2^g21-beta1*x1
+    x1 is now entirely solved
+  updated ODE(x2) with x2:time=alpha2*x1*1-beta2*x2
+    x2 is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: z:time=(k2*y2-k1*y1); [z:time, y2]
+  check eqn: y1=(if (x1>x1_bar) x1-x1_bar else 0); [y1, x1_bar]
+  check eqn: y2=(if (x2>x2_bar) x2-x2_bar else 0); [y2, x2_bar]
+  check eqn: x1_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)); [x1_bar]
+  add tool: x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)
+  check eqn: x2_bar=((beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)); [x2_bar]
+  add tool: x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)
+Toolbox phase - cycle 1:
+  check eqn: z:time=(k2*y2-k1*y1); [z:time, y2]
+  check eqn: y1=(if (x1>x1_bar) x1-x1_bar else 0); [y1]
+  add tool: y1=if (x1>x1_bar) x1-x1_bar else 0
+  check eqn: y2=(if (x2>x2_bar) x2-x2_bar else 0); [y2]
+  add tool: y2=if (x2>x2_bar) x2-x2_bar else 0
+Toolbox phase - cycle 1:
+  check eqn: z:time=(k2*y2-k1*y1); [z:time]
+  add tool: z:time=k2*y2-k1*y1
+  updated ODE(z) with z:time=k2*y2-k1*y1
+    z is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real x1__init cell
+  add tool: x1__init=10.06066
+  add var: real x2__init cell
+  add tool: x2__init=212.132
+  add var: real z__init percent_
+  add tool: z__init=100
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  z__init=100 :: [z__init]<<[]
+  x2__init=212.132 :: [x2__init]<<[]
+  x1__init=10.06066 :: [x1__init]<<[]
+  @time z:time=k2*y2-k1*y1 :: [z:time]<<[k2, y2, k1, y1]
+  @time x2:time=alpha2*x1*1-beta2*x2 :: [x2:time]<<[alpha2, x1, beta2, x2]
+  @time x1:time=alpha1*x1^g11*x2^g21-beta1*x1 :: [x1:time]<<[alpha1, x1, g11, x2, g21, beta1]
+  @time gamma=g21-(1-g11)*1 :: [gamma]<<[g21, g11]
+  @time x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma) :: [x2_bar]<<[beta1, alpha1, gamma, beta2, alpha2, g11]
+  @time x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma) :: [x1_bar]<<[beta1, alpha1, gamma, beta2, alpha2, g21]
+  @time y2=if (x2>x2_bar) x2-x2_bar else 0 :: [y2]<<[x2, x2_bar]
+  @time y1=if (x1>x1_bar) x1-x1_bar else 0 :: [y1]<<[x1, x1_bar]
+  k2=.0017 :: [k2]<<[]
+  k1=.24 :: [k1]<<[]
+  @time ODE z: z:time=k2*y2-k1*y1 :: [z, z(time.max)]<<[k2, y2, k1, y1, z(time.min), z:time]
+  beta2=.02 :: [beta2]<<[]
+  alpha2=4 :: [alpha2]<<[]
+  @time ODE x2: x2:time=alpha2*x1*1-beta2*x2 :: [x2, x2(time.max)]<<[alpha2, x1, beta2, x2(time.min), x2:time]
+  @time g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5 :: [g21]<<[time]
+  g11=.5 :: [g11]<<[]
+  beta1=.2 :: [beta1]<<[]
+  alpha1=3 :: [alpha1]<<[]
+  @time ODE x1: x1:time=alpha1*x1^g11*x2^g21-beta1*x1 :: [x1, x1(time.max)]<<[alpha1, g11, x2, g21, beta1, x1(time.min), x1:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  z(time.min)=z__init :: [z(time.min)]<<[z__init]
+  x2(time.min)=x2__init :: [x2(time.min)]<<[x2__init]
+  x1(time.min)=x1__init :: [x1(time.min)]<<[x1__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode z__init seqLoops=() phase=main fft=null
+  addNode x2__init seqLoops=() phase=main fft=null
+  addNode x1__init seqLoops=() phase=main fft=null
+  addNode z:time seqLoops=(time) phase=time#1 fft=null
+  addNode x2:time seqLoops=(time) phase=time#1 fft=null
+  addNode x1:time seqLoops=(time) phase=time#1 fft=null
+  addNode gamma seqLoops=(time) phase=time#1 fft=null
+  addNode x2_bar seqLoops=(time) phase=time#1 fft=null
+  addNode x1_bar seqLoops=(time) phase=time#1 fft=null
+  addNode y2 seqLoops=(time) phase=time#1 fft=null
+  addNode y1 seqLoops=(time) phase=time#1 fft=null
+  addNode k2 seqLoops=() phase=main fft=null
+  addNode k1 seqLoops=() phase=main fft=null
+  addNode z seqLoops=(time) phase=time#1 fft=time
+  addNode beta2 seqLoops=() phase=main fft=null
+  addNode alpha2 seqLoops=() phase=main fft=null
+  addNode x2 seqLoops=(time) phase=time#1 fft=time
+  addNode g21 seqLoops=(time) phase=time#1 fft=null
+  addNode g11 seqLoops=() phase=main fft=null
+  addNode beta1 seqLoops=() phase=main fft=null
+  addNode alpha1 seqLoops=() phase=main fft=null
+  addNode x1 seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode z(time.min) seqLoops=() phase=main fft=null
+  addNode x2(time.min) seqLoops=() phase=main fft=null
+  addNode x1(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding z__init=100 to main
+  adding x2__init=212.132 to main
+  adding x1__init=10.06066 to main
+  adding k2=.0017 to main
+  adding k1=.24 to main
+  adding beta2=.02 to main
+  adding alpha2=4 to main
+  adding g11=.5 to main
+  adding beta1=.2 to main
+  adding alpha1=3 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding z(time.min)=z__init to main
+  adding x2(time.min)=x2__init to main
+  adding x1(time.min)=x1__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding x2:time=alpha2*x1*1-beta2*x2 to loop-time
+  adding g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5 to loop-time
+  adding x1:time=alpha1*x1^g11*x2^g21-beta1*x1 to loop-time
+  adding gamma=g21-(1-g11)*1 to loop-time
+  adding x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma) to loop-time
+  adding x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma) to loop-time
+  adding y2=if (x2>x2_bar) x2-x2_bar else 0 to loop-time
+  adding y1=if (x1>x1_bar) x1-x1_bar else 0 to loop-time
+  adding z:time=k2*y2-k1*y1 to loop-time
+  adding ODE Block-time [z, x2, x1] to loop-time
+  adding loop-time to main
+Building ODE Block-time [z, x2, x1] ...
+  adding muTool y2=if (x2>x2_bar) x2-x2_bar else 0
+  adding muVar y2
+  adding muTool g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5
+  adding muTool gamma=g21-(1-g11)*1
+  adding muTool x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)
+  adding muVar x2_bar
+  adding muVar gamma
+  adding muVar g21
+  adding muTool y1=if (x1>x1_bar) x1-x1_bar else 0
+  adding muVar y1
+  adding muTool x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)
+  adding muVar x1_bar
+  adding muTool z:time=k2*y2-k1*y1
+  adding muVar z:time
+  adding muTool x2:time=alpha2*x1*1-beta2*x2
+  adding muVar x2:time
+  adding muTool x1:time=alpha1*x1^g11*x2^g21-beta1*x1
+  adding muVar x1:time
+  adding g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5 to ODE Block-time [z, x2, x1]
+  adding gamma=g21-(1-g11)*1 to ODE Block-time [z, x2, x1]
+  adding x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma) to ODE Block-time [z, x2, x1]
+  adding x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma) to ODE Block-time [z, x2, x1]
+  adding x2:time=alpha2*x1*1-beta2*x2 to ODE Block-time [z, x2, x1]
+  adding x1:time=alpha1*x1^g11*x2^g21-beta1*x1 to ODE Block-time [z, x2, x1]
+  adding y2=if (x2>x2_bar) x2-x2_bar else 0 to ODE Block-time [z, x2, x1]
+  adding y1=if (x1>x1_bar) x1-x1_bar else 0 to ODE Block-time [z, x2, x1]
+  adding z:time=k2*y2-k1*y1 to ODE Block-time [z, x2, x1]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  z__init=100
+  x2__init=212.132
+  x1__init=10.06066
+  k2=.0017
+  k1=.24
+  beta2=.02
+  alpha2=4
+  g11=.5
+  beta1=.2
+  alpha1=3
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  z(time.min)=z__init
+  x2(time.min)=x2__init
+  x1(time.min)=x1__init
+  loop-time
+    x2:time=alpha2*x1*1-beta2*x2
+    g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5
+    x1:time=alpha1*x1^g11*x2^g21-beta1*x1
+    gamma=g21-(1-g11)*1
+    x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)
+    x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)
+    y2=if (x2>x2_bar) x2-x2_bar else 0
+    y1=if (x1>x1_bar) x1-x1_bar else 0
+    z:time=k2*y2-k1*y1
+    ODE Block-time vmus=[time, z, x2, x1, y2, x2_bar, gamma, g21, y1, x1_bar, z:time, x2:time, x1:time]
+      g21=if (((time=1) or (time>1)) and (time<2)) .15 else -0.5
+      gamma=g21-(1-g11)*1
+      x2_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^((1-g11)/gamma)
+      x1_bar=(beta1/alpha1)^(1/gamma)*(beta2/alpha2)^(g21/gamma)
+      x2:time=alpha2*x1*1-beta2*x2
+      x1:time=alpha1*x1^g11*x2^g21-beta1*x1
+      y2=if (x2>x2_bar) x2-x2_bar else 0
+      y1=if (x1>x1_bar) x1-x1_bar else 0
+      z:time=k2*y2-k1*y1
+

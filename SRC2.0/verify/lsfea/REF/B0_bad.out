@@ -1,0 +1,5 @@
+==== JSim version 2.02f: Fatal Error
+
+JSim.util.Xcept: Model B0_bad
+aborted: LSFEA PDE solver - variable u: Zero advection requires zero f1, f3, g1 and g3 (use MacCormack or Toms731 instead)
+

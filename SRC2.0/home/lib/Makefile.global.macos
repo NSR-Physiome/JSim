@@ -1,0 +1,40 @@
+# JSim macos common makefile
+
+# Programs
+CC      = gcc
+LD      = gcc
+FORTRAN = /usr/local/bin/gfortran
+ifeq ($(JSIMARCH),i386)
+  FLIB  = /usr/local/gfortran/lib/libgfortran.a
+  FBEGLIB =
+else
+  FLIBDIR = /usr/local/gfortran/lib
+  FLIB = $(FLIBDIR)/libgfortran.a $(FLIBDIR)/gcc/powerpc-apple-darwin*/*/libgcc.a
+  FBEGLIB = $(FLIBDIR)/gcc/powerpc-apple-darwin*/*/libgfortranbegin.a
+endif
+APILIB  = $(NMLDIR)/$(LIBPFX)jsimapi.dylib
+
+# NML flags
+CFLAGS   = -g -O2 -fPIC
+FFLAGS   = -g -O2 -fPIC -ffixed-line-length-132 -Dmacos
+DFLAGS   =
+#LDFLAGS - see below
+
+# Fpack flags
+FP_LDFLAGS  = $(LDFLAGS) $(XSLIB) -lc -lm $(FLIB) -Wl,-m
+OS         = MACOS
+
+# library naming, LD, NML_LDFLAGS
+LIBPFX   = lib
+# make dynamic shared library (.dylib) in nml/api
+# make bundle (.jnilib) in all other directories
+# darwin does not allow common blocks in dynamic shared libraries
+ifeq ($(notdir $(PWD)), api)
+  LDFLAGS =  -dynamiclib -single_module -flat_namespace \
+                -undefined suppress $(FLIB) \
+                -install_name @executable_path/../Resources/macos/lib/$(TARGET_LIB)
+  LIBSFX  = .dylib
+else
+  LDFLAGS =  -bundle $(FLIB)
+  LIBSFX  = .jnilib
+endif

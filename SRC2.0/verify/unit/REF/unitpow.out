@@ -1,0 +1,7 @@
+c = { 1 } cm
+m = { 1 } mm
+p = { 2 } dimensionless
+o1 = { 1 } mm^2
+o100a = { 100 } dimensionless
+o100b = { 100 } dimensionless
+o1024 = { 1024 } dimensionless

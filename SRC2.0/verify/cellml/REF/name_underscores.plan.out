@@ -1,0 +1,677 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time minute
+  add var: real time.min minute
+  add var: extern real time.max minute
+  add var: int time.ct
+  add var: extern real time.delta minute
+  add var: real k1AA first_order_rate_constant
+  add var: real k3 first_order_rate_constant
+  add var: real kinh first_order_rate_constant
+  add var: real kcak first_order_rate_constant
+  add var: real kbPPase first_order_rate_constant
+  add var: real kfPPase first_order_rate_constant
+  add var: real khPPase first_order_rate_constant
+  add var: real kd_antiIE first_order_rate_constant
+  add var: real ka first_order_rate_constant
+  add var: real kc first_order_rate_constant
+  add var: real ke first_order_rate_constant
+  add var: real kg first_order_rate_constant
+  add var: real V2_v1 first_order_rate_constant
+  add var: real V2_v2 first_order_rate_constant
+  add var: real V25_v1 first_order_rate_constant
+  add var: real V25_v2 first_order_rate_constant
+  add var: real Vwee_v1 first_order_rate_constant
+  add var: real Vwee_v2 first_order_rate_constant
+  add var: real K_a dimensionless
+  add var: real K_b dimensionless
+  add var: real K_c dimensionless
+  add var: real K_d dimensionless
+  add var: real K_e dimensionless
+  add var: real K_f dimensionless
+  add var: real K_g dimensionless
+  add var: real K_h dimensionless
+  add var: real Cdc25_T dimensionless
+  add var: real Cdc25_P(time) dimensionless
+  add var: real Wee1_P(time) dimensionless
+  add var: real Wee1_T dimensionless
+  add var: real UbE_T dimensionless
+  add var: real UbE(time) dimensionless
+  add var: real k25(time) first_order_rate_constant
+  add var: real kwee(time) first_order_rate_constant
+  add var: real k2(time) first_order_rate_constant
+  add var: real Cdc2_T dimensionless
+  add var: real IE_T dimensionless
+  add var: real cyclin(time) dimensionless
+  add var: real Cdc2(time) dimensionless
+  add var: real cyclin_Cdc2(time) dimensionless
+  add var: real MPF_active(time) dimensionless
+  add var: real Tyr15P_dimer(time) dimensionless
+  add var: real MPF_pre(time) dimensionless
+  add var: real cyclin_T(time) dimensionless
+  add var: real IE_P(time) dimensionless
+  add var: real cyclin:time(time) 1/minute
+  add var: real cyclin_Cdc2:time(time) 1/minute
+  add var: real Tyr15P_dimer:time(time) 1/minute
+  add var: real MPF_pre:time(time) 1/minute
+  add var: real MPF_active:time(time) 1/minute
+  add var: real Cdc25_P:time(time) 1/minute
+  add var: real Wee1_P:time(time) 1/minute
+  add var: real IE_P:time(time) 1/minute
+  add var: real UbE:time(time) 1/minute
+Loading Constraints
+  time.min=0 :: [time.min]
+  k1AA=0 :: [k1AA]
+  k3=.01 :: [k3]
+  kinh=.025 :: [kinh]
+  kcak=.25 :: [kcak]
+  kbPPase=.125 :: [kbPPase]
+  kfPPase=.1 :: [kfPPase]
+  khPPase=.087 :: [khPPase]
+  kd_antiIE=.095 :: [kd_antiIE]
+  ka=.01 :: [ka]
+  kc=.1 :: [kc]
+  ke=.0133 :: [ke]
+  kg=.0065 :: [kg]
+  V2_v1=0 :: [V2_v1]
+  V2_v2=0 :: [V2_v2]
+  V25_v1=.1 :: [V25_v1]
+  V25_v2=2 :: [V25_v2]
+  Vwee_v1=.1 :: [Vwee_v1]
+  Vwee_v2=1 :: [Vwee_v2]
+  K_a=.1 :: [K_a]
+  K_b=.1 :: [K_b]
+  K_c=.01 :: [K_c]
+  K_d=.01 :: [K_d]
+  K_e=.3 :: [K_e]
+  K_f=.3 :: [K_f]
+  K_g=.01 :: [K_g]
+  K_h=.01 :: [K_h]
+  Cdc25_T=1 :: [Cdc25_T]
+  when (time=time.min) Cdc25_P=0 :: [Cdc25_P(time.min)]
+  when (time=time.min) Wee1_P=0 :: [Wee1_P(time.min)]
+  Wee1_T=1 :: [Wee1_T]
+  UbE_T=1 :: [UbE_T]
+  when (time=time.min) UbE=0 :: [UbE(time.min)]
+  Cdc2_T=100 :: [Cdc2_T]
+  IE_T=1 :: [IE_T]
+  when (time=time.min) cyclin=1 :: [cyclin(time.min)]
+  when (time=time.min) cyclin_Cdc2=0 :: [cyclin_Cdc2(time.min)]
+  when (time=time.min) MPF_active=0 :: [MPF_active(time.min)]
+  when (time=time.min) Tyr15P_dimer=0 :: [Tyr15P_dimer(time.min)]
+  when (time=time.min) MPF_pre=0 :: [MPF_pre(time.min)]
+  when (time=time.min) IE_P=0 :: [IE_P(time.min)]
+  k25=(V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P) :: [k25, V25_v1, Cdc25_T, Cdc25_P, V25_v2]
+  kwee=(Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)) :: [kwee, Vwee_v1, Wee1_P, Vwee_v2, Wee1_T]
+  k2=(V2_v1*(UbE_T-UbE)+V2_v2*UbE) :: [k2, V2_v1, UbE_T, UbE, V2_v2]
+  cyclin:time=(k1AA-k2*cyclin-k3*cyclin*Cdc2) :: [cyclin:time, k1AA, k2, cyclin, k3, Cdc2]
+  cyclin_Cdc2:time=(kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2) :: [cyclin_Cdc2:time, kinh, MPF_active, kwee, kcak, k2, cyclin_Cdc2, k25, Tyr15P_dimer, k3, cyclin, Cdc2]
+  Tyr15P_dimer:time=(kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre) :: [Tyr15P_dimer:time, kwee, cyclin_Cdc2, k25, kcak, k2, Tyr15P_dimer, kinh, MPF_pre]
+  MPF_pre:time=(kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer) :: [MPF_pre:time, kwee, MPF_active, kinh, k25, k2, MPF_pre, kcak, Tyr15P_dimer]
+  MPF_active:time=(kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre) :: [MPF_active:time, kcak, cyclin_Cdc2, kinh, kwee, k2, MPF_active, k25, MPF_pre]
+  Cdc2=(Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)) :: [Cdc2, Cdc2_T, cyclin_Cdc2, MPF_active, MPF_pre, Tyr15P_dimer]
+  cyclin_T=(cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer) :: [cyclin_T, cyclin, cyclin_Cdc2, MPF_active, MPF_pre, Tyr15P_dimer]
+  Cdc25_P:time=(ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)) :: [Cdc25_P:time, ka, MPF_active, Cdc25_T, Cdc25_P, K_a, kbPPase, K_b]
+  Wee1_P:time=(ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)) :: [Wee1_P:time, ke, MPF_active, Wee1_T, Wee1_P, K_e, kfPPase, K_f]
+  IE_P:time=(kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)) :: [IE_P:time, kg, MPF_active, IE_T, IE_P, K_g, khPPase, K_h]
+  UbE:time=(kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)) :: [UbE:time, kc, IE_P, UbE_T, UbE, K_c, kd_antiIE, K_d]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: k1AA=0; [k1AA]
+  add tool: k1AA=0
+  check eqn: k3=.01; [k3]
+  add tool: k3=.01
+  check eqn: kinh=.025; [kinh]
+  add tool: kinh=.025
+  check eqn: kcak=.25; [kcak]
+  add tool: kcak=.25
+  check eqn: kbPPase=.125; [kbPPase]
+  add tool: kbPPase=.125
+  check eqn: kfPPase=.1; [kfPPase]
+  add tool: kfPPase=.1
+  check eqn: khPPase=.087; [khPPase]
+  add tool: khPPase=.087
+  check eqn: kd_antiIE=.095; [kd_antiIE]
+  add tool: kd_antiIE=.095
+  check eqn: ka=.01; [ka]
+  add tool: ka=.01
+  check eqn: kc=.1; [kc]
+  add tool: kc=.1
+  check eqn: ke=.0133; [ke]
+  add tool: ke=.0133
+  check eqn: kg=.0065; [kg]
+  add tool: kg=.0065
+  check eqn: V2_v1=0; [V2_v1]
+  add tool: V2_v1=0
+  check eqn: V2_v2=0; [V2_v2]
+  add tool: V2_v2=0
+  check eqn: V25_v1=.1; [V25_v1]
+  add tool: V25_v1=.1
+  check eqn: V25_v2=2; [V25_v2]
+  add tool: V25_v2=2
+  check eqn: Vwee_v1=.1; [Vwee_v1]
+  add tool: Vwee_v1=.1
+  check eqn: Vwee_v2=1; [Vwee_v2]
+  add tool: Vwee_v2=1
+  check eqn: K_a=.1; [K_a]
+  add tool: K_a=.1
+  check eqn: K_b=.1; [K_b]
+  add tool: K_b=.1
+  check eqn: K_c=.01; [K_c]
+  add tool: K_c=.01
+  check eqn: K_d=.01; [K_d]
+  add tool: K_d=.01
+  check eqn: K_e=.3; [K_e]
+  add tool: K_e=.3
+  check eqn: K_f=.3; [K_f]
+  add tool: K_f=.3
+  check eqn: K_g=.01; [K_g]
+  add tool: K_g=.01
+  check eqn: K_h=.01; [K_h]
+  add tool: K_h=.01
+  check eqn: Cdc25_T=1; [Cdc25_T]
+  add tool: Cdc25_T=1
+  check eqn: when (time=time.min) Cdc25_P=0; [Cdc25_P(time.min)]
+  add tool: Cdc25_P(time.min)=0
+  check eqn: when (time=time.min) Wee1_P=0; [Wee1_P(time.min)]
+  add tool: Wee1_P(time.min)=0
+  check eqn: Wee1_T=1; [Wee1_T]
+  add tool: Wee1_T=1
+  check eqn: UbE_T=1; [UbE_T]
+  add tool: UbE_T=1
+  check eqn: when (time=time.min) UbE=0; [UbE(time.min)]
+  add tool: UbE(time.min)=0
+  check eqn: Cdc2_T=100; [Cdc2_T]
+  add tool: Cdc2_T=100
+  check eqn: IE_T=1; [IE_T]
+  add tool: IE_T=1
+  check eqn: when (time=time.min) cyclin=1; [cyclin(time.min)]
+  add tool: cyclin(time.min)=1
+  check eqn: when (time=time.min) cyclin_Cdc2=0; [cyclin_Cdc2(time.min)]
+  add tool: cyclin_Cdc2(time.min)=0
+  check eqn: when (time=time.min) MPF_active=0; [MPF_active(time.min)]
+  add tool: MPF_active(time.min)=0
+  check eqn: when (time=time.min) Tyr15P_dimer=0; [Tyr15P_dimer(time.min)]
+  add tool: Tyr15P_dimer(time.min)=0
+  check eqn: when (time=time.min) MPF_pre=0; [MPF_pre(time.min)]
+  add tool: MPF_pre(time.min)=0
+  check eqn: when (time=time.min) IE_P=0; [IE_P(time.min)]
+  add tool: IE_P(time.min)=0
+  check eqn: k25=(V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P); [k25, Cdc25_P]
+  check eqn: kwee=(Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)); [kwee, Wee1_P]
+  check eqn: k2=(V2_v1*(UbE_T-UbE)+V2_v2*UbE); [k2, UbE]
+  check eqn: cyclin:time=(k1AA-k2*cyclin-k3*cyclin*Cdc2); [cyclin:time, k2]
+  check eqn: cyclin_Cdc2:time=(kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2); [cyclin_Cdc2:time, MPF_active]
+  check eqn: Tyr15P_dimer:time=(kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre); [Tyr15P_dimer:time, kwee]
+  check eqn: MPF_pre:time=(kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer); [MPF_pre:time, kwee]
+  check eqn: MPF_active:time=(kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre); [MPF_active:time, cyclin_Cdc2]
+  check eqn: Cdc2=(Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)); [Cdc2, cyclin_Cdc2]
+  check eqn: cyclin_T=(cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer); [cyclin_T, cyclin]
+  check eqn: Cdc25_P:time=(ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)); [Cdc25_P:time, MPF_active]
+  check eqn: Wee1_P:time=(ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)); [Wee1_P:time, MPF_active]
+  check eqn: IE_P:time=(kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)); [IE_P:time, MPF_active]
+  check eqn: UbE:time=(kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)); [UbE:time, IE_P]
+  add tool: ODE Cdc25_P: []
+  updated ODE(Cdc25_P) with Cdc25_P(time.min)=0
+  add tool: ODE Wee1_P: []
+  updated ODE(Wee1_P) with Wee1_P(time.min)=0
+  add tool: ODE UbE: []
+  updated ODE(UbE) with UbE(time.min)=0
+  add tool: ODE cyclin: []
+  updated ODE(cyclin) with cyclin(time.min)=1
+  add tool: ODE cyclin_Cdc2: []
+  updated ODE(cyclin_Cdc2) with cyclin_Cdc2(time.min)=0
+  add tool: ODE MPF_active: []
+  updated ODE(MPF_active) with MPF_active(time.min)=0
+  add tool: ODE Tyr15P_dimer: []
+  updated ODE(Tyr15P_dimer) with Tyr15P_dimer(time.min)=0
+  add tool: ODE MPF_pre: []
+  updated ODE(MPF_pre) with MPF_pre(time.min)=0
+  add tool: ODE IE_P: []
+  updated ODE(IE_P) with IE_P(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: k25=(V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P); [k25]
+  add tool: k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P
+  check eqn: kwee=(Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)); [kwee]
+  add tool: kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)
+  check eqn: k2=(V2_v1*(UbE_T-UbE)+V2_v2*UbE); [k2]
+  add tool: k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE
+  check eqn: cyclin:time=(k1AA-k2*cyclin-k3*cyclin*Cdc2); [cyclin:time, Cdc2]
+  check eqn: cyclin_Cdc2:time=(kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2); [cyclin_Cdc2:time, Cdc2]
+  check eqn: Tyr15P_dimer:time=(kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre); [Tyr15P_dimer:time]
+  add tool: Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre
+  check eqn: MPF_pre:time=(kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer); [MPF_pre:time]
+  add tool: MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer
+  check eqn: MPF_active:time=(kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre); [MPF_active:time]
+  add tool: MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre
+  check eqn: Cdc2=(Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)); [Cdc2]
+  add tool: Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)
+  check eqn: cyclin_T=(cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer); [cyclin_T]
+  add tool: cyclin_T=cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer
+  check eqn: Cdc25_P:time=(ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)); [Cdc25_P:time]
+  add tool: Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)
+  check eqn: Wee1_P:time=(ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)); [Wee1_P:time]
+  add tool: Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)
+  check eqn: IE_P:time=(kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)); [IE_P:time]
+  add tool: IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)
+  check eqn: UbE:time=(kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)); [UbE:time]
+  add tool: UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)
+  updated ODE(Tyr15P_dimer) with Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre
+    Tyr15P_dimer is now entirely solved
+  updated ODE(MPF_pre) with MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer
+    MPF_pre is now entirely solved
+  updated ODE(MPF_active) with MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre
+    MPF_active is now entirely solved
+  updated ODE(Cdc25_P) with Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)
+    Cdc25_P is now entirely solved
+  updated ODE(Wee1_P) with Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)
+    Wee1_P is now entirely solved
+  updated ODE(IE_P) with IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)
+    IE_P is now entirely solved
+  updated ODE(UbE) with UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)
+    UbE is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: cyclin:time=(k1AA-k2*cyclin-k3*cyclin*Cdc2); [cyclin:time]
+  add tool: cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2
+  check eqn: cyclin_Cdc2:time=(kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2); [cyclin_Cdc2:time]
+  add tool: cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2
+  updated ODE(cyclin) with cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2
+    cyclin is now entirely solved
+  updated ODE(cyclin_Cdc2) with cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2
+    cyclin_Cdc2 is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real Cdc25_P__init dimensionless
+  add tool: Cdc25_P__init=0
+  add var: real Wee1_P__init dimensionless
+  add tool: Wee1_P__init=0
+  add var: real UbE__init dimensionless
+  add tool: UbE__init=0
+  add var: real cyclin__init dimensionless
+  add tool: cyclin__init=1
+  add var: real cyclin_Cdc2__init dimensionless
+  add tool: cyclin_Cdc2__init=0
+  add var: real MPF_active__init dimensionless
+  add tool: MPF_active__init=0
+  add var: real Tyr15P_dimer__init dimensionless
+  add tool: Tyr15P_dimer__init=0
+  add var: real MPF_pre__init dimensionless
+  add tool: MPF_pre__init=0
+  add var: real IE_P__init dimensionless
+  add tool: IE_P__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  IE_P__init=0 :: [IE_P__init]<<[]
+  MPF_pre__init=0 :: [MPF_pre__init]<<[]
+  Tyr15P_dimer__init=0 :: [Tyr15P_dimer__init]<<[]
+  MPF_active__init=0 :: [MPF_active__init]<<[]
+  cyclin_Cdc2__init=0 :: [cyclin_Cdc2__init]<<[]
+  cyclin__init=1 :: [cyclin__init]<<[]
+  UbE__init=0 :: [UbE__init]<<[]
+  Wee1_P__init=0 :: [Wee1_P__init]<<[]
+  Cdc25_P__init=0 :: [Cdc25_P__init]<<[]
+  @time UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE) :: [UbE:time]<<[kc, IE_P, UbE_T, UbE, K_c, kd_antiIE, K_d]
+  @time IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P) :: [IE_P:time]<<[kg, MPF_active, IE_T, IE_P, K_g, khPPase, K_h]
+  @time Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P) :: [Wee1_P:time]<<[ke, MPF_active, Wee1_T, Wee1_P, K_e, kfPPase, K_f]
+  @time Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P) :: [Cdc25_P:time]<<[ka, MPF_active, Cdc25_T, Cdc25_P, K_a, kbPPase, K_b]
+  @time MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre :: [MPF_active:time]<<[kcak, cyclin_Cdc2, kinh, kwee, k2, MPF_active, k25, MPF_pre]
+  @time MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer :: [MPF_pre:time]<<[kwee, MPF_active, kinh, k25, k2, MPF_pre, kcak, Tyr15P_dimer]
+  @time Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre :: [Tyr15P_dimer:time]<<[kwee, cyclin_Cdc2, k25, kcak, k2, Tyr15P_dimer, kinh, MPF_pre]
+  @time cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2 :: [cyclin_Cdc2:time]<<[kinh, MPF_active, kwee, kcak, k2, cyclin_Cdc2, k25, Tyr15P_dimer, k3, cyclin, Cdc2]
+  @time cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2 :: [cyclin:time]<<[k1AA, k2, cyclin, k3, Cdc2]
+  @time ODE IE_P: IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P) :: [IE_P, IE_P(time.max)]<<[kg, MPF_active, IE_T, K_g, khPPase, K_h, IE_P(time.min), IE_P:time]
+  @time cyclin_T=cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer :: [cyclin_T]<<[cyclin, cyclin_Cdc2, MPF_active, MPF_pre, Tyr15P_dimer]
+  @time ODE MPF_pre: MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer :: [MPF_pre, MPF_pre(time.max)]<<[kwee, MPF_active, kinh, k25, k2, kcak, Tyr15P_dimer, MPF_pre(time.min), MPF_pre:time]
+  @time ODE Tyr15P_dimer: Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre :: [Tyr15P_dimer, Tyr15P_dimer(time.max)]<<[kwee, cyclin_Cdc2, k25, kcak, k2, kinh, MPF_pre, Tyr15P_dimer(time.min), Tyr15P_dimer:time]
+  @time ODE MPF_active: MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre :: [MPF_active, MPF_active(time.max)]<<[kcak, cyclin_Cdc2, kinh, kwee, k2, k25, MPF_pre, MPF_active(time.min), MPF_active:time]
+  @time ODE cyclin_Cdc2: cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2 :: [cyclin_Cdc2, cyclin_Cdc2(time.max)]<<[kinh, MPF_active, kwee, kcak, k2, k25, Tyr15P_dimer, k3, cyclin, Cdc2, cyclin_Cdc2(time.min), cyclin_Cdc2:time]
+  @time Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer) :: [Cdc2]<<[Cdc2_T, cyclin_Cdc2, MPF_active, MPF_pre, Tyr15P_dimer]
+  @time ODE cyclin: cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2 :: [cyclin, cyclin(time.max)]<<[k1AA, k2, k3, Cdc2, cyclin(time.min), cyclin:time]
+  IE_T=1 :: [IE_T]<<[]
+  Cdc2_T=100 :: [Cdc2_T]<<[]
+  @time k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE :: [k2]<<[V2_v1, UbE_T, UbE, V2_v2]
+  @time kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P) :: [kwee]<<[Vwee_v1, Wee1_P, Vwee_v2, Wee1_T]
+  @time k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P :: [k25]<<[V25_v1, Cdc25_T, Cdc25_P, V25_v2]
+  @time ODE UbE: UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE) :: [UbE, UbE(time.max)]<<[kc, IE_P, UbE_T, K_c, kd_antiIE, K_d, UbE(time.min), UbE:time]
+  UbE_T=1 :: [UbE_T]<<[]
+  Wee1_T=1 :: [Wee1_T]<<[]
+  @time ODE Wee1_P: Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P) :: [Wee1_P, Wee1_P(time.max)]<<[ke, MPF_active, Wee1_T, K_e, kfPPase, K_f, Wee1_P(time.min), Wee1_P:time]
+  @time ODE Cdc25_P: Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P) :: [Cdc25_P, Cdc25_P(time.max)]<<[ka, MPF_active, Cdc25_T, K_a, kbPPase, K_b, Cdc25_P(time.min), Cdc25_P:time]
+  Cdc25_T=1 :: [Cdc25_T]<<[]
+  K_h=.01 :: [K_h]<<[]
+  K_g=.01 :: [K_g]<<[]
+  K_f=.3 :: [K_f]<<[]
+  K_e=.3 :: [K_e]<<[]
+  K_d=.01 :: [K_d]<<[]
+  K_c=.01 :: [K_c]<<[]
+  K_b=.1 :: [K_b]<<[]
+  K_a=.1 :: [K_a]<<[]
+  Vwee_v2=1 :: [Vwee_v2]<<[]
+  Vwee_v1=.1 :: [Vwee_v1]<<[]
+  V25_v2=2 :: [V25_v2]<<[]
+  V25_v1=.1 :: [V25_v1]<<[]
+  V2_v2=0 :: [V2_v2]<<[]
+  V2_v1=0 :: [V2_v1]<<[]
+  kg=.0065 :: [kg]<<[]
+  ke=.0133 :: [ke]<<[]
+  kc=.1 :: [kc]<<[]
+  ka=.01 :: [ka]<<[]
+  kd_antiIE=.095 :: [kd_antiIE]<<[]
+  khPPase=.087 :: [khPPase]<<[]
+  kfPPase=.1 :: [kfPPase]<<[]
+  kbPPase=.125 :: [kbPPase]<<[]
+  kcak=.25 :: [kcak]<<[]
+  kinh=.025 :: [kinh]<<[]
+  k3=.01 :: [k3]<<[]
+  k1AA=0 :: [k1AA]<<[]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  IE_P(time.min)=IE_P__init :: [IE_P(time.min)]<<[IE_P__init]
+  MPF_pre(time.min)=MPF_pre__init :: [MPF_pre(time.min)]<<[MPF_pre__init]
+  Tyr15P_dimer(time.min)=Tyr15P_dimer__init :: [Tyr15P_dimer(time.min)]<<[Tyr15P_dimer__init]
+  MPF_active(time.min)=MPF_active__init :: [MPF_active(time.min)]<<[MPF_active__init]
+  cyclin_Cdc2(time.min)=cyclin_Cdc2__init :: [cyclin_Cdc2(time.min)]<<[cyclin_Cdc2__init]
+  cyclin(time.min)=cyclin__init :: [cyclin(time.min)]<<[cyclin__init]
+  UbE(time.min)=UbE__init :: [UbE(time.min)]<<[UbE__init]
+  Wee1_P(time.min)=Wee1_P__init :: [Wee1_P(time.min)]<<[Wee1_P__init]
+  Cdc25_P(time.min)=Cdc25_P__init :: [Cdc25_P(time.min)]<<[Cdc25_P__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode IE_P__init seqLoops=() phase=main fft=null
+  addNode MPF_pre__init seqLoops=() phase=main fft=null
+  addNode Tyr15P_dimer__init seqLoops=() phase=main fft=null
+  addNode MPF_active__init seqLoops=() phase=main fft=null
+  addNode cyclin_Cdc2__init seqLoops=() phase=main fft=null
+  addNode cyclin__init seqLoops=() phase=main fft=null
+  addNode UbE__init seqLoops=() phase=main fft=null
+  addNode Wee1_P__init seqLoops=() phase=main fft=null
+  addNode Cdc25_P__init seqLoops=() phase=main fft=null
+  addNode UbE:time seqLoops=(time) phase=time#1 fft=null
+  addNode IE_P:time seqLoops=(time) phase=time#1 fft=null
+  addNode Wee1_P:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cdc25_P:time seqLoops=(time) phase=time#1 fft=null
+  addNode MPF_active:time seqLoops=(time) phase=time#1 fft=null
+  addNode MPF_pre:time seqLoops=(time) phase=time#1 fft=null
+  addNode Tyr15P_dimer:time seqLoops=(time) phase=time#1 fft=null
+  addNode cyclin_Cdc2:time seqLoops=(time) phase=time#1 fft=null
+  addNode cyclin:time seqLoops=(time) phase=time#1 fft=null
+  addNode IE_P seqLoops=(time) phase=time#1 fft=time
+  addNode cyclin_T seqLoops=(time) phase=time#1 fft=null
+  addNode MPF_pre seqLoops=(time) phase=time#1 fft=time
+  addNode Tyr15P_dimer seqLoops=(time) phase=time#1 fft=time
+  addNode MPF_active seqLoops=(time) phase=time#1 fft=time
+  addNode cyclin_Cdc2 seqLoops=(time) phase=time#1 fft=time
+  addNode Cdc2 seqLoops=(time) phase=time#1 fft=null
+  addNode cyclin seqLoops=(time) phase=time#1 fft=time
+  addNode IE_T seqLoops=() phase=main fft=null
+  addNode Cdc2_T seqLoops=() phase=main fft=null
+  addNode k2 seqLoops=(time) phase=time#1 fft=null
+  addNode kwee seqLoops=(time) phase=time#1 fft=null
+  addNode k25 seqLoops=(time) phase=time#1 fft=null
+  addNode UbE seqLoops=(time) phase=time#1 fft=time
+  addNode UbE_T seqLoops=() phase=main fft=null
+  addNode Wee1_T seqLoops=() phase=main fft=null
+  addNode Wee1_P seqLoops=(time) phase=time#1 fft=time
+  addNode Cdc25_P seqLoops=(time) phase=time#1 fft=time
+  addNode Cdc25_T seqLoops=() phase=main fft=null
+  addNode K_h seqLoops=() phase=main fft=null
+  addNode K_g seqLoops=() phase=main fft=null
+  addNode K_f seqLoops=() phase=main fft=null
+  addNode K_e seqLoops=() phase=main fft=null
+  addNode K_d seqLoops=() phase=main fft=null
+  addNode K_c seqLoops=() phase=main fft=null
+  addNode K_b seqLoops=() phase=main fft=null
+  addNode K_a seqLoops=() phase=main fft=null
+  addNode Vwee_v2 seqLoops=() phase=main fft=null
+  addNode Vwee_v1 seqLoops=() phase=main fft=null
+  addNode V25_v2 seqLoops=() phase=main fft=null
+  addNode V25_v1 seqLoops=() phase=main fft=null
+  addNode V2_v2 seqLoops=() phase=main fft=null
+  addNode V2_v1 seqLoops=() phase=main fft=null
+  addNode kg seqLoops=() phase=main fft=null
+  addNode ke seqLoops=() phase=main fft=null
+  addNode kc seqLoops=() phase=main fft=null
+  addNode ka seqLoops=() phase=main fft=null
+  addNode kd_antiIE seqLoops=() phase=main fft=null
+  addNode khPPase seqLoops=() phase=main fft=null
+  addNode kfPPase seqLoops=() phase=main fft=null
+  addNode kbPPase seqLoops=() phase=main fft=null
+  addNode kcak seqLoops=() phase=main fft=null
+  addNode kinh seqLoops=() phase=main fft=null
+  addNode k3 seqLoops=() phase=main fft=null
+  addNode k1AA seqLoops=() phase=main fft=null
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode IE_P(time.min) seqLoops=() phase=main fft=null
+  addNode MPF_pre(time.min) seqLoops=() phase=main fft=null
+  addNode Tyr15P_dimer(time.min) seqLoops=() phase=main fft=null
+  addNode MPF_active(time.min) seqLoops=() phase=main fft=null
+  addNode cyclin_Cdc2(time.min) seqLoops=() phase=main fft=null
+  addNode cyclin(time.min) seqLoops=() phase=main fft=null
+  addNode UbE(time.min) seqLoops=() phase=main fft=null
+  addNode Wee1_P(time.min) seqLoops=() phase=main fft=null
+  addNode Cdc25_P(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding IE_P__init=0 to main
+  adding MPF_pre__init=0 to main
+  adding Tyr15P_dimer__init=0 to main
+  adding MPF_active__init=0 to main
+  adding cyclin_Cdc2__init=0 to main
+  adding cyclin__init=1 to main
+  adding UbE__init=0 to main
+  adding Wee1_P__init=0 to main
+  adding Cdc25_P__init=0 to main
+  adding IE_T=1 to main
+  adding Cdc2_T=100 to main
+  adding UbE_T=1 to main
+  adding Wee1_T=1 to main
+  adding Cdc25_T=1 to main
+  adding K_h=.01 to main
+  adding K_g=.01 to main
+  adding K_f=.3 to main
+  adding K_e=.3 to main
+  adding K_d=.01 to main
+  adding K_c=.01 to main
+  adding K_b=.1 to main
+  adding K_a=.1 to main
+  adding Vwee_v2=1 to main
+  adding Vwee_v1=.1 to main
+  adding V25_v2=2 to main
+  adding V25_v1=.1 to main
+  adding V2_v2=0 to main
+  adding V2_v1=0 to main
+  adding kg=.0065 to main
+  adding ke=.0133 to main
+  adding kc=.1 to main
+  adding ka=.01 to main
+  adding kd_antiIE=.095 to main
+  adding khPPase=.087 to main
+  adding kfPPase=.1 to main
+  adding kbPPase=.125 to main
+  adding kcak=.25 to main
+  adding kinh=.025 to main
+  adding k3=.01 to main
+  adding k1AA=0 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding IE_P(time.min)=IE_P__init to main
+  adding MPF_pre(time.min)=MPF_pre__init to main
+  adding Tyr15P_dimer(time.min)=Tyr15P_dimer__init to main
+  adding MPF_active(time.min)=MPF_active__init to main
+  adding cyclin_Cdc2(time.min)=cyclin_Cdc2__init to main
+  adding cyclin(time.min)=cyclin__init to main
+  adding UbE(time.min)=UbE__init to main
+  adding Wee1_P(time.min)=Wee1_P__init to main
+  adding Cdc25_P(time.min)=Cdc25_P__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE) to loop-time
+  adding IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P) to loop-time
+  adding Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P) to loop-time
+  adding Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P) to loop-time
+  adding cyclin_T=cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer to loop-time
+  adding Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer) to loop-time
+  adding k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE to loop-time
+  adding kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P) to loop-time
+  adding k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P to loop-time
+  adding MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre to loop-time
+  adding MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer to loop-time
+  adding Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre to loop-time
+  adding cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2 to loop-time
+  adding cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2 to loop-time
+  adding ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P] to loop-time
+  adding loop-time to main
+Building ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P] ...
+  adding muTool IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)
+  adding muVar IE_P:time
+  adding muTool kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)
+  adding muVar kwee
+  adding muTool k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P
+  adding muVar k25
+  adding muTool k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE
+  adding muVar k2
+  adding muTool MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer
+  adding muVar MPF_pre:time
+  adding muTool Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre
+  adding muVar Tyr15P_dimer:time
+  adding muTool MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre
+  adding muVar MPF_active:time
+  adding muTool Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)
+  adding muVar Cdc2
+  adding muTool cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2
+  adding muVar cyclin_Cdc2:time
+  adding muTool cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2
+  adding muVar cyclin:time
+  adding muTool UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)
+  adding muVar UbE:time
+  adding muTool Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)
+  adding muVar Wee1_P:time
+  adding muTool Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)
+  adding muVar Cdc25_P:time
+  adding IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2 to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2 to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+  adding Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P) to ODE Block-time [IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  IE_P__init=0
+  MPF_pre__init=0
+  Tyr15P_dimer__init=0
+  MPF_active__init=0
+  cyclin_Cdc2__init=0
+  cyclin__init=1
+  UbE__init=0
+  Wee1_P__init=0
+  Cdc25_P__init=0
+  IE_T=1
+  Cdc2_T=100
+  UbE_T=1
+  Wee1_T=1
+  Cdc25_T=1
+  K_h=.01
+  K_g=.01
+  K_f=.3
+  K_e=.3
+  K_d=.01
+  K_c=.01
+  K_b=.1
+  K_a=.1
+  Vwee_v2=1
+  Vwee_v1=.1
+  V25_v2=2
+  V25_v1=.1
+  V2_v2=0
+  V2_v1=0
+  kg=.0065
+  ke=.0133
+  kc=.1
+  ka=.01
+  kd_antiIE=.095
+  khPPase=.087
+  kfPPase=.1
+  kbPPase=.125
+  kcak=.25
+  kinh=.025
+  k3=.01
+  k1AA=0
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  IE_P(time.min)=IE_P__init
+  MPF_pre(time.min)=MPF_pre__init
+  Tyr15P_dimer(time.min)=Tyr15P_dimer__init
+  MPF_active(time.min)=MPF_active__init
+  cyclin_Cdc2(time.min)=cyclin_Cdc2__init
+  cyclin(time.min)=cyclin__init
+  UbE(time.min)=UbE__init
+  Wee1_P(time.min)=Wee1_P__init
+  Cdc25_P(time.min)=Cdc25_P__init
+  loop-time
+    UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)
+    IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)
+    Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)
+    Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)
+    cyclin_T=cyclin+cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer
+    Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)
+    k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE
+    kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)
+    k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P
+    MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre
+    MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer
+    Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre
+    cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2
+    cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2
+    ODE Block-time vmus=[time, IE_P, MPF_pre, Tyr15P_dimer, MPF_active, cyclin_Cdc2, cyclin, UbE, Wee1_P, Cdc25_P, IE_P:time, kwee, k25, k2, MPF_pre:time, Tyr15P_dimer:time, MPF_active:time, Cdc2, cyclin_Cdc2:time, cyclin:time, UbE:time, Wee1_P:time, Cdc25_P:time]
+      IE_P:time=kg*MPF_active*(IE_T-IE_P)/(K_g+IE_T-IE_P)-khPPase*IE_P/(K_h+IE_P)
+      kwee=Vwee_v1*Wee1_P+Vwee_v2*(Wee1_T-Wee1_P)
+      k25=V25_v1*(Cdc25_T-Cdc25_P)+V25_v2*Cdc25_P
+      k2=V2_v1*(UbE_T-UbE)+V2_v2*UbE
+      MPF_pre:time=kwee*MPF_active-(kinh+k25+k2)*MPF_pre+kcak*Tyr15P_dimer
+      Tyr15P_dimer:time=kwee*cyclin_Cdc2-(k25+kcak+k2)*Tyr15P_dimer+kinh*MPF_pre
+      MPF_active:time=kcak*cyclin_Cdc2-(kinh+kwee+k2)*MPF_active+k25*MPF_pre
+      Cdc2=Cdc2_T-(cyclin_Cdc2+MPF_active+MPF_pre+Tyr15P_dimer)
+      cyclin_Cdc2:time=kinh*MPF_active-(kwee+kcak+k2)*cyclin_Cdc2+k25*Tyr15P_dimer+k3*cyclin*Cdc2
+      cyclin:time=k1AA-k2*cyclin-k3*cyclin*Cdc2
+      UbE:time=kc*IE_P*(UbE_T-UbE)/(K_c+UbE_T-UbE)-kd_antiIE*UbE/(K_d+UbE)
+      Wee1_P:time=ke*MPF_active*(Wee1_T-Wee1_P)/(K_e+Wee1_T-Wee1_P)-kfPPase*Wee1_P/(K_f+Wee1_P)
+      Cdc25_P:time=ka*MPF_active*(Cdc25_T-Cdc25_P)/(K_a+Cdc25_T-Cdc25_P)-kbPPase*Cdc25_P/(K_b+Cdc25_P)
+

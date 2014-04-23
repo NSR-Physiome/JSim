@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfParameters>
+      <parameter id="xxx3DG" units="mole" constant="false"/>
+      <parameter id="xxx2DG" value="22" units="mole" constant="true"/>
+      <parameter id="comp1" value="10" units="litre" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="xxx3DG">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+            <ci> xxx2DG </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

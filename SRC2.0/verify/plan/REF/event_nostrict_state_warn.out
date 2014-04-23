@@ -1,0 +1,2 @@
+WARNING: Strict sequencing disabled for: event(A=0) [B:=0]
+WARNING: Strict sequencing disabled for: event(B=0) [A:=0]

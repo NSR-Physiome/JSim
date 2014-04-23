@@ -1,0 +1,77 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real a
+  add var: real b
+  add var: real c
+Loading Constraints
+  a=1 :: [a]
+  (b+c^2)=(10+a) :: [b, c, a]
+  (b-c)=(-1) :: [b, c]
+  5>b :: [b]
+  b>0 :: [b]
+  10>c :: [c]
+  c>0 :: [c]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+Toolbox phase - cycle 1:
+  check eqn: a=1; [a]
+  add tool: a=1
+  check eqn: (b+c^2)=(10+a); [b, c]
+  check eqn: (b-c)=(-1); [b, c]
+Toolbox phase - cycle 1:
+  check eqn: (b+c^2)=(10+a); [b, c]
+  check eqn: (b-c)=(-1); [b, c]
+Toolbox phase - cycle 2:
+  implicit block (2 2)=1.0
+  Implicit tool non-linear in [c]
+  add tool: [(b+c^2)=(10+a), (b-c)=(-1)]
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  [(b+c^2)=(10+a), (b-c)=(-1)] :: [b, c]<<[a]
+  a=1 :: [a]<<[]
+Events to seqence:
+Relations to sequence:
+  5>b :: []<<[b]
+  b>0 :: []<<[b]
+  10>c :: []<<[c]
+  c>0 :: []<<[c]
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode b,c seqLoops=() phase=main fft=null
+  addNode a seqLoops=() phase=main fft=null
+  addNode bound b <= 5 seqLoops=() phase=main fft=null
+  addNode bound b >= 0 seqLoops=() phase=main fft=null
+  addNode bound c <= 10 seqLoops=() phase=main fft=null
+  addNode bound c >= 0 seqLoops=() phase=main fft=null
+  addNode 5>b seqLoops=() phase=main fft=null
+  addNode b>0 seqLoops=() phase=main fft=null
+  addNode 10>c seqLoops=() phase=main fft=null
+  addNode c>0 seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding a=1 to main
+  adding [(b+c^2)=(10+a), (b-c)=(-1)] with 4 bounds to main
+  adding 5>b to main
+  adding b>0 to main
+  adding 10>c to main
+  adding c>0 to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  a=1
+  [(b+c^2)=(10+a), (b-c)=(-1)] with 4 bounds
+  5>b
+  b>0
+  10>c
+  c>0
+

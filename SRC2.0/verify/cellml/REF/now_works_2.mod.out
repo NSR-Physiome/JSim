@@ -1,0 +1,1133 @@
+/*
+ * A Gradient Model Of Cardiac Pacemaker Myocytes
+ * 
+ * Model Status
+ * 
+ * This model is currently non-functional.
+ * 
+ * Model Structure
+ * 
+ * Electrical activity of the healthy mammalian heart is initiated
+ * by an area of specialised pacemaker cells in the wall of the
+ * heart, known as the sinoatrial node (SAN). These cells are spontaneously
+ * active, demonstrating a slow depolarisation to threshold (pacemaker
+ * potential) rather than a stable resting potential. Despite heterogeneity
+ * amongst the cells of the SAN, the cells are able to synchronise
+ * their firing rate and this in turn stimulates the contraction
+ * of the atrial myocardium. Synchronisation is achieved by electronic
+ * coupling between cells via gap junctions.
+ * 
+ * To date, two potential theories have been put forward to explain
+ * the observed spatial heterogeneity in the action potential characteristics
+ * within the SAN:
+ * 
+ * 1) The gradient model suggests that the heterogeneity arises
+ * intrinsically from a spatial gradient in underlying cellular
+ * electrophysiological properties; and
+ * 
+ * 2) The mosaic model, which suggests that atrial myocytes are
+ * peppered throughout the SAN region, increasing in density towards
+ * the periphery. Action potential heterogeneity then arises due
+ * to the electronic coupling between atrial and pacemaker myocytes,
+ * and the differences between the relative density of the two
+ * cell types with the SAN.
+ * 
+ * In order to further investigate the source of the action potential
+ * heterogeneity in the SAN, a mathematical model has been devloped
+ * by Lovell et al. (see the figure below). Several mathematical
+ * models of the SAN activity have been previously published, including:
+ * 
+ * Demir et al. Sinoatrial Node Model, 1994;
+ * 
+ * Modelling the Ion Currents Underlying Sinoatrial Node Pacemaker
+ * Activity, Dokos et al., 1996;
+ * 
+ * A Model of Sinoatrial Node Vagal Control, Dokos et al., 1996;
+ * 
+ * Demir et al. Sinoatrial Node Model, 1999;
+ * 
+ * Zhang et al. Sinoatrial Node Model, 2000;
+ * 
+ * Boyett et al. Sinoatrial Node Model, 2001;
+ * 
+ * Kurata et al. Improved Mathematical Model for the Primary Pacemaker
+ * Cell, 2002.
+ * 
+ * Although these models were able to recreate the generic action
+ * potential waveforms from the SAN, none were able to represent
+ * action potential waveforms from any specific SAN cell. This
+ * limits the application of such models to analyse the factors
+ * underlying action potential heterogeneity in coupled systems
+ * of pacemaker cells, as well as elucidating specific ionic mechanisms
+ * underlying action potential heterogeneity in the SAN.
+ * 
+ * To meet these needs, Lovell et al. have devloped a generic single
+ * cell ionic model of rabbit SAN cells, which is based on Markovian
+ * state kinetics (all previously published SAN models are based
+ * on a Hodgkin-Huxley mechanism). Parameters are fitted to this
+ * model using a custom least squares optimisation approach. They
+ * then propose a gradient model of the SAN by employing the same
+ * optimisation approach to fit a smooth transition in ionic model
+ * parameters to achieve a desired variation in AP characteristics.
+ * 
+ * The model has been described here in CellML. It should be noted
+ * that the initial parameters entered into this model are those
+ * for the central SAN value. Peripheral SAN values and the interpolation
+ * parameters are also provided in the original publication.
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * Progress in Biophysics and Molecular Biology, 85, 301-323. (Full
+ * text (HTML) and PDF versions of the article are available to
+ * subscribers on the Progress in Biophysics and Molecular Biology
+ * website.) PubMed ID: 15142749
+ * 
+ * cell diagram
+ * 
+ * [[Image file: lovell_2004.png]]
+ * 
+ * A schematic diagram describing the ionic components of the SA
+ * node mathematical model.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 28 equation(s)
+unit conversion off;
+unit first_order_rate_constant=1 second^(-1);
+unit third_order_rate_constant=1 meter^6*second^(-1)*mole^(-2);
+// unit millisecond predefined
+// unit millivolt predefined
+unit nanoS=1E-9 kilogram^(-1)*meter^(-2)*second^3*ampere^2;
+unit nanoF=1E-9 kilogram^(-1)*meter^(-2)*second^4*ampere^2;
+unit picoA=1E-12 ampere^1;
+unit picoA_per_millimolar=1E-12 meter^3*ampere^1*mole^(-1);
+// unit millimolar predefined
+unit joule_per_mole_kelvin=1 kilogram^1*meter^2*second^(-2)*kelvin^(-1)*mole^(-1);
+unit coulomb_per_mole=.001 second^(-1)*ampere^(-1)*mole^1;
+unit picol=1E-15 meter^3;
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  L_type_calcium_current.I3, T_type_calcium_current.I2,
+	//  rapid_delayed_rectifying_potassium_current.I3, slow_delayed_rectifying_potassium_current.I2,
+	//  TTX_sensitive_sodium_current.I3, g_f_K, hyperpolarisation_activated_current.I2,
+	//  transient_outward_current.I3, Kb_K
+	//Warning:  the following variables had initial values which were
+	//  suppressed because the model would otherwise be overdetermined:
+	//   E_Ca_rev
+	realDomain time second;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real Em(time) millivolt;
+	Em.cellMLNames="membrane.Em;L_type_calcium_current.Em;T_type_calcium_current.Em;hyperpolarisation_activated_current.Em;rapid_delayed_rectifying_potassium_current.Em;slow_delayed_rectifying_potassium_current.Em;TTX_sensitive_sodium_current.Em;transient_outward_current.Em;background_currents.Em;sodium_calcium_exchange_current.Em;sodium_potassium_pump_current.Em";
+	when(time=time.min) Em=-6.395E1;
+	real Cm nanoF;
+	Cm.cellMLNames="membrane.Cm";
+	Cm=3.2E-2;
+	real i_f(time) picoA;
+	i_f.cellMLNames="membrane.i_f;hyperpolarisation_activated_current.i_f";
+	real i_Kr(time) picoA;
+	i_Kr.cellMLNames="membrane.i_Kr;rapid_delayed_rectifying_potassium_current.i_Kr";
+	real i_Ks(time) picoA;
+	i_Ks.cellMLNames="membrane.i_Ks;slow_delayed_rectifying_potassium_current.i_Ks";
+	real i_bNa(time) picoA;
+	i_bNa.cellMLNames="membrane.i_bNa;background_currents.i_bNa;ion_concentrations.i_bNa";
+	real i_Na(time) picoA;
+	i_Na.cellMLNames="membrane.i_Na;TTX_sensitive_sodium_current.i_Na;ion_concentrations.i_Na";
+	real i_NaK(time) picoA;
+	i_NaK.cellMLNames="membrane.i_NaK;sodium_potassium_pump_current.i_NaK;ion_concentrations.i_NaK";
+	real i_NaCa(time) picoA;
+	i_NaCa.cellMLNames="membrane.i_NaCa;sodium_calcium_exchange_current.i_NaCa;ion_concentrations.i_NaCa";
+	real i_to(time) picoA;
+	i_to.cellMLNames="membrane.i_to;transient_outward_current.i_to;ion_concentrations.i_to";
+	real i_CaL(time) picoA;
+	i_CaL.cellMLNames="membrane.i_CaL;L_type_calcium_current.i_CaL;ion_concentrations.i_CaL";
+	real i_CaT(time) picoA;
+	i_CaT.cellMLNames="membrane.i_CaT;T_type_calcium_current.i_CaT;ion_concentrations.i_CaT";
+	real i_bK(time) picoA;
+	i_bK.cellMLNames="membrane.i_bK;background_currents.i_bK;ion_concentrations.i_bK";
+	real i_bCl(time) picoA;
+	i_bCl.cellMLNames="membrane.i_bCl;background_currents.i_bCl;ion_concentrations.i_bCl";
+	real E_Na(time) millivolt;
+	E_Na.cellMLNames="reversal_potentials.E_Na;TTX_sensitive_sodium_current.E_Na;rapid_delayed_rectifying_potassium_current.E_Na;slow_delayed_rectifying_potassium_current.E_Na;hyperpolarisation_activated_current.E_Na;background_currents.E_Na";
+	real E_Cl(time) millivolt;
+	E_Cl.cellMLNames="reversal_potentials.E_Cl;background_currents.E_Cl";
+	real E_Ca_rev(time) millivolt;
+	E_Ca_rev.cellMLNames="reversal_potentials.E_Ca_rev;L_type_calcium_current.E_Ca_rev;T_type_calcium_current.E_Ca_rev";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: E_Ca_rev=4.972E1;
+	real E_K(time) millivolt;
+	E_K.cellMLNames="reversal_potentials.E_K;rapid_delayed_rectifying_potassium_current.E_K;slow_delayed_rectifying_potassium_current.E_K;hyperpolarisation_activated_current.E_K;transient_outward_current.E_K";
+	real R joule_per_mole_kelvin;
+	R.cellMLNames="reversal_potentials.R;sodium_calcium_exchange_current.R;background_currents.R";
+	R=8.3144;
+	real T kelvin;
+	T.cellMLNames="reversal_potentials.T;sodium_calcium_exchange_current.T;background_currents.T";
+	T=310.15;
+	real F coulomb_per_mole;
+	F.cellMLNames="reversal_potentials.F;sodium_calcium_exchange_current.F;background_currents.F;calcium_dynamics.F;ion_concentrations.F";
+	F=96485;
+	real Nai(time) millimolar;
+	Nai.cellMLNames="reversal_potentials.Nai;ion_concentrations.Nai;sodium_calcium_exchange_current.Nai;sodium_potassium_pump_current.Nai";
+	when(time=time.min) Nai=8.004;
+	real Nao(time) millimolar;
+	Nao.cellMLNames="reversal_potentials.Nao;ion_concentrations.Nao;sodium_calcium_exchange_current.Nao";
+	when(time=time.min) Nao=1.400E2;
+	real Cai(time) millimolar;
+	Cai.cellMLNames="reversal_potentials.Cai;ion_concentrations.Cai;L_type_calcium_current.Cai;sodium_calcium_exchange_current.Cai;calcium_dynamics.Cai";
+	when(time=time.min) Cai=1.275E-4;
+	real Cao(time) millimolar;
+	Cao.cellMLNames="reversal_potentials.Cao;ion_concentrations.Cao;sodium_calcium_exchange_current.Cao";
+	when(time=time.min) Cao=2.0;
+	real Ki(time) millimolar;
+	Ki.cellMLNames="reversal_potentials.Ki;ion_concentrations.Ki;background_currents.Ki";
+	when(time=time.min) Ki=1.499E2;
+	real Ko(time) millimolar;
+	Ko.cellMLNames="reversal_potentials.Ko;ion_concentrations.Ko;hyperpolarisation_activated_current.Ko;sodium_potassium_pump_current.Ko;background_currents.Ko";
+	when(time=time.min) Ko=5.389;
+	real Cli(time) millimolar;
+	Cli.cellMLNames="reversal_potentials.Cli;ion_concentrations.Cli";
+	when(time=time.min) Cli=2.607E1;
+	real Clo(time) millimolar;
+	Clo.cellMLNames="reversal_potentials.Clo;ion_concentrations.Clo";
+	when(time=time.min) Clo=1.400E2;
+	real g_CaL nanoS;
+	g_CaL.cellMLNames="L_type_calcium_current.g_CaL";
+	g_CaL=1.604E2;
+	real A_CaL(time) dimensionless;
+	A_CaL.cellMLNames="L_type_calcium_current.A_CaL";
+	when(time=time.min) A_CaL=4.564E-4;
+	real L_type_calcium_current.I1(time) dimensionless;
+	L_type_calcium_current.I1.cellMLNames="L_type_calcium_current.I1";
+	when(time=time.min) L_type_calcium_current.I1=9.601E-1;
+	real L_type_calcium_current.I2(time) dimensionless;
+	L_type_calcium_current.I2.cellMLNames="L_type_calcium_current.I2";
+	when(time=time.min) L_type_calcium_current.I2=5.261E-3;
+	real L_type_calcium_current.I3(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	L_type_calcium_current.I3.cellMLNames="L_type_calcium_current.I3";
+	when(time=time.min) L_type_calcium_current.I3=0;
+	real L_type_calcium_current.alpha1(time) first_order_rate_constant;
+	L_type_calcium_current.alpha1.cellMLNames="L_type_calcium_current.alpha1";
+	real L_type_calcium_current.alpha2(time) first_order_rate_constant;
+	L_type_calcium_current.alpha2.cellMLNames="L_type_calcium_current.alpha2";
+	real L_type_calcium_current.alpha3 third_order_rate_constant;
+	L_type_calcium_current.alpha3.cellMLNames="L_type_calcium_current.alpha3";
+	L_type_calcium_current.alpha3=1.395E5;
+	real L_type_calcium_current.alpha4 first_order_rate_constant;
+	L_type_calcium_current.alpha4.cellMLNames="L_type_calcium_current.alpha4";
+	L_type_calcium_current.alpha4=4.945;
+	real L_type_calcium_current.beta1(time) first_order_rate_constant;
+	L_type_calcium_current.beta1.cellMLNames="L_type_calcium_current.beta1";
+	real beta2(time) first_order_rate_constant;
+	beta2.cellMLNames="L_type_calcium_current.beta2";
+	real L_type_calcium_current.beta3 first_order_rate_constant;
+	L_type_calcium_current.beta3.cellMLNames="L_type_calcium_current.beta3";
+	L_type_calcium_current.beta3=7.648;
+	real L_type_calcium_current.beta4 third_order_rate_constant;
+	L_type_calcium_current.beta4.cellMLNames="L_type_calcium_current.beta4";
+	L_type_calcium_current.beta4=4.051E6;
+	real L_type_calcium_current.alpha1_0 first_order_rate_constant;
+	L_type_calcium_current.alpha1_0.cellMLNames="L_type_calcium_current.alpha1_0";
+	L_type_calcium_current.alpha1_0=1.115E2;
+	real L_type_calcium_current.alpha1_infinity first_order_rate_constant;
+	L_type_calcium_current.alpha1_infinity.cellMLNames="L_type_calcium_current.alpha1_infinity";
+	L_type_calcium_current.alpha1_infinity=2.451E3;
+	real L_type_calcium_current.alpha1_E50 millivolt;
+	L_type_calcium_current.alpha1_E50.cellMLNames="L_type_calcium_current.alpha1_E50";
+	L_type_calcium_current.alpha1_E50=-3.116E1;
+	real L_type_calcium_current.alpha1_Eslope millivolt;
+	L_type_calcium_current.alpha1_Eslope.cellMLNames="L_type_calcium_current.alpha1_Eslope";
+	L_type_calcium_current.alpha1_Eslope=8.815;
+	real L_type_calcium_current.alpha2_0 first_order_rate_constant;
+	L_type_calcium_current.alpha2_0.cellMLNames="L_type_calcium_current.alpha2_0";
+	L_type_calcium_current.alpha2_0=9.622E1;
+	real L_type_calcium_current.alpha2_infinity first_order_rate_constant;
+	L_type_calcium_current.alpha2_infinity.cellMLNames="L_type_calcium_current.alpha2_infinity";
+	L_type_calcium_current.alpha2_infinity=1.409E1;
+	real L_type_calcium_current.alpha2_E50 millivolt;
+	L_type_calcium_current.alpha2_E50.cellMLNames="L_type_calcium_current.alpha2_E50";
+	L_type_calcium_current.alpha2_E50=3.116;
+	real L_type_calcium_current.alpha2_Eslope millivolt;
+	L_type_calcium_current.alpha2_Eslope.cellMLNames="L_type_calcium_current.alpha2_Eslope";
+	L_type_calcium_current.alpha2_Eslope=5.936;
+	real L_type_calcium_current.beta1_0 first_order_rate_constant;
+	L_type_calcium_current.beta1_0.cellMLNames="L_type_calcium_current.beta1_0";
+	L_type_calcium_current.beta1_0=1.283E4;
+	real L_type_calcium_current.beta1_infinity first_order_rate_constant;
+	L_type_calcium_current.beta1_infinity.cellMLNames="L_type_calcium_current.beta1_infinity";
+	L_type_calcium_current.beta1_infinity=4.701E3;
+	real L_type_calcium_current.beta1_E50 millivolt;
+	L_type_calcium_current.beta1_E50.cellMLNames="L_type_calcium_current.beta1_E50";
+	L_type_calcium_current.beta1_E50=-2.448E1;
+	real L_type_calcium_current.beta1_Eslope millivolt;
+	L_type_calcium_current.beta1_Eslope.cellMLNames="L_type_calcium_current.beta1_Eslope";
+	L_type_calcium_current.beta1_Eslope=7.300;
+	real beta2_0 first_order_rate_constant;
+	beta2_0.cellMLNames="L_type_calcium_current.beta2_0";
+	beta2_0=1.950E-1;
+	real beta2_infinity first_order_rate_constant;
+	beta2_infinity.cellMLNames="L_type_calcium_current.beta2_infinity";
+	beta2_infinity=5.984E-2;
+	real beta2_E50 millivolt;
+	beta2_E50.cellMLNames="L_type_calcium_current.beta2_E50";
+	beta2_E50=5.934;
+	real beta2_Eslope millivolt;
+	beta2_Eslope.cellMLNames="L_type_calcium_current.beta2_Eslope";
+	beta2_Eslope=1.395E5;
+	real g_CaT nanoS;
+	g_CaT.cellMLNames="T_type_calcium_current.g_CaT";
+	g_CaT=6.816E2;
+	real A_CaT(time) dimensionless;
+	A_CaT.cellMLNames="T_type_calcium_current.A_CaT";
+	when(time=time.min) A_CaT=1.562E-5;
+	real T_type_calcium_current.I1(time) dimensionless;
+	T_type_calcium_current.I1.cellMLNames="T_type_calcium_current.I1";
+	when(time=time.min) T_type_calcium_current.I1=9.985E-1;
+	real T_type_calcium_current.I2(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	T_type_calcium_current.I2.cellMLNames="T_type_calcium_current.I2";
+	when(time=time.min) T_type_calcium_current.I2=0;
+	real T_type_calcium_current.alpha1(time) first_order_rate_constant;
+	T_type_calcium_current.alpha1.cellMLNames="T_type_calcium_current.alpha1";
+	real T_type_calcium_current.alpha2(time) first_order_rate_constant;
+	T_type_calcium_current.alpha2.cellMLNames="T_type_calcium_current.alpha2";
+	real T_type_calcium_current.alpha3(time) first_order_rate_constant;
+	T_type_calcium_current.alpha3.cellMLNames="T_type_calcium_current.alpha3";
+	real T_type_calcium_current.beta1(time) first_order_rate_constant;
+	T_type_calcium_current.beta1.cellMLNames="T_type_calcium_current.beta1";
+	real T_type_calcium_current.beta3(time) first_order_rate_constant;
+	T_type_calcium_current.beta3.cellMLNames="T_type_calcium_current.beta3";
+	real T_type_calcium_current.alpha1_0 first_order_rate_constant;
+	T_type_calcium_current.alpha1_0.cellMLNames="T_type_calcium_current.alpha1_0";
+	T_type_calcium_current.alpha1_0=0.0;
+	real T_type_calcium_current.alpha1_infinity first_order_rate_constant;
+	T_type_calcium_current.alpha1_infinity.cellMLNames="T_type_calcium_current.alpha1_infinity";
+	T_type_calcium_current.alpha1_infinity=1.203E3;
+	real T_type_calcium_current.alpha1_E50 millivolt;
+	T_type_calcium_current.alpha1_E50.cellMLNames="T_type_calcium_current.alpha1_E50";
+	T_type_calcium_current.alpha1_E50=-3.442E1;
+	real T_type_calcium_current.alpha1_Eslope millivolt;
+	T_type_calcium_current.alpha1_Eslope.cellMLNames="T_type_calcium_current.alpha1_Eslope";
+	T_type_calcium_current.alpha1_Eslope=6.143;
+	real T_type_calcium_current.alpha2_0 first_order_rate_constant;
+	T_type_calcium_current.alpha2_0.cellMLNames="T_type_calcium_current.alpha2_0";
+	T_type_calcium_current.alpha2_0=2.458E2;
+	real T_type_calcium_current.alpha2_infinity first_order_rate_constant;
+	T_type_calcium_current.alpha2_infinity.cellMLNames="T_type_calcium_current.alpha2_infinity";
+	T_type_calcium_current.alpha2_infinity=1.304E3;
+	real T_type_calcium_current.alpha2_E50 millivolt;
+	T_type_calcium_current.alpha2_E50.cellMLNames="T_type_calcium_current.alpha2_E50";
+	T_type_calcium_current.alpha2_E50=-1.978E1;
+	real T_type_calcium_current.alpha2_Eslope millivolt;
+	T_type_calcium_current.alpha2_Eslope.cellMLNames="T_type_calcium_current.alpha2_Eslope";
+	T_type_calcium_current.alpha2_Eslope=1.260E1;
+	real T_type_calcium_current.alpha3_0 first_order_rate_constant;
+	T_type_calcium_current.alpha3_0.cellMLNames="T_type_calcium_current.alpha3_0";
+	T_type_calcium_current.alpha3_0=1.003E-1;
+	real T_type_calcium_current.alpha3_infinity first_order_rate_constant;
+	T_type_calcium_current.alpha3_infinity.cellMLNames="T_type_calcium_current.alpha3_infinity";
+	T_type_calcium_current.alpha3_infinity=1.157E-2;
+	real T_type_calcium_current.alpha3_E50 millivolt;
+	T_type_calcium_current.alpha3_E50.cellMLNames="T_type_calcium_current.alpha3_E50";
+	T_type_calcium_current.alpha3_E50=6.079;
+	real T_type_calcium_current.alpha3_Eslope millivolt;
+	T_type_calcium_current.alpha3_Eslope.cellMLNames="T_type_calcium_current.alpha3_Eslope";
+	T_type_calcium_current.alpha3_Eslope=4.938E-1;
+	real T_type_calcium_current.beta1_0 first_order_rate_constant;
+	T_type_calcium_current.beta1_0.cellMLNames="T_type_calcium_current.beta1_0";
+	T_type_calcium_current.beta1_0=8.075E2;
+	real T_type_calcium_current.beta1_infinity first_order_rate_constant;
+	T_type_calcium_current.beta1_infinity.cellMLNames="T_type_calcium_current.beta1_infinity";
+	T_type_calcium_current.beta1_infinity=9.663;
+	real T_type_calcium_current.beta1_E50 millivolt;
+	T_type_calcium_current.beta1_E50.cellMLNames="T_type_calcium_current.beta1_E50";
+	T_type_calcium_current.beta1_E50=-3.025E1;
+	real T_type_calcium_current.beta1_Eslope millivolt;
+	T_type_calcium_current.beta1_Eslope.cellMLNames="T_type_calcium_current.beta1_Eslope";
+	T_type_calcium_current.beta1_Eslope=2.580E1;
+	real T_type_calcium_current.beta3_0 first_order_rate_constant;
+	T_type_calcium_current.beta3_0.cellMLNames="T_type_calcium_current.beta3_0";
+	T_type_calcium_current.beta3_0=1.914;
+	real T_type_calcium_current.beta3_infinity first_order_rate_constant;
+	T_type_calcium_current.beta3_infinity.cellMLNames="T_type_calcium_current.beta3_infinity";
+	T_type_calcium_current.beta3_infinity=4.490E2;
+	real T_type_calcium_current.beta3_E50 millivolt;
+	T_type_calcium_current.beta3_E50.cellMLNames="T_type_calcium_current.beta3_E50";
+	T_type_calcium_current.beta3_E50=-3.948E1;
+	real T_type_calcium_current.beta3_Eslope millivolt;
+	T_type_calcium_current.beta3_Eslope.cellMLNames="T_type_calcium_current.beta3_Eslope";
+	T_type_calcium_current.beta3_Eslope=1.295E1;
+	real i_Kr_Na(time) picoA;
+	i_Kr_Na.cellMLNames="rapid_delayed_rectifying_potassium_current.i_Kr_Na;ion_concentrations.i_Kr_Na";
+	real i_Kr_K(time) picoA;
+	i_Kr_K.cellMLNames="rapid_delayed_rectifying_potassium_current.i_Kr_K;ion_concentrations.i_Kr_K";
+	real g_Kr nanoS;
+	g_Kr.cellMLNames="rapid_delayed_rectifying_potassium_current.g_Kr";
+	g_Kr=4.714;
+	real PKNa_r picoA_per_millimolar;
+	PKNa_r.cellMLNames="rapid_delayed_rectifying_potassium_current.PKNa_r";
+	PKNa_r=3.042E-2;
+	real A_Kr(time) dimensionless;
+	A_Kr.cellMLNames="rapid_delayed_rectifying_potassium_current.A_Kr";
+	when(time=time.min) A_Kr=1.209E-1;
+	real rapid_delayed_rectifying_potassium_current.I1(time) dimensionless;
+	rapid_delayed_rectifying_potassium_current.I1.cellMLNames="rapid_delayed_rectifying_potassium_current.I1";
+	when(time=time.min) rapid_delayed_rectifying_potassium_current.I1=1.991E-3;
+	real rapid_delayed_rectifying_potassium_current.I2(time) dimensionless;
+	rapid_delayed_rectifying_potassium_current.I2.cellMLNames="rapid_delayed_rectifying_potassium_current.I2";
+	when(time=time.min) rapid_delayed_rectifying_potassium_current.I2=5.617E-2;
+	real rapid_delayed_rectifying_potassium_current.I3(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	rapid_delayed_rectifying_potassium_current.I3.cellMLNames="rapid_delayed_rectifying_potassium_current.I3";
+	when(time=time.min) rapid_delayed_rectifying_potassium_current.I3=0;
+	real rapid_delayed_rectifying_potassium_current.alpha1(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha1.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha1";
+	real rapid_delayed_rectifying_potassium_current.alpha2(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha2.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha2";
+	real rapid_delayed_rectifying_potassium_current.alpha3(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha3.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha3";
+	real rapid_delayed_rectifying_potassium_current.alpha4(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha4.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha4";
+	real rapid_delayed_rectifying_potassium_current.beta1(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta1.cellMLNames="rapid_delayed_rectifying_potassium_current.beta1";
+	real rapid_delayed_rectifying_potassium_current.beta4(time) first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta4.cellMLNames="rapid_delayed_rectifying_potassium_current.beta4";
+	real rapid_delayed_rectifying_potassium_current.alpha1_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha1_0.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha1_0";
+	rapid_delayed_rectifying_potassium_current.alpha1_0=2.924E-1;
+	real rapid_delayed_rectifying_potassium_current.alpha1_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha1_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha1_infinity";
+	rapid_delayed_rectifying_potassium_current.alpha1_infinity=1.796;
+	real rapid_delayed_rectifying_potassium_current.alpha1_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha1_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha1_E50";
+	rapid_delayed_rectifying_potassium_current.alpha1_E50=-2.821;
+	real rapid_delayed_rectifying_potassium_current.alpha1_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha1_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha1_Eslope";
+	rapid_delayed_rectifying_potassium_current.alpha1_Eslope=1.591E1;
+	real rapid_delayed_rectifying_potassium_current.alpha2_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha2_0.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha2_0";
+	rapid_delayed_rectifying_potassium_current.alpha2_0=8.011E-4;
+	real rapid_delayed_rectifying_potassium_current.alpha2_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha2_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha2_infinity";
+	rapid_delayed_rectifying_potassium_current.alpha2_infinity=2.815E1;
+	real rapid_delayed_rectifying_potassium_current.alpha2_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha2_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha2_E50";
+	rapid_delayed_rectifying_potassium_current.alpha2_E50=2.607E1;
+	real rapid_delayed_rectifying_potassium_current.alpha2_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha2_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha2_Eslope";
+	rapid_delayed_rectifying_potassium_current.alpha2_Eslope=4.849;
+	real rapid_delayed_rectifying_potassium_current.alpha3_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha3_0.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha3_0";
+	rapid_delayed_rectifying_potassium_current.alpha3_0=0.0;
+	real rapid_delayed_rectifying_potassium_current.alpha3_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha3_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha3_infinity";
+	rapid_delayed_rectifying_potassium_current.alpha3_infinity=1.382E1;
+	real rapid_delayed_rectifying_potassium_current.alpha3_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha3_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha3_E50";
+	rapid_delayed_rectifying_potassium_current.alpha3_E50=-1.706;
+	real rapid_delayed_rectifying_potassium_current.alpha3_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha3_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha3_Eslope";
+	rapid_delayed_rectifying_potassium_current.alpha3_Eslope=8.661;
+	real rapid_delayed_rectifying_potassium_current.alpha4_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha4_0.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha4_0";
+	rapid_delayed_rectifying_potassium_current.alpha4_0=8.526E1;
+	real rapid_delayed_rectifying_potassium_current.alpha4_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.alpha4_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha4_infinity";
+	rapid_delayed_rectifying_potassium_current.alpha4_infinity=5.840;
+	real rapid_delayed_rectifying_potassium_current.alpha4_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha4_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha4_E50";
+	rapid_delayed_rectifying_potassium_current.alpha4_E50=1.663E1;
+	real rapid_delayed_rectifying_potassium_current.alpha4_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.alpha4_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.alpha4_Eslope";
+	rapid_delayed_rectifying_potassium_current.alpha4_Eslope=1.906E1;
+	real rapid_delayed_rectifying_potassium_current.beta1_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta1_0.cellMLNames="rapid_delayed_rectifying_potassium_current.beta1_0";
+	rapid_delayed_rectifying_potassium_current.beta1_0=1.161E-1;
+	real rapid_delayed_rectifying_potassium_current.beta1_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta1_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.beta1_infinity";
+	rapid_delayed_rectifying_potassium_current.beta1_infinity=5.201E1;
+	real rapid_delayed_rectifying_potassium_current.beta1_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.beta1_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.beta1_E50";
+	rapid_delayed_rectifying_potassium_current.beta1_E50=-6.477;
+	real rapid_delayed_rectifying_potassium_current.beta1_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.beta1_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.beta1_Eslope";
+	rapid_delayed_rectifying_potassium_current.beta1_Eslope=1.149E1;
+	real rapid_delayed_rectifying_potassium_current.beta4_0 first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta4_0.cellMLNames="rapid_delayed_rectifying_potassium_current.beta4_0";
+	rapid_delayed_rectifying_potassium_current.beta4_0=5.728;
+	real rapid_delayed_rectifying_potassium_current.beta4_infinity first_order_rate_constant;
+	rapid_delayed_rectifying_potassium_current.beta4_infinity.cellMLNames="rapid_delayed_rectifying_potassium_current.beta4_infinity";
+	rapid_delayed_rectifying_potassium_current.beta4_infinity=5.372E2;
+	real rapid_delayed_rectifying_potassium_current.beta4_E50 millivolt;
+	rapid_delayed_rectifying_potassium_current.beta4_E50.cellMLNames="rapid_delayed_rectifying_potassium_current.beta4_E50";
+	rapid_delayed_rectifying_potassium_current.beta4_E50=4.594E1;
+	real rapid_delayed_rectifying_potassium_current.beta4_Eslope millivolt;
+	rapid_delayed_rectifying_potassium_current.beta4_Eslope.cellMLNames="rapid_delayed_rectifying_potassium_current.beta4_Eslope";
+	rapid_delayed_rectifying_potassium_current.beta4_Eslope=4.646;
+	real i_Ks_Na(time) picoA;
+	i_Ks_Na.cellMLNames="slow_delayed_rectifying_potassium_current.i_Ks_Na;ion_concentrations.i_Ks_Na";
+	real i_Ks_K(time) picoA;
+	i_Ks_K.cellMLNames="slow_delayed_rectifying_potassium_current.i_Ks_K;ion_concentrations.i_Ks_K";
+	real g_Ks nanoS;
+	g_Ks.cellMLNames="slow_delayed_rectifying_potassium_current.g_Ks";
+	g_Ks=1.328E1;
+	real PKNa_s picoA_per_millimolar;
+	PKNa_s.cellMLNames="slow_delayed_rectifying_potassium_current.PKNa_s";
+	PKNa_s=3.053E-2;
+	real A_Ks(time) dimensionless;
+	A_Ks.cellMLNames="slow_delayed_rectifying_potassium_current.A_Ks";
+	when(time=time.min) A_Ks=5.049E-3;
+	real slow_delayed_rectifying_potassium_current.I1(time) dimensionless;
+	slow_delayed_rectifying_potassium_current.I1.cellMLNames="slow_delayed_rectifying_potassium_current.I1";
+	when(time=time.min) slow_delayed_rectifying_potassium_current.I1=9.921E-1;
+	real slow_delayed_rectifying_potassium_current.I2(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	slow_delayed_rectifying_potassium_current.I2.cellMLNames="slow_delayed_rectifying_potassium_current.I2";
+	when(time=time.min) slow_delayed_rectifying_potassium_current.I2=0;
+	real slow_delayed_rectifying_potassium_current.alpha1(time) first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha1.cellMLNames="slow_delayed_rectifying_potassium_current.alpha1";
+	real slow_delayed_rectifying_potassium_current.alpha2(time) first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha2.cellMLNames="slow_delayed_rectifying_potassium_current.alpha2";
+	real slow_delayed_rectifying_potassium_current.alpha3(time) first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha3.cellMLNames="slow_delayed_rectifying_potassium_current.alpha3";
+	real slow_delayed_rectifying_potassium_current.beta1(time) first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta1.cellMLNames="slow_delayed_rectifying_potassium_current.beta1";
+	real slow_delayed_rectifying_potassium_current.beta3(time) first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta3.cellMLNames="slow_delayed_rectifying_potassium_current.beta3";
+	real slow_delayed_rectifying_potassium_current.alpha1_0 first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha1_0.cellMLNames="slow_delayed_rectifying_potassium_current.alpha1_0";
+	slow_delayed_rectifying_potassium_current.alpha1_0=1.455;
+	real slow_delayed_rectifying_potassium_current.alpha1_infinity first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha1_infinity.cellMLNames="slow_delayed_rectifying_potassium_current.alpha1_infinity";
+	slow_delayed_rectifying_potassium_current.alpha1_infinity=1.590E1;
+	real slow_delayed_rectifying_potassium_current.alpha1_E50 millivolt;
+	slow_delayed_rectifying_potassium_current.alpha1_E50.cellMLNames="slow_delayed_rectifying_potassium_current.alpha1_E50";
+	slow_delayed_rectifying_potassium_current.alpha1_E50=3.403E1;
+	real slow_delayed_rectifying_potassium_current.alpha1_Eslope millivolt;
+	slow_delayed_rectifying_potassium_current.alpha1_Eslope.cellMLNames="slow_delayed_rectifying_potassium_current.alpha1_Eslope";
+	slow_delayed_rectifying_potassium_current.alpha1_Eslope=9.464;
+	real slow_delayed_rectifying_potassium_current.alpha2_0 first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha2_0.cellMLNames="slow_delayed_rectifying_potassium_current.alpha2_0";
+	slow_delayed_rectifying_potassium_current.alpha2_0=7.619E-1;
+	real slow_delayed_rectifying_potassium_current.alpha2_infinity first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha2_infinity.cellMLNames="slow_delayed_rectifying_potassium_current.alpha2_infinity";
+	slow_delayed_rectifying_potassium_current.alpha2_infinity=7.207E-2;
+	real slow_delayed_rectifying_potassium_current.alpha2_E50 millivolt;
+	slow_delayed_rectifying_potassium_current.alpha2_E50.cellMLNames="slow_delayed_rectifying_potassium_current.alpha2_E50";
+	slow_delayed_rectifying_potassium_current.alpha2_E50=1.021E1;
+	real slow_delayed_rectifying_potassium_current.alpha2_Eslope millivolt;
+	slow_delayed_rectifying_potassium_current.alpha2_Eslope.cellMLNames="slow_delayed_rectifying_potassium_current.alpha2_Eslope";
+	slow_delayed_rectifying_potassium_current.alpha2_Eslope=2.584;
+	real slow_delayed_rectifying_potassium_current.alpha3_0 first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha3_0.cellMLNames="slow_delayed_rectifying_potassium_current.alpha3_0";
+	slow_delayed_rectifying_potassium_current.alpha3_0=0.0;
+	real slow_delayed_rectifying_potassium_current.alpha3_infinity first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.alpha3_infinity.cellMLNames="slow_delayed_rectifying_potassium_current.alpha3_infinity";
+	slow_delayed_rectifying_potassium_current.alpha3_infinity=1.690E1;
+	real slow_delayed_rectifying_potassium_current.alpha3_E50 millivolt;
+	slow_delayed_rectifying_potassium_current.alpha3_E50.cellMLNames="slow_delayed_rectifying_potassium_current.alpha3_E50";
+	slow_delayed_rectifying_potassium_current.alpha3_E50=4.216E1;
+	real slow_delayed_rectifying_potassium_current.alpha3_Eslope millivolt;
+	slow_delayed_rectifying_potassium_current.alpha3_Eslope.cellMLNames="slow_delayed_rectifying_potassium_current.alpha3_Eslope";
+	slow_delayed_rectifying_potassium_current.alpha3_Eslope=8.481;
+	real slow_delayed_rectifying_potassium_current.beta1_0 first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta1_0.cellMLNames="slow_delayed_rectifying_potassium_current.beta1_0";
+	slow_delayed_rectifying_potassium_current.beta1_0=3.628E-3;
+	real slow_delayed_rectifying_potassium_current.beta1_infinity first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta1_infinity.cellMLNames="slow_delayed_rectifying_potassium_current.beta1_infinity";
+	slow_delayed_rectifying_potassium_current.beta1_infinity=4.191;
+	real slow_delayed_rectifying_potassium_current.beta1_E50 millivolt;
+	slow_delayed_rectifying_potassium_current.beta1_E50.cellMLNames="slow_delayed_rectifying_potassium_current.beta1_E50";
+	slow_delayed_rectifying_potassium_current.beta1_E50=2.231E1;
+	real slow_delayed_rectifying_potassium_current.beta1_Eslope millivolt;
+	slow_delayed_rectifying_potassium_current.beta1_Eslope.cellMLNames="slow_delayed_rectifying_potassium_current.beta1_Eslope";
+	slow_delayed_rectifying_potassium_current.beta1_Eslope=1.063E1;
+	real slow_delayed_rectifying_potassium_current.beta3_0 first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta3_0.cellMLNames="slow_delayed_rectifying_potassium_current.beta3_0";
+	slow_delayed_rectifying_potassium_current.beta3_0=1.772;
+	real slow_delayed_rectifying_potassium_current.beta3_infinity first_order_rate_constant;
+	slow_delayed_rectifying_potassium_current.beta3_infinity.cellMLNames="slow_delayed_rectifying_potassium_current.beta3_infinity";
+	slow_delayed_rectifying_potassium_current.beta3_infinity=4.141E-1;
+	real slow_delayed_rectifying_potassium_current.beta3_E50 millivolt;
+	slow_delayed_rectifying_potassium_current.beta3_E50.cellMLNames="slow_delayed_rectifying_potassium_current.beta3_E50";
+	slow_delayed_rectifying_potassium_current.beta3_E50=9.822;
+	real slow_delayed_rectifying_potassium_current.beta3_Eslope millivolt;
+	slow_delayed_rectifying_potassium_current.beta3_Eslope.cellMLNames="slow_delayed_rectifying_potassium_current.beta3_Eslope";
+	slow_delayed_rectifying_potassium_current.beta3_Eslope=1.280E1;
+	real g_Na nanoS;
+	g_Na.cellMLNames="TTX_sensitive_sodium_current.g_Na;background_currents.g_Na";
+	g_Na=2.889;
+	real A_Na(time) dimensionless;
+	A_Na.cellMLNames="TTX_sensitive_sodium_current.A_Na";
+	when(time=time.min) A_Na=5.586E-4;
+	real TTX_sensitive_sodium_current.I1(time) dimensionless;
+	TTX_sensitive_sodium_current.I1.cellMLNames="TTX_sensitive_sodium_current.I1";
+	when(time=time.min) TTX_sensitive_sodium_current.I1=3.750E-1;
+	real TTX_sensitive_sodium_current.I2(time) dimensionless;
+	TTX_sensitive_sodium_current.I2.cellMLNames="TTX_sensitive_sodium_current.I2";
+	when(time=time.min) TTX_sensitive_sodium_current.I2=1.039E-1;
+	real TTX_sensitive_sodium_current.I3(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	TTX_sensitive_sodium_current.I3.cellMLNames="TTX_sensitive_sodium_current.I3";
+	when(time=time.min) TTX_sensitive_sodium_current.I3=0;
+	real TTX_sensitive_sodium_current.alpha1(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha1.cellMLNames="TTX_sensitive_sodium_current.alpha1";
+	real TTX_sensitive_sodium_current.alpha2(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha2.cellMLNames="TTX_sensitive_sodium_current.alpha2";
+	real TTX_sensitive_sodium_current.alpha3(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha3.cellMLNames="TTX_sensitive_sodium_current.alpha3";
+	real TTX_sensitive_sodium_current.alpha4(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha4.cellMLNames="TTX_sensitive_sodium_current.alpha4";
+	real TTX_sensitive_sodium_current.beta1(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta1.cellMLNames="TTX_sensitive_sodium_current.beta1";
+	real TTX_sensitive_sodium_current.beta4(time) first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta4.cellMLNames="TTX_sensitive_sodium_current.beta4";
+	real TTX_sensitive_sodium_current.alpha1_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha1_0.cellMLNames="TTX_sensitive_sodium_current.alpha1_0";
+	TTX_sensitive_sodium_current.alpha1_0=1.022E-31;
+	real TTX_sensitive_sodium_current.alpha1_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha1_infinity.cellMLNames="TTX_sensitive_sodium_current.alpha1_infinity";
+	TTX_sensitive_sodium_current.alpha1_infinity=4.355E5;
+	real TTX_sensitive_sodium_current.alpha1_E50 millivolt;
+	TTX_sensitive_sodium_current.alpha1_E50.cellMLNames="TTX_sensitive_sodium_current.alpha1_E50";
+	TTX_sensitive_sodium_current.alpha1_E50=-3.808E1;
+	real TTX_sensitive_sodium_current.alpha1_Eslope millivolt;
+	TTX_sensitive_sodium_current.alpha1_Eslope.cellMLNames="TTX_sensitive_sodium_current.alpha1_Eslope";
+	TTX_sensitive_sodium_current.alpha1_Eslope=4.402;
+	real TTX_sensitive_sodium_current.alpha2_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha2_0.cellMLNames="TTX_sensitive_sodium_current.alpha2_0";
+	TTX_sensitive_sodium_current.alpha2_0=2.950E1;
+	real TTX_sensitive_sodium_current.alpha2_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha2_infinity.cellMLNames="TTX_sensitive_sodium_current.alpha2_infinity";
+	TTX_sensitive_sodium_current.alpha2_infinity=1.710E2;
+	real TTX_sensitive_sodium_current.alpha2_E50 millivolt;
+	TTX_sensitive_sodium_current.alpha2_E50.cellMLNames="TTX_sensitive_sodium_current.alpha2_E50";
+	TTX_sensitive_sodium_current.alpha2_E50=-1.841E1;
+	real TTX_sensitive_sodium_current.alpha2_Eslope millivolt;
+	TTX_sensitive_sodium_current.alpha2_Eslope.cellMLNames="TTX_sensitive_sodium_current.alpha2_Eslope";
+	TTX_sensitive_sodium_current.alpha2_Eslope=1.661E1;
+	real TTX_sensitive_sodium_current.alpha3_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha3_0.cellMLNames="TTX_sensitive_sodium_current.alpha3_0";
+	TTX_sensitive_sodium_current.alpha3_0=0.0;
+	real TTX_sensitive_sodium_current.alpha3_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha3_infinity.cellMLNames="TTX_sensitive_sodium_current.alpha3_infinity";
+	TTX_sensitive_sodium_current.alpha3_infinity=2.031;
+	real TTX_sensitive_sodium_current.alpha3_E50 millivolt;
+	TTX_sensitive_sodium_current.alpha3_E50.cellMLNames="TTX_sensitive_sodium_current.alpha3_E50";
+	TTX_sensitive_sodium_current.alpha3_E50=-3.004E1;
+	real TTX_sensitive_sodium_current.alpha3_Eslope millivolt;
+	TTX_sensitive_sodium_current.alpha3_Eslope.cellMLNames="TTX_sensitive_sodium_current.alpha3_Eslope";
+	TTX_sensitive_sodium_current.alpha3_Eslope=1.275E-1;
+	real TTX_sensitive_sodium_current.alpha4_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha4_0.cellMLNames="TTX_sensitive_sodium_current.alpha4_0";
+	TTX_sensitive_sodium_current.alpha4_0=6.000E1;
+	real TTX_sensitive_sodium_current.alpha4_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.alpha4_infinity.cellMLNames="TTX_sensitive_sodium_current.alpha4_infinity";
+	TTX_sensitive_sodium_current.alpha4_infinity=0.0;
+	real TTX_sensitive_sodium_current.alpha4_E50 millivolt;
+	TTX_sensitive_sodium_current.alpha4_E50.cellMLNames="TTX_sensitive_sodium_current.alpha4_E50";
+	TTX_sensitive_sodium_current.alpha4_E50=-5.556E1;
+	real TTX_sensitive_sodium_current.alpha4_Eslope millivolt;
+	TTX_sensitive_sodium_current.alpha4_Eslope.cellMLNames="TTX_sensitive_sodium_current.alpha4_Eslope";
+	TTX_sensitive_sodium_current.alpha4_Eslope=4.849;
+	real TTX_sensitive_sodium_current.beta1_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta1_0.cellMLNames="TTX_sensitive_sodium_current.beta1_0";
+	TTX_sensitive_sodium_current.beta1_0=1.133E6;
+	real TTX_sensitive_sodium_current.beta1_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta1_infinity.cellMLNames="TTX_sensitive_sodium_current.beta1_infinity";
+	TTX_sensitive_sodium_current.beta1_infinity=4.104E5;
+	real TTX_sensitive_sodium_current.beta1_E50 millivolt;
+	TTX_sensitive_sodium_current.beta1_E50.cellMLNames="TTX_sensitive_sodium_current.beta1_E50";
+	TTX_sensitive_sodium_current.beta1_E50=-2.239;
+	real TTX_sensitive_sodium_current.beta1_Eslope millivolt;
+	TTX_sensitive_sodium_current.beta1_Eslope.cellMLNames="TTX_sensitive_sodium_current.beta1_Eslope";
+	TTX_sensitive_sodium_current.beta1_Eslope=1.651;
+	real TTX_sensitive_sodium_current.beta4_0 first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta4_0.cellMLNames="TTX_sensitive_sodium_current.beta4_0";
+	TTX_sensitive_sodium_current.beta4_0=1.831E-4;
+	real TTX_sensitive_sodium_current.beta4_infinity first_order_rate_constant;
+	TTX_sensitive_sodium_current.beta4_infinity.cellMLNames="TTX_sensitive_sodium_current.beta4_infinity";
+	TTX_sensitive_sodium_current.beta4_infinity=1.904E3;
+	real TTX_sensitive_sodium_current.beta4_E50 millivolt;
+	TTX_sensitive_sodium_current.beta4_E50.cellMLNames="TTX_sensitive_sodium_current.beta4_E50";
+	TTX_sensitive_sodium_current.beta4_E50=1.821E1;
+	real TTX_sensitive_sodium_current.beta4_Eslope millivolt;
+	TTX_sensitive_sodium_current.beta4_Eslope.cellMLNames="TTX_sensitive_sodium_current.beta4_Eslope";
+	TTX_sensitive_sodium_current.beta4_Eslope=1.466E1;
+	real kNaCa picoA;
+	kNaCa.cellMLNames="sodium_calcium_exchange_current.kNaCa";
+	kNaCa=2.249E3;
+	real x1(time) dimensionless;
+	x1.cellMLNames="sodium_calcium_exchange_current.x1";
+	real x2(time) dimensionless;
+	x2.cellMLNames="sodium_calcium_exchange_current.x2";
+	real x3(time) dimensionless;
+	x3.cellMLNames="sodium_calcium_exchange_current.x3";
+	real x4(time) dimensionless;
+	x4.cellMLNames="sodium_calcium_exchange_current.x4";
+	real k41(time) dimensionless;
+	k41.cellMLNames="sodium_calcium_exchange_current.k41";
+	real k34(time) dimensionless;
+	k34.cellMLNames="sodium_calcium_exchange_current.k34";
+	real k23(time) dimensionless;
+	k23.cellMLNames="sodium_calcium_exchange_current.k23";
+	real k21(time) dimensionless;
+	k21.cellMLNames="sodium_calcium_exchange_current.k21";
+	real k32(time) dimensionless;
+	k32.cellMLNames="sodium_calcium_exchange_current.k32";
+	real k43(time) dimensionless;
+	k43.cellMLNames="sodium_calcium_exchange_current.k43";
+	real k12(time) dimensionless;
+	k12.cellMLNames="sodium_calcium_exchange_current.k12";
+	real k14(time) dimensionless;
+	k14.cellMLNames="sodium_calcium_exchange_current.k14";
+	real Qci dimensionless;
+	Qci.cellMLNames="sodium_calcium_exchange_current.Qci";
+	Qci=1.421E-1;
+	real Qn dimensionless;
+	Qn.cellMLNames="sodium_calcium_exchange_current.Qn";
+	Qn=2.650E-1;
+	real Qco dimensionless;
+	Qco.cellMLNames="sodium_calcium_exchange_current.Qco";
+	Qco=0.0;
+	real K3ni millimolar;
+	K3ni.cellMLNames="sodium_calcium_exchange_current.K3ni";
+	K3ni=2.490E1;
+	real Kci millimolar;
+	Kci.cellMLNames="sodium_calcium_exchange_current.Kci";
+	Kci=6.510E-3;
+	real K1ni millimolar;
+	K1ni.cellMLNames="sodium_calcium_exchange_current.K1ni";
+	K1ni=3.938E2;
+	real K2ni millimolar;
+	K2ni.cellMLNames="sodium_calcium_exchange_current.K2ni";
+	K2ni=2.286;
+	real Kcni millimolar;
+	Kcni.cellMLNames="sodium_calcium_exchange_current.Kcni";
+	Kcni=2.568E1;
+	real K3no millimolar;
+	K3no.cellMLNames="sodium_calcium_exchange_current.K3no";
+	K3no=6.325;
+	real K1no millimolar;
+	K1no.cellMLNames="sodium_calcium_exchange_current.K1no";
+	K1no=2.200E3;
+	real K2no millimolar;
+	K2no.cellMLNames="sodium_calcium_exchange_current.K2no";
+	K2no=7.639E2;
+	real Kco millimolar;
+	Kco.cellMLNames="sodium_calcium_exchange_current.Kco";
+	Kco=3.299;
+	real D1(time) dimensionless;
+	D1.cellMLNames="sodium_calcium_exchange_current.D1";
+	real D2(time) dimensionless;
+	D2.cellMLNames="sodium_calcium_exchange_current.D2";
+	real i_fNa(time) picoA;
+	i_fNa.cellMLNames="hyperpolarisation_activated_current.i_fNa;ion_concentrations.i_fNa";
+	real i_fK(time) picoA;
+	i_fK.cellMLNames="hyperpolarisation_activated_current.i_fK;ion_concentrations.i_fK";
+	real P_f_K dimensionless;
+	P_f_K.cellMLNames="hyperpolarisation_activated_current.P_f_K";
+	P_f_K=1.162;
+	real g_f_Na nanoS;
+	g_f_Na.cellMLNames="hyperpolarisation_activated_current.g_f_Na";
+	g_f_Na=5.031E2;
+	extern real g_f_K nanoS;
+	g_f_K.cellMLNames="hyperpolarisation_activated_current.g_f_K";
+	real A_f(time) dimensionless;
+	A_f.cellMLNames="hyperpolarisation_activated_current.A_f";
+	when(time=time.min) A_f=3.716E-4;
+	real Km_f millimolar;
+	Km_f.cellMLNames="hyperpolarisation_activated_current.Km_f";
+	Km_f=1.030E1;
+	real hyperpolarisation_activated_current.I1(time) dimensionless;
+	hyperpolarisation_activated_current.I1.cellMLNames="hyperpolarisation_activated_current.I1";
+	when(time=time.min) hyperpolarisation_activated_current.I1=9.972E-1;
+	real hyperpolarisation_activated_current.I2(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	hyperpolarisation_activated_current.I2.cellMLNames="hyperpolarisation_activated_current.I2";
+	when(time=time.min) hyperpolarisation_activated_current.I2=0;
+	real hyperpolarisation_activated_current.alpha1(time) first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha1.cellMLNames="hyperpolarisation_activated_current.alpha1";
+	real hyperpolarisation_activated_current.alpha2(time) first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha2.cellMLNames="hyperpolarisation_activated_current.alpha2";
+	real hyperpolarisation_activated_current.alpha3(time) first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha3.cellMLNames="hyperpolarisation_activated_current.alpha3";
+	real hyperpolarisation_activated_current.beta1(time) first_order_rate_constant;
+	hyperpolarisation_activated_current.beta1.cellMLNames="hyperpolarisation_activated_current.beta1";
+	real hyperpolarisation_activated_current.beta3(time) first_order_rate_constant;
+	hyperpolarisation_activated_current.beta3.cellMLNames="hyperpolarisation_activated_current.beta3";
+	real hyperpolarisation_activated_current.alpha1_0 first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha1_0.cellMLNames="hyperpolarisation_activated_current.alpha1_0";
+	hyperpolarisation_activated_current.alpha1_0=1.244;
+	real hyperpolarisation_activated_current.alpha1_infinity first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha1_infinity.cellMLNames="hyperpolarisation_activated_current.alpha1_infinity";
+	hyperpolarisation_activated_current.alpha1_infinity=2.157;
+	real hyperpolarisation_activated_current.alpha1_E50 millivolt;
+	hyperpolarisation_activated_current.alpha1_E50.cellMLNames="hyperpolarisation_activated_current.alpha1_E50";
+	hyperpolarisation_activated_current.alpha1_E50=-4.973E1;
+	real hyperpolarisation_activated_current.alpha1_Eslope millivolt;
+	hyperpolarisation_activated_current.alpha1_Eslope.cellMLNames="hyperpolarisation_activated_current.alpha1_Eslope";
+	hyperpolarisation_activated_current.alpha1_Eslope=9.458;
+	real hyperpolarisation_activated_current.alpha2_0 first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha2_0.cellMLNames="hyperpolarisation_activated_current.alpha2_0";
+	hyperpolarisation_activated_current.alpha2_0=0.0;
+	real hyperpolarisation_activated_current.alpha2_infinity first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha2_infinity.cellMLNames="hyperpolarisation_activated_current.alpha2_infinity";
+	hyperpolarisation_activated_current.alpha2_infinity=6.951;
+	real hyperpolarisation_activated_current.alpha2_E50 millivolt;
+	hyperpolarisation_activated_current.alpha2_E50.cellMLNames="hyperpolarisation_activated_current.alpha2_E50";
+	hyperpolarisation_activated_current.alpha2_E50=-6.658E1;
+	real hyperpolarisation_activated_current.alpha2_Eslope millivolt;
+	hyperpolarisation_activated_current.alpha2_Eslope.cellMLNames="hyperpolarisation_activated_current.alpha2_Eslope";
+	hyperpolarisation_activated_current.alpha2_Eslope=1.013E1;
+	real hyperpolarisation_activated_current.alpha3_0 first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha3_0.cellMLNames="hyperpolarisation_activated_current.alpha3_0";
+	hyperpolarisation_activated_current.alpha3_0=5.826;
+	real hyperpolarisation_activated_current.alpha3_infinity first_order_rate_constant;
+	hyperpolarisation_activated_current.alpha3_infinity.cellMLNames="hyperpolarisation_activated_current.alpha3_infinity";
+	hyperpolarisation_activated_current.alpha3_infinity=0.0;
+	real hyperpolarisation_activated_current.alpha3_E50 millivolt;
+	hyperpolarisation_activated_current.alpha3_E50.cellMLNames="hyperpolarisation_activated_current.alpha3_E50";
+	hyperpolarisation_activated_current.alpha3_E50=-1.235E2;
+	real hyperpolarisation_activated_current.alpha3_Eslope millivolt;
+	hyperpolarisation_activated_current.alpha3_Eslope.cellMLNames="hyperpolarisation_activated_current.alpha3_Eslope";
+	hyperpolarisation_activated_current.alpha3_Eslope=1.036E1;
+	real hyperpolarisation_activated_current.beta1_0 first_order_rate_constant;
+	hyperpolarisation_activated_current.beta1_0.cellMLNames="hyperpolarisation_activated_current.beta1_0";
+	hyperpolarisation_activated_current.beta1_0=9.584E-3;
+	real hyperpolarisation_activated_current.beta1_infinity first_order_rate_constant;
+	hyperpolarisation_activated_current.beta1_infinity.cellMLNames="hyperpolarisation_activated_current.beta1_infinity";
+	hyperpolarisation_activated_current.beta1_infinity=2.619E1;
+	real hyperpolarisation_activated_current.beta1_E50 millivolt;
+	hyperpolarisation_activated_current.beta1_E50.cellMLNames="hyperpolarisation_activated_current.beta1_E50";
+	hyperpolarisation_activated_current.beta1_E50=-2.529E1;
+	real hyperpolarisation_activated_current.beta1_Eslope millivolt;
+	hyperpolarisation_activated_current.beta1_Eslope.cellMLNames="hyperpolarisation_activated_current.beta1_Eslope";
+	hyperpolarisation_activated_current.beta1_Eslope=6.206;
+	real hyperpolarisation_activated_current.beta3_0 first_order_rate_constant;
+	hyperpolarisation_activated_current.beta3_0.cellMLNames="hyperpolarisation_activated_current.beta3_0";
+	hyperpolarisation_activated_current.beta3_0=0.0;
+	real hyperpolarisation_activated_current.beta3_infinity first_order_rate_constant;
+	hyperpolarisation_activated_current.beta3_infinity.cellMLNames="hyperpolarisation_activated_current.beta3_infinity";
+	hyperpolarisation_activated_current.beta3_infinity=1.507E1;
+	real hyperpolarisation_activated_current.beta3_E50 millivolt;
+	hyperpolarisation_activated_current.beta3_E50.cellMLNames="hyperpolarisation_activated_current.beta3_E50";
+	hyperpolarisation_activated_current.beta3_E50=-7.443;
+	real hyperpolarisation_activated_current.beta3_Eslope millivolt;
+	hyperpolarisation_activated_current.beta3_Eslope.cellMLNames="hyperpolarisation_activated_current.beta3_Eslope";
+	hyperpolarisation_activated_current.beta3_Eslope=1.323E1;
+	real Km_K millimolar;
+	Km_K.cellMLNames="sodium_potassium_pump_current.Km_K";
+	Km_K=4.0E1;
+	real Km_Na millimolar;
+	Km_Na.cellMLNames="sodium_potassium_pump_current.Km_Na";
+	Km_Na=1.0;
+	real Ip_max picoA;
+	Ip_max.cellMLNames="sodium_potassium_pump_current.Ip_max";
+	Ip_max=2.463E2;
+	real g_to nanoS;
+	g_to.cellMLNames="transient_outward_current.g_to";
+	g_to=2.818E-1;
+	real A_to(time) dimensionless;
+	A_to.cellMLNames="transient_outward_current.A_to";
+	when(time=time.min) A_to=1.220E-2;
+	real transient_outward_current.I1(time) dimensionless;
+	transient_outward_current.I1.cellMLNames="transient_outward_current.I1";
+	when(time=time.min) transient_outward_current.I1=6.310E-1;
+	real transient_outward_current.I2(time) dimensionless;
+	transient_outward_current.I2.cellMLNames="transient_outward_current.I2";
+	when(time=time.min) transient_outward_current.I2=2.697E-2;
+	real transient_outward_current.I3(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	transient_outward_current.I3.cellMLNames="transient_outward_current.I3";
+	when(time=time.min) transient_outward_current.I3=0;
+	real transient_outward_current.alpha1(time) first_order_rate_constant;
+	transient_outward_current.alpha1.cellMLNames="transient_outward_current.alpha1";
+	real transient_outward_current.alpha2(time) first_order_rate_constant;
+	transient_outward_current.alpha2.cellMLNames="transient_outward_current.alpha2";
+	real transient_outward_current.alpha3(time) first_order_rate_constant;
+	transient_outward_current.alpha3.cellMLNames="transient_outward_current.alpha3";
+	real transient_outward_current.alpha4(time) first_order_rate_constant;
+	transient_outward_current.alpha4.cellMLNames="transient_outward_current.alpha4";
+	real transient_outward_current.beta1(time) first_order_rate_constant;
+	transient_outward_current.beta1.cellMLNames="transient_outward_current.beta1";
+	real transient_outward_current.beta4(time) first_order_rate_constant;
+	transient_outward_current.beta4.cellMLNames="transient_outward_current.beta4";
+	real transient_outward_current.alpha1_0 first_order_rate_constant;
+	transient_outward_current.alpha1_0.cellMLNames="transient_outward_current.alpha1_0";
+	transient_outward_current.alpha1_0=3.723;
+	real transient_outward_current.alpha1_infinity first_order_rate_constant;
+	transient_outward_current.alpha1_infinity.cellMLNames="transient_outward_current.alpha1_infinity";
+	transient_outward_current.alpha1_infinity=3.244E2;
+	real transient_outward_current.alpha1_E50 millivolt;
+	transient_outward_current.alpha1_E50.cellMLNames="transient_outward_current.alpha1_E50";
+	transient_outward_current.alpha1_E50=2.695E1;
+	real transient_outward_current.alpha1_Eslope millivolt;
+	transient_outward_current.alpha1_Eslope.cellMLNames="transient_outward_current.alpha1_Eslope";
+	transient_outward_current.alpha1_Eslope=1.808E1;
+	real transient_outward_current.alpha2_0 first_order_rate_constant;
+	transient_outward_current.alpha2_0.cellMLNames="transient_outward_current.alpha2_0";
+	transient_outward_current.alpha2_0=3.713E2;
+	real transient_outward_current.alpha2_infinity first_order_rate_constant;
+	transient_outward_current.alpha2_infinity.cellMLNames="transient_outward_current.alpha2_infinity";
+	transient_outward_current.alpha2_infinity=1.288E2;
+	real transient_outward_current.alpha2_E50 millivolt;
+	transient_outward_current.alpha2_E50.cellMLNames="transient_outward_current.alpha2_E50";
+	transient_outward_current.alpha2_E50=-9.952E1;
+	real transient_outward_current.alpha2_Eslope millivolt;
+	transient_outward_current.alpha2_Eslope.cellMLNames="transient_outward_current.alpha2_Eslope";
+	transient_outward_current.alpha2_Eslope=1.706E1;
+	real transient_outward_current.alpha3_0 first_order_rate_constant;
+	transient_outward_current.alpha3_0.cellMLNames="transient_outward_current.alpha3_0";
+	transient_outward_current.alpha3_0=4.309;
+	real transient_outward_current.alpha3_infinity first_order_rate_constant;
+	transient_outward_current.alpha3_infinity.cellMLNames="transient_outward_current.alpha3_infinity";
+	transient_outward_current.alpha3_infinity=3.371E1;
+	real transient_outward_current.alpha3_E50 millivolt;
+	transient_outward_current.alpha3_E50.cellMLNames="transient_outward_current.alpha3_E50";
+	transient_outward_current.alpha3_E50=1.886E1;
+	real transient_outward_current.alpha3_Eslope millivolt;
+	transient_outward_current.alpha3_Eslope.cellMLNames="transient_outward_current.alpha3_Eslope";
+	transient_outward_current.alpha3_Eslope=1.485E1;
+	real transient_outward_current.alpha4_0 first_order_rate_constant;
+	transient_outward_current.alpha4_0.cellMLNames="transient_outward_current.alpha4_0";
+	transient_outward_current.alpha4_0=1.167E2;
+	real transient_outward_current.alpha4_infinity first_order_rate_constant;
+	transient_outward_current.alpha4_infinity.cellMLNames="transient_outward_current.alpha4_infinity";
+	transient_outward_current.alpha4_infinity=1.997E2;
+	real transient_outward_current.alpha4_E50 millivolt;
+	transient_outward_current.alpha4_E50.cellMLNames="transient_outward_current.alpha4_E50";
+	transient_outward_current.alpha4_E50=-8.894E1;
+	real transient_outward_current.alpha4_Eslope millivolt;
+	transient_outward_current.alpha4_Eslope.cellMLNames="transient_outward_current.alpha4_Eslope";
+	transient_outward_current.alpha4_Eslope=8.432E1;
+	real transient_outward_current.beta1_0 first_order_rate_constant;
+	transient_outward_current.beta1_0.cellMLNames="transient_outward_current.beta1_0";
+	transient_outward_current.beta1_0=2.729E-2;
+	real transient_outward_current.beta1_infinity first_order_rate_constant;
+	transient_outward_current.beta1_infinity.cellMLNames="transient_outward_current.beta1_infinity";
+	transient_outward_current.beta1_infinity=1.451E2;
+	real transient_outward_current.beta1_E50 millivolt;
+	transient_outward_current.beta1_E50.cellMLNames="transient_outward_current.beta1_E50";
+	transient_outward_current.beta1_E50=-1.075E1;
+	real transient_outward_current.beta1_Eslope millivolt;
+	transient_outward_current.beta1_Eslope.cellMLNames="transient_outward_current.beta1_Eslope";
+	transient_outward_current.beta1_Eslope=5.012;
+	real transient_outward_current.beta4_0 first_order_rate_constant;
+	transient_outward_current.beta4_0.cellMLNames="transient_outward_current.beta4_0";
+	transient_outward_current.beta4_0=2.805E-1;
+	real transient_outward_current.beta4_infinity first_order_rate_constant;
+	transient_outward_current.beta4_infinity.cellMLNames="transient_outward_current.beta4_infinity";
+	transient_outward_current.beta4_infinity=7.776;
+	real transient_outward_current.beta4_E50 millivolt;
+	transient_outward_current.beta4_E50.cellMLNames="transient_outward_current.beta4_E50";
+	transient_outward_current.beta4_E50=-1.176E2;
+	real transient_outward_current.beta4_Eslope millivolt;
+	transient_outward_current.beta4_Eslope.cellMLNames="transient_outward_current.beta4_Eslope";
+	transient_outward_current.beta4_Eslope=1.032E2;
+	real g_bCl nanoS;
+	g_bCl.cellMLNames="background_currents.g_bCl";
+	g_bCl=8.691E-2;
+	extern real Kb_K dimensionless;
+	Kb_K.cellMLNames="background_currents.Kb_K";
+	real i_Ca_up(time) picoA;
+	i_Ca_up.cellMLNames="calcium_dynamics.i_Ca_up;ion_concentrations.i_Ca_up";
+	real i_Ca_rel(time) picoA;
+	i_Ca_rel.cellMLNames="calcium_dynamics.i_Ca_rel;ion_concentrations.i_Ca_rel";
+	real i_Ca_tr(time) picoA;
+	i_Ca_tr.cellMLNames="calcium_dynamics.i_Ca_tr;ion_concentrations.i_Ca_tr";
+	real Iup_max picoA;
+	Iup_max.cellMLNames="calcium_dynamics.Iup_max";
+	Iup_max=2.120E1;
+	real Km_Caup millimolar;
+	Km_Caup.cellMLNames="calcium_dynamics.Km_Caup";
+	Km_Caup=5.000E-4;
+	real Km_Carel millimolar;
+	Km_Carel.cellMLNames="calcium_dynamics.Km_Carel";
+	Km_Carel=1.000E-3;
+	real tau_rel second;
+	tau_rel.cellMLNames="calcium_dynamics.tau_rel";
+	tau_rel=5.000E-3;
+	real tau_tr second;
+	tau_tr.cellMLNames="calcium_dynamics.tau_tr";
+	tau_tr=4.000E-1;
+	real Vrel picol;
+	Vrel.cellMLNames="calcium_dynamics.Vrel;ion_concentrations.Vrel";
+	Vrel=1.5E-2;
+	real Carel(time) millimolar;
+	Carel.cellMLNames="calcium_dynamics.Carel;ion_concentrations.Carel";
+	when(time=time.min) Carel=2.448E-1;
+	real Caup(time) millimolar;
+	Caup.cellMLNames="calcium_dynamics.Caup;ion_concentrations.Caup";
+	when(time=time.min) Caup=1.035;
+	real tau_b second;
+	tau_b.cellMLNames="ion_concentrations.tau_b";
+	tau_b=1.0E-1;
+	real Cab millimolar;
+	Cab.cellMLNames="ion_concentrations.Cab";
+	Cab=2.0;
+	real Clb millimolar;
+	Clb.cellMLNames="ion_concentrations.Clb";
+	Clb=1.4E2;
+	real Kb millimolar;
+	Kb.cellMLNames="ion_concentrations.Kb";
+	Kb=5.4;
+	real Nab millimolar;
+	Nab.cellMLNames="ion_concentrations.Nab";
+	Nab=1.4E2;
+	real Vi picol;
+	Vi.cellMLNames="ion_concentrations.Vi";
+	Vi=2.5;
+	real Vup picol;
+	Vup.cellMLNames="ion_concentrations.Vup";
+	Vup=3.5E-2;
+	real Ve picol;
+	Ve.cellMLNames="ion_concentrations.Ve";
+	Ve=5.0E-1;
+
+	// <component name="environment">
+
+	// <component name="membrane">
+	Em:time=((-1)*(i_f+i_Kr+i_Ks+i_bNa+i_Na+i_NaK+i_NaCa+i_to+i_CaL+i_CaT+i_bK+i_bCl)/Cm);
+
+	// <component name="reversal_potentials">
+	E_Na=(R*T/F*ln(Nao/Nai));
+	E_Ca_rev=(R*T/(2*F)*ln(Cao/Cai));
+	E_Cl=(R*T/((-1)*F)*ln(Clo/Cli));
+	E_K=(R*T/F*ln(Ko/Ki));
+
+	// <component name="L_type_calcium_current">
+	i_CaL=(g_CaL*A_CaL*(Em-E_Ca_rev));
+	A_CaL:time=(L_type_calcium_current.alpha1*L_type_calcium_current.I3+L_type_calcium_current.beta1*L_type_calcium_current.I1-(L_type_calcium_current.beta1+L_type_calcium_current.alpha2)*A_CaL);
+	L_type_calcium_current.I1:time=(L_type_calcium_current.alpha2*A_CaL+L_type_calcium_current.beta3*L_type_calcium_current.I2-(beta2+L_type_calcium_current.alpha3+Cai^2)*L_type_calcium_current.I1);
+	L_type_calcium_current.I2:time=(L_type_calcium_current.alpha3*Cai^2*L_type_calcium_current.I1+L_type_calcium_current.beta4*Cai^2*L_type_calcium_current.I3-(L_type_calcium_current.beta3+L_type_calcium_current.alpha4)*L_type_calcium_current.I2);
+	L_type_calcium_current.I3:time=(L_type_calcium_current.beta1*A_CaL+L_type_calcium_current.alpha4*L_type_calcium_current.I2-(L_type_calcium_current.alpha1+L_type_calcium_current.beta4*Cai^2)*L_type_calcium_current.I3);
+	L_type_calcium_current.alpha1=(L_type_calcium_current.alpha1_infinity+(L_type_calcium_current.alpha1_0-L_type_calcium_current.alpha1_infinity)/(1+exp((Em-L_type_calcium_current.alpha1_E50)/L_type_calcium_current.alpha1_Eslope)));
+	L_type_calcium_current.beta1=(L_type_calcium_current.beta1_infinity+(L_type_calcium_current.beta1_0-L_type_calcium_current.beta1_infinity)/(1+exp((Em-L_type_calcium_current.beta1_E50)/L_type_calcium_current.beta1_Eslope)));
+	L_type_calcium_current.alpha2=(L_type_calcium_current.alpha2_infinity+(L_type_calcium_current.alpha2_0-L_type_calcium_current.alpha2_infinity)/(1+exp((Em-L_type_calcium_current.alpha2_E50)/L_type_calcium_current.alpha2_Eslope)));
+	beta2=(beta2_infinity+(beta2_0-beta2_infinity)/(1+exp((Em-beta2_E50)/beta2_Eslope)));
+
+	// <component name="T_type_calcium_current">
+	i_CaT=(g_CaT*A_CaT*(Em-E_Ca_rev));
+	A_CaT:time=(T_type_calcium_current.alpha1*T_type_calcium_current.I2-(T_type_calcium_current.beta1+T_type_calcium_current.alpha2)*A_CaT);
+	T_type_calcium_current.I1:time=(T_type_calcium_current.alpha2*A_CaT+T_type_calcium_current.beta3*T_type_calcium_current.I2-T_type_calcium_current.alpha3*T_type_calcium_current.I1);
+	T_type_calcium_current.I2:time=(T_type_calcium_current.alpha3*T_type_calcium_current.I1+T_type_calcium_current.beta1*A_CaT-(T_type_calcium_current.beta3+T_type_calcium_current.alpha1)*T_type_calcium_current.I2);
+	T_type_calcium_current.alpha1=(T_type_calcium_current.alpha1_infinity+(T_type_calcium_current.alpha1_0-T_type_calcium_current.alpha1_infinity)/(1+exp((Em-T_type_calcium_current.alpha1_E50)/T_type_calcium_current.alpha1_Eslope)));
+	T_type_calcium_current.beta1=(T_type_calcium_current.beta1_infinity+(T_type_calcium_current.beta1_0-T_type_calcium_current.beta1_infinity)/(1+exp((Em-T_type_calcium_current.beta1_E50)/T_type_calcium_current.beta1_Eslope)));
+	T_type_calcium_current.alpha2=(T_type_calcium_current.alpha2_infinity+(T_type_calcium_current.alpha2_0-T_type_calcium_current.alpha2_infinity)/(1+exp((Em-T_type_calcium_current.alpha2_E50)/T_type_calcium_current.alpha2_Eslope)));
+	T_type_calcium_current.alpha3=(T_type_calcium_current.alpha3_infinity+(T_type_calcium_current.alpha3_0-T_type_calcium_current.alpha3_infinity)/(1+exp((Em-T_type_calcium_current.alpha3_E50)/T_type_calcium_current.alpha3_Eslope)));
+	T_type_calcium_current.beta3=(T_type_calcium_current.beta3_infinity+(T_type_calcium_current.beta3_0-T_type_calcium_current.beta3_infinity)/(1+exp((Em-T_type_calcium_current.beta3_E50)/T_type_calcium_current.beta3_Eslope)));
+
+	// <component name="rapid_delayed_rectifying_potassium_current">
+	i_Kr=(i_Kr_Na+i_Kr_K);
+	i_Kr_Na=(g_Kr*A_Kr*PKNa_r*(Em-E_Na));
+	i_Kr_K=(g_Kr*A_Kr*(Em-E_K));
+	A_Kr:time=(rapid_delayed_rectifying_potassium_current.alpha1*rapid_delayed_rectifying_potassium_current.I3-(rapid_delayed_rectifying_potassium_current.beta1+rapid_delayed_rectifying_potassium_current.alpha2)*A_Kr);
+	rapid_delayed_rectifying_potassium_current.I1:time=(rapid_delayed_rectifying_potassium_current.alpha2*A_Kr-rapid_delayed_rectifying_potassium_current.alpha3*rapid_delayed_rectifying_potassium_current.I1);
+	rapid_delayed_rectifying_potassium_current.I2:time=(rapid_delayed_rectifying_potassium_current.alpha3*rapid_delayed_rectifying_potassium_current.I1+rapid_delayed_rectifying_potassium_current.beta4*rapid_delayed_rectifying_potassium_current.I3-rapid_delayed_rectifying_potassium_current.alpha4*rapid_delayed_rectifying_potassium_current.I2);
+	rapid_delayed_rectifying_potassium_current.I3:time=(rapid_delayed_rectifying_potassium_current.beta1*A_Kr+rapid_delayed_rectifying_potassium_current.alpha4*rapid_delayed_rectifying_potassium_current.I2-(rapid_delayed_rectifying_potassium_current.alpha1+rapid_delayed_rectifying_potassium_current.beta4)*rapid_delayed_rectifying_potassium_current.I3);
+	rapid_delayed_rectifying_potassium_current.alpha1=(rapid_delayed_rectifying_potassium_current.alpha1_infinity+(rapid_delayed_rectifying_potassium_current.alpha1_0-rapid_delayed_rectifying_potassium_current.alpha1_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.alpha1_E50)/rapid_delayed_rectifying_potassium_current.alpha1_Eslope)));
+	rapid_delayed_rectifying_potassium_current.beta1=(rapid_delayed_rectifying_potassium_current.beta1_infinity+(rapid_delayed_rectifying_potassium_current.beta1_0-rapid_delayed_rectifying_potassium_current.beta1_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.beta1_E50)/rapid_delayed_rectifying_potassium_current.beta1_Eslope)));
+	rapid_delayed_rectifying_potassium_current.alpha2=(rapid_delayed_rectifying_potassium_current.alpha2_infinity+(rapid_delayed_rectifying_potassium_current.alpha2_0-rapid_delayed_rectifying_potassium_current.alpha2_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.alpha2_E50)/rapid_delayed_rectifying_potassium_current.alpha2_Eslope)));
+	rapid_delayed_rectifying_potassium_current.alpha3=(rapid_delayed_rectifying_potassium_current.alpha3_infinity+(rapid_delayed_rectifying_potassium_current.alpha3_0-rapid_delayed_rectifying_potassium_current.alpha3_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.alpha3_E50)/rapid_delayed_rectifying_potassium_current.alpha3_Eslope)));
+	rapid_delayed_rectifying_potassium_current.alpha4=(rapid_delayed_rectifying_potassium_current.alpha4_infinity+(rapid_delayed_rectifying_potassium_current.alpha4_0-rapid_delayed_rectifying_potassium_current.alpha4_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.alpha4_E50)/rapid_delayed_rectifying_potassium_current.alpha4_Eslope)));
+	rapid_delayed_rectifying_potassium_current.beta4=(rapid_delayed_rectifying_potassium_current.beta4_infinity+(rapid_delayed_rectifying_potassium_current.beta4_0-rapid_delayed_rectifying_potassium_current.beta4_infinity)/(1+exp((Em-rapid_delayed_rectifying_potassium_current.beta4_E50)/rapid_delayed_rectifying_potassium_current.beta4_Eslope)));
+
+	// <component name="slow_delayed_rectifying_potassium_current">
+	i_Ks=(i_Ks_Na+i_Ks_K);
+	i_Ks_Na=(g_Ks*A_Ks*PKNa_s*(Em-E_Na));
+	i_Ks_K=(g_Ks*A_Ks*(Em-E_K));
+	A_Ks:time=(slow_delayed_rectifying_potassium_current.alpha1*slow_delayed_rectifying_potassium_current.I2-(slow_delayed_rectifying_potassium_current.beta1+slow_delayed_rectifying_potassium_current.alpha2)*A_Ks);
+	slow_delayed_rectifying_potassium_current.I1:time=(slow_delayed_rectifying_potassium_current.alpha2*A_Ks+slow_delayed_rectifying_potassium_current.beta3*slow_delayed_rectifying_potassium_current.I2-slow_delayed_rectifying_potassium_current.alpha3*slow_delayed_rectifying_potassium_current.I1);
+	slow_delayed_rectifying_potassium_current.I2:time=(slow_delayed_rectifying_potassium_current.alpha3*slow_delayed_rectifying_potassium_current.I1+slow_delayed_rectifying_potassium_current.beta1*A_Ks-(slow_delayed_rectifying_potassium_current.alpha1+slow_delayed_rectifying_potassium_current.beta3)*slow_delayed_rectifying_potassium_current.I2);
+	slow_delayed_rectifying_potassium_current.alpha1=(slow_delayed_rectifying_potassium_current.alpha1_infinity+(slow_delayed_rectifying_potassium_current.alpha1_0-slow_delayed_rectifying_potassium_current.alpha1_infinity)/(1+exp((Em-slow_delayed_rectifying_potassium_current.alpha1_E50)/slow_delayed_rectifying_potassium_current.alpha1_Eslope)));
+	slow_delayed_rectifying_potassium_current.beta1=(slow_delayed_rectifying_potassium_current.beta1_infinity+(slow_delayed_rectifying_potassium_current.beta1_0-slow_delayed_rectifying_potassium_current.beta1_infinity)/(1+exp((Em-slow_delayed_rectifying_potassium_current.beta1_E50)/slow_delayed_rectifying_potassium_current.beta1_Eslope)));
+	slow_delayed_rectifying_potassium_current.alpha2=(slow_delayed_rectifying_potassium_current.alpha2_infinity+(slow_delayed_rectifying_potassium_current.alpha2_0-slow_delayed_rectifying_potassium_current.alpha2_infinity)/(1+exp((Em-slow_delayed_rectifying_potassium_current.alpha2_E50)/slow_delayed_rectifying_potassium_current.alpha2_Eslope)));
+	slow_delayed_rectifying_potassium_current.alpha3=(slow_delayed_rectifying_potassium_current.alpha3_infinity+(slow_delayed_rectifying_potassium_current.alpha3_0-slow_delayed_rectifying_potassium_current.alpha3_infinity)/(1+exp((Em-slow_delayed_rectifying_potassium_current.alpha3_E50)/slow_delayed_rectifying_potassium_current.alpha3_Eslope)));
+	slow_delayed_rectifying_potassium_current.beta3=(slow_delayed_rectifying_potassium_current.beta3_infinity+(slow_delayed_rectifying_potassium_current.beta3_0-slow_delayed_rectifying_potassium_current.beta3_infinity)/(1+exp((Em-slow_delayed_rectifying_potassium_current.beta3_E50)/slow_delayed_rectifying_potassium_current.beta3_Eslope)));
+
+	// <component name="TTX_sensitive_sodium_current">
+	i_Na=(g_Na*A_Na*(Em-E_Na));
+	A_Na:time=(TTX_sensitive_sodium_current.alpha1*TTX_sensitive_sodium_current.I3-(TTX_sensitive_sodium_current.beta1+TTX_sensitive_sodium_current.alpha2)*A_Na);
+	TTX_sensitive_sodium_current.I1:time=(TTX_sensitive_sodium_current.alpha2*A_Na-TTX_sensitive_sodium_current.alpha3*TTX_sensitive_sodium_current.I1);
+	TTX_sensitive_sodium_current.I2:time=(TTX_sensitive_sodium_current.alpha3*TTX_sensitive_sodium_current.I1+TTX_sensitive_sodium_current.beta4*TTX_sensitive_sodium_current.I3-TTX_sensitive_sodium_current.alpha4*TTX_sensitive_sodium_current.I2);
+	TTX_sensitive_sodium_current.I3:time=(TTX_sensitive_sodium_current.beta1*A_Na+TTX_sensitive_sodium_current.alpha4*TTX_sensitive_sodium_current.I2-(TTX_sensitive_sodium_current.alpha1+TTX_sensitive_sodium_current.beta4)*TTX_sensitive_sodium_current.I3);
+	TTX_sensitive_sodium_current.alpha1=(TTX_sensitive_sodium_current.alpha1_infinity+(TTX_sensitive_sodium_current.alpha1_0-TTX_sensitive_sodium_current.alpha1_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.alpha1_E50)/TTX_sensitive_sodium_current.alpha1_Eslope)));
+	TTX_sensitive_sodium_current.beta1=(TTX_sensitive_sodium_current.beta1_infinity+(TTX_sensitive_sodium_current.beta1_0-TTX_sensitive_sodium_current.beta1_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.beta1_E50)/TTX_sensitive_sodium_current.beta1_Eslope)));
+	TTX_sensitive_sodium_current.alpha2=(TTX_sensitive_sodium_current.alpha2_infinity+(TTX_sensitive_sodium_current.alpha2_0-TTX_sensitive_sodium_current.alpha2_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.alpha2_E50)/TTX_sensitive_sodium_current.alpha2_Eslope)));
+	TTX_sensitive_sodium_current.alpha3=(TTX_sensitive_sodium_current.alpha3_infinity+(TTX_sensitive_sodium_current.alpha3_0-TTX_sensitive_sodium_current.alpha3_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.alpha3_E50)/TTX_sensitive_sodium_current.alpha3_Eslope)));
+	TTX_sensitive_sodium_current.alpha4=(TTX_sensitive_sodium_current.alpha4_infinity+(TTX_sensitive_sodium_current.alpha4_0-TTX_sensitive_sodium_current.alpha4_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.alpha4_E50)/TTX_sensitive_sodium_current.alpha4_Eslope)));
+	TTX_sensitive_sodium_current.beta4=(TTX_sensitive_sodium_current.beta4_infinity+(TTX_sensitive_sodium_current.beta4_0-TTX_sensitive_sodium_current.beta4_infinity)/(1+exp((Em-TTX_sensitive_sodium_current.beta4_E50)/TTX_sensitive_sodium_current.beta4_Eslope)));
+
+	// <component name="sodium_calcium_exchange_current">
+	i_NaCa=(kNaCa*((x2*k21-x1*k12)/(x1+x2+x3+x4)));
+	x1=(k41*k34*(k23+k21)+k21*k32*(k43+k41));
+	x2=(k32*k43*(k14+k12)+k41*k12*(k34+k32));
+	x3=(k14*k43*(k23+k21)+k12*k23*(k43+k41));
+	x4=(k23*k34*(k14+k12)+k14*k21*(k34+k32));
+	k43=(Nai/(K3ni+Nai));
+	k12=(Cai*exp((-1)*(Em*Qci*F/(R*T)))/(Kci*D1));
+	k14=(Nai^2*(1+Nai/K3ni)*exp(Qn*Em*F/(2*R*T))/(K1ni*K2ni*D1));
+	k41=exp((-1)*(Em*Qn*F/(2*R*T)));
+	D1=(1+Cai/Kci*(1+exp((-1)*(Em*Qci*F/(R*T))))*(Cai*Nai/(Kci*Kcni))+Nai/K1ni*(1+Nai/K2ni*(1+Nai/K3ni)));
+	k34=(Nao/(K3no+Nao));
+	k21=(Cao/Kco*exp(Qco*Em*F/(R*T))/D2);
+	k23=(Nao^2*(1+Nao/K3no)*exp((-1)*(Qn*Em*F/(2*R*T)))/(K1no*K2no*D2));
+	k32=exp(Qn*Em*F/(2*R*T));
+	D2=(1+Cao/Kco*(1+exp(Qco*Em*F/(R*T)))+Nao/K1no*(1+Nao/K2no)*(1+Nao/K3no));
+
+	// <component name="hyperpolarisation_activated_current">
+	i_f=(i_fNa+i_fK);
+	i_fNa=(A_f*(Ko^1.83/(Ko^1.83+Km_f^1.83))*g_f_Na*(Em-E_Na));
+	i_fK=(A_f*(Ko^1.83/(Ko^1.83+Km_f^1.83))*P_f_K*g_f_K*(Em-E_K));
+	A_f:time=(hyperpolarisation_activated_current.alpha1*hyperpolarisation_activated_current.I2-(hyperpolarisation_activated_current.beta1+hyperpolarisation_activated_current.alpha2)*A_f);
+	hyperpolarisation_activated_current.I1:time=(hyperpolarisation_activated_current.alpha2*A_f+hyperpolarisation_activated_current.beta3*hyperpolarisation_activated_current.I2-hyperpolarisation_activated_current.alpha3*hyperpolarisation_activated_current.I1);
+	hyperpolarisation_activated_current.I2:time=(hyperpolarisation_activated_current.alpha3*hyperpolarisation_activated_current.I1+hyperpolarisation_activated_current.beta1*A_f-(hyperpolarisation_activated_current.beta3+hyperpolarisation_activated_current.alpha1)*hyperpolarisation_activated_current.I2);
+	hyperpolarisation_activated_current.alpha1=(hyperpolarisation_activated_current.alpha1_infinity+(hyperpolarisation_activated_current.alpha1_0-hyperpolarisation_activated_current.alpha1_infinity)/(1+exp((Em-hyperpolarisation_activated_current.alpha1_E50)/hyperpolarisation_activated_current.alpha1_Eslope)));
+	hyperpolarisation_activated_current.beta1=(hyperpolarisation_activated_current.beta1_infinity+(hyperpolarisation_activated_current.beta1_0-hyperpolarisation_activated_current.beta1_infinity)/(1+exp((Em-hyperpolarisation_activated_current.beta1_E50)/hyperpolarisation_activated_current.beta1_Eslope)));
+	hyperpolarisation_activated_current.alpha2=(hyperpolarisation_activated_current.alpha2_infinity+(hyperpolarisation_activated_current.alpha2_0-hyperpolarisation_activated_current.alpha2_infinity)/(1+exp((Em-hyperpolarisation_activated_current.alpha2_E50)/hyperpolarisation_activated_current.alpha2_Eslope)));
+	hyperpolarisation_activated_current.alpha3=(hyperpolarisation_activated_current.alpha3_infinity+(hyperpolarisation_activated_current.alpha3_0-hyperpolarisation_activated_current.alpha3_infinity)/(1+exp((Em-hyperpolarisation_activated_current.alpha3_E50)/hyperpolarisation_activated_current.alpha3_Eslope)));
+	hyperpolarisation_activated_current.beta3=(hyperpolarisation_activated_current.beta3_infinity+(hyperpolarisation_activated_current.beta3_0-hyperpolarisation_activated_current.beta3_infinity)/(1+exp((Em-hyperpolarisation_activated_current.beta3_E50)/hyperpolarisation_activated_current.beta3_Eslope)));
+
+	// <component name="sodium_potassium_pump_current">
+	i_NaK=(Ip_max*(Nai/(Nai+Km_Na))*(Ko/(Ko+Km_K))*(1-((Em-(40 millivolt))/(211 millivolt))^2));
+
+	// <component name="transient_outward_current">
+	i_to=(g_to*A_to*(Em-E_K));
+	A_to:time=(transient_outward_current.alpha1*transient_outward_current.I3-(transient_outward_current.beta1+transient_outward_current.alpha2)*A_to);
+	transient_outward_current.I1:time=(transient_outward_current.alpha2*A_to-transient_outward_current.alpha3*transient_outward_current.I1);
+	transient_outward_current.I2:time=(transient_outward_current.alpha3*transient_outward_current.I1+transient_outward_current.beta4*transient_outward_current.I3-transient_outward_current.alpha4*transient_outward_current.I2);
+	transient_outward_current.I3:time=(transient_outward_current.beta1*A_to+transient_outward_current.alpha4*transient_outward_current.I2-(transient_outward_current.alpha1+transient_outward_current.beta4)*transient_outward_current.I3);
+	transient_outward_current.alpha1=(transient_outward_current.alpha1_infinity+(transient_outward_current.alpha1_0-transient_outward_current.alpha1_infinity)/(1+exp((Em-transient_outward_current.alpha1_E50)/transient_outward_current.alpha1_Eslope)));
+	transient_outward_current.beta1=(transient_outward_current.beta1_infinity+(transient_outward_current.beta1_0-transient_outward_current.beta1_infinity)/(1+exp((Em-transient_outward_current.beta1_E50)/transient_outward_current.beta1_Eslope)));
+	transient_outward_current.alpha2=(transient_outward_current.alpha2_infinity+(transient_outward_current.alpha2_0-transient_outward_current.alpha2_infinity)/(1+exp((Em-transient_outward_current.alpha2_E50)/transient_outward_current.alpha2_Eslope)));
+	transient_outward_current.alpha3=(transient_outward_current.alpha3_infinity+(transient_outward_current.alpha3_0-transient_outward_current.alpha3_infinity)/(1+exp((Em-transient_outward_current.alpha3_E50)/transient_outward_current.alpha3_Eslope)));
+	transient_outward_current.alpha4=(transient_outward_current.alpha4_infinity+(transient_outward_current.alpha4_0-transient_outward_current.alpha4_infinity)/(1+exp((Em-transient_outward_current.alpha4_E50)/transient_outward_current.alpha4_Eslope)));
+	transient_outward_current.beta4=(transient_outward_current.beta4_infinity+(transient_outward_current.beta4_0-transient_outward_current.beta4_infinity)/(1+exp((Em-transient_outward_current.beta4_E50)/transient_outward_current.beta4_Eslope)));
+
+	// <component name="background_currents">
+	i_bNa=(g_Na*(Em-E_Na));
+	i_bK=(Kb_K*Ko^.41*(Ki-Ko*exp((-1)*(Em*F/(R*T)))));
+	i_bCl=(g_bCl*(Em-E_Cl));
+
+	// <component name="calcium_dynamics">
+	i_Ca_up=(Iup_max*(1/(1+(Km_Caup/Cai)^2)));
+	i_Ca_rel=(2*F*Vrel/tau_rel*Carel*(1/(1+(Km_Carel/Cai)^2)));
+	i_Ca_tr=(2*F*Vrel/tau_tr*Caup);
+
+	// <component name="ion_concentrations">
+	Cai:time=((-1)*((i_CaL+i_CaT+i_Ca_up-(2*i_NaCa+i_Ca_rel))/(2*F*Vi)));
+	Caup:time=((i_Ca_up-i_Ca_tr)/(2*F*Vup));
+	Carel:time=((i_Ca_tr-i_Ca_rel)/(2*F*Vrel));
+	Cao:time=((i_CaL+i_CaT-2*i_NaCa)/(2*F*Ve)+(Cab-Cao)/tau_b);
+	Nai:time=((-1)*((i_Kr_Na+i_Ks_Na+i_Na+3*i_NaCa+i_bNa+i_fNa+3*i_NaK)/(F*Vi)));
+	Nao:time=((i_Kr_Na+i_Ks_Na+i_Na+3*i_NaCa+i_bNa+i_fNa+3*i_NaK)/(F*Ve)+(Nab-Nao)/tau_b);
+	Ki:time=((-1)*((i_Kr_K+i_Ks_K+i_bK+i_fK+i_to-2*i_NaK)/(F*Vi)));
+	Ko:time=((i_Kr_K+i_Ks_K+i_bK+i_fK+i_to-2*i_NaK)/(F*Ve)+(Kb-Ko)/tau_b);
+	Cli:time=(i_bCl/(F*Vi));
+	Clo:time=(i_bCl/(F*Ve)+(Clb-Clo)/tau_b);
+}
+

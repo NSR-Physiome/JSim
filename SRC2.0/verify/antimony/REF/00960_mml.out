@@ -1,0 +1,16 @@
+antimony {{
+  //Created by libAntimony v2.0
+model file0()
+
+  // Variable initializations:
+  P1 = 6.0221418e+23;
+  P5 = 4.179e+18;
+  P4 = 6.0221418e+23;
+  P3 = 6.0221418e+23;
+  P2 = 6.0221418e+23;
+end
+
+
+
+}}
+

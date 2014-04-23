@@ -1,0 +1,40 @@
+// This model generated automatically from SBML
+// WARNING: SBML events are not currently supported: Qinc
+// WARNING: SBML events are not currently supported: Rinc
+// WARNING: SBML events are not currently supported: error_check
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real S(time);
+  real Q = 0;
+  real R = 0;
+  real reset = 0;
+  real error = 0;
+
+  // equations
+  S = Q+R;
+
+  // variable properties
+  S.sbmlRole="parameter";
+  Q.sbmlRole="parameter";
+  R.sbmlRole="parameter";
+  reset.sbmlRole="parameter";
+  error.sbmlRole="parameter";
+}
+

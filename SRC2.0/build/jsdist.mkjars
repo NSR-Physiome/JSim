@@ -1,0 +1,92 @@
+#!/bin/sh
+# create JSimClient.jar & JSimServer.jar in requested directory
+
+#### subroutine
+
+# unpack jars
+unpackjars() {
+  rm -Rf $WORK
+  mkdir $WORK
+  cd $WORK
+  for i in $*
+  do
+    jar xf $i
+  done
+  rm -Rf META-INF
+}
+
+#### mainline
+
+. jsbuild.path
+
+CLIENT_ONLY=0
+
+# process command line
+if [ "$1" = "-client" ]
+then
+  CLIENT_ONLY=1;
+  shift
+fi
+if [ $# -ne 1 ]
+then
+  echo "Usage: jsdist.mkjars directory"
+  exit 1
+fi
+cd $1
+JARDIR=`pwd`
+WORK=$JARDIR/MKJARWORK
+
+# create JSimClient.jar
+echo "Creating JSimClient temp dir ..."
+THIRD="$JSIMSRC/third/client"
+unpackjars `/bin/ls $THIRD/*.jar`
+rm -Rf $WORK/gov/noaa/pmel/sgt/demo  # unneeded SGT demos
+cd $JSIMSRC
+DIRS="aserver data expr fgen gui project rclient rserver text util"
+FILES="JSim/gui/helpDB.xml"
+FILES="$FILES "`/bin/ls JSim/gui/icons/*.gif`
+FILES="$FILES "`/bin/ls JSim/gui/icons/*.png`
+FILES="$FILES "`/bin/ls JSim/xsim/XSParFile*.class`
+FILES="$FILES "`/bin/ls JSim/gui/*.txt`
+FILES="$FILES "`/bin/ls JSim/text/*.txt`
+for i in $DIRS
+do
+  FILES="$FILES "`find JSim/$i -name "*.class" | sed -e /OLD/d`
+done
+
+#tar cf - $FILES | ( cd $WORK; tar xf - )
+jsdist.copy $WORK $FILES
+
+cd $WORK
+echo "Creating JSimClient.jar ..."
+jar cf $JARDIR/JSimClient.jar *
+
+if [ $CLIENT_ONLY -gt 0 ]
+then
+  rm -Rf $WORK
+  exit 0
+fi
+
+# create JSimServer.jar
+echo "Creating JSimServer temp dir..."
+THIRD="$JSIMSRC/third/server"
+unpackjars `/bin/ls $THIRD/*.jar`
+cd $JSIMSRC
+DIRS="bcl cellml jcode jruntime lserver mathml mml nml plan sbml xsim"
+FILES="JSim/bcl/xsim/JSXWrapJ.txt JSim/plan/unittypes.txt"
+for i in $DIRS
+do
+  FILES="$FILES "`find JSim/$i -name "*.class" | sed -e /OLD/d`
+done
+
+#tar cf - $FILES | ( cd $WORK; tar xf - )
+jsdist.copy $WORK $FILES
+
+cd $WORK
+echo "Creating JSimServer.jar ..."
+jar cf $JARDIR/JSimServer.jar *
+
+# cleanup
+rm -Rf $WORK
+
+

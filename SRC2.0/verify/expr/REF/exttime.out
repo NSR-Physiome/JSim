@@ -1,0 +1,8 @@
+t.min = { 0 } dimensionless
+t.max = { 3 } dimensionless
+t.ct = { 7 } dimensionless
+t.delta = { .5 } dimensionless
+u__init = { 1 } dimensionless
+t = { 0 .5 1 1.5 2 2.5 3 } dimensionless
+u(t) = { (0,1) (.5,1.6487213) (1,2.7182818) (1.5,4.4816891) (2,7.3890562) (2.5,12.18249412) (3,20.08553723) } dimensionless
+u:t(t) = { (0,1) (.5,1.6487213) (1,2.7182818) (1.5,4.4816891) (2,7.3890562) (2.5,12.18249412) (3,20.08553723) } dimensionless

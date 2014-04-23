@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<JSim version="1.6.00">
+  <project name="proj1">
+    <model name="sens1">
+      <control name="desc" value=""/>
+      <control name="notes">
+</control>
+      <control name="modelSource">
+JSim v1.1
+math sens1 {  // for sensitivity analysis tutorial
+	realDomain t;
+	t.min=0; t.max=4*PI; t.delta=0.1;
+	real amp = 1;
+	real phase = 0;
+	real decay = 1;
+
+	real u(t) = amp*exp(-decay*t);
+	real v(t) = u * sin(t+phase);	
+	real w(t) = v * cos(t+phase);	
+}
+</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value=""/>
+      <control name="parSetModified" value="true"/>
+      <control name="built" value="true"/>
+      <control name="customRTML">
+</control>
+      <control name="customBuilt" value="false"/>
+      <vars name="vars"/>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1E-7"/>
+            <control name="ode_Dopri5_abstol" value="1E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value="0.9"/>
+            <control name="ode_Dopri5_loselect" value="0.2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value="0.04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1E-4"/>
+            <control name="ode_Fehlberg_maxstep" value="0.1"/>
+            <control name="ode_Fehlberg_tol" value="1E-6"/>
+            <control name="ode_KM_minstep" value="1E-4"/>
+            <control name="ode_KM_maxstep" value="0.1"/>
+            <control name="ode_KM_tol" value="1E-6"/>
+            <control name="ode_Radau_reltol" value="1E-4"/>
+            <control name="ode_Radau_abstol" value="1E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1E-16"/>
+            <control name="ode_Radau_safety" value="0.9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="7"/>
+            <control name="ode_Radau_jacob" value="0.001"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value="0.2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value="0.002"/>
+            <control name="ode_Radau_hicontract" value="0.8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value="0.8"/>
+            <control name="ode_RK4_nstep" value="2"/>
+            <control name="ode_CVode_reltol" value="1E-7"/>
+            <control name="ode_CVode_abstol" value="1E-8"/>
+            <control name="ode_CVode_maxsteps" value="100000"/>
+            <control name="ode_CVode_stiff" value="false"/>
+            <control name="pde_which" value="LSFEA"/>
+            <control name="pde_Toms690_order" value="3"/>
+          </solver>
+          <assign name="vars">
+            <control name="t.min" value="0"/>
+            <control name="t.max" value="12.566370614359172"/>
+            <control name="t.delta" value="0.1"/>
+            <control name="amp" value="1"/>
+            <control name="phase" value="0"/>
+            <control name="decay" value="1"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="notes">
+</control>
+      </parset>
+      <imageset name="images"/>
+      <loops name="loops">
+        <loop name="outer">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+          </looppar>
+        </loop>
+        <loop name="inner">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+          </looppar>
+        </loop>
+      </loops>
+      <sens name="sens">
+        <control name="npars" value="4"/>
+        <senspar name="senspar0">
+          <control name="par" value="amp"/>
+          <control name="delta" value="0.01"/>
+        </senspar>
+        <senspar name="senspar1">
+          <control name="par" value="phase"/>
+          <control name="delta" value="0.01"/>
+        </senspar>
+        <senspar name="senspar2">
+          <control name="par" value="decay"/>
+          <control name="delta" value="0.01"/>
+        </senspar>
+        <senspar name="senspar3">
+          <control name="par" value=""/>
+          <control name="delta" value="0.01"/>
+        </senspar>
+      </sens>
+      <PNamed name="optim">
+        <control name="npars" value="1"/>
+        <control name="nmatches" value="1"/>
+        <control name="alg" value="simplex"/>
+        <control name="maxCalls" value="50"/>
+        <control name="maxIters" value="10"/>
+        <control name="errTol" value="0.001"/>
+        <control name="stepTol" value="1E-6"/>
+        <control name="gradTol" value="1E-6"/>
+        <control name="eps" value="1E-6"/>
+        <optpar name="optpar0">
+          <control name="par" value=""/>
+          <control name="min" value="NaN"/>
+          <control name="max" value="NaN"/>
+          <control name="step" value="0.01"/>
+        </optpar>
+        <optmatch name="optmatch0">
+          <control name="src" value=""/>
+          <control name="data" value=""/>
+          <control name="expr" value=""/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+        </optmatch>
+      </PNamed>
+      <rtml name="rtml"/>
+    </model>
+  </project>
+</JSim>

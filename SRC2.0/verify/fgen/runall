@@ -1,0 +1,24 @@
+#!/bin/sh
+
+rm -Rf WORK
+mkdir WORK
+
+MODEL=delta
+if [ "$1" != "" ]
+then
+  MODEL=$1
+fi
+
+FLIST1="Pulse1 Pulse2 Pulse3 ExtendedPulse3 Ramp SquareWaveTrain SawtoothTrain SineTrain Exponential Gaussian LagNormal Longtail GammaVar Poisson RandomWalk "
+FLIST2="$FLIST1 DataCurve"
+
+for i in $FLIST1
+do  
+  run1def $MODEL $i
+done
+
+for i in $FLIST2
+do  
+  run1ndef $i
+done
+

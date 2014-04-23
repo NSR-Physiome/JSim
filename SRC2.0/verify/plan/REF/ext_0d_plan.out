@@ -1,0 +1,42 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: extern real a
+  add var: real b
+Loading Constraints
+  b=(a+1) :: [b, a]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: extern a
+Toolbox phase - cycle 1:
+  check eqn: b=(a+1); [b]
+  add tool: b=a+1
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  b=a+1 :: [b]<<[a]
+  extern a :: [a]<<[]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode b seqLoops=() phase=main fft=null
+  addNode a seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding extern a to main
+  adding b=a+1 to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  extern a
+  b=a+1
+

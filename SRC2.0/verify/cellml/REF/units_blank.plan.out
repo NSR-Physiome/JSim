@@ -1,0 +1,170 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain t second
+  add var: real t.min second
+  add var: extern real t.max second
+  add var: int t.ct
+  add var: extern real t.delta second
+  add var: extern real Po UnitP
+  add var: extern real Qi UnitQ
+  add var: extern real R UnitR
+  add var: extern real C UnitC
+  add var: extern real L UnitL
+  add var: extern real P0 UnitP
+  add var: extern real Q0 UnitQ
+  add var: extern real LS_added
+  add var: real Pi(t) UnitP
+  add var: real Qo(t) UnitQ
+  add var: real Pi:t(t) 1/second
+  add var: real Qo:t(t) 1/second
+Loading Constraints
+  t.min=0 :: [t.min]
+  when (t=t.min) Pi=P0 :: [Pi(t.min), P0]
+  when (t=t.min) Qo=Q0 :: [Qo(t.min), Q0]
+  Pi:t=((Qi-Qo)/C) :: [Pi:t, Qi, Qo, C]
+  Qo:t=((Pi-Po-R*Qo)/L) :: [Qo:t, Pi, Po, R, Qo, L]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain t
+  add tool: extern t.max
+  add tool: extern t.delta
+  add tool: extern Po
+  add tool: extern Qi
+  add tool: extern R
+  add tool: extern C
+  add tool: extern L
+  add tool: extern P0
+  add tool: extern Q0
+  add tool: extern LS_added
+Toolbox phase - cycle 1:
+  check eqn: t.min=0; [t.min]
+  add tool: t.min=0
+  add tool: t.ct=(t.max-t.min)/t.delta+1.5
+  check eqn: when (t=t.min) Pi=P0; [Pi(t.min)]
+  add tool: Pi(t.min)=P0
+  check eqn: when (t=t.min) Qo=Q0; [Qo(t.min)]
+  add tool: Qo(t.min)=Q0
+  check eqn: Pi:t=((Qi-Qo)/C); [Pi:t, Qo]
+  check eqn: Qo:t=((Pi-Po-R*Qo)/L); [Qo:t, Pi]
+  add tool: ODE Pi: []
+  updated ODE(Pi) with Pi(t.min)=P0
+  add tool: ODE Qo: []
+  updated ODE(Qo) with Qo(t.min)=Q0
+Toolbox phase - cycle 1:
+  check eqn: Pi:t=((Qi-Qo)/C); [Pi:t]
+  add tool: Pi:t=(Qi-Qo)/C
+  check eqn: Qo:t=((Pi-Po-R*Qo)/L); [Qo:t]
+  add tool: Qo:t=(Pi-Po-R*Qo)/L
+  updated ODE(Pi) with Pi:t=(Qi-Qo)/C
+    Pi is now entirely solved
+  updated ODE(Qo) with Qo:t=(Pi-Po-R*Qo)/L
+    Qo is now entirely solved
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  @t Qo:t=(Pi-Po-R*Qo)/L :: [Qo:t]<<[Pi, Po, R, Qo, L]
+  @t Pi:t=(Qi-Qo)/C :: [Pi:t]<<[Qi, Qo, C]
+  @t ODE Qo: Qo:t=(Pi-Po-R*Qo)/L :: [Qo, Qo(t.max)]<<[Pi, Po, R, L, Qo(t.min), Qo:t]
+  @t ODE Pi: Pi:t=(Qi-Qo)/C :: [Pi, Pi(t.max)]<<[Qi, Qo, C, Pi(t.min), Pi:t]
+  extern LS_added :: [LS_added]<<[]
+  extern Q0 :: [Q0]<<[]
+  extern P0 :: [P0]<<[]
+  extern L :: [L]<<[]
+  extern C :: [C]<<[]
+  extern R :: [R]<<[]
+  extern Qi :: [Qi]<<[]
+  extern Po :: [Po]<<[]
+  extern t.delta :: [t.delta]<<[]
+  t.ct=(t.max-t.min)/t.delta+1.5 :: [t.ct]<<[t.max, t.min, t.delta]
+  extern t.max :: [t.max]<<[]
+  t.min=0 :: [t.min]<<[]
+  domain t :: [t]<<[t.min, t.max, t.ct, t.delta]
+  Qo(t.min)=Q0 :: [Qo(t.min)]<<[Q0]
+  Pi(t.min)=P0 :: [Pi(t.min)]<<[P0]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[t]
+  addNode Qo:t seqLoops=(t) phase=t#1 fft=null
+  addNode Pi:t seqLoops=(t) phase=t#1 fft=null
+  addNode Qo seqLoops=(t) phase=t#1 fft=t
+  addNode Pi seqLoops=(t) phase=t#1 fft=t
+  addNode LS_added seqLoops=() phase=main fft=null
+  addNode Q0 seqLoops=() phase=main fft=null
+  addNode P0 seqLoops=() phase=main fft=null
+  addNode L seqLoops=() phase=main fft=null
+  addNode C seqLoops=() phase=main fft=null
+  addNode R seqLoops=() phase=main fft=null
+  addNode Qi seqLoops=() phase=main fft=null
+  addNode Po seqLoops=() phase=main fft=null
+  addNode t.delta seqLoops=() phase=main fft=null
+  addNode t.ct seqLoops=() phase=main fft=null
+  addNode t.max seqLoops=() phase=main fft=null
+  addNode t.min seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode Qo(t.min) seqLoops=() phase=main fft=null
+  addNode Pi(t.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding extern LS_added to main
+  adding extern Q0 to main
+  adding extern P0 to main
+  adding extern L to main
+  adding extern C to main
+  adding extern R to main
+  adding extern Qi to main
+  adding extern Po to main
+  adding extern t.delta to main
+  adding extern t.max to main
+  adding t.min=0 to main
+  adding t.ct=(t.max-t.min)/t.delta+1.5 to main
+  adding domain t to main
+  adding Qo(t.min)=Q0 to main
+  adding Pi(t.min)=P0 to main
+  subphase t#1 entryEdge=null
+building block for phase t#1
+  adding Qo:t=(Pi-Po-R*Qo)/L to loop-t
+  adding Pi:t=(Qi-Qo)/C to loop-t
+  adding ODE Block-t [Qo, Pi] to loop-t
+  adding loop-t to main
+Building ODE Block-t [Qo, Pi] ...
+  adding muTool Qo:t=(Pi-Po-R*Qo)/L
+  adding muVar Qo:t
+  adding muTool Pi:t=(Qi-Qo)/C
+  adding muVar Pi:t
+  adding Qo:t=(Pi-Po-R*Qo)/L to ODE Block-t [Qo, Pi]
+  adding Pi:t=(Qi-Qo)/C to ODE Block-t [Qo, Pi]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  extern LS_added
+  extern Q0
+  extern P0
+  extern L
+  extern C
+  extern R
+  extern Qi
+  extern Po
+  extern t.delta
+  extern t.max
+  t.min=0
+  t.ct=(t.max-t.min)/t.delta+1.5
+  domain t
+  Qo(t.min)=Q0
+  Pi(t.min)=P0
+  loop-t
+    Qo:t=(Pi-Po-R*Qo)/L
+    Pi:t=(Qi-Qo)/C
+    ODE Block-t vmus=[t, Qo, Pi, Qo:t, Pi:t]
+      Qo:t=(Pi-Po-R*Qo)/L
+      Pi:t=(Qi-Qo)/C
+

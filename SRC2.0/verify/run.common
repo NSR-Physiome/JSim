@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$JSBATCH" = "" ]
+then
+  echo "JSBATCH not defined, run '. jsverify.env DIR' first"
+  exit 1
+fi
+

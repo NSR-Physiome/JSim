@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.2  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Alan Yen">
+	<META NAME="CREATED" CONTENT="20090421;16150000">
+	<META NAME="CHANGEDBY" CONTENT="Erik Butterworth">
+	<META NAME="CHANGED" CONTENT="20090422;10581700">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.26in 11.69in; margin: 0.79in }
+		@page:first { }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000 }
+		P.western { font-family: "Cambria"; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "Cambria"; font-size: 12pt }
+		P.ctl { font-family: "Cambria"; font-size: 12pt; so-language: ar-SA }
+		A:link { color: #0000d4 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#0000d4" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>JSIM
+Software License</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Copyright
+(C) 1999-2009 University of Washington</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Developed
+by the National Simulation Resource</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Department
+of Bioengineering, &nbsp;Box 355061</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>University
+of Washington, Seattle, WA 98195-5061.</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Dr.
+J. B. Bassingthwaighte, Director</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Redistribution
+and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>*
+Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>*
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>*
+Neither the name of the University of Washington nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>THIS
+SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>&quot;AS
+IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>CONTRIBUTORS
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>PROCUREMENT
+OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier"><FONT SIZE=2>SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier"><FONT SIZE=2>ADDITIONAL
+CONDITIONS</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier"><FONT SIZE=2>Certain
+third party code is integrated in this software. Use of this software
+is conditioned upon complying with the license agreements for those
+third party codes listed in Table 1. </FONT></FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><FONT FACE="Courier"><FONT SIZE=2>Table
+1</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<TABLE WIDTH=542 BORDER=1 BORDERCOLOR="#000000" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=89>
+	<COL WIDTH=118>
+	<COL WIDTH=202>
+	<COL WIDTH=76>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=1>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>External
+			code</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>License
+			Name</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>License
+			url</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>Distribution
+			Format</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=21>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Radau </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western">&nbsp;</P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.unige.ch/~hairer/software.html"><FONT FACE="Courier"><FONT SIZE=2>http://www.unige.ch/~hairer/prog/licence.txt</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>source</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=21>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Dopri5 </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western">&nbsp;</P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><FONT FACE="Courier"><FONT SIZE=2><U>http://www.unige.ch/~hairer/prog/licence.txt</U></FONT></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>source</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=45>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>CVODE solver </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>SUNDIALS
+			License</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.llnl.gov/CASC/sundials/download/license.html"><FONT FACE="Courier"><FONT SIZE=2>http://www.llnl.gov/CASC/sundials/download/license.html</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>source</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=33>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Toms731
+			solver</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>ACM Software
+			Copyright and License Agreement</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.acm.org/pubs/copyright_policy/softwareCRnotice.html"><FONT FACE="Courier"><FONT SIZE=2>http://www.acm.org/pubs/copyright_policy/softwareCRnotice.html</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>source</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=89 HEIGHT=22>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>NelderMead
+			optimizer</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=118>
+			<P CLASS="western">&nbsp;</P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.ee.ucl.ac.uk/~mflanaga/java/"><FONT FACE="Courier"><FONT SIZE=2>http://www.ee.ucl.ac.uk/~mflanaga/java/</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>source</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in; widows: 0; orphans: 0"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier"><FONT SIZE=2>For
+your convenience, certain third party codes are distributed along
+with this software. </FONT></FONT><FONT FACE="Courier"><FONT SIZE=2>Use
+of this software is conditioned upon complying with the license
+agreements for those third party codes listed in Table 2. </FONT></FONT>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><FONT FACE="Courier"><FONT SIZE=2>Table
+2</FONT></FONT></P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=542 BORDER=1 BORDERCOLOR="#000000" CELLPADDING=7 CELLSPACING=0>
+	<COL WIDTH=95>
+	<COL WIDTH=112>
+	<COL WIDTH=202>
+	<COL WIDTH=76>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=1>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>External
+			code</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>License
+			name</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>License
+			url</B></FONT></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2><B>Distribution
+			Format</B></FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=45>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Java</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Sun
+			Microsystems, inc.</FONT></FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=2><BR></FONT></FONT><FONT FACE="Courier"><FONT SIZE=2>Binary
+			code license agreement</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.java.com/en/download/license.jsp"><FONT FACE="Courier"><FONT SIZE=2>http://www.java.com/en/download/license.jsp</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=32>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>CUP parser
+			generator </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>CUP Parser
+			Generator Copyright Notice, License, and Disclaimer</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.cs.princeton.edu/~appel/modern/java/CUP/#LICENSE"><FONT FACE="Courier"><FONT SIZE=2>http://www.cs.princeton.edu/~appel/modern/java/CUP/#LICENSE</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=34>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>JLex lexical
+			analyzer generator</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Jlex
+			copyright notice, license and disclaimer</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.cs.princeton.edu/~appel/modern/java/JLex/#LICENSE"><FONT FACE="Courier"><FONT SIZE=2>http://www.cs.princeton.edu/~appel/modern/java/JLex/#LICENSE</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=52>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Scientific
+			Graphics Toolkit </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>U.S.
+			Department of Commerce (DOC)</FONT></FONT><FONT FACE="Arial, sans-serif"><FONT SIZE=2><BR></FONT></FONT><FONT FACE="Courier"><FONT SIZE=2>Software
+			License for EPIC Software</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.epic.noaa.gov/java/license.html"><FONT FACE="Courier"><FONT SIZE=2>http://www.epic.noaa.gov/java/license.html</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=23>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Xerces2 Java
+			Parser </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>Apache
+			license, version 2.0</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://www.apache.org/licenses/LICENSE-2.0.html"><FONT FACE="Courier"><FONT SIZE=2>http://www.apache.org/licenses/LICENSE-2.0.html</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=34>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>JigCell SBML
+			Parser </FONT></FONT>
+			</P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western">&nbsp;</P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="https://biospice.org/BioCOMPLicense.html"><FONT FACE="Courier"><FONT SIZE=2>https://biospice.org/BioCOMPLicense.html</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=BOTTOM>
+		<TD WIDTH=95 HEIGHT=20>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>JAMA Java
+			Matrix package</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=112>
+			<P CLASS="western">&nbsp;</P>
+		</TD>
+		<TD WIDTH=202>
+			<P CLASS="western"><FONT COLOR="#0000d4"><U><A HREF="http://math.nist.gov/javanumerics/jama/"><FONT FACE="Courier"><FONT SIZE=2>http://math.nist.gov/javanumerics/jama/</FONT></FONT></A></U></FONT></P>
+		</TD>
+		<TD WIDTH=76>
+			<P CLASS="western"><FONT FACE="Courier"><FONT SIZE=2>binary</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

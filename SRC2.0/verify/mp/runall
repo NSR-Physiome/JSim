@@ -1,0 +1,60 @@
+#!/bin/sh
+
+. ../run.common
+
+mkclean
+mkdir WORK LOG
+
+# use -ref switch to generate 1 proc reference data
+NPROC=2
+if [ "$1" != "" ]
+then
+  NPROC=$1
+fi
+
+# fim test: model needs fix for v2
+run1fim $NPROC qpp2.proj qpp2.cdata
+
+# pde tests
+run1pde $NPROC pde1 LSFEA u1f
+run1pde $NPROC pde1 MacCormack u1f x.delta=.02
+run1pde $NPROC pde1 Toms731 u1f t.delta=.05 x.delta=.1
+
+# fzero tests
+run1fzero $NPROC fzerol linear a1avg  n.ct=10001
+run1fzero $NPROC fzerob simplex xmean t.ct=201
+run1fzero $NPROC fzerob gridsearch xmean t.ct=201 
+run1fzero $NPROC fzerou ggopt xmean t.ct=201
+run1fzero $NPROC fzerou neldermead xmean t.ct=201 
+run1fzero $NPROC fzerou nl2sol xmean t.ct=201 
+run1fzero $NPROC fzerou simanneal xmean t.ct=201 
+# run1fzero $NPROC fzerob genetic xmean t.ct=201 # doesn't reliably converge
+
+# opt tests
+run1opt $NPROC opt4 simplex a1 a2 a3 a4
+run1opt $NPROC opt4 ggopt a1 a2 a3 a4
+run1opt $NPROC opt4 gridsearch a1 a2 a3 a4
+run1opt $NPROC opt4 neldermead a1 a2 a3 a4
+run1opt $NPROC opt4 nl2sol a1 a2 a3 a4
+run1opt $NPROC opt4 sensop a1 a2 a3 a4
+run1opt $NPROC opt4 simanneal a1 a2 a3 a4
+run1opt $NPROC opt4 genetic a1 a2 a3 a4
+
+# ode50 tests - hardcore calc, no sleep
+run1ode $NPROC ode50 Dopri5 uf t.max=5
+run1ode $NPROC ode50 Radau uf t.max=3
+run1ode $NPROC ode50 CVode uf t.max=5
+run1ode $NPROC ode50 Auto uf t.max=5
+run1ode $NPROC ode50 Euler uf t.max=5
+run1ode $NPROC ode50 RK2 uf t.max=5
+run1ode $NPROC ode50 KM uf t.max=3
+run1ode $NPROC ode50 Fehlberg uf t.max=3
+run1ode $NPROC ode50 RK4 uf t.max=3  # RK4 suks for this problem
+
+
+# odeslow tests for debug only
+exit 0
+for i in Euler Dopri5 Radau CVode
+do
+  run1ode $NPROC $p $i delay=1
+done

@@ -1,0 +1,2166 @@
+<?xml version="1.0"?>
+<JSim version="1.6.92a">
+  <project name="proj1">
+    <model name="model">
+      <control name="desc" value=""/>
+      <control name="easelVariant" value=""/>
+      <control name="notes">Fig 1: Output from N stirred Tanks plus Delay: Pulse
+
+This is a plot of the input and output function for a one
+compartment model with delay. The transit tau of a one compartment
+model, tau equals Volume/Flow = 3 seconds. The delay is set
+to three seconds. The relative dispersion of N-stirred tanks
+is given as
+
+               1
+RD =  ______________________ . (Analytic Expression)
+       sqrt(N)*(1+delay/tau)
+
+Fig 2: RUN LOOPS, DISPLAY AS TEXT: Pulse
+
+The text table gives the calculated value of RD from the
+input and output curves using a JSIM Mathematical Modeling
+Language (MML) &quot;procedure&quot;. 
+
+Exercise: Run Model with LagNormal parameter set.
+Pulse Results
+        RDsys{Ntank=1}           .4935514                   
+        RDsys{Ntank=4}           .24811778                  
+        RDsys{Ntank=9}           .16624937                  
+        RDsys{Ntank=16}          .12649828 
+
+LagNormal Results
+        RDsys{Ntank=1}           .49036595                  
+        RDsys{Ntank=4}           .24926249                  
+        RDsys{Ntank=9}           .16695031                  
+        RDsys{Ntank=16}          .12700222  
+
+Analytic Results
+     RDanalytic{Ntank=1}            .5                      
+     RDanalytic{Ntank=4}            .25                     
+     RDanalytic{Ntank=9}         .16666667                  
+     RDanalytic{Ntank=16}          .125   </control>
+      <control name="modelSource">//MODEL NUMBER:
+//MODEL NAME: CTEX20
+//SHORT DESCRIPTION: Computes N compartmental two region CTEX20.
+
+
+import nsrunit; unit conversion on;
+
+math CTEX20 {
+
+// INDEPENDENT VARIABLES
+realDomain t sec ; t.min=0; t.max=30; t.delta=0.01;
+
+realDomain N; N.min=1; N.delta=1; //private N.min, N.delta, N.ct;
+int Ntank = 4; 
+N.max = if(Ntank=1) 2 else Ntank;
+
+// PARAMETERS
+real Fp    = 1 ml/(g*min),         // Flow 
+     PSg   = 1 ml/(g*min),         // Exchange Coefficient
+     Vp    = 0.05 ml/g,            // Total Volume for N tanks
+     Visfp = 0.15 ml/g,   
+     hVp ml/g,                     // Volume of a single tank
+     hVisfp ml/g;                
+     
+hVp          = if(Vp&gt;0)    Vp/Ntank        else (1e-6 ml/g);
+hVisfp       = if(Visfp&gt;0) Visfp/Ntank     else (1e-6 ml/g);
+// INPUT FUNCTION
+real Cinn(t,N) mM;
+extern real Cin(t) mM;
+
+// VARIABLES
+real Cp(t,N) mM, Cisf(t,N) mM, Cout(t) mM;
+
+// INITIAL CONDITIONS
+when(t=t.min) {Cp = 0; 
+               Cisf =0;}
+Cinn=if(N=1) Cin else Cp(t,N-1) ;
+
+// ORDINARY DIFFERENTIAL EQUATIONs (Applies to all tanks.)
+hVp*Cp:t=Fp*(Cinn-Cp)+PSg*(Cisf-Cp);
+hVisfp*Cisf:t=PSg*(Cp-Cisf);
+Cout =  Cp(t,Ntank) ;
+
+}
+/*
+FIGURE:
+           Tank 1                Tank 2                          Tank N
+         +---------+           +---------+                     +---------+
+Fp*Cin -&gt;          -&gt;Fp*CP(1)-&gt;          -&gt; .....-&gt;Fp*Cp(N-1)-&gt;          -&gt;Fp*Cp(N)
+         | Cp(1)   |           | Cp(2)   |                     | Cp(N)   |  =
+         |  V/N    |           |  V/N    |                     |  V/N    | Fp*Cout
+         +---------+           +---------+                     +---------+
+              ^                     ^                               ^
+              | PSg                 | PSg                           | PSg
+              v                     v                               v         
+         +---------+           +---------+                     +---------+
+         | Cisf(1) |           | Cisf(2) |                     | Cisf(N) |  
+         | Visfp/N |           | Visfp/N |                     | Visfp/N | 
+         +---------+           +---------+                     +---------+
+            
+
+DETAILED DESCRIPTION:
+     N well stirred tanks (i.e. compartmental models with flow) representing
+the capillary region are connected in series and exchange with N additional tanks
+in parallel representing the interstitial fluid region. 
+
+
+KEY WORDS:  CTEX20, BTEX20, Compartmental, Stirred Tanks, 
+
+REFERENCES:
+ 
+
+REVISION HISTORY:
+   Revised: GR Date: 08/08/09
+
+JSim SOFTWARE COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:
+   
+JSim software was developed with support from NIH grants HL088516, 
+and HL073598. Please cite these grants in any publication for which 
+this software is used and send one reprint of published abstracts or 
+articles to the address given below. Academic use is unrestricted. 
+Software may be copied so long as this copyright notice is included.
+
+Copyright (C) 1999-2009 University of Washington.
+
+Contact Information:
+ 
+The National Simulation Resource,  
+Director J. B. Bassingthwaighte, 
+Department of Bioengineering, 
+University of Washington, Seattle, WA 
+98195-5061
+
+*/
+
+
+</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value=""/>
+      <control name="parSetModified" value="true"/>
+      <control name="built" value="true"/>
+      <control name="customRTML"></control>
+      <control name="customBuilt" value="false"/>
+      <options name="buildOptions">
+        <control name="maxBuildTime" value="120"/>
+        <control name="maxImplicitBlock" value="3"/>
+        <control name="initNaN" value="false"/>
+        <control name="abortNaN" value="false"/>
+        <control name="traceNaN" value="false"/>
+        <control name="traceVars" value=""/>
+        <control name="ignoreAllOverspec" value="false"/>
+        <control name="ignoreAllUnderspec" value="false"/>
+      </options>
+      <vars name="vars">
+        <function name="fgen_1"/>
+      </vars>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1E-7"/>
+            <control name="ode_Dopri5_abstol" value="1E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value=".9"/>
+            <control name="ode_Dopri5_loselect" value=".2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value=".04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_RK2_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1E-4"/>
+            <control name="ode_Fehlberg_maxstep" value=".1"/>
+            <control name="ode_Fehlberg_tol" value="1E-6"/>
+            <control name="ode_KM_minstep" value="1E-4"/>
+            <control name="ode_KM_maxstep" value=".1"/>
+            <control name="ode_KM_tol" value="1E-6"/>
+            <control name="ode_Radau_reltol" value="1E-4"/>
+            <control name="ode_Radau_abstol" value="1E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1E-16"/>
+            <control name="ode_Radau_safety" value=".9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="7"/>
+            <control name="ode_Radau_jacob" value=".001"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value=".2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value=".002"/>
+            <control name="ode_Radau_hicontract" value=".8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value=".8"/>
+            <control name="ode_RK4_nstep" value="20"/>
+            <control name="ode_CVode_reltol" value="1E-7"/>
+            <control name="ode_CVode_abstol" value="1E-8"/>
+            <control name="ode_CVode_maxsteps" value="100000"/>
+            <control name="ode_CVode_stiff" value="false"/>
+            <control name="pde_which" value="MacCormack"/>
+            <control name="pde_MacCormack_FCT" value="false"/>
+            <control name="fzero_unbound" value=""/>
+            <control name="fzero_bound" value=""/>
+            <control name="fzero_errtol" value="1E-6"/>
+            <control name="fzero_maxcalls" value="500"/>
+            <control name="fzero_maxiters" value="100"/>
+            <control name="fzero_eps" value="1E-6"/>
+            <control name="fzero_istep" value=".01"/>
+            <control name="fzero_npoints" value="5"/>
+            <control name="fzero_randseed" value="0"/>
+            <control name="fzero_inittemp" value="100"/>
+            <control name="random_seed" value="0"/>
+          </solver>
+          <function name="fgen_1">
+            <control name="desc" value=""/>
+            <control name="which" value="LagNormal"/>
+            <function name="Pulse1">
+              <control name="startTime" value="20"/>
+              <control name="duration" value=".01"/>
+              <control name="amplitude" value="30.5"/>
+              <control name="offset" value="0"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="Pulse2">
+              <control name="p1Start" value="0"/>
+              <control name="p1Duration" value="1"/>
+              <control name="p1Amplitude" value="1"/>
+              <control name="offset" value="0"/>
+              <control name="p1TimeToRepeat" value="10"/>
+              <control name="p2Start" value="1"/>
+              <control name="p2Duration" value="2"/>
+              <control name="p2Amplitude" value="2"/>
+              <control name="p2TimeToRepeat" value="0"/>
+            </function>
+            <function name="Pulse3">
+              <control name="p1Start" value="0"/>
+              <control name="p1Duration" value="1"/>
+              <control name="p1Amplitude" value="1"/>
+              <control name="offset" value="0"/>
+              <control name="p1TimeToRepeat" value="10"/>
+              <control name="p2Start" value="1"/>
+              <control name="p2Duration" value="2"/>
+              <control name="p2Amplitude" value="2"/>
+              <control name="p2TimeToRepeat" value="0"/>
+              <control name="p3Start" value="3"/>
+              <control name="p3Duration" value="3"/>
+              <control name="p3Amplitude" value="3"/>
+              <control name="p3TimeToRepeat" value="0"/>
+            </function>
+            <function name="ExtendedPulse3">
+              <control name="offset" value="0"/>
+              <control name="timeToRepeat" value="3"/>
+              <control name="p1Start" value="0"/>
+              <control name="p1Duration" value=".5"/>
+              <control name="p1Amplitude" value="1"/>
+              <control name="p1LoopCnt" value="1"/>
+              <control name="p1AmpIncr" value="0"/>
+              <control name="p2Start" value="1"/>
+              <control name="p2Duration" value=".5"/>
+              <control name="p2Amplitude" value="2"/>
+              <control name="p2LoopCnt" value="3"/>
+              <control name="p2AmpIncr" value=".5"/>
+              <control name="p3Start" value="2"/>
+              <control name="p3Duration" value=".5"/>
+              <control name="p3Amplitude" value="3"/>
+              <control name="p3LoopCnt" value="0"/>
+              <control name="p3AmpIncr" value="0"/>
+            </function>
+            <function name="Ramp">
+              <control name="startTime" value="1"/>
+              <control name="duration" value="5"/>
+              <control name="amplitude" value="-1"/>
+              <control name="offset" value="1"/>
+              <control name="exponent" value="3"/>
+              <control name="timeToRepeat" value="10"/>
+            </function>
+            <function name="SquareWaveTrain">
+              <control name="startTime" value="0"/>
+              <control name="duration" value="10"/>
+              <control name="amplitude" value="1"/>
+              <control name="offset" value="0"/>
+              <control name="shapeFactor" value=".5"/>
+              <control name="phase" value="0"/>
+              <control name="period" value="5"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="SawtoothTrain">
+              <control name="startTime" value="0"/>
+              <control name="duration" value="10"/>
+              <control name="amplitude" value="1"/>
+              <control name="offset" value="0"/>
+              <control name="shapeFactor" value=".5"/>
+              <control name="phase" value="0"/>
+              <control name="period" value="5"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="SineTrain">
+              <control name="startTime" value="0"/>
+              <control name="duration" value="5"/>
+              <control name="amplitude" value="1"/>
+              <control name="offset" value="0"/>
+              <control name="phase" value="0"/>
+              <control name="period" value="5"/>
+              <control name="timeToRepeat" value="10"/>
+            </function>
+            <function name="Exponential">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="frPeak" value="1E-6"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="Gaussian">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="frPeak" value="1E-6"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="LagNormal">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".4"/>
+              <control name="skewn" value="1.3"/>
+              <control name="frPeak" value="1E-16"/>
+              <control name="upslope" value="Regular"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="Longtail">
+              <control name="area" value="1"/>
+              <control name="frArea" value=".3"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="skewn" value="1.3"/>
+              <control name="frPeak" value=".1"/>
+              <control name="upslope" value="Regular"/>
+              <control name="nexp" value="3"/>
+              <control name="rk1" value="1"/>
+              <control name="rk2" value=".2"/>
+              <control name="rk3" value=".04"/>
+              <control name="rk4" value=".008"/>
+              <control name="scaleta" value="1"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="GammaVar">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="skewn" value="1.3"/>
+              <control name="frPeak" value="1E-6"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="Poisson">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="frPeak" value="1E-6"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="RandomWalk">
+              <control name="area" value="1"/>
+              <control name="tMean" value="5"/>
+              <control name="RD" value=".3"/>
+              <control name="skewn" value="1"/>
+              <control name="frPeak" value="1E-6"/>
+              <control name="timeToRepeat" value="0"/>
+            </function>
+            <function name="DataCurve">
+              <control name="ndim" value="1"/>
+              <control name="dataSet" value=""/>
+              <control name="name" value=""/>
+            </function>
+            <control name="domain0" value="t"/>
+            <control name="domain1" value=""/>
+            <control name="domain2" value=""/>
+          </function>
+          <assign name="vars">
+            <control name="t.min" value="0"/>
+            <control name="t.max" value="38"/>
+            <control name="t.delta" value=".1"/>
+            <control name="N.min" value="1"/>
+            <control name="N.delta" value="1"/>
+            <control name="Ntank" value="1"/>
+            <control name="Fp" value="1"/>
+            <control name="PSg" value="2"/>
+            <control name="Vp" value=".05"/>
+            <control name="Visfp" value=".10"/>
+            <control name="Cin" value="fgen_1"/>
+            <control name="Cp__init" value="0"/>
+            <control name="Cisf__init" value="0"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="notes"></control>
+      </parset>
+      <imageset name="images"/>
+      <loops name="loops">
+        <loop name="outer">
+          <control name="mode" value="off"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=" "/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+        <loop name="inner">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="2"/>
+          <looppar name="looppar0">
+            <control name="par" value="SiteInj"/>
+            <control name="values" value="4"/>
+            <control name="enabled" value="true"/>
+          </looppar>
+          <looppar name="looppar1">
+            <control name="par" value=" "/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+      </loops>
+      <sens name="sens">
+        <control name="npars" value="1"/>
+        <senspar name="senspar0">
+          <control name="par" value=""/>
+          <control name="delta" value=".01"/>
+          <control name="enabled" value="true"/>
+        </senspar>
+      </sens>
+      <optim name="optim">
+        <control name="npars" value="3"/>
+        <control name="nmatches" value="2"/>
+        <control name="alg" value="sensop"/>
+        <control name="maxCalls" value="40"/>
+        <control name="maxIters" value="10"/>
+        <control name="errTol" value="0"/>
+        <control name="stepTol" value="0"/>
+        <control name="gradTol" value="0"/>
+        <control name="npoints" value="5"/>
+        <control name="eps" value="1E-6"/>
+        <control name="randomSeed" value="0"/>
+        <control name="initTemp" value="100"/>
+        <control name="calcCovMat" value="true"/>
+        <optpar name="optpar0">
+          <control name="par" value="PSg"/>
+          <control name="min" value=".01"/>
+          <control name="max" value="2.5"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch0">
+          <control name="src" value=""/>
+          <control name="data" value="Conc"/>
+          <control name="expr" value="Cout"/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+        <optpar name="optpar1">
+          <control name="par" value="Visfp"/>
+          <control name="min" value=".01"/>
+          <control name="max" value=".11"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optpar name="optpar2">
+          <control name="par" value=""/>
+          <control name="min" value="NaN"/>
+          <control name="max" value="NaN"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch1">
+          <control name="src" value=""/>
+          <control name="data" value=""/>
+          <control name="expr" value=""/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+      </optim>
+      <rtml name="rtml"/>
+    </model>
+    <plotpage name="InputOutput">
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="liveUpdate" value="false"/>
+      <control name="showConf" value="true"/>
+      <control name="showXRule" value="false"/>
+      <control name="xRule" value=".5"/>
+      <control name="showYRule" value="false"/>
+      <control name="yRule" value=".445"/>
+      <control name="showMinMaxSliders" value="false"/>
+      <control name="animeDuration" value="10"/>
+      <control name="animeRate" value="10"/>
+      <control name="animeLoop" value="false"/>
+      <control name="animeDir" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="5"/>
+        <control name="title" value="Fig1: CTEX20: Default"/>
+        <control name="titleX" value=".5"/>
+        <control name="titleY" value="1"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="showTitle" value="true"/>
+        <control name="showFooter" value="false"/>
+        <control name="legendX" value=".62989324"/>
+        <control name="legendY" value=".7892562"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="1"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="Time, sec"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="Concentration, mM"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="model"/>
+          <control name="expr" value="Cin"/>
+          <control name="color" value="black"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item1">
+          <control name="src" value="model"/>
+          <control name="expr" value="Cout"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="thick"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item2">
+          <control name="src" value="Noisydata"/>
+          <control name="expr" value="Conc"/>
+          <control name="color" value="orange"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="circle"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="thick"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item3">
+          <control name="src" value="model"/>
+          <control name="expr" value=""/>
+          <control name="color" value="green"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="thick"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item4">
+          <control name="src" value="model"/>
+          <control name="expr" value=""/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="thick"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <parset name="Default">
+      <vars name="vars">
+                                                        <solver name="solver">
+                                                                      <control name="ode_which" value="Auto"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_reltol" value="1E-7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_abstol" value="1E-7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_nstep" value="100000"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_stiff" value="1000"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_round" value="2.3E-16"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_safety" value=".9"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_loselect" value=".2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_hiselect" value="10"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Dopri5_beta" value=".04"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Euler_nstep" value="2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_RK2_nstep" value="2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Fehlberg_minstep" value="1E-4"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Fehlberg_maxstep" value=".1"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Fehlberg_tol" value="1E-6"/>
+
+
+
+
+
+
+                                                                      <control name="ode_KM_minstep" value="1E-4"/>
+
+
+
+
+
+
+                                                                      <control name="ode_KM_maxstep" value=".1"/>
+
+
+
+
+
+
+                                                                      <control name="ode_KM_tol" value="1E-6"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_reltol" value="1E-4"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_abstol" value="1E-7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_nstep" value="100000"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_round" value="1E-16"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_safety" value=".9"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_minord" value="3"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_maxord" value="7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_initord" value="3"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_newton" value="7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_jacob" value=".001"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_losize" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_hisize" value="1.2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_loselect" value=".2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_hiselect" value="8"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_locontract" value=".002"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_hicontract" value=".8"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_hiorder" value="1.2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_Radau_loorder" value=".8"/>
+
+
+
+
+
+
+                                                                      <control name="ode_RK4_nstep" value="2"/>
+
+
+
+
+
+
+                                                                      <control name="ode_CVode_reltol" value="1E-7"/>
+
+
+
+
+
+
+                                                                      <control name="ode_CVode_abstol" value="1E-8"/>
+
+
+
+
+
+
+                                                                      <control name="ode_CVode_maxsteps" value="100000"/>
+
+
+
+
+
+
+                                                                      <control name="ode_CVode_stiff" value="false"/>
+
+
+
+
+
+
+                                                                      <control name="pde_which" value="LSFEA"/>
+
+
+
+
+
+
+                                                                      <control name="pde_MacCormack_FCT" value="false"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_unbound" value="ggopt"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_bound" value="simplex"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_errtol" value="1E-6"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_maxcalls" value="500"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_maxiters" value="100"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_eps" value="1E-6"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_istep" value=".01"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_npoints" value="5"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_randseed" value="0"/>
+
+
+
+
+
+
+                                                                      <control name="fzero_inittemp" value="100"/>
+
+
+
+
+
+
+                                                                      <control name="random_seed" value="0"/>
+
+
+
+
+
+
+        </solver>
+
+
+
+
+
+
+                                                        <function name="fgen_1">
+                                                                      <control name="desc" value=""/>
+
+
+
+
+
+
+                                                                      <control name="which" value="LagNormal"/>
+
+
+
+
+
+
+                                                                      <function name="Pulse1">
+                                                                                    <control name="startTime" value="1E-10"/>
+
+
+
+
+
+
+                                                                                    <control name="duration" value=".1"/>
+
+
+
+
+
+
+                                                                                    <control name="amplitude" value="10"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Pulse2">
+                                                                                    <control name="p1Start" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Duration" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p1TimeToRepeat" value="10"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Start" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Duration" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Amplitude" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p2TimeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Pulse3">
+                                                                                    <control name="p1Start" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Duration" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p1TimeToRepeat" value="10"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Start" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Duration" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Amplitude" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p2TimeToRepeat" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Start" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Duration" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Amplitude" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p3TimeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="ExtendedPulse3">
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Start" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Duration" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="p1Amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p1LoopCnt" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p1AmpIncr" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Start" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Duration" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="p2Amplitude" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p2LoopCnt" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p2AmpIncr" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Start" value="2"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Duration" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="p3Amplitude" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="p3LoopCnt" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="p3AmpIncr" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Ramp">
+                                                                                    <control name="startTime" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="duration" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="amplitude" value="-1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="exponent" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="10"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="SquareWaveTrain">
+                                                                                    <control name="startTime" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="duration" value="10"/>
+
+
+
+
+
+
+                                                                                    <control name="amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="shapeFactor" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="phase" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="period" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="SawtoothTrain">
+                                                                                    <control name="startTime" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="duration" value="10"/>
+
+
+
+
+
+
+                                                                                    <control name="amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="shapeFactor" value=".5"/>
+
+
+
+
+
+
+                                                                                    <control name="phase" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="period" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="SineTrain">
+                                                                                    <control name="startTime" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="duration" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="amplitude" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="offset" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="phase" value="0"/>
+
+
+
+
+
+
+                                                                                    <control name="period" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="10"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Exponential">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Gaussian">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="LagNormal">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="skewn" value="1.3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="upslope" value="Regular"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Longtail">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="frArea" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="skewn" value="1.3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value=".1"/>
+
+
+
+
+
+
+                                                                                    <control name="upslope" value="Regular"/>
+
+
+
+
+
+
+                                                                                    <control name="nexp" value="3"/>
+
+
+
+
+
+
+                                                                                    <control name="rk1" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="rk2" value=".2"/>
+
+
+
+
+
+
+                                                                                    <control name="rk3" value=".04"/>
+
+
+
+
+
+
+                                                                                    <control name="rk4" value=".008"/>
+
+
+
+
+
+
+                                                                                    <control name="scaleta" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="GammaVar">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="skewn" value="1.3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="Poisson">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="RandomWalk">
+                                                                                    <control name="area" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="tMean" value="5"/>
+
+
+
+
+
+
+                                                                                    <control name="RD" value=".3"/>
+
+
+
+
+
+
+                                                                                    <control name="skewn" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="frPeak" value="1E-6"/>
+
+
+
+
+
+
+                                                                                    <control name="timeToRepeat" value="0"/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <function name="DataCurve">
+                                                                                    <control name="ndim" value="1"/>
+
+
+
+
+
+
+                                                                                    <control name="dataSet" value=""/>
+
+
+
+
+
+
+                                                                                    <control name="name" value=""/>
+
+
+
+
+
+
+          </function>
+
+
+
+
+
+
+                                                                      <control name="domain0" value="t"/>
+
+
+
+
+
+
+                                                                      <control name="domain1" value=""/>
+
+
+
+
+
+
+                                                                      <control name="domain2" value=""/>
+
+
+
+
+
+
+        </function>
+
+
+
+
+
+
+                                                        <assign name="vars">
+                                                                      <control name="t.min" value="0"/>
+
+
+
+
+
+
+                                                                      <control name="t.max" value="30"/>
+
+
+
+
+
+
+                                                                      <control name="t.delta" value=".01"/>
+
+
+
+
+
+
+                                                                      <control name="N.min" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="N.delta" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="Ntank" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="Fp" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="PSg" value="1"/>
+
+
+
+
+
+
+                                                                      <control name="Vp" value=".05"/>
+
+
+
+
+
+
+                                                                      <control name="Visfp" value=".15"/>
+
+
+
+
+
+
+                                                                      <control name="Cin" value="fgen_1"/>
+
+
+
+
+
+
+                                                                      <control name="Cp__init" value="0"/>
+
+
+
+
+
+
+                                                                      <control name="Cisf__init" value="0"/>
+
+
+
+
+
+
+        </assign>
+
+
+
+
+
+
+      </vars>
+      <control name="desc" value=""/>
+      <control name="notes"></control>
+    </parset>
+    <dataset coding="ascii" name="Noisydata" precision="19" version="1.6.92a">
+      <ndata desc="" name="Conc" unit="mM">
+        <grid ct="31" desc="t" max="37" min="7" tag="grid_0" unit="sec"/>
+        <samples>  7.01929E-5  4.2925E-4  0.001969  0.0066565  0.0150155  0.0354447  0.0580551  0.0936134
+  0.1134941  0.1102604  0.1102241  0.10967  0.104048  0.0781388  0.0477792  0.0365249
+  0.0236401  0.016308  0.0078373  0.0055235  0.0022961  0.001582  9.48022E-4  5.03067E-4
+  2.8001E-4  1.81945E-4  9.33323E-5  4.42996E-5  2.65788E-5  1.81653E-5  1.00082E-5</samples>
+      </ndata>
+      <control name="desc" value=""/>
+      <control name="notes"></control>
+      <control name="origFile" value="/user2/garyr/COURSES2009/ZIP/AlternateOrganization/2GettingStarted/Noisydata.cdata"/>
+      <control name="encoding" value="ascii"/>
+      <control name="filterType" value="crop"/>
+      <control name="filterDim" value="0"/>
+      <control name="filterMin" value="0"/>
+      <control name="filterMax" value="100"/>
+      <control name="filterDelta" value=".1"/>
+    </dataset>
+  </project>
+</JSim>

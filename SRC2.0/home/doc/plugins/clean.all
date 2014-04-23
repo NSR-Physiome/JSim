@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# clean all the plugins in lower directories
+for i in my*
+do
+  echo ==== $i
+  cd $i
+  ./clean
+  cd ..
+done

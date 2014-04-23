@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>m</ci>
+          <cn>1</cn>
+        </apply>
+      </math>
+    </p>
+    <p>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <eq/>
+          <ci>s</ci>
+          <apply>
+            <times/>
+            <ci>m</ci>
+            <cn>60</cn>
+          </apply>
+        </apply>
+      </math>
+    </p>
+  </body>
+</html>
+

@@ -1,0 +1,1971 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time millisecond
+  add var: real time.min millisecond
+  add var: extern real time.max millisecond
+  add var: int time.ct
+  add var: extern real time.delta millisecond
+  add var: real V(time) millivolt
+  add var: real R joule_per_kilomole_kelvin
+  add var: real T kelvin
+  add var: real F coulomb_per_mole
+  add var: real Cm microF
+  add var: real I_st microA_per_microF
+  add var: real i_Na(time) microA_per_microF
+  add var: real i_Ca_L(time) microA_per_microF
+  add var: real i_K(time) microA_per_microF
+  add var: real i_NaCa(time) microA_per_microF
+  add var: real i_K1(time) microA_per_microF
+  add var: real i_Kp(time) microA_per_microF
+  add var: real i_p_Ca(time) microA_per_microF
+  add var: real i_Na_b(time) microA_per_microF
+  add var: real i_Ca_b(time) microA_per_microF
+  add var: real i_NaK(time) microA_per_microF
+  add var: real i_ns_Ca(time) microA_per_microF
+  add var: real i_to(time) microA_per_microF
+  add var: real g_to milliS_per_microF
+  add var: real R_to(time) dimensionless
+  add var: real E_K(time) millivolt
+  add var: real z(time) dimensionless
+  add var: real y(time) dimensionless
+  add var: real alpha_z(time) per_millisecond
+  add var: real beta_z(time) per_millisecond
+  add var: real alpha_y(time) per_millisecond
+  add var: real beta_y(time) per_millisecond
+  add var: real E_Na(time) millivolt
+  add var: real g_Na milliS_per_microF
+  add var: real Nai(time) millimolar
+  add var: real Nao millimolar
+  add var: real m(time) dimensionless
+  add var: real h(time) dimensionless
+  add var: real j(time) dimensionless
+  add var: real alpha_m(time) per_millisecond
+  add var: real beta_m(time) per_millisecond
+  add var: real alpha_h(time) per_millisecond
+  add var: real beta_h(time) per_millisecond
+  add var: real alpha_j(time) per_millisecond
+  add var: real beta_j(time) per_millisecond
+  add var: real i_CaCa(time) microA_per_microF
+  add var: real i_CaK(time) microA_per_microF
+  add var: real i_CaNa(time) microA_per_microF
+  add var: real gamma_Nai dimensionless
+  add var: real gamma_Nao dimensionless
+  add var: real gamma_Ki dimensionless
+  add var: real gamma_Ko dimensionless
+  add var: real I_CaCa(time) microA_per_microF
+  add var: real I_CaK(time) microA_per_microF
+  add var: real I_CaNa(time) microA_per_microF
+  add var: real P_Ca cm_per_second
+  add var: real P_Na cm_per_second
+  add var: real P_K cm_per_second
+  add var: real gamma_Cai dimensionless
+  add var: real gamma_Cao dimensionless
+  add var: real Cai(time) micromolar
+  add var: real Cao millimolar
+  add var: real Ko(time) millimolar
+  add var: real Ki(time) millimolar
+  add var: real d(time) dimensionless
+  add var: real f(time) dimensionless
+  add var: real f_Ca(time) dimensionless
+  add var: real alpha_d(time) per_millisecond
+  add var: real beta_d(time) per_millisecond
+  add var: real d_infinity(time) dimensionless
+  add var: real tau_d(time) millisecond
+  add var: real alpha_f(time) per_millisecond
+  add var: real beta_f(time) per_millisecond
+  add var: real f_infinity(time) dimensionless
+  add var: real tau_f(time) millisecond
+  add var: real Km_Ca micromolar
+  add var: real g_K(time) milliS_per_microF
+  add var: real PR_NaK dimensionless
+  add var: real X(time) dimensionless
+  add var: real Xi(time) dimensionless
+  add var: real alpha_X(time) per_millisecond
+  add var: real beta_X(time) per_millisecond
+  add var: real E_K1(time) millivolt
+  add var: real g_K1(time) milliS_per_cm2
+  add var: real K1_infinity(time) dimensionless
+  add var: real alpha_K1(time) per_millisecond
+  add var: real beta_K1(time) per_millisecond
+  add var: real E_Kp(time) millivolt
+  add var: real g_Kp milliS_per_microF
+  add var: real Kp(time) dimensionless
+  add var: real K_mpCa micromolar
+  add var: real I_pCa microA_per_microF
+  add var: real g_Nab milliS_per_microF
+  add var: real E_NaN(time) millivolt
+  add var: real g_Cab milliS_per_microF
+  add var: real E_CaN(time) millivolt
+  add var: real I_NaK microA_per_microF
+  add var: real f_NaK(time) dimensionless
+  add var: real K_mNai millimolar
+  add var: real K_mKo millimolar
+  add var: real sigma dimensionless
+  add var: real i_ns_Na(time) microA_per_microF
+  add var: real i_ns_K(time) microA_per_microF
+  add var: real P_ns_Ca cm_per_second
+  add var: real I_ns_Na(time) microA_per_microF
+  add var: real I_ns_K(time) microA_per_microF
+  add var: real K_m_ns_Ca micromolar
+  add var: real K_NaCa microA_per_microF
+  add var: real K_mNa millimolar
+  add var: real K_mCa millimolar
+  add var: real K_sat dimensionless
+  add var: real eta dimensionless
+  add var: real K_mTn micromolar
+  add var: real K_mCMDN micromolar
+  add var: real Tn_max micromolar
+  add var: real CMDN_max micromolar
+  add var: real Tn_buff(time) micromolar
+  add var: real CMDN_buff(time) micromolar
+  add var: real i_rel(time) millimolar_per_millisecond
+  add var: real i_up(time) millimolar_per_millisecond
+  add var: real i_leak(time) millimolar_per_millisecond
+  add var: real i_tr(time) millimolar_per_millisecond
+  add var: real G_rel(time) per_millisecond
+  add var: real G_rel_max(time) per_millisecond
+  add var: real tau_on millisecond
+  add var: real tau_off millisecond
+  add var: real tau_tr millisecond
+  add var: real t millisecond
+  add var: real K_mrel micromolar
+  add var: extern real delta_Ca_i2 micromolar
+  add var: real delta_Ca_ith micromolar
+  add var: real CSQN_buff(time) millimolar
+  add var: real CSQN_max millimolar
+  add var: real CSQN_th millimolar
+  add var: real K_mCSQN millimolar
+  add var: real K_mup micromolar
+  add var: real K_leak per_millisecond
+  add var: real I_up millimolar_per_millisecond
+  add var: real Ca_NSR_max millimolar
+  add var: extern real calcium_overload dimensionless
+  add var: real Ca_JSR(time) millimolar
+  add var: real Ca_NSR(time) millimolar
+  add var: real Ca_foot(time) micromolar
+  add var: real A_cap mm2
+  add var: extern real R_A_V dimensionless
+  add var: extern real V_myo micro_litre
+  add var: extern real V_cleft micro_litre
+  add var: extern real V_JSR micro_litre
+  add var: extern real V_NSR micro_litre
+  add var: real V:time(time) millivolt/millisecond
+  add var: real z:time(time) 1/millisecond
+  add var: real y:time(time) 1/millisecond
+  add var: real m:time(time) 1/millisecond
+  add var: real h:time(time) 1/millisecond
+  add var: real j:time(time) 1/millisecond
+  add var: real d:time(time) 1/millisecond
+  add var: real f:time(time) 1/millisecond
+  add var: real X:time(time) 1/millisecond
+  add var: real Nai:time(time) millimolar/millisecond
+  add var: real Cai:time(time) micromolar/millisecond
+  add var: real Ki:time(time) millimolar/millisecond
+  add var: real Ko:time(time) millimolar/millisecond
+  add var: real Ca_JSR:time(time) millimolar/millisecond
+  add var: real Ca_NSR:time(time) millimolar/millisecond
+  add var: real Ca_foot:time(time) micromolar/millisecond
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) V=(-84.624) :: [V(time.min)]
+  R=8314 :: [R]
+  T=310 :: [T]
+  F=96500 :: [F]
+  Cm=1 :: [Cm]
+  I_st=(-100) :: [I_st]
+  g_to=.5 :: [g_to]
+  when (time=time.min) z=0 :: [z(time.min)]
+  when (time=time.min) y=0 :: [y(time.min)]
+  g_Na=16 :: [g_Na]
+  when (time=time.min) Nai=10 :: [Nai(time.min)]
+  Nao=140 :: [Nao]
+  when (time=time.min) m=0 :: [m(time.min)]
+  when (time=time.min) h=0 :: [h(time.min)]
+  when (time=time.min) j=0 :: [j(time.min)]
+  gamma_Nai=.75 :: [gamma_Nai]
+  gamma_Nao=.75 :: [gamma_Nao]
+  gamma_Ki=.75 :: [gamma_Ki]
+  gamma_Ko=.75 :: [gamma_Ko]
+  P_Ca=5.4E-4 :: [P_Ca]
+  P_Na=6.75E-7 :: [P_Na]
+  P_K=1.93E-7 :: [P_K]
+  gamma_Cai=1 :: [gamma_Cai]
+  gamma_Cao=.34 :: [gamma_Cao]
+  when (time=time.min) Cai=.12 :: [Cai(time.min)]
+  Cao=1.8 :: [Cao]
+  when (time=time.min) Ko=5.4 :: [Ko(time.min)]
+  when (time=time.min) Ki=145 :: [Ki(time.min)]
+  when (time=time.min) d=0 :: [d(time.min)]
+  when (time=time.min) f=0 :: [f(time.min)]
+  Km_Ca=.6 :: [Km_Ca]
+  PR_NaK=.01833 :: [PR_NaK]
+  when (time=time.min) X=0 :: [X(time.min)]
+  g_Kp=.0183 :: [g_Kp]
+  K_mpCa=.5 :: [K_mpCa]
+  I_pCa=1.15 :: [I_pCa]
+  g_Nab=.00141 :: [g_Nab]
+  g_Cab=.003016 :: [g_Cab]
+  I_NaK=1.5 :: [I_NaK]
+  K_mNai=10 :: [K_mNai]
+  K_mKo=1.5 :: [K_mKo]
+  P_ns_Ca=1.75E-7 :: [P_ns_Ca]
+  K_m_ns_Ca=1.2 :: [K_m_ns_Ca]
+  K_NaCa=2E3 :: [K_NaCa]
+  K_mNa=87.5 :: [K_mNa]
+  K_mCa=1.38 :: [K_mCa]
+  K_sat=.1 :: [K_sat]
+  eta=.35 :: [eta]
+  K_mTn=.5 :: [K_mTn]
+  K_mCMDN=2.38 :: [K_mCMDN]
+  Tn_max=70 :: [Tn_max]
+  CMDN_max=50 :: [CMDN_max]
+  tau_on=2 :: [tau_on]
+  tau_off=2 :: [tau_off]
+  tau_tr=180 :: [tau_tr]
+  t=0 :: [t]
+  K_mrel=.8 :: [K_mrel]
+  delta_Ca_ith=.18 :: [delta_Ca_ith]
+  CSQN_max=10 :: [CSQN_max]
+  CSQN_th=.7 :: [CSQN_th]
+  K_mCSQN=.8 :: [K_mCSQN]
+  K_mup=.92 :: [K_mup]
+  I_up=.005 :: [I_up]
+  Ca_NSR_max=.15 :: [Ca_NSR_max]
+  when (time=time.min) Ca_JSR=0 :: [Ca_JSR(time.min)]
+  when (time=time.min) Ca_NSR=15 :: [Ca_NSR(time.min)]
+  when (time=time.min) Ca_foot=0 :: [Ca_foot(time.min)]
+  A_cap=1.53E-4 :: [A_cap]
+  V:time=(1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)) :: [V:time, Cm, i_Na, i_Ca_L, i_K, i_K1, i_Kp, i_NaCa, i_p_Ca, i_Na_b, i_Ca_b, i_NaK, i_ns_Ca, i_to, I_st]
+  i_to=(g_to*z^3*y*R_to*(V-E_K)) :: [i_to, g_to, z, y, R_to, V, E_K]
+  R_to=exp(V/100) :: [R_to, V]
+  z:time=(alpha_z*(1-z)-beta_z*z) :: [z:time, alpha_z, z, beta_z]
+  alpha_z=(10*exp((V-40)/25)/(1+exp((V-40)/25))) :: [alpha_z, V]
+  beta_z=(10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))) :: [beta_z, V]
+  y:time=(alpha_y*(1-y)-beta_y*y) :: [y:time, alpha_y, y, beta_y]
+  alpha_y=(.015/(1+exp((V+60)/5))) :: [alpha_y, V]
+  beta_y=(.1*exp((V+25)/5)/(1+exp((V+25)/5))) :: [beta_y, V]
+  i_Na=(g_Na*m^3*h*j*(V-E_Na)) :: [i_Na, g_Na, m, h, j, V, E_Na]
+  E_Na=(R*T/F*ln(Nao/Nai)) :: [E_Na, R, T, F, Nao, Nai]
+  alpha_m=(.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))) :: [alpha_m, V]
+  beta_m=(.08*exp(V/11*(-1))) :: [beta_m, V]
+  m:time=(alpha_m*(1-m)-beta_m*m) :: [m:time, alpha_m, m, beta_m]
+  alpha_h=(if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0) :: [alpha_h, V]
+  beta_h=(if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))) :: [beta_h, V]
+  h:time=(alpha_h*(1-h)-beta_h*h) :: [h:time, alpha_h, h, beta_h]
+  alpha_j=(if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0) :: [alpha_j, V]
+  beta_j=(if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))) :: [beta_j, V]
+  j:time=(alpha_j*(1-j)-beta_j*j) :: [j:time, alpha_j, j, beta_j]
+  i_CaCa=(d*f*f_Ca*I_CaCa) :: [i_CaCa, d, f, f_Ca, I_CaCa]
+  i_CaNa=(d*f*f_Ca*I_CaNa) :: [i_CaNa, d, f, f_Ca, I_CaNa]
+  i_CaK=(d*f*f_Ca*I_CaK) :: [i_CaK, d, f, f_Ca, I_CaK]
+  I_CaCa=(P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))) :: [I_CaCa, P_Ca, V, F, R, T, gamma_Cai, Cai, gamma_Cao, Cao]
+  I_CaNa=(P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))) :: [I_CaNa, P_Na, V, F, R, T, gamma_Nai, Nai, gamma_Nao, Nao]
+  I_CaK=(P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))) :: [I_CaK, P_K, V, F, R, T, gamma_Ki, Ki, gamma_Ko, Ko]
+  i_Ca_L=(i_CaCa+i_CaK+i_CaNa) :: [i_Ca_L, i_CaCa, i_CaK, i_CaNa]
+  alpha_d=(d_infinity/tau_d) :: [alpha_d, d_infinity, tau_d]
+  d_infinity=(1/(1+exp((V+10)/6.24*(-1)))) :: [d_infinity, V]
+  tau_d=(d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))) :: [tau_d, d_infinity, V]
+  beta_d=((1-d_infinity)/tau_d) :: [beta_d, d_infinity, tau_d]
+  d:time=(alpha_d*(1-d)-beta_d*d) :: [d:time, alpha_d, d, beta_d]
+  alpha_f=(f_infinity/tau_f) :: [alpha_f, f_infinity, tau_f]
+  f_infinity=(1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))) :: [f_infinity, V]
+  tau_f=(1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)) :: [tau_f, V]
+  beta_f=((1-f_infinity)/tau_f) :: [beta_f, f_infinity, tau_f]
+  f:time=(alpha_f*(1-f)-beta_f*f) :: [f:time, alpha_f, f, beta_f]
+  f_Ca=(1/(1+(Cai/Km_Ca)^2)) :: [f_Ca, Cai, Km_Ca]
+  g_K=(.282*sqrt(Ko/5.4)) :: [g_K, Ko]
+  E_K=(R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))) :: [E_K, R, T, F, Ko, PR_NaK, Nao, Ki, Nai]
+  i_K=(g_K*X^2*Xi*(V-E_K)) :: [i_K, g_K, X, Xi, V, E_K]
+  alpha_X=(7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))) :: [alpha_X, V]
+  beta_X=(1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))) :: [beta_X, V]
+  X:time=(alpha_X*(1-X)-beta_X*X) :: [X:time, alpha_X, X, beta_X]
+  Xi=(1/(1+exp((V-56.26)/32.1))) :: [Xi, V]
+  g_K1=(.75*sqrt(Ko/5.4)) :: [g_K1, Ko]
+  E_K1=(R*T/F*ln(Ko/Ki)) :: [E_K1, R, T, F, Ko, Ki]
+  i_K1=(g_K1*K1_infinity*(V-E_K1)) :: [i_K1, g_K1, K1_infinity, V, E_K1]
+  alpha_K1=(1.02/(1+exp(.2385*(V-E_K1-59.215)))) :: [alpha_K1, V, E_K1]
+  beta_K1=((.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))) :: [beta_K1, V, E_K1]
+  K1_infinity=(alpha_K1/(alpha_K1+beta_K1)) :: [K1_infinity, alpha_K1, beta_K1]
+  E_Kp=E_K1 :: [E_Kp, E_K1]
+  Kp=(1/(1+exp((7.488-V)/5.98))) :: [Kp, V]
+  i_Kp=(g_Kp*Kp*(V-E_Kp)) :: [i_Kp, g_Kp, Kp, V, E_Kp]
+  i_p_Ca=(I_pCa*(Cai/(K_mpCa+Cai))) :: [i_p_Ca, I_pCa, Cai, K_mpCa]
+  E_NaN=E_Na :: [E_NaN, E_Na]
+  i_Na_b=(g_Nab*(V-E_NaN)) :: [i_Na_b, g_Nab, V, E_NaN]
+  E_CaN=(R*T/F*ln(Cao/Cai)*.5) :: [E_CaN, R, T, F, Cao, Cai]
+  i_Ca_b=(g_Cab*(V-E_CaN)) :: [i_Ca_b, g_Cab, V, E_CaN]
+  f_NaK=(1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)) :: [f_NaK, V, F, R, T, sigma]
+  sigma=(1*(exp(Nao*.01485884101040119)-1)*.14285714285714285) :: [sigma, Nao]
+  i_NaK=(I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))) :: [i_NaK, I_NaK, f_NaK, K_mNai, Nai, Ko, K_mKo]
+  i_ns_Na=(I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))) :: [i_ns_Na, I_ns_Na, K_m_ns_Ca, Cai]
+  i_ns_K=(I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))) :: [i_ns_K, I_ns_K, K_m_ns_Ca, Cai]
+  i_ns_Ca=(i_ns_Na+i_ns_K) :: [i_ns_Ca, i_ns_Na, i_ns_K]
+  I_ns_Na=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))) :: [I_ns_Na, P_ns_Ca, V, F, R, T, gamma_Nai, Nai, gamma_Nao, Nao]
+  I_ns_K=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))) :: [I_ns_K, P_ns_Ca, V, F, R, T, gamma_Ki, Ki, gamma_Ko, Ko]
+  i_NaCa=(K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)) :: [i_NaCa, K_NaCa, K_mNa, Nao, K_mCa, Cao, K_sat, eta, V, F, R, T, Nai, Cai]
+  Tn_buff=(Tn_max*(Cai/(Cai+K_mTn))) :: [Tn_buff, Tn_max, Cai, K_mTn]
+  CMDN_buff=(CMDN_max*(Cai/(Cai+K_mCMDN))) :: [CMDN_buff, CMDN_max, Cai, K_mCMDN]
+  i_rel=(G_rel*(Ca_JSR-Cai)) :: [i_rel, G_rel, Ca_JSR, Cai]
+  G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))) :: [G_rel, calcium_overload, G_rel_max, delta_Ca_i2, delta_Ca_ith, K_mrel, t, tau_on, tau_off]
+  G_rel_max=(if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4) :: [G_rel_max, calcium_overload, delta_Ca_i2, delta_Ca_ith, CSQN_buff, CSQN_th]
+  CSQN_buff=(CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))) :: [CSQN_buff, CSQN_max, Ca_JSR, K_mCSQN]
+  i_up=(I_up*(Cai/(Cai+K_mup))) :: [i_up, I_up, Cai, K_mup]
+  i_leak=(K_leak*Ca_NSR) :: [i_leak, K_leak, Ca_NSR]
+  K_leak=(I_up/Ca_NSR_max) :: [K_leak, I_up, Ca_NSR_max]
+  i_tr=((Ca_NSR-Ca_JSR)/tau_tr) :: [i_tr, Ca_NSR, Ca_JSR, tau_tr]
+  Nai:time=((i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)) :: [Nai:time, i_Na, i_CaNa, i_Na_b, i_ns_Na, i_NaCa, i_NaK, A_cap, V_myo, F]
+  Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)) :: [Cai:time, i_CaCa, i_p_Ca, i_Ca_b, i_NaCa, A_cap, V_myo, F, i_rel, V_JSR, i_leak, i_up, V_NSR]
+  Ki:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)) :: [Ki:time, i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_myo, F]
+  Ko:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))) :: [Ko:time, i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_cleft, F]
+  Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)) :: [Ca_JSR:time, i_rel, i_tr, V_NSR, V_JSR]
+  Ca_NSR:time=((i_leak+i_tr-i_up)*(-1)) :: [Ca_NSR:time, i_leak, i_tr, i_up]
+  Ca_foot:time=(i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)) :: [Ca_foot:time, i_CaCa, A_cap, V_myo, F, R_A_V]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+  add tool: extern delta_Ca_i2
+  add tool: extern calcium_overload
+  add tool: extern R_A_V
+  add tool: extern V_myo
+  add tool: extern V_cleft
+  add tool: extern V_JSR
+  add tool: extern V_NSR
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) V=(-84.624); [V(time.min)]
+  add tool: V(time.min)=-84.624
+  check eqn: R=8314; [R]
+  add tool: R=8314
+  check eqn: T=310; [T]
+  add tool: T=310
+  check eqn: F=96500; [F]
+  add tool: F=96500
+  check eqn: Cm=1; [Cm]
+  add tool: Cm=1
+  check eqn: I_st=(-100); [I_st]
+  add tool: I_st=-100
+  check eqn: g_to=.5; [g_to]
+  add tool: g_to=.5
+  check eqn: when (time=time.min) z=0; [z(time.min)]
+  add tool: z(time.min)=0
+  check eqn: when (time=time.min) y=0; [y(time.min)]
+  add tool: y(time.min)=0
+  check eqn: g_Na=16; [g_Na]
+  add tool: g_Na=16
+  check eqn: when (time=time.min) Nai=10; [Nai(time.min)]
+  add tool: Nai(time.min)=10
+  check eqn: Nao=140; [Nao]
+  add tool: Nao=140
+  check eqn: when (time=time.min) m=0; [m(time.min)]
+  add tool: m(time.min)=0
+  check eqn: when (time=time.min) h=0; [h(time.min)]
+  add tool: h(time.min)=0
+  check eqn: when (time=time.min) j=0; [j(time.min)]
+  add tool: j(time.min)=0
+  check eqn: gamma_Nai=.75; [gamma_Nai]
+  add tool: gamma_Nai=.75
+  check eqn: gamma_Nao=.75; [gamma_Nao]
+  add tool: gamma_Nao=.75
+  check eqn: gamma_Ki=.75; [gamma_Ki]
+  add tool: gamma_Ki=.75
+  check eqn: gamma_Ko=.75; [gamma_Ko]
+  add tool: gamma_Ko=.75
+  check eqn: P_Ca=5.4E-4; [P_Ca]
+  add tool: P_Ca=5.4E-4
+  check eqn: P_Na=6.75E-7; [P_Na]
+  add tool: P_Na=6.75E-7
+  check eqn: P_K=1.93E-7; [P_K]
+  add tool: P_K=1.93E-7
+  check eqn: gamma_Cai=1; [gamma_Cai]
+  add tool: gamma_Cai=1
+  check eqn: gamma_Cao=.34; [gamma_Cao]
+  add tool: gamma_Cao=.34
+  check eqn: when (time=time.min) Cai=.12; [Cai(time.min)]
+  add tool: Cai(time.min)=.12
+  check eqn: Cao=1.8; [Cao]
+  add tool: Cao=1.8
+  check eqn: when (time=time.min) Ko=5.4; [Ko(time.min)]
+  add tool: Ko(time.min)=5.4
+  check eqn: when (time=time.min) Ki=145; [Ki(time.min)]
+  add tool: Ki(time.min)=145
+  check eqn: when (time=time.min) d=0; [d(time.min)]
+  add tool: d(time.min)=0
+  check eqn: when (time=time.min) f=0; [f(time.min)]
+  add tool: f(time.min)=0
+  check eqn: Km_Ca=.6; [Km_Ca]
+  add tool: Km_Ca=.6
+  check eqn: PR_NaK=.01833; [PR_NaK]
+  add tool: PR_NaK=.01833
+  check eqn: when (time=time.min) X=0; [X(time.min)]
+  add tool: X(time.min)=0
+  check eqn: g_Kp=.0183; [g_Kp]
+  add tool: g_Kp=.0183
+  check eqn: K_mpCa=.5; [K_mpCa]
+  add tool: K_mpCa=.5
+  check eqn: I_pCa=1.15; [I_pCa]
+  add tool: I_pCa=1.15
+  check eqn: g_Nab=.00141; [g_Nab]
+  add tool: g_Nab=.00141
+  check eqn: g_Cab=.003016; [g_Cab]
+  add tool: g_Cab=.003016
+  check eqn: I_NaK=1.5; [I_NaK]
+  add tool: I_NaK=1.5
+  check eqn: K_mNai=10; [K_mNai]
+  add tool: K_mNai=10
+  check eqn: K_mKo=1.5; [K_mKo]
+  add tool: K_mKo=1.5
+  check eqn: P_ns_Ca=1.75E-7; [P_ns_Ca]
+  add tool: P_ns_Ca=1.75E-7
+  check eqn: K_m_ns_Ca=1.2; [K_m_ns_Ca]
+  add tool: K_m_ns_Ca=1.2
+  check eqn: K_NaCa=2E3; [K_NaCa]
+  add tool: K_NaCa=2E3
+  check eqn: K_mNa=87.5; [K_mNa]
+  add tool: K_mNa=87.5
+  check eqn: K_mCa=1.38; [K_mCa]
+  add tool: K_mCa=1.38
+  check eqn: K_sat=.1; [K_sat]
+  add tool: K_sat=.1
+  check eqn: eta=.35; [eta]
+  add tool: eta=.35
+  check eqn: K_mTn=.5; [K_mTn]
+  add tool: K_mTn=.5
+  check eqn: K_mCMDN=2.38; [K_mCMDN]
+  add tool: K_mCMDN=2.38
+  check eqn: Tn_max=70; [Tn_max]
+  add tool: Tn_max=70
+  check eqn: CMDN_max=50; [CMDN_max]
+  add tool: CMDN_max=50
+  check eqn: tau_on=2; [tau_on]
+  add tool: tau_on=2
+  check eqn: tau_off=2; [tau_off]
+  add tool: tau_off=2
+  check eqn: tau_tr=180; [tau_tr]
+  add tool: tau_tr=180
+  check eqn: t=0; [t]
+  add tool: t=0
+  check eqn: K_mrel=.8; [K_mrel]
+  add tool: K_mrel=.8
+  check eqn: delta_Ca_ith=.18; [delta_Ca_ith]
+  add tool: delta_Ca_ith=.18
+  check eqn: CSQN_max=10; [CSQN_max]
+  add tool: CSQN_max=10
+  check eqn: CSQN_th=.7; [CSQN_th]
+  add tool: CSQN_th=.7
+  check eqn: K_mCSQN=.8; [K_mCSQN]
+  add tool: K_mCSQN=.8
+  check eqn: K_mup=.92; [K_mup]
+  add tool: K_mup=.92
+  check eqn: I_up=.005; [I_up]
+  add tool: I_up=.005
+  check eqn: Ca_NSR_max=.15; [Ca_NSR_max]
+  add tool: Ca_NSR_max=.15
+  check eqn: when (time=time.min) Ca_JSR=0; [Ca_JSR(time.min)]
+  add tool: Ca_JSR(time.min)=0
+  check eqn: when (time=time.min) Ca_NSR=15; [Ca_NSR(time.min)]
+  add tool: Ca_NSR(time.min)=15
+  check eqn: when (time=time.min) Ca_foot=0; [Ca_foot(time.min)]
+  add tool: Ca_foot(time.min)=0
+  check eqn: A_cap=1.53E-4; [A_cap]
+  add tool: A_cap=1.53E-4
+  check eqn: V:time=(1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)); [V:time, i_Na]
+  check eqn: i_to=(g_to*z^3*y*R_to*(V-E_K)); [i_to, z]
+  check eqn: R_to=exp(V/100); [R_to, V]
+  check eqn: z:time=(alpha_z*(1-z)-beta_z*z); [z:time, alpha_z]
+  check eqn: alpha_z=(10*exp((V-40)/25)/(1+exp((V-40)/25))); [alpha_z, V]
+  check eqn: beta_z=(10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))); [beta_z, V]
+  check eqn: y:time=(alpha_y*(1-y)-beta_y*y); [y:time, alpha_y]
+  check eqn: alpha_y=(.015/(1+exp((V+60)/5))); [alpha_y, V]
+  check eqn: beta_y=(.1*exp((V+25)/5)/(1+exp((V+25)/5))); [beta_y, V]
+  check eqn: i_Na=(g_Na*m^3*h*j*(V-E_Na)); [i_Na, m]
+  check eqn: E_Na=(R*T/F*ln(Nao/Nai)); [E_Na, Nai]
+  check eqn: alpha_m=(.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))); [alpha_m, V]
+  check eqn: beta_m=(.08*exp(V/11*(-1))); [beta_m, V]
+  check eqn: m:time=(alpha_m*(1-m)-beta_m*m); [m:time, alpha_m]
+  check eqn: alpha_h=(if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0); [alpha_h, V]
+  check eqn: beta_h=(if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))); [beta_h, V]
+  check eqn: h:time=(alpha_h*(1-h)-beta_h*h); [h:time, alpha_h]
+  check eqn: alpha_j=(if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0); [alpha_j, V]
+  check eqn: beta_j=(if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))); [beta_j, V]
+  check eqn: j:time=(alpha_j*(1-j)-beta_j*j); [j:time, alpha_j]
+  check eqn: i_CaCa=(d*f*f_Ca*I_CaCa); [i_CaCa, d]
+  check eqn: i_CaNa=(d*f*f_Ca*I_CaNa); [i_CaNa, d]
+  check eqn: i_CaK=(d*f*f_Ca*I_CaK); [i_CaK, d]
+  check eqn: I_CaCa=(P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))); [I_CaCa, V]
+  check eqn: I_CaNa=(P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))); [I_CaNa, V]
+  check eqn: I_CaK=(P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))); [I_CaK, V]
+  check eqn: i_Ca_L=(i_CaCa+i_CaK+i_CaNa); [i_Ca_L, i_CaCa]
+  check eqn: alpha_d=(d_infinity/tau_d); [alpha_d, d_infinity]
+  check eqn: d_infinity=(1/(1+exp((V+10)/6.24*(-1)))); [d_infinity, V]
+  check eqn: tau_d=(d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))); [tau_d, d_infinity]
+  check eqn: beta_d=((1-d_infinity)/tau_d); [beta_d, d_infinity]
+  check eqn: d:time=(alpha_d*(1-d)-beta_d*d); [d:time, alpha_d]
+  check eqn: alpha_f=(f_infinity/tau_f); [alpha_f, f_infinity]
+  check eqn: f_infinity=(1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))); [f_infinity, V]
+  check eqn: tau_f=(1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)); [tau_f, V]
+  check eqn: beta_f=((1-f_infinity)/tau_f); [beta_f, f_infinity]
+  check eqn: f:time=(alpha_f*(1-f)-beta_f*f); [f:time, alpha_f]
+  check eqn: f_Ca=(1/(1+(Cai/Km_Ca)^2)); [f_Ca, Cai]
+  check eqn: g_K=(.282*sqrt(Ko/5.4)); [g_K, Ko]
+  check eqn: E_K=(R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))); [E_K, Ko]
+  check eqn: i_K=(g_K*X^2*Xi*(V-E_K)); [i_K, g_K]
+  check eqn: alpha_X=(7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))); [alpha_X, V]
+  check eqn: beta_X=(1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))); [beta_X, V]
+  check eqn: X:time=(alpha_X*(1-X)-beta_X*X); [X:time, alpha_X]
+  check eqn: Xi=(1/(1+exp((V-56.26)/32.1))); [Xi, V]
+  check eqn: g_K1=(.75*sqrt(Ko/5.4)); [g_K1, Ko]
+  check eqn: E_K1=(R*T/F*ln(Ko/Ki)); [E_K1, Ko]
+  check eqn: i_K1=(g_K1*K1_infinity*(V-E_K1)); [i_K1, g_K1]
+  check eqn: alpha_K1=(1.02/(1+exp(.2385*(V-E_K1-59.215)))); [alpha_K1, V]
+  check eqn: beta_K1=((.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))); [beta_K1, V]
+  check eqn: K1_infinity=(alpha_K1/(alpha_K1+beta_K1)); [K1_infinity, alpha_K1]
+  check eqn: E_Kp=E_K1; [E_Kp, E_K1]
+  check eqn: Kp=(1/(1+exp((7.488-V)/5.98))); [Kp, V]
+  check eqn: i_Kp=(g_Kp*Kp*(V-E_Kp)); [i_Kp, Kp]
+  check eqn: i_p_Ca=(I_pCa*(Cai/(K_mpCa+Cai))); [i_p_Ca, Cai]
+  check eqn: E_NaN=E_Na; [E_NaN, E_Na]
+  check eqn: i_Na_b=(g_Nab*(V-E_NaN)); [i_Na_b, V]
+  check eqn: E_CaN=(R*T/F*ln(Cao/Cai)*.5); [E_CaN, Cai]
+  check eqn: i_Ca_b=(g_Cab*(V-E_CaN)); [i_Ca_b, V]
+  check eqn: f_NaK=(1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)); [f_NaK, V]
+  check eqn: sigma=(1*(exp(Nao*.01485884101040119)-1)*.14285714285714285); [sigma]
+  add tool: sigma=1*(exp(Nao*.01485884101040119)-1)*.14285714285714285
+  check eqn: i_NaK=(I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))); [i_NaK, f_NaK]
+  check eqn: i_ns_Na=(I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_Na, I_ns_Na]
+  check eqn: i_ns_K=(I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_K, I_ns_K]
+  check eqn: i_ns_Ca=(i_ns_Na+i_ns_K); [i_ns_Ca, i_ns_Na]
+  check eqn: I_ns_Na=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))); [I_ns_Na, V]
+  check eqn: I_ns_K=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))); [I_ns_K, V]
+  check eqn: i_NaCa=(K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)); [i_NaCa, V]
+  check eqn: Tn_buff=(Tn_max*(Cai/(Cai+K_mTn))); [Tn_buff, Cai]
+  check eqn: CMDN_buff=(CMDN_max*(Cai/(Cai+K_mCMDN))); [CMDN_buff, Cai]
+  check eqn: i_rel=(G_rel*(Ca_JSR-Cai)); [i_rel, G_rel]
+  check eqn: G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))); [G_rel, G_rel_max]
+  check eqn: G_rel_max=(if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4); [G_rel_max, CSQN_buff]
+  check eqn: CSQN_buff=(CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))); [CSQN_buff, Ca_JSR]
+  check eqn: i_up=(I_up*(Cai/(Cai+K_mup))); [i_up, Cai]
+  check eqn: i_leak=(K_leak*Ca_NSR); [i_leak, K_leak]
+  check eqn: K_leak=(I_up/Ca_NSR_max); [K_leak]
+  add tool: K_leak=I_up/Ca_NSR_max
+  check eqn: i_tr=((Ca_NSR-Ca_JSR)/tau_tr); [i_tr, Ca_NSR]
+  check eqn: Nai:time=((i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)); [Nai:time, i_Na]
+  check eqn: Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)); [Cai:time, i_CaCa]
+  check eqn: Ki:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)); [Ki:time, i_CaK]
+  check eqn: Ko:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))); [Ko:time, i_CaK]
+  check eqn: Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)); [Ca_JSR:time, i_rel]
+  check eqn: Ca_NSR:time=((i_leak+i_tr-i_up)*(-1)); [Ca_NSR:time, i_leak]
+  check eqn: Ca_foot:time=(i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)); [Ca_foot:time, i_CaCa]
+  add tool: ODE V: []
+  updated ODE(V) with V(time.min)=-84.624
+  add tool: ODE z: []
+  updated ODE(z) with z(time.min)=0
+  add tool: ODE y: []
+  updated ODE(y) with y(time.min)=0
+  add tool: ODE Nai: []
+  updated ODE(Nai) with Nai(time.min)=10
+  add tool: ODE m: []
+  updated ODE(m) with m(time.min)=0
+  add tool: ODE h: []
+  updated ODE(h) with h(time.min)=0
+  add tool: ODE j: []
+  updated ODE(j) with j(time.min)=0
+  add tool: ODE Cai: []
+  updated ODE(Cai) with Cai(time.min)=.12
+  add tool: ODE Ko: []
+  updated ODE(Ko) with Ko(time.min)=5.4
+  add tool: ODE Ki: []
+  updated ODE(Ki) with Ki(time.min)=145
+  add tool: ODE d: []
+  updated ODE(d) with d(time.min)=0
+  add tool: ODE f: []
+  updated ODE(f) with f(time.min)=0
+  add tool: ODE X: []
+  updated ODE(X) with X(time.min)=0
+  add tool: ODE Ca_JSR: []
+  updated ODE(Ca_JSR) with Ca_JSR(time.min)=0
+  add tool: ODE Ca_NSR: []
+  updated ODE(Ca_NSR) with Ca_NSR(time.min)=15
+  add tool: ODE Ca_foot: []
+  updated ODE(Ca_foot) with Ca_foot(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)); [V:time, i_Na]
+  check eqn: i_to=(g_to*z^3*y*R_to*(V-E_K)); [i_to, R_to]
+  check eqn: R_to=exp(V/100); [R_to]
+  add tool: R_to=exp(V/100)
+  check eqn: z:time=(alpha_z*(1-z)-beta_z*z); [z:time, alpha_z]
+  check eqn: alpha_z=(10*exp((V-40)/25)/(1+exp((V-40)/25))); [alpha_z]
+  add tool: alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25))
+  check eqn: beta_z=(10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))); [beta_z]
+  add tool: beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))
+  check eqn: y:time=(alpha_y*(1-y)-beta_y*y); [y:time, alpha_y]
+  check eqn: alpha_y=(.015/(1+exp((V+60)/5))); [alpha_y]
+  add tool: alpha_y=.015/(1+exp((V+60)/5))
+  check eqn: beta_y=(.1*exp((V+25)/5)/(1+exp((V+25)/5))); [beta_y]
+  add tool: beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5))
+  check eqn: i_Na=(g_Na*m^3*h*j*(V-E_Na)); [i_Na, E_Na]
+  check eqn: E_Na=(R*T/F*ln(Nao/Nai)); [E_Na]
+  add tool: E_Na=R*T/F*ln(Nao/Nai)
+  check eqn: alpha_m=(.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))); [alpha_m]
+  add tool: alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))
+  check eqn: beta_m=(.08*exp(V/11*(-1))); [beta_m]
+  add tool: beta_m=.08*exp(V/11*(-1))
+  check eqn: m:time=(alpha_m*(1-m)-beta_m*m); [m:time]
+  add tool: m:time=alpha_m*(1-m)-beta_m*m
+  check eqn: alpha_h=(if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0); [alpha_h]
+  add tool: alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0
+  check eqn: beta_h=(if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))); [beta_h]
+  add tool: beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))
+  check eqn: h:time=(alpha_h*(1-h)-beta_h*h); [h:time]
+  add tool: h:time=alpha_h*(1-h)-beta_h*h
+  check eqn: alpha_j=(if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0); [alpha_j]
+  add tool: alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0
+  check eqn: beta_j=(if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))); [beta_j]
+  add tool: beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))
+  check eqn: j:time=(alpha_j*(1-j)-beta_j*j); [j:time]
+  add tool: j:time=alpha_j*(1-j)-beta_j*j
+  check eqn: i_CaCa=(d*f*f_Ca*I_CaCa); [i_CaCa, f_Ca]
+  check eqn: i_CaNa=(d*f*f_Ca*I_CaNa); [i_CaNa, f_Ca]
+  check eqn: i_CaK=(d*f*f_Ca*I_CaK); [i_CaK, f_Ca]
+  check eqn: I_CaCa=(P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))); [I_CaCa]
+  add tool: I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))
+  check eqn: I_CaNa=(P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))); [I_CaNa]
+  add tool: I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+  check eqn: I_CaK=(P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))); [I_CaK]
+  add tool: I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+  check eqn: i_Ca_L=(i_CaCa+i_CaK+i_CaNa); [i_Ca_L, i_CaCa]
+  check eqn: alpha_d=(d_infinity/tau_d); [alpha_d, d_infinity]
+  check eqn: d_infinity=(1/(1+exp((V+10)/6.24*(-1)))); [d_infinity]
+  add tool: d_infinity=1/(1+exp((V+10)/6.24*(-1)))
+  check eqn: tau_d=(d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))); [tau_d]
+  add tool: tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))
+  check eqn: beta_d=((1-d_infinity)/tau_d); [beta_d]
+  add tool: beta_d=(1-d_infinity)/tau_d
+  check eqn: d:time=(alpha_d*(1-d)-beta_d*d); [d:time, alpha_d]
+  check eqn: alpha_f=(f_infinity/tau_f); [alpha_f, f_infinity]
+  check eqn: f_infinity=(1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))); [f_infinity]
+  add tool: f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))
+  check eqn: tau_f=(1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)); [tau_f]
+  add tool: tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)
+  check eqn: beta_f=((1-f_infinity)/tau_f); [beta_f]
+  add tool: beta_f=(1-f_infinity)/tau_f
+  check eqn: f:time=(alpha_f*(1-f)-beta_f*f); [f:time, alpha_f]
+  check eqn: f_Ca=(1/(1+(Cai/Km_Ca)^2)); [f_Ca]
+  add tool: f_Ca=1/(1+(Cai/Km_Ca)^2)
+  check eqn: g_K=(.282*sqrt(Ko/5.4)); [g_K]
+  add tool: g_K=.282*sqrt(Ko/5.4)
+  check eqn: E_K=(R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))); [E_K]
+  add tool: E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))
+  check eqn: i_K=(g_K*X^2*Xi*(V-E_K)); [i_K, Xi]
+  check eqn: alpha_X=(7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))); [alpha_X]
+  add tool: alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))
+  check eqn: beta_X=(1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))); [beta_X]
+  add tool: beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))
+  check eqn: X:time=(alpha_X*(1-X)-beta_X*X); [X:time]
+  add tool: X:time=alpha_X*(1-X)-beta_X*X
+  check eqn: Xi=(1/(1+exp((V-56.26)/32.1))); [Xi]
+  add tool: Xi=1/(1+exp((V-56.26)/32.1))
+  check eqn: g_K1=(.75*sqrt(Ko/5.4)); [g_K1]
+  add tool: g_K1=.75*sqrt(Ko/5.4)
+  check eqn: E_K1=(R*T/F*ln(Ko/Ki)); [E_K1]
+  add tool: E_K1=R*T/F*ln(Ko/Ki)
+  check eqn: i_K1=(g_K1*K1_infinity*(V-E_K1)); [i_K1, K1_infinity]
+  check eqn: alpha_K1=(1.02/(1+exp(.2385*(V-E_K1-59.215)))); [alpha_K1]
+  add tool: alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215)))
+  check eqn: beta_K1=((.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))); [beta_K1]
+  add tool: beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))
+  check eqn: K1_infinity=(alpha_K1/(alpha_K1+beta_K1)); [K1_infinity]
+  add tool: K1_infinity=alpha_K1/(alpha_K1+beta_K1)
+  check eqn: E_Kp=E_K1; [E_Kp]
+  add tool: E_Kp=E_K1
+  check eqn: Kp=(1/(1+exp((7.488-V)/5.98))); [Kp]
+  add tool: Kp=1/(1+exp((7.488-V)/5.98))
+  check eqn: i_Kp=(g_Kp*Kp*(V-E_Kp)); [i_Kp]
+  add tool: i_Kp=g_Kp*Kp*(V-E_Kp)
+  check eqn: i_p_Ca=(I_pCa*(Cai/(K_mpCa+Cai))); [i_p_Ca]
+  add tool: i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai))
+  check eqn: E_NaN=E_Na; [E_NaN]
+  add tool: E_NaN=E_Na
+  check eqn: i_Na_b=(g_Nab*(V-E_NaN)); [i_Na_b]
+  add tool: i_Na_b=g_Nab*(V-E_NaN)
+  check eqn: E_CaN=(R*T/F*ln(Cao/Cai)*.5); [E_CaN]
+  add tool: E_CaN=R*T/F*ln(Cao/Cai)*.5
+  check eqn: i_Ca_b=(g_Cab*(V-E_CaN)); [i_Ca_b]
+  add tool: i_Ca_b=g_Cab*(V-E_CaN)
+  check eqn: f_NaK=(1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)); [f_NaK]
+  add tool: f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)
+  check eqn: i_NaK=(I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))); [i_NaK]
+  add tool: i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))
+  check eqn: i_ns_Na=(I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_Na, I_ns_Na]
+  check eqn: i_ns_K=(I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_K, I_ns_K]
+  check eqn: i_ns_Ca=(i_ns_Na+i_ns_K); [i_ns_Ca, i_ns_Na]
+  check eqn: I_ns_Na=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))); [I_ns_Na]
+  add tool: I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+  check eqn: I_ns_K=(P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))); [I_ns_K]
+  add tool: I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+  check eqn: i_NaCa=(K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)); [i_NaCa]
+  add tool: i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)
+  check eqn: Tn_buff=(Tn_max*(Cai/(Cai+K_mTn))); [Tn_buff]
+  add tool: Tn_buff=Tn_max*(Cai/(Cai+K_mTn))
+  check eqn: CMDN_buff=(CMDN_max*(Cai/(Cai+K_mCMDN))); [CMDN_buff]
+  add tool: CMDN_buff=CMDN_max*(Cai/(Cai+K_mCMDN))
+  check eqn: i_rel=(G_rel*(Ca_JSR-Cai)); [i_rel, G_rel]
+  check eqn: G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))); [G_rel, G_rel_max]
+  check eqn: G_rel_max=(if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4); [G_rel_max, CSQN_buff]
+  check eqn: CSQN_buff=(CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))); [CSQN_buff]
+  add tool: CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))
+  check eqn: i_up=(I_up*(Cai/(Cai+K_mup))); [i_up]
+  add tool: i_up=I_up*(Cai/(Cai+K_mup))
+  check eqn: i_leak=(K_leak*Ca_NSR); [i_leak]
+  add tool: i_leak=K_leak*Ca_NSR
+  check eqn: i_tr=((Ca_NSR-Ca_JSR)/tau_tr); [i_tr]
+  add tool: i_tr=(Ca_NSR-Ca_JSR)/tau_tr
+  check eqn: Nai:time=((i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)); [Nai:time, i_Na]
+  check eqn: Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)); [Cai:time, i_CaCa]
+  check eqn: Ki:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)); [Ki:time, i_CaK]
+  check eqn: Ko:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))); [Ko:time, i_CaK]
+  check eqn: Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)); [Ca_JSR:time, i_rel]
+  check eqn: Ca_NSR:time=((i_leak+i_tr-i_up)*(-1)); [Ca_NSR:time]
+  add tool: Ca_NSR:time=(i_leak+i_tr-i_up)*(-1)
+  check eqn: Ca_foot:time=(i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)); [Ca_foot:time, i_CaCa]
+  updated ODE(m) with m:time=alpha_m*(1-m)-beta_m*m
+    m is now entirely solved
+  updated ODE(h) with h:time=alpha_h*(1-h)-beta_h*h
+    h is now entirely solved
+  updated ODE(j) with j:time=alpha_j*(1-j)-beta_j*j
+    j is now entirely solved
+  updated ODE(X) with X:time=alpha_X*(1-X)-beta_X*X
+    X is now entirely solved
+  updated ODE(Ca_NSR) with Ca_NSR:time=(i_leak+i_tr-i_up)*(-1)
+    Ca_NSR is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)); [V:time, i_Na]
+  check eqn: i_to=(g_to*z^3*y*R_to*(V-E_K)); [i_to]
+  add tool: i_to=g_to*z^3*y*R_to*(V-E_K)
+  check eqn: z:time=(alpha_z*(1-z)-beta_z*z); [z:time]
+  add tool: z:time=alpha_z*(1-z)-beta_z*z
+  check eqn: y:time=(alpha_y*(1-y)-beta_y*y); [y:time]
+  add tool: y:time=alpha_y*(1-y)-beta_y*y
+  check eqn: i_Na=(g_Na*m^3*h*j*(V-E_Na)); [i_Na]
+  add tool: i_Na=g_Na*m^3*h*j*(V-E_Na)
+  check eqn: i_CaCa=(d*f*f_Ca*I_CaCa); [i_CaCa]
+  add tool: i_CaCa=d*f*f_Ca*I_CaCa
+  check eqn: i_CaNa=(d*f*f_Ca*I_CaNa); [i_CaNa]
+  add tool: i_CaNa=d*f*f_Ca*I_CaNa
+  check eqn: i_CaK=(d*f*f_Ca*I_CaK); [i_CaK]
+  add tool: i_CaK=d*f*f_Ca*I_CaK
+  check eqn: i_Ca_L=(i_CaCa+i_CaK+i_CaNa); [i_Ca_L]
+  add tool: i_Ca_L=i_CaCa+i_CaK+i_CaNa
+  check eqn: alpha_d=(d_infinity/tau_d); [alpha_d]
+  add tool: alpha_d=d_infinity/tau_d
+  check eqn: d:time=(alpha_d*(1-d)-beta_d*d); [d:time]
+  add tool: d:time=alpha_d*(1-d)-beta_d*d
+  check eqn: alpha_f=(f_infinity/tau_f); [alpha_f]
+  add tool: alpha_f=f_infinity/tau_f
+  check eqn: f:time=(alpha_f*(1-f)-beta_f*f); [f:time]
+  add tool: f:time=alpha_f*(1-f)-beta_f*f
+  check eqn: i_K=(g_K*X^2*Xi*(V-E_K)); [i_K]
+  add tool: i_K=g_K*X^2*Xi*(V-E_K)
+  check eqn: i_K1=(g_K1*K1_infinity*(V-E_K1)); [i_K1]
+  add tool: i_K1=g_K1*K1_infinity*(V-E_K1)
+  check eqn: i_ns_Na=(I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_Na]
+  add tool: i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))
+  check eqn: i_ns_K=(I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))); [i_ns_K]
+  add tool: i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))
+  check eqn: i_ns_Ca=(i_ns_Na+i_ns_K); [i_ns_Ca]
+  add tool: i_ns_Ca=i_ns_Na+i_ns_K
+  check eqn: i_rel=(G_rel*(Ca_JSR-Cai)); [i_rel, G_rel]
+  check eqn: G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))); [G_rel, G_rel_max]
+  check eqn: G_rel_max=(if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4); [G_rel_max]
+  add tool: G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4
+  check eqn: Nai:time=((i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)); [Nai:time]
+  add tool: Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)
+  check eqn: Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)); [Cai:time, i_rel]
+  check eqn: Ki:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)); [Ki:time]
+  add tool: Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)
+  check eqn: Ko:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))); [Ko:time]
+  add tool: Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))
+  check eqn: Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)); [Ca_JSR:time, i_rel]
+  check eqn: Ca_foot:time=(i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)); [Ca_foot:time]
+  add tool: Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)
+  updated ODE(z) with z:time=alpha_z*(1-z)-beta_z*z
+    z is now entirely solved
+  updated ODE(y) with y:time=alpha_y*(1-y)-beta_y*y
+    y is now entirely solved
+  updated ODE(d) with d:time=alpha_d*(1-d)-beta_d*d
+    d is now entirely solved
+  updated ODE(f) with f:time=alpha_f*(1-f)-beta_f*f
+    f is now entirely solved
+  updated ODE(Nai) with Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)
+    Nai is now entirely solved
+  updated ODE(Ki) with Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)
+    Ki is now entirely solved
+  updated ODE(Ko) with Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))
+    Ko is now entirely solved
+  updated ODE(Ca_foot) with Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)
+    Ca_foot is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)); [V:time]
+  add tool: V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)
+  check eqn: i_rel=(G_rel*(Ca_JSR-Cai)); [i_rel, G_rel]
+  check eqn: G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))); [G_rel]
+  add tool: G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))
+  check eqn: Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)); [Cai:time, i_rel]
+  check eqn: Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)); [Ca_JSR:time, i_rel]
+  updated ODE(V) with V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)
+    V is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: i_rel=(G_rel*(Ca_JSR-Cai)); [i_rel]
+  add tool: i_rel=G_rel*(Ca_JSR-Cai)
+  check eqn: Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)); [Cai:time]
+  add tool: Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)
+  check eqn: Ca_JSR:time=((i_rel-i_tr*(V_NSR/V_JSR))*(-1)); [Ca_JSR:time]
+  add tool: Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1)
+  updated ODE(Cai) with Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)
+    Cai is now entirely solved
+  updated ODE(Ca_JSR) with Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1)
+    Ca_JSR is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real V__init millivolt
+  add tool: V__init=-84.624
+  add var: real z__init dimensionless
+  add tool: z__init=0
+  add var: real y__init dimensionless
+  add tool: y__init=0
+  add var: real Nai__init millimolar
+  add tool: Nai__init=10
+  add var: real m__init dimensionless
+  add tool: m__init=0
+  add var: real h__init dimensionless
+  add tool: h__init=0
+  add var: real j__init dimensionless
+  add tool: j__init=0
+  add var: real Cai__init micromolar
+  add tool: Cai__init=.12
+  add var: real Ko__init millimolar
+  add tool: Ko__init=5.4
+  add var: real Ki__init millimolar
+  add tool: Ki__init=145
+  add var: real d__init dimensionless
+  add tool: d__init=0
+  add var: real f__init dimensionless
+  add tool: f__init=0
+  add var: real X__init dimensionless
+  add tool: X__init=0
+  add var: real Ca_JSR__init millimolar
+  add tool: Ca_JSR__init=0
+  add var: real Ca_NSR__init millimolar
+  add tool: Ca_NSR__init=15
+  add var: real Ca_foot__init micromolar
+  add tool: Ca_foot__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  Ca_foot__init=0 :: [Ca_foot__init]<<[]
+  Ca_NSR__init=15 :: [Ca_NSR__init]<<[]
+  Ca_JSR__init=0 :: [Ca_JSR__init]<<[]
+  X__init=0 :: [X__init]<<[]
+  f__init=0 :: [f__init]<<[]
+  d__init=0 :: [d__init]<<[]
+  Ki__init=145 :: [Ki__init]<<[]
+  Ko__init=5.4 :: [Ko__init]<<[]
+  Cai__init=.12 :: [Cai__init]<<[]
+  j__init=0 :: [j__init]<<[]
+  h__init=0 :: [h__init]<<[]
+  m__init=0 :: [m__init]<<[]
+  Nai__init=10 :: [Nai__init]<<[]
+  y__init=0 :: [y__init]<<[]
+  z__init=0 :: [z__init]<<[]
+  V__init=-84.624 :: [V__init]<<[]
+  @time Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5) :: [Ca_foot:time]<<[i_CaCa, A_cap, V_myo, F, R_A_V]
+  @time Ca_NSR:time=(i_leak+i_tr-i_up)*(-1) :: [Ca_NSR:time]<<[i_leak, i_tr, i_up]
+  @time Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1) :: [Ca_JSR:time]<<[i_rel, i_tr, V_NSR, V_JSR]
+  @time Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F)) :: [Ko:time]<<[i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_cleft, F]
+  @time Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1) :: [Ki:time]<<[i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_myo, F]
+  @time Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo) :: [Cai:time]<<[i_CaCa, i_p_Ca, i_Ca_b, i_NaCa, A_cap, V_myo, F, i_rel, V_JSR, i_leak, i_up, V_NSR]
+  @time Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1) :: [Nai:time]<<[i_Na, i_CaNa, i_Na_b, i_ns_Na, i_NaCa, i_NaK, A_cap, V_myo, F]
+  @time X:time=alpha_X*(1-X)-beta_X*X :: [X:time]<<[alpha_X, X, beta_X]
+  @time f:time=alpha_f*(1-f)-beta_f*f :: [f:time]<<[alpha_f, f, beta_f]
+  @time d:time=alpha_d*(1-d)-beta_d*d :: [d:time]<<[alpha_d, d, beta_d]
+  @time j:time=alpha_j*(1-j)-beta_j*j :: [j:time]<<[alpha_j, j, beta_j]
+  @time h:time=alpha_h*(1-h)-beta_h*h :: [h:time]<<[alpha_h, h, beta_h]
+  @time m:time=alpha_m*(1-m)-beta_m*m :: [m:time]<<[alpha_m, m, beta_m]
+  @time y:time=alpha_y*(1-y)-beta_y*y :: [y:time]<<[alpha_y, y, beta_y]
+  @time z:time=alpha_z*(1-z)-beta_z*z :: [z:time]<<[alpha_z, z, beta_z]
+  @time V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1) :: [V:time]<<[Cm, i_Na, i_Ca_L, i_K, i_K1, i_Kp, i_NaCa, i_p_Ca, i_Na_b, i_Ca_b, i_NaK, i_ns_Ca, i_to, I_st]
+  extern V_NSR :: [V_NSR]<<[]
+  extern V_JSR :: [V_JSR]<<[]
+  extern V_cleft :: [V_cleft]<<[]
+  extern V_myo :: [V_myo]<<[]
+  extern R_A_V :: [R_A_V]<<[]
+  A_cap=1.53E-4 :: [A_cap]<<[]
+  @time ODE Ca_foot: Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5) :: [Ca_foot, Ca_foot(time.max)]<<[i_CaCa, A_cap, V_myo, F, R_A_V, Ca_foot(time.min), Ca_foot:time]
+  @time ODE Ca_NSR: Ca_NSR:time=(i_leak+i_tr-i_up)*(-1) :: [Ca_NSR, Ca_NSR(time.max)]<<[i_leak, i_tr, i_up, Ca_NSR(time.min), Ca_NSR:time]
+  @time ODE Ca_JSR: Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1) :: [Ca_JSR, Ca_JSR(time.max)]<<[i_rel, i_tr, V_NSR, V_JSR, Ca_JSR(time.min), Ca_JSR:time]
+  extern calcium_overload :: [calcium_overload]<<[]
+  Ca_NSR_max=.15 :: [Ca_NSR_max]<<[]
+  I_up=.005 :: [I_up]<<[]
+  K_leak=I_up/Ca_NSR_max :: [K_leak]<<[I_up, Ca_NSR_max]
+  K_mup=.92 :: [K_mup]<<[]
+  K_mCSQN=.8 :: [K_mCSQN]<<[]
+  CSQN_th=.7 :: [CSQN_th]<<[]
+  CSQN_max=10 :: [CSQN_max]<<[]
+  @time CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN)) :: [CSQN_buff]<<[CSQN_max, Ca_JSR, K_mCSQN]
+  delta_Ca_ith=.18 :: [delta_Ca_ith]<<[]
+  extern delta_Ca_i2 :: [delta_Ca_i2]<<[]
+  K_mrel=.8 :: [K_mrel]<<[]
+  t=0 :: [t]<<[]
+  tau_tr=180 :: [tau_tr]<<[]
+  tau_off=2 :: [tau_off]<<[]
+  tau_on=2 :: [tau_on]<<[]
+  @time G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4 :: [G_rel_max]<<[calcium_overload, delta_Ca_i2, delta_Ca_ith, CSQN_buff, CSQN_th]
+  @time G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) :: [G_rel]<<[calcium_overload, G_rel_max, delta_Ca_i2, delta_Ca_ith, K_mrel, t, tau_on, tau_off]
+  @time i_tr=(Ca_NSR-Ca_JSR)/tau_tr :: [i_tr]<<[Ca_NSR, Ca_JSR, tau_tr]
+  @time i_leak=K_leak*Ca_NSR :: [i_leak]<<[K_leak, Ca_NSR]
+  @time i_up=I_up*(Cai/(Cai+K_mup)) :: [i_up]<<[I_up, Cai, K_mup]
+  @time i_rel=G_rel*(Ca_JSR-Cai) :: [i_rel]<<[G_rel, Ca_JSR, Cai]
+  @time CMDN_buff=CMDN_max*(Cai/(Cai+K_mCMDN)) :: [CMDN_buff]<<[CMDN_max, Cai, K_mCMDN]
+  @time Tn_buff=Tn_max*(Cai/(Cai+K_mTn)) :: [Tn_buff]<<[Tn_max, Cai, K_mTn]
+  CMDN_max=50 :: [CMDN_max]<<[]
+  Tn_max=70 :: [Tn_max]<<[]
+  K_mCMDN=2.38 :: [K_mCMDN]<<[]
+  K_mTn=.5 :: [K_mTn]<<[]
+  eta=.35 :: [eta]<<[]
+  K_sat=.1 :: [K_sat]<<[]
+  K_mCa=1.38 :: [K_mCa]<<[]
+  K_mNa=87.5 :: [K_mNa]<<[]
+  K_NaCa=2E3 :: [K_NaCa]<<[]
+  K_m_ns_Ca=1.2 :: [K_m_ns_Ca]<<[]
+  @time I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) :: [I_ns_K]<<[P_ns_Ca, V, F, R, T, gamma_Ki, Ki, gamma_Ko, Ko]
+  @time I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) :: [I_ns_Na]<<[P_ns_Ca, V, F, R, T, gamma_Nai, Nai, gamma_Nao, Nao]
+  P_ns_Ca=1.75E-7 :: [P_ns_Ca]<<[]
+  @time i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3)) :: [i_ns_K]<<[I_ns_K, K_m_ns_Ca, Cai]
+  @time i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3)) :: [i_ns_Na]<<[I_ns_Na, K_m_ns_Ca, Cai]
+  sigma=1*(exp(Nao*.01485884101040119)-1)*.14285714285714285 :: [sigma]<<[Nao]
+  K_mKo=1.5 :: [K_mKo]<<[]
+  K_mNai=10 :: [K_mNai]<<[]
+  @time f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365) :: [f_NaK]<<[V, F, R, T, sigma]
+  I_NaK=1.5 :: [I_NaK]<<[]
+  @time E_CaN=R*T/F*ln(Cao/Cai)*.5 :: [E_CaN]<<[R, T, F, Cao, Cai]
+  g_Cab=.003016 :: [g_Cab]<<[]
+  @time E_NaN=E_Na :: [E_NaN]<<[E_Na]
+  g_Nab=.00141 :: [g_Nab]<<[]
+  I_pCa=1.15 :: [I_pCa]<<[]
+  K_mpCa=.5 :: [K_mpCa]<<[]
+  @time Kp=1/(1+exp((7.488-V)/5.98)) :: [Kp]<<[V]
+  g_Kp=.0183 :: [g_Kp]<<[]
+  @time E_Kp=E_K1 :: [E_Kp]<<[E_K1]
+  @time beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753)))) :: [beta_K1]<<[V, E_K1]
+  @time alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215))) :: [alpha_K1]<<[V, E_K1]
+  @time K1_infinity=alpha_K1/(alpha_K1+beta_K1) :: [K1_infinity]<<[alpha_K1, beta_K1]
+  @time g_K1=.75*sqrt(Ko/5.4) :: [g_K1]<<[Ko]
+  @time E_K1=R*T/F*ln(Ko/Ki) :: [E_K1]<<[R, T, F, Ko, Ki]
+  @time beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687)) :: [beta_X]<<[V]
+  @time alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148))) :: [alpha_X]<<[V]
+  @time Xi=1/(1+exp((V-56.26)/32.1)) :: [Xi]<<[V]
+  @time ODE X: X:time=alpha_X*(1-X)-beta_X*X :: [X, X(time.max)]<<[alpha_X, beta_X, X(time.min), X:time]
+  PR_NaK=.01833 :: [PR_NaK]<<[]
+  @time g_K=.282*sqrt(Ko/5.4) :: [g_K]<<[Ko]
+  Km_Ca=.6 :: [Km_Ca]<<[]
+  @time tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02) :: [tau_f]<<[V]
+  @time f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20)) :: [f_infinity]<<[V]
+  @time beta_f=(1-f_infinity)/tau_f :: [beta_f]<<[f_infinity, tau_f]
+  @time alpha_f=f_infinity/tau_f :: [alpha_f]<<[f_infinity, tau_f]
+  @time tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10))) :: [tau_d]<<[d_infinity, V]
+  @time d_infinity=1/(1+exp((V+10)/6.24*(-1))) :: [d_infinity]<<[V]
+  @time beta_d=(1-d_infinity)/tau_d :: [beta_d]<<[d_infinity, tau_d]
+  @time alpha_d=d_infinity/tau_d :: [alpha_d]<<[d_infinity, tau_d]
+  @time f_Ca=1/(1+(Cai/Km_Ca)^2) :: [f_Ca]<<[Cai, Km_Ca]
+  @time ODE f: f:time=alpha_f*(1-f)-beta_f*f :: [f, f(time.max)]<<[alpha_f, beta_f, f(time.min), f:time]
+  @time ODE d: d:time=alpha_d*(1-d)-beta_d*d :: [d, d(time.max)]<<[alpha_d, beta_d, d(time.min), d:time]
+  @time ODE Ki: Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1) :: [Ki, Ki(time.max)]<<[i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_myo, F, Ki(time.min), Ki:time]
+  @time ODE Ko: Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F)) :: [Ko, Ko(time.max)]<<[i_CaK, i_K, i_K1, i_Kp, i_ns_K, i_NaK, A_cap, V_cleft, F, Ko(time.min), Ko:time]
+  Cao=1.8 :: [Cao]<<[]
+  @time ODE Cai: Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo) :: [Cai, Cai(time.max)]<<[i_CaCa, i_p_Ca, i_Ca_b, i_NaCa, A_cap, V_myo, F, i_rel, V_JSR, i_leak, i_up, V_NSR, Cai(time.min), Cai:time]
+  gamma_Cao=.34 :: [gamma_Cao]<<[]
+  gamma_Cai=1 :: [gamma_Cai]<<[]
+  P_K=1.93E-7 :: [P_K]<<[]
+  P_Na=6.75E-7 :: [P_Na]<<[]
+  P_Ca=5.4E-4 :: [P_Ca]<<[]
+  @time I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) :: [I_CaNa]<<[P_Na, V, F, R, T, gamma_Nai, Nai, gamma_Nao, Nao]
+  @time I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) :: [I_CaK]<<[P_K, V, F, R, T, gamma_Ki, Ki, gamma_Ko, Ko]
+  @time I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1)) :: [I_CaCa]<<[P_Ca, V, F, R, T, gamma_Cai, Cai, gamma_Cao, Cao]
+  gamma_Ko=.75 :: [gamma_Ko]<<[]
+  gamma_Ki=.75 :: [gamma_Ki]<<[]
+  gamma_Nao=.75 :: [gamma_Nao]<<[]
+  gamma_Nai=.75 :: [gamma_Nai]<<[]
+  @time i_CaNa=d*f*f_Ca*I_CaNa :: [i_CaNa]<<[d, f, f_Ca, I_CaNa]
+  @time i_CaK=d*f*f_Ca*I_CaK :: [i_CaK]<<[d, f, f_Ca, I_CaK]
+  @time i_CaCa=d*f*f_Ca*I_CaCa :: [i_CaCa]<<[d, f, f_Ca, I_CaCa]
+  @time beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32))) :: [beta_j]<<[V]
+  @time alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0 :: [alpha_j]<<[V]
+  @time beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1)))) :: [beta_h]<<[V]
+  @time alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0 :: [alpha_h]<<[V]
+  @time beta_m=.08*exp(V/11*(-1)) :: [beta_m]<<[V]
+  @time alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13))) :: [alpha_m]<<[V]
+  @time ODE j: j:time=alpha_j*(1-j)-beta_j*j :: [j, j(time.max)]<<[alpha_j, beta_j, j(time.min), j:time]
+  @time ODE h: h:time=alpha_h*(1-h)-beta_h*h :: [h, h(time.max)]<<[alpha_h, beta_h, h(time.min), h:time]
+  @time ODE m: m:time=alpha_m*(1-m)-beta_m*m :: [m, m(time.max)]<<[alpha_m, beta_m, m(time.min), m:time]
+  Nao=140 :: [Nao]<<[]
+  @time ODE Nai: Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1) :: [Nai, Nai(time.max)]<<[i_Na, i_CaNa, i_Na_b, i_ns_Na, i_NaCa, i_NaK, A_cap, V_myo, F, Nai(time.min), Nai:time]
+  g_Na=16 :: [g_Na]<<[]
+  @time E_Na=R*T/F*ln(Nao/Nai) :: [E_Na]<<[R, T, F, Nao, Nai]
+  @time beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5)) :: [beta_y]<<[V]
+  @time alpha_y=.015/(1+exp((V+60)/5)) :: [alpha_y]<<[V]
+  @time beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1))) :: [beta_z]<<[V]
+  @time alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25)) :: [alpha_z]<<[V]
+  @time ODE y: y:time=alpha_y*(1-y)-beta_y*y :: [y, y(time.max)]<<[alpha_y, beta_y, y(time.min), y:time]
+  @time ODE z: z:time=alpha_z*(1-z)-beta_z*z :: [z, z(time.max)]<<[alpha_z, beta_z, z(time.min), z:time]
+  @time E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai)) :: [E_K]<<[R, T, F, Ko, PR_NaK, Nao, Ki, Nai]
+  @time R_to=exp(V/100) :: [R_to]<<[V]
+  g_to=.5 :: [g_to]<<[]
+  @time i_to=g_to*z^3*y*R_to*(V-E_K) :: [i_to]<<[g_to, z, y, R_to, V, E_K]
+  @time i_ns_Ca=i_ns_Na+i_ns_K :: [i_ns_Ca]<<[i_ns_Na, i_ns_K]
+  @time i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo)) :: [i_NaK]<<[I_NaK, f_NaK, K_mNai, Nai, Ko, K_mKo]
+  @time i_Ca_b=g_Cab*(V-E_CaN) :: [i_Ca_b]<<[g_Cab, V, E_CaN]
+  @time i_Na_b=g_Nab*(V-E_NaN) :: [i_Na_b]<<[g_Nab, V, E_NaN]
+  @time i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai)) :: [i_p_Ca]<<[I_pCa, Cai, K_mpCa]
+  @time i_Kp=g_Kp*Kp*(V-E_Kp) :: [i_Kp]<<[g_Kp, Kp, V, E_Kp]
+  @time i_K1=g_K1*K1_infinity*(V-E_K1) :: [i_K1]<<[g_K1, K1_infinity, V, E_K1]
+  @time i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai) :: [i_NaCa]<<[K_NaCa, K_mNa, Nao, K_mCa, Cao, K_sat, eta, V, F, R, T, Nai, Cai]
+  @time i_K=g_K*X^2*Xi*(V-E_K) :: [i_K]<<[g_K, X, Xi, V, E_K]
+  @time i_Ca_L=i_CaCa+i_CaK+i_CaNa :: [i_Ca_L]<<[i_CaCa, i_CaK, i_CaNa]
+  @time i_Na=g_Na*m^3*h*j*(V-E_Na) :: [i_Na]<<[g_Na, m, h, j, V, E_Na]
+  I_st=-100 :: [I_st]<<[]
+  Cm=1 :: [Cm]<<[]
+  F=96500 :: [F]<<[]
+  T=310 :: [T]<<[]
+  R=8314 :: [R]<<[]
+  @time ODE V: V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1) :: [V, V(time.max)]<<[Cm, i_Na, i_Ca_L, i_K, i_K1, i_Kp, i_NaCa, i_p_Ca, i_Na_b, i_Ca_b, i_NaK, i_ns_Ca, i_to, I_st, V(time.min), V:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  Ca_foot(time.min)=Ca_foot__init :: [Ca_foot(time.min)]<<[Ca_foot__init]
+  Ca_NSR(time.min)=Ca_NSR__init :: [Ca_NSR(time.min)]<<[Ca_NSR__init]
+  Ca_JSR(time.min)=Ca_JSR__init :: [Ca_JSR(time.min)]<<[Ca_JSR__init]
+  X(time.min)=X__init :: [X(time.min)]<<[X__init]
+  f(time.min)=f__init :: [f(time.min)]<<[f__init]
+  d(time.min)=d__init :: [d(time.min)]<<[d__init]
+  Ki(time.min)=Ki__init :: [Ki(time.min)]<<[Ki__init]
+  Ko(time.min)=Ko__init :: [Ko(time.min)]<<[Ko__init]
+  Cai(time.min)=Cai__init :: [Cai(time.min)]<<[Cai__init]
+  j(time.min)=j__init :: [j(time.min)]<<[j__init]
+  h(time.min)=h__init :: [h(time.min)]<<[h__init]
+  m(time.min)=m__init :: [m(time.min)]<<[m__init]
+  Nai(time.min)=Nai__init :: [Nai(time.min)]<<[Nai__init]
+  y(time.min)=y__init :: [y(time.min)]<<[y__init]
+  z(time.min)=z__init :: [z(time.min)]<<[z__init]
+  V(time.min)=V__init :: [V(time.min)]<<[V__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode Ca_foot__init seqLoops=() phase=main fft=null
+  addNode Ca_NSR__init seqLoops=() phase=main fft=null
+  addNode Ca_JSR__init seqLoops=() phase=main fft=null
+  addNode X__init seqLoops=() phase=main fft=null
+  addNode f__init seqLoops=() phase=main fft=null
+  addNode d__init seqLoops=() phase=main fft=null
+  addNode Ki__init seqLoops=() phase=main fft=null
+  addNode Ko__init seqLoops=() phase=main fft=null
+  addNode Cai__init seqLoops=() phase=main fft=null
+  addNode j__init seqLoops=() phase=main fft=null
+  addNode h__init seqLoops=() phase=main fft=null
+  addNode m__init seqLoops=() phase=main fft=null
+  addNode Nai__init seqLoops=() phase=main fft=null
+  addNode y__init seqLoops=() phase=main fft=null
+  addNode z__init seqLoops=() phase=main fft=null
+  addNode V__init seqLoops=() phase=main fft=null
+  addNode Ca_foot:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_NSR:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ca_JSR:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ko:time seqLoops=(time) phase=time#1 fft=null
+  addNode Ki:time seqLoops=(time) phase=time#1 fft=null
+  addNode Cai:time seqLoops=(time) phase=time#1 fft=null
+  addNode Nai:time seqLoops=(time) phase=time#1 fft=null
+  addNode X:time seqLoops=(time) phase=time#1 fft=null
+  addNode f:time seqLoops=(time) phase=time#1 fft=null
+  addNode d:time seqLoops=(time) phase=time#1 fft=null
+  addNode j:time seqLoops=(time) phase=time#1 fft=null
+  addNode h:time seqLoops=(time) phase=time#1 fft=null
+  addNode m:time seqLoops=(time) phase=time#1 fft=null
+  addNode y:time seqLoops=(time) phase=time#1 fft=null
+  addNode z:time seqLoops=(time) phase=time#1 fft=null
+  addNode V:time seqLoops=(time) phase=time#1 fft=null
+  addNode V_NSR seqLoops=() phase=main fft=null
+  addNode V_JSR seqLoops=() phase=main fft=null
+  addNode V_cleft seqLoops=() phase=main fft=null
+  addNode V_myo seqLoops=() phase=main fft=null
+  addNode R_A_V seqLoops=() phase=main fft=null
+  addNode A_cap seqLoops=() phase=main fft=null
+  addNode Ca_foot seqLoops=(time) phase=time#1 fft=time
+  addNode Ca_NSR seqLoops=(time) phase=time#1 fft=time
+  addNode Ca_JSR seqLoops=(time) phase=time#1 fft=time
+  addNode calcium_overload seqLoops=() phase=main fft=null
+  addNode Ca_NSR_max seqLoops=() phase=main fft=null
+  addNode I_up seqLoops=() phase=main fft=null
+  addNode K_leak seqLoops=() phase=main fft=null
+  addNode K_mup seqLoops=() phase=main fft=null
+  addNode K_mCSQN seqLoops=() phase=main fft=null
+  addNode CSQN_th seqLoops=() phase=main fft=null
+  addNode CSQN_max seqLoops=() phase=main fft=null
+  addNode CSQN_buff seqLoops=(time) phase=time#1 fft=null
+  addNode delta_Ca_ith seqLoops=() phase=main fft=null
+  addNode delta_Ca_i2 seqLoops=() phase=main fft=null
+  addNode K_mrel seqLoops=() phase=main fft=null
+  addNode t seqLoops=() phase=main fft=null
+  addNode tau_tr seqLoops=() phase=main fft=null
+  addNode tau_off seqLoops=() phase=main fft=null
+  addNode tau_on seqLoops=() phase=main fft=null
+  addNode G_rel_max seqLoops=(time) phase=time#1 fft=null
+  addNode G_rel seqLoops=(time) phase=time#1 fft=null
+  addNode i_tr seqLoops=(time) phase=time#1 fft=null
+  addNode i_leak seqLoops=(time) phase=time#1 fft=null
+  addNode i_up seqLoops=(time) phase=time#1 fft=null
+  addNode i_rel seqLoops=(time) phase=time#1 fft=null
+  addNode CMDN_buff seqLoops=(time) phase=time#1 fft=null
+  addNode Tn_buff seqLoops=(time) phase=time#1 fft=null
+  addNode CMDN_max seqLoops=() phase=main fft=null
+  addNode Tn_max seqLoops=() phase=main fft=null
+  addNode K_mCMDN seqLoops=() phase=main fft=null
+  addNode K_mTn seqLoops=() phase=main fft=null
+  addNode eta seqLoops=() phase=main fft=null
+  addNode K_sat seqLoops=() phase=main fft=null
+  addNode K_mCa seqLoops=() phase=main fft=null
+  addNode K_mNa seqLoops=() phase=main fft=null
+  addNode K_NaCa seqLoops=() phase=main fft=null
+  addNode K_m_ns_Ca seqLoops=() phase=main fft=null
+  addNode I_ns_K seqLoops=(time) phase=time#1 fft=null
+  addNode I_ns_Na seqLoops=(time) phase=time#1 fft=null
+  addNode P_ns_Ca seqLoops=() phase=main fft=null
+  addNode i_ns_K seqLoops=(time) phase=time#1 fft=null
+  addNode i_ns_Na seqLoops=(time) phase=time#1 fft=null
+  addNode sigma seqLoops=() phase=main fft=null
+  addNode K_mKo seqLoops=() phase=main fft=null
+  addNode K_mNai seqLoops=() phase=main fft=null
+  addNode f_NaK seqLoops=(time) phase=time#1 fft=null
+  addNode I_NaK seqLoops=() phase=main fft=null
+  addNode E_CaN seqLoops=(time) phase=time#1 fft=null
+  addNode g_Cab seqLoops=() phase=main fft=null
+  addNode E_NaN seqLoops=(time) phase=time#1 fft=null
+  addNode g_Nab seqLoops=() phase=main fft=null
+  addNode I_pCa seqLoops=() phase=main fft=null
+  addNode K_mpCa seqLoops=() phase=main fft=null
+  addNode Kp seqLoops=(time) phase=time#1 fft=null
+  addNode g_Kp seqLoops=() phase=main fft=null
+  addNode E_Kp seqLoops=(time) phase=time#1 fft=null
+  addNode beta_K1 seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_K1 seqLoops=(time) phase=time#1 fft=null
+  addNode K1_infinity seqLoops=(time) phase=time#1 fft=null
+  addNode g_K1 seqLoops=(time) phase=time#1 fft=null
+  addNode E_K1 seqLoops=(time) phase=time#1 fft=null
+  addNode beta_X seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_X seqLoops=(time) phase=time#1 fft=null
+  addNode Xi seqLoops=(time) phase=time#1 fft=null
+  addNode X seqLoops=(time) phase=time#1 fft=time
+  addNode PR_NaK seqLoops=() phase=main fft=null
+  addNode g_K seqLoops=(time) phase=time#1 fft=null
+  addNode Km_Ca seqLoops=() phase=main fft=null
+  addNode tau_f seqLoops=(time) phase=time#1 fft=null
+  addNode f_infinity seqLoops=(time) phase=time#1 fft=null
+  addNode beta_f seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_f seqLoops=(time) phase=time#1 fft=null
+  addNode tau_d seqLoops=(time) phase=time#1 fft=null
+  addNode d_infinity seqLoops=(time) phase=time#1 fft=null
+  addNode beta_d seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_d seqLoops=(time) phase=time#1 fft=null
+  addNode f_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode f seqLoops=(time) phase=time#1 fft=time
+  addNode d seqLoops=(time) phase=time#1 fft=time
+  addNode Ki seqLoops=(time) phase=time#1 fft=time
+  addNode Ko seqLoops=(time) phase=time#1 fft=time
+  addNode Cao seqLoops=() phase=main fft=null
+  addNode Cai seqLoops=(time) phase=time#1 fft=time
+  addNode gamma_Cao seqLoops=() phase=main fft=null
+  addNode gamma_Cai seqLoops=() phase=main fft=null
+  addNode P_K seqLoops=() phase=main fft=null
+  addNode P_Na seqLoops=() phase=main fft=null
+  addNode P_Ca seqLoops=() phase=main fft=null
+  addNode I_CaNa seqLoops=(time) phase=time#1 fft=null
+  addNode I_CaK seqLoops=(time) phase=time#1 fft=null
+  addNode I_CaCa seqLoops=(time) phase=time#1 fft=null
+  addNode gamma_Ko seqLoops=() phase=main fft=null
+  addNode gamma_Ki seqLoops=() phase=main fft=null
+  addNode gamma_Nao seqLoops=() phase=main fft=null
+  addNode gamma_Nai seqLoops=() phase=main fft=null
+  addNode i_CaNa seqLoops=(time) phase=time#1 fft=null
+  addNode i_CaK seqLoops=(time) phase=time#1 fft=null
+  addNode i_CaCa seqLoops=(time) phase=time#1 fft=null
+  addNode beta_j seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_j seqLoops=(time) phase=time#1 fft=null
+  addNode beta_h seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_h seqLoops=(time) phase=time#1 fft=null
+  addNode beta_m seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_m seqLoops=(time) phase=time#1 fft=null
+  addNode j seqLoops=(time) phase=time#1 fft=time
+  addNode h seqLoops=(time) phase=time#1 fft=time
+  addNode m seqLoops=(time) phase=time#1 fft=time
+  addNode Nao seqLoops=() phase=main fft=null
+  addNode Nai seqLoops=(time) phase=time#1 fft=time
+  addNode g_Na seqLoops=() phase=main fft=null
+  addNode E_Na seqLoops=(time) phase=time#1 fft=null
+  addNode beta_y seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_y seqLoops=(time) phase=time#1 fft=null
+  addNode beta_z seqLoops=(time) phase=time#1 fft=null
+  addNode alpha_z seqLoops=(time) phase=time#1 fft=null
+  addNode y seqLoops=(time) phase=time#1 fft=time
+  addNode z seqLoops=(time) phase=time#1 fft=time
+  addNode E_K seqLoops=(time) phase=time#1 fft=null
+  addNode R_to seqLoops=(time) phase=time#1 fft=null
+  addNode g_to seqLoops=() phase=main fft=null
+  addNode i_to seqLoops=(time) phase=time#1 fft=null
+  addNode i_ns_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode i_NaK seqLoops=(time) phase=time#1 fft=null
+  addNode i_Ca_b seqLoops=(time) phase=time#1 fft=null
+  addNode i_Na_b seqLoops=(time) phase=time#1 fft=null
+  addNode i_p_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode i_Kp seqLoops=(time) phase=time#1 fft=null
+  addNode i_K1 seqLoops=(time) phase=time#1 fft=null
+  addNode i_NaCa seqLoops=(time) phase=time#1 fft=null
+  addNode i_K seqLoops=(time) phase=time#1 fft=null
+  addNode i_Ca_L seqLoops=(time) phase=time#1 fft=null
+  addNode i_Na seqLoops=(time) phase=time#1 fft=null
+  addNode I_st seqLoops=() phase=main fft=null
+  addNode Cm seqLoops=() phase=main fft=null
+  addNode F seqLoops=() phase=main fft=null
+  addNode T seqLoops=() phase=main fft=null
+  addNode R seqLoops=() phase=main fft=null
+  addNode V seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode Ca_foot(time.min) seqLoops=() phase=main fft=null
+  addNode Ca_NSR(time.min) seqLoops=() phase=main fft=null
+  addNode Ca_JSR(time.min) seqLoops=() phase=main fft=null
+  addNode X(time.min) seqLoops=() phase=main fft=null
+  addNode f(time.min) seqLoops=() phase=main fft=null
+  addNode d(time.min) seqLoops=() phase=main fft=null
+  addNode Ki(time.min) seqLoops=() phase=main fft=null
+  addNode Ko(time.min) seqLoops=() phase=main fft=null
+  addNode Cai(time.min) seqLoops=() phase=main fft=null
+  addNode j(time.min) seqLoops=() phase=main fft=null
+  addNode h(time.min) seqLoops=() phase=main fft=null
+  addNode m(time.min) seqLoops=() phase=main fft=null
+  addNode Nai(time.min) seqLoops=() phase=main fft=null
+  addNode y(time.min) seqLoops=() phase=main fft=null
+  addNode z(time.min) seqLoops=() phase=main fft=null
+  addNode V(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding Ca_foot__init=0 to main
+  adding Ca_NSR__init=15 to main
+  adding Ca_JSR__init=0 to main
+  adding X__init=0 to main
+  adding f__init=0 to main
+  adding d__init=0 to main
+  adding Ki__init=145 to main
+  adding Ko__init=5.4 to main
+  adding Cai__init=.12 to main
+  adding j__init=0 to main
+  adding h__init=0 to main
+  adding m__init=0 to main
+  adding Nai__init=10 to main
+  adding y__init=0 to main
+  adding z__init=0 to main
+  adding V__init=-84.624 to main
+  adding extern V_NSR to main
+  adding extern V_JSR to main
+  adding extern V_cleft to main
+  adding extern V_myo to main
+  adding extern R_A_V to main
+  adding A_cap=1.53E-4 to main
+  adding extern calcium_overload to main
+  adding Ca_NSR_max=.15 to main
+  adding I_up=.005 to main
+  adding K_leak=I_up/Ca_NSR_max to main
+  adding K_mup=.92 to main
+  adding K_mCSQN=.8 to main
+  adding CSQN_th=.7 to main
+  adding CSQN_max=10 to main
+  adding delta_Ca_ith=.18 to main
+  adding extern delta_Ca_i2 to main
+  adding K_mrel=.8 to main
+  adding t=0 to main
+  adding tau_tr=180 to main
+  adding tau_off=2 to main
+  adding tau_on=2 to main
+  adding CMDN_max=50 to main
+  adding Tn_max=70 to main
+  adding K_mCMDN=2.38 to main
+  adding K_mTn=.5 to main
+  adding eta=.35 to main
+  adding K_sat=.1 to main
+  adding K_mCa=1.38 to main
+  adding K_mNa=87.5 to main
+  adding K_NaCa=2E3 to main
+  adding K_m_ns_Ca=1.2 to main
+  adding P_ns_Ca=1.75E-7 to main
+  adding K_mKo=1.5 to main
+  adding K_mNai=10 to main
+  adding I_NaK=1.5 to main
+  adding g_Cab=.003016 to main
+  adding g_Nab=.00141 to main
+  adding I_pCa=1.15 to main
+  adding K_mpCa=.5 to main
+  adding g_Kp=.0183 to main
+  adding PR_NaK=.01833 to main
+  adding Km_Ca=.6 to main
+  adding Cao=1.8 to main
+  adding gamma_Cao=.34 to main
+  adding gamma_Cai=1 to main
+  adding P_K=1.93E-7 to main
+  adding P_Na=6.75E-7 to main
+  adding P_Ca=5.4E-4 to main
+  adding gamma_Ko=.75 to main
+  adding gamma_Ki=.75 to main
+  adding gamma_Nao=.75 to main
+  adding gamma_Nai=.75 to main
+  adding Nao=140 to main
+  adding g_Na=16 to main
+  adding g_to=.5 to main
+  adding I_st=-100 to main
+  adding Cm=1 to main
+  adding F=96500 to main
+  adding T=310 to main
+  adding R=8314 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding sigma=1*(exp(Nao*.01485884101040119)-1)*.14285714285714285 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding Ca_foot(time.min)=Ca_foot__init to main
+  adding Ca_NSR(time.min)=Ca_NSR__init to main
+  adding Ca_JSR(time.min)=Ca_JSR__init to main
+  adding X(time.min)=X__init to main
+  adding f(time.min)=f__init to main
+  adding d(time.min)=d__init to main
+  adding Ki(time.min)=Ki__init to main
+  adding Ko(time.min)=Ko__init to main
+  adding Cai(time.min)=Cai__init to main
+  adding j(time.min)=j__init to main
+  adding h(time.min)=h__init to main
+  adding m(time.min)=m__init to main
+  adding Nai(time.min)=Nai__init to main
+  adding y(time.min)=y__init to main
+  adding z(time.min)=z__init to main
+  adding V(time.min)=V__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN)) to loop-time
+  adding G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4 to loop-time
+  adding G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) to loop-time
+  adding i_tr=(Ca_NSR-Ca_JSR)/tau_tr to loop-time
+  adding i_leak=K_leak*Ca_NSR to loop-time
+  adding i_up=I_up*(Cai/(Cai+K_mup)) to loop-time
+  adding i_rel=G_rel*(Ca_JSR-Cai) to loop-time
+  adding CMDN_buff=CMDN_max*(Cai/(Cai+K_mCMDN)) to loop-time
+  adding Tn_buff=Tn_max*(Cai/(Cai+K_mTn)) to loop-time
+  adding I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) to loop-time
+  adding I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) to loop-time
+  adding i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3)) to loop-time
+  adding i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3)) to loop-time
+  adding f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365) to loop-time
+  adding E_CaN=R*T/F*ln(Cao/Cai)*.5 to loop-time
+  adding Kp=1/(1+exp((7.488-V)/5.98)) to loop-time
+  adding g_K1=.75*sqrt(Ko/5.4) to loop-time
+  adding E_K1=R*T/F*ln(Ko/Ki) to loop-time
+  adding beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687)) to loop-time
+  adding alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148))) to loop-time
+  adding Xi=1/(1+exp((V-56.26)/32.1)) to loop-time
+  adding g_K=.282*sqrt(Ko/5.4) to loop-time
+  adding tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02) to loop-time
+  adding f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20)) to loop-time
+  adding beta_f=(1-f_infinity)/tau_f to loop-time
+  adding alpha_f=f_infinity/tau_f to loop-time
+  adding d_infinity=1/(1+exp((V+10)/6.24*(-1))) to loop-time
+  adding f_Ca=1/(1+(Cai/Km_Ca)^2) to loop-time
+  adding I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) to loop-time
+  adding I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) to loop-time
+  adding I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1)) to loop-time
+  adding i_CaNa=d*f*f_Ca*I_CaNa to loop-time
+  adding i_CaK=d*f*f_Ca*I_CaK to loop-time
+  adding i_CaCa=d*f*f_Ca*I_CaCa to loop-time
+  adding beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32))) to loop-time
+  adding alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0 to loop-time
+  adding beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1)))) to loop-time
+  adding alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0 to loop-time
+  adding beta_m=.08*exp(V/11*(-1)) to loop-time
+  adding alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13))) to loop-time
+  adding E_Na=R*T/F*ln(Nao/Nai) to loop-time
+  adding beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5)) to loop-time
+  adding alpha_y=.015/(1+exp((V+60)/5)) to loop-time
+  adding beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1))) to loop-time
+  adding alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25)) to loop-time
+  adding E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai)) to loop-time
+  adding R_to=exp(V/100) to loop-time
+  adding i_to=g_to*z^3*y*R_to*(V-E_K) to loop-time
+  adding i_ns_Ca=i_ns_Na+i_ns_K to loop-time
+  adding i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo)) to loop-time
+  adding i_Ca_b=g_Cab*(V-E_CaN) to loop-time
+  adding i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai)) to loop-time
+  adding i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai) to loop-time
+  adding i_K=g_K*X^2*Xi*(V-E_K) to loop-time
+  adding i_Ca_L=i_CaCa+i_CaK+i_CaNa to loop-time
+  adding i_Na=g_Na*m^3*h*j*(V-E_Na) to loop-time
+  adding Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5) to loop-time
+  adding Ca_NSR:time=(i_leak+i_tr-i_up)*(-1) to loop-time
+  adding Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1) to loop-time
+  adding Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo) to loop-time
+  adding X:time=alpha_X*(1-X)-beta_X*X to loop-time
+  adding f:time=alpha_f*(1-f)-beta_f*f to loop-time
+  adding j:time=alpha_j*(1-j)-beta_j*j to loop-time
+  adding h:time=alpha_h*(1-h)-beta_h*h to loop-time
+  adding m:time=alpha_m*(1-m)-beta_m*m to loop-time
+  adding y:time=alpha_y*(1-y)-beta_y*y to loop-time
+  adding z:time=alpha_z*(1-z)-beta_z*z to loop-time
+  adding E_NaN=E_Na to loop-time
+  adding E_Kp=E_K1 to loop-time
+  adding beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753)))) to loop-time
+  adding alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215))) to loop-time
+  adding K1_infinity=alpha_K1/(alpha_K1+beta_K1) to loop-time
+  adding tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10))) to loop-time
+  adding beta_d=(1-d_infinity)/tau_d to loop-time
+  adding alpha_d=d_infinity/tau_d to loop-time
+  adding i_Na_b=g_Nab*(V-E_NaN) to loop-time
+  adding i_Kp=g_Kp*Kp*(V-E_Kp) to loop-time
+  adding i_K1=g_K1*K1_infinity*(V-E_K1) to loop-time
+  adding Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F)) to loop-time
+  adding Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1) to loop-time
+  adding Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1) to loop-time
+  adding d:time=alpha_d*(1-d)-beta_d*d to loop-time
+  adding V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1) to loop-time
+  adding ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V] to loop-time
+  adding loop-time to main
+Building ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V] ...
+  adding muTool i_CaCa=d*f*f_Ca*I_CaCa
+  adding muVar i_CaCa
+  adding muTool f_Ca=1/(1+(Cai/Km_Ca)^2)
+  adding muVar f_Ca
+  adding muTool I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))
+  adding muVar I_CaCa
+  adding muTool Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)
+  adding muVar Ca_foot:time
+  adding muTool i_leak=K_leak*Ca_NSR
+  adding muVar i_leak
+  adding muTool i_tr=(Ca_NSR-Ca_JSR)/tau_tr
+  adding muVar i_tr
+  adding muTool i_up=I_up*(Cai/(Cai+K_mup))
+  adding muVar i_up
+  adding muTool Ca_NSR:time=(i_leak+i_tr-i_up)*(-1)
+  adding muVar Ca_NSR:time
+  adding muTool CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))
+  adding muTool G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4
+  adding muTool G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))
+  adding muTool i_rel=G_rel*(Ca_JSR-Cai)
+  adding muVar i_rel
+  adding muVar G_rel
+  adding muVar G_rel_max
+  adding muVar CSQN_buff
+  adding muTool Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1)
+  adding muVar Ca_JSR:time
+  adding muTool alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))
+  adding muVar alpha_X
+  adding muTool beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))
+  adding muVar beta_X
+  adding muTool X:time=alpha_X*(1-X)-beta_X*X
+  adding muVar X:time
+  adding muTool f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))
+  adding muTool alpha_f=f_infinity/tau_f
+  adding muVar alpha_f
+  adding muVar f_infinity
+  adding muTool tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)
+  adding muVar tau_f
+  adding muTool beta_f=(1-f_infinity)/tau_f
+  adding muVar beta_f
+  adding muTool f:time=alpha_f*(1-f)-beta_f*f
+  adding muVar f:time
+  adding muTool d_infinity=1/(1+exp((V+10)/6.24*(-1)))
+  adding muTool alpha_d=d_infinity/tau_d
+  adding muVar alpha_d
+  adding muVar d_infinity
+  adding muTool tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))
+  adding muVar tau_d
+  adding muTool beta_d=(1-d_infinity)/tau_d
+  adding muVar beta_d
+  adding muTool d:time=alpha_d*(1-d)-beta_d*d
+  adding muVar d:time
+  adding muTool i_CaK=d*f*f_Ca*I_CaK
+  adding muVar i_CaK
+  adding muTool I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+  adding muVar I_CaK
+  adding muTool g_K=.282*sqrt(Ko/5.4)
+  adding muTool i_K=g_K*X^2*Xi*(V-E_K)
+  adding muVar i_K
+  adding muVar g_K
+  adding muTool Xi=1/(1+exp((V-56.26)/32.1))
+  adding muVar Xi
+  adding muTool E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))
+  adding muVar E_K
+  adding muTool g_K1=.75*sqrt(Ko/5.4)
+  adding muTool i_K1=g_K1*K1_infinity*(V-E_K1)
+  adding muVar i_K1
+  adding muVar g_K1
+  adding muTool alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215)))
+  adding muTool K1_infinity=alpha_K1/(alpha_K1+beta_K1)
+  adding muVar K1_infinity
+  adding muVar alpha_K1
+  adding muTool E_K1=R*T/F*ln(Ko/Ki)
+  adding muVar E_K1
+  adding muTool beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))
+  adding muVar beta_K1
+  adding muTool Kp=1/(1+exp((7.488-V)/5.98))
+  adding muTool i_Kp=g_Kp*Kp*(V-E_Kp)
+  adding muVar i_Kp
+  adding muVar Kp
+  adding muTool E_Kp=E_K1
+  adding muVar E_Kp
+  adding muTool I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+  adding muTool i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))
+  adding muVar i_ns_K
+  adding muVar I_ns_K
+  adding muTool f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)
+  adding muTool i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))
+  adding muVar i_NaK
+  adding muVar f_NaK
+  adding muTool Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)
+  adding muVar Ki:time
+  adding muTool Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))
+  adding muVar Ko:time
+  adding muTool i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai))
+  adding muVar i_p_Ca
+  adding muTool i_Ca_b=g_Cab*(V-E_CaN)
+  adding muVar i_Ca_b
+  adding muTool E_CaN=R*T/F*ln(Cao/Cai)*.5
+  adding muVar E_CaN
+  adding muTool i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)
+  adding muVar i_NaCa
+  adding muTool Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)
+  adding muVar Cai:time
+  adding muTool alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0
+  adding muVar alpha_j
+  adding muTool beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))
+  adding muVar beta_j
+  adding muTool j:time=alpha_j*(1-j)-beta_j*j
+  adding muVar j:time
+  adding muTool alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0
+  adding muVar alpha_h
+  adding muTool beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))
+  adding muVar beta_h
+  adding muTool h:time=alpha_h*(1-h)-beta_h*h
+  adding muVar h:time
+  adding muTool alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))
+  adding muVar alpha_m
+  adding muTool beta_m=.08*exp(V/11*(-1))
+  adding muVar beta_m
+  adding muTool m:time=alpha_m*(1-m)-beta_m*m
+  adding muVar m:time
+  adding muTool i_Na=g_Na*m^3*h*j*(V-E_Na)
+  adding muVar i_Na
+  adding muTool E_Na=R*T/F*ln(Nao/Nai)
+  adding muVar E_Na
+  adding muTool i_CaNa=d*f*f_Ca*I_CaNa
+  adding muVar i_CaNa
+  adding muTool I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+  adding muVar I_CaNa
+  adding muTool i_Na_b=g_Nab*(V-E_NaN)
+  adding muVar i_Na_b
+  adding muTool E_NaN=E_Na
+  adding muVar E_NaN
+  adding muTool I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+  adding muTool i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))
+  adding muVar i_ns_Na
+  adding muVar I_ns_Na
+  adding muTool Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)
+  adding muVar Nai:time
+  adding muTool alpha_y=.015/(1+exp((V+60)/5))
+  adding muVar alpha_y
+  adding muTool beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5))
+  adding muVar beta_y
+  adding muTool y:time=alpha_y*(1-y)-beta_y*y
+  adding muVar y:time
+  adding muTool alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25))
+  adding muVar alpha_z
+  adding muTool beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))
+  adding muVar beta_z
+  adding muTool z:time=alpha_z*(1-z)-beta_z*z
+  adding muVar z:time
+  adding muTool i_Ca_L=i_CaCa+i_CaK+i_CaNa
+  adding muVar i_Ca_L
+  adding muTool i_ns_Ca=i_ns_Na+i_ns_K
+  adding muVar i_ns_Ca
+  adding muTool i_to=g_to*z^3*y*R_to*(V-E_K)
+  adding muVar i_to
+  adding muTool R_to=exp(V/100)
+  adding muVar R_to
+  adding muTool V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)
+  adding muVar V:time
+  adding f_Ca=1/(1+(Cai/Km_Ca)^2) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_leak=K_leak*Ca_NSR to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_tr=(Ca_NSR-Ca_JSR)/tau_tr to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_up=I_up*(Cai/(Cai+K_mup)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Ca_NSR:time=(i_leak+i_tr-i_up)*(-1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4 to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_rel=G_rel*(Ca_JSR-Cai) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding X:time=alpha_X*(1-X)-beta_X*X to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_f=(1-f_infinity)/tau_f to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding d_infinity=1/(1+exp((V+10)/6.24*(-1))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_d=(1-d_infinity)/tau_d to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding g_K=.282*sqrt(Ko/5.4) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Xi=1/(1+exp((V-56.26)/32.1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding g_K1=.75*sqrt(Ko/5.4) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_K1=R*T/F*ln(Ko/Ki) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753)))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Kp=1/(1+exp((7.488-V)/5.98)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_Kp=E_K1 to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_CaN=R*T/F*ln(Cao/Cai)*.5 to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0 to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding j:time=alpha_j*(1-j)-beta_j*j to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0 to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1)))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding h:time=alpha_h*(1-h)-beta_h*h to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_m=.08*exp(V/11*(-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding m:time=alpha_m*(1-m)-beta_m*m to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_Na=R*T/F*ln(Nao/Nai) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding E_NaN=E_Na to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_y=.015/(1+exp((V+60)/5)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding y:time=alpha_y*(1-y)-beta_y*y to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding z:time=alpha_z*(1-z)-beta_z*z to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_ns_Ca=i_ns_Na+i_ns_K to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding R_to=exp(V/100) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_CaCa=d*f*f_Ca*I_CaCa to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_f=f_infinity/tau_f to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding f:time=alpha_f*(1-f)-beta_f*f to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_d=d_infinity/tau_d to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding d:time=alpha_d*(1-d)-beta_d*d to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_CaK=d*f*f_Ca*I_CaK to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_K=g_K*X^2*Xi*(V-E_K) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215))) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding K1_infinity=alpha_K1/(alpha_K1+beta_K1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_Kp=g_Kp*Kp*(V-E_Kp) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_Ca_b=g_Cab*(V-E_CaN) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_Na=g_Na*m^3*h*j*(V-E_Na) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_CaNa=d*f*f_Ca*I_CaNa to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_Na_b=g_Nab*(V-E_NaN) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_Ca_L=i_CaCa+i_CaK+i_CaNa to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_to=g_to*z^3*y*R_to*(V-E_K) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding i_K1=g_K1*K1_infinity*(V-E_K1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F)) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+  adding V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1) to ODE Block-time [Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  Ca_foot__init=0
+  Ca_NSR__init=15
+  Ca_JSR__init=0
+  X__init=0
+  f__init=0
+  d__init=0
+  Ki__init=145
+  Ko__init=5.4
+  Cai__init=.12
+  j__init=0
+  h__init=0
+  m__init=0
+  Nai__init=10
+  y__init=0
+  z__init=0
+  V__init=-84.624
+  extern V_NSR
+  extern V_JSR
+  extern V_cleft
+  extern V_myo
+  extern R_A_V
+  A_cap=1.53E-4
+  extern calcium_overload
+  Ca_NSR_max=.15
+  I_up=.005
+  K_leak=I_up/Ca_NSR_max
+  K_mup=.92
+  K_mCSQN=.8
+  CSQN_th=.7
+  CSQN_max=10
+  delta_Ca_ith=.18
+  extern delta_Ca_i2
+  K_mrel=.8
+  t=0
+  tau_tr=180
+  tau_off=2
+  tau_on=2
+  CMDN_max=50
+  Tn_max=70
+  K_mCMDN=2.38
+  K_mTn=.5
+  eta=.35
+  K_sat=.1
+  K_mCa=1.38
+  K_mNa=87.5
+  K_NaCa=2E3
+  K_m_ns_Ca=1.2
+  P_ns_Ca=1.75E-7
+  K_mKo=1.5
+  K_mNai=10
+  I_NaK=1.5
+  g_Cab=.003016
+  g_Nab=.00141
+  I_pCa=1.15
+  K_mpCa=.5
+  g_Kp=.0183
+  PR_NaK=.01833
+  Km_Ca=.6
+  Cao=1.8
+  gamma_Cao=.34
+  gamma_Cai=1
+  P_K=1.93E-7
+  P_Na=6.75E-7
+  P_Ca=5.4E-4
+  gamma_Ko=.75
+  gamma_Ki=.75
+  gamma_Nao=.75
+  gamma_Nai=.75
+  Nao=140
+  g_Na=16
+  g_to=.5
+  I_st=-100
+  Cm=1
+  F=96500
+  T=310
+  R=8314
+  extern time.delta
+  extern time.max
+  time.min=0
+  sigma=1*(exp(Nao*.01485884101040119)-1)*.14285714285714285
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  Ca_foot(time.min)=Ca_foot__init
+  Ca_NSR(time.min)=Ca_NSR__init
+  Ca_JSR(time.min)=Ca_JSR__init
+  X(time.min)=X__init
+  f(time.min)=f__init
+  d(time.min)=d__init
+  Ki(time.min)=Ki__init
+  Ko(time.min)=Ko__init
+  Cai(time.min)=Cai__init
+  j(time.min)=j__init
+  h(time.min)=h__init
+  m(time.min)=m__init
+  Nai(time.min)=Nai__init
+  y(time.min)=y__init
+  z(time.min)=z__init
+  V(time.min)=V__init
+  loop-time
+    CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))
+    G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4
+    G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))
+    i_tr=(Ca_NSR-Ca_JSR)/tau_tr
+    i_leak=K_leak*Ca_NSR
+    i_up=I_up*(Cai/(Cai+K_mup))
+    i_rel=G_rel*(Ca_JSR-Cai)
+    CMDN_buff=CMDN_max*(Cai/(Cai+K_mCMDN))
+    Tn_buff=Tn_max*(Cai/(Cai+K_mTn))
+    I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+    I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+    i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))
+    i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))
+    f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)
+    E_CaN=R*T/F*ln(Cao/Cai)*.5
+    Kp=1/(1+exp((7.488-V)/5.98))
+    g_K1=.75*sqrt(Ko/5.4)
+    E_K1=R*T/F*ln(Ko/Ki)
+    beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))
+    alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))
+    Xi=1/(1+exp((V-56.26)/32.1))
+    g_K=.282*sqrt(Ko/5.4)
+    tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)
+    f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))
+    beta_f=(1-f_infinity)/tau_f
+    alpha_f=f_infinity/tau_f
+    d_infinity=1/(1+exp((V+10)/6.24*(-1)))
+    f_Ca=1/(1+(Cai/Km_Ca)^2)
+    I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+    I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+    I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))
+    i_CaNa=d*f*f_Ca*I_CaNa
+    i_CaK=d*f*f_Ca*I_CaK
+    i_CaCa=d*f*f_Ca*I_CaCa
+    beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))
+    alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0
+    beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))
+    alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0
+    beta_m=.08*exp(V/11*(-1))
+    alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))
+    E_Na=R*T/F*ln(Nao/Nai)
+    beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5))
+    alpha_y=.015/(1+exp((V+60)/5))
+    beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))
+    alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25))
+    E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))
+    R_to=exp(V/100)
+    i_to=g_to*z^3*y*R_to*(V-E_K)
+    i_ns_Ca=i_ns_Na+i_ns_K
+    i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))
+    i_Ca_b=g_Cab*(V-E_CaN)
+    i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai))
+    i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)
+    i_K=g_K*X^2*Xi*(V-E_K)
+    i_Ca_L=i_CaCa+i_CaK+i_CaNa
+    i_Na=g_Na*m^3*h*j*(V-E_Na)
+    Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)
+    Ca_NSR:time=(i_leak+i_tr-i_up)*(-1)
+    Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1)
+    Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)
+    X:time=alpha_X*(1-X)-beta_X*X
+    f:time=alpha_f*(1-f)-beta_f*f
+    j:time=alpha_j*(1-j)-beta_j*j
+    h:time=alpha_h*(1-h)-beta_h*h
+    m:time=alpha_m*(1-m)-beta_m*m
+    y:time=alpha_y*(1-y)-beta_y*y
+    z:time=alpha_z*(1-z)-beta_z*z
+    E_NaN=E_Na
+    E_Kp=E_K1
+    beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))
+    alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215)))
+    K1_infinity=alpha_K1/(alpha_K1+beta_K1)
+    tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))
+    beta_d=(1-d_infinity)/tau_d
+    alpha_d=d_infinity/tau_d
+    i_Na_b=g_Nab*(V-E_NaN)
+    i_Kp=g_Kp*Kp*(V-E_Kp)
+    i_K1=g_K1*K1_infinity*(V-E_K1)
+    Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))
+    Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)
+    Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)
+    d:time=alpha_d*(1-d)-beta_d*d
+    V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)
+    ODE Block-time vmus=[time, Ca_foot, Ca_NSR, Ca_JSR, X, f, d, Ki, Ko, Cai, j, h, m, Nai, y, z, V, i_CaCa, f_Ca, I_CaCa, Ca_foot:time, i_leak, i_tr, i_up, Ca_NSR:time, i_rel, G_rel, G_rel_max, CSQN_buff, Ca_JSR:time, alpha_X, beta_X, X:time, alpha_f, f_infinity, tau_f, beta_f, f:time, alpha_d, d_infinity, tau_d, beta_d, d:time, i_CaK, I_CaK, i_K, g_K, Xi, E_K, i_K1, g_K1, K1_infinity, alpha_K1, E_K1, beta_K1, i_Kp, Kp, E_Kp, i_ns_K, I_ns_K, i_NaK, f_NaK, Ki:time, Ko:time, i_p_Ca, i_Ca_b, E_CaN, i_NaCa, Cai:time, alpha_j, beta_j, j:time, alpha_h, beta_h, h:time, alpha_m, beta_m, m:time, i_Na, E_Na, i_CaNa, I_CaNa, i_Na_b, E_NaN, i_ns_Na, I_ns_Na, Nai:time, alpha_y, beta_y, y:time, alpha_z, beta_z, z:time, i_Ca_L, i_ns_Ca, i_to, R_to, V:time]
+      f_Ca=1/(1+(Cai/Km_Ca)^2)
+      I_CaCa=P_Ca*4*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(V*F/(R*T)*2)-gamma_Cao*Cao)/(exp(V*F/(R*T)*2)-1))
+      i_leak=K_leak*Ca_NSR
+      i_tr=(Ca_NSR-Ca_JSR)/tau_tr
+      i_up=I_up*(Cai/(Cai+K_mup))
+      Ca_NSR:time=(i_leak+i_tr-i_up)*(-1)
+      CSQN_buff=CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN))
+      G_rel_max=if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) 0 else 60 else if (CSQN_buff<CSQN_th) 0 else 4
+      G_rel=if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1)) else G_rel_max*(1-exp(t/tau_on*(-1)))*exp(t/tau_off*(-1))
+      i_rel=G_rel*(Ca_JSR-Cai)
+      Ca_JSR:time=(i_rel-i_tr*(V_NSR/V_JSR))*(-1)
+      alpha_X=7.19E-5*(V+30)/(1-exp((V+30)*(-0.148)))
+      beta_X=1.31E-4*(V+30)/((-1)+exp((V+30)*.0687))
+      X:time=alpha_X*(1-X)-beta_X*X
+      f_infinity=1/(1+exp((V+35.06)/8.6))+.6/(1+exp((50-V)/20))
+      tau_f=1/(exp((.0337*(V+10))^2*(-1))*.0197+.02)
+      beta_f=(1-f_infinity)/tau_f
+      d_infinity=1/(1+exp((V+10)/6.24*(-1)))
+      tau_d=d_infinity*((1-exp((V+10)/6.24*(-1)))/(.035*(V+10)))
+      beta_d=(1-d_infinity)/tau_d
+      I_CaK=P_K*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+      g_K=.282*sqrt(Ko/5.4)
+      Xi=1/(1+exp((V-56.26)/32.1))
+      E_K=R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai))
+      g_K1=.75*sqrt(Ko/5.4)
+      E_K1=R*T/F*ln(Ko/Ki)
+      beta_K1=(.49124*exp((V+5.476-E_K1)*.08032)+exp((V-(E_K1+594.31))*.06175))/(1+exp((-0.5143)*(V-(E_K1+4.753))))
+      Kp=1/(1+exp((7.488-V)/5.98))
+      E_Kp=E_K1
+      I_ns_K=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(V*F/(R*T))-gamma_Ko*Ko)/(exp(V*F/(R*T))-1))
+      i_ns_K=I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3))
+      f_NaK=1/(1+exp(V*F/(R*T)*(-0.1))*.1245+sigma*exp(V*F/(R*T)*(-1))*.0365)
+      i_NaK=I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo))
+      i_p_Ca=I_pCa*(Cai/(K_mpCa+Cai))
+      E_CaN=R*T/F*ln(Cao/Cai)*.5
+      i_NaCa=K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai)
+      alpha_j=if (V<(-40)) ((-127140)*exp(.2444*V)-3.474E-5*exp((-0.04391)*V))*((V+37.78)/(1+exp(.311*(V+79.23)))) else 0
+      beta_j=if (V<(-40)) .1212*exp((-0.01052)*V)/(1+exp((-0.1378)*(V+40.14))) else .3*exp((-2.535E-7)*V)/(1+exp((-0.1)*(V+32)))
+      j:time=alpha_j*(1-j)-beta_j*j
+      alpha_h=if (V<(-40)) .135*exp((80+V)/(-6.8)) else 0
+      beta_h=if (V<(-40)) 3.56*exp(.079*V)+3.1E5*exp(.35*V) else 1/(.13*(1+exp((V+10.66)/(-11.1))))
+      h:time=alpha_h*(1-h)-beta_h*h
+      alpha_m=.32*(V+47.13)/(1-exp((-0.1)*(V+47.13)))
+      beta_m=.08*exp(V/11*(-1))
+      m:time=alpha_m*(1-m)-beta_m*m
+      E_Na=R*T/F*ln(Nao/Nai)
+      I_CaNa=P_Na*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+      E_NaN=E_Na
+      I_ns_Na=P_ns_Ca*1*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(V*F/(R*T))-gamma_Nao*Nao)/(exp(V*F/(R*T))-1))
+      i_ns_Na=I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3))
+      alpha_y=.015/(1+exp((V+60)/5))
+      beta_y=.1*exp((V+25)/5)/(1+exp((V+25)/5))
+      y:time=alpha_y*(1-y)-beta_y*y
+      alpha_z=10*exp((V-40)/25)/(1+exp((V-40)/25))
+      beta_z=10*exp((V+90)/25*(-1))/(1+exp((V+90)/25*(-1)))
+      z:time=alpha_z*(1-z)-beta_z*z
+      i_ns_Ca=i_ns_Na+i_ns_K
+      R_to=exp(V/100)
+      i_CaCa=d*f*f_Ca*I_CaCa
+      Ca_foot:time=i_CaCa*(A_cap/(V_myo*F))*R_A_V*(-0.5)
+      alpha_f=f_infinity/tau_f
+      f:time=alpha_f*(1-f)-beta_f*f
+      alpha_d=d_infinity/tau_d
+      d:time=alpha_d*(1-d)-beta_d*d
+      i_CaK=d*f*f_Ca*I_CaK
+      i_K=g_K*X^2*Xi*(V-E_K)
+      alpha_K1=1.02/(1+exp(.2385*(V-E_K1-59.215)))
+      K1_infinity=alpha_K1/(alpha_K1+beta_K1)
+      i_Kp=g_Kp*Kp*(V-E_Kp)
+      i_Ca_b=g_Cab*(V-E_CaN)
+      Cai:time=(i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(V_myo*F))*.5+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo)
+      i_Na=g_Na*m^3*h*j*(V-E_Na)
+      i_CaNa=d*f*f_Ca*I_CaNa
+      i_Na_b=g_Nab*(V-E_NaN)
+      Nai:time=(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F))*(-1)
+      i_Ca_L=i_CaCa+i_CaK+i_CaNa
+      i_to=g_to*z^3*y*R_to*(V-E_K)
+      i_K1=g_K1*K1_infinity*(V-E_K1)
+      Ki:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_myo*F))*(-1)
+      Ko:time=(i_CaK+i_K+i_K1+i_Kp+i_ns_K+i_NaK*(-2))*(A_cap/(V_cleft*F))
+      V:time=1/Cm*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st)*(-1)
+

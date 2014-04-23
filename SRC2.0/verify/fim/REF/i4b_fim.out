@@ -1,0 +1,20 @@
+I4bull1.0
+
+sztp	2	3	1	2
+format	ascii
+timebin	0	1
+parm	"amp"	"dimensionless"
+	"offset"	"dimensionless"
+zoffset	6
+angles	90
+	90
+	90
+data
+
+# t=1 p=1
+	1	1	.9972
+	2	1.999	1.999
+
+# t=1 p=2
+	0	2.999	6.001
+	9.605E-4	3.001	6.001

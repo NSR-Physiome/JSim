@@ -1,0 +1,5 @@
+Cin=a/d
+==== JSim version 1.6.85: Fatal Error
+
+JSim.util.Xcept: Cin=a/d : Expression "Cin" Expression "a/d" Assignment units are incompatible
+

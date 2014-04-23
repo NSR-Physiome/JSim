@@ -1,0 +1,27 @@
+antimony {{
+  //Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  division_call0 := k2 * 0.01;
+  reaction1 := C * k1 * S1;
+  k1 := division_call0;
+
+  // Rate Rules:
+  S2' = reaction1 / C;
+  S1' = reaction1 * -1 / C;
+
+  // Variable initializations:
+  C = 1;
+  k2 = 50;
+  S2 = 1.5 / C;
+  S1 = 1 / C;
+
+  //Other declarations:
+  var division_call0, reaction1, k1, S2, S1;
+end
+
+
+
+}}
+

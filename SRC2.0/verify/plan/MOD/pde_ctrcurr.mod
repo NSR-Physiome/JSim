@@ -1,0 +1,23 @@
+// 2 PDE advection-diffusion with counter current exchange
+
+math main {
+  realDomain t, x;
+  t.min=0; t.max=3; t.delta=.1;
+  x.min=0; x.max=1; x.delta=.05;
+  real Cin(t) = 1 - exp(-t);
+  real u(t,x), v(t,x), uOut(t), vOut(t);
+  when (t=t.min) { u=0; v=0; }
+  when (x=x.min) { 
+    u = Cin + vOut;
+    v:x = 0;
+    vOut = v;
+  }
+  when (x=x.max) {
+     u:x = 0;
+     uOut = u;
+     v = uOut;
+  }
+  u:t = u:x:x - u:x + v - u;
+  v:t = v:x:x - v:x + u - v;
+}
+

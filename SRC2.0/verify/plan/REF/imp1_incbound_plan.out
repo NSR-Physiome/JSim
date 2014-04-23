@@ -1,0 +1,43 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: real u
+Loading Constraints
+  (u^2-u*5+6)=0 :: [u]
+  u>=0 :: [u]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+Toolbox phase - cycle 1:
+  check eqn: (u^2-u*5+6)=0; [u]
+  Implicit tool non-linear in [u]
+  add tool: [(u^2-u*5+6)=0]
+Toolbox phase - all cycles completed
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  [(u^2-u*5+6)=0] :: [u]<<[]
+Events to seqence:
+Relations to sequence:
+  u>=0 :: []<<[u]
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[]
+  addNode u seqLoops=() phase=main fft=null
+  addNode bound u >= 0 seqLoops=() phase=main fft=null
+  addNode u>=0 seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding [(u^2-u*5+6)=0] with 1 bounds to main
+  adding u>=0 to main
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  [(u^2-u*5+6)=0] with 1 bounds
+  u>=0
+

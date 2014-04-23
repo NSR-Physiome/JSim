@@ -1,0 +1,48 @@
+// This model generated automatically from SBML
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real comp1 = 10 L;
+  real AmtAmtAlg(time) mol;
+  real AmtNoneAlg(time) mol;
+  real ConcAmtAlg(time) M;
+  real ConcConcAlg(time) M;
+  real ConcNoneAlg(time) M;
+
+  // equations
+  time+AmtAmtAlg = 0;
+  time+AmtNoneAlg = 0;
+  time+ConcAmtAlg = 0;
+  time+ConcConcAlg = 0;
+  time+ConcNoneAlg = 0;
+
+  // variable properties
+  comp1.sbmlRole="compartment";
+  AmtAmtAlg.sbmlRole="species";
+  AmtAmtAlg.sbmlCompartment="comp1";
+  AmtNoneAlg.sbmlRole="species";
+  AmtNoneAlg.sbmlCompartment="comp1";
+  ConcAmtAlg.sbmlRole="species";
+  ConcAmtAlg.sbmlCompartment="comp1";
+  ConcConcAlg.sbmlRole="species";
+  ConcConcAlg.sbmlCompartment="comp1";
+  ConcNoneAlg.sbmlRole="species";
+  ConcNoneAlg.sbmlCompartment="comp1";
+}
+

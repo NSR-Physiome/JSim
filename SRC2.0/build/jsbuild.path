@@ -1,0 +1,119 @@
+#!/bin/sh
+
+# set PATHs for JSim build/test utilities
+
+# JSIMSRC and derivatives
+if [ "$JSIMSRC" = "" ]
+then
+  echo "jsbuild.path: JSIMSRC undefined"
+  exit 1
+fi
+JSIMHOME=$JSIMSRC/home
+
+# set JSIMOS, JSIMARCH, JSIMOSARCH based on machine query
+. jsbuild.osarch
+
+# determine JSIMNATIVE  
+JSIMNATIVE=$JSIMSRC/native/$JSIMOSARCH
+
+# check JSIMSDK, set JSIMJRE
+if [ "$JSIMSDK" = "" ]
+then
+  echo "jsbuild.path: JSIMSDK undefined"
+  exit 1
+fi
+if [ "$JSIMJRE" = "" ]
+then
+  export JSIMJRE="$JSIMSDK"
+fi
+
+# check JSIMMAKE
+if [ "$JSIMMAKE" = "" ]
+then
+  JSIMMAKE=make
+fi
+
+# set PATH
+PATH="$JSIMSDK/bin":"$PATH"
+if [ "$JSIMOS" = "win32" ]
+then
+  PATH=$JSIMNATIVE/nml:"$PATH"
+fi
+
+# set CLASSPATH
+CLASSPATH="$JSIMSDK/jre/lib/rt.jar:$JSIMSDK/lib"
+if [ "$JSIMJARDIR" = "" ]
+then
+  CLASSPATH="$CLASSPATH":"$JSIMSRC"
+  THIRD=$JSIMSRC/third
+  for i in $THIRD/client/*.jar $THIRD/server/*.jar
+  do
+    CLASSPATH="$CLASSPATH":"$i"
+  done
+else
+  # win32 tools finder broken, force tools5 for now
+  CLASSPATH="$CLASSPATH":"$JSIMJARDIR/JSimClient.jar"
+  if [ "$JSIMOS" = "win32" ] 
+  then
+    CLASSPATH="$CLASSPATH":"$JSIMJARDIR/tools6.jar"
+  fi
+  if [ "$JSIMCLIENT" != "true" ]
+  then 
+    CLASSPATH="$CLASSPATH":"$JSIMJARDIR/JSimServer.jar"
+  fi
+fi
+
+# set LD_LIBRARY_PATH
+LD_LIBRARY_PATH=$JSIMNATIVE/nml:$JSIMNATIVE/fpack
+if [ "$JSIMAUXLIB" != "" ]
+then
+  LD_LIBRARY_PATH="$JSIMAUXLIB/$JSIMOSARCH":"$LD_LIBRARY_PATH" 
+  if [ "$JSIMOS" = "win32" ]
+  then
+    PATH="$JSIMAUXLIB/$JSIMOSARCH":"$PATH"
+  fi
+fi
+
+# default JSIMMEM
+if [ "$JSIMMEM" = "" ]
+then
+  JSIMMEM=1500
+fi
+
+# modify win32 paths (SDK lacks cygwin)
+if [ "$JSIMOS" = "win32" ]
+then
+  CLASSPATH=`cygpath -wp "$CLASSPATH"`
+  LD_LIBRARY_PATH=`cygpath -wp "$LD_LIBRARY_PATH"`
+  JSIMHOME=`cygpath -wp $JSIMHOME`
+  if [ "$JSIMUSERDIR" != "" ]
+  then
+    JSIMUSERDIR=`cygpath -wp $JSIMUSERDIR`
+  fi
+  if [ "$JSIMJAVAC" != "" ]
+  then
+    JSIMJAVAC=`cygpath -wp $JSIMJAVAC`
+  fi
+fi
+
+# java arguments
+JSIMARGS=
+JSIMARGS="$JSIMARGS -classpath $CLASSPATH"
+JSIMARGS="$JSIMARGS -Djava.library.path=$LD_LIBRARY_PATH"
+JSIMARGS="$JSIMARGS -Xmx""$JSIMMEM"m
+JSIMARGS="$JSIMARGS -Djsim.home=$JSIMHOME"
+JSIMARGS="$JSIMARGS -Djsim.userdir=$JSIMUSERDIR"
+JSIMARGS="$JSIMARGS -Djsim.javac=$JSIMJAVAC"
+
+# export vars
+export JSIMOS JSIMARCH JSIMOSARCH JSIMNATIVE
+export JSIMHOME JSIMSDK JSIMMEM JSIMARGS
+export JSIMMAKE PATH CLASSPATH 
+
+if [ "$JSIMOS" = "macos" ]
+then
+  DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH
+  export DYLD_LIBRARY_PATH
+else
+  export LD_LIBRARY_PATH
+fi

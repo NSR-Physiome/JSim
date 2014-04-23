@@ -1,0 +1,8 @@
+t.min = { 1 } sec
+t.max = { 5 } sec
+t.ct = { 5 } dimensionless
+t.delta = { 1 } sec
+c = { 1 } m
+b = { 1.6833333 } m
+t = { 1 2 3 4 5 } sec
+a(t) = { (1,1) (2,.5) (3,.33333333) (4,.25) (5,.2) } m/sec

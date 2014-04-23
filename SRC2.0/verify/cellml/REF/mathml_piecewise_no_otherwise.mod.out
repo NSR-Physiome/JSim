@@ -1,0 +1,167 @@
+/*
+ * A Substrate Switch: A New Mode of Regulation in the Methionine
+ * Metabolic Pathway
+ * 
+ * Model Status
+ * 
+ * This model runs in COR and OpenCell, and the units are consistent
+ * throughout. It is a faithful reproduction of the paper equations,
+ * and the output is similar (but not identical) to the published
+ * results (Fig 5).
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: We propose a simple mathematical model of liver S-adenosylmethionine
+ * (AdoMet) metabolism. Analysis of the model has shown that AdoMet
+ * metabolism can operate under two different modes. The first,
+ * with low metabolic rate and low AdoMet concentration, serves
+ * predominantly to supply the cell with AdoMet, the substrate
+ * for various cellular methylation reactions. The second, with
+ * high metabolic rate and high AdoMet concentration, provides
+ * an avenue for cleavage of excess methionine and can serve as
+ * a source of cysteine when its increased synthesis is necessary.
+ * The switch that triggers interconversion between the "low" and
+ * "high" modes is methionine concentration. Under a certain set
+ * of parameters both modes may coexist. This behavior results
+ * from the kinetic properties of (i) the two isoenzymes of AdoMet
+ * synthetase, MATI and MATIII, that catalyse AdoMet production;
+ * one is inhibited by AdoMet, whereas the other is activated by
+ * it, and (ii) glycine-N-methyltransferase that displays highly
+ * cooperative kinetics that is different from that of other AdoMet-dependent
+ * methyltransferases. Thus, the model provides an explanation
+ * for how different cellular needs are met by regulation of this
+ * pathway. The model also correctly identifies a critical role
+ * for glycine N-methyltransferase in depleting excess methionine
+ * in the high mode, thus avoiding the toxicity associated with
+ * elevated levels of this essential amino acid.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * A Substrate Switch: A New Mode of Regulation in the Methionine
+ * Metabolic Pathway, Michael V. Martinov, Victor M. Vitvitsky,
+ * Eugene V. Mosharov, Ruma Banerjee, and Fazoil I. Ataullakhanov,
+ * 2000, Journal of Theoretical Biology, 204, 521-532. PubMed ID:
+ * 10833353
+ * 
+ * reaction diagram
+ * 
+ * [[Image file: martinov_2000.png]]
+ * 
+ * Simplified pathway of methionine metabolism in liver cells employed
+ * for modelling in the study described here. The main metabolites
+ * are shown in blue boxes and the enzymes in red boxes.
+ */
+
+import nsrunit;
+unit conversion on;
+// unit micromolar predefined
+unit hour=3600 second^1;
+unit flux=2.7777778E-7 meter^(-3)*second^(-1)*mole^1;
+unit first_order_rate_constant=2.7777778E-4 second^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time hour;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real Ado micromolar;
+	Ado.cellMLNames="Ado.Ado;AdoHcy.Ado;Hcy.Ado";
+	Ado=1;
+	real Met(time) micromolar;
+	Met.cellMLNames="Met.Met;V_MATI.Met;V_MATIII.Met";
+	real Hcy(time) micromolar;
+	Hcy.cellMLNames="Hcy.Hcy;V_D.Hcy";
+	real AdoHcy(time) micromolar;
+	AdoHcy.cellMLNames="Hcy.AdoHcy;AdoHcy.AdoHcy;V_GNMT.AdoHcy;V_MET.AdoHcy";
+	when(time=time.min) AdoHcy=3;
+	real K_AHC micromolar;
+	K_AHC.cellMLNames="Hcy.K_AHC;K_AHC.K_AHC;AdoHcy.K_AHC";
+	K_AHC=0.1;
+	real AdoMet(time) micromolar;
+	AdoMet.cellMLNames="AdoMet.AdoMet;V_MATI.AdoMet;V_MATIII.AdoMet;V_GNMT.AdoMet;V_MET.AdoMet";
+	when(time=time.min) AdoMet=60;
+	real V_MET(time) flux;
+	V_MET.cellMLNames="AdoMet.V_MET;V_MET.V_MET;AdoHcy.V_MET";
+	real V_GNMT(time) flux;
+	V_GNMT.cellMLNames="AdoMet.V_GNMT;V_GNMT.V_GNMT;AdoHcy.V_GNMT";
+	real V_MATI(time) flux;
+	V_MATI.cellMLNames="AdoMet.V_MATI;V_MATI.V_MATI";
+	real V_MATIII(time) flux;
+	V_MATIII.cellMLNames="AdoMet.V_MATIII;V_MATIII.V_MATIII";
+	real V_D(time) flux;
+	V_D.cellMLNames="AdoHcy.V_D;V_D.V_D";
+	real V_MATImax flux;
+	V_MATImax.cellMLNames="V_MATI.V_MATImax";
+	V_MATImax=561;
+	real Km_MATI micromolar;
+	Km_MATI.cellMLNames="V_MATI.Km_MATI";
+	Km_MATI=41;
+	real Ki_MATI micromolar;
+	Ki_MATI.cellMLNames="V_MATI.Ki_MATI";
+	Ki_MATI=50;
+	real V_MATIIImax flux;
+	V_MATIIImax.cellMLNames="V_MATIII.V_MATIIImax";
+	V_MATIIImax=22870;
+	real Km1_MATIII(time) micromolar;
+	Km1_MATIII.cellMLNames="V_MATIII.Km1_MATIII";
+	real Km2_MATIII micromolar;
+	Km2_MATIII.cellMLNames="V_MATIII.Km2_MATIII";
+	Km2_MATIII=21.1;
+	real V_METmax flux;
+	V_METmax.cellMLNames="V_MET.V_METmax";
+	V_METmax=4544;
+	real Km1_MET(time) micromolar;
+	Km1_MET.cellMLNames="V_MET.Km1_MET";
+	real Km2_MET_A dimensionless;
+	Km2_MET_A.cellMLNames="V_MET.Km2_MET_A";
+	Km2_MET_A=10;
+	real V_GNMTmax flux;
+	V_GNMTmax.cellMLNames="V_GNMT.V_GNMTmax";
+	V_GNMTmax=10600;
+	real Km_GNMT micromolar;
+	Km_GNMT.cellMLNames="V_GNMT.Km_GNMT";
+	Km_GNMT=4500;
+	real Ki_GNMT micromolar;
+	Ki_GNMT.cellMLNames="V_GNMT.Ki_GNMT";
+	Ki_GNMT=20;
+	real alpha_d first_order_rate_constant;
+	alpha_d.cellMLNames="V_D.alpha_d";
+	alpha_d=1333;
+
+	// <component name="environment">
+
+	// <component name="Ado">
+
+	// <component name="Met">
+	Met=(if ((time>=(0 hour)) and (time<(5 hour))) (45 micromolar) else if ((time>=(5 hour)) and (time<(15 hour))) (52 micromolar) else if ((time>=(15 hour)) and (time<(60 hour))) (55 micromolar) else if ((time>=(60 hour)) and (time<(75 hour))) (52 micromolar) else if (time>=(75 hour)) (45 micromolar) else 0);
+
+	// <component name="Hcy">
+	Hcy=(AdoHcy*K_AHC/Ado);
+
+	// <component name="K_AHC">
+
+	// <component name="AdoMet">
+	AdoMet:time=(V_MATI+V_MATIII-(V_MET+V_GNMT));
+
+	// <component name="AdoHcy">
+	AdoHcy:time=((V_MET+V_GNMT-V_D)/(1+K_AHC/Ado));
+
+	// <component name="V_MATI">
+	V_MATI=(V_MATImax/(1+Km_MATI/Met*(1+AdoMet/Ki_MATI)));
+
+	// <component name="V_MATIII">
+	V_MATIII=(V_MATIIImax/(1+Km1_MATIII*Km2_MATIII/(Met^2+Met*Km2_MATIII)));
+	Km1_MATIII=((2E4 micromolar)/(1+5.7*(AdoMet/(AdoMet+(600 micromolar)))^2));
+
+	// <component name="V_MET">
+	V_MET=(V_METmax/(1+Km1_MET/AdoMet+Km2_MET_A+Km2_MET_A*Km1_MET/AdoMet));
+	Km1_MET=((10 micromolar)*(1+AdoHcy/(4 micromolar)));
+
+	// <component name="V_GNMT">
+	V_GNMT=(V_GNMTmax/(1+(Km_GNMT/AdoMet)^2.3)*1/(1+AdoHcy/Ki_GNMT));
+
+	// <component name="V_D">
+	V_D=(alpha_d*Hcy);
+}
+

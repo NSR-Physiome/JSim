@@ -1,0 +1,65 @@
+// This model generated automatically from SBML
+// Warning:  The SBML reaction 'fasterReaction' was a 'fast reaction' in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// fasterReaction: A4 => A2 
+// slowerReaction1: A1 A2 => A3 
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real C = 1 L;
+  real Kr1 = 2;
+  real Kf1 = 1;
+  real Kf = 1;
+  real Kr = 2;
+  real A1(time) M;
+  real A2(time) M;
+  real A3(time) M;
+  real A4(time) M;
+  real fasterReaction(time) katal;
+  real slowerReaction1(time) katal;
+
+  // equations
+  when (time=time.min) A1 = 2/C;
+  (A1*C):time = -1*slowerReaction1;
+  when (time=time.min) A2 = 3/C;
+  (A2*C):time = fasterReaction + -1*slowerReaction1;
+  when (time=time.min) A3 = 4/C;
+  (A3*C):time = slowerReaction1;
+  when (time=time.min) A4 = 1/C;
+  (A4*C):time = -1*fasterReaction;
+  fasterReaction = (Kf1*A4+(-1)*(Kr1*A2))*C;
+  slowerReaction1 = (Kf*A1*A2+(-1)*(Kr*A3))*C;
+
+  // variable properties
+  C.sbmlRole="compartment";
+  Kr1.sbmlRole="parameter";
+  Kf1.sbmlRole="parameter";
+  Kf.sbmlRole="parameter";
+  Kr.sbmlRole="parameter";
+  A1.sbmlRole="species";
+  A1.sbmlCompartment="C";
+  A2.sbmlRole="species";
+  A2.sbmlCompartment="C";
+  A3.sbmlRole="species";
+  A3.sbmlCompartment="C";
+  A4.sbmlRole="species";
+  A4.sbmlCompartment="C";
+  fasterReaction.sbmlRole="rate";
+  slowerReaction1.sbmlRole="rate";
+}
+

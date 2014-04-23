@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model ode_tmax_circde
+aborted: Circular variable dependency: [v,v(t.max),u:t,v]
+
+
+

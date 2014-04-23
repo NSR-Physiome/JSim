@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1
+
+$JSBATCH -f MOD/"$1".mod -omathml -out WORK/"$1".out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

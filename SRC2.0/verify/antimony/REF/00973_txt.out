@@ -1,0 +1,21 @@
+//Created by libAntimony v2.0
+model file0()
+
+  // Assignment Rules:
+  J0 := k1;
+  Xref := parameterId_0;
+
+  // Rate Rules:
+  X' = Xref * J0 / default_compartment;
+  parameterId_0' = 0.01;
+
+  // Variable initializations:
+  X = 0;
+  default_compartment = 1;
+  k1 = 1;
+  parameterId_0 = 1;
+
+  //Other declarations:
+  var J0, X, Xref, parameterId_0;
+end
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. ../run.common
+
+PROJ=$1
+shift
+VARS="$*"
+
+echo "==== $PROJ"
+$JSBATCH -f PROJ/$PROJ.proj -loops -o $VARS -out WORK/$PROJ.out
+

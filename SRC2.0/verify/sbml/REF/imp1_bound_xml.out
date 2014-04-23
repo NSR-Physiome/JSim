@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfParameters>
+      <parameter id="u" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <apply>
+                  <power/>
+                  <ci> u </ci>
+                  <cn> 2 </cn>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> u </ci>
+                  <cn> 5 </cn>
+                </apply>
+              </apply>
+              <cn> 6 </cn>
+            </apply>
+            <cn> 0 </cn>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+    <listOfConstraints>
+      <constraint>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <leq/>
+            <ci> u </ci>
+            <cn> 10 </cn>
+          </apply>
+        </math>
+      </constraint>
+      <constraint>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <geq/>
+            <ci> u </ci>
+            <cn> 0 </cn>
+          </apply>
+        </math>
+      </constraint>
+    </listOfConstraints>
+  </model>
+</sbml>
+

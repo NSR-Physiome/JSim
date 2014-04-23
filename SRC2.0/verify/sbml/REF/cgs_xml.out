@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="cm_5_x_g_5_per_s" name="cm^.5*g^.5/s">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="0.00316228"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm1_5_x_g_5_per_s2" name="cm^1.5*g^.5/s^2">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="3.1622777e-05"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_farad" name="1/farad">
+        <listOfUnits>
+          <unit kind="metre" exponent="-1" scale="0" multiplier="1.1126501e-10"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm1_5_x_g_5_per_s" name="cm^1.5*g^.5/s">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="3.1622777e-05"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm" name="cm">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="0.01"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="s_per_cm" name="s/cm">
+        <listOfUnits>
+          <unit kind="metre" exponent="-1" scale="0" multiplier="100"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm_per_s" name="cm/s">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="0.01"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_amp" name="1/amp">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="1.0548223e-05"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per__cm_5_x_g_5_per_s_" name="1/(cm^.5*g^.5/s)">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="316.22777"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_ohm" name="1/ohm">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="8987551800"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_siemens" name="1/siemens">
+        <listOfUnits>
+          <unit kind="metre" exponent="-1" scale="0" multiplier="1.1126501e-10"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="s2_per_cm" name="s^2/cm">
+        <listOfUnits>
+          <unit kind="metre" exponent="-1" scale="0" multiplier="100"/>
+          <unit kind="second" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_coulomb" name="1/coulomb">
+        <listOfUnits>
+          <unit kind="kilogram" scale="0" multiplier="1.0548223e-05"/>
+          <unit kind="metre" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per__s2_per_cm_" name="1/(s^2/cm)">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="0.01"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="Fsi_inv" units="_1_per_farad" constant="false"/>
+      <parameter id="Acgs" value="1" units="cm1_5_x_g_5_per_s2" constant="true"/>
+      <parameter id="Hcgs" value="1" units="s2_per_cm" constant="true"/>
+      <parameter id="Vcgs" value="1" units="cm_5_x_g_5_per_s" constant="true"/>
+      <parameter id="Rsi" units="ohm" constant="false"/>
+      <parameter id="Ccgs" value="1" units="cm1_5_x_g_5_per_s" constant="true"/>
+      <parameter id="Asi_inv" units="_1_per_amp" constant="false"/>
+      <parameter id="Vsi" units="volt" constant="false"/>
+      <parameter id="Rcgs" value="1" units="s_per_cm" constant="true"/>
+      <parameter id="Fsi" units="farad" constant="false"/>
+      <parameter id="Hsi" units="henry" constant="false"/>
+      <parameter id="Ssi_inv" units="_1_per_siemens" constant="false"/>
+      <parameter id="Csi_inv" units="_1_per_coulomb" constant="false"/>
+      <parameter id="Scgs" value="1" units="cm_per_s" constant="true"/>
+      <parameter id="Vcgs_inv" units="_1_per__cm_5_x_g_5_per_s_" constant="false"/>
+      <parameter id="Rsi_inv" units="_1_per_ohm" constant="false"/>
+      <parameter id="Hcgs_inv" units="_1_per__s2_per_cm_" constant="false"/>
+      <parameter id="Fcgs" value="1" units="cm" constant="true"/>
+      <parameter id="Ssi" units="siemens" constant="false"/>
+      <parameter id="Asi" units="ampere" constant="false"/>
+      <parameter id="Csi" units="coulomb" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="Rsi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Rcgs </ci>
+            <cn type="e-notation"> 1.1126501 <sep/> -12 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Rsi_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Rsi </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Ssi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Scgs </ci>
+            <cn> 898755180000 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Ssi_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Ssi </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Hsi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Hcgs </ci>
+            <cn type="e-notation"> 1.1126501 <sep/> -12 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Hcgs_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Hcgs </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Asi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Acgs </ci>
+            <cn> 2997924600 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Asi_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Asi </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Csi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Ccgs </ci>
+            <cn> 2997924600 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Csi_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Csi </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Fsi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Fcgs </ci>
+            <cn> 898755180000 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Fsi_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Fsi </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Vsi">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Vcgs </ci>
+            <cn> 0.00333564 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Vcgs_inv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 1 </cn>
+            <ci> Vcgs </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. ../run.common
+
+PROJ=$1
+shift
+ALG=$1
+shift
+VARS="$*"
+
+OUT=WORK/"$PROJ"_"$ALG".out
+
+INPUTS="model.optim.alg=$ALG solver.fzero_bound=$ALG"
+if [ "$ALG" = "ggopt" -o "$ALG" = "neldermead" -o "$ALG" = "nl2sol" ]
+then
+  INPUTS="$INPUTS solver.fzero_unbound=$ALG"
+fi
+
+echo "==== $PROJ $ALG"
+$JSBATCH -f PROJ/$PROJ.proj -oprec 4 -optim -i $INPUTS -o $VARS -out $OUT
+

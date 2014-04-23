@@ -1,0 +1,9 @@
+//Created by libAntimony v2.0
+model file0()
+
+  // Variable initializations:
+  compartment_ = 1;
+  S1 = 7;
+end
+
+

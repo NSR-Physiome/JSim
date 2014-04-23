@@ -1,0 +1,785 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time minute
+  add var: real time.min minute
+  add var: extern real time.max minute
+  add var: int time.ct
+  add var: extern real time.delta minute
+  add var: real V(time) millivolt
+  add var: real V_B millivolt
+  add var: real R millijoule_per_mole_kelvin
+  add var: real T kelvin
+  add var: real F coulomb_per_mole
+  add var: real delta_pH dimensionless
+  add var: real proton_motive_force(time) nanomole_per_minute_per_mg
+  add var: real g_H conductance_units
+  add var: real Cmito capacitance_units
+  add var: real pH_i dimensionless
+  add var: extern real pH_m dimensionless
+  add var: real JH_res(time) nanomole_per_minute_per_mg
+  add var: real JH_leak(time) nanomole_per_minute_per_mg
+  add var: real JH_F1(time) nanomole_per_minute_per_mg
+  add var: real J_ant(time) nanomole_per_minute_per_mg
+  add var: real J_uni(time) nanomole_per_minute_per_mg
+  add var: real Jo(time) nanomole_per_minute_per_mg
+  add var: real A_res dimensionless
+  add var: real K_res millimolar
+  add var: real total_NAD_m nanomolar
+  add var: extern real NAD_m nanomolar
+  add var: real NADH_m nanomolar
+  add var: real rho_res nanomole_per_mg
+  add var: real r1 dimensionless
+  add var: real r2 dimensionless
+  add var: real r3 dimensionless
+  add var: real ra per_second
+  add var: real rb per_second
+  add var: real rc1 per_second
+  add var: real rc2 per_second
+  add var: real g dimensionless
+  add var: real Jp_F1(time) nanomole_per_minute_per_mg
+  add var: real rho_F1 nanomole_per_mg
+  add var: real K_F1 millimolar
+  add var: real A_F1(time) dimensionless
+  add var: real total_mitochondrial_adenosine_phosphate nanomolar
+  add var: real F0_F1_ATPase.ATP_m(time) nanomolar
+  add var: real ADP_m_free(time) nanomolar
+  add var: real Pi_m millimolar
+  add var: real p1 dimensionless
+  add var: real p2 dimensionless
+  add var: real p3 dimensionless
+  add var: real pa per_second
+  add var: real pb per_second
+  add var: real pc1 per_second
+  add var: real pc2 per_second
+  add var: real ADP_m(time) nanomolar
+  add var: real Jmax_ant nanomole_per_minute_per_mg
+  add var: extern real ATP_i nanomolar
+  add var: extern real ATP_ADP_exchange.ATP_m nanomolar
+  add var: extern real ADP_i nanomolar
+  add var: real ATP4_i nanomolar
+  add var: real ATP4_m nanomolar
+  add var: real ADP3_i nanomolar
+  add var: real ADP3_m(time) nanomolar
+  add var: real f dimensionless
+  add var: real V_offset millivolt
+  add var: real Jmax_uni nanomole_per_minute_per_mg
+  add var: extern real Ca_i nanomolar
+  add var: real K_trans micromolar
+  add var: real K_act micromolar
+  add var: real L dimensionless
+  add var: real na dimensionless
+  add var: real J_Na_Ca(time) nanomole_per_minute_per_mg
+  add var: real Jmax_Na_Ca nanomole_per_minute_per_mg
+  add var: real Ca_m(time) nanomolar
+  add var: real Na_i millimolar
+  add var: real K_Na millimolar
+  add var: real K_Ca nanomole_per_mg
+  add var: real b dimensionless
+  add var: real n dimensionless
+  add var: real fm dimensionless
+  add var: real V:time(time) millivolt/minute
+  add var: real ADP_m:time(time) nanomolar/minute
+  add var: real Ca_m:time(time) nanomolar/minute
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) V=0 :: [V(time.min)]
+  V_B=50 :: [V_B]
+  R=8314 :: [R]
+  T=310 :: [T]
+  F=96845 :: [F]
+  delta_pH=(-0.4) :: [delta_pH]
+  g_H=.2 :: [g_H]
+  Cmito=.00145 :: [Cmito]
+  K_res=1.35E17 :: [K_res]
+  total_NAD_m=8 :: [total_NAD_m]
+  rho_res=.4 :: [rho_res]
+  r1=2.077E-18 :: [r1]
+  r2=1.728E-9 :: [r2]
+  r3=1.059E-26 :: [r3]
+  ra=6.394E-10 :: [ra]
+  rb=1.762E-13 :: [rb]
+  rc1=2.656E-19 :: [rc1]
+  rc2=8.632E-27 :: [rc2]
+  g=.85 :: [g]
+  rho_F1=.7 :: [rho_F1]
+  K_F1=1.71E6 :: [K_F1]
+  total_mitochondrial_adenosine_phosphate=12 :: [total_mitochondrial_adenosine_phosphate]
+  Pi_m=20 :: [Pi_m]
+  p1=1.346E-8 :: [p1]
+  p2=7.739E-7 :: [p2]
+  p3=6.65E-15 :: [p3]
+  pa=1.656E-5 :: [pa]
+  pb=3.373E-7 :: [pb]
+  pc1=9.651E-14 :: [pc1]
+  pc2=4.845E-19 :: [pc2]
+  when (time=time.min) ADP_m=0 :: [ADP_m(time.min)]
+  Jmax_ant=1E3 :: [Jmax_ant]
+  f=.5 :: [f]
+  V_offset=91 :: [V_offset]
+  Jmax_uni=300 :: [Jmax_uni]
+  K_trans=19 :: [K_trans]
+  K_act=.38 :: [K_act]
+  L=110 :: [L]
+  na=2.8 :: [na]
+  Jmax_Na_Ca=25 :: [Jmax_Na_Ca]
+  when (time=time.min) Ca_m=0 :: [Ca_m(time.min)]
+  Na_i=30 :: [Na_i]
+  K_Na=9.4 :: [K_Na]
+  K_Ca=.003 :: [K_Ca]
+  b=0 :: [b]
+  n=2 :: [n]
+  fm=3E-4 :: [fm]
+  V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)) :: [V:time, Cmito, JH_F1, J_ant, JH_leak, J_uni, JH_res]
+  delta_pH=(pH_i-pH_m) :: [delta_pH, pH_i, pH_m]
+  proton_motive_force=(V-R*T/F*delta_pH*2.303) :: [proton_motive_force, V, R, T, F, delta_pH]
+  JH_res=(rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360) :: [JH_res, rho_res, ra, delta_pH, F, A_res, R, T, rb, g, V, r1, V_B, r2, r3]
+  Jo=(rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30) :: [Jo, rho_res, ra, delta_pH, rc1, F, V_B, R, T, A_res, g, V, rc2, r1, r2, r3]
+  A_res=(R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m))) :: [A_res, R, T, F, K_res, NADH_m, NAD_m]
+  total_NAD_m=(NADH_m+NAD_m) :: [total_NAD_m, NADH_m, NAD_m]
+  JH_leak=(g_H*proton_motive_force) :: [JH_leak, g_H, proton_motive_force]
+  JH_F1=(rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)) :: [JH_F1, rho_F1, pa, delta_pH, F, A_F1, R, T, pb, V, p1, V_B, p2, p3]
+  Jp_F1=(rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)) :: [Jp_F1, rho_F1, pa, delta_pH, pc1, F, V_B, R, T, A_F1, V, pc2, p1, p2, p3]
+  A_F1=(R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))) :: [A_F1, R, T, F, K_F1, F0_F1_ATPase.ATP_m, ADP_m_free, Pi_m]
+  total_mitochondrial_adenosine_phosphate=(F0_F1_ATPase.ATP_m+ADP_m) :: [total_mitochondrial_adenosine_phosphate, F0_F1_ATPase.ATP_m, ADP_m]
+  ADP_m_free=(ADP_m*.8) :: [ADP_m_free, ADP_m]
+  J_ant=(Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))) :: [J_ant, Jmax_ant, ATP4_i, ADP3_m, ADP3_i, ATP4_m, F, V, R, T, f]
+  ADP_m:time=(J_ant-Jp_F1) :: [ADP_m:time, J_ant, Jp_F1]
+  ADP3_m=(ADP_m*.36000000000000004) :: [ADP3_m, ADP_m]
+  ADP3_i=(ADP_i*.45) :: [ADP3_i, ADP_i]
+  ATP4_m=(ATP_ADP_exchange.ATP_m*.05) :: [ATP4_m, ATP_ADP_exchange.ATP_m]
+  ATP4_i=(ATP_i*.05) :: [ATP4_i, ATP_i]
+  J_uni=(Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2) :: [J_uni, Jmax_uni, Ca_i, K_trans, L, K_act, na, F, V, V_offset, R, T]
+  J_Na_Ca=(Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))) :: [J_Na_Ca, Jmax_Na_Ca, b, F, V, V_offset, R, T, K_Na, Na_i, n, K_Ca, Ca_m]
+  Ca_m:time=(fm*(J_uni-J_Na_Ca)) :: [Ca_m:time, fm, J_uni, J_Na_Ca]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+  add tool: extern pH_m
+  add tool: extern NAD_m
+  add tool: extern ATP_i
+  add tool: extern ATP_ADP_exchange.ATP_m
+  add tool: extern ADP_i
+  add tool: extern Ca_i
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) V=0; [V(time.min)]
+  add tool: V(time.min)=0
+  check eqn: V_B=50; [V_B]
+  add tool: V_B=50
+  check eqn: R=8314; [R]
+  add tool: R=8314
+  check eqn: T=310; [T]
+  add tool: T=310
+  check eqn: F=96845; [F]
+  add tool: F=96845
+  check eqn: delta_pH=(-0.4); [delta_pH]
+  add tool: delta_pH=-0.4
+  check eqn: g_H=.2; [g_H]
+  add tool: g_H=.2
+  check eqn: Cmito=.00145; [Cmito]
+  add tool: Cmito=.00145
+  check eqn: K_res=1.35E17; [K_res]
+  add tool: K_res=1.35E17
+  check eqn: total_NAD_m=8; [total_NAD_m]
+  add tool: total_NAD_m=8
+  check eqn: rho_res=.4; [rho_res]
+  add tool: rho_res=.4
+  check eqn: r1=2.077E-18; [r1]
+  add tool: r1=2.077E-18
+  check eqn: r2=1.728E-9; [r2]
+  add tool: r2=1.728E-9
+  check eqn: r3=1.059E-26; [r3]
+  add tool: r3=1.059E-26
+  check eqn: ra=6.394E-10; [ra]
+  add tool: ra=6.394E-10
+  check eqn: rb=1.762E-13; [rb]
+  add tool: rb=1.762E-13
+  check eqn: rc1=2.656E-19; [rc1]
+  add tool: rc1=2.656E-19
+  check eqn: rc2=8.632E-27; [rc2]
+  add tool: rc2=8.632E-27
+  check eqn: g=.85; [g]
+  add tool: g=.85
+  check eqn: rho_F1=.7; [rho_F1]
+  add tool: rho_F1=.7
+  check eqn: K_F1=1.71E6; [K_F1]
+  add tool: K_F1=1.71E6
+  check eqn: total_mitochondrial_adenosine_phosphate=12; [total_mitochondrial_adenosine_phosphate]
+  add tool: total_mitochondrial_adenosine_phosphate=12
+  check eqn: Pi_m=20; [Pi_m]
+  add tool: Pi_m=20
+  check eqn: p1=1.346E-8; [p1]
+  add tool: p1=1.346E-8
+  check eqn: p2=7.739E-7; [p2]
+  add tool: p2=7.739E-7
+  check eqn: p3=6.65E-15; [p3]
+  add tool: p3=6.65E-15
+  check eqn: pa=1.656E-5; [pa]
+  add tool: pa=1.656E-5
+  check eqn: pb=3.373E-7; [pb]
+  add tool: pb=3.373E-7
+  check eqn: pc1=9.651E-14; [pc1]
+  add tool: pc1=9.651E-14
+  check eqn: pc2=4.845E-19; [pc2]
+  add tool: pc2=4.845E-19
+  check eqn: when (time=time.min) ADP_m=0; [ADP_m(time.min)]
+  add tool: ADP_m(time.min)=0
+  check eqn: Jmax_ant=1E3; [Jmax_ant]
+  add tool: Jmax_ant=1E3
+  check eqn: f=.5; [f]
+  add tool: f=.5
+  check eqn: V_offset=91; [V_offset]
+  add tool: V_offset=91
+  check eqn: Jmax_uni=300; [Jmax_uni]
+  add tool: Jmax_uni=300
+  check eqn: K_trans=19; [K_trans]
+  add tool: K_trans=19
+  check eqn: K_act=.38; [K_act]
+  add tool: K_act=.38
+  check eqn: L=110; [L]
+  add tool: L=110
+  check eqn: na=2.8; [na]
+  add tool: na=2.8
+  check eqn: Jmax_Na_Ca=25; [Jmax_Na_Ca]
+  add tool: Jmax_Na_Ca=25
+  check eqn: when (time=time.min) Ca_m=0; [Ca_m(time.min)]
+  add tool: Ca_m(time.min)=0
+  check eqn: Na_i=30; [Na_i]
+  add tool: Na_i=30
+  check eqn: K_Na=9.4; [K_Na]
+  add tool: K_Na=9.4
+  check eqn: K_Ca=.003; [K_Ca]
+  add tool: K_Ca=.003
+  check eqn: b=0; [b]
+  add tool: b=0
+  check eqn: n=2; [n]
+  add tool: n=2
+  check eqn: fm=3E-4; [fm]
+  add tool: fm=3E-4
+  check eqn: V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)); [V:time, JH_F1]
+  check eqn: delta_pH=(pH_i-pH_m); [pH_i]
+  add tool: pH_i=delta_pH+pH_m
+  check eqn: proton_motive_force=(V-R*T/F*delta_pH*2.303); [proton_motive_force, V]
+  check eqn: JH_res=(rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360); [JH_res, A_res]
+  check eqn: Jo=(rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30); [Jo, A_res]
+  check eqn: A_res=(R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m))); [A_res, NADH_m]
+  check eqn: total_NAD_m=(NADH_m+NAD_m); [NADH_m]
+  add tool: NADH_m=total_NAD_m-NAD_m
+  check eqn: JH_leak=(g_H*proton_motive_force); [JH_leak, proton_motive_force]
+  check eqn: JH_F1=(rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)); [JH_F1, A_F1]
+  check eqn: Jp_F1=(rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)); [Jp_F1, A_F1]
+  check eqn: A_F1=(R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))); [A_F1, F0_F1_ATPase.ATP_m]
+  check eqn: total_mitochondrial_adenosine_phosphate=(F0_F1_ATPase.ATP_m+ADP_m); [F0_F1_ATPase.ATP_m, ADP_m]
+  check eqn: ADP_m_free=(ADP_m*.8); [ADP_m_free, ADP_m]
+  check eqn: J_ant=(Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))); [J_ant, ATP4_i]
+  check eqn: ADP_m:time=(J_ant-Jp_F1); [ADP_m:time, J_ant]
+  check eqn: ADP3_m=(ADP_m*.36000000000000004); [ADP3_m, ADP_m]
+  check eqn: ADP3_i=(ADP_i*.45); [ADP3_i]
+  add tool: ADP3_i=ADP_i*.45
+  check eqn: ATP4_m=(ATP_ADP_exchange.ATP_m*.05); [ATP4_m]
+  add tool: ATP4_m=ATP_ADP_exchange.ATP_m*.05
+  check eqn: ATP4_i=(ATP_i*.05); [ATP4_i]
+  add tool: ATP4_i=ATP_i*.05
+  check eqn: J_uni=(Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2); [J_uni, V]
+  check eqn: J_Na_Ca=(Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))); [J_Na_Ca, V]
+  check eqn: Ca_m:time=(fm*(J_uni-J_Na_Ca)); [Ca_m:time, J_uni]
+  add tool: ODE V: []
+  updated ODE(V) with V(time.min)=0
+  add tool: ODE ADP_m: []
+  updated ODE(ADP_m) with ADP_m(time.min)=0
+  add tool: ODE Ca_m: []
+  updated ODE(Ca_m) with Ca_m(time.min)=0
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)); [V:time, JH_F1]
+  check eqn: proton_motive_force=(V-R*T/F*delta_pH*2.303); [proton_motive_force]
+  add tool: proton_motive_force=V-R*T/F*delta_pH*2.303
+  check eqn: JH_res=(rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360); [JH_res, A_res]
+  check eqn: Jo=(rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30); [Jo, A_res]
+  check eqn: A_res=(R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m))); [A_res]
+  add tool: A_res=R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m))
+  check eqn: JH_leak=(g_H*proton_motive_force); [JH_leak]
+  add tool: JH_leak=g_H*proton_motive_force
+  check eqn: JH_F1=(rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)); [JH_F1, A_F1]
+  check eqn: Jp_F1=(rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)); [Jp_F1, A_F1]
+  check eqn: A_F1=(R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))); [A_F1, F0_F1_ATPase.ATP_m]
+  check eqn: total_mitochondrial_adenosine_phosphate=(F0_F1_ATPase.ATP_m+ADP_m); [F0_F1_ATPase.ATP_m]
+  add tool: F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m
+  check eqn: ADP_m_free=(ADP_m*.8); [ADP_m_free]
+  add tool: ADP_m_free=ADP_m*.8
+  check eqn: J_ant=(Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))); [J_ant, ADP3_m]
+  check eqn: ADP_m:time=(J_ant-Jp_F1); [ADP_m:time, J_ant]
+  check eqn: ADP3_m=(ADP_m*.36000000000000004); [ADP3_m]
+  add tool: ADP3_m=ADP_m*.36000000000000004
+  check eqn: J_uni=(Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2); [J_uni]
+  add tool: J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2
+  check eqn: J_Na_Ca=(Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))); [J_Na_Ca]
+  add tool: J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))
+  check eqn: Ca_m:time=(fm*(J_uni-J_Na_Ca)); [Ca_m:time]
+  add tool: Ca_m:time=fm*(J_uni-J_Na_Ca)
+  updated ODE(Ca_m) with Ca_m:time=fm*(J_uni-J_Na_Ca)
+    Ca_m is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)); [V:time, JH_F1]
+  check eqn: JH_res=(rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360); [JH_res]
+  add tool: JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360
+  check eqn: Jo=(rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30); [Jo]
+  add tool: Jo=rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30
+  check eqn: JH_F1=(rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)); [JH_F1, A_F1]
+  check eqn: Jp_F1=(rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)); [Jp_F1, A_F1]
+  check eqn: A_F1=(R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))); [A_F1]
+  add tool: A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))
+  check eqn: J_ant=(Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))); [J_ant]
+  add tool: J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))
+  check eqn: ADP_m:time=(J_ant-Jp_F1); [ADP_m:time, Jp_F1]
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)); [V:time, JH_F1]
+  check eqn: JH_F1=(rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)); [JH_F1]
+  add tool: JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)
+  check eqn: Jp_F1=(rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)); [Jp_F1]
+  add tool: Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)
+  check eqn: ADP_m:time=(J_ant-Jp_F1); [ADP_m:time]
+  add tool: ADP_m:time=J_ant-Jp_F1
+  updated ODE(ADP_m) with ADP_m:time=J_ant-Jp_F1
+    ADP_m is now entirely solved
+Toolbox phase - cycle 1:
+  check eqn: V:time=(1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)); [V:time]
+  add tool: V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)
+  updated ODE(V) with V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)
+    V is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real V__init millivolt
+  add tool: V__init=0
+  add var: real ADP_m__init nanomolar
+  add tool: ADP_m__init=0
+  add var: real Ca_m__init nanomolar
+  add tool: Ca_m__init=0
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  Ca_m__init=0 :: [Ca_m__init]<<[]
+  ADP_m__init=0 :: [ADP_m__init]<<[]
+  V__init=0 :: [V__init]<<[]
+  @time Ca_m:time=fm*(J_uni-J_Na_Ca) :: [Ca_m:time]<<[fm, J_uni, J_Na_Ca]
+  @time ADP_m:time=J_ant-Jp_F1 :: [ADP_m:time]<<[J_ant, Jp_F1]
+  @time V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1) :: [V:time]<<[Cmito, JH_F1, J_ant, JH_leak, J_uni, JH_res]
+  fm=3E-4 :: [fm]<<[]
+  n=2 :: [n]<<[]
+  b=0 :: [b]<<[]
+  K_Ca=.003 :: [K_Ca]<<[]
+  K_Na=9.4 :: [K_Na]<<[]
+  Na_i=30 :: [Na_i]<<[]
+  @time ODE Ca_m: Ca_m:time=fm*(J_uni-J_Na_Ca) :: [Ca_m, Ca_m(time.max)]<<[fm, J_uni, J_Na_Ca, Ca_m(time.min), Ca_m:time]
+  Jmax_Na_Ca=25 :: [Jmax_Na_Ca]<<[]
+  @time J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m))) :: [J_Na_Ca]<<[Jmax_Na_Ca, b, F, V, V_offset, R, T, K_Na, Na_i, n, K_Ca, Ca_m]
+  na=2.8 :: [na]<<[]
+  L=110 :: [L]<<[]
+  K_act=.38 :: [K_act]<<[]
+  K_trans=19 :: [K_trans]<<[]
+  extern Ca_i :: [Ca_i]<<[]
+  Jmax_uni=300 :: [Jmax_uni]<<[]
+  V_offset=91 :: [V_offset]<<[]
+  f=.5 :: [f]<<[]
+  @time ADP3_m=ADP_m*.36000000000000004 :: [ADP3_m]<<[ADP_m]
+  ADP3_i=ADP_i*.45 :: [ADP3_i]<<[ADP_i]
+  ATP4_m=ATP_ADP_exchange.ATP_m*.05 :: [ATP4_m]<<[ATP_ADP_exchange.ATP_m]
+  ATP4_i=ATP_i*.05 :: [ATP4_i]<<[ATP_i]
+  extern ADP_i :: [ADP_i]<<[]
+  extern ATP_ADP_exchange.ATP_m :: [ATP_ADP_exchange.ATP_m]<<[]
+  extern ATP_i :: [ATP_i]<<[]
+  Jmax_ant=1E3 :: [Jmax_ant]<<[]
+  @time ODE ADP_m: ADP_m:time=J_ant-Jp_F1 :: [ADP_m, ADP_m(time.max)]<<[J_ant, Jp_F1, ADP_m(time.min), ADP_m:time]
+  pc2=4.845E-19 :: [pc2]<<[]
+  pc1=9.651E-14 :: [pc1]<<[]
+  pb=3.373E-7 :: [pb]<<[]
+  pa=1.656E-5 :: [pa]<<[]
+  p3=6.65E-15 :: [p3]<<[]
+  p2=7.739E-7 :: [p2]<<[]
+  p1=1.346E-8 :: [p1]<<[]
+  Pi_m=20 :: [Pi_m]<<[]
+  @time ADP_m_free=ADP_m*.8 :: [ADP_m_free]<<[ADP_m]
+  @time F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m :: [F0_F1_ATPase.ATP_m]<<[total_mitochondrial_adenosine_phosphate, ADP_m]
+  total_mitochondrial_adenosine_phosphate=12 :: [total_mitochondrial_adenosine_phosphate]<<[]
+  @time A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m)) :: [A_F1]<<[R, T, F, K_F1, F0_F1_ATPase.ATP_m, ADP_m_free, Pi_m]
+  K_F1=1.71E6 :: [K_F1]<<[]
+  rho_F1=.7 :: [rho_F1]<<[]
+  @time Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60) :: [Jp_F1]<<[rho_F1, pa, delta_pH, pc1, F, V_B, R, T, A_F1, V, pc2, p1, p2, p3]
+  g=.85 :: [g]<<[]
+  rc2=8.632E-27 :: [rc2]<<[]
+  rc1=2.656E-19 :: [rc1]<<[]
+  rb=1.762E-13 :: [rb]<<[]
+  ra=6.394E-10 :: [ra]<<[]
+  r3=1.059E-26 :: [r3]<<[]
+  r2=1.728E-9 :: [r2]<<[]
+  r1=2.077E-18 :: [r1]<<[]
+  rho_res=.4 :: [rho_res]<<[]
+  NADH_m=total_NAD_m-NAD_m :: [NADH_m]<<[total_NAD_m, NAD_m]
+  extern NAD_m :: [NAD_m]<<[]
+  total_NAD_m=8 :: [total_NAD_m]<<[]
+  K_res=1.35E17 :: [K_res]<<[]
+  A_res=R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m)) :: [A_res]<<[R, T, F, K_res, NADH_m, NAD_m]
+  @time Jo=rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30 :: [Jo]<<[rho_res, ra, delta_pH, rc1, F, V_B, R, T, A_res, g, V, rc2, r1, r2, r3]
+  @time J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2 :: [J_uni]<<[Jmax_uni, Ca_i, K_trans, L, K_act, na, F, V, V_offset, R, T]
+  @time J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m))) :: [J_ant]<<[Jmax_ant, ATP4_i, ADP3_m, ADP3_i, ATP4_m, F, V, R, T, f]
+  @time JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180) :: [JH_F1]<<[rho_F1, pa, delta_pH, F, A_F1, R, T, pb, V, p1, V_B, p2, p3]
+  @time JH_leak=g_H*proton_motive_force :: [JH_leak]<<[g_H, proton_motive_force]
+  @time JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360 :: [JH_res]<<[rho_res, ra, delta_pH, F, A_res, R, T, rb, g, V, r1, V_B, r2, r3]
+  extern pH_m :: [pH_m]<<[]
+  pH_i=delta_pH+pH_m :: [pH_i]<<[delta_pH, pH_m]
+  Cmito=.00145 :: [Cmito]<<[]
+  g_H=.2 :: [g_H]<<[]
+  @time proton_motive_force=V-R*T/F*delta_pH*2.303 :: [proton_motive_force]<<[V, R, T, F, delta_pH]
+  delta_pH=-0.4 :: [delta_pH]<<[]
+  F=96845 :: [F]<<[]
+  T=310 :: [T]<<[]
+  R=8314 :: [R]<<[]
+  V_B=50 :: [V_B]<<[]
+  @time ODE V: V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1) :: [V, V(time.max)]<<[Cmito, JH_F1, J_ant, JH_leak, J_uni, JH_res, V(time.min), V:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  Ca_m(time.min)=Ca_m__init :: [Ca_m(time.min)]<<[Ca_m__init]
+  ADP_m(time.min)=ADP_m__init :: [ADP_m(time.min)]<<[ADP_m__init]
+  V(time.min)=V__init :: [V(time.min)]<<[V__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode Ca_m__init seqLoops=() phase=main fft=null
+  addNode ADP_m__init seqLoops=() phase=main fft=null
+  addNode V__init seqLoops=() phase=main fft=null
+  addNode Ca_m:time seqLoops=(time) phase=time#1 fft=null
+  addNode ADP_m:time seqLoops=(time) phase=time#1 fft=null
+  addNode V:time seqLoops=(time) phase=time#1 fft=null
+  addNode fm seqLoops=() phase=main fft=null
+  addNode n seqLoops=() phase=main fft=null
+  addNode b seqLoops=() phase=main fft=null
+  addNode K_Ca seqLoops=() phase=main fft=null
+  addNode K_Na seqLoops=() phase=main fft=null
+  addNode Na_i seqLoops=() phase=main fft=null
+  addNode Ca_m seqLoops=(time) phase=time#1 fft=time
+  addNode Jmax_Na_Ca seqLoops=() phase=main fft=null
+  addNode J_Na_Ca seqLoops=(time) phase=time#1 fft=null
+  addNode na seqLoops=() phase=main fft=null
+  addNode L seqLoops=() phase=main fft=null
+  addNode K_act seqLoops=() phase=main fft=null
+  addNode K_trans seqLoops=() phase=main fft=null
+  addNode Ca_i seqLoops=() phase=main fft=null
+  addNode Jmax_uni seqLoops=() phase=main fft=null
+  addNode V_offset seqLoops=() phase=main fft=null
+  addNode f seqLoops=() phase=main fft=null
+  addNode ADP3_m seqLoops=(time) phase=time#1 fft=null
+  addNode ADP3_i seqLoops=() phase=main fft=null
+  addNode ATP4_m seqLoops=() phase=main fft=null
+  addNode ATP4_i seqLoops=() phase=main fft=null
+  addNode ADP_i seqLoops=() phase=main fft=null
+  addNode ATP_ADP_exchange.ATP_m seqLoops=() phase=main fft=null
+  addNode ATP_i seqLoops=() phase=main fft=null
+  addNode Jmax_ant seqLoops=() phase=main fft=null
+  addNode ADP_m seqLoops=(time) phase=time#1 fft=time
+  addNode pc2 seqLoops=() phase=main fft=null
+  addNode pc1 seqLoops=() phase=main fft=null
+  addNode pb seqLoops=() phase=main fft=null
+  addNode pa seqLoops=() phase=main fft=null
+  addNode p3 seqLoops=() phase=main fft=null
+  addNode p2 seqLoops=() phase=main fft=null
+  addNode p1 seqLoops=() phase=main fft=null
+  addNode Pi_m seqLoops=() phase=main fft=null
+  addNode ADP_m_free seqLoops=(time) phase=time#1 fft=null
+  addNode F0_F1_ATPase.ATP_m seqLoops=(time) phase=time#1 fft=null
+  addNode total_mitochondrial_adenosine_phosphate seqLoops=() phase=main fft=null
+  addNode A_F1 seqLoops=(time) phase=time#1 fft=null
+  addNode K_F1 seqLoops=() phase=main fft=null
+  addNode rho_F1 seqLoops=() phase=main fft=null
+  addNode Jp_F1 seqLoops=(time) phase=time#1 fft=null
+  addNode g seqLoops=() phase=main fft=null
+  addNode rc2 seqLoops=() phase=main fft=null
+  addNode rc1 seqLoops=() phase=main fft=null
+  addNode rb seqLoops=() phase=main fft=null
+  addNode ra seqLoops=() phase=main fft=null
+  addNode r3 seqLoops=() phase=main fft=null
+  addNode r2 seqLoops=() phase=main fft=null
+  addNode r1 seqLoops=() phase=main fft=null
+  addNode rho_res seqLoops=() phase=main fft=null
+  addNode NADH_m seqLoops=() phase=main fft=null
+  addNode NAD_m seqLoops=() phase=main fft=null
+  addNode total_NAD_m seqLoops=() phase=main fft=null
+  addNode K_res seqLoops=() phase=main fft=null
+  addNode A_res seqLoops=() phase=main fft=null
+  addNode Jo seqLoops=(time) phase=time#1 fft=null
+  addNode J_uni seqLoops=(time) phase=time#1 fft=null
+  addNode J_ant seqLoops=(time) phase=time#1 fft=null
+  addNode JH_F1 seqLoops=(time) phase=time#1 fft=null
+  addNode JH_leak seqLoops=(time) phase=time#1 fft=null
+  addNode JH_res seqLoops=(time) phase=time#1 fft=null
+  addNode pH_m seqLoops=() phase=main fft=null
+  addNode pH_i seqLoops=() phase=main fft=null
+  addNode Cmito seqLoops=() phase=main fft=null
+  addNode g_H seqLoops=() phase=main fft=null
+  addNode proton_motive_force seqLoops=(time) phase=time#1 fft=null
+  addNode delta_pH seqLoops=() phase=main fft=null
+  addNode F seqLoops=() phase=main fft=null
+  addNode T seqLoops=() phase=main fft=null
+  addNode R seqLoops=() phase=main fft=null
+  addNode V_B seqLoops=() phase=main fft=null
+  addNode V seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode Ca_m(time.min) seqLoops=() phase=main fft=null
+  addNode ADP_m(time.min) seqLoops=() phase=main fft=null
+  addNode V(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding Ca_m__init=0 to main
+  adding ADP_m__init=0 to main
+  adding V__init=0 to main
+  adding fm=3E-4 to main
+  adding n=2 to main
+  adding b=0 to main
+  adding K_Ca=.003 to main
+  adding K_Na=9.4 to main
+  adding Na_i=30 to main
+  adding Jmax_Na_Ca=25 to main
+  adding na=2.8 to main
+  adding L=110 to main
+  adding K_act=.38 to main
+  adding K_trans=19 to main
+  adding extern Ca_i to main
+  adding Jmax_uni=300 to main
+  adding V_offset=91 to main
+  adding f=.5 to main
+  adding extern ADP_i to main
+  adding extern ATP_ADP_exchange.ATP_m to main
+  adding extern ATP_i to main
+  adding Jmax_ant=1E3 to main
+  adding pc2=4.845E-19 to main
+  adding pc1=9.651E-14 to main
+  adding pb=3.373E-7 to main
+  adding pa=1.656E-5 to main
+  adding p3=6.65E-15 to main
+  adding p2=7.739E-7 to main
+  adding p1=1.346E-8 to main
+  adding Pi_m=20 to main
+  adding total_mitochondrial_adenosine_phosphate=12 to main
+  adding K_F1=1.71E6 to main
+  adding rho_F1=.7 to main
+  adding g=.85 to main
+  adding rc2=8.632E-27 to main
+  adding rc1=2.656E-19 to main
+  adding rb=1.762E-13 to main
+  adding ra=6.394E-10 to main
+  adding r3=1.059E-26 to main
+  adding r2=1.728E-9 to main
+  adding r1=2.077E-18 to main
+  adding rho_res=.4 to main
+  adding extern NAD_m to main
+  adding total_NAD_m=8 to main
+  adding K_res=1.35E17 to main
+  adding extern pH_m to main
+  adding Cmito=.00145 to main
+  adding g_H=.2 to main
+  adding delta_pH=-0.4 to main
+  adding F=96845 to main
+  adding T=310 to main
+  adding R=8314 to main
+  adding V_B=50 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding ADP3_i=ADP_i*.45 to main
+  adding ATP4_m=ATP_ADP_exchange.ATP_m*.05 to main
+  adding ATP4_i=ATP_i*.05 to main
+  adding NADH_m=total_NAD_m-NAD_m to main
+  adding A_res=R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m)) to main
+  adding pH_i=delta_pH+pH_m to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding Ca_m(time.min)=Ca_m__init to main
+  adding ADP_m(time.min)=ADP_m__init to main
+  adding V(time.min)=V__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m))) to loop-time
+  adding ADP3_m=ADP_m*.36000000000000004 to loop-time
+  adding ADP_m_free=ADP_m*.8 to loop-time
+  adding F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m to loop-time
+  adding A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m)) to loop-time
+  adding Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60) to loop-time
+  adding Jo=rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30 to loop-time
+  adding J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2 to loop-time
+  adding J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m))) to loop-time
+  adding JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180) to loop-time
+  adding JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360 to loop-time
+  adding proton_motive_force=V-R*T/F*delta_pH*2.303 to loop-time
+  adding Ca_m:time=fm*(J_uni-J_Na_Ca) to loop-time
+  adding ADP_m:time=J_ant-Jp_F1 to loop-time
+  adding JH_leak=g_H*proton_motive_force to loop-time
+  adding V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1) to loop-time
+  adding ODE Block-time [Ca_m, ADP_m, V] to loop-time
+  adding loop-time to main
+Building ODE Block-time [Ca_m, ADP_m, V] ...
+  adding muTool J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2
+  adding muVar J_uni
+  adding muTool J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))
+  adding muVar J_Na_Ca
+  adding muTool Ca_m:time=fm*(J_uni-J_Na_Ca)
+  adding muVar Ca_m:time
+  adding muTool ADP3_m=ADP_m*.36000000000000004
+  adding muTool J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))
+  adding muVar J_ant
+  adding muVar ADP3_m
+  adding muTool F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m
+  adding muTool A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))
+  adding muTool Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)
+  adding muVar Jp_F1
+  adding muVar A_F1
+  adding muVar F0_F1_ATPase.ATP_m
+  adding muTool ADP_m_free=ADP_m*.8
+  adding muVar ADP_m_free
+  adding muTool ADP_m:time=J_ant-Jp_F1
+  adding muVar ADP_m:time
+  adding muTool JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)
+  adding muVar JH_F1
+  adding muTool proton_motive_force=V-R*T/F*delta_pH*2.303
+  adding muTool JH_leak=g_H*proton_motive_force
+  adding muVar JH_leak
+  adding muVar proton_motive_force
+  adding muTool JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360
+  adding muVar JH_res
+  adding muTool V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)
+  adding muVar V:time
+  adding J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2 to ODE Block-time [Ca_m, ADP_m, V]
+  adding J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m))) to ODE Block-time [Ca_m, ADP_m, V]
+  adding Ca_m:time=fm*(J_uni-J_Na_Ca) to ODE Block-time [Ca_m, ADP_m, V]
+  adding ADP3_m=ADP_m*.36000000000000004 to ODE Block-time [Ca_m, ADP_m, V]
+  adding J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m))) to ODE Block-time [Ca_m, ADP_m, V]
+  adding F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m to ODE Block-time [Ca_m, ADP_m, V]
+  adding ADP_m_free=ADP_m*.8 to ODE Block-time [Ca_m, ADP_m, V]
+  adding proton_motive_force=V-R*T/F*delta_pH*2.303 to ODE Block-time [Ca_m, ADP_m, V]
+  adding JH_leak=g_H*proton_motive_force to ODE Block-time [Ca_m, ADP_m, V]
+  adding JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360 to ODE Block-time [Ca_m, ADP_m, V]
+  adding A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m)) to ODE Block-time [Ca_m, ADP_m, V]
+  adding Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60) to ODE Block-time [Ca_m, ADP_m, V]
+  adding ADP_m:time=J_ant-Jp_F1 to ODE Block-time [Ca_m, ADP_m, V]
+  adding JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180) to ODE Block-time [Ca_m, ADP_m, V]
+  adding V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1) to ODE Block-time [Ca_m, ADP_m, V]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  Ca_m__init=0
+  ADP_m__init=0
+  V__init=0
+  fm=3E-4
+  n=2
+  b=0
+  K_Ca=.003
+  K_Na=9.4
+  Na_i=30
+  Jmax_Na_Ca=25
+  na=2.8
+  L=110
+  K_act=.38
+  K_trans=19
+  extern Ca_i
+  Jmax_uni=300
+  V_offset=91
+  f=.5
+  extern ADP_i
+  extern ATP_ADP_exchange.ATP_m
+  extern ATP_i
+  Jmax_ant=1E3
+  pc2=4.845E-19
+  pc1=9.651E-14
+  pb=3.373E-7
+  pa=1.656E-5
+  p3=6.65E-15
+  p2=7.739E-7
+  p1=1.346E-8
+  Pi_m=20
+  total_mitochondrial_adenosine_phosphate=12
+  K_F1=1.71E6
+  rho_F1=.7
+  g=.85
+  rc2=8.632E-27
+  rc1=2.656E-19
+  rb=1.762E-13
+  ra=6.394E-10
+  r3=1.059E-26
+  r2=1.728E-9
+  r1=2.077E-18
+  rho_res=.4
+  extern NAD_m
+  total_NAD_m=8
+  K_res=1.35E17
+  extern pH_m
+  Cmito=.00145
+  g_H=.2
+  delta_pH=-0.4
+  F=96845
+  T=310
+  R=8314
+  V_B=50
+  extern time.delta
+  extern time.max
+  time.min=0
+  ADP3_i=ADP_i*.45
+  ATP4_m=ATP_ADP_exchange.ATP_m*.05
+  ATP4_i=ATP_i*.05
+  NADH_m=total_NAD_m-NAD_m
+  A_res=R*T/F*ln(K_res*sqrt(NADH_m)/sqrt(NAD_m))
+  pH_i=delta_pH+pH_m
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  Ca_m(time.min)=Ca_m__init
+  ADP_m(time.min)=ADP_m__init
+  V(time.min)=V__init
+  loop-time
+    J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))
+    ADP3_m=ADP_m*.36000000000000004
+    ADP_m_free=ADP_m*.8
+    F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m
+    A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))
+    Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)
+    Jo=rho_res*(((ra*10^(delta_pH*6)+rc1*exp(F*V_B/(R*T)*6))*exp(F*A_res/(R*T))-ra*exp(g*F*V/(R*T)*6)+rc2*exp(F*A_res/(R*T))*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*30
+    J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2
+    J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))
+    JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)
+    JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360
+    proton_motive_force=V-R*T/F*delta_pH*2.303
+    Ca_m:time=fm*(J_uni-J_Na_Ca)
+    ADP_m:time=J_ant-Jp_F1
+    JH_leak=g_H*proton_motive_force
+    V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)
+    ODE Block-time vmus=[time, Ca_m, ADP_m, V, J_uni, J_Na_Ca, Ca_m:time, J_ant, ADP3_m, Jp_F1, A_F1, F0_F1_ATPase.ATP_m, ADP_m_free, ADP_m:time, JH_F1, JH_leak, proton_motive_force, JH_res, V:time]
+      J_uni=Jmax_uni*(Ca_i/K_trans*(1+Ca_i/K_trans)^3/((1+Ca_i/K_trans)^4+L/(1+Ca_i/K_act)^na))*(F*(V-V_offset)/(R*T)/(1-exp(F*(V-V_offset)/(R*T)*(-2))))*2
+      J_Na_Ca=Jmax_Na_Ca*(exp(b*F*(V-V_offset)/(R*T))/((1+K_Na/Na_i)^n*(1+K_Ca/Ca_m)))
+      Ca_m:time=fm*(J_uni-J_Na_Ca)
+      ADP3_m=ADP_m*.36000000000000004
+      J_ant=Jmax_ant*((1-ATP4_i*ADP3_m/(ADP3_i*ATP4_m)*exp(F*V/(R*T)*(-1)))/((1+ATP4_i/ADP3_i*exp(f*F*V/(R*T)*(-1)))*(1+ADP3_m/ATP4_m)))
+      F0_F1_ATPase.ATP_m=total_mitochondrial_adenosine_phosphate-ADP_m
+      ADP_m_free=ADP_m*.8
+      proton_motive_force=V-R*T/F*delta_pH*2.303
+      JH_leak=g_H*proton_motive_force
+      JH_res=rho_res*((ra*10^(delta_pH*6)*exp(F*A_res/(R*T))+rb*10^(delta_pH*6)-(ra+rb)*exp(g*F*V/(R*T)*6))/((1+r1*exp(F*A_res/(R*T)))*exp(F*V_B/(R*T)*6)+(r2+r3*exp(F*A_res/(R*T)))*exp(g*F*V/(R*T)*6)))*360
+      A_F1=R*T/F*ln(K_F1*F0_F1_ATPase.ATP_m/(ADP_m_free*Pi_m))
+      Jp_F1=rho_F1*(((pa*10^(delta_pH*3)+pc1*exp(F*V_B/(R*T)*3))*exp(F*A_F1/(R*T))-pa*exp(F*V/(R*T)*3)+pc2*exp(F*A_F1/(R*T))*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-60)
+      ADP_m:time=J_ant-Jp_F1
+      JH_F1=rho_F1*((pa*10^(delta_pH*3)*exp(F*A_F1/(R*T))+pb*10^(delta_pH*3)-(pa+pb)*exp(F*V/(R*T)*3))/((1+p1*exp(F*A_F1/(R*T)))*exp(F*V_B/(R*T)*3)+(p2+p3*exp(F*A_F1/(R*T)))*exp(F*V/(R*T)*3)))*(-180)
+      V:time=1/Cmito*(JH_F1+J_ant+JH_leak+J_uni*2-JH_res)*(-1)
+

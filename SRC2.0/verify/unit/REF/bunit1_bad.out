@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model bunit1
+aborted:  near line 9 token ";" Expression "u-u^2/v"
+Operands for '-' have incompatible units
+u has units km/s = <1E3 m / sec>
+u^2/v has units km/s^2 = <1E3 m / sec^2>
+

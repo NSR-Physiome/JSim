@@ -1,0 +1,12 @@
+-- Oct 27 2006
+  jre.zip repackaged from Sun SDK jdk1.5.0_02
+    jre/ directory 
+ 
+-- OLD
+  jre.zip in this directory was repackaged from the
+original Sun distribution:
+
+  j2re-1_4_2_02-linux-i586.bin
+
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="J0" units="katal" constant="false"/>
+      <parameter id="X" value="0" units="M" constant="false"/>
+      <parameter id="Xref" value="3" constant="false"/>
+      <parameter id="default_compartment" value="1" units="litre" constant="true"/>
+      <parameter id="k1" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> Xref </ci>
+              <ci> J0 </ci>
+            </apply>
+            <ci> default_compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="J0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> k1 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

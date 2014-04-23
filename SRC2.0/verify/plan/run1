@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 plan
+$JSBATCH -oplan -f MOD/"$1".mod -out WORK/"$1"_plan.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+
+echo ==== $1 java
+$JSBATCH -ojava -f MOD/"$1".mod -out WORK/"$1"_java.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

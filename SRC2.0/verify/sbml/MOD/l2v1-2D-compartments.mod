@@ -1,0 +1,104 @@
+// This model generated automatically from SBML
+// Warning:  The SBML reaction 'CalciumCalbindin_gt_BoundCytosol' was a 'fast reaction' in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
+// Warning:  The SBML reaction 'CalciumBuffer_gt_BoundCytosol' was a 'fast reaction' in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// CalciumCalbindin_gt_BoundCytosol: CaBP_C Ca_C => CaBPB_C 
+// CalciumBuffer_gt_BoundCytosol: Ca_C B_C => CaB_C 
+// Ca_Pump: Ca_C => Ca_EC 
+// Ca_channel: Ca_EC => Ca_C 
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real Extracellular = 1 L;
+  real PlasmaMembrane = 1 um^2;
+  real Cytosol = 1 L;
+  real CaBPB_C(time) uM;
+  real B_C(time) uM;
+  real CaB_C(time) uM;
+  real Ca_EC(time) uM;
+  real Ca_C(time) uM;
+  real CaCh_PM = 1 umol/um^2;
+  real CaPump_PM = 1 umol/um^2;
+  real CaBP_C(time) uM;
+  real CalciumCalbindin_gt_BoundCytosol(time) microkatal;
+  real Kf_CalciumCalbindin_BoundCytosol = 20;
+  real Kr_CalciumCalbindin_BoundCytosol = 8.6;
+  real CalciumBuffer_gt_BoundCytosol(time) microkatal;
+  real Kf_CalciumBuffer_BoundCytosol = .1;
+  real Kr_CalciumBuffer_BoundCytosol = 1;
+  real Ca_Pump(time) microkatal;
+  real Vmax = -4E3;
+  real kP = .25;
+  real Ca_Rest = .1;
+  real Ca_channel(time) microkatal;
+  real J0 = .014;
+  real Kc = .5;
+
+  // equations
+  when (time=time.min) CaBPB_C = 47.17;
+  (CaBPB_C*Cytosol):time = CalciumCalbindin_gt_BoundCytosol;
+  when (time=time.min) B_C = 396.04;
+  (B_C*Cytosol):time = -1*CalciumBuffer_gt_BoundCytosol;
+  when (time=time.min) CaB_C = 3.96;
+  (CaB_C*Cytosol):time = CalciumBuffer_gt_BoundCytosol;
+  when (time=time.min) Ca_EC = 1E3;
+  (Ca_EC*Extracellular):time = Ca_Pump + -1*Ca_channel;
+  when (time=time.min) Ca_C = .1;
+  (Ca_C*Cytosol):time = -1*CalciumCalbindin_gt_BoundCytosol + -1*CalciumBuffer_gt_BoundCytosol + -1*Ca_Pump + Ca_channel;
+  when (time=time.min) CaBP_C = 202.83;
+  (CaBP_C*Cytosol):time = -1*CalciumCalbindin_gt_BoundCytosol;
+  CalciumCalbindin_gt_BoundCytosol = Kf_CalciumCalbindin_BoundCytosol*CaBP_C*Ca_C-Kr_CalciumCalbindin_BoundCytosol*CaBPB_C;
+  CalciumBuffer_gt_BoundCytosol = Kf_CalciumBuffer_BoundCytosol*Ca_C*B_C-Kr_CalciumBuffer_BoundCytosol*CaB_C;
+  Ca_Pump = Vmax*kP*CaPump_PM*(Ca_C-Ca_Rest)/((Ca_C+kP)*(Ca_Rest+kP));
+  Ca_channel = CaCh_PM*J0*Kc*(Ca_EC-Ca_C)/(Kc+Ca_C);
+
+  // variable properties
+  Extracellular.sbmlRole="compartment";
+  PlasmaMembrane.sbmlRole="compartment";
+  Cytosol.sbmlRole="compartment";
+  CaBPB_C.sbmlRole="species";
+  CaBPB_C.sbmlCompartment="Cytosol";
+  B_C.sbmlRole="species";
+  B_C.sbmlCompartment="Cytosol";
+  CaB_C.sbmlRole="species";
+  CaB_C.sbmlCompartment="Cytosol";
+  Ca_EC.sbmlRole="species";
+  Ca_EC.sbmlCompartment="Extracellular";
+  Ca_C.sbmlRole="species";
+  Ca_C.sbmlCompartment="Cytosol";
+  CaCh_PM.sbmlRole="species";
+  CaCh_PM.sbmlCompartment="PlasmaMembrane";
+  CaPump_PM.sbmlRole="species";
+  CaPump_PM.sbmlCompartment="PlasmaMembrane";
+  CaBP_C.sbmlRole="species";
+  CaBP_C.sbmlCompartment="Cytosol";
+  CalciumCalbindin_gt_BoundCytosol.sbmlRole="rate";
+  Kf_CalciumCalbindin_BoundCytosol.sbmlRole="parameter";
+  Kr_CalciumCalbindin_BoundCytosol.sbmlRole="parameter";
+  CalciumBuffer_gt_BoundCytosol.sbmlRole="rate";
+  Kf_CalciumBuffer_BoundCytosol.sbmlRole="parameter";
+  Kr_CalciumBuffer_BoundCytosol.sbmlRole="parameter";
+  Ca_Pump.sbmlRole="rate";
+  Vmax.sbmlRole="parameter";
+  kP.sbmlRole="parameter";
+  Ca_Rest.sbmlRole="parameter";
+  Ca_channel.sbmlRole="rate";
+  J0.sbmlRole="parameter";
+  Kc.sbmlRole="parameter";
+}
+

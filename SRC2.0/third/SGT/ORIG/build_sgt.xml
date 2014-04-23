@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+
+<!-- ===================================================== -->
+<!-- sgt build file                  ant version 1.2      -->
+<!-- ===================================================== -->
+
+<project name="sgt" default="jar" basedir=".">
+
+  <target name="init">
+    <tstamp/>
+    <property name="build.dir" value="classes"/>
+    <property name="lib.dir" value="jars"/>
+    <property name="src.dir" value="src"/>
+<!-- sgt properties -->
+    <property name="sgt.jar.file" value="sgt.jar"/>
+    <property name="sgt.src.jar.file" value="sgt_src.jar"/>
+    <property name="sgt.doc.jar.file" value="sgt_javadoc.jar"/>
+    <property name="sgt.doc.dir" value="sgt-doc"/>
+    <property name="sgt.tmp.dir" value="sgt-tmp"/>
+    <property name="sgt.jar" value="${lib.dir}/${sgt.jar.file}"/>
+  </target>
+
+  <target name="prepare" depends="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${lib.dir}"/>
+
+    <copy todir="${build.dir}" filtering="no">
+      <fileset dir="${src.dir}">
+        <patternset>
+	   <include name="gov/noaa/**/map/*.gif"/>
+	   <include name="gov/noaa/**/images/*.gif"/>
+	   <include name="gov/noaa/**/beans/*.gif"/>
+	   <include name="gov/noaa/**/demo/*.gif"/>
+	   <include name="gov/noaa/**/demo/*.bin"/>
+	   <include name="gov/noaa/**/demo/*.dat"/>
+	   <include name="gov/noaa/**/demo/*.xml"/>
+	   <include name="gov/noaa/pmel/eps/epic.key"/>
+	   <include name="gov/noaa/pmel/**/cmap/*cmap"/>
+	</patternset>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile" depends="prepare">
+    <javac srcdir="${src.dir}" destdir="${build.dir}">
+      <classpath>
+	<pathelement location="${netcdf2.jar}"/>
+	<pathelement location="${dods.jar}"/>
+	<pathelement location="${collections.jar}"/>
+        <pathelement location="${jini_core.jar}"/>
+        <pathelement location="${jini_ext.jar}"/>
+        <pathelement location="${jce.jar}"/>
+        <pathelement location="${sunjce.jar}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="clean,prepare">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" optimize="on">
+    </javac>
+  </target>
+
+  <target name="vector" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JVectorDemo"
+               fork="yes">
+        <classpath>
+            <pathelement path="${java.class.path}"/>
+        </classpath>
+     </java>
+  </target>
+
+  <target name="clean" depends="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${lib.dir}"/>
+    
+    <delete dir="${build.dir}/gov/noaa/pmel"/>
+    <delete verbose="true">
+       <fileset dir="${lib.dir}">
+          <patternset>
+	     <include name="**/${sgt.jar.file}"/>
+	  </patternset>
+       </fileset>
+    </delete>
+    <delete verbose="true">
+       <fileset dir="${src.dir}" defaultexcludes="no"
+            includes="**/*.class,**/*~"/>
+    </delete>
+  </target>
+
+  <target name="jar" depends="dist">
+    <mkdir dir="${lib.dir}"/>
+    <jar jarfile="${lib.dir}/${sgt.jar.file}"
+          manifest="${src.dir}/META-INF/MANIFEST.MF">
+      <fileset dir="${build.dir}">
+        <patternset>
+	  <include name="gov/noaa/pmel/**"/>
+	</patternset>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="jar-nodemo" depends="dist">
+    <mkdir dir="${lib.dir}"/>
+    <jar jarfile="${lib.dir}/${sgt.jar.file}"
+          manifest="${src.dir}/META-INF/MANIFEST.MF">
+      <fileset dir="${build.dir}">
+        <patternset>
+	  <include name="gov/noaa/pmel/**"/>
+	  <exclude name="gov/noaa/pmel/sgt/demo/**"/>
+	</patternset>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="src-jar" depends="compile">
+    <mkdir dir="${lib.dir}"/>
+    <jar jarfile="${lib.dir}/${sgt.src.jar.file}">
+      <fileset dir=".">
+        <patternset>
+	  <include name="build_sgt.xml"/>
+	  <include name="src/gov/noaa/pmel/sgt/**/*.java"/>
+	  <include name="src/gov/noaa/pmel/sgt/**/*.txt"/>
+	  <include name="src/gov/noaa/pmel/sgt/**/*.gif"/>
+	  <include name="src/gov/noaa/pmel/sgt/**/*.bin"/>
+	  <include name="src/gov/noaa/pmel/sgt/**/*.dat"/>
+	  <include name="src/gov/noaa/pmel/util/**/*.java"/>
+	  <include name="src/gov/noaa/pmel/swing/JSlider2.java"/>
+	  <include name="src/gov/noaa/pmel/swing/JSlider2Double.java"/>
+	  <include name="src/gov/noaa/pmel/swing/beans/SliderHandle.java"/>
+	  <include name="src/gov/noaa/pmel/swing/MRJUtil.java"/>
+	  <include name="src/gov/noaa/pmel/swing/ThreeDots*.java"/>
+	  <exclude name="src/gov/noaa/pmel/swing/JSlider2Date*.java"/>
+	  <exclude name="src/gov/noaa/pmel/swing/*BeanInfo.java"/>
+	  <include name="src/com/**/*.java"/>
+	</patternset>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="javadoc-jar" depends="javadoc">
+    <mkdir dir="${lib.dir}"/>
+    <jar jarfile="${lib.dir}/${sgt.doc.jar.file}">
+      <fileset dir="${sgt.doc.dir}">
+        <include name="**"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="javadoc" depends="init,doc_setup">
+    <javadoc packagenames="gov.noaa.pmel.sgt,gov.noaa.pmel.sgt.beans,gov.noaa.pmel.sgt.contour,gov.noaa.pmel.sgt.demo,gov.noaa.pmel.sgt.dm,gov.noaa.pmel.sgt.swing.*,gov.noaa.pmel.sgt.util,gov.noaa.pmel.util,gov.noaa.pmel.swing" 
+	     sourcepath="${sgt.tmp.dir}" 
+             destdir="${sgt.doc.dir}"
+	     author="true"
+	     version="true"
+	     public="true"
+	     protected="false"
+	     use="true"
+	     overview="${sgt.tmp.dir}/gov/noaa/pmel/sgt/overview.html"
+	     stylesheetfile="${src.dir}/doc_stylesheet.css"
+	     splitindex="true"
+	     windowtitle="SGT API"
+	     doctitle="Scientific Graphics Toolkit"
+	     header="&lt;/EM&gt;&lt;TD ALIGN=center BGCOLOR=#EEEEFF CLASS=NavBarCell1&gt;&lt;A href=http://www.epic.noaa.gov/java/sgt TARGET=_top&gt;&lt;FONT CLASS=NavBarFont1&gt;&lt;B&gt;SGT Home&lt;/B&gt;&lt;/FONT&gt;&lt;/A&gt;&lt;/TD&gt;&lt;EM&gt;"
+	     footer="&lt;/EM&gt;&lt;TD ALIGN=center BGCOLOR=#EEEEFF CLASS=NavBarCell1&gt;&lt;A href=http://www.epic.noaa.gov/java/sgt TARGET=_top&gt;&lt;FONT CLASS=NavBarFont1&gt;&lt;B&gt;SGT Home&lt;/B&gt;&lt;/FONT&gt;&lt;/A&gt;&lt;/TD&gt;&lt;EM&gt;"
+	     bottom="&lt;FONT SIZE=-1&gt;Send comments about the
+             Scientific Graphics toolkit to &lt;A
+             href=mailto:dwd@pmel.noaa.gov&gt;dwd@pmel.noaa.gov&lt;/A&gt;.
+             For more information about Java Development in the EPIC
+             Group see &lt;A href=http://www.epic.noaa.gov/epic/software/ep_java.htm TARGET=_top&gt;the EPIC Software Page&lt;/A&gt;&lt;br&gt;&lt;em&gt;Generated on ${TODAY}&lt;/em&gt;&lt;/FONT;gt;">
+       <group title="SGT Packages" 
+           packages="gov.noaa.pmel.sgt:gov.noaa.pmel.sgt.*"/>
+       <group title="EPIC Packages" 
+           packages="gov.noaa.pmel.util:gov.noaa.pmel.swing"/>
+     </javadoc>
+<!-- clean up -->
+    <delete dir="${sgt.tmp.dir}"/>
+  </target>
+
+  <target name="doc_setup">
+    <mkdir dir="${sgt.tmp.dir}"/>
+    <copy todir="${sgt.tmp.dir}">
+      <fileset dir="${src.dir}">
+        <patternset>
+          <include name="gov/noaa/pmel/sgt/**"/>
+	  <include name="gov/noaa/pmel/util/**"/>
+	  <include name="gov/noaa/pmel/swing/JSlider2*"/>
+	  <include name="gov/noaa/pmel/swing/package.html"/>
+	  <include name="gov/noaa/pmel/swing/ThreeDots*"/>
+	  <include name="gov/noaa/pmel/swing/JSystemPropertiesDialog*"/>
+	  <include name="gov/noaa/pmel/swing/MRJUtil*"/>
+	  <include name="gov/noaa/pmel/swing/beans/SliderHandle*"/>
+	  <include name="gov/noaa/pmel/swing/package.html"/>
+<!-- Exclude those classes under development or for internal use only -->
+          <exclude name="gov/noaa/pmel/swing/**/*BeanInfo.java"/>
+          <exclude name="gov/noaa/pmel/sgt/**/*BeanInfo.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/LabelDrawer*.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/StrokeDrawer1.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/StrokeDrawer2.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/contour/Polygon*"/>
+	  <exclude name="gov/noaa/pmel/sgt/contour/Tree*"/>
+	  <exclude name="gov/noaa/pmel/sgt/LayerStack.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/Map*"/>
+	  <exclude name="gov/noaa/pmel/sgt/PolarGraph.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/SineTransform.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/TableLookupTransform.java"/>
+	  <exclude name="gov/noaa/pmel/sgt/plot/**"/>
+	  <exclude name="gov/noaa/pmel/sgt/dm/*Tuple.java"/>
+        </patternset>
+      </fileset>
+    </copy>
+<!-- Copy gif(s) needed for javadoc -->    
+    <delete dir="${sgt.doc.dir}"/>
+    <mkdir dir="${sgt.doc.dir}"/>
+    <copy todir="${sgt.doc.dir}">
+      <fileset dir="${src.dir}">
+        <patternset>
+	  <include name="gov/noaa/pmel/sgt/**/*.gif"/>
+	  <include name="gov/noaa/pmel/sgt/**/*.png"/>
+	</patternset>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="bean" depends="compile">
+    <javac srcdir="bean_test/src" destdir="${build.dir}">
+      <classpath>
+         <pathelement location="${build.dir}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="beantest">
+    <java classname="bean_test.BeanTestApp"
+          fork="yes">
+      <classpath>
+        <pathelement location="classes"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="pmEdit" depends="init">
+    <java classname="gov.noaa.pmel.sgt.beans.PanelModelEditor"
+          fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="all"
+    depends="init,JGridDemo,JLayoutDemo,JLogLogDemo,JPointDemo,JProfileDemo,JRealTimeDemo,JTimeSeriesDemo,JVectorDemo,TAOMap,BeanDemo">
+  </target>
+
+  <target name="BeanDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.BeanDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JVectorDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JVectorDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JGridDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JGridDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JLayoutDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JLayoutDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JLogLogDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JLogLogDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JPointDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JPointDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JProfileDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JProfileDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JRealTimeDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JRealTimeDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="JTimeSeriesDemo" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.JTimeSeriesDemo"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="TAOMap" depends="init">
+    <java classname="gov.noaa.pmel.sgt.demo.TAOMap"
+               fork="yes">
+      <classpath>
+        <pathelement path="${sgt.jar}"/>
+      </classpath>
+    </java>
+  </target>
+</project>

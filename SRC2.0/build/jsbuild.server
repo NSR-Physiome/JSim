@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# rebuild rserver and rclient dirs RMI stubs
+#   supposedly no longer needed with Java 1.5
+#   however, jsserver does not launch without it
+
+. jsbuild.path
+
+cd $JSIMSRC
+
+jscomp JSim/rserver/*.java JSim/rclient/*.java
+
+rmic JSim.rserver.RSServer JSim.rserver.RSClient
+

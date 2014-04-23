@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model bunit3
+aborted: Expression "u=v"
+Operands for '=' have incompatible units
+u has units km/sec = <1E3 dim1 / dim2>
+v has units km = <1E3 dim1>
+

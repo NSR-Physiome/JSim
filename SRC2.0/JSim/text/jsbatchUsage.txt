@@ -1,0 +1,74 @@
+Usage: jsbatch [ switches ]
+
+Switches:
+  -f file ...             load project, model & other files
+  -v                      verbose mode
+  -userurl url            load -f files relative to URL
+  -userdir dir            set user directory
+  -path path              set search path
+  -server name            connect to remote server
+  -plugin file ...        load optional plugin
+  -usage                  print usage message and exit
+  -stack                  print stack dump on error
+  -noscrub                don't scrub build directory at exit
+  -builddirsfx suffix     force build directory (experts only!)
+  -sandbox [path [path]]  run application is safe sandbox
+  -nosandbox              don't use sandbox (default)
+  -securityMgr class-name install security manager
+  -mp N                   enable up to N processor multiprocessing        
+  -i var=expr ...         assign 1 or more model inputs or controls
+  -func name ...          create 1 or more function generator
+  -plot name ...          create 1 or more plot pages
+  -rtml file ...          load model RTML from file
+  -img file ...           load 1 or more model image files
+  -lmod name              load source code into model
+  -lpar name              load project par set into model
+  -lxpar file             load XSim .par file into model
+  -spar name              store model par set in project
+  -filter dataset ...     filter 1 or more project datasets
+  -iproj proj:name ...    import content from other projects
+  -c name=value ...       set model compiler options
+    
+  -model name        specify which model (if multiple)
+  -q [var ...]       query variable constraints
+  -loops             loops run instead of normal run
+  -sens              sensitivity analysis instead of normal run
+  -optim             run optimizer instead of normal run
+  -monte             run Monte-Carlo instead of normal run
+  -nruns #           # runs for each model
+  -fwdIC             forward ICs after (each) run
+  
+  -o expr ...        output selected model expressions
+  -oplot             output data from plots
+  -ofgenprev         output data from function generator preview
+  -odataset name     output data from specified dataset
+  -ortml name        output selected model's RTML
+  -out file          write output to file instead of stdout
+  -odim #            select data of specified dimension
+  -ofmt name         write output in named format
+  -oblocked mn mx    write blocked output (if ofmt supported)
+  -osingle           write single-precision output (default)
+  -odouble           write double-precision output
+  -oprec #           write custom precision output
+  -ozero #           write small output data as 0
+  -oencoding code    write format-specific output encoding
+  -ocrash            write output even if run crashes
+  -oreport           write optimization or Monte-Carlo report
+  -oreports          write all optimization reports from Monte-Carlo run
+  -ofinal ...        output only final values of variables
+  
+  -oplan [variant]   write model plan to output (if available)
+  -omathml           write model MathML to output
+  -omml              write MML model to output (if available)
+  -oxmml [variant]   write XMML informatics file to output
+  -osbml [variant]   write SBML model output
+  -ocellml           write CellML model output
+  -oantimony         write Antimony model output
+  -omatlab           write Matlab .m model output
+  -oflat             write flat model to output (if available)
+  -ojava             write java model to output (if available)
+  -oproj [name ...]  write project content to output
+  -oprofile          write run-time profile
+  -opar name         write JSim .par file to output
+  -sdata name        store output in project dataset
+

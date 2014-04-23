@@ -1,0 +1,36 @@
+// This model generated automatically from SBML
+// WARNING: SBML events are not currently supported: _E0
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real default_compartment = 1 L;
+  real S1(time) M;
+  real S2 = 0 M;
+
+  // equations
+  S1 = if (time<=2) sin(time*10) else 1;
+
+  // variable properties
+  default_compartment.sbmlRole="compartment";
+  S1.sbmlRole="species";
+  S1.sbmlCompartment="default_compartment";
+  S2.sbmlRole="species";
+  S2.sbmlCompartment="default_compartment";
+}
+

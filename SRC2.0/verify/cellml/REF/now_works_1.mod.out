@@ -1,0 +1,603 @@
+/*
+ * Modelling the Ionic Mechanisms Underlying Brugada Syndrome
+ * 
+ * Model Status
+ * 
+ * This model is valid CellML but can not be integrated.
+ * 
+ * Model Structure
+ * 
+ * Of the 300,000 sudden deaths that occur in America each year,
+ * 5 to 12 percent are due to polymorphic ventricular tachycardia
+ * (VT) and ventricular fibrillation (VF) developing in patients
+ * with structurally normal hearts. About half of these cases are
+ * attributed to the Brugada syndrome, which is characterised by
+ * an ST-segment elevation in V1 through V3 and a rapid VT that
+ * can degenerate into VF. The disease has been linked to mutations
+ * in the SCN5A gene, which encodes the alpha subunit of the cardiac
+ * sodium channel. This temperature dependent mutation appears
+ * to change the gating kinetics of the sodium channel, such that
+ * the net outward current is augmented during the early phases
+ * of the right ventricular action potential.
+ * 
+ * In their 1999 study, Dumaine et al. tested this temperature
+ * dependence hypothesis. They studied cardiac action potentials
+ * by using a modified version of the Luo-Rudy II model. The modification
+ * involved adding a transient outward potassium current (Ito)
+ * to the original model, and reducing the conductance of the L-type
+ * calcium channel by 20 to 50 percent. For a diagram of the model,
+ * please see the figure below.
+ * 
+ * The results of their study showed that this mutation is only
+ * expressed at physiological temperatures. This explained why
+ * the mutation phenotype had not been observed in previous experiments
+ * which had been carried out at room temperature. Their findings
+ * also suggest that some patients may be more at risk during febrile
+ * states when their body temperature is elevated.
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * Ionic Mechanisms Responsible for the Electrocardiographic Phenotype
+ * of the Brugada Syndrome Are Temperature Dependent, Robert Dumaine,
+ * Jeffrey A. Towbin, Pedro Brugada, Matteo Vatta, Dmitri V. Nesterenko,
+ * Vladislav V. Nesterenko, Josep Brugada, Ramon Brugada, and Charles
+ * Antzelevitch, 1999, Circulation Research , 85, 803-809. PubMed
+ * ID: 10532948
+ * 
+ * cell diagram
+ * 
+ * [[Image file: dumaine_1999.png]]
+ * 
+ * A schematic diagram describing the ionic currents, pumps and
+ * exchangers that are captured in the Dumaine et al. 1999 model.
+ * The intracellular compartment is the sarcoplasmic reticulum
+ * (SR), which is divided into the two subcompartments, the network
+ * SR (NSR) and the junctional SR (JSR). Ca2+ buffers are present
+ * in both the cytoplasm and the JSR.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 19 equation(s)
+unit conversion off;
+// unit millisecond predefined
+unit per_millisecond=1E3 second^(-1);
+// unit millivolt predefined
+unit per_millivolt=1E3 kilogram^(-1)*meter^(-2)*second^3*ampere^1;
+unit per_millivolt_millisecond=1E6 kilogram^(-1)*meter^(-2)*second^2*ampere^1;
+unit milliS_per_microF=1 second^(-1);
+unit milliS_per_cm2=10 kilogram^(-1)*meter^(-4)*second^3*ampere^2;
+unit nanoS_per_cm2=1E-5 kilogram^(-1)*meter^(-4)*second^3*ampere^2;
+unit microF=1E-6 kilogram^(-1)*meter^(-2)*second^4*ampere^2;
+unit microA_per_microF=1 kilogram^1*meter^2*second^(-4)*ampere^(-1);
+unit millimolar_per_millisecond=1E3 meter^(-3)*second^(-1)*mole^1;
+// unit millimolar predefined
+// unit micromolar predefined
+unit joule_per_kilomole_kelvin=.001 kilogram^1*meter^2*second^(-2)*kelvin^(-1)*mole^(-1);
+unit coulomb_per_mole=1 second^1*ampere^1*mole^(-1);
+unit cm_per_second=.01 meter^1*second^(-1);
+unit mm2=1E-6 meter^2;
+unit micro_litre=1E-9 meter^3;
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  z, y, m, h, j, d, f, X, delta_Ca_i2, calcium_overload,
+	//  Ca_JSR, Ca_foot, R_A_V, V_myo, V_cleft, V_JSR, V_NSR
+	//Warning:  the following variables had initial values which were
+	//  suppressed because the model would otherwise be overdetermined:
+	//   g_K
+	realDomain time millisecond;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real V(time) millivolt;
+	V.cellMLNames="membrane.V;transient_outward_potassium_current.V;transient_outward_potassium_current_z_gate.V;transient_outward_potassium_current_y_gate.V;fast_sodium_current.V;fast_sodium_current_m_gate.V;fast_sodium_current_h_gate.V;fast_sodium_current_j_gate.V;L_type_Ca_channel.V;L_type_Ca_channel_d_gate.V;L_type_Ca_channel_f_gate.V;L_type_Ca_channel_f_Ca_gate.V;time_dependent_potassium_current.V;time_dependent_potassium_current_X_gate.V;time_dependent_potassium_current_Xi_gate.V;Na_Ca_exchanger.V;time_independent_potassium_current.V;time_independent_potassium_current_K1_gate.V;plateau_potassium_current.V;sodium_background_current.V;calcium_background_current.V;sodium_potassium_pump.V;non_specific_calcium_activated_current.V";
+	when(time=time.min) V=-84.624;
+	real R joule_per_kilomole_kelvin;
+	R.cellMLNames="membrane.R;fast_sodium_current.R;L_type_Ca_channel.R;time_dependent_potassium_current.R;Na_Ca_exchanger.R;time_independent_potassium_current.R;calcium_background_current.R;sodium_potassium_pump.R;non_specific_calcium_activated_current.R";
+	R=8314.0;
+	real T kelvin;
+	T.cellMLNames="membrane.T;fast_sodium_current.T;L_type_Ca_channel.T;time_dependent_potassium_current.T;Na_Ca_exchanger.T;time_independent_potassium_current.T;calcium_background_current.T;sodium_potassium_pump.T;non_specific_calcium_activated_current.T";
+	T=310.0;
+	real F coulomb_per_mole;
+	F.cellMLNames="membrane.F;fast_sodium_current.F;L_type_Ca_channel.F;time_dependent_potassium_current.F;Na_Ca_exchanger.F;time_independent_potassium_current.F;calcium_background_current.F;sodium_potassium_pump.F;non_specific_calcium_activated_current.F;ionic_concentrations.F";
+	F=96500.0;
+	real Cm microF;
+	Cm.cellMLNames="membrane.Cm";
+	Cm=1.0;
+	real I_st microA_per_microF;
+	I_st.cellMLNames="membrane.I_st";
+	I_st=-100.0;
+	real i_Na(time) microA_per_microF;
+	i_Na.cellMLNames="membrane.i_Na;fast_sodium_current.i_Na;ionic_concentrations.i_Na";
+	real i_Ca_L(time) microA_per_microF;
+	i_Ca_L.cellMLNames="membrane.i_Ca_L;L_type_Ca_channel.i_Ca_L";
+	real i_K(time) microA_per_microF;
+	i_K.cellMLNames="membrane.i_K;time_dependent_potassium_current.i_K;ionic_concentrations.i_K";
+	real i_NaCa(time) microA_per_microF;
+	i_NaCa.cellMLNames="membrane.i_NaCa;Na_Ca_exchanger.i_NaCa;ionic_concentrations.i_NaCa";
+	real i_K1(time) microA_per_microF;
+	i_K1.cellMLNames="membrane.i_K1;time_independent_potassium_current.i_K1;ionic_concentrations.i_K1";
+	real i_Kp(time) microA_per_microF;
+	i_Kp.cellMLNames="membrane.i_Kp;plateau_potassium_current.i_Kp;ionic_concentrations.i_Kp";
+	real i_p_Ca(time) microA_per_microF;
+	i_p_Ca.cellMLNames="membrane.i_p_Ca;sarcolemmal_calcium_pump.i_p_Ca;ionic_concentrations.i_p_Ca";
+	real i_Na_b(time) microA_per_microF;
+	i_Na_b.cellMLNames="membrane.i_Na_b;sodium_background_current.i_Na_b;ionic_concentrations.i_Na_b";
+	real i_Ca_b(time) microA_per_microF;
+	i_Ca_b.cellMLNames="membrane.i_Ca_b;calcium_background_current.i_Ca_b;ionic_concentrations.i_Ca_b";
+	real i_NaK(time) microA_per_microF;
+	i_NaK.cellMLNames="membrane.i_NaK;sodium_potassium_pump.i_NaK;ionic_concentrations.i_NaK";
+	real i_ns_Ca(time) microA_per_microF;
+	i_ns_Ca.cellMLNames="membrane.i_ns_Ca;non_specific_calcium_activated_current.i_ns_Ca";
+	real i_to(time) microA_per_microF;
+	i_to.cellMLNames="membrane.i_to;transient_outward_potassium_current.i_to";
+	real g_to milliS_per_microF;
+	g_to.cellMLNames="transient_outward_potassium_current.g_to";
+	g_to=0.5;
+	real R_to(time) dimensionless;
+	R_to.cellMLNames="transient_outward_potassium_current.R_to";
+	real E_K(time) millivolt;
+	E_K.cellMLNames="transient_outward_potassium_current.E_K;time_dependent_potassium_current.E_K";
+	real z(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	z.cellMLNames="transient_outward_potassium_current.z;transient_outward_potassium_current_z_gate.z";
+	when(time=time.min) z=0;
+	real y(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	y.cellMLNames="transient_outward_potassium_current.y;transient_outward_potassium_current_y_gate.y";
+	when(time=time.min) y=0;
+	real alpha_z(time) per_millisecond;
+	alpha_z.cellMLNames="transient_outward_potassium_current_z_gate.alpha_z";
+	real beta_z(time) per_millisecond;
+	beta_z.cellMLNames="transient_outward_potassium_current_z_gate.beta_z";
+	real alpha_y(time) per_millisecond;
+	alpha_y.cellMLNames="transient_outward_potassium_current_y_gate.alpha_y";
+	real beta_y(time) per_millisecond;
+	beta_y.cellMLNames="transient_outward_potassium_current_y_gate.beta_y";
+	real E_Na(time) millivolt;
+	E_Na.cellMLNames="fast_sodium_current.E_Na;sodium_background_current.E_Na";
+	real g_Na milliS_per_microF;
+	g_Na.cellMLNames="fast_sodium_current.g_Na";
+	g_Na=16.0;
+	real Nai(time) millimolar;
+	Nai.cellMLNames="fast_sodium_current.Nai;ionic_concentrations.Nai;L_type_Ca_channel.Nai;time_dependent_potassium_current.Nai;Na_Ca_exchanger.Nai;sodium_potassium_pump.Nai;non_specific_calcium_activated_current.Nai";
+	when(time=time.min) Nai=10.0;
+	real Nao millimolar;
+	Nao.cellMLNames="fast_sodium_current.Nao;ionic_concentrations.Nao;L_type_Ca_channel.Nao;time_dependent_potassium_current.Nao;Na_Ca_exchanger.Nao;sodium_potassium_pump.Nao;non_specific_calcium_activated_current.Nao";
+	Nao=140.0;
+	real m(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	m.cellMLNames="fast_sodium_current.m;fast_sodium_current_m_gate.m";
+	when(time=time.min) m=0;
+	real h(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	h.cellMLNames="fast_sodium_current.h;fast_sodium_current_h_gate.h";
+	when(time=time.min) h=0;
+	real j(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	j.cellMLNames="fast_sodium_current.j;fast_sodium_current_j_gate.j";
+	when(time=time.min) j=0;
+	real alpha_m(time) per_millisecond;
+	alpha_m.cellMLNames="fast_sodium_current_m_gate.alpha_m";
+	real beta_m(time) per_millisecond;
+	beta_m.cellMLNames="fast_sodium_current_m_gate.beta_m";
+	real alpha_h(time) per_millisecond;
+	alpha_h.cellMLNames="fast_sodium_current_h_gate.alpha_h";
+	real beta_h(time) per_millisecond;
+	beta_h.cellMLNames="fast_sodium_current_h_gate.beta_h";
+	real alpha_j(time) per_millisecond;
+	alpha_j.cellMLNames="fast_sodium_current_j_gate.alpha_j";
+	real beta_j(time) per_millisecond;
+	beta_j.cellMLNames="fast_sodium_current_j_gate.beta_j";
+	real i_CaCa(time) microA_per_microF;
+	i_CaCa.cellMLNames="L_type_Ca_channel.i_CaCa;ionic_concentrations.i_CaCa";
+	real i_CaK(time) microA_per_microF;
+	i_CaK.cellMLNames="L_type_Ca_channel.i_CaK;ionic_concentrations.i_CaK";
+	real i_CaNa(time) microA_per_microF;
+	i_CaNa.cellMLNames="L_type_Ca_channel.i_CaNa;ionic_concentrations.i_CaNa";
+	real gamma_Nai dimensionless;
+	gamma_Nai.cellMLNames="L_type_Ca_channel.gamma_Nai;non_specific_calcium_activated_current.gamma_Nai";
+	gamma_Nai=0.75;
+	real gamma_Nao dimensionless;
+	gamma_Nao.cellMLNames="L_type_Ca_channel.gamma_Nao;non_specific_calcium_activated_current.gamma_Nao";
+	gamma_Nao=0.75;
+	real gamma_Ki dimensionless;
+	gamma_Ki.cellMLNames="L_type_Ca_channel.gamma_Ki;non_specific_calcium_activated_current.gamma_Ki";
+	gamma_Ki=0.75;
+	real gamma_Ko dimensionless;
+	gamma_Ko.cellMLNames="L_type_Ca_channel.gamma_Ko;non_specific_calcium_activated_current.gamma_Ko";
+	gamma_Ko=0.75;
+	real I_CaCa(time) microA_per_microF;
+	I_CaCa.cellMLNames="L_type_Ca_channel.I_CaCa";
+	real I_CaK(time) microA_per_microF;
+	I_CaK.cellMLNames="L_type_Ca_channel.I_CaK";
+	real I_CaNa(time) microA_per_microF;
+	I_CaNa.cellMLNames="L_type_Ca_channel.I_CaNa";
+	real P_Ca cm_per_second;
+	P_Ca.cellMLNames="L_type_Ca_channel.P_Ca";
+	P_Ca=0.00054;
+	real P_Na cm_per_second;
+	P_Na.cellMLNames="L_type_Ca_channel.P_Na";
+	P_Na=0.000000675;
+	real P_K cm_per_second;
+	P_K.cellMLNames="L_type_Ca_channel.P_K";
+	P_K=0.000000193;
+	real gamma_Cai dimensionless;
+	gamma_Cai.cellMLNames="L_type_Ca_channel.gamma_Cai";
+	gamma_Cai=1.0;
+	real gamma_Cao dimensionless;
+	gamma_Cao.cellMLNames="L_type_Ca_channel.gamma_Cao";
+	gamma_Cao=0.34;
+	real Cai(time) micromolar;
+	Cai.cellMLNames="L_type_Ca_channel.Cai;ionic_concentrations.Cai;Na_Ca_exchanger.Cai;sarcolemmal_calcium_pump.Cai;calcium_background_current.Cai;non_specific_calcium_activated_current.Cai;calcium_buffers_in_the_myoplasm.Cai;calcium_fluxes_in_the_SR.Cai;L_type_Ca_channel_f_Ca_gate.Cai";
+	when(time=time.min) Cai=0.12;
+	real Cao millimolar;
+	Cao.cellMLNames="L_type_Ca_channel.Cao;ionic_concentrations.Cao;Na_Ca_exchanger.Cao;calcium_background_current.Cao;non_specific_calcium_activated_current.Cao";
+	Cao=1.8;
+	real Ko(time) millimolar;
+	Ko.cellMLNames="L_type_Ca_channel.Ko;ionic_concentrations.Ko;time_dependent_potassium_current.Ko;time_independent_potassium_current.Ko;sodium_potassium_pump.Ko;non_specific_calcium_activated_current.Ko";
+	when(time=time.min) Ko=5.4;
+	real Ki(time) millimolar;
+	Ki.cellMLNames="L_type_Ca_channel.Ki;ionic_concentrations.Ki;time_dependent_potassium_current.Ki;time_independent_potassium_current.Ki;non_specific_calcium_activated_current.Ki";
+	when(time=time.min) Ki=145.0;
+	real d(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	d.cellMLNames="L_type_Ca_channel.d;L_type_Ca_channel_d_gate.d";
+	when(time=time.min) d=0;
+	real f(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	f.cellMLNames="L_type_Ca_channel.f;L_type_Ca_channel_f_gate.f";
+	when(time=time.min) f=0;
+	real f_Ca(time) dimensionless;
+	f_Ca.cellMLNames="L_type_Ca_channel.f_Ca;L_type_Ca_channel_f_Ca_gate.f_Ca";
+	real alpha_d(time) per_millisecond;
+	alpha_d.cellMLNames="L_type_Ca_channel_d_gate.alpha_d";
+	real beta_d(time) per_millisecond;
+	beta_d.cellMLNames="L_type_Ca_channel_d_gate.beta_d";
+	real d_infinity(time) dimensionless;
+	d_infinity.cellMLNames="L_type_Ca_channel_d_gate.d_infinity";
+	real tau_d(time) millisecond;
+	tau_d.cellMLNames="L_type_Ca_channel_d_gate.tau_d";
+	real alpha_f(time) per_millisecond;
+	alpha_f.cellMLNames="L_type_Ca_channel_f_gate.alpha_f";
+	real beta_f(time) per_millisecond;
+	beta_f.cellMLNames="L_type_Ca_channel_f_gate.beta_f";
+	real f_infinity(time) dimensionless;
+	f_infinity.cellMLNames="L_type_Ca_channel_f_gate.f_infinity";
+	real tau_f(time) millisecond;
+	tau_f.cellMLNames="L_type_Ca_channel_f_gate.tau_f";
+	real Km_Ca micromolar;
+	Km_Ca.cellMLNames="L_type_Ca_channel_f_Ca_gate.Km_Ca";
+	Km_Ca=0.6;
+	real g_K(time) milliS_per_microF;
+	g_K.cellMLNames="time_dependent_potassium_current.g_K";
+	//Warning: CellML initial value suppressed to prevent overdetermining model.  Original initial value: g_K=0.282;
+	real PR_NaK dimensionless;
+	PR_NaK.cellMLNames="time_dependent_potassium_current.PR_NaK";
+	PR_NaK=0.01833;
+	real X(time) dimensionless;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	X.cellMLNames="time_dependent_potassium_current.X;time_dependent_potassium_current_X_gate.X";
+	when(time=time.min) X=0;
+	real Xi(time) dimensionless;
+	Xi.cellMLNames="time_dependent_potassium_current.Xi;time_dependent_potassium_current_Xi_gate.Xi";
+	real alpha_X(time) per_millisecond;
+	alpha_X.cellMLNames="time_dependent_potassium_current_X_gate.alpha_X";
+	real beta_X(time) per_millisecond;
+	beta_X.cellMLNames="time_dependent_potassium_current_X_gate.beta_X";
+	real E_K1(time) millivolt;
+	E_K1.cellMLNames="time_independent_potassium_current.E_K1;plateau_potassium_current.E_K1;time_independent_potassium_current_K1_gate.E_K1";
+	real g_K1(time) milliS_per_cm2;
+	g_K1.cellMLNames="time_independent_potassium_current.g_K1";
+	real K1_infinity(time) dimensionless;
+	K1_infinity.cellMLNames="time_independent_potassium_current.K1_infinity;time_independent_potassium_current_K1_gate.K1_infinity";
+	real alpha_K1(time) per_millisecond;
+	alpha_K1.cellMLNames="time_independent_potassium_current_K1_gate.alpha_K1";
+	real beta_K1(time) per_millisecond;
+	beta_K1.cellMLNames="time_independent_potassium_current_K1_gate.beta_K1";
+	real E_Kp(time) millivolt;
+	E_Kp.cellMLNames="plateau_potassium_current.E_Kp";
+	real g_Kp milliS_per_microF;
+	g_Kp.cellMLNames="plateau_potassium_current.g_Kp";
+	g_Kp=0.0183;
+	real Kp(time) dimensionless;
+	Kp.cellMLNames="plateau_potassium_current.Kp";
+	real K_mpCa micromolar;
+	K_mpCa.cellMLNames="sarcolemmal_calcium_pump.K_mpCa";
+	K_mpCa=0.5;
+	real I_pCa microA_per_microF;
+	I_pCa.cellMLNames="sarcolemmal_calcium_pump.I_pCa";
+	I_pCa=1.15;
+	real g_Nab milliS_per_microF;
+	g_Nab.cellMLNames="sodium_background_current.g_Nab";
+	g_Nab=0.00141;
+	real E_NaN(time) millivolt;
+	E_NaN.cellMLNames="sodium_background_current.E_NaN";
+	real g_Cab milliS_per_microF;
+	g_Cab.cellMLNames="calcium_background_current.g_Cab";
+	g_Cab=0.003016;
+	real E_CaN(time) millivolt;
+	E_CaN.cellMLNames="calcium_background_current.E_CaN";
+	real I_NaK microA_per_microF;
+	I_NaK.cellMLNames="sodium_potassium_pump.I_NaK";
+	I_NaK=1.5;
+	real f_NaK(time) dimensionless;
+	f_NaK.cellMLNames="sodium_potassium_pump.f_NaK";
+	real K_mNai millimolar;
+	K_mNai.cellMLNames="sodium_potassium_pump.K_mNai";
+	K_mNai=10.0;
+	real K_mKo millimolar;
+	K_mKo.cellMLNames="sodium_potassium_pump.K_mKo";
+	K_mKo=1.5;
+	real sigma dimensionless;
+	sigma.cellMLNames="sodium_potassium_pump.sigma";
+	real i_ns_Na(time) microA_per_microF;
+	i_ns_Na.cellMLNames="non_specific_calcium_activated_current.i_ns_Na;ionic_concentrations.i_ns_Na";
+	real i_ns_K(time) microA_per_microF;
+	i_ns_K.cellMLNames="non_specific_calcium_activated_current.i_ns_K;ionic_concentrations.i_ns_K";
+	real P_ns_Ca cm_per_second;
+	P_ns_Ca.cellMLNames="non_specific_calcium_activated_current.P_ns_Ca";
+	P_ns_Ca=1.75E-7;
+	real I_ns_Na(time) microA_per_microF;
+	I_ns_Na.cellMLNames="non_specific_calcium_activated_current.I_ns_Na";
+	real I_ns_K(time) microA_per_microF;
+	I_ns_K.cellMLNames="non_specific_calcium_activated_current.I_ns_K";
+	real K_m_ns_Ca micromolar;
+	K_m_ns_Ca.cellMLNames="non_specific_calcium_activated_current.K_m_ns_Ca";
+	K_m_ns_Ca=1.2;
+	real K_NaCa microA_per_microF;
+	K_NaCa.cellMLNames="Na_Ca_exchanger.K_NaCa";
+	K_NaCa=2000.0;
+	real K_mNa millimolar;
+	K_mNa.cellMLNames="Na_Ca_exchanger.K_mNa";
+	K_mNa=87.5;
+	real K_mCa millimolar;
+	K_mCa.cellMLNames="Na_Ca_exchanger.K_mCa";
+	K_mCa=1.38;
+	real K_sat dimensionless;
+	K_sat.cellMLNames="Na_Ca_exchanger.K_sat";
+	K_sat=0.1;
+	real eta dimensionless;
+	eta.cellMLNames="Na_Ca_exchanger.eta";
+	eta=0.35;
+	real K_mTn micromolar;
+	K_mTn.cellMLNames="calcium_buffers_in_the_myoplasm.K_mTn";
+	K_mTn=0.5;
+	real K_mCMDN micromolar;
+	K_mCMDN.cellMLNames="calcium_buffers_in_the_myoplasm.K_mCMDN";
+	K_mCMDN=2.38;
+	real Tn_max micromolar;
+	Tn_max.cellMLNames="calcium_buffers_in_the_myoplasm.Tn_max";
+	Tn_max=70.0;
+	real CMDN_max micromolar;
+	CMDN_max.cellMLNames="calcium_buffers_in_the_myoplasm.CMDN_max";
+	CMDN_max=50.0;
+	real Tn_buff(time) micromolar;
+	Tn_buff.cellMLNames="calcium_buffers_in_the_myoplasm.Tn_buff";
+	real CMDN_buff(time) micromolar;
+	CMDN_buff.cellMLNames="calcium_buffers_in_the_myoplasm.CMDN_buff";
+	real i_rel(time) millimolar_per_millisecond;
+	i_rel.cellMLNames="calcium_fluxes_in_the_SR.i_rel;ionic_concentrations.i_rel";
+	real i_up(time) millimolar_per_millisecond;
+	i_up.cellMLNames="calcium_fluxes_in_the_SR.i_up;ionic_concentrations.i_up";
+	real i_leak(time) millimolar_per_millisecond;
+	i_leak.cellMLNames="calcium_fluxes_in_the_SR.i_leak;ionic_concentrations.i_leak";
+	real i_tr(time) millimolar_per_millisecond;
+	i_tr.cellMLNames="calcium_fluxes_in_the_SR.i_tr;ionic_concentrations.i_tr";
+	real G_rel(time) per_millisecond;
+	G_rel.cellMLNames="calcium_fluxes_in_the_SR.G_rel";
+	real G_rel_max(time) per_millisecond;
+	G_rel_max.cellMLNames="calcium_fluxes_in_the_SR.G_rel_max";
+	real tau_on millisecond;
+	tau_on.cellMLNames="calcium_fluxes_in_the_SR.tau_on";
+	tau_on=2.0;
+	real tau_off millisecond;
+	tau_off.cellMLNames="calcium_fluxes_in_the_SR.tau_off";
+	tau_off=2.0;
+	real tau_tr millisecond;
+	tau_tr.cellMLNames="calcium_fluxes_in_the_SR.tau_tr";
+	tau_tr=180.0;
+	real t millisecond;
+	t.cellMLNames="calcium_fluxes_in_the_SR.t";
+	t=0.0;
+	real K_mrel micromolar;
+	K_mrel.cellMLNames="calcium_fluxes_in_the_SR.K_mrel";
+	K_mrel=0.8;
+	extern real delta_Ca_i2 micromolar;
+	delta_Ca_i2.cellMLNames="calcium_fluxes_in_the_SR.delta_Ca_i2";
+	real delta_Ca_ith micromolar;
+	delta_Ca_ith.cellMLNames="calcium_fluxes_in_the_SR.delta_Ca_ith";
+	delta_Ca_ith=0.18;
+	real CSQN_buff(time) millimolar;
+	CSQN_buff.cellMLNames="calcium_fluxes_in_the_SR.CSQN_buff";
+	real CSQN_max millimolar;
+	CSQN_max.cellMLNames="calcium_fluxes_in_the_SR.CSQN_max";
+	CSQN_max=10.0;
+	real CSQN_th millimolar;
+	CSQN_th.cellMLNames="calcium_fluxes_in_the_SR.CSQN_th";
+	CSQN_th=0.7;
+	real K_mCSQN millimolar;
+	K_mCSQN.cellMLNames="calcium_fluxes_in_the_SR.K_mCSQN";
+	K_mCSQN=0.8;
+	real K_mup micromolar;
+	K_mup.cellMLNames="calcium_fluxes_in_the_SR.K_mup";
+	K_mup=0.92;
+	real K_leak per_millisecond;
+	K_leak.cellMLNames="calcium_fluxes_in_the_SR.K_leak";
+	real I_up millimolar_per_millisecond;
+	I_up.cellMLNames="calcium_fluxes_in_the_SR.I_up";
+	I_up=0.005;
+	real Ca_NSR_max millimolar;
+	Ca_NSR_max.cellMLNames="calcium_fluxes_in_the_SR.Ca_NSR_max";
+	Ca_NSR_max=0.15;
+	extern real calcium_overload dimensionless;
+	calcium_overload.cellMLNames="calcium_fluxes_in_the_SR.calcium_overload";
+	real Ca_JSR(time) millimolar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ca_JSR.cellMLNames="calcium_fluxes_in_the_SR.Ca_JSR;ionic_concentrations.Ca_JSR";
+	when(time=time.min) Ca_JSR=0;
+	real Ca_NSR(time) millimolar;
+	Ca_NSR.cellMLNames="calcium_fluxes_in_the_SR.Ca_NSR;ionic_concentrations.Ca_NSR";
+	when(time=time.min) Ca_NSR=15.0;
+	real Ca_foot(time) micromolar;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ca_foot.cellMLNames="ionic_concentrations.Ca_foot";
+	when(time=time.min) Ca_foot=0;
+	real A_cap mm2;
+	A_cap.cellMLNames="ionic_concentrations.A_cap";
+	A_cap=0.000153;
+	extern real R_A_V dimensionless;
+	R_A_V.cellMLNames="ionic_concentrations.R_A_V";
+	extern real V_myo micro_litre;
+	V_myo.cellMLNames="ionic_concentrations.V_myo";
+	extern real V_cleft micro_litre;
+	V_cleft.cellMLNames="ionic_concentrations.V_cleft";
+	extern real V_JSR micro_litre;
+	V_JSR.cellMLNames="ionic_concentrations.V_JSR";
+	extern real V_NSR micro_litre;
+	V_NSR.cellMLNames="ionic_concentrations.V_NSR";
+
+	// <component name="environment">
+
+	// <component name="membrane">
+	V:time=((-1)*(1/Cm)*(i_Na+i_Ca_L+i_K+i_K1+i_Kp+i_NaCa+i_p_Ca+i_Na_b+i_Ca_b+i_NaK+i_ns_Ca+i_to+I_st));
+
+	// <component name="transient_outward_potassium_current">
+	i_to=(g_to*z^3*y*R_to*(V-E_K));
+	R_to=exp(V/(100 millivolt));
+
+	// <component name="transient_outward_potassium_current_z_gate">
+	z:time=(alpha_z*(1-z)-beta_z*z);
+	alpha_z=((10 per_millisecond)*exp((V-(40 millivolt))/(25 millivolt))/(1+exp((V-(40 millivolt))/(25 millivolt))));
+	beta_z=((10 per_millisecond)*exp((-1)*((V+(90 millivolt))/(25 millivolt)))/(1+exp((-1)*((V+(90 millivolt))/(25 millivolt)))));
+
+	// <component name="transient_outward_potassium_current_y_gate">
+	y:time=(alpha_y*(1-y)-beta_y*y);
+	alpha_y=((.015 per_millisecond)/(1+exp((V+(60 millivolt))/(5 millivolt))));
+	beta_y=((.1 per_millisecond)*exp((V+(25 millivolt))/(5 millivolt))/(1+exp((V+(25 millivolt))/(5 millivolt))));
+
+	// <component name="fast_sodium_current">
+	i_Na=(g_Na*m^3*h*j*(V-E_Na));
+	E_Na=(R*T/F*ln(Nao/Nai));
+
+	// <component name="fast_sodium_current_m_gate">
+	alpha_m=((.32 per_millivolt_millisecond)*(V+(47.13 millivolt))/(1-exp(((-0.1 per_millivolt))*(V+(47.13 millivolt)))));
+	beta_m=((.08 per_millisecond)*exp((-1)*V/(11 millivolt)));
+	m:time=(alpha_m*(1-m)-beta_m*m);
+
+	// <component name="fast_sodium_current_h_gate">
+	alpha_h=(if (V<((-40 millivolt))) (.135 per_millisecond)*exp(((80 millivolt)+V)/((-6.8 millivolt))) else (0 per_millisecond));
+	beta_h=(if (V<((-40 millivolt))) (3.56 per_millisecond)*exp((.079 millivolt)*V)+(3.1E5 per_millisecond)*exp((.35 per_millivolt)*V) else 1/((.13 millisecond)*(1+exp((V+(10.66 millivolt))/((-11.1 millivolt))))));
+	h:time=(alpha_h*(1-h)-beta_h*h);
+
+	// <component name="fast_sodium_current_j_gate">
+	alpha_j=(if (V<((-40 millivolt))) (((-127140 per_millivolt_millisecond))*exp((.2444 per_millivolt)*V)-(3.474E-5 per_millivolt_millisecond)*exp(((-0.04391 per_millivolt))*V))*((V+(37.78 millivolt))/(1+exp((.311 per_millivolt)*(V+(79.23 millivolt))))) else (0 per_millisecond));
+	beta_j=(if (V<((-40 millivolt))) (.1212 per_millisecond)*exp(((-0.01052 per_millivolt))*V)/(1+exp(((-0.1378 per_millivolt))*(V+(40.14 millivolt)))) else (.3 per_millisecond)*exp(((-2.535E-7 per_millivolt))*V)/(1+exp(((-0.1 per_millivolt))*(V+(32 millivolt)))));
+	j:time=(alpha_j*(1-j)-beta_j*j);
+
+	// <component name="L_type_Ca_channel">
+	i_CaCa=(d*f*f_Ca*I_CaCa);
+	i_CaNa=(d*f*f_Ca*I_CaNa);
+	i_CaK=(d*f*f_Ca*I_CaK);
+	I_CaCa=(P_Ca*2^2*(V*F^2/(R*T))*((gamma_Cai*Cai*exp(2*V*F/(R*T))-gamma_Cao*Cao)/(exp(2*V*F/(R*T))-1)));
+	I_CaNa=(P_Na*1^2*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(1*V*F/(R*T))-gamma_Nao*Nao)/(exp(1*V*F/(R*T))-1)));
+	I_CaK=(P_K*1^2*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(1*V*F/(R*T))-gamma_Ko*Ko)/(exp(1*V*F/(R*T))-1)));
+	i_Ca_L=(i_CaCa+i_CaK+i_CaNa);
+
+	// <component name="L_type_Ca_channel_d_gate">
+	alpha_d=(d_infinity/tau_d);
+	d_infinity=(1/(1+exp((-1)*((V+(10 millivolt))/(6.24 millivolt)))));
+	tau_d=(d_infinity*((1-exp((-1)*((V+(10 millivolt))/(6.24 millivolt))))/((.035 per_millivolt_millisecond)*(V+(10 millivolt)))));
+	beta_d=((1-d_infinity)/tau_d);
+	d:time=(alpha_d*(1-d)-beta_d*d);
+
+	// <component name="L_type_Ca_channel_f_gate">
+	alpha_f=(f_infinity/tau_f);
+	f_infinity=(1/(1+exp((V+(35.06 millivolt))/(8.6 millivolt)))+.6/(1+exp(((50 millivolt)-V)/(20 millivolt))));
+	tau_f=((1 millisecond)/(.0197*exp((-1)*((.0337 per_millivolt)*(V+(10 millivolt)))^2)+.02));
+	beta_f=((1-f_infinity)/tau_f);
+	f:time=(alpha_f*(1-f)-beta_f*f);
+
+	// <component name="L_type_Ca_channel_f_Ca_gate">
+	f_Ca=(1/(1+(Cai/Km_Ca)^2));
+
+	// <component name="time_dependent_potassium_current">
+	g_K=((.282 milliS_per_cm2)*sqrt(Ko/(5.4 millimolar)));
+	E_K=(R*T/F*ln((Ko+PR_NaK*Nao)/(Ki+PR_NaK*Nai)));
+	i_K=(g_K*X^2*Xi*(V-E_K));
+
+	// <component name="time_dependent_potassium_current_X_gate">
+	alpha_X=((7.19E-5 per_millivolt_millisecond)*(V+(30 millivolt))/(1-exp((-0.148)*(V+(30 millivolt)))));
+	beta_X=((1.31E-4 per_millivolt_millisecond)*(V+(30 millivolt))/((-1)+exp(.0687*(V+(30 millivolt)))));
+	X:time=(alpha_X*(1-X)-beta_X*X);
+
+	// <component name="time_dependent_potassium_current_Xi_gate">
+	Xi=(1/(1+exp((V-(56.26 millivolt))/(32.1 millivolt))));
+
+	// <component name="time_independent_potassium_current">
+	g_K1=((.75 milliS_per_microF)*sqrt(Ko/(5.4 millimolar)));
+	E_K1=(R*T/F*ln(Ko/Ki));
+	i_K1=(g_K1*K1_infinity*(V-E_K1));
+
+	// <component name="time_independent_potassium_current_K1_gate">
+	alpha_K1=((1.02 per_millisecond)/(1+exp((.2385 per_millivolt)*(V-E_K1-(59.215 millivolt)))));
+	beta_K1=(((.49124 per_millisecond)*exp(.08032*(V+(5.476 millivolt)-E_K1))+exp(.06175*(V-(E_K1+(594.31 millivolt)))))/(1+exp(((-0.5143 per_millivolt))*(V-(E_K1+(4.753 millivolt))))));
+	K1_infinity=(alpha_K1/(alpha_K1+beta_K1));
+
+	// <component name="plateau_potassium_current">
+	E_Kp=E_K1;
+	Kp=(1/(1+exp(((7.488 millivolt)-V)/(5.98 millivolt))));
+	i_Kp=(g_Kp*Kp*(V-E_Kp));
+
+	// <component name="sarcolemmal_calcium_pump">
+	i_p_Ca=(I_pCa*(Cai/(K_mpCa+Cai)));
+
+	// <component name="sodium_background_current">
+	E_NaN=E_Na;
+	i_Na_b=(g_Nab*(V-E_NaN));
+
+	// <component name="calcium_background_current">
+	E_CaN=(R*T/(2*F)*ln(Cao/Cai));
+	i_Ca_b=(g_Cab*(V-E_CaN));
+
+	// <component name="sodium_potassium_pump">
+	f_NaK=(1/(1+.1245*exp((-0.1)*(V*F/(R*T)))+.0365*sigma*exp((-1)*(V*F/(R*T)))));
+	sigma=(1/7*(exp(Nao/67.3)-1));
+	i_NaK=(I_NaK*f_NaK*(1/(1+(K_mNai/Nai)^1.5))*(Ko/(Ko+K_mKo)));
+
+	// <component name="non_specific_calcium_activated_current">
+	i_ns_Na=(I_ns_Na*(1/(1+(K_m_ns_Ca/Cai)^3)));
+	i_ns_K=(I_ns_K*(1/(1+(K_m_ns_Ca/Cai)^3)));
+	i_ns_Ca=(i_ns_Na+i_ns_K);
+	I_ns_Na=(P_ns_Ca*1^2*(V*F^2/(R*T))*((gamma_Nai*Nai*exp(1*V*F/(R*T))-gamma_Nao*Nao)/(exp(1*V*F/(R*T))-1)));
+	I_ns_K=(P_ns_Ca*1^2*(V*F^2/(R*T))*((gamma_Ki*Ki*exp(1*V*F/(R*T))-gamma_Ko*Ko)/(exp(1*V*F/(R*T))-1)));
+
+	// <component name="Na_Ca_exchanger">
+	i_NaCa=(K_NaCa*(1/(K_mNa^3+Nao^3))*(1/(K_mCa+Cao))*(1/(1+K_sat*exp((eta-1)*V*(F/(R*T)))))*(exp(eta*V*(F/(R*T)))*Nai^3*Cao-exp((eta-1)*V*(F/(R*T)))*Nao^3*Cai));
+
+	// <component name="calcium_buffers_in_the_myoplasm">
+	Tn_buff=(Tn_max*(Cai/(Cai+K_mTn)));
+	CMDN_buff=(CMDN_max*(Cai/(Cai+K_mCMDN)));
+
+	// <component name="calcium_fluxes_in_the_SR">
+	i_rel=(G_rel*(Ca_JSR-Cai));
+	G_rel=(if (calcium_overload=0) G_rel_max*((delta_Ca_i2-delta_Ca_ith)/(K_mrel+delta_Ca_i2-delta_Ca_ith))*(1-exp((-1)*(t/tau_on)))*exp((-1)*(t/tau_off)) else G_rel_max*(1-exp((-1)*(t/tau_on)))*exp((-1)*(t/tau_off)));
+	G_rel_max=(if (calcium_overload=0) if (delta_Ca_i2<delta_Ca_ith) (0 per_millisecond) else (60 per_millisecond) else if (CSQN_buff<CSQN_th) (0 per_millisecond) else (4 per_millisecond));
+	CSQN_buff=(CSQN_max*(Ca_JSR/(Ca_JSR+K_mCSQN)));
+	i_up=(I_up*(Cai/(Cai+K_mup)));
+	i_leak=(K_leak*Ca_NSR);
+	K_leak=(I_up/Ca_NSR_max);
+	i_tr=((Ca_NSR-Ca_JSR)/tau_tr);
+
+	// <component name="ionic_concentrations">
+	Nai:time=((-1)*(i_Na+i_CaNa+i_Na_b+i_ns_Na+i_NaCa*3+i_NaK*3)*(A_cap/(V_myo*F)));
+	Cai:time=((i_CaCa+i_p_Ca+i_Ca_b-i_NaCa)*(A_cap/(2*V_myo*F))+i_rel*(V_JSR/V_myo)+(i_leak-i_up)*(V_NSR/V_myo));
+	Ki:time=((-1)*(i_CaK+i_K+i_K1+i_Kp+i_ns_K+(-1)*(i_NaK*2))*(A_cap/(V_myo*F)));
+	Ko:time=((i_CaK+i_K+i_K1+i_Kp+i_ns_K+(-1)*(i_NaK*2))*(A_cap/(V_cleft*F)));
+	Ca_JSR:time=((-1)*(i_rel-i_tr*(V_NSR/V_JSR)));
+	Ca_NSR:time=((-1)*(i_leak+i_tr-i_up));
+	Ca_foot:time=((-1)*i_CaCa*(A_cap/(2*V_myo*F))*R_A_V);
+}
+

@@ -1,0 +1,758 @@
+/*
+ * A systems biology pipeline for biochemical networks, and its
+ * application to yeast glycolysis
+ * 
+ * Model Status
+ * 
+ * This CellML model runs in OpenCell and COR to reproduce the
+ * results of the original model. The CellML translation was based
+ * on the original SBML code supplied by the model authors. The
+ * units have been checked and they are consistent.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT:
+ * 
+ * model diagram
+ * 
+ * [[Image file: malys_2010.png]]
+ * 
+ * Schematic diagram of the glycolysis pathway described by the
+ * model.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * A systems biology pipeline for biochemical networks, and its
+ * application to yeast glycolysis, Naglis Malys, Hanan Messiha,
+ * Kathleen Carroll, Warwick Dunn, Farid Khan, Neil W. Hayes, Pinar
+ * Pir, Evangelos Simeonidis, Kieran Smallbone, Irena Spasic, Neil
+ * Swainston, Daniel Jameson, Alice Villeger, Dieter Weichart,
+ * Cate Winder, Jill Wishart, David S. Broomhead, Simon J. Gaskell,
+ * Douglas B. Kell, John E.G. McCarthy, Stephen G. Oliver, Norman
+ * Paton, Hans V. Westerhoff and Pedro Mendes, 2010,
+ */
+
+import nsrunit;
+unit conversion on;
+unit mM=1 meter^(-3)*mole^1;
+unit mM_per_second=1 meter^(-3)*second^(-1)*mole^1;
+unit mmol_per_second=.001 second^(-1)*mole^1;
+unit per_mM_per_second=1 meter^3*second^(-1)*mole^(-1);
+unit per_mM_squared_per_second=1 meter^6*second^(-1)*mole^(-2);
+unit per_mmol=1E3 mole^(-1);
+unit per_second=1 second^(-1);
+unit item=1.6605388 mole^(-24);
+property cellMLNames=string;
+
+math main {
+	realDomain time second;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real cell_volume litre;
+	cell_volume.cellMLNames="parameters.cell_volume";
+	cell_volume=2.155e-14;
+	real Kacald_adh mM;
+	Kacald_adh.cellMLNames="parameters.Kacald_adh;r_02.Kacald_adh;r_03.Kacald_adh;r_04.Kacald_adh";
+	Kacald_adh=1.11;
+	real Kadp_hxk mM;
+	Kadp_hxk.cellMLNames="parameters.Kadp_hxk;r_19.Kadp_hxk;r_20.Kadp_hxk;r_21.Kadp_hxk";
+	Kadp_hxk=0.23;
+	real Katp_pyk mM;
+	Katp_pyk.cellMLNames="parameters.Katp_pyk;r_30.Katp_pyk";
+	Katp_pyk=1.5;
+	real Kbpg_tdh mM;
+	Kbpg_tdh.cellMLNames="parameters.Kbpg_tdh;r_14.Kbpg_tdh;r_15.Kbpg_tdh;r_16.Kbpg_tdh";
+	Kbpg_tdh=0.909;
+	real kcat_adh per_second;
+	kcat_adh.cellMLNames="parameters.kcat_adh;r_02.kcat_adh;r_03.kcat_adh;r_04.kcat_adh";
+	kcat_adh=112.3;
+	real Keq_adh dimensionless;
+	Keq_adh.cellMLNames="parameters.Keq_adh;r_02.Keq_adh;r_03.Keq_adh;r_04.Keq_adh";
+	Keq_adh=6.9e-5;
+	real Keq_gpm dimensionless;
+	Keq_gpm.cellMLNames="parameters.Keq_gpm;r_25.Keq_gpm";
+	Keq_gpm=0.19;
+	real Keq_hxk dimensionless;
+	Keq_hxk.cellMLNames="parameters.Keq_hxk;r_19.Keq_hxk;r_20.Keq_hxk;r_21.Keq_hxk";
+	Keq_hxk=2000;
+	real Keq_tdh dimensionless;
+	Keq_tdh.cellMLNames="parameters.Keq_tdh;r_14.Keq_tdh;r_15.Keq_tdh;r_16.Keq_tdh";
+	Keq_tdh=0.005334;
+	real Ketoh_adh mM;
+	Ketoh_adh.cellMLNames="parameters.Ketoh_adh;r_02.Ketoh_adh;r_03.Ketoh_adh;r_04.Ketoh_adh";
+	Ketoh_adh=17;
+	real Kg6p_hxk mM;
+	Kg6p_hxk.cellMLNames="parameters.Kg6p_hxk;r_19.Kg6p_hxk;r_20.Kg6p_hxk;r_21.Kg6p_hxk";
+	Kg6p_hxk=30;
+	real Kiacald_adh mM;
+	Kiacald_adh.cellMLNames="parameters.Kiacald_adh;r_02.Kiacald_adh;r_03.Kiacald_adh;r_04.Kiacald_adh";
+	Kiacald_adh=1.1;
+	real Kietoh_adh mM;
+	Kietoh_adh.cellMLNames="parameters.Kietoh_adh;r_02.Kietoh_adh;r_03.Kietoh_adh;r_04.Kietoh_adh";
+	Kietoh_adh=90;
+	real Kinad_adh mM;
+	Kinad_adh.cellMLNames="parameters.Kinad_adh;r_02.Kinad_adh;r_03.Kinad_adh;r_04.Kinad_adh";
+	Kinad_adh=0.92;
+	real Kinadh_adh mM;
+	Kinadh_adh.cellMLNames="parameters.Kinadh_adh;r_02.Kinadh_adh;r_03.Kinadh_adh;r_04.Kinadh_adh";
+	Kinadh_adh=0.031;
+	real Knad_adh mM;
+	Knad_adh.cellMLNames="parameters.Knad_adh;r_02.Knad_adh;r_03.Knad_adh;r_04.Knad_adh";
+	Knad_adh=0.17;
+	real Knad_tdh mM;
+	Knad_tdh.cellMLNames="parameters.Knad_tdh;r_14.Knad_tdh;r_15.Knad_tdh;r_16.Knad_tdh";
+	Knad_tdh=0.09;
+	real Knadh_adh mM;
+	Knadh_adh.cellMLNames="parameters.Knadh_adh;r_02.Knadh_adh;r_03.Knadh_adh;r_04.Knadh_adh";
+	Knadh_adh=0.11;
+	real Knadh_tdh mM;
+	Knadh_tdh.cellMLNames="parameters.Knadh_tdh;r_14.Knadh_tdh;r_15.Knadh_tdh;r_16.Knadh_tdh";
+	Knadh_tdh=0.06;
+	real Kp2g_gpm mM;
+	Kp2g_gpm.cellMLNames="parameters.Kp2g_gpm;r_25.Kp2g_gpm";
+	Kp2g_gpm=0.08;
+	real N_A per_mmol;
+	N_A.cellMLNames="parameters.N_A";
+	N_A=6.02214179e20;
+	real percentage_cell_wall dimensionless;
+	percentage_cell_wall.cellMLNames="parameters.percentage_cell_wall";
+	percentage_cell_wall=21.8;
+	real percentage_cytoplasm dimensionless;
+	percentage_cytoplasm.cellMLNames="parameters.percentage_cytoplasm";
+	percentage_cytoplasm=47.5;
+	real c_1 litre;
+	c_1.cellMLNames="cytoplasm.c_1;r_01.c_1;r_02.c_1;r_03.c_1;r_04.c_1;r_06.c_1;r_07.c_1;r_09.c_1;r_10.c_1;r_11.c_1;r_12.c_1;r_13.c_1;r_14.c_1;r_15.c_1;r_16.c_1;r_17.c_1;r_18.c_1;r_19.c_1;r_20.c_1;r_21.c_1;r_22.c_1;r_23.c_1;r_24.c_1;r_25.c_1;r_26.c_1;r_27.c_1;r_30.c_1;r_31.c_1";
+	c_1=1.023625e-14;
+	real x_01(time) mM;
+	x_01.cellMLNames="cytoplasm.x_01;r_24.x_01;r_25.x_01";
+	when(time=time.min) x_01=0.329796102;
+	real x_02(time) mM;
+	x_02.cellMLNames="cytoplasm.x_02;r_14.x_02;r_15.x_02;r_16.x_02;r_24.x_02";
+	when(time=time.min) x_02=0.005534;
+	real x_03(time) mM;
+	x_03.cellMLNames="cytoplasm.x_03;r_02.x_03;r_03.x_03;r_04.x_03";
+	when(time=time.min) x_03=0.1781;
+	real x_04(time) mM;
+	x_04.cellMLNames="cytoplasm.x_04;r_01.x_04;r_18.x_04;r_19.x_04;r_20.x_04;r_21.x_04;r_24.x_04;r_30.x_04";
+	when(time=time.min) x_04=1.138794213;
+	real x_05(time) mM;
+	x_05.cellMLNames="cytoplasm.x_05;r_01.x_05;r_23.x_05";
+	when(time=time.min) x_05=0.655861111;
+	real x_06(time) mM;
+	x_06.cellMLNames="cytoplasm.x_06;r_01.x_06;r_06.x_06;r_18.x_06;r_19.x_06;r_20.x_06;r_21.x_06;r_23.x_06;r_24.x_06;r_30.x_06";
+	when(time=time.min) x_06=4.394577666;
+	real x_08(time) mM;
+	x_08.cellMLNames="cytoplasm.x_08;r_11.x_08;r_18.x_08;r_23.x_08";
+	when(time=time.min) x_08=2.045611826;
+	real x_09(time) mM;
+	x_09.cellMLNames="cytoplasm.x_09;r_23.x_09";
+	when(time=time.min) x_09=0.02;
+	real x_10(time) mM;
+	x_10.cellMLNames="cytoplasm.x_10;r_13.x_10;r_23.x_10";
+	when(time=time.min) x_10=0.114998749;
+	real x_11(time) mM;
+	x_11.cellMLNames="cytoplasm.x_11;r_12.x_11;r_19.x_11;r_20.x_11;r_21.x_11";
+	when(time=time.min) x_11=2.728563911;
+	real x_12(time) mM;
+	x_12.cellMLNames="cytoplasm.x_12;r_13.x_12;r_19.x_12;r_20.x_12;r_21.x_12";
+	when(time=time.min) x_12=0.484555315;
+	real x_13(time) mM;
+	x_13.cellMLNames="cytoplasm.x_13;r_09.x_13;r_25.x_13";
+	when(time=time.min) x_13=0.047547092;
+	real x_14(time) mM;
+	x_14.cellMLNames="cytoplasm.x_14;r_11.x_14;r_18.x_14;r_31.x_14";
+	when(time=time.min) x_14=1.072770104;
+	real x_15(time) mM;
+	x_15.cellMLNames="cytoplasm.x_15;r_02.x_15;r_03.x_15;r_04.x_15;r_10.x_15";
+	when(time=time.min) x_15=108.3801159;
+	real x_16(time) mM;
+	x_16.cellMLNames="cytoplasm.x_16;r_11.x_16;r_14.x_16;r_15.x_16;r_16.x_16;r_31.x_16";
+	when(time=time.min) x_16=0.081078255;
+	real x_17(time) mM;
+	x_17.cellMLNames="cytoplasm.x_17";
+	when(time=time.min) x_17=36.32137097;
+	real x_18(time) mM;
+	x_18.cellMLNames="cytoplasm.x_18;r_17.x_18;r_18.x_18";
+	when(time=time.min) x_18=0.133832653;
+	real x_21(time) mM;
+	x_21.cellMLNames="cytoplasm.x_21;r_02.x_21;r_03.x_21;r_04.x_21;r_14.x_21;r_15.x_21;r_16.x_21;r_18.x_21";
+	when(time=time.min) x_21=1.503;
+	real x_22(time) mM;
+	x_22.cellMLNames="cytoplasm.x_22;r_02.x_22;r_03.x_22;r_04.x_22;r_14.x_22;r_15.x_22;r_16.x_22;r_18.x_22;r_22.x_22";
+	when(time=time.min) x_22=0.08671;
+	real x_23(time) mM;
+	x_23.cellMLNames="cytoplasm.x_23;r_17.x_23";
+	when(time=time.min) x_23=1;
+	real x_24(time) mM;
+	x_24.cellMLNames="cytoplasm.x_24;r_09.x_24;r_30.x_24";
+	when(time=time.min) x_24=0.223865529;
+	real x_25(time) mM;
+	x_25.cellMLNames="cytoplasm.x_25;r_07.x_25;r_26.x_25;r_27.x_25;r_30.x_25";
+	when(time=time.min) x_25=1.604207403;
+	real x_29(time) mM;
+	x_29.cellMLNames="cytoplasm.x_29;r_30.x_29";
+	when(time=time.min) x_29=0.985981656;
+	real x_30(time) mM;
+	x_30.cellMLNames="cytoplasm.x_30;r_03.x_30";
+	when(time=time.min) x_30=0;
+	real x_31(time) mM;
+	x_31.cellMLNames="cytoplasm.x_31;r_13.x_31";
+	when(time=time.min) x_31=0.050093968;
+	real x_32(time) mM;
+	x_32.cellMLNames="cytoplasm.x_32;r_20.x_32";
+	when(time=time.min) x_32=0.020212786;
+	real x_33(time) mM;
+	x_33.cellMLNames="cytoplasm.x_33;r_24.x_33";
+	when(time=time.min) x_33=0.456977678;
+	real x_36(time) mM;
+	x_36.cellMLNames="cytoplasm.x_36;r_31.x_36";
+	when(time=time.min) x_36=0.535655056;
+	real x_45(time) mM;
+	x_45.cellMLNames="cytoplasm.x_45;r_19.x_45";
+	when(time=time.min) x_45=0.010026905;
+	real x_46(time) mM;
+	x_46.cellMLNames="cytoplasm.x_46;r_21.x_46";
+	when(time=time.min) x_46=0.022824551;
+	real x_47(time) mM;
+	x_47.cellMLNames="cytoplasm.x_47;r_02.x_47";
+	when(time=time.min) x_47=0.014453927;
+	real x_48(time) mM;
+	x_48.cellMLNames="cytoplasm.x_48";
+	when(time=time.min) x_48=0.005698838;
+	real x_49(time) mM;
+	x_49.cellMLNames="cytoplasm.x_49;r_15.x_49";
+	when(time=time.min) x_49=2.597164579;
+	real x_50(time) mM;
+	x_50.cellMLNames="cytoplasm.x_50";
+	when(time=time.min) x_50=0.027610082;
+	real x_51(time) mM;
+	x_51.cellMLNames="cytoplasm.x_51;r_09.x_51";
+	when(time=time.min) x_51=0.76828054;
+	real x_55(time) mM;
+	x_55.cellMLNames="cytoplasm.x_55";
+	when(time=time.min) x_55=1.103267726;
+	real x_57(time) mM;
+	x_57.cellMLNames="cytoplasm.x_57;r_14.x_57";
+	when(time=time.min) x_57=0.111300101;
+	real x_60(time) mM;
+	x_60.cellMLNames="cytoplasm.x_60;r_16.x_60";
+	when(time=time.min) x_60=0.223216643;
+	real x_62(time) mM;
+	x_62.cellMLNames="cytoplasm.x_62;r_11.x_62";
+	when(time=time.min) x_62=0.966352867;
+	real x_63(time) mM;
+	x_63.cellMLNames="cytoplasm.x_63;r_25.x_63";
+	when(time=time.min) x_63=0.537277269;
+	real x_64(time) mM;
+	x_64.cellMLNames="cytoplasm.x_64;r_27.x_64";
+	when(time=time.min) x_64=0.770064975;
+	real x_66(time) mM;
+	x_66.cellMLNames="cytoplasm.x_66;r_26.x_66";
+	when(time=time.min) x_66=0;
+	real x_68(time) mM;
+	x_68.cellMLNames="cytoplasm.x_68";
+	when(time=time.min) x_68=0.027610082;
+	real x_69(time) mM;
+	x_69.cellMLNames="cytoplasm.x_69";
+	when(time=time.min) x_69=0;
+	real x_72(time) mM;
+	x_72.cellMLNames="cytoplasm.x_72;r_04.x_72";
+	when(time=time.min) x_72=0.079456041;
+	real x_74(time) mM;
+	x_74.cellMLNames="cytoplasm.x_74";
+	when(time=time.min) x_74=0.004407555;
+	real x_77(time) mM;
+	x_77.cellMLNames="cytoplasm.x_77;r_23.x_77";
+	when(time=time.min) x_77=0.027610082;
+	real r_01(time) mmol_per_second;
+	r_01.cellMLNames="cytoplasm.r_01;r_01.r_01";
+	real r_02(time) mmol_per_second;
+	r_02.cellMLNames="cytoplasm.r_02;r_02.r_02";
+	real r_03(time) mmol_per_second;
+	r_03.cellMLNames="cytoplasm.r_03;r_03.r_03";
+	real r_04(time) mmol_per_second;
+	r_04.cellMLNames="cytoplasm.r_04;r_04.r_04";
+	real r_05 mmol_per_second;
+	r_05.cellMLNames="cytoplasm.r_05;r_05.r_05";
+	real r_06(time) mmol_per_second;
+	r_06.cellMLNames="cytoplasm.r_06;r_06.r_06";
+	real r_07(time) mmol_per_second;
+	r_07.cellMLNames="cytoplasm.r_07;r_07.r_07";
+	real r_08 mmol_per_second;
+	r_08.cellMLNames="cytoplasm.r_08;r_08.r_08";
+	real r_09(time) mmol_per_second;
+	r_09.cellMLNames="cytoplasm.r_09;r_09.r_09";
+	real r_10(time) mmol_per_second;
+	r_10.cellMLNames="cytoplasm.r_10;r_10.r_10";
+	real r_11(time) mmol_per_second;
+	r_11.cellMLNames="cytoplasm.r_11;r_11.r_11";
+	real r_12(time) mmol_per_second;
+	r_12.cellMLNames="cytoplasm.r_12;r_12.r_12";
+	real r_13(time) mmol_per_second;
+	r_13.cellMLNames="cytoplasm.r_13;r_13.r_13";
+	real r_14(time) mmol_per_second;
+	r_14.cellMLNames="cytoplasm.r_14;r_14.r_14";
+	real r_15(time) mmol_per_second;
+	r_15.cellMLNames="cytoplasm.r_15;r_15.r_15";
+	real r_16(time) mmol_per_second;
+	r_16.cellMLNames="cytoplasm.r_16;r_16.r_16";
+	real r_17(time) mmol_per_second;
+	r_17.cellMLNames="cytoplasm.r_17;r_17.r_17";
+	real r_18(time) mmol_per_second;
+	r_18.cellMLNames="cytoplasm.r_18;r_18.r_18";
+	real r_19(time) mmol_per_second;
+	r_19.cellMLNames="cytoplasm.r_19;r_19.r_19";
+	real r_20(time) mmol_per_second;
+	r_20.cellMLNames="cytoplasm.r_20;r_20.r_20";
+	real r_21(time) mmol_per_second;
+	r_21.cellMLNames="cytoplasm.r_21;r_21.r_21";
+	real r_22(time) mmol_per_second;
+	r_22.cellMLNames="cytoplasm.r_22;r_22.r_22";
+	real r_23(time) mmol_per_second;
+	r_23.cellMLNames="cytoplasm.r_23;r_23.r_23";
+	real r_24(time) mmol_per_second;
+	r_24.cellMLNames="cytoplasm.r_24;r_24.r_24";
+	real r_25(time) mmol_per_second;
+	r_25.cellMLNames="cytoplasm.r_25;r_25.r_25";
+	real r_26(time) mmol_per_second;
+	r_26.cellMLNames="cytoplasm.r_26;r_26.r_26";
+	real r_27(time) mmol_per_second;
+	r_27.cellMLNames="cytoplasm.r_27;r_27.r_27";
+	real r_28 mmol_per_second;
+	r_28.cellMLNames="cytoplasm.r_28;r_28.r_28";
+	real r_29 mmol_per_second;
+	r_29.cellMLNames="cytoplasm.r_29;r_29.r_29";
+	real r_30(time) mmol_per_second;
+	r_30.cellMLNames="cytoplasm.r_30;r_30.r_30";
+	real r_31(time) mmol_per_second;
+	r_31.cellMLNames="cytoplasm.r_31;r_31.r_31";
+	real extracellular.size litre;
+	extracellular.size.cellMLNames="extracellular.size";
+	extracellular.size=1;
+	real x_26(time) mM;
+	x_26.cellMLNames="extracellular.x_26;r_12.x_26";
+	when(time=time.min) x_26=51.11;
+	real plasma_membrane.size litre;
+	plasma_membrane.size.cellMLNames="plasma_membrane.size";
+	plasma_membrane.size=4.6979e-15;
+	real r_01.k per_mM_per_second;
+	r_01.k.cellMLNames="r_01.k";
+	r_01.k=1.667;
+	real r_01.Keq dimensionless;
+	r_01.Keq.cellMLNames="r_01.Keq";
+	r_01.Keq=0.45;
+	real Kacald mM;
+	Kacald.cellMLNames="r_04.Kacald";
+	Kacald=0.4622;
+	real r_06.k per_second;
+	r_06.k.cellMLNames="r_06.k";
+	r_06.k=0.4011;
+	real r_07.k per_second;
+	r_07.k.cellMLNames="r_07.k";
+	r_07.k=0.319;
+	real r_09.kcat per_second;
+	r_09.kcat.cellMLNames="r_09.kcat";
+	r_09.kcat=26.5;
+	real Kp2g mM;
+	Kp2g.cellMLNames="r_09.Kp2g";
+	Kp2g=0.066;
+	real r_09.Keq dimensionless;
+	r_09.Keq.cellMLNames="r_09.Keq";
+	r_09.Keq=6.7;
+	real r_09.Kpep mM;
+	r_09.Kpep.cellMLNames="r_09.Kpep";
+	r_09.Kpep=0.5;
+	real r_10.k per_second;
+	r_10.k.cellMLNames="r_10.k";
+	r_10.k=0.01384;
+	real r_11.kcat per_second;
+	r_11.kcat.cellMLNames="r_11.kcat";
+	r_11.kcat=4.139;
+	real r_11.Kf16bp mM;
+	r_11.Kf16bp.cellMLNames="r_11.Kf16bp";
+	r_11.Kf16bp=0.4507;
+	real r_11.Kdhap mM;
+	r_11.Kdhap.cellMLNames="r_11.Kdhap";
+	r_11.Kdhap=2;
+	real r_11.Kgap mM;
+	r_11.Kgap.cellMLNames="r_11.Kgap";
+	r_11.Kgap=2.4;
+	real r_11.Kigap mM;
+	r_11.Kigap.cellMLNames="r_11.Kigap";
+	r_11.Kigap=10;
+	real r_11.Keq mM;
+	r_11.Keq.cellMLNames="r_11.Keq";
+	r_11.Keq=0.069;
+	real r_12.Vmax mM_per_second;
+	r_12.Vmax.cellMLNames="r_12.Vmax";
+	r_12.Vmax=3.774;
+	real r_12.Kglc mM;
+	r_12.Kglc.cellMLNames="r_12.Kglc";
+	r_12.Kglc=1.192;
+	real Ki dimensionless;
+	Ki.cellMLNames="r_12.Ki";
+	Ki=0.91;
+	real r_13.kcat per_second;
+	r_13.kcat.cellMLNames="r_13.kcat";
+	r_13.kcat=487.4;
+	real Kg6p mM;
+	Kg6p.cellMLNames="r_13.Kg6p";
+	Kg6p=1.03;
+	real r_13.Kf6p mM;
+	r_13.Kf6p.cellMLNames="r_13.Kf6p";
+	r_13.Kf6p=0.307;
+	real r_13.Keq dimensionless;
+	r_13.Keq.cellMLNames="r_13.Keq";
+	r_13.Keq=0.29;
+	real r_14.kcat per_second;
+	r_14.kcat.cellMLNames="r_14.kcat";
+	r_14.kcat=19.12;
+	real r_14.Kgap mM;
+	r_14.Kgap.cellMLNames="r_14.Kgap";
+	r_14.Kgap=0.495;
+	real r_15.kcat per_second;
+	r_15.kcat.cellMLNames="r_15.kcat";
+	r_15.kcat=18.16;
+	real r_15.Kgap mM;
+	r_15.Kgap.cellMLNames="r_15.Kgap";
+	r_15.Kgap=0.423;
+	real r_15.Kbpg mM;
+	r_15.Kbpg.cellMLNames="r_15.Kbpg";
+	r_15.Kbpg=0.909;
+	real r_16.kcat per_second;
+	r_16.kcat.cellMLNames="r_16.kcat";
+	r_16.kcat=15.58;
+	real r_16.Kgap mM;
+	r_16.Kgap.cellMLNames="r_16.Kgap";
+	r_16.Kgap=0.21;
+	real r_17.Vmax mM_per_second;
+	r_17.Vmax.cellMLNames="r_17.Vmax";
+	r_17.Vmax=13.54;
+	real r_17.Kg3p mM;
+	r_17.Kg3p.cellMLNames="r_17.Kg3p";
+	r_17.Kg3p=3.5;
+	real Kphi mM;
+	Kphi.cellMLNames="r_17.Kphi";
+	Kphi=1;
+	real r_18.Vmax mM_per_second;
+	r_18.Vmax.cellMLNames="r_18.Vmax";
+	r_18.Vmax=5.282;
+	real Knadh mM;
+	Knadh.cellMLNames="r_18.Knadh";
+	Knadh=0.023;
+	real r_18.Kdhap mM;
+	r_18.Kdhap.cellMLNames="r_18.Kdhap";
+	r_18.Kdhap=0.54;
+	real Knad mM;
+	Knad.cellMLNames="r_18.Knad";
+	Knad=0.93;
+	real r_18.Kg3p mM;
+	r_18.Kg3p.cellMLNames="r_18.Kg3p";
+	r_18.Kg3p=1.2;
+	real r_18.Kf16bp mM;
+	r_18.Kf16bp.cellMLNames="r_18.Kf16bp";
+	r_18.Kf16bp=4.8;
+	real r_18.Katp mM;
+	r_18.Katp.cellMLNames="r_18.Katp";
+	r_18.Katp=0.73;
+	real r_18.Kadp mM;
+	r_18.Kadp.cellMLNames="r_18.Kadp";
+	r_18.Kadp=2;
+	real r_18.Keq dimensionless;
+	r_18.Keq.cellMLNames="r_18.Keq";
+	r_18.Keq=10000;
+	real r_19.kcat per_second;
+	r_19.kcat.cellMLNames="r_19.kcat";
+	r_19.kcat=10.2;
+	real r_19.Kglc mM;
+	r_19.Kglc.cellMLNames="r_19.Kglc";
+	r_19.Kglc=0.15;
+	real r_19.Katp mM;
+	r_19.Katp.cellMLNames="r_19.Katp";
+	r_19.Katp=0.293;
+	real r_20.kcat per_second;
+	r_20.kcat.cellMLNames="r_20.kcat";
+	r_20.kcat=0.0721;
+	real r_20.Kglc mM;
+	r_20.Kglc.cellMLNames="r_20.Kglc";
+	r_20.Kglc=0.0106;
+	real r_20.Katp mM;
+	r_20.Katp.cellMLNames="r_20.Katp";
+	r_20.Katp=0.865;
+	real r_21.kcat per_second;
+	r_21.kcat.cellMLNames="r_21.kcat";
+	r_21.kcat=63.1;
+	real r_21.Kglc mM;
+	r_21.Kglc.cellMLNames="r_21.Kglc";
+	r_21.Kglc=0.2;
+	real r_21.Katp mM;
+	r_21.Katp.cellMLNames="r_21.Katp";
+	r_21.Katp=0.195;
+	real r_22.k per_second;
+	r_22.k.cellMLNames="r_22.k";
+	r_22.k=3.025;
+	real r_23.kcat per_second;
+	r_23.kcat.cellMLNames="r_23.kcat";
+	r_23.kcat=117;
+	real gR dimensionless;
+	gR.cellMLNames="r_23.gR";
+	gR=5.12;
+	real r_23.Kf6p mM;
+	r_23.Kf6p.cellMLNames="r_23.Kf6p";
+	r_23.Kf6p=0.438;
+	real r_23.Katp mM;
+	r_23.Katp.cellMLNames="r_23.Katp";
+	r_23.Katp=0.008;
+	real L0 dimensionless;
+	L0.cellMLNames="r_23.L0";
+	L0=0.66;
+	real Ciatp dimensionless;
+	Ciatp.cellMLNames="r_23.Ciatp";
+	Ciatp=100;
+	real Kiatp mM;
+	Kiatp.cellMLNames="r_23.Kiatp";
+	Kiatp=0.65;
+	real Camp dimensionless;
+	Camp.cellMLNames="r_23.Camp";
+	Camp=0.0845;
+	real Kamp mM;
+	Kamp.cellMLNames="r_23.Kamp";
+	Kamp=0.0995;
+	real Cf26 dimensionless;
+	Cf26.cellMLNames="r_23.Cf26";
+	Cf26=0.0174;
+	real Kf26 mM;
+	Kf26.cellMLNames="r_23.Kf26";
+	Kf26=6.824e-5;
+	real Cf16 dimensionless;
+	Cf16.cellMLNames="r_23.Cf16";
+	Cf16=0.397;
+	real Kf16 mM;
+	Kf16.cellMLNames="r_23.Kf16";
+	Kf16=0.111;
+	real Catp dimensionless;
+	Catp.cellMLNames="r_23.Catp";
+	Catp=3;
+	real r_24.kcat per_second;
+	r_24.kcat.cellMLNames="r_24.kcat";
+	r_24.kcat=58.85;
+	real r_24.Kbpg mM;
+	r_24.Kbpg.cellMLNames="r_24.Kbpg";
+	r_24.Kbpg=0.003;
+	real r_24.Kadp mM;
+	r_24.Kadp.cellMLNames="r_24.Kadp";
+	r_24.Kadp=1.99;
+	real r_24.Kp3g mM;
+	r_24.Kp3g.cellMLNames="r_24.Kp3g";
+	r_24.Kp3g=4.58;
+	real r_24.Katp mM;
+	r_24.Katp.cellMLNames="r_24.Katp";
+	r_24.Katp=3.536;
+	real r_24.Keq dimensionless;
+	r_24.Keq.cellMLNames="r_24.Keq";
+	r_24.Keq=3200;
+	real nHadp dimensionless;
+	nHadp.cellMLNames="r_24.nHadp";
+	nHadp=2;
+	real r_25.kcat per_second;
+	r_25.kcat.cellMLNames="r_25.kcat";
+	r_25.kcat=66.61;
+	real r_25.Kp3g mM;
+	r_25.Kp3g.cellMLNames="r_25.Kp3g";
+	r_25.Kp3g=0.681;
+	real r_26.kcat per_second;
+	r_26.kcat.cellMLNames="r_26.kcat";
+	r_26.kcat=1.776;
+	real r_26.Kpyr mM;
+	r_26.Kpyr.cellMLNames="r_26.Kpyr";
+	r_26.Kpyr=11.44;
+	real r_27.kcat per_second;
+	r_27.kcat.cellMLNames="r_27.kcat";
+	r_27.kcat=12.07;
+	real r_27.Kpyr mM;
+	r_27.Kpyr.cellMLNames="r_27.Kpyr";
+	r_27.Kpyr=8.331;
+	real r_30.kcat per_second;
+	r_30.kcat.cellMLNames="r_30.kcat";
+	r_30.kcat=20.13;
+	real r_30.Kpep mM;
+	r_30.Kpep.cellMLNames="r_30.Kpep";
+	r_30.Kpep=0.281;
+	real r_30.Kadp mM;
+	r_30.Kadp.cellMLNames="r_30.Kadp";
+	r_30.Kadp=0.243;
+	real Keq_pyk dimensionless;
+	Keq_pyk.cellMLNames="r_30.Keq_pyk";
+	Keq_pyk=6500;
+	real Kpyr_pyk mM;
+	Kpyr_pyk.cellMLNames="r_30.Kpyr_pyk";
+	Kpyr_pyk=0.6517;
+	real r_31.Keq dimensionless;
+	r_31.Keq.cellMLNames="r_31.Keq";
+	r_31.Keq=0.0772;
+	real r_31.kcat per_second;
+	r_31.kcat.cellMLNames="r_31.kcat";
+	r_31.kcat=556.7;
+	real r_31.Kdhap mM;
+	r_31.Kdhap.cellMLNames="r_31.Kdhap";
+	r_31.Kdhap=6.454;
+	real r_31.Kgap mM;
+	r_31.Kgap.cellMLNames="r_31.Kgap";
+	r_31.Kgap=5.25;
+	real r_31.Kigap mM;
+	r_31.Kigap.cellMLNames="r_31.Kigap";
+	r_31.Kigap=35.1;
+
+	// <component name="environment">
+
+	// <component name="parameters">
+
+	// <component name="cytoplasm">
+	x_01:time=((r_24-r_25)/c_1);
+	x_02:time=((r_14+r_15+r_16-r_24)/c_1);
+	x_03:time=((r_05+r_26+r_27+r_28-r_02-r_03-r_04)/c_1);
+	x_04:time=((2*r_01+r_06+r_19+r_20+r_21+r_23-r_24-r_29-r_30)/c_1);
+	x_05:time=((-1)*r_01/c_1);
+	x_06:time=((r_24+r_29+r_30-r_01-r_06-r_19-r_20-r_21-r_23)/c_1);
+	x_08:time=((r_23-r_11)/c_1);
+	x_09:time=(0 mM_per_second);
+	x_10:time=((r_13-r_23)/c_1);
+	x_11:time=((r_12-r_19-r_20-r_21)/c_1);
+	x_12:time=((r_19+r_20+r_21-r_13)/c_1);
+	x_13:time=((r_25-r_08-r_09)/c_1);
+	x_14:time=((r_11-r_18-r_31)/c_1);
+	x_15:time=((r_02+r_03+r_04-r_05-r_10)/c_1);
+	x_16:time=((r_11+r_31-r_14-r_15-r_16)/c_1);
+	x_17:time=(0 mM_per_second);
+	x_18:time=((r_18-r_17)/c_1);
+	x_21:time=((r_02+r_03+r_04+r_18+r_22-r_05-r_14-r_15-r_16)/c_1);
+	x_22:time=((r_05+r_14+r_15+r_16-r_02-r_03-r_04-r_18-r_22)/c_1);
+	x_23:time=(0 mM_per_second);
+	x_24:time=((r_08+r_09-r_29-r_30)/c_1);
+	x_25:time=((r_29+r_30-r_07-r_26-r_27-r_28)/c_1);
+	x_29:time=(0 mM_per_second);
+	x_30:time=(0 mM_per_second);
+	x_31:time=(0 mM_per_second);
+	x_32:time=(0 mM_per_second);
+	x_33:time=(0 mM_per_second);
+	x_36:time=(0 mM_per_second);
+	x_45:time=(0 mM_per_second);
+	x_46:time=(0 mM_per_second);
+	x_47:time=(0 mM_per_second);
+	x_48:time=(0 mM_per_second);
+	x_49:time=(0 mM_per_second);
+	x_50:time=(0 mM_per_second);
+	x_51:time=(0 mM_per_second);
+	x_55:time=(0 mM_per_second);
+	x_57:time=(0 mM_per_second);
+	x_60:time=(0 mM_per_second);
+	x_62:time=(0 mM_per_second);
+	x_63:time=(0 mM_per_second);
+	x_64:time=(0 mM_per_second);
+	x_66:time=(0 mM_per_second);
+	x_68:time=(0 mM_per_second);
+	x_69:time=(0 mM_per_second);
+	x_72:time=(0 mM_per_second);
+	x_74:time=(0 mM_per_second);
+	x_77:time=(0 mM_per_second);
+
+	// <component name="extracellular">
+	x_26:time=(0 mM_per_second);
+
+	// <component name="plasma_membrane">
+
+	// <component name="r_01">
+	r_01=(c_1*r_01.k*(x_06*x_05-x_04*x_04/r_01.Keq));
+
+	// <component name="r_02">
+	r_02=(c_1*((-1)*x_47)*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh)));
+
+	// <component name="r_03">
+	r_03=(c_1*((-1)*x_30)*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald_adh)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald_adh)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald_adh*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald_adh)));
+
+	// <component name="r_04">
+	r_04=(c_1*((-1)*x_72)*kcat_adh*(x_15*x_21/(Ketoh_adh*Kinad_adh)-x_03*x_22/(Ketoh_adh*Kinad_adh*Keq_adh))/(1+x_21/Kinad_adh+x_15*Knad_adh/(Kinad_adh*Ketoh_adh)+x_03*Knadh_adh/(Kinadh_adh*Kacald)+x_22/Kinadh_adh+x_15*x_21/(Kinad_adh*Ketoh_adh)+x_21*x_03*Knadh_adh/(Kinad_adh*Kinadh_adh*Kacald)+x_15*x_22*Knad_adh/(Kinad_adh*Kinadh_adh*Ketoh_adh)+x_03*x_22/(Kacald*Kinadh_adh)+x_15*x_21*x_03/(Kinad_adh*Kiacald_adh*Ketoh_adh)+x_15*x_03*x_22/(Kietoh_adh*Kinadh_adh*Kacald)));
+
+	// <component name="r_05">
+	r_05=(0 mmol_per_second);
+
+	// <component name="r_06">
+	r_06=(c_1*r_06.k*x_06);
+
+	// <component name="r_07">
+	r_07=(c_1*r_07.k*x_25);
+
+	// <component name="r_08">
+	r_08=(0 mmol_per_second);
+
+	// <component name="r_09">
+	r_09=(c_1*x_51*r_09.kcat*(x_13/Kp2g-x_24/(Kp2g*r_09.Keq))/(1+x_13/Kp2g+x_24/r_09.Kpep));
+
+	// <component name="r_10">
+	r_10=(c_1*r_10.k*x_15);
+
+	// <component name="r_11">
+	r_11=(c_1*x_62*r_11.kcat*(x_08/r_11.Kf16bp-x_14*x_16/(r_11.Kf16bp*r_11.Keq))/(1+x_08/r_11.Kf16bp+x_14/r_11.Kdhap+x_16/r_11.Kgap+x_08*x_16/(r_11.Kf16bp*r_11.Kigap)+x_14*x_16/(r_11.Kdhap*r_11.Kgap)));
+
+	// <component name="r_12">
+	r_12=(c_1*r_12.Vmax*(x_26-x_11)/r_12.Kglc/(1+x_26/r_12.Kglc+x_11/r_12.Kglc+Ki*x_26/r_12.Kglc*x_11/r_12.Kglc));
+
+	// <component name="r_13">
+	r_13=(c_1*x_31*r_13.kcat*(x_12/Kg6p-x_10/(Kg6p*r_13.Keq))/(1+x_12/Kg6p+x_10/r_13.Kf6p));
+
+	// <component name="r_14">
+	r_14=(c_1*x_57*r_14.kcat*(x_16*x_21/(r_14.Kgap*Knad_tdh)-x_02*x_22/(r_14.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_14.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)));
+
+	// <component name="r_15">
+	r_15=(c_1*x_49*r_15.kcat*(x_16*x_21/(r_15.Kgap*Knad_tdh)-x_02*x_22/(r_15.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_15.Kgap+x_02/r_15.Kbpg)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)));
+
+	// <component name="r_16">
+	r_16=(c_1*x_60*r_16.kcat*(x_16*x_21/(r_16.Kgap*Knad_tdh)-x_02*x_22/(r_16.Kgap*Knad_tdh*Keq_tdh))/((1+x_16/r_16.Kgap+x_02/Kbpg_tdh)*(1+x_21/Knad_tdh+x_22/Knadh_tdh)));
+
+	// <component name="r_17">
+	r_17=(c_1*r_17.Vmax*x_18/r_17.Kg3p/((1+x_18/r_17.Kg3p)*(1+x_23/Kphi)));
+
+	// <component name="r_18">
+	r_18=(c_1*r_18.Vmax/(Knadh*r_18.Kdhap)*(x_22*x_14-x_21*x_18/r_18.Keq)/((1+x_08/r_18.Kf16bp+x_06/r_18.Katp+x_04/r_18.Kadp)*(1+x_22/Knadh+x_21/Knad)*(1+x_14/r_18.Kdhap+x_18/r_18.Kg3p)));
+
+	// <component name="r_19">
+	r_19=(c_1*x_45*r_19.kcat*(x_11*x_06/(r_19.Kglc*r_19.Katp)-x_12*x_04/(r_19.Kglc*r_19.Katp*Keq_hxk))/((1+x_11/r_19.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_19.Katp+x_04/Kadp_hxk)));
+
+	// <component name="r_20">
+	r_20=(c_1*x_32*r_20.kcat*(x_11*x_06/(r_20.Kglc*r_20.Katp)-x_12*x_04/(r_20.Kglc*r_20.Katp*Keq_hxk))/((1+x_11/r_20.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_20.Katp+x_04/Kadp_hxk)));
+
+	// <component name="r_21">
+	r_21=(c_1*x_46*r_21.kcat*(x_11*x_06/(r_21.Kglc*r_21.Katp)-x_12*x_04/(r_21.Kglc*r_21.Katp*Keq_hxk))/((1+x_11/r_21.Kglc+x_12/Kg6p_hxk)*(1+x_06/r_21.Katp+x_04/Kadp_hxk)));
+
+	// <component name="r_22">
+	r_22=(c_1*r_22.k*x_22);
+
+	// <component name="r_23">
+	r_23=(c_1*x_77*r_23.kcat*gR*x_10/r_23.Kf6p*x_06/r_23.Katp*(1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)/((1+x_10/r_23.Kf6p+x_06/r_23.Katp+gR*x_10/r_23.Kf6p*x_06/r_23.Katp)^2+L0*((1+Ciatp*x_06/Kiatp)/(1+x_06/Kiatp))^2*((1+Camp*x_05/Kamp)/(1+x_05/Kamp))^2*((1+Cf26*x_09/Kf26+Cf16*x_08/Kf16)/(1+x_09/Kf26+x_08/Kf16))^2*(1+Catp*x_06/r_23.Katp)^2));
+
+	// <component name="r_24">
+	r_24=(c_1*x_33*r_24.kcat*(x_04/r_24.Kadp)^(nHadp-1)*(x_02*x_04/(r_24.Kbpg*r_24.Kadp)-x_01*x_06/(r_24.Kbpg*r_24.Kadp*r_24.Keq))/((1+x_02/r_24.Kbpg+x_01/r_24.Kp3g)*(1+(x_04/r_24.Kadp)^nHadp+x_06/r_24.Katp)));
+
+	// <component name="r_25">
+	r_25=(c_1*x_63*r_25.kcat*(x_01/r_25.Kp3g-x_13/(r_25.Kp3g*Keq_gpm))/(1+x_01/r_25.Kp3g+x_13/Kp2g_gpm));
+
+	// <component name="r_26">
+	r_26=(c_1*x_66*r_26.kcat*x_25/r_26.Kpyr/(1+x_25/r_26.Kpyr));
+
+	// <component name="r_27">
+	r_27=(c_1*x_64*r_27.kcat*x_25/r_27.Kpyr/(1+x_25/r_27.Kpyr));
+
+	// <component name="r_28">
+	r_28=(0 mmol_per_second);
+
+	// <component name="r_29">
+	r_29=(0 mmol_per_second);
+
+	// <component name="r_30">
+	r_30=(c_1*x_29*r_30.kcat*(x_24*x_04/(r_30.Kpep*r_30.Kadp)-x_25*x_06/(r_30.Kpep*r_30.Kadp*Keq_pyk))/((1+x_24/r_30.Kpep+x_25/Kpyr_pyk)*(1+x_04/r_30.Kadp+x_06/Katp_pyk)));
+
+	// <component name="r_31">
+	r_31=(c_1*x_36*r_31.kcat/r_31.Kdhap*(x_14-x_16/r_31.Keq)/(1+x_14/r_31.Kdhap+x_16/r_31.Kgap*(1+(x_16/r_31.Kigap)^4)));
+}
+

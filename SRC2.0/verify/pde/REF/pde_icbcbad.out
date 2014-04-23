@@ -1,0 +1,4 @@
+
+JSim.util.Xcept: Model pde_icbcbad
+aborted: Model JS100pde_icbcbad IC/LHBC inconsistency for state var v: residual=1.0
+

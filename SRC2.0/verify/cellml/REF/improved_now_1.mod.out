@@ -1,0 +1,286 @@
+/*
+ * A Mathematical Model for Germinal Centre Kinetics and Affinity
+ * Maturation
+ * 
+ * Model Status
+ * 
+ * This is the original unchecked version of the model imported
+ * from the previous CellML model repository, 24-Jan-2006.
+ * 
+ * Model Structure
+ * 
+ * Affinity maturation refers to an increase in the affinity of
+ * antibodies for the antigen produced during an immune response.
+ * This is achieved by mutation of the genes encoding the antibody,
+ * followed by selection for the B cells which express B cell receptors
+ * with the highest affinity for antigen. Both gene mutation and
+ * subsequent protein selection occur in the germinal centres of
+ * secondary lymphoid organs. Upon immunisation (infection), the
+ * antigen is concentrated in the secondary lymphoid organs, where
+ * a small subset of all B cells recognise it. After successful
+ * presentation of the antigen fragments to T cells, B cells enter
+ * the blast state. After about three days, the B blasts differentiate
+ * into centroblasts, and then into centrocytes. Centrocytes express
+ * B cell receptors on their surface and they are believed to be
+ * subject to selection by antigen in that they need to bind, internalise
+ * and present antigen to T cells in order to prevent their under
+ * going apoptosis. Centrocytes that successfully interact with
+ * T cells (selected centrocytes), can either differentiate into
+ * memory cells, antibody forming cells (AFCs), or they can revert
+ * back to the centroblast state (see below).
+ * 
+ * Shortly after the first differentiation of centroblasts into
+ * centrocytes, somatic hypermutation starts to act on the centroblasts
+ * and changes the affinity of the B cell receptors for the antigen.
+ * About 53% of the mutations are silent, and have no affect on
+ * affinity. About 28% of the mutations are fatal, leading to B
+ * cell apoptosis. The remaining 19% of mutations either increase
+ * or decrease affinity. Selection is therefore needed to select
+ * for the mutations leading to an increase in affinity and driving
+ * affinity maturation.
+ * 
+ * The molecular mechanisms underlying these processes are not
+ * yet clearly understood, and as yet there is no experimental
+ * system available to investigate this. A mathematical model is
+ * therefore useful in investigating hypotheses and comparing their
+ * simulation results with available experimental data. In 2002,
+ * Iber and Maini published a mathematical model for germinal centre
+ * kinetics and affinity maturation. They began with a simple model
+ * of the primed primary immune response (see below), and then
+ * in this they embedded the model of affinity maturation. Model
+ * simulations showed that antigen masking by antibodies can drive
+ * affinity maturation and provide a stabilising feedback mechanism.
+ * Iber and Maini proposed that the selection probability of centrocytes
+ * and the recycling probability of selected centrocytes vary over
+ * time. They also show that the efficiency of affinity maturation
+ * is highest if clones with a very high affinity antigen leave
+ * the germinal centre for either the memory or the plasma cell
+ * pool. It is further shown that the termination of somatic hypermutation
+ * for several days before the end of the germinal centre immune
+ * reaction is beneficial for affinity maturation.
+ * 
+ * The complete original paper reference is cited below:
+ * 
+ * A Mathematical Model for Germinal Centre Kinetics and Affinity
+ * Maturation, Dagmar Iber and Philip K. Maini, 2002, Journal of
+ * Theoretical Biology, 219, 153-175. PubMed ID: 12413873
+ * 
+ * reaction schematic for the model
+ * 
+ * [[Image file: iber_2002.png]]
+ * 
+ * A schematic diagram showing the model scheme for the primed
+ * primary immune response.
+ */
+
+import nsrunit;
+// Warning: unit conversion turned off due to unit errors in 12 equation(s)
+unit conversion off;
+unit day=86400 second^1;
+unit cell_number = fundamental;
+unit particle = fundamental;
+unit antibody = fundamental;
+unit generation_number = fundamental;
+unit per_day=1.1574074E-5 second^(-1);
+unit per_particle=1 particle^(-1);
+unit per_day_per_particle=1.1574074E-5 second^(-1)*particle^(-1);
+unit particle_per_cell_day=1.1574074E-5 second^(-1)*cell_number^(-1)*particle^1;
+unit antibody_per_day_cell=1.1574074E-5 second^(-1)*cell_number^(-1)*antibody^1;
+property cellMLNames=string;
+
+math main {
+	//Warning:  the following variables were set 'extern' or given
+	//  an initial value of '0' because the model would otherwise be
+	//  underdetermined:  Ag_min, K_AgAb, C1, C2, C, Cs, Ab, AFC, B,
+	//  B1, B2, Cs1, Cs2, M21, M22, M, M1, M2
+	realDomain time day;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real rho per_day;
+	rho.cellMLNames="environment.rho;centroblasts.rho;centrocytes.rho;selected_centrocytes.rho;memory_cells.rho;antibody_forming_cells.rho";
+	real d per_day;
+	d.cellMLNames="environment.d;selection_probability_of_centrocytes.d;centrocytes.d;selected_centrocytes.d";
+	real n(time) generation_number;
+	n.cellMLNames="environment.n;recycling_probability.n;selection_probability_of_centrocytes.n";
+	real pr dimensionless;
+	pr.cellMLNames="recycling_probability.pr;selection_probability_of_centrocytes.pr;centroblasts.pr;memory_cells.pr;antibody_forming_cells.pr";
+	real pr1 dimensionless;
+	pr1.cellMLNames="recycling_probability.pr1;centroblasts.pr1;memory_cells.pr1";
+	real pr2(time) dimensionless;
+	pr2.cellMLNames="recycling_probability.pr2;centroblasts.pr2;memory_cells.pr2";
+	real eta(time) dimensionless;
+	eta.cellMLNames="recycling_probability.eta";
+	extern real Ag_min per_particle;
+	Ag_min.cellMLNames="recycling_probability.Ag_min;antigens.Ag_min;selection_probability_of_centrocytes.Ag_min";
+	real Ag(time) per_particle;
+	Ag.cellMLNames="recycling_probability.Ag;antigens.Ag;selection_probability_of_centrocytes.Ag;antibodies.Ag;antigen_antibody_complexes.Ag";
+	when(time=time.min) Ag=2500.0;
+	real K_AgAb(time) per_particle;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	K_AgAb.cellMLNames="recycling_probability.K_AgAb;antigen_antibody_complexes.K_AgAb";
+	when(time=time.min) K_AgAb=0;
+	real C1(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	C1.cellMLNames="recycling_probability.C1;centrocytes.C1;antigen_antibody_complexes.C1;selection_probability_of_centrocytes.C1;selected_centrocytes.C1";
+	when(time=time.min) C1=0;
+	real C2(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	C2.cellMLNames="recycling_probability.C2;centrocytes.C2;antigen_antibody_complexes.C2;selection_probability_of_centrocytes.C2;selected_centrocytes.C2";
+	when(time=time.min) C2=0;
+	real k_on per_day_per_particle;
+	k_on.cellMLNames="antigens.k_on;antibodies.k_on;antigen_antibody_complexes.k_on";
+	k_on=5.0E-13;
+	real k dimensionless;
+	k.cellMLNames="antigens.k";
+	k=0.0;
+	real u particle_per_cell_day;
+	u.cellMLNames="antigens.u";
+	u=1.0E-4;
+	real C(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	C.cellMLNames="antigens.C;centrocytes.C;selected_centrocytes.C";
+	when(time=time.min) C=0;
+	real Cs(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Cs.cellMLNames="antigens.Cs;selected_centrocytes.Cs;memory_cells.Cs;antibody_forming_cells.Cs";
+	when(time=time.min) Cs=0;
+	real Ab(time) per_particle;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Ab.cellMLNames="antigens.Ab;antibodies.Ab;antigen_antibody_complexes.Ab";
+	when(time=time.min) Ab=0;
+	real beta antibody_per_day_cell;
+	beta.cellMLNames="antibodies.beta";
+	beta=1.0E8;
+	real AFC(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	AFC.cellMLNames="antibodies.AFC;antibody_forming_cells.AFC";
+	when(time=time.min) AFC=0;
+	real theta(time) dimensionless;
+	theta.cellMLNames="antigen_antibody_complexes.theta;memory_cells.theta;antibody_forming_cells.theta";
+	real s(time) dimensionless;
+	s.cellMLNames="selection_probability_of_centrocytes.s;centrocytes.s;selected_centrocytes.s";
+	real s1(time) dimensionless;
+	s1.cellMLNames="selection_probability_of_centrocytes.s1;centrocytes.s1;selected_centrocytes.s1";
+	real s2(time) dimensionless;
+	s2.cellMLNames="selection_probability_of_centrocytes.s2;centrocytes.s2;selected_centrocytes.s2";
+	real h dimensionless;
+	h.cellMLNames="selection_probability_of_centrocytes.h";
+	h=0.07;
+	real f dimensionless;
+	f.cellMLNames="selection_probability_of_centrocytes.f";
+	f=0.35;
+	real sc dimensionless;
+	sc.cellMLNames="selection_probability_of_centrocytes.sc";
+	sc=0.45;
+	real zeta(time) dimensionless;
+	zeta.cellMLNames="selection_probability_of_centrocytes.zeta";
+	real delta_c per_day;
+	delta_c.cellMLNames="selection_probability_of_centrocytes.delta_c;centrocytes.delta_c";
+	real m dimensionless;
+	m.cellMLNames="selection_probability_of_centrocytes.m;centrocytes.m";
+	m=0.72;
+	real B(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	B.cellMLNames="centroblasts.B;centrocytes.B";
+	when(time=time.min) B=0;
+	real B1(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	B1.cellMLNames="centroblasts.B1;centrocytes.B1";
+	when(time=time.min) B1=0;
+	real B2(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	B2.cellMLNames="centroblasts.B2;centrocytes.B2";
+	when(time=time.min) B2=0;
+	real Cs1(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Cs1.cellMLNames="centroblasts.Cs1;selected_centrocytes.Cs1;memory_cells.Cs1";
+	when(time=time.min) Cs1=0;
+	real Cs2(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	Cs2.cellMLNames="centroblasts.Cs2;selected_centrocytes.Cs2;memory_cells.Cs2";
+	when(time=time.min) Cs2=0;
+	real mu(time) per_day;
+	mu.cellMLNames="centrocytes.mu";
+	real mu1(time) per_day;
+	mu1.cellMLNames="centrocytes.mu1";
+	real mu2(time) per_day;
+	mu2.cellMLNames="centrocytes.mu2";
+	real M11 dimensionless;
+	M11.cellMLNames="centrocytes.M11";
+	real M12 dimensionless;
+	M12.cellMLNames="centrocytes.M12";
+	extern real M21 dimensionless;
+	M21.cellMLNames="centrocytes.M21";
+	extern real M22 dimensionless;
+	M22.cellMLNames="centrocytes.M22";
+	real M(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	M.cellMLNames="memory_cells.M";
+	when(time=time.min) M=0;
+	real M1(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	M1.cellMLNames="memory_cells.M1";
+	when(time=time.min) M1=0;
+	real M2(time) cell_number;
+	//Warning:  Assuming zero initial condition; nothing provided in original CellML model.
+	M2.cellMLNames="memory_cells.M2";
+	when(time=time.min) M2=0;
+
+	// <component name="environment">
+	rho=((24 per_day)/6.5*ln(2));
+	d=((12 per_day)*ln(2));
+
+	// <component name="recycling_probability">
+	pr=(.6+.2*(Ag^n/(Ag^n+Ag_min^n)));
+	pr1=.95;
+	pr2=(.7*eta);
+	eta=(if ((K_AgAb/(C1+C2))<1) K_AgAb/(C1+C2) else 1);
+
+	// <component name="antigens">
+	Ag:time=((-1)*(u*k*C+u*Cs*(1-k))*Ag-k_on*Ag*Ab);
+
+	// <component name="antibodies">
+	Ab:time=(beta*AFC-k_on*Ag*Ab);
+
+	// <component name="antigen_antibody_complexes">
+	K_AgAb:time=(k_on*Ag*Ab);
+	theta=(.3*(Ag/(C1+C2))*(Ag/(Ag+K_AgAb)));
+
+	// <component name="selection_probability_of_centrocytes">
+	s=(sc-(h+f*(Ag_min^n/(Ag_min^n+Ag^n))));
+	sc=(delta_c/(d*(2*pr*m-1)+delta_c));
+	s1=(.01+.09*zeta);
+	s2=(.1+.85*zeta);
+	zeta=(Ag/(C1+C2));
+
+	// <component name="centroblasts">
+	B:time=(rho*B);
+	B1:time=(pr1*rho*Cs1-rho*B1);
+	B2:time=(pr2*rho*Cs2-rho*B2);
+
+	// <component name="centrocytes">
+	C:time=(2*rho*m*B-mu*C);
+	C1:time=(2*rho*m*(M11+B1)*(M12+B2)-mu1*C1);
+	C2:time=(2*rho*m*(M21+B1)*(M22+B2)-mu2*C2);
+	mu=(d*s+delta_c*(1-s));
+	mu1=(d*s1+delta_c*(1-s1));
+	mu2=(d*s2+delta_c*(1-s2));
+	delta_c=((1.5 per_day)*ln(2));
+	M11=(1-M21);
+	M12=(1-M22);
+
+	// <component name="selected_centrocytes">
+	Cs:time=(d*s*C-rho*Cs);
+	Cs1:time=(d*s1*C1-rho*Cs1);
+	Cs2:time=(d*s2*C2-rho*Cs2);
+
+	// <component name="memory_cells">
+	M:time=((1-theta)*rho*(1-pr)*Cs);
+	M1:time=((1-pr1)*Cs1);
+	M2:time=((1-pr2)*Cs2);
+
+	// <component name="antibody_forming_cells">
+	AFC:time=(theta*rho*(1-pr)*Cs);
+}
+

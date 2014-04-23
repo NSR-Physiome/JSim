@@ -1,0 +1,273 @@
+      SUBROUTINE SQRSL(X,LDX,N,K,QRAUX,Y,QY,QTY,B,RSD,XB,JOB,INFO)
+      INTEGER LDX,N,K,JOB,INFO
+      REAL X(LDX,*),QRAUX(*),Y(*),QY(*),QTY(*),B(*),RSD(*),XB(*)
+C
+C     SQRSL APPLIES THE OUTPUT OF SQRDC TO COMPUTE COORDINATE
+C     TRANSFORMATIONS, PROJECTIONS, AND LEAST SQUARES SOLUTIONS.
+C     FOR K .LE. MIN(N,P), LET XK BE THE MATRIX
+C
+C            XK = (X(JPVT(1)),X(JPVT(2)), ... ,X(JPVT(K)))
+C
+C     FORMED FROM COLUMNNS JPVT(1), ... ,JPVT(K) OF THE ORIGINAL
+C     N X P MATRIX X THAT WAS INPUT TO SQRDC (IF NO PIVOTING WAS
+C     DONE, XK CONSISTS OF THE FIRST K COLUMNS OF X IN THEIR
+C     ORIGINAL ORDER).  SQRDC PRODUCES A FACTORED ORTHOGONAL MATRIX Q
+C     AND AN UPPER TRIANGULAR MATRIX R SUCH THAT
+C
+C              XK = Q * (R)
+C                       (0)
+C
+C     THIS INFORMATION IS CONTAINED IN CODED FORM IN THE ARRAYS
+C     X AND QRAUX.
+C
+C     ON ENTRY
+C
+C        X      REAL(LDX,P).
+C               X CONTAINS THE OUTPUT OF SQRDC.
+C
+C        LDX    INTEGER.
+C               LDX IS THE LEADING DIMENSION OF THE ARRAY X.
+C
+C        N      INTEGER.
+C               N IS THE NUMBER OF ROWS OF THE MATRIX XK.  IT MUST
+C               HAVE THE SAME VALUE AS N IN SQRDC.
+C
+C        K      INTEGER.
+C               K IS THE NUMBER OF COLUMNS OF THE MATRIX XK.  K
+C               MUST NNOT BE GREATER THAN MIN(N,P), WHERE P IS THE
+C               SAME AS IN THE CALLING SEQUENCE TO SQRDC.
+C
+C        QRAUX  REAL(P).
+C               QRAUX CONTAINS THE AUXILIARY OUTPUT FROM SQRDC.
+C
+C        Y      REAL(N)
+C               Y CONTAINS AN N-VECTOR THAT IS TO BE MANIPULATED
+C               BY SQRSL.
+C
+C        JOB    INTEGER.
+C               JOB SPECIFIES WHAT IS TO BE COMPUTED.  JOB HAS
+C               THE DECIMAL EXPANSION ABCDE, WITH THE FOLLOWING
+C               MEANING.
+C
+C                    IF A.NE.0, COMPUTE QY.
+C                    IF B,C,D, OR E .NE. 0, COMPUTE QTY.
+C                    IF C.NE.0, COMPUTE B.
+C                    IF D.NE.0, COMPUTE RSD.
+C                    IF E.NE.0, COMPUTE XB.
+C
+C               NOTE THAT A REQUEST TO COMPUTE B, RSD, OR XB
+C               AUTOMATICALLY TRIGGERS THE COMPUTATION OF QTY, FOR
+C               WHICH AN ARRAY MUST BE PROVIDED IN THE CALLING
+C               SEQUENCE.
+C
+C     ON RETURN
+C
+C        QY     REAL(N).
+C               QY CONNTAINS Q*Y, IF ITS COMPUTATION HAS BEEN
+C               REQUESTED.
+C
+C        QTY    REAL(N).
+C               QTY CONTAINS TRANS(Q)*Y, IF ITS COMPUTATION HAS
+C               BEEN REQUESTED.  HERE TRANS(Q) IS THE
+C               TRANSPOSE OF THE MATRIX Q.
+C
+C        B      REAL(K)
+C               B CONTAINS THE SOLUTION OF THE LEAST SQUARES PROBLEM
+C
+C                    MINIMIZE NORM2(Y - XK*B),
+C
+C               IF ITS COMPUTATION HAS BEEN REQUESTED.  (NOTE THAT
+C               IF PIVOTING WAS REQUESTED IN SQRDC, THE J-TH
+C               COMPONENT OF B WILL BE ASSOCIATED WITH COLUMN JPVT(J)
+C               OF THE ORIGINAL MATRIX X THAT WAS INPUT INTO SQRDC.)
+C
+C        RSD    REAL(N).
+C               RSD CONTAINS THE LEAST SQUARES RESIDUAL Y - XK*B,
+C               IF ITS COMPUTATION HAS BEEN REQUESTED.  RSD IS
+C               ALSO THE ORTHOGONAL PROJECTION OF Y ONTO THE
+C               ORTHOGONAL COMPLEMENT OF THE COLUMN SPACE OF XK.
+C
+C        XB     REAL(N).
+C               XB CONTAINS THE LEAST SQUARES APPROXIMATION XK*B,
+C               IF ITS COMPUTATION HAS BEEN REQUESTED.  XB IS ALSO
+C               THE ORTHOGONAL PROJECTION OF Y ONTO THE COLUMN SPACE
+C               OF X.
+C
+C        INFO   INTEGER.
+C               INFO IS ZERO UNLESS THE COMPUTATION OF B HAS
+C               BEEN REQUESTED AND R IS EXACTLY SINGULAR.  IN
+C               THIS CASE, INFO IS THE INDEX OF THE FIRST ZERO
+C               DIAGONAL ELEMENT OF R AND B IS LEFT UNALTERED.
+C
+C     THE PARAMETERS QY, QTY, B, RSD, AND XB ARE NOT REFERENCED
+C     IF THEIR COMPUTATION IS NOT REQUESTED AND IN THIS CASE
+C     CAN BE REPLACED BY DUMMY VARIABLES IN THE CALLING PROGRAM.
+C     TO SAVE STORAGE, THE USER MAY IN SOME CASES USE THE SAME
+C     ARRAY FOR DIFFERENT PARAMETERS IN THE CALLING SEQUENCE.  A
+C     FREQUENTLY OCCURING EXAMPLE IS WHEN ONE WISHES TO COMPUTE
+C     ANY OF B, RSD, OR XB AND DOES NOT NEED Y OR QTY.  IN THIS
+C     CASE ONE MAY IDENTIFY Y, QTY, AND ONE OF B, RSD, OR XB, WHILE
+C     PROVIDING SEPARATE ARRAYS FOR ANYTHING ELSE THAT IS TO BE
+C     COMPUTED.  THUS THE CALLING SEQUENCE
+C
+C          CALL SQRSL(X,LDX,N,K,QRAUX,Y,DUM,Y,B,Y,DUM,110,INFO)
+C
+C     WILL RESULT IN THE COMPUTATION OF B AND RSD, WITH RSD
+C     OVERWRITING Y.  MORE GENERALLY, EACH ITEM IN THE FOLLOWING
+C     LIST CONTAINS GROUPS OF PERMISSIBLE IDENTIFICATIONS FOR
+C     A SINGLE CALLINNG SEQUENCE.
+C
+C          1. (Y,QTY,B) (RSD) (XB) (QY)
+C
+C          2. (Y,QTY,RSD) (B) (XB) (QY)
+C
+C          3. (Y,QTY,XB) (B) (RSD) (QY)
+C
+C          4. (Y,QY) (QTY,B) (RSD) (XB)
+C
+C          5. (Y,QY) (QTY,RSD) (B) (XB)
+C
+C          6. (Y,QY) (QTY,XB) (B) (RSD)
+C
+C     IN ANY GROUP THE VALUE RETURNED IN THE ARRAY ALLOCATED TO
+C     THE GROUP CORRESPONDS TO THE LAST MEMBER OF THE GROUP.
+C
+C     LINPACK. THIS VERSION DATED 08/14/78 .
+C     G.W. STEWART, UNIVERSITY OF MARYLAND, ARGONNE NATIONAL LAB.
+C
+C     SQRSL USES THE FOLLOWING FUNCTIONS AND SUBPROGRAMS.
+C
+C     BLAS SAXPY,SCOPY,SDOT
+C     FORTRAN ABS,MIN0,MOD
+C
+C     INTERNAL VARIABLES
+C
+      INTEGER I,J,JJ,JU,KP1
+      REAL SDOT,T,TEMP
+      LOGICAL CB,CQY,CQTY,CR,CXB
+C
+C
+C     SET INFO FLAG.
+C
+      INFO = 0
+C
+C     DETERMINE WHAT IS TO BE COMPUTED.
+C
+      CQY = JOB/10000 .NE. 0
+      CQTY = MOD(JOB,10000) .NE. 0
+      CB = MOD(JOB,1000)/100 .NE. 0
+      CR = MOD(JOB,100)/10 .NE. 0
+      CXB = MOD(JOB,10) .NE. 0
+      JU = MIN0(K,N-1)
+C
+C     SPECIAL ACTION WHEN N=1.
+C
+      IF (JU .NE. 0) GO TO 40
+         IF (CQY) QY(1) = Y(1)
+         IF (CQTY) QTY(1) = Y(1)
+         IF (CXB) XB(1) = Y(1)
+         IF (.NOT.CB) GO TO 30
+            IF (X(1,1) .NE. 0.0E0) GO TO 10
+               INFO = 1
+            GO TO 20
+   10       CONTINUE
+               B(1) = Y(1)/X(1,1)
+   20       CONTINUE
+   30    CONTINUE
+         IF (CR) RSD(1) = 0.0E0
+      GO TO 250
+   40 CONTINUE
+C
+C        SET UP TO COMPUTE QY OR QTY.
+C
+         IF (CQY) CALL SCOPY(N,Y,1,QY,1)
+         IF (CQTY) CALL SCOPY(N,Y,1,QTY,1)
+         IF (.NOT.CQY) GO TO 70
+C
+C           COMPUTE QY.
+C
+            DO 60 JJ = 1, JU
+               J = JU - JJ + 1
+               IF (QRAUX(J) .EQ. 0.0E0) GO TO 50
+                  TEMP = X(J,J)
+                  X(J,J) = QRAUX(J)
+                  T = -SDOT(N-J+1,X(J,J),1,QY(J),1)/X(J,J)
+                  CALL SAXPY(N-J+1,T,X(J,J),1,QY(J),1)
+                  X(J,J) = TEMP
+   50          CONTINUE
+   60       CONTINUE
+   70    CONTINUE
+         IF (.NOT.CQTY) GO TO 100
+C
+C           COMPUTE TRANS(Q)*Y.
+C
+            DO 90 J = 1, JU
+               IF (QRAUX(J) .EQ. 0.0E0) GO TO 80
+                  TEMP = X(J,J)
+                  X(J,J) = QRAUX(J)
+                  T = -SDOT(N-J+1,X(J,J),1,QTY(J),1)/X(J,J)
+                  CALL SAXPY(N-J+1,T,X(J,J),1,QTY(J),1)
+                  X(J,J) = TEMP
+   80          CONTINUE
+   90       CONTINUE
+  100    CONTINUE
+C
+C        SET UP TO COMPUTE B, RSD, OR XB.
+C
+         IF (CB) CALL SCOPY(K,QTY,1,B,1)
+         KP1 = K + 1
+         IF (CXB) CALL SCOPY(K,QTY,1,XB,1)
+         IF (CR .AND. K .LT. N) CALL SCOPY(N-K,QTY(KP1),1,RSD(KP1),1)
+         IF (.NOT.CXB .OR. KP1 .GT. N) GO TO 120
+            DO 110 I = KP1, N
+               XB(I) = 0.0E0
+  110       CONTINUE
+  120    CONTINUE
+         IF (.NOT.CR) GO TO 140
+            DO 130 I = 1, K
+               RSD(I) = 0.0E0
+  130       CONTINUE
+  140    CONTINUE
+         IF (.NOT.CB) GO TO 190
+C
+C           COMPUTE B.
+C
+            DO 170 JJ = 1, K
+               J = K - JJ + 1
+               IF (X(J,J) .NE. 0.0E0) GO TO 150
+                  INFO = J
+C           ......EXIT
+                  GO TO 180
+  150          CONTINUE
+               B(J) = B(J)/X(J,J)
+               IF (J .EQ. 1) GO TO 160
+                  T = -B(J)
+                  CALL SAXPY(J-1,T,X(1,J),1,B,1)
+  160          CONTINUE
+  170       CONTINUE
+  180       CONTINUE
+  190    CONTINUE
+         IF (.NOT.CR .AND. .NOT.CXB) GO TO 240
+C
+C           COMPUTE RSD OR XB AS REQUIRED.
+C
+            DO 230 JJ = 1, JU
+               J = JU - JJ + 1
+               IF (QRAUX(J) .EQ. 0.0E0) GO TO 220
+                  TEMP = X(J,J)
+                  X(J,J) = QRAUX(J)
+                  IF (.NOT.CR) GO TO 200
+                     T = -SDOT(N-J+1,X(J,J),1,RSD(J),1)/X(J,J)
+                     CALL SAXPY(N-J+1,T,X(J,J),1,RSD(J),1)
+  200             CONTINUE
+                  IF (.NOT.CXB) GO TO 210
+                     T = -SDOT(N-J+1,X(J,J),1,XB(J),1)/X(J,J)
+                     CALL SAXPY(N-J+1,T,X(J,J),1,XB(J),1)
+  210             CONTINUE
+                  X(J,J) = TEMP
+  220          CONTINUE
+  230       CONTINUE
+  240    CONTINUE
+  250 CONTINUE
+      RETURN
+      END

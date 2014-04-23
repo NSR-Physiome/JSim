@@ -1,0 +1,40 @@
+# create JSim wrappers for XSim-style models
+#   Part 2: native compile
+
+# check status from Java wrapper generation
+if [ $? -ne 0 ]
+then
+  echo "jsxwrap: JSim wrapper generation failed"
+  exit 1
+fi
+
+# the following must be defined for proper operation
+export JSIMMAKE=make
+export JSIMOS=JSOS
+export JSIMOSARCH=JSOSARCH
+JSIMARCH=JSARCH
+if [ "$JSIMOS" = "macos" ]
+then
+  JSIMARCH=`uname -p`
+  if [ "$JSIMARCH" = "powerpc" ]
+  then
+    JSIMARCH=ppc
+  fi
+fi
+export JSIMARCH
+
+LANG="$1"
+shift
+MODEL="$1"
+shift
+OBJECTS="$*"
+
+# compile wrapper to F&P library
+export XFP_OBJS="$OBJECTS"
+$JSIMMAKE -f $JSIMHOME/lib/Makefile.global jsx"$MODEL".xfp
+if [ $? -ne 0 ]
+then
+  echo "jsxwrap: JSim wrapper compilation failed"
+  exit 1
+fi
+

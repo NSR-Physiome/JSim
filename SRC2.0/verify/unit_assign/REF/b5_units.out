@@ -1,0 +1,5 @@
+Cin=Cout/a
+==== JSim version 1.6.85: Fatal Error
+
+JSim.util.Xcept: Cin=Cout/a : Expression "Cin" Expression "Cout" May not calculate input variable from output variables
+

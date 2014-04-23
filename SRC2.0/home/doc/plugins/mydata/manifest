@@ -1,0 +1,3 @@
+JSimPluginType: DataFormat
+JSimPluginVariant: mine
+JSimPluginClass: MyDataFormat

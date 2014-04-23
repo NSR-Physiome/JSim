@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="X2" value="0" units="M" constant="true"/>
+      <parameter id="X1" value="0" units="M" constant="true"/>
+      <parameter id="X0" value="0" units="M" constant="true"/>
+      <parameter id="k3" value="0" constant="true"/>
+      <parameter id="k2" value="0" constant="true"/>
+      <parameter id="k1" value="0" constant="true"/>
+      <parameter id="reaction_3" units="katal" constant="false"/>
+      <parameter id="reaction_2" units="katal" constant="false"/>
+      <parameter id="compartmentOne" value="1" units="litre" constant="true"/>
+      <parameter id="reaction_1" units="katal" constant="false"/>
+      <parameter id="S1" value="0" units="M" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> reaction_1 </ci>
+              <apply>
+                <times/>
+                <ci> reaction_2 </ci>
+                <cn> -1 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> reaction_3 </ci>
+                <cn> -1 </cn>
+              </apply>
+            </apply>
+            <ci> compartmentOne </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="reaction_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k1 </ci>
+            <ci> X0 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction_2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k2 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="reaction_3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k3 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

@@ -1,0 +1,161 @@
+/*
+ * Insulin receptor binding kinetics: modeling and simulation studies
+ * 
+ * Model Status
+ * 
+ * This CellML model runs in both OpenCell and COR and represents
+ * the receptor aggregation model from the original published paper
+ * (equations 8-16). The units have been checked and they are consistent.
+ * In the absence of published initial conditions for x1-x9 arbitary
+ * values have been used. The simulation output from this model
+ * does not match the published paper.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: Biological actions of insulin regulate glucose metabolism
+ * and other essential physiological functions. Binding of insulin
+ * to its cell surface receptor initiates signal transduction pathways
+ * that mediate cellular responses. Thus, it is of great interest
+ * to understand the mechanisms underlying insulin receptor binding
+ * kinetics. Interestingly, negative cooperative interactions are
+ * observed at high insulin concentrations while positive cooperativity
+ * may be present at low insulin concentrations. Clearly, insulin
+ * receptor binding kinetics cannot be simply explained by a classical
+ * bimolecular reaction. Mature insulin receptors have a dimeric
+ * structure capable of binding two molecules of insulin. The binding
+ * affinity of the receptor for the second insulin molecule is
+ * significantly lower than for the first bound insulin molecule.
+ * In addition, insulin receptor aggregation occurs in response
+ * to ligand binding and aggregation may also influence binding
+ * kinetics. In this study, we develop a mathematical model for
+ * insulin receptor binding kinetics that explicitly represents
+ * the divalent nature of the insulin receptor and incorporates
+ * receptor aggregation into the kinetic model. Model parameters
+ * are based upon published data where available. Computer simulations
+ * with our model are capable of reproducing both negative and
+ * positive cooperativity at the appropriate insulin concentrations.
+ * This model may be a useful tool for helping to understand the
+ * mechanisms underlying insulin receptor binding and the coupling
+ * of receptor binding to downstream signaling events.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * Insulin receptor binding kinetics: modeling and simulation studies,
+ * Sumanas Wanant and Michael J. Quon, 2000, Journal of Theoretical
+ * Biology, 205, 355-364. PubMed ID: 10882558
+ * 
+ * diagram of the aggregate receptor model
+ * 
+ * [[Image file: wanant_aggregate_2000.png]]
+ * 
+ * A schematic diagram of Wanant and Quon's 2000 receptor aggregation
+ * model.
+ */
+
+import nsrunit;
+unit conversion on;
+// unit molar predefined
+// unit nanomolar predefined
+unit flux=1E3 meter^(-3)*second^(-1)*mole^1;
+unit first_order_rate_constant=1 second^(-1);
+unit second_order_rate_constant=.001 meter^3*second^(-1)*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time second;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real x1(time) nanomolar;
+	x1.cellMLNames="x1.x1;x2.x1;x3.x1;x4.x1;x5.x1;x6.x1;x7.x1;x8.x1;x9.x1";
+	when(time=time.min) x1=10;
+	real x2(time) nanomolar;
+	x2.cellMLNames="x1.x2;x2.x2;x3.x2;x4.x2;x5.x2;x9.x2";
+	when(time=time.min) x2=0.1;
+	real x3(time) nanomolar;
+	x3.cellMLNames="x1.x3;x3.x3;x2.x3;x5.x3;x4.x3";
+	when(time=time.min) x3=1.0;
+	real x4(time) nanomolar;
+	x4.cellMLNames="x1.x4;x4.x4;x2.x4;x3.x4;x9.x4";
+	when(time=time.min) x4=1.0;
+	real x5(time) nanomolar;
+	x5.cellMLNames="x1.x5;x5.x5;x2.x5;x3.x5;x6.x5;x9.x5";
+	when(time=time.min) x5=1.0;
+	real x6(time) nanomolar;
+	x6.cellMLNames="x1.x6;x6.x6;x5.x6;x7.x6";
+	when(time=time.min) x6=1.0;
+	real x7(time) nanomolar;
+	x7.cellMLNames="x1.x7;x7.x7;x6.x7;x9.x7;x8.x7";
+	when(time=time.min) x7=1.0;
+	real x8(time) nanomolar;
+	x8.cellMLNames="x1.x8;x8.x8;x7.x8";
+	when(time=time.min) x8=1.0;
+	real x9(time) nanomolar;
+	x9.cellMLNames="x1.x9;x9.x9;x2.x9;x4.x9;x5.x9;x7.x9";
+	when(time=time.min) x9=1.0;
+	real k1 second_order_rate_constant;
+	k1.cellMLNames="x1.k1;rate_variables.k1;x2.k1;x3.k1";
+	k1=1000000;
+	real k1_ first_order_rate_constant;
+	k1_.cellMLNames="x1.k1_;rate_variables.k1_;x2.k1_;x3.k1_";
+	k1_=0.0004;
+	real k2 second_order_rate_constant;
+	k2.cellMLNames="x1.k2;rate_variables.k2;x3.k2;x4.k2";
+	k2=1000000;
+	real k2_ first_order_rate_constant;
+	k2_.cellMLNames="x1.k2_;rate_variables.k2_;x3.k2_;x4.k2_";
+	k2_=0.04;
+	real k4 second_order_rate_constant;
+	k4.cellMLNames="x1.k4;rate_variables.k4;x5.k4;x6.k4;x7.k4;x9.k4";
+	k4=1000000;
+	real k4_ first_order_rate_constant;
+	k4_.cellMLNames="x1.k4_;rate_variables.k4_;x5.k4_;x6.k4_;x7.k4_;x9.k4_";
+	k4_=0.0004;
+	real k5 second_order_rate_constant;
+	k5.cellMLNames="x1.k5;rate_variables.k5;x5.k5;x6.k5;x7.k5;x8.k5;x9.k5";
+	k5=10000000;
+	real k5_ first_order_rate_constant;
+	k5_.cellMLNames="x1.k5_;rate_variables.k5_;x5.k5_;x6.k5_;x7.k5_;x8.k5_;x9.k5_";
+	k5_=0.004;
+	real scatchard(time) dimensionless;
+	scatchard.cellMLNames="x1.scatchard";
+	real k3 second_order_rate_constant;
+	k3.cellMLNames="x2.k3;rate_variables.k3;x3.k3;x4.k3;x5.k3;x9.k3";
+	k3=1000000;
+	real k3_ first_order_rate_constant;
+	k3_.cellMLNames="x2.k3_;rate_variables.k3_;x3.k3_;x4.k3_;x5.k3_;x9.k3_";
+	k3_=0.0004;
+
+	// <component name="environment">
+
+	// <component name="x1">
+	x1:time=(k1_*x3-k1*x1*x2+k2_*x4-k2*x1*x3+k4_*(x6+x7)-k4*x1*(x5+x9)+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7));
+	scatchard=((x3+x4+x7+x8+x9)/x1);
+
+	// <component name="x2">
+	x2:time=(k1_*x3-k1*x1*x2+k3_*(x5+x9)-k3*x2*(x3+x4));
+
+	// <component name="x3">
+	x3:time=(k1*x1*x2-k1_*x3+k2_*x4-k2*x1*x3+k3_*x5-k3*x2*x3);
+
+	// <component name="x4">
+	x4:time=(k2*x1*x3-k2_*x4+k3_*x9-k2*x2*x4);
+
+	// <component name="x5">
+	x5:time=(k3*x2*x3-k3_*x5+k4_*x6-k4*x1*x5+k5_*x9-k5*x1*x5);
+
+	// <component name="x6">
+	x6:time=(k4*x1*x5-k4_*x6+k5_*x7-k5*x1*x6);
+
+	// <component name="x7">
+	x7:time=(k4*x1*x9-k4_*x7+k5_*(x8-x7)+k5*x1*(x6-x7));
+
+	// <component name="x8">
+	x8:time=(k5*x1*x7-k5_*x8);
+
+	// <component name="x9">
+	x9:time=(k3*x2*x4-k3_*x9+k4_*x7-k4*x1*x9+k5*x1*x5-k5_*x9);
+
+	// <component name="rate_variables">
+}
+

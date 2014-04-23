@@ -1,0 +1,9 @@
+This directory contains GUI verification test which can't
+be run automatically.  They require users to run them and
+examine behavior manually.
+
+
+areafill.proj:  
+  With Fp=.12,  1.6.68 and earlier has
+  ArrayOutOfBoundsException when rendering area fill contour plot
+

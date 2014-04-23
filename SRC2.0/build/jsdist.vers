@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# get version # for latest source
+
+. jsbuild.path
+
+SRC=$JSIMSRC/JSim/util/Util.java
+
+VERS=`fgrep 'return "2.' $SRC | awk -F '"' '{ print $2 }' | tr . _`
+
+CT=`echo $VERS | wc -c`
+
+if [ $CT -lt 4 ]
+then
+  echo "Cannot find JSim version # in $SRC"
+  exit 1
+fi
+
+echo $VERS
+
+
+
+

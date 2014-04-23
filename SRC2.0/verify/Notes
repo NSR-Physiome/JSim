@@ -1,0 +1,15 @@
+  Each sub-directory contains a different verification
+test for JSim.  See instructions inside each dir.
+
+  Use $JSBATCH to test non-default scenarios such as:
+  
+  1. Remote server
+    JSBATCH="jsbatch -server gloin"
+  
+  2. Internationalization 
+    JSBATCH="jsrun.db -Duser.language=pt -Duser.country=PT JSim.text.Batch"
+    
+  3. Multiprocessing
+    JSBATCH="jsbatch -mpdebug 4"
+    
+    

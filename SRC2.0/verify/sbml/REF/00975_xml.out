@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="M_per_second" name="M/second">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="M" name="M">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1000"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="J2" units="katal" constant="false"/>
+      <parameter id="J1" units="katal" constant="false"/>
+      <parameter id="J0" units="katal" constant="false"/>
+      <parameter id="S2" units="M" constant="false"/>
+      <parameter id="default_compartment" value="1" units="litre" constant="true"/>
+      <parameter id="S1" value="0" units="M" constant="false"/>
+      <parameter id="k3" value="1.4" constant="true"/>
+      <parameter id="k2" value="3" constant="true"/>
+      <parameter id="S1conv" value="3" constant="true"/>
+      <parameter id="k1" value="1" constant="true"/>
+      <parameter id="modelconv" value="4" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 0.001 </cn>
+            <ci> default_compartment </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> modelconv </ci>
+              <apply>
+                <plus/>
+                <ci> J0 </ci>
+                <apply>
+                  <times/>
+                  <ci> J1 </ci>
+                  <cn> -2 </cn>
+                </apply>
+              </apply>
+            </apply>
+            <ci> default_compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> modelconv </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> J1 </ci>
+                  <cn> 3 </cn>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> J2 </ci>
+                  <cn> -1 </cn>
+                </apply>
+              </apply>
+            </apply>
+            <ci> default_compartment </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="J0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> k1 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="J1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k2 </ci>
+              <ci> S1 </ci>
+            </apply>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="J2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k3 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

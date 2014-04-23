@@ -1,0 +1,161 @@
+/*
+ * Model Status
+ * 
+ * This CellML model represents the "Baseline Model" in the published
+ * paper. The model runs in PCEnv and has been unit checked. All
+ * the units are balanced. Note that this model will not run in
+ * COR due to the presence of a "remainder" function. Note there
+ * are no figures in the paper showing the simuation results of
+ * this model. However we can say that the simulation output from
+ * the CellML model looks reasonable - the body temperature and
+ * metabolic rates have physiologically realistic values and oscillate
+ * over a 24 hour period according to day and night changes.
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: PURPOSE: To describe the pharmacodynamic effects of
+ * recombinant human interleukin-21 (IL-21) on core body temperature
+ * in cynomolgus monkeys using basic mechanisms of heat regulation.
+ * A major effort was devoted to compare the use of ordinary differential
+ * equations (ODEs) with stochastic differential equations (SDEs)
+ * in pharmacokinetic pharmacodynamic (PKPD) modelling. METHODS:
+ * A temperature model was formulated including circadian rhythm,
+ * metabolism, heat loss, and a thermoregulatory set-point. This
+ * model was formulated as a mixed-effects model based on SDEs
+ * using NONMEM. RESULTS: The effects of IL-21 were on the set-point
+ * and the circadian rhythm of metabolism. The model was able to
+ * describe a complex set of IL-21 induced phenomena, including
+ * 1) disappearance of the circadian rhythm, 2) no effect after
+ * first dose, and 3) high variability after second dose. SDEs
+ * provided a more realistic description with improved simulation
+ * properties, and further changed the model into one that could
+ * not be falsified by the autocorrelation function. CONCLUSIONS:
+ * The IL-21 induced effects on thermoregulation in cynomolgus
+ * monkeys are explained by a biologically plausible model. The
+ * quality of the model was improved by the use of SDEs.
+ * 
+ * model diagram
+ * 
+ * [[Image file: overgaard_2007.png]]
+ * 
+ * Schematic diagram of the model for IL-21 induced regulation
+ * of core body temperature.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * PKPD model of interleukin-21 effects on thermoregulation in
+ * monkeys - application and evaluation of stochastic differential
+ * equations, Rune Viig Overgaard, Nick Holford, Klaus A. Rytved
+ * and Henrik Madsen, 2007, Pharmaceutical Research, 24, (2), 298-309.
+ * PubMed ID: 17009101
+ */
+
+import nsrunit;
+unit conversion on;
+//Warning:  the unit 'celsius' is not well defined.
+//  It may mean 'distance from 0 degrees C' in some contexts,  and 'distance in C degrees' in others.
+//  We assume this model meant the latter, and have converted the unit to the equivalent but better-defined 'kelvin' instead.
+// unit kelvin predefined
+unit hour=3600 second^1;
+unit day=86400 second^1;
+unit per_hour=2.7777778E-4 second^(-1);
+unit W=1 kilogram^1*meter^2*second^(-3);
+unit kg_per_day_mg=11.57407407 second^(-1);
+unit W_per_kg=1 meter^2*second^(-3);
+unit seconds_per_hour=2.7777778E-4  dimensionless;
+unit W_per_kg_C=1 meter^2*second^(-3)*kelvin^(-1);
+unit W_per_kg_C2=1 meter^2*second^(-3)*kelvin^(-2);
+unit kJ_per_kg_C=1E3 meter^2*second^(-2)*kelvin^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time hour;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real T_a kelvin;
+	T_a.cellMLNames="model_parameters.T_a;T.T_a;kb.T_a;M_day.T_a;M_night.T_a";
+	T_a=21.0;
+	real T_b kelvin;
+	T_b.cellMLNames="model_parameters.T_b;k.T_b;T_day.T_b;T_night.T_b;kb.T_b;M_day.T_b;M_night.T_b";
+	T_b=38.0;
+	real delta_T kelvin;
+	delta_T.cellMLNames="model_parameters.delta_T;T_day.delta_T;T_night.delta_T";
+	delta_T=1.57;
+	real kinc W_per_kg_C2;
+	kinc.cellMLNames="model_parameters.kinc;k.kinc;M_day.kinc;M_night.kinc";
+	kinc=0.0258;
+	real M_c(time) W_per_kg;
+	M_c.cellMLNames="M_c.M_c;M.M_c";
+	real t_day hour;
+	t_day.cellMLNames="M_c.t_day";
+	t_day=17.5;
+	real t_night hour;
+	t_night.cellMLNames="M_c.t_night";
+	t_night=6.73;
+	real tprime(time) second;
+	tprime.cellMLNames="M_c.tprime";
+	real day_length second;
+	day_length.cellMLNames="M_c.day_length";
+	day_length=86400;
+	real M_day W_per_kg;
+	M_day.cellMLNames="M_c.M_day;M_day.M_day";
+	real M_night W_per_kg;
+	M_night.cellMLNames="M_c.M_night;M_night.M_night";
+	real M(time) W_per_kg;
+	M.cellMLNames="M.M;T.M";
+	when(time=time.min) M=3.5;
+	real km per_hour;
+	km.cellMLNames="M.km";
+	km=1.1375;
+	real T(time) kelvin;
+	T.cellMLNames="T.T;k.T";
+	when(time=time.min) T=38.785;
+	real c kJ_per_kg_C;
+	c.cellMLNames="T.c";
+	c=3.47;
+	real k(time) W_per_kg_C;
+	k.cellMLNames="T.k;k.k";
+	real kb W_per_kg_C;
+	kb.cellMLNames="k.kb;kb.kb;M_day.kb;M_night.kb";
+	real T_day kelvin;
+	T_day.cellMLNames="T_day.T_day;M_day.T_day";
+	real T_night kelvin;
+	T_night.cellMLNames="T_night.T_night;M_night.T_night";
+	real M_b W_per_kg;
+	M_b.cellMLNames="kb.M_b";
+	M_b=3.0;
+
+	// <component name="environment">
+
+	// <component name="model_parameters">
+
+	// <component name="M_c">
+	tprime=(rem(time*(3600 per_hour)*(1 second),day_length));
+	M_c=(if (((tprime/(3600 seconds_per_hour))>=t_night) and ((tprime/(3600 seconds_per_hour))<t_day)) M_night else M_day);
+
+	// <component name="M">
+	M:time=((-1)*km*(M-M_c));
+
+	// <component name="T">
+	T:time=(c^(-1)*(M-k*(T-T_a)));
+
+	// <component name="k">
+	k=(kb+kinc*(T-T_b));
+
+	// <component name="T_day">
+	T_day=(T_b+delta_T/2);
+
+	// <component name="T_night">
+	T_night=(T_b-delta_T/2);
+
+	// <component name="kb">
+	kb=(M_b/(T_b-T_a));
+
+	// <component name="M_day">
+	M_day=((kb+kinc*(T_day-T_b))*(T_day-T_a));
+
+	// <component name="M_night">
+	M_night=((kb+kinc*(T_night-T_b))*(T_night-T_a));
+}
+

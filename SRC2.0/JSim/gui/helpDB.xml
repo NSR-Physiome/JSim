@@ -1,0 +1,1467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSimHelp>
+  <item date="2005/01/26" name="tab$GTree">Diagram of all models, datasets, parameter sets,
+plot pages, etc. contained in this project.
+Allows loading and saving project files
+from disk and pasting of content between
+projects.</item>
+  <item date="2005/01/26" name="tab$GModel">One JSim model within this project.
+A model is a set of numeric calculations
+specified in JSim Mathematical Modeling
+Language (MML).  Once a model is successfully
+compiled,  it may be run creating output
+data that may be graphed in plot pages
+or used in other ways.</item>
+  <item date="2005/01/26" name="tab$GDataSet">A project data set,  containing fixed 
+numeric data loaded from files or 
+previous model runs.</item>
+  <item date="2005/01/26" name="tab$GPlotPage">One plot page within this project.
+Plot pages contain one or more plots,
+arranged in columns and rows.  Each
+plot may contain multiple data curves
+drawn from either model outputs or
+fixed project data sets.</item>
+  <item date="2005/01/26" name="tab$GMessage">Run-time messages for this JSim session.</item>
+  <item date="2005/01/27" name="tab$GNotes">Free-form text notes page.</item>
+  <item date="2005/01/26" name="menu$GTree$File">Manage a project file.</item>
+  <item name="menu$GTree$Edit">Click on a piece of the project in the
+project sub-tree. Then manage
+the piece of the project.</item>
+  <item name="menu$GTree$Add">Add model(s), data, plot pages, notes
+and image sets to the project-subtree</item>
+  <item name="menu$GMessage$File">Manages the Message area as a note file.</item>
+  <item name="menu$GMessage$Edit">erase (erases ALL messages)
+in the message area</item>
+  <item name="action$GProject$Open project file ...">Open and load an existing project
+file. Project files have suffix
+.proj</item>
+  <item name="action$GProject$New project ...">Create a new project. Causes a new
+project window to appear. May overlay
+project which is already open.
+Different projects do not share
+access to each others elements.</item>
+  <item name="action$GProject$Save">Save this project. If project has
+never been saved (named) this becomes
+Save as ...</item>
+  <item name="action$GProject$Save as ...">Save this project, naming it.
+Including the suffix .proj is
+optional.</item>
+  <item name="action$GProject$Print project tree ...">Not currently implemented.</item>
+  <item name="action$GProject$Close project">Close the project. If this is the
+only project open, JSim also
+terminates. User asked if saving
+changes to project required.</item>
+  <item name="action$GProject$Exit program">Terminates JSim. User asked if saving
+changes to project required.</item>
+  <item name="action$GProject$cut">Removes an element of the project
+tree. Select (click) an element of the
+project. Then select cut from the
+Edit menu. Action undo is to paste it
+back.</item>
+  <item name="action$GProject$copy">Copy a project element. Select (click)
+an element of the project. Then select
+copy from the Edit menu. Element will
+be copied and its name extended.</item>
+  <item name="action$GProject$paste">Create a copy of an existing project
+element and extend its name.</item>
+  <item name="action$GProject$rename">Rename a project element. Duplicate
+names are rejected. Ctrl-r</item>
+  <item name="action$GProject$Import model file (.mod +)">Import a model file (has .mod suffix).
+A project may contain more than one
+model. Each model has its separate
+controls.</item>
+  <item date="2005/01/26" name="action$GProject$Import data file (.tac +)">Load an external data file into 
+the project as a data set.  A half-dozen
+(or so) external formats are importable
+including TAC and spread-sheet compatible
+columnar data.</item>
+  <item name="action$GProject$New model">Open a blank source page for composing
+a model. Model is given default name.
+To change name select model from
+project tree and use Edit/rename.</item>
+  <item name="action$GProject$New plot page">Add a new plot page. New plot page
+and tab appear on right side of
+Jsim window. Default name assigned.</item>
+  <item name="action$GProject$New notes page">A new notes page is opened and given
+a default name.</item>
+  <item name="action$GProject$New image set">An image set is created and given a
+default name. The image set viewer
+is not yet implemented.</item>
+  <item name="action$GProject$Documentation set">JSim documentation is provided on-line at
+http://physiome.org/jsim
+Follow the links to JSim documentation.</item>
+  <item name="action$GProject$Help key">F1 and shift-F1 keys control context sensitive help.
+F1 enables hover help which pops up after 1.5 
+seconds without mouse motion.  
+shift-F1 enables fast help which pops up immediately.
+Hover help is enabled by default.</item>
+  <item name="action$GProject$About JSim">JSim is a Java based simulation system
+intended for biomedical applications.
+Downloads are available at
+http://physiome.org/jsim
+Follow the links to JSim download.</item>
+  <item name="action$GProject$About NSR">JSim is distributed by the National
+Simulation Resource for Transport
+Metabolism and Exchange (NSR).
+NSR creates, collects and disseminates
+material of interest to biological modelers.
+For further information see
+http://nsr.bioeng.washington.edu</item>
+  <item name="action$GMessage$Store as project notes ...">A new notes page is created and added
+to the project tree with a default
+name. The contents of the Message page
+are copied to the notes page.</item>
+  <item name="action$GMessage$Export text...">The contents of the message page are
+exported to a file named by the user.</item>
+  <item name="action$GMessage$Print text...">The contents of the message page are
+printed.</item>
+  <item name="action$GMessage$go to line#">Go to a specified line number in the
+message page.</item>
+  <item name="action$GMessage$find">find the indicated word(s) in the
+Message page. Case sensitive. Begins
+at current position and wraps around
+the page.</item>
+  <item name="action$GMessage$find again">find next occurrence of indicated
+word(s) entered under find.</item>
+  <item name="action$GMessage$erase">Erase ALL of the Message page.
+No Undo.</item>
+  <item name="controlvalue$FuncGen$which$Pulse1">This function is a single pulse or a
+train of pulses.</item>
+  <item name="controlvalue$FuncGen$which$Pulse2">This function is a double pulse or
+mixed pulse train. It is similar to
+Pulse1 with two sets of parameters,
+but only one offset parameter.</item>
+  <item name="controlvalue$FuncGen$which$Pulse3">This function is a triple pulse or
+mixed pulse train. It is similar to
+Pulse2, but has three sets of
+parameters, but only one offset
+parameter.</item>
+  <item name="controlvalue$FuncGen$which$ExtendedPulse3">Use this pulse generator when NOT in
+loop mode and at a fixed time interval
+the amplitude of a given pulse is
+incremented by a constant. Provides
+3 levels of looping on amplitudes IN A
+SINGLE RUN.</item>
+  <item name="controlvalue$FuncGen$which$Ramp">This function is a power function
+ramp of the form:
+Value=offset+amplitude*
+[(startTime-t)/(tdur)]^exponent
+when t is greater than startTime
+and less than or equal to duration.</item>
+  <item name="controlvalue$FuncGen$which$SquareWaveTrain">This function is generates a train
+of square waves and can be used to
+generate a single pulse. It&apos;s usage
+overlaps with Pulse1, but has some
+significant differences as noted below.</item>
+  <item name="controlvalue$FuncGen$which$SawtoothTrain">This function is generates a train of
+sawtooths. It&apos;s parameters are the same
+as the Square Wave where shapeFactor
+controls the fraction of the period the
+sawtooth is rising and falling.</item>
+  <item name="controlvalue$FuncGen$which$SineTrain">This function generates a train of
+sine waves. It has all but one of
+the parameters used for the square
+and sawtooth wave trains (doesn&apos;t use
+ShapeFactor.)</item>
+  <item name="controlvalue$FuncGen$which$Exponential">This function generates an exponential
+PDF which abruptly rises from zero to its
+maximum value, then decays.</item>
+  <item name="controlvalue$FuncGen$which$Gaussian">This function generates a Gaussian PDF.</item>
+  <item name="controlvalue$FuncGen$which$LagNormal">This function generates a Lagged Normal
+PDF. It is similar to a Gaussian, but
+with positive skewness (skewness of a
+Gaussian PDF is zero.)
+CAVEATS: 2 .lt. skewn .le. 0. When
+skewn = 0, the  Gaussian PDF will be
+used and no Linear upslope. When skewn
+approaches 2, the Exponential PDF will
+be used.</item>
+  <item name="controlvalue$FuncGen$which$Longtail">This function is a combination of a
+LagNormal PDF to which is joined a
+longtailed function which consists
+of a sum of decaying exponentials.</item>
+  <item name="controlvalue$FuncGen$which$GammaVar">This function generates a gamma
+variate PDF. It has some similarities
+to the LagNormal PDF.
+CAVEATS: skewn is defaulted from a
+minimum of 0.267 to a maximum of
+1.999 if it exceeds these limits.
+The actual RD used is the smaller of
+RD and skewn/2.01.</item>
+  <item name="controlvalue$FuncGen$which$Poisson">This function generates a
+Poisson-like PDF using a scaled
+Poisson equation in which lambda is
+allowed to vary continuously and n
+is fixed. This curve represents the
+transport of a tracer through n
+identical well mixed compartments.</item>
+  <item name="controlvalue$FuncGen$which$RandomWalk">This function generates a first
+traversal of a random walk PDF.
+CAVEAT: The actual skewness used
+is the maximum of skewn and 3.001*RD.</item>
+  <item name="controlvalue$FuncGen$which$DataCurve">This function is an interpolation of
+a Data Curve. It is imported as a
+file using the Project tab, then the
+Add button, selecting Import data file
+(.tac +).</item>
+  <item name="control$FuncGen$which">Choose a function generator</item>
+  <item name="control$Pulse1$startTime">The start time, when the function
+has the value &quot;amplitude+offset.&quot;</item>
+  <item name="control$Pulse1$duration">Duration of the pulse.</item>
+  <item name="control$Pulse1$amplitude">Value added to offset during the
+duration of the pulse.</item>
+  <item name="control$Pulse1$offset">The offset or base value for the
+function for all time.</item>
+  <item name="control$Pulse1$timeToRepeat">If timeToRepeat is greater than zero,
+the signal generated from time equals
+0 to timeToRepeat is repeated every
+timeToRepeat interval.</item>
+  <item name="control$Pulse2$p1Start">The start time of the first pulse.
+The function has the value
+&quot;p1Amplitude+offset+contribution
+from the second pulse.&quot;</item>
+  <item name="control$Pulse2$p1Duration">Duration of the first pulse.</item>
+  <item name="control$Pulse2$p1Amplitude">Value added to p1offset during the
+duration of the pulse.</item>
+  <item name="control$Pulse2$offset">The offset or base value for the
+function for all time.</item>
+  <item name="control$Pulse2$p1TimeToRepeat">If p1TimeToRepeat is greater than
+zero, the first pulse signal gener-
+ated from time equals 0 to
+p1TimeToRepeat is repeated every
+p1TimeToRepeat interval. Hence, this
+function can be used to generate a
+train of mixed pulses.</item>
+  <item name="control$Pulse2$p2Start">The start time of the second pulse,
+when the function has the value
+&quot;p2Amplitude+contribution of the
+first pulse.&quot;</item>
+  <item name="control$Pulse2$p2Duration">Duration of the second pulse.</item>
+  <item name="control$Pulse2$p2Amplitude">Value added to the function during
+the duration of the second pulse.</item>
+  <item name="control$Pulse2$p2TimeToRepeat">If p2TimeToRepeat is greater than
+zero, the second pulse generated
+during time equals 0 to p2TimeToRepeat
+is repeated every p2TimeToRepeat
+interval. Hence, this function can be
+used to generate a train of mixed
+pulses.</item>
+  <item name="control$Pulse3$p1Start">The start time of the first pulse.
+The function has the value
+&quot;p1Amplitude+offset+contribution
+from the second and third pulses.&quot;</item>
+  <item name="control$Pulse3$p1Duration">Duration of the first pulse.</item>
+  <item name="control$Pulse3$p1Amplitude">Value added to p1offset during the
+duration of the pulse.</item>
+  <item name="control$Pulse3$offset">The offset or base value for the
+function for all time.</item>
+  <item name="control$Pulse3$p1TimeToRepeat">If p1TimeToRepeat is greater than
+zero, the first pulse signal gener-
+ated from time equals 0 to
+p1TimeToRepeat is repeated every
+p1TimeToRepeat interval. Hence, this
+function can be used to generate a
+train of mixed pulses.</item>
+  <item name="control$Pulse3$p2Start">The start time of the second pulse,
+when the function has the value
+&quot;p2Amplitude+contribution of the
+first and third pulses.&quot;</item>
+  <item name="control$Pulse3$p2Duration">Duration of the second pulse.</item>
+  <item name="control$Pulse3$p2Amplitude">Value added to the function during
+the duration of the second pulse.</item>
+  <item name="control$Pulse3$p2TimeToRepeat">If p2TimeToRepeat is greater than
+zero, the second pulse generated
+during time equals 0 to
+p2TimeToRepeat is repeated every
+p2TimeToRepeat interval. Hence, this
+function can be used to generate a
+train of mixed pulses.</item>
+  <item name="control$Pulse3$p3Start">The start time of the third pulse,
+when the function has the value
+&quot;p3Amplitude+contribution of the
+first and second pulses.&quot;</item>
+  <item name="control$Pulse3$p3Duration">Duration of the third pulse.</item>
+  <item name="control$Pulse3$p3Amplitude">Value added to the function during
+the duration of the third pulse.</item>
+  <item name="control$Pulse3$p3TimeToRepeat">If p3TimeToRepeat is greater than
+zero, the third pulse generated
+during time equals 0 to
+p3TimeToRepeat is repeated every
+p3TimeToRepeat interval. Hence,
+this function can be used to
+generate a train of mixed pulses.</item>
+  <item name="control$ExtendedPulse3$offset">The offset or base value for the
+function for all time.</item>
+  <item name="control$ExtendedPulse3$timeToRepeat">Usage is different here. This is the
+amount of time elapsed to trigger the
+next innermost loop of the pulse
+generator.</item>
+  <item name="control$ExtendedPulse3$p1Start">The start time of the outermost
+pulse cycle.</item>
+  <item name="control$ExtendedPulse3$p1Duration">Duration of the outermost pulse.</item>
+  <item name="control$ExtendedPulse3$p1Amplitude">Initial amplitude of the outermost
+pulse.</item>
+  <item name="control$ExtendedPulse3$p1LoopCnt">The number of loops or cycles of
+the outermost pulse.
+0 and 1 have same effect.</item>
+  <item name="control$ExtendedPulse3$p1AmpIncr">Amplitude increment of the outermost
+loop or cycle.</item>
+  <item name="control$ExtendedPulse3$p2Start">The start time of the centermost
+pulse cycle.</item>
+  <item name="control$ExtendedPulse3$p2Duration">Duration of the centermost pulse.</item>
+  <item name="control$ExtendedPulse3$p2Amplitude">Initial amplitude of the centermost
+pulse.</item>
+  <item name="control$ExtendedPulse3$p2LoopCnt">The number of loops or cycles of
+the centermost pulse.
+0 and 1 have same effect.</item>
+  <item name="control$ExtendedPulse3$p2AmpIncr">Amplitude increment of the centermost
+loop or cycle.</item>
+  <item name="control$ExtendedPulse3$p3Start">The start time of the innermost
+pulse cycle.</item>
+  <item name="control$ExtendedPulse3$p3Duration">Duration of the innermost pulse.</item>
+  <item name="control$ExtendedPulse3$p3Amplitude">Initial amplitude of the innermost
+pulse.</item>
+  <item name="control$ExtendedPulse3$p3LoopCnt">The number of loops or cycles of
+the innermost pulse.</item>
+  <item name="control$ExtendedPulse3$p3AmpIncr">Amplitude increment of the innermost
+loop or cycle.
+0 and 1 have same effect.</item>
+  <item name="control$Ramp$startTime">Start time of the ramp.</item>
+  <item name="control$Ramp$duration">Duration of the ramp.</item>
+  <item name="control$Ramp$amplitude">Height of ramp when exponent greater
+than or equal to zero.  Amplitude may
+be negative.</item>
+  <item name="control$Ramp$offset">The offset or base value for the
+function during the duration off the
+ramp (similar to usage in square
+wave, but different from usage in
+Pulse1, Pulse2, and Pulse3.</item>
+  <item name="control$Ramp$exponent">The exponent for the power function
+of the ramp. Negative exponents can
+cause large magnitudes at beginning
+of ramp. Value of zero resembles
+Pulse1 but treatment off offset is
+different.</item>
+  <item name="control$Ramp$timeToRepeat">If timeToRepeat is greater than zero,
+the signal generated from time
+equals 0 to timeToRepeat is repeated
+every timeToRepeat interval. Hence,
+this function can be used to generate
+a train of ramps.</item>
+  <item name="control$SquareWaveTrain$startTime">The start time, when the Square Wave
+train begins.</item>
+  <item name="control$SquareWaveTrain$duration">Duration of the square wave train.</item>
+  <item name="control$SquareWaveTrain$amplitude">Value = amplitude+offset during
+duration when square wave train
+is &quot;on&quot;</item>
+  <item name="control$SquareWaveTrain$offset">The offset or base value for the
+function during duration when square
+wave train is in &quot;off&quot; mode. This is
+different from the offset in Pulse1,
+Pulse2, and Pulse3 which is present
+for all time.</item>
+  <item name="control$SquareWaveTrain$shapeFactor">1 for &quot;on&quot; for entire period (value=
+amplitude+offset), 0 for &quot;off&quot; for
+entire period (value=offset), 0.25
+&quot;on&quot; for the first quarter of the
+period followed by &quot;off&quot; for the last
+three quarters of the period. Any
+value less the zero will be defaulted
+to zero. Any value greater than 1 will
+be defaulted to 1.</item>
+  <item name="control$SquareWaveTrain$phase">fraction of period to shift wave train.
+All integer values have same effect
+(specifically, no effect).</item>
+  <item name="control$SquareWaveTrain$period">The period of the square wave.</item>
+  <item name="control$SquareWaveTrain$timeToRepeat">If timeToRepeat is greater than zero,
+the signal generated from time equals
+0 to timeToRepeat is repeated every
+timeToRepeat interval. Hence, this
+function can be used to generate a
+train of square wave trains.</item>
+  <item name="control$SawtoothTrain$startTime">The start time, when the sawtooth
+train begins.</item>
+  <item name="control$SawtoothTrain$duration">Duration of the sawtooth train.</item>
+  <item name="control$SawtoothTrain$amplitude">Value = amplitude*
+(startTime-t)/tdur +offset
+during period when sawtooth is rising.</item>
+  <item name="control$SawtoothTrain$offset">The offset or base value for the
+function during duration of sawtooth.</item>
+  <item name="control$SawtoothTrain$shapeFactor">1 for sawtooth always rising over
+entire period, 0 for always falling
+over entire period, 0.25 sawtooth
+rises in maximum value in 1st quarter
+of period, falls to offset value over
+last three quarters of period. A value
+less the zero will be defaulted to
+zero. Any value greater than 1 will be
+defaulted to 1.</item>
+  <item name="control$SawtoothTrain$phase">Fraction of period to shift wave train.
+All integer values have same effect
+(specifically, no effect).</item>
+  <item name="control$SawtoothTrain$period">The period of the square wave.</item>
+  <item name="control$SawtoothTrain$timeToRepeat">If timeToRepeat is greater than zero,
+the signal generated from time equals
+0 to timeToRepeat is repeated every
+timeToRepeat interval. Hence, this
+function can be used to generate a
+train of sawtooth wave trains.</item>
+  <item name="control$SineTrain$startTime">The start time, when the sine train
+begins.</item>
+  <item name="control$SineTrain$duration">Duration of the sine train.</item>
+  <item name="control$SineTrain$amplitude">Amplitude of the sine wave.</item>
+  <item name="control$SineTrain$offset">The offset or base value for the
+function during duration.</item>
+  <item name="control$SineTrain$phase">Fraction of period to shift sine
+wave. All integer values have same
+effect (specifically, no effect).
+A value of -0.25 makes this a
+cosine wave.</item>
+  <item name="control$SineTrain$period">Period of 1 cycle of the sine wave.</item>
+  <item name="control$SineTrain$timeToRepeat">If timeToRepeat is greater than zero,
+the signal generated from time equals
+0 to timeToRepeat is repeated every
+timeToRepeat interval. Hence, this
+function can be used to generate a
+train of sine wave trains.</item>
+  <item name="control$PDFParameters$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$PDFParameters$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$PDFParameters$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.</item>
+  <item name="control$PDFParameters$skewn">The skewness of the PDF.</item>
+  <item name="control$PDFParameters$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$PDFParameters$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$Exponential$area">The area of the PDFfunction. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$Exponential$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$Exponential$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.</item>
+  <item name="control$Exponential$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$Exponential$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$Gaussian$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$Gaussian$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$Gaussian$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.</item>
+  <item name="control$Gaussian$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$Gaussian$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$LagNormal$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$LagNormal$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$LagNormal$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.</item>
+  <item name="control$LagNormal$skewn">The skewness of the PDF.
+CAVEATS 2 .lt. skewn .le. 0.
+When skewn = 0, the  Gaussian
+PDF will be used and no Linear upslope.
+When skewn approaches 2, the
+&quot;Exponential&quot; PDF will be used.</item>
+  <item name="control$LagNormal$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$LagNormal$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$LagNormal$upslope">Choice of Regular or Linear (early
+part of rise of PDF replaced by
+linear approximation.</item>
+  <item name="control$GammaVar$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$GammaVar$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$GammaVar$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.
+CAVEAT:  The actual RD used is the
+smaller of RD and skewn/2.01.</item>
+  <item name="control$GammaVar$skewn">The skewness of the PDF.
+CAVEAT:  skewn is defaulted from a
+minimum of 0.267 to a maximum of
+1.999 if it exceeds these limits.
+The actual RD used is the smaller
+of RD and skewn/2.01.</item>
+  <item name="control$GammaVar$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$GammaVar$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$Poisson$area">The area of the PDFfunction. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$Poisson$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$Poisson$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.</item>
+  <item name="control$Poisson$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$Poisson$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$RandomWalk$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.</item>
+  <item name="control$RandomWalk$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable</item>
+  <item name="control$RandomWalk$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.
+CAVEAT:  The actual skewness used is
+the maximum of skewn and 3.001*rd.</item>
+  <item name="control$RandomWalk$skewn">The skewness of the PDF.
+CAVEAT:  The actual skewness used is
+the maximum of skewn and 3.001*rd.</item>
+  <item name="control$RandomWalk$frPeak">Fraction of the peak or maximum value
+of a PDF after which the PDF is
+truncated (set to zero). Normally
+defaulted to 1.0E-06. It causes
+truncation only after the peak. Usage
+is different for the Longtail PDF.</item>
+  <item name="control$RandomWalk$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of PDF pulses.</item>
+  <item name="control$DataCurve$ndim">The dimension of the Data object.
+Currently, only one dimensional
+data is supported.</item>
+  <item name="control$DataCurve$dataSet">A choice button listing tac files.</item>
+  <item name="control$DataCurve$name">The curve designation in the tac file.</item>
+  <item name="control$PSolverSettings$ode_Dopri5_reltol">Relative Error Tolerance</item>
+  <item name="control$PSolverSettings$ode_Dopri5_abstol">Absolute Error Tolerance</item>
+  <item name="control$PSolverSettings$ode_Dopri5_nstep">Maximum Number of Steps</item>
+  <item name="control$PSolverSettings$ode_Dopri5_stiff">Number of Steps before Stiffness Detection</item>
+  <item name="control$PSolverSettings$ode_Dopri5_round">The Rounding Unit</item>
+  <item name="control$PSolverSettings$ode_Dopri5_safety">The Safety Factor for Step Control</item>
+  <item name="control$PSolverSettings$ode_Dopri5_loselect">Relative Lower Bound for Step Selection</item>
+  <item name="control$PSolverSettings$ode_Dopri5_hiselect">Relative Upper Bound for Step Selection</item>
+  <item name="control$PSolverSettings$ode_Dopri5_beta">Beta for Step Control Stabilization</item>
+  <item name="control$PSolverSettings$ode_Euler_nstep">Number of Internal Steps</item>
+  <item name="control$PSolverSettings$ode_RK2_nstep">Number of Internal Steps</item>
+  <item name="control$PSolverSettings$ode_Fehlberg_minstep">Minimum Internal Step Size</item>
+  <item name="control$PSolverSettings$ode_Fehlberg_maxstep">Maximum Internal Step Size</item>
+  <item name="control$PSolverSettings$ode_Fehlberg_tol">Tolerance</item>
+  <item name="control$PSolverSettings$ode_KM_minstep">Minimum Internal Step Size</item>
+  <item name="control$PSolverSettings$ode_KM_maxstep">Maximum Internal Step Size</item>
+  <item name="control$PSolverSettings$ode_KM_tol">Tolerance</item>
+  <item name="control$PSolverSettings$ode_Radau_reltol">Relative Error Tolerance</item>
+  <item name="control$PSolverSettings$ode_Radau_abstol">Absolute Error Tolerance</item>
+  <item name="control$PSolverSettings$ode_Radau_nstep">Maximum Number of Steps</item>
+  <item name="control$PSolverSettings$ode_Radau_round">The Rounding Unit</item>
+  <item name="control$PSolverSettings$ode_Radau_safety">The Safety Factor for Step Control</item>
+  <item name="control$PSolverSettings$ode_Radau_minord">Minimum Order</item>
+  <item name="control$PSolverSettings$ode_Radau_maxord">Maximum Order</item>
+  <item name="control$PSolverSettings$ode_Radau_initord">Initial Order</item>
+  <item name="control$PSolverSettings$ode_Radau_newton">Starting Value of Newton Iterations</item>
+  <item name="control$PSolverSettings$ode_Radau_jacob">How often Jacobian should be calculated</item>
+  <item name="control$PSolverSettings$ode_Radau_losize">Relative Lower Bound for not Changing Step Size</item>
+  <item name="control$PSolverSettings$ode_Radau_hisize">Relative Upper Bound for not Changing Step Size</item>
+  <item name="control$PSolverSettings$ode_Radau_loselect">Relative Lower Bound for Step Selection</item>
+  <item name="control$PSolverSettings$ode_Radau_hiselect">Relative Upper Bound for Step Selection</item>
+  <item name="control$PSolverSettings$ode_Radau_locontract">Low Threshold of Contractivity Factor for Increasing Order</item>
+  <item name="control$PSolverSettings$ode_Radau_hicontract">High Threshold of Contractivity Factor for Decreasing Order</item>
+  <item name="control$PSolverSettings$ode_Radau_hiorder">Relative Upper Bound for Decreasing Order</item>
+  <item name="control$PSolverSettings$ode_Radau_loorder">Relative Lower Bound for Decreasing Order</item>
+  <item name="control$PSolverSettings$ode_RK4_nstep">Number of Internal Steps</item>
+  <item name="control$PSolverSettings$pde_Toms690_order">Order of Polynomial</item>
+  <item name="control$PSolverSettings$fzero_unbound">Algorithm for unbounded problems</item>
+  <item date="2005/03/02" name="control$PSolverSettings$fzero_bound">Algorithm for bounded problems</item>
+  <item name="control$PSolverSettings$fzero_errtol">Min required RMS error</item>
+  <item name="control$PSolverSettings$fzero_maxcalls">Max number of function calls per variable</item>
+  <item name="control$PSolverSettings$fzero_maxiters">Max number of iterations per variable</item>
+  <item name="control$PSolverSettings$fzero_istep">Initial parameter step</item>
+  <item name="control$PSolverSettings$fzero_eps">Relative error</item>
+  <item name="menu$GDataSetView$Encoding">Set storage encoding for this data set
+within a  project file.</item>
+  <item name="action$GDataSetView$legacy">This encoding is supported by all JSim version back to 1.6.00.
+However, it is very inefficient for large data sets.</item>
+  <item name="action$GDataSetView$ascii">This encoding is supported by only by JSim versions 1.6.47 and above.
+However, it is very efficient for large data sets.</item>
+  <item name="tab$GPlotGraph">Display the graph</item>
+  <item name="tab$GPlotText">Display the data used for plotting.</item>
+  <item date="2005/01/26" name="menu$GPlotPage$File">Manage the plot page and the data
+being plotted.</item>
+  <item name="menu$GPlotPage$#rows">Number of rows of plots for plot page.
+Plots are numbered sequentially from
+left to right, top to bottom.</item>
+  <item name="menu$GPlotPage$#columns">Number of columns of plots for plot page.
+Plots are numbered sequentially from
+left to right, top to bottom.</item>
+  <item name="action$GPlotPage$Clone this page ...">Create a duplicate of this plot page
+and give it a default name.</item>
+  <item name="action$GPlotPage$Remove this page ...">Delete this plot page.</item>
+  <item name="action$GPlotPage$Store project dataset ...">Store the data in a text format
+as a project dataset.</item>
+  <item name="action$GPlotPage$Export data file ...">Save this data set as a file.</item>
+  <item name="action$GPlotPage$Print graph(s) ...">Print the graph(s) displayed on the
+plot page.</item>
+  <item name="action$GPlotConf$Show Animation">Show animation configuration dialog.</item>
+  <item name="action$GPlotConf$axisBoundsSlider">Axis bounds slider.
+Drag center to adjust axis min and min.
+Double-click center for full data scale.
+Drag left or right tail to min or max separately.
+Double-click tails to move one range up or down.
+Only active when plot has data and autoscale off.</item>
+  <item name="action$GPlotAnime$Start">Start animation if idle.
+Stop animation if animation running or paused</item>
+  <item name="action$GPlotAnime$Pause">Cancel animation dialog if idle.
+Pause animation if animation running.
+Resume animation if animation paused.</item>
+  <item name="control$PlotAxis$log">Check box for logarithmic axis.
+Uncheck box for linear axis.</item>
+  <item name="control$PlotAxis$autoscale">Check box for Autoscaling of axis.
+Uncheck box for user-selected
+scaling of axis using Min and
+Max boxes on the right.</item>
+  <item name="control$PlotAxis$min">Set the minimum value for axis.
+Used with Autoscale box unchecked.</item>
+  <item name="control$PlotAxis$max">Set the maximum value for axis.
+Used with Autoscale box unchecked.</item>
+  <item name="control$PlotPage$liveUpdate">Plot data during run</item>
+  <item name="control$PlotPage$confPlot">Select a specific plot
+configurator.</item>
+  <item name="control$PlotPage$animeDuration">Duration for single animation loop, in seconds.</item>
+  <item name="control$PlotPage$animeRate">Animation frame rate (hz).
+Faster processors and smaller datasets
+allow faster frame rates.
+Frames may be dropped if rate is too high.</item>
+  <item name="control$PlotPage$animeDir">Direction of animation.</item>
+  <item name="control$PlotPage$animeLoop">When checked, animation will loop
+until manually stopped.</item>
+  <item name="control$Plot$style">Type of plot</item>
+  <item name="control$Plot$showLegend">Check box to show legend. Uncheck box
+to hide legend.</item>
+  <item name="control$Plot$confItem">Choose a curve number designation
+before choosing data source and
+expression to plot.</item>
+  <item name="control$Plot$confAxis">Choose axis for the controls to the
+right: Logarithmic or Linear scaling,
+Autoscale or user selected scale.</item>
+  <item name="control$PlotItem$show">Choose check box to show curve.
+Choose Uncheck box to hide curve.</item>
+  <item name="control$PlotItem$expr">Select the plot item from the
+corresponding data source or
+enter the name manually.
+Can also plot expressions of
+plot model variables, e.g.
+abs(sin(A+t)). Expressions
+involving datasets are NOT
+evaluated.</item>
+  <item name="control$PlotItem$xExpr">Choose the horizontal plot
+axis expression.
+Select the plot item from the
+corresponding data source or
+enter the name manually.
+Can also plot expressions of
+plot model variables, e.g.
+abs(sin(A+t)). Expressions
+involving datasets are NOT
+evaluated.</item>
+  <item name="control$PlotItem$color">Choose the color of the item plotted.</item>
+  <item name="control$PlotItem$shape">Choose the shape of the plot symbol.
+Select blank for no symbol.</item>
+  <item name="control$PlotItem$size">Choose the size of the plot symbol.</item>
+  <item name="control$PlotItem$line">Choose plot line texture solid, dashed,
+or no line.</item>
+  <item name="control$PlotItem$src">Source of the data to be plotted, e.g.,
+model, tac file dataset, dataset, etc.</item>
+  <item name="controlvalue$Plot$confAxis$X">Set controls for the horizontal axis.</item>
+  <item name="controlvalue$Plot$confAxis$Y">Set controls for the vertical axis.</item>
+  <item name="controlvalue$Plot$confItem$1">Curve 1</item>
+  <item name="controlvalue$Plot$confItem$2">Curve 2</item>
+  <item name="controlvalue$Plot$confItem$3">Curve 3</item>
+  <item name="controlvalue$Plot$confItem$4">Curve etc.</item>
+  <item name="controlvalue$PlotPage$liveUpdate$update during run">Plot data during run as it becomes
+available.</item>
+  <item name="controlvalue$PlotPage$liveUpdate$update after run">Plot data when run is finished.</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 1">Display configurator for plot 1</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 2">Display configurator for plot 2</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 3">Display configurator for plot 3</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 4">Display configurator for plot 4</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 5">Display configurator for plot 5</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 6">Display configurator for plot 6</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 7">Display configurator for plot 7</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 8">Display configurator for plot 8</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 9">Display configurator for plot 9</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 10">Display configurator for plot 10</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 11">Display configurator for plot 11</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 12">Display configurator for plot 12</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 13">Display configurator for plot 13</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 14">Display configurator for plot 14</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 15">Display configurator for plot 15</item>
+  <item name="controlvalue$PlotPage$confPlot$plot 16">Display configurator for plot 16</item>
+  <item name="controlvalue$PlotPage$animeDir$forward">Run animation from minimum to maximum value.</item>
+  <item name="controlvalue$PlotPage$animeDir$backward">Run animation from maximum to minimum value.</item>
+  <item name="controlvalue$Plot$style$XY plot">X vs. Y</item>
+  <item name="controlvalue$Plot$style$contour">3D plot in two dimensions</item>
+  <item name="controlvalue$Plot$style$colormap">3D plot in two dimensions</item>
+  <item name="controlvalue$Plot$style$surface">3D plot rendered as wire mesh</item>
+  <item date="2005/01/26" name="menu$GTree$Preferences">Manage appearance preferences.</item>
+  <item date="2005/01/26" name="menu$GTree$Help">Help on how to use JSim.</item>
+  <item date="2005/01/26" name="menu$GPlotPage$View">Manage graph appearance options.</item>
+  <item date="2005/01/26" name="menu$GPlotPage$Zoom">Plot zoom control.</item>
+  <item date="2005/01/26" name="menu$GPlotPage$Reset # rows ...">Number of plot rows in this page.</item>
+  <item date="2005/01/26" name="menu$GPlotPage$Reset # columns ...">Number of plot columns in this page.</item>
+  <item date="2005/01/26" name="menu$GDataSetView$File">File export options for this dataset.</item>
+  <item date="2005/01/26" name="action$GDataSetView$Export all data to file...">Export all curves in this dataset
+to an external file.</item>
+  <item date="2005/01/26" name="action$GDataSetView$Export selected data to file...">Export selected data curves only
+to an external file.</item>
+  <item date="2005/01/26" name="menu$GDataSetView$Edit">Manage curve names and content.
+Cut/copy/paste allows copying of
+curves between different datasets.</item>
+  <item date="2005/01/26" name="action$GDataSetView$cut">Put selected curves in copy buffer
+and remove from this dataset.</item>
+  <item date="2005/01/26" name="action$GDataSetView$copy">Copy selected curves to buffer 
+for use by paste.</item>
+  <item date="2005/01/26" name="action$GDataSetView$paste">Paste curve in copy buffer 
+into this dataset.</item>
+  <item date="2005/01/26" name="action$GDataSetView$rename">Rename selected curves.</item>
+  <item date="2005/01/26" name="action$GDataSetView$filter">Pop up filter options dialog
+to modify selected curves.</item>
+  <item date="2005/01/26" name="control$PDataSet$filterType">What type of filter?</item>
+  <item name="controlvalue$PDataSet$filterType$crop">Crop curve domain at low and high ends.</item>
+  <item name="controlvalue$PDataSet$filterType$resample">Resample curve over new regular domain.</item>
+  <item name="controlvalue$PDataSet$filterType$block">Block filter is not yet available.</item>
+  <item name="controlvalue$PDataSet$filterType$normal">Normal filter is not yet available.</item>
+  <item date="2005/01/26" name="control$PDataSet$filterMin">Low-end domain cutoff.</item>
+  <item date="2005/01/26" name="control$PDataSet$filterMax">High-end domain cutoff.</item>
+  <item date="2005/01/26" name="control$PDataSet$filterDelta">Resampled domain delta.</item>
+  <item name="control$PlotPage$showConf">Configurator allows you to modify data to be plotted.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show configurator">Configurator controls what data is
+to be placed in the page and how it
+is to be rendered.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show vertical rule">Rule allows vertical visual alignment
+within or between plots.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show horizontal rule">Rule allows horizontal alignment
+within or between plots.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show axis-bounds slider">Slider allows quick scrolling 
+throught large data sets,  including
+an option for animated scrolling.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show title">Plot title visibility control.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show legend">Plot legend visibility control.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show X-axis label">Plot X-axis label visibility control.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show Y-axis label">Plot Y-axis visibility control.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Show footer">Plot footer visibility control.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Autoscale all axes">Set all axes of current plot to autoscale.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Zoom out">Zoom out to previous plot axis ranges.</item>
+  <item date="2005/01/26" name="action$GPlotPage$Zoom in">Zoom in to previous plot axis ranges.</item>
+  <item date="2005/01/26" name="action$GProject$New data set">Create new empty data set within this 
+project.  Curves may then be pasted 
+into it from other data sets using the 
+data set &quot;Edit&quot; menu.</item>
+  <item date="2005/01/26" name="action$GTree$Bigger font">Make all the fonts bigger for easier reading.</item>
+  <item date="2005/01/26" name="action$GTree$Smaller font">Make all the fonts smaller to 
+conserve screen real estate.</item>
+  <item date="2005/01/26" name="action$GTree$Save preferences">Save current preferences for use in next
+JSim session by this user.  Preferences 
+are stored separately for each computer user.
+They are not stored in project files.</item>
+  <item date="2005/01/26" name="action$GTree$Blue background">The default JSim light blue background.</item>
+  <item date="2005/01/26" name="action$GTree$Aqua background">For those who prefer the undersea
+JSim experience.</item>
+  <item date="2005/01/26" name="action$GTree$Green background">Harkens back to the Emerald Isle and
+the wee people.</item>
+  <item date="2005/01/26" name="action$GTree$Pink background">Said to be soothing for prison 
+and asylum inmates.</item>
+  <item date="2005/01/26" name="action$GTree$Violet background">Roses are red,
+Violet is JSim...</item>
+  <item date="2005/01/26" name="action$GTree$Peach background">The light and fruity JSim experience.</item>
+  <item date="2005/01/26" name="action$GTree$Gray background">For the terminally dull.</item>
+  <item date="2005/01/26" name="action$GTree$Custom background color...">Fine-tune your JSim background color.</item>
+  <item date="2005/01/26" name="menu$GModelPars$ParSet">Manage the parameter sets 
+associated with this model.</item>
+  <item date="2005/01/26" name="action$GModel$Load project parameter set ...">Load the values from an existing
+project parameter set into this model.</item>
+  <item date="2005/01/26" name="action$GModel$Import XSim parameter file ...">Import parameter values from an external,
+legacy XSim paramater set (*.par) into
+this model.</item>
+  <item date="2005/01/26" name="action$GModel$Revert to model defaults">Set all model parameters back to 
+their compiled-in default values.</item>
+  <item date="2005/01/26" name="action$GModel$Forward ODE ICs from last run">Set the initial condition variables 
+for ODE variables to the final values 
+for those variables from the last run.
+Multi-dimensional variables and 
+variables whose initial conditions that 
+are calculated from other variables are 
+not affected.</item>
+  <item date="2005/01/26" name="action$GModel$Store parameter set">Store the current parameter values 
+for this model in the current parameter
+set (if any),  or in a new one (if not).</item>
+  <item date="2005/01/26" name="action$GModel$Store parameter set as ...">Store the current parameter values for
+this model in a new project parameter set.</item>
+  <item date="2005/01/26" name="menu$GModelPars$Pages">Control which page of model parameters
+is currently displayed.</item>
+  <item date="2005/01/26" name="action$GRTAuto$Inputs/Outputs">A page showing all model inputs 
+and output variables.</item>
+  <item date="2005/01/26" name="action$GRTAuto$Solvers">Controls settings for JSim&apos;s internal
+ODE/PDE solvers,  if relevant.</item>
+  <item date="2005/01/26" name="action$GModelPars$Back">Return to previously visited model
+parameter page.</item>
+  <item date="2005/01/26" name="action$GModelPars$Next">Go to the next model parameter page 
+in sequence.</item>
+  <item date="2005/01/26" name="action$GModel$Single Run">Run the model once.  Model output data 
+will not be available until a model is run.</item>
+  <item date="2005/01/26" name="menu$GModel$All_Runs">Other types of model runs.</item>
+  <item date="2005/01/26" name="action$GModel$Loops Run">Run the model multiple time based on
+the configuration in the model Loops tab.</item>
+  <item date="2005/01/26" name="action$GModel$Optimize">Run JSim&apos;s model parameter optimizer
+based on the configuration set in the
+model&apos;s Optimizer tab.</item>
+  <item date="2005/01/28" name="action$GModel$Sensitivity Run">Run JSim sensitivity analysis based on
+the configuration in this model&apos;s
+Sensitivity tab.  Once run,  plot variables
+of the form u@v,  where v in a sensitivity
+variable,  will be displayable.</item>
+  <item date="2005/01/26" name="menu$GModelDiag$File">Allows print and export of text in this page.</item>
+  <item date="2005/01/26" name="action$GModelDiag$Export text...">Export the page text to a external file.</item>
+  <item date="2005/01/26" name="action$GModelDiag$Print text...">Print the page text on a printer.</item>
+  <item date="2005/01/26" name="menu$GModelDiag$Edit">Text searching functions.</item>
+  <item date="2005/01/26" name="action$GModelDiag$go to line#">Go to a requested line number.</item>
+  <item date="2005/01/26" name="action$GModelDiag$find">Find a requested word or phrase in
+the page text.</item>
+  <item date="2005/01/26" name="action$GModelDiag$find again">Repeat the previous find operation.</item>
+  <item date="2005/01/26" name="menu$GModelDiag$View">Select which information to view in this page.</item>
+  <item date="2005/01/26" name="control$PModelLoops$Loop$mode">Turn loops on or off.</item>
+  <item date="2005/01/26" name="controlvalue$PModelLoops$Loop$mode$off">Turn this loop off.</item>
+  <item date="2005/01/26" name="controlvalue$PModelLoops$Loop$mode$manual">Turn this loop on,  and perform
+the number of loops explicity set
+by the user.</item>
+  <item date="2005/01/26" name="controlvalue$PModelLoops$Loop$mode$auto">Turn this loop on and automatically 
+calculate the number of loops to perform
+based on the &quot;Other Values&quot; column.
+If the number of loops can&apos;t be calculated
+automatically,  use the user-entered
+number of times.</item>
+  <item date="2005/01/26" name="control$PModelLoops$Loop$ntimes">Number of loops to perform.</item>
+  <item date="2005/01/26" name="control$PModelLoops$LoopPar$par">Paramter to vary during this loop.
+The first run will use the value 
+in the Start column.  Subsequent 
+runs will use values from the 
+&quot;Other Values&quot; column.</item>
+  <item date="2005/01/26" name="control$PModelLoops$LoopPar$values">Values to loop over for this parameter.
+This column may either contain a 
+comma-separated list of fixed values,  or
+the expressions &quot;@+N&quot;, &quot;@-N&quot;, &quot;@*N&quot; or
+&quot;@/N&quot; where N is a number.  In the latter
+case,  the parameter&apos;s value will be
+arithmetically re-adjusted for each run.</item>
+  <item date="2005/01/26" name="control$PModelSens$SensPar$par">Parameter to run sensitivity analysis on.
+A sensitivity run runs the model once 
+for the current parameter settings, and 
+once for each variable in  
+in this column.  Once a sensitivity run
+is complete,  users may plot data of 
+the form u:v when u is a any model variable
+and v is a variable from this column.</item>
+  <item date="2005/01/26" name="control$PModelSens$SensPar$delta">This delta value will be added to the
+parameter&apos;s current value during the 
+relevant model run.</item>
+  <item date="2005/01/26" name="control$PModelOptim$alg">Which optimization algorithm to use.</item>
+  <item date="2005/01/26" name="controlvalue$PModelOptim$alg$simplex">Simplex is a long-establish optimization
+that required minimum and maximum bounds
+be specified before the run.</item>
+  <item date="2005/01/26" name="controlvalue$PModelOptim$alg$ggopt">GGopt is an unbound optimization algorithm
+that does not require minimum or maximum
+bounds be set before the run.  Consequently,
+the values tested may cause some sensitive
+models to return non-sensical results.</item>
+  <item date="2005/01/26" name="control$PModelOptim$maxCalls">The maximum number of model runs 
+to call during this optimization.</item>
+  <item date="2005/01/26" name="control$PModelOptim$errTol">Optimization will stop if the 
+RMS error between model outputs and 
+reference data becomes less than this amount.</item>
+  <item date="2005/01/26" name="control$PModelOptim$stepTol">Optimization will stop once the algorithm
+starts adjust parameter values by less 
+than this amount.</item>
+  <item date="2005/01/26" name="control$PModelOptim$maxIters">The optimizer will stop if the number
+of iterations exceeds this number.  The 
+number of model runs in an iteration
+varies depending upon setup.</item>
+  <item date="2005/01/26" name="control$PModelOptim$gradTol">The optimization will stop if the 
+gradient becomes less than this amount.</item>
+  <item date="2005/01/26" name="control$PModelOptim$eps">The optimization will stop if the 
+relative error becomes less than this 
+amount.</item>
+  <item date="2005/01/26" name="control$PModelOptim$Par$par">Parameter to vary in seeking the best 
+data fit.</item>
+  <item date="2005/01/26" name="control$PModelOptim$Par$step">Initial step size for this parameter.</item>
+  <item date="2005/01/26" name="control$PModelOptim$Match$src">Data set containing reference data curve
+to match to model output.  If this column
+shows &quot;???&quot;,  that means there are no 
+datasets currently in the project and 
+you will need to create some before you
+can proceed further with optimization.
+You may import data sets from external 
+files in the Project tab &quot;Add&quot; menu,  or 
+store model data in a project data set
+from a plot page &quot;File&quot; menu.</item>
+  <item date="2005/01/26" name="control$PModelOptim$Match$data">Specifies the name of the data curve 
+(within the data set on the left) to 
+match to the model outputs during 
+optimization.</item>
+  <item date="2005/01/26" name="control$PModelOptim$Match$expr">Specifies the model output (or expression) 
+to match to the data curve (on the left) 
+during optimization.</item>
+  <item date="2005/01/26" name="menu$GModelCustom$File">This page is slated for revamping, 
+so is not documented at this time.</item>
+  <item date="2005/01/26" name="menu$GParSetView$File">Export and print options for this Parameter set.</item>
+  <item date="2005/01/26" name="action$GParSetView$Export text...">Export the page text to an external file.
+Note there is no corresponding import
+function. If you wish to copy a parameter
+set to another project,  use the 
+cut/copy/paste options in the Project
+tab Edit menu to accomplish this.</item>
+  <item date="2005/01/26" name="action$GParSetView$Print text...">Print the page text.</item>
+  <item date="2005/01/26" name="tab$GParSet">A project parameter set,  containing 
+parameters names and values pertaining 
+to one or more models.  Parameters comprise
+model input variables,  function generator
+parameters and numeric solver settings.</item>
+  <item date="2005/01/27" name="action$GModelDiag$View system units file">System units file (nsrunit.mod) 
+contains definitions for many common
+physical units used in models.</item>
+  <item date="2005/01/27" name="action$GModelDiag$View plan text">Plan text is a concise summary of
+the JSim planner output.  It is intended
+primarily for JSim internals developers,
+but may also be used by users to get 
+a sense for the order of model calculations.</item>
+  <item date="2005/01/27" name="action$GModelDiag$View MML text">MML text is the original model source
+code in JSim&apos;s Mathematical Modeling
+Language.</item>
+  <item date="2005/01/27" name="action$GModelDiag$View flat MML text">Flat MML text MML with all BCL (and
+other) templates expanded to their
+mathematical form. Flat MML 
+is available if a model
+uses such templates.</item>
+  <item date="2005/01/27" name="action$GModelDiag$View java text">Java text is the translation of the
+model source into executable java code.
+This is primarily of use to JSim 
+internals developers.</item>
+  <item date="2005/01/27" name="action$GPlotPage$1">Set # to 1.</item>
+  <item date="2005/01/27" name="action$GPlotPage$2">Set # to 2.</item>
+  <item date="2005/01/27" name="action$GPlotPage$3">Set # to 3.</item>
+  <item date="2005/01/27" name="action$GPlotPage$4">Set # to 4.</item>
+  <item date="2005/01/27" name="menu$GModelSrc$File">Import/export/print model source code.</item>
+  <item date="2005/01/27" name="action$GModelSrc$Import text (clear)...">Import model source from external 
+.mod file,  erasing previous contents.</item>
+  <item date="2005/01/27" name="action$GModelSrc$Import text (insert)...">Insert additional model source code
+from external .mod file into the
+existing source code.</item>
+  <item date="2005/01/27" name="action$GModelSrc$Export text...">Export model source code to file.</item>
+  <item date="2005/01/27" name="action$GModelSrc$Print text...">Print model source code.</item>
+  <item date="2005/01/27" name="action$GModelSrc$Compile">Compile the model.  A model must be
+compiled before it can be run.  If the
+compile is successful,  the model
+Run Time tab will be pushed forward.</item>
+  <item date="2005/01/27" name="tab$GModelSrc">Model source code editor &amp; compiler.</item>
+  <item date="2005/01/27" name="tab$GModelPars">Access to model run-time parameters
+and single run control.</item>
+  <item date="2005/01/27" name="tab$GModelDiag">Information for model developers,  
+including pre-defined physical units.</item>
+  <item date="2005/01/27" name="tab$GModelLoops">Configuration and run-time control
+for model loops,  allowing model
+runs with varying parameter values to
+be compared.</item>
+  <item date="2005/01/27" name="tab$GModelSens">Sensitivity analysis allows modelers to 
+quantify how infinitesimal changes in
+model parameters affect model outputs.</item>
+  <item date="2005/01/27" name="tab$GModelOptim">The optimizer allows you to automatically
+match model output to fixed reference 
+data by varying selected parameters.</item>
+  <item date="2005/01/27" name="tab$GModelCustom">Allows modeler to customize the appearance
+of the Run Time tab.  This page is
+scheduled for revamping,  and is not 
+futher documented.</item>
+  <item date="2005/01/27" name="tab$GImageSet">Image set editor is not yet implemented.</item>
+  <item date="2005/01/27" name="control$PModelOptim$Match$pointWgts">Relative RMS point weights within this 
+data curve.  Expression may be constant
+(giving equals weights) for vary based
+upon model domains.  For example, 
+&quot;exp(-t)&quot; would give exponentially decaying
+weights to data points (assuming t
+is a model realDomain).</item>
+  <item date="2005/01/27" name="control$PModelOptim$Match$step">Relative curve RMS weights.  This number
+has meaning only if multiple reference
+curves are selected.</item>
+  <item date="2005/01/27" name="action$GModelPars$New function generator">Create new function generator for
+this model,  whose values may then
+be assigned to one or more dynamical
+model input variables. Function generators
+may represent abstract mathematical 
+functions or sampled data from project
+data sets.</item>
+  <item date="2005/01/27" name="control$PSolverSettings$ode_which">Controls which ODE solver algorithm
+is used for all model ODE calculcations.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$Auto">Dopri5 is used initially. If the problem 
+is very stiff causing Dopri5
+to fail, Radau is used.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$Dopri5">Dopri5 (Dorman and Prince) is an explicit
+Runge-Kutta method of order
+5(4) for problems y&apos;=f(x,y) with 
+dense output of order 4.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$Radau">Radau is an implicit Runge-Kutta method 
+(Radau IIA) of variable order
+(switches automatically between orders 
+5, 9, and 13) for problems of
+the form My&apos;=f(x,y) with possibly 
+singular matrix M. Named for
+the french mathematician, R. Radau.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$KM">KM is the KUTTA-MERSON ODE solver 
+implementing the Merson-modified 
+Runge-Kutta method with adaptive steps.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$Fehlberg">Fehlberg is the Runge-Kutta Fehlberg 
+adaptive stepsize algorithm. It adjusts 
+the stepsize in such a way as to keep the
+absolute error in a step less than 
+absolute tolerance and the fractional 
+error less than relative tolerance.</item>
+  <item date="2008/09/25" name="controlvalue$PSolverSettings$ode_which$Euler">Euler gives the solution
+at the next step, n+1, as
+y(n+1) = y(n) +h*f(x(n),y(n))
+where h is the step size.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$RK4">Runge-Kutta 4th order algorithm with 
+fixed step size. The error is 5th order.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$ode_which$CVode">CVode uses variable order and variable 
+step size methods: backward differentiation
+formulas (BDF) for stiff systems;
+Implicit Adams for nonstiff systems. 
+For stiff problems uses explicit 
+predictor with implicit corrector.</item>
+  <item date="2005/01/27" name="control$PSolverSettings$pde_which">Controls which PDE solver algorithm  
+is used for all model PDE calculations.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$pde_which$LSFEA">LSFEA (Lagrangian sliding fluid element) 
+PDE solver solves parabolic PDE&apos;s in 
+1 space dimension by the method of time 
+splitting advection, radial exchange and
+conversion, and diffusion are solved
+in sequential order in each time step.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$pde_which$Toms731">An algorithm for solving time-dependent 
+(parabolic) PDEs in 1 space dimension. 
+It uses adaptive techniques to deal with 
+rapid spatial variations.</item>
+  <item date="2005/01/27" name="controlvalue$PSolverSettings$pde_which$Toms690">Chebyshev polynomial software for 
+elliptic-parabolic systems of PDEs.</item>
+  <item date="2005/02/02" name="menu$GModel$ParSet">Load/save/modify parameter set(s) 
+associated with this model.</item>
+  <item date="2005/02/11" name="action$GModelPars$Import custom RTML...">Import RTML (Run-time markup language)
+for customizing model run-time page 
+appearance.</item>
+  <item date="2005/02/11" name="action$GModelPars$Export custom RTML...">Export RTML (Run-time markup language)
+for customized menus &amp; pages for external
+edit and reimport.</item>
+  <item date="2005/02/11" name="action$GModelPars$Export default RTML...">Export RTML (Run-time markup language)
+for default model run-time appearance.
+Useful as template for customized RTML.</item>
+  <item date="2005/11/03" name="controlvalue$PSolverSettings$pde_which$MacCormack">2nd order finite difference method with
+optional flux-corrected transport for 
+hyperbolic and parabolic equations</item>
+  <item date="2005/11/03" name="control$PSolverSettings$pde_MacCormack_FCT">Use flux-corrected transport?</item>
+  <item date="2008/02/22" name="control$PModelOptim$initTemp">Initial &quot;temperature&quot; for simulated 
+annealing algorithm.  Temperature cools
+as algorithm proceeds, reducing random
+fluxuations.  Temperature here has no
+physical meaning (e.g. Celsius).</item>
+  <item date="2008/02/22" name="control$PModelOptim$npoints">Number of grid divisions per parameter.
+Grid search algorithm is most efficient
+when this number is odd.</item>
+  <item date="2008/02/22" name="control$PModelOptim$calcCovMat">Calculate covariance matrix and 
+parameter confidence limits after 
+optimization completes.  This takes
+several additional model run to complete,
+and so should be disabled when not needed.</item>
+  <item date="2008/02/26" name="control$PSolverSettings$random_seed">Random number seed, affecting values 
+returned by MML random() function. A 
+positive value returns a repeatable 
+sequence each model run.  A negative or
+zero values returns a new sequence each
+model run.</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$maxBuildTime">Maximum time for compilation, in seconds.</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$maxImplicitBlock">Maximum size of implicit equation solver 
+block.  Supported only in version 1.7.00 
+and above.</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$initNaN">Initialize variable caches to NaN before
+model run?</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$abortNaN">Abort run if NaN&apos;s calculated in any
+model variable.</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$traceNaN">Print trace messages if NaN&apos;s calculated
+in any model variables. (Supported by
+local server only).</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$traceVars">Comma separated list of variables to trace.
+Trace messages printed on console as
+model run proceeds. (Supported by
+local server only).</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$ignoreAllOverspec">Ignore all variable overspecified messages
+from compiler.  Supported only in version 
+1.7.00 and above.</item>
+  <item date="2008/04/21" name="control$PModelBuildOptions$ignoreAllUnderspec">Ignore all variable underspecified messages.
+Supported only in version 1.7.00 and above.</item>
+  <item date="2008/09/25" name="controlvalue$PSolverSettings$ode_which$RK2">RK2, also known as modified
+trapezoid or Heun method
+gives the solution at the
+next step, n+1, as
+y(n+1) = y(n) + h/2*(f1 + f2)
+where f1 and f2 are defined as
+f1 = f(x(n), y(n))
+f2 = f(x(n)+h, y(n)+h*f1)
+and h is the step size.</item>
+  <item date="2010/03/09" name="control$Longtail$area">The area of the PDF function. If
+less than or equal to zero, it is
+defaulted to a value of 1. Formally
+it is the integral from start time
+(usually take to be zero) to infinity
+of PDF(t)*dt where t is the independent
+variable and PDF(t) is a function of
+the independent variable. Area is used
+to scale the PDF so it is an
+appropriate model input.
+SPECIAL NOTE: The area will also be used
+to normalize the Longtail function after
+the PDF has been joined to the longtail.</item>
+  <item date="2010/03/09" name="control$Longtail$PDF">Choice of PDF function for the
+first part of the Longtail function.
+Choices are LagNormal, Gaussian, Poisson,
+Random Walk, and Gamma variate.</item>
+  <item date="2010/03/09" name="control$Longtail$tMean">The mean transit time of the PDF
+relative to the start time, t.min,
+where t is the independent realDomain
+variable. It is approximately the
+difference between the start time and
+when the peak of the PDF occurs.
+Formally, it is the integral from
+start time to infinity of
+PDF(t)*t*dt/area where t is the
+independent variable and PDF(t) is
+the PDF as a function of the
+independent variable. This is not the
+mean transit time of the longtail function.
+The mean transit time of the longtail function
+will usually be greater.</item>
+  <item date="2010/03/09" name="control$Longtail$RD">Relative dispersion of the PDF is the
+standard deviation of the PDF divided
+by the mean transit time. Formally,
+it is the square root of the integral
+from the start time (usually taken to
+be zero) to infinity (usually taken
+to be some large finite time) of
+PDF(t)*(t-tMean)*(t-tMean)*dt,
+all of which is divided by tMean.
+This is not the RD of the longtail
+function which is usually greater.</item>
+  <item date="2010/03/09" name="control$Longtail$skewn">The skewness of the PDF.
+See caveats for setting skewness
+for the specific PDF you have selected.
+Gaussian and Poisson PDFs do not use
+this parameter.</item>
+  <item date="2010/03/09" name="control$Longtail$tORfr">&gt;Choose either tJoin, the time
+where the the PDF will be joined
+by the longtail or frJoin, the
+fraction of the peak on the
+downslope where the PDF is
+joined. frJoin selects a
+specific time point for the
+cutoff and should not be used
+for optimization. Use tJoin
+instead.</item>
+  <item date="2010/03/09" name="control$Longtail$tJoin">The time where the
+the PDF is joined by either the
+sum of decaying exponentials or
+power law functions.</item>
+  <item date="2010/03/09" name="control$Longtail$frJoin">The fraction of the
+peak on the downslope side of
+the PDF where the PDF is joined
+by either the sum of decaying
+exponentials or power law
+functions. Use tJoin instead if
+optimizing.</item>
+  <item date="2010/03/09" name="control$Longtail$expORpow">Select either Exponential
+or Power Law for the type of
+longtail function desired.</item>
+  <item date="2010/03/09" name="control$Longtail$nExp">Number of exponential
+functions used, from 1 to 4.</item>
+  <item date="2010/03/09" name="control$Longtail$w1">Relative magnitude of
+first exponential function.
+Not optimizable if nExp=1 because
+sum of exponentials is rescaled
+to match PDF and slope at joining
+location.</item>
+  <item date="2010/03/09" name="control$Longtail$w2">Relative magnitude of
+second exponential function.
+If nExp=2, optimize only on w2
+and k2.</item>
+  <item date="2010/03/09" name="control$Longtail$w3">Relative magnitude of
+third exponential function.
+If nExp=3, optimize only on w2, w3,
+k2, and k3.</item>
+  <item date="2010/03/09" name="control$Longtail$w4">Relative magnitude of
+fourth exponential function.
+If nExp=3, optimize only on w2, w3, w4,
+k2, k3, and k4.</item>
+  <item date="2010/03/09" name="control$Longtail$k1">Relative magnitude of
+first exponential decay constant.
+Not optimizable if nExp=1 because
+k&apos;s are rescaled to match PDF and
+slope at joining location.</item>
+  <item date="2010/03/09" name="control$Longtail$k2">&gt;Relative magnitude of
+second exponential decay constant.
+If nExp=2, optimize only on w2
+and k2.</item>
+  <item date="2010/03/09" name="control$Longtail$k3">Relative magnitude of
+second exponential decay constant.
+If nExp=3, optimize only on w2, w3,
+k2, and k3.</item>
+  <item date="2010/03/09" name="control$Longtail$k4">Relative magnitude of
+second exponential decay constant.
+If nExp=3, optimize only on w2, w3, w4,
+k2, k3, and k4.</item>
+  <item date="2010/03/09" name="control$Longtail$nPow">Number of power law
+functions used, from 1 to 4.</item>
+  <item date="2010/03/09" name="control$Longtail$wpow1">Relative magnitude of
+first power law function.
+Not optimizable if nPow=1 because
+sum of power laws is rescaled
+to match PDF and slope at joining
+location.</item>
+  <item date="2010/03/09" name="control$Longtail$wpow2">Relative magnitude of
+second power law function.</item>
+  <item date="2010/03/09" name="control$Longtail$wpow3">Relative magnitude of
+third power law function.</item>
+  <item date="2010/03/09" name="control$Longtail$wpow4">Relative magnitude of
+fourth power law function.</item>
+  <item date="2010/03/09" name="control$Longtail$beta1">Absolute magnitude of
+first power law exponent.</item>
+  <item date="2010/03/09" name="control$Longtail$beta2">Absolute magnitude of
+second power law exponent.</item>
+  <item date="2010/03/09" name="control$Longtail$beta3">Absolute magnitude of
+third power law exponent.</item>
+  <item date="2010/03/09" name="control$Longtail$beta4">Absolute magnitude of
+fourth power law exponent.</item>
+  <item date="2010/03/09" name="control$Longtail$timeToRepeat">If not zero, the curve from time=0 to
+timeToRepeat is repeated every
+timeToRepeat interval. This parameter
+is used to generate a train of long tail 
+pulses.</item>
+  <item date="2010/03/09" name="control$Longtail$frPeak">&gt;Defines the fraction of
+the peak where the PDF is terminated
+and also where the Longtail function
+is terminated.  Appropriate value
+is  1.0E-06).</item>
+  <item date="2010/03/09" name="control$Longtail$upslope">Choice of Regular or Linear (early
+part of rise of PDF replaced by
+straight line. Used only
+if LagNormal PDF is selected.</item>
+  <item date="2010/05/28" name="controlvalue$ParSet$locked$locked">When a parameter set is locked, attempts 
+to replace it will result in a warning dialog.</item>
+</JSimHelp>

@@ -1,0 +1,88 @@
+Monte-Carlo Report
+
+Configuration:
+    # optimizations:  50
+    random seed:      2
+    distribution:     gaussian
+    magnitude:        .1
+    add method:       proportional
+
+Optimizer Tuning Parameters:
+    Algorithm       simplex
+    Max # runs      50
+    Min RMS error   0.0010
+    Min par step    1.0E-6
+
+Parameters to Vary:
+   Parameter        Start           Min            Max            Step     
+      amp             1              .1             5             .01      
+     decay            1              .1             5             .01      
+
+Data to Match:
+   Curve        Par/Expr         Point Wgts     Curve Wgt   
+     u              u                1              1       
+
+Parameter statistics:
+  parameter     mean         sd     
+     amp        1.964       .1275   
+    decay       .4854       .0515   
+
+Normalized Covariance Matrix:
+                 amp        decay   
+     amp          1         .9361   
+    decay       .9361         1     
+
+Parameter estimates:
+  opt#       amp        decay   
+    1       1.955       .4856   
+    2       2.061       .4975   
+    3         2         .5158   
+    4       2.106       .5316   
+    5       1.901       .467    
+    6         2         .5158   
+    7       2.027       .5067   
+    8       1.965       .4946   
+    9       1.914       .4613   
+   10       2.193        .58    
+   11       1.941       .4681   
+   12       2.024       .5369   
+   13       2.029       .5222   
+   14       1.844       .4699   
+   15       2.059       .5099   
+   16       1.966       .4866   
+   17       1.994       .518    
+   18       1.856       .4559   
+   19       1.859       .4718   
+   20       2.064       .5094   
+   21       2.018       .4926   
+   22       2.027       .4916   
+   23       1.959       .4967   
+   24       1.984       .492    
+   25       2.171       .5207   
+   26       2.154       .5656   
+   27       2.063       .5477   
+   28       2.098       .5402   
+   29         2         .5158   
+   30       2.178       .532    
+   31       1.965       .4924   
+   32       2.098       .5402   
+   33       1.945       .4699   
+   34       1.859       .4592   
+   35       1.901       .467    
+   36       1.901       .467    
+   37       1.965       .4924   
+   38       1.901       .467    
+   39       1.907       .4825   
+   40       2.064       .5094   
+   41       1.91        .4005   
+   42       1.965       .4946   
+   43       1.715        .39    
+   44       1.695       .3689   
+   45       1.984       .492    
+   46       1.608       .3323   
+   47       1.849       .4345   
+   48       1.966       .4866   
+   49       1.997       .5044   
+   50       1.588       .3194   
+
+

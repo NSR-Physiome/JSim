@@ -1,0 +1,36 @@
+# Fpack source-build makefile for XSim legacy models
+
+include $(JSIMHOME)/lib/Makefile.global
+
+# compile/link flags
+LDFLAGS  = $(FP_LDFLAGS)
+DFLAGS   = -DNEED_UNDERSCORE -D$(OS) -DMODEL $(MODEL_DFLAGS)
+IBASE    = $(JSIMSRC)/JSim/nonJava/include
+IFLAGS   = -I. -I../include -I $(IBASE)/$(JSIMOS) -I $(IBASE)
+
+# Programs
+JSXWRAP = jsxwrap.db
+
+# model targets
+MODELLIB = $(LIBPFX)jsx$(MODEL)$(LIBSFX)
+TEST     = test_$(MODEL)
+SRCS     = $(SRCS_F) $(SRCS_f) $(SRCS_c)
+OBJS     = $(SRCS_c:%.c=%.o) $(SRCS_F:%.F=%.o) $(SRCS_f:%.f=%.o)
+
+all: $(MODELLIB)
+
+$(MODELLIB): $(OBJS)
+	$(JSXWRAP) -f $(MODEL) $(OBJS) \
+	    -L../libxsleg -L../libfpack -ljsfpack -lxsleg
+
+test: $(TEST)
+
+$(TEST): ../test/testmain.o $(MODELLIB)
+	$(CC) -m32 -o $(TEST) ../test/testmain.o $(MODELLIB) $(FLIB) 
+
+install: $(MODELLIB)
+	cp $(MODELLIB) $(JSIMSRC)/native/$(JSIMOSARCH)/fpack
+
+clean:
+	$(RM) -f *.o $(MODELLIB) $(TEST)
+

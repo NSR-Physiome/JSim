@@ -1,0 +1,87 @@
+// This model generated automatically from SBML
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real comp1 = 10 L;
+  real comp2(time) L;
+  real p1(time);
+  real p2(time);
+  real p3(time);
+  real p4(time);
+  real p5(time);
+  real p6(time);
+  real p7(time);
+  real p8(time);
+  real S1 = 1 M;
+  real S2 mol;
+  real S3 M;
+  real S4 = 4 mol;
+  real S5(time) M;
+  real S6 mol;
+  real S7(time) M;
+  real S8 = 8 mol;
+
+  // equations
+  when (time=time.min) comp2 = 10;
+  comp2:time = 1;
+  p1 = S1;
+  p2 = S2;
+  p3 = S3;
+  p4 = S4;
+  p5 = S5;
+  p6 = S6;
+  p7 = S7;
+  p8 = S8;
+  S2 = 2*comp1;
+  S3 = 3/comp1;
+  when (time=time.min) S5 = 5;
+  (S5*comp2):time = 0;
+  when (time=time.min) S6 = 6*comp2;
+  when (time=time.min) S7 = 7/comp2;
+  (S7*comp2):time = 0;
+
+  // variable properties
+  comp1.sbmlRole="compartment";
+  comp2.sbmlRole="compartment";
+  p1.sbmlRole="parameter";
+  p2.sbmlRole="parameter";
+  p3.sbmlRole="parameter";
+  p4.sbmlRole="parameter";
+  p5.sbmlRole="parameter";
+  p6.sbmlRole="parameter";
+  p7.sbmlRole="parameter";
+  p8.sbmlRole="parameter";
+  S1.sbmlRole="species";
+  S1.sbmlCompartment="comp1";
+  S2.sbmlRole="species";
+  S2.sbmlCompartment="comp1";
+  S3.sbmlRole="species";
+  S3.sbmlCompartment="comp1";
+  S4.sbmlRole="species";
+  S4.sbmlCompartment="comp1";
+  S5.sbmlRole="species";
+  S5.sbmlCompartment="comp2";
+  S6.sbmlRole="species";
+  S6.sbmlCompartment="comp2";
+  S7.sbmlRole="species";
+  S7.sbmlCompartment="comp2";
+  S8.sbmlRole="species";
+  S8.sbmlCompartment="comp2";
+}
+

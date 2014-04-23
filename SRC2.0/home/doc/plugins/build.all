@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# build all the plugins in lower directories
+for i in my*
+do
+  echo ==== $i
+  cd $i
+  ./build
+  cd ..
+done

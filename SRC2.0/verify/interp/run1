@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1
+$JSBATCH -f PROJ/"$1".proj -out WORK/"$1".out -oplot -ofmt pretty
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

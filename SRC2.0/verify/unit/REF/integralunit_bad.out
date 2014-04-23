@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model integralunit
+aborted:  near line 10 token "}" Expression "v=integral(u@t)"
+Operands for '=' have incompatible units
+v has units m/sec = <1 m / sec>
+integral(u@t) has units m*sec = <1 m sec>
+

@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model event_mixdoms
+aborted: Action vars u and v have incompatible domains for event: if (t>5) { u=u+1 v=v+1 }
+
+
+

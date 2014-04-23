@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<JSim version="1.6.00">
+  <project name="proj1">
+    <plotpage name="plotpage_1">
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="showConf" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="1"/>
+        <control name="title" value="[Title]"/>
+        <control name="titleX" value="0.5"/>
+        <control name="titleY" value="1"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="legendX" value="1"/>
+        <control name="legendY" value="1"/>
+        <control name="updateFreq" value="after_run"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="0"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+          <control name="ticDigits" value="0"/>
+          <control name="ticIntervals" value="0"/>
+          <control name="ticDelta" value="0"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+          <control name="ticDigits" value="0"/>
+          <control name="ticIntervals" value="0"/>
+          <control name="ticDelta" value="0"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+          <control name="ticDigits" value="0"/>
+          <control name="ticIntervals" value="0"/>
+          <control name="ticDelta" value="0"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="tx"/>
+          <control name="expr" value="u"/>
+          <control name="color" value="black"/>
+          <control name="size" value="normal"/>
+          <control name="shape" value="circle"/>
+          <control name="line" value="solid"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <model name="tx">
+      <control name="desc" value=""/>
+      <control name="notes">
+</control>
+      <control name="modelSource">
+JSim v1.1
+
+math main {
+	realDomain t;
+	t.min=0; t.max=5; t.delta=1;
+	realDomain x;
+	x.min=-2; x.max=2; x.delta=0.5;
+	real u(t) = t^2;
+}
+
+
+
+</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value=""/>
+      <control name="parSetModified" value="true"/>
+      <control name="state" value="run"/>
+      <control name="customRTML">
+</control>
+      <control name="customBuilt" value="false"/>
+      <vars name="vars"/>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1.0E-7"/>
+            <control name="ode_Dopri5_abstol" value="1.0E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value="0.9"/>
+            <control name="ode_Dopri5_loselect" value="0.2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value="0.04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1.0E-4"/>
+            <control name="ode_Fehlberg_maxstep" value="0.1"/>
+            <control name="ode_Fehlberg_tol" value="1.0E-6"/>
+            <control name="ode_KM_minstep" value="1.0E-4"/>
+            <control name="ode_KM_maxstep" value="0.1"/>
+            <control name="ode_KM_tol" value="1.0E-6"/>
+            <control name="ode_Radau_reltol" value="1.0E-7"/>
+            <control name="ode_Radau_abstol" value="1.0E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1.0E-16"/>
+            <control name="ode_Radau_safety" value="0.9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="0"/>
+            <control name="ode_Radau_jacob" value="0.0010"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value="0.2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value="0.0020"/>
+            <control name="ode_Radau_hicontract" value="0.8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value="0.8"/>
+            <control name="ode_RK4_nstep" value="2"/>
+            <control name="pde_which" value="LSFEA"/>
+            <control name="pde_Toms690_order" value="3"/>
+          </solver>
+          <assign name="vars">
+            <control name="t.min" value="0"/>
+            <control name="t.max" value="5"/>
+            <control name="t.delta" value="1"/>
+            <control name="x.min" value="2*(-1)"/>
+            <control name="x.max" value="2"/>
+            <control name="x.delta" value="0.5"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="notes">
+</control>
+      </parset>
+      <imageset name="images"/>
+    </model>
+  </project>
+</JSim>

@@ -1,0 +1,292 @@
+      SUBROUTINE NL2SOL(ithred, IKLFLAG, f, N, 
+     +           P, X, IV, LIV, LV, V, FCNTL,MAXFN, IOUT,ISTOP)
+C
+C  ***  MINIMIZE A NONLINEAR SUM OF SQUARES USING RESIDUAL VALUES ONLY..
+C  ***  THIS AMOUNTS TO DNL2S1 WITHOUT THE SUBROUTINE PARAMETER CALCJ.
+C
+C  ***  PARAMETERS  ***
+C
+      DOUBLE PRECISION FCNTL
+      INTEGER MAXFN, IKLFLAG
+      INTEGER MAXCNT
+      INTEGER ISTOP
+c 
+c INPUT PARAMETERS:
+c INTEGER N, P, LIV, LV, MAXFN, IKLFLA, MAXFN
+c DOUBLE PRECISION X(P), V(LV)
+
+
+
+
+
+
+c FCNTL is the SumSquaredError controller
+c MAXFC is the MaximumFunction iterations
+c IKLFLAG is a kill flag set by JAVA
+      INTEGER ithred 
+      INTEGER N, P, LIV, LV
+C/6
+      INTEGER IV(LIV)
+      DOUBLE PRECISION X(P), V(LV)
+C/7
+C     INTEGER IV(LIV)
+C     DOUBLE PRECISION X(P), V(LV)
+C/
+      EXTERNAL f     
+      DOUBLE PRECISION f      
+C
+C-----------------------------  DISCUSSION  ----------------------------
+C
+C        THIS AMOUNTS TO SUBROUTINE NL2SNO (REF. 1) MODIFIED TO CALL
+C     DNL2IT.
+C        THE PARAMETERS FOR NL2SN ARE THE SAME AS THOSE FOR DNL2S1
+C     (WHICH SEE), EXCEPT THAT CALCJ IS OMITTED.  INSTEAD OF CALLING
+C     CALCJ TO OBTAIN THE JACOBIAN MATRIX OF R AT X, NL2SN COMPUTES
+C     AN APPROXIMATION TO IT BY FINITE (FORWARD) DIFFERENCES -- SEE
+C     V(DLTFDJ) BELOW.  NL2SN USES FUNCTION VALUES ONLY WHEN COMPUT-
+C     THE COVARIANCE MATRIX (RATHER THAN THE FUNCTIONS AND GRADIENTS
+C     THAT DNL2S1 MAY USE).  TO DO SO, NL2SN SETS IV(COVREQ) TO -1 IF
+C     IV(COVPRT) = 1 WITH IV(COVREQ) = 0 AND TO MINUS ITS ABSOLUTE
+C     VALUE OTHERWISE.  THUS V(DELTA0) IS NEVER REFERENCED AND ONLY
+C     V(DLTFDC) MATTERS -- SEE NL2SOL FOR A DESCRIPTION OF V(DLTFDC).
+C        THE NUMBER OF EXTRA CALLS ON f      USED IN COMPUTING THE JACO-
+C     BIAN APPROXIMATION ARE NOT INCLUDED IN THE FUNCTION EVALUATION
+C     COUNT IV(NFCALL) AND ARE NOT OTHERWISE REPORTED.
+C
+C V(DLTFDJ)... V(43) HELPS CHOOSE THE STEP SIZE USED WHEN COMPUTING THE
+C             FINITE-DIFFERENCE JACOBIAN MATRIX.  FOR DIFFERENCES IN-
+C             VOLVING X(I), THE STEP SIZE FIRST TRIED IS
+C                       V(DLTFDJ) * MAX(ABS(X(I)), 1/D(I)),
+C             WHERE D IS THE CURRENT SCALE VECTOR (SEE REF. 1).  (IF
+C             THIS STEP IS TOO BIG, I.E., IF CALCR SETS NF TO 0, THEN
+C             SMALLER STEPS ARE TRIED UNTIL THE STEP SIZE IS SHRUNK BE-
+C             LOW 1000 * MACHEP, WHERE MACHEP IS THE UNIT ROUNDOFF.
+C             DEFAULT = MACHEP**0.5.
+C
+C  ***  REFERENCES  ***
+C
+C 1.  DENNIS, J.E., GAY, D.M., AND WELSCH, R.E. (1981), AN ADAPTIVE
+C             NONLINEAR LEAST-SQUARES ALGORITHM, ACM TRANS. MATH.
+C             SOFTWARE, VOL. 7, NO. 3.
+C
+C  ***  GENERAL  ***
+C
+C     CODED BY DAVID M. GAY.
+C
+C+++++++++++++++++++++++++++  DECLARATIONS  +++++++++++++++++++++++++++
+C
+C  ***  EXTERNAL SUBROUTINES  ***
+C
+      EXTERNAL DDEFLT, DNL2IT, DMLPRP, D1MACH
+      DOUBLE PRECISION D1MACH
+C
+C DDEFLT.... PROVIDES DEFAULT IV AND V INPUT COMPONENTS.
+C DNL2IT.... CARRIES OUT OPTIMIZATION ITERATIONS.
+C DMLPRP... PRINTS REGRESSION DIAGNOSTICS.
+C
+C  ***  INTRINSIC FUNCTIONS  ***
+C/+
+      INTEGER IABS
+      DOUBLE PRECISION DABS, DMAX1
+C/
+C
+C  ***  LOCAL VARIABLES  ***
+C
+      LOGICAL ONERD, RSAVE, TWORD
+      INTEGER D1, DK, DR1, I, IN, IV1, J1K, K, NF, RD1, RD2,
+     1        RSAVE1, R1, RN
+      DOUBLE PRECISION H, HFAC, HLIM, NEGPT5, ONE, XK, ZERO
+C
+C  ***  IV AND V COMPONENTS  ***
+C
+      INTEGER COVPRT, COVREQ, D, DINIT, DLTFDJ, J, LASTV, MODE, NEXTV,
+     1        NF0, NF1, NFCALL, NFGCAL, R, RDREQ, REGD, TOOBIG, VNEED
+C/6
+      DATA COVPRT/14/, COVREQ/15/, D/27/, DINIT/38/, DLTFDJ/43/, J/70/,
+     1     LASTV/45/, MODE/35/, NEXTV/47/, NF0/68/, NF1/69/, NFCALL/6/,
+     2     NFGCAL/7/, R/61/, RDREQ/57/, REGD/67/, TOOBIG/2/, VNEED/4/
+C/7
+C     PARAMETER (COVPRT=14, COVREQ=15, D=27, DINIT=38, DLTFDJ=43, J=70,
+C    1           LASTV=45, MODE=35, NEXTV=47, NF0=68, NF1=69, NFCALL=6,
+C    2           NFGCAL=7, R=61, RDREQ=57, REGD=67, TOOBIG=2, VNEED=4)
+C/
+      DATA HLIM/0.D+0/
+      DATA HFAC/1.D+3/, NEGPT5/-0.5D+0/, ONE/1.D+0/, ZERO/0.D+0/
+      DOUBLE PRECISION XSAVE(5000), FSAVE
+C
+C---------------------------------  BODY  ------------------------------
+C
+      IV(1)=0
+      CALL DDEFLT(1,IV, LIV, LV, V)
+      IV(21)=IOUT
+      IV(6)=6
+      IV(17)=MAXFN
+      ISTOP  =0
+      IV(LIV-1)=0
+      MAXCNT=0
+      DO 5 I=1,P
+         XSAVE(I)=X(I)
+    5 CONTINUE
+      FSAVE=D1MACH(2)
+      IF (IV(1) .EQ. 0) CALL DDEFLT(1, IV, LIV, LV, V)
+      IV(COVREQ) = -IABS(IV(COVREQ))
+      IF (IV(COVPRT) .NE. 0 .AND. IV(COVREQ) .EQ. 0) IV(COVREQ) = -1
+      IV1 = IV(1)
+      ONERD = IV(RDREQ) .GE. 1
+      TWORD = IV(RDREQ) .GE. 3
+      IF (IV1 .EQ. 14) GO TO 10
+      IF (IV1 .GT. 2 .AND. IV1 .LT. 12) GO TO 10
+      IF (IV1 .EQ. 12) IV(1) = 13
+      R1 = 1
+      D1 = 1
+      DR1 = 1
+      RD1 = 1
+      RD2 = 1
+      RSAVE = .FALSE.
+      GO TO 20
+C
+ 10   D1 = IV(D)
+      DR1 = IV(J)
+      R1 = IV(R)
+      RN = R1 + N - 1
+      RD1 = R1
+      IF (ONERD) RD1 = RD1 + N
+      RD2 = RD1
+      IF (TWORD) RD2 = RD2 + N
+      RSAVE1 = RD2 + N
+      RSAVE = RSAVE1 + N .LE. DR1
+C
+ 20   IN = IV(VNEED) + P + N*(P+1)
+      IF (ONERD) IN = IN + N
+      IF (TWORD) IN = IN + N
+      IF (RSAVE) IN = IN + N
+      IV(VNEED) = IN
+C
+ 30   CALL DNL2IT(V(D1), V(DR1), IV, LIV, LV, N, 1, 1, N, P, V(R1),
+     1           V(RD1), V(RD2), V, X)
+C      IF (IABS(IV(1))-2) 50, 40, 120
+       IF (IABS(IV(1))-2.GT.0) GOTO 120
+       IF (IABS(IV(1))-2.LT.0) GOTO 50
+C
+C   ***  NEW GRADIENT REQUESTED -- MAKE SURE R IS CURRENT  ***
+C
+ 40   NF = IV(NFGCAL)
+      IF (NF .EQ. IV(NF1)) GO TO 70
+         IF (NF .NE. IV(NF0)) GO TO 60
+              CALL DCOPY(N, V(RSAVE1),1,V(R1),1)
+              IV(NF1) = IV(NF0)
+              GO TO 70
+C
+C  ***  NEW FUNCTION VALUE (R VALUE) NEEDED -- SAVE OLD ONE FIRST  ***
+C
+ 50   NF = IV(NFCALL)
+      IF (IV(MODE) .NE. 0 .OR. .NOT. RSAVE) GO TO 60
+         CALL DCOPY(N, V(R1),1,V(RSAVE1),1)
+         IV(NF0) = IV(NF1)
+C
+ 60   V(R1)=f(ithred,X)
+      MAXCNT=MAXCNT+1
+      IV(LIV-1)=MAXCNT
+      IF(V(R1).LT.FSAVE) THEN
+          DO 62 IFSAVE=1,P
+             XSAVE(IFSAVE)=X(IFSAVE)
+   62     CONTINUE
+      ENDIF
+      IF(V(R1).LE.FCNTL) THEN
+         ISTOP  = 1
+      ENDIF
+      IF(MAXCNT.GE.MAXFN) ISTOP  = 2
+      if(IKLFLAG.NE.0) ISTOP  = 3
+      IF((MAXCNT.GE.MAXFN).OR.(IKLFLAG.NE.0).OR.(ISTOP  .GE. 1)) THEN
+          DO 63 IFSAVE=1,P
+              X(IFSAVE)=XSAVE(IFSAVE)
+   63     CONTINUE
+          V(R1)=FSAVE
+          GOTO 999
+      ENDIF 
+      IV(NF1) = NF
+      IF (NF .LE. 0) IV(TOOBIG) = 1
+      IF (IV(1) .EQ. 1) GO TO 30
+C
+C  ***  COMPUTE FINITE-DIFFERENCE APPROXIMATION TO DR = GRAD. OF R  ***
+C
+ 70   IF (IV(1) .LT. 0) GO TO 30
+C
+C     *** INITIALIZE D IF NECESSARY ***
+C
+      IF (IV(MODE) .LT. 0 .AND. V(DINIT) .EQ. ZERO)
+     1        CALL DVSCPY(P, V(D1), ONE)
+C
+      J1K = DR1
+      DK = D1
+      DO 110 K = 1, P
+         XK = X(K)
+         H = V(DLTFDJ) * DMAX1(DABS(XK), ONE/V(DK))
+         DK = DK + 1
+ 80      X(K) = XK + H
+c        if((k.eq.4).AND.(X(4).NE.xsave(4))) write(*,*) p,'X(4)',x(4)
+         NF = IV(NFGCAL)
+         V(J1K)=f(ithred,X)
+      MAXCNT=MAXCNT+1
+      IV(LIV-1)=MAXCNT
+      IF(V(J1K).LE.FCNTL) THEN
+          ISTOP  = 1
+      ENDIF
+      IF(V(R1).LT.FSAVE) THEN
+          DO 162 IFSAVE=1,P
+             XSAVE(IFSAVE)=X(IFSAVE)
+  162     CONTINUE
+      ENDIF
+      IF(MAXCNT.GE.MAXFN) ISTOP  = 2
+      IF(IKLFLAG.NE.0) ISTOP  = 3
+      IF((MAXCNT.GE.MAXFN).OR.(IKLFLAG.NE.0).OR.(ISTOP  .GE. 1)) THEN
+          DO 163 IFSAVE=1,P
+              X(IFSAVE)=XSAVE(IFSAVE)
+  163     CONTINUE
+          V(R1)=FSAVE
+          GOTO 999
+      ENDIF 
+c NEXT STATEMENT INSERTED TO ALSO COUNT FUNCTION CALLS TO CALCULATE
+c JACOBIAN.
+         IV(NFCALL)=IV(NFCALL)+1
+         IF (NF .GT. 0) GO TO 90
+              IF (HLIM .EQ. ZERO) HLIM = HFAC * D1MACH(4)
+C             ***  HLIM = HFAC TIMES THE UNIT ROUNDOFF  ***
+              H = NEGPT5 * H
+              IF (DABS(H) .GE. HLIM) GO TO 80
+                   IV(TOOBIG) = 1
+                   GO TO 30
+ 90      X(K) = XK
+c        if((k.eq.4).AND.(X(4).NE.xsave(4))) write(*,*) P,'1X(4)',x(4)
+         DO 100 I = R1, RN
+              V(J1K) = (V(J1K) - V(I)) / H
+              J1K = J1K + 1
+ 100          CONTINUE
+ 110     CONTINUE
+      GO TO 30
+C
+C  ***  STORAGE ALLOCATION  ***
+C
+ 120  IF (IV(1) .NE. 14) GO TO 140
+      IV(D) = IV(NEXTV)
+      IV(R) = IV(D) + P
+      IN = IV(R) + N
+      IF (ONERD) IN = IN + N
+      IF (TWORD) IN = IN + N
+      IF (IN + N*(P+1) .GT. LV + 1) GO TO 130
+         IN = IN + N
+         IV(LASTV) = IV(LASTV) + N
+ 130  IV(J) = IN
+      IV(NEXTV) = IN + N*P
+      IV(NF0) = 0
+      IV(NF1) = 0
+      IF (IV1 .EQ. 13) GO TO 999
+      GO TO 10
+C
+ 140  IF (IV(REGD) .GT. 0) IV(REGD) = RD1
+      CALL DMLPRP(IV, LIV, LV, N, V(RD1), V(RD2), V)
+C
+ 999  RETURN
+C
+C  ***  LAST CARD OF NL2SN FOLLOWS  ***
+      END

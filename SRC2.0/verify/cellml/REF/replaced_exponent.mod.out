@@ -1,0 +1,788 @@
+/*
+ * A multiscale model to investigate circadian rhythmicity of pacemaker
+ * neurons in the suprachiasmatic nucleus
+ * 
+ * Model Status
+ * 
+ * This model runs in both OpenCell and COR to replicate the published
+ * results (figure 2). This CellML model translation is based on
+ * the curated SBML model in the BioModels database (BIOMD0000000246.xml)
+ * which in turn was based on the original author's Matlab code.
+ * Note that in order to replicate figure 2 the model has to be
+ * run for at least 200 hours to allow the oscillations to stabilise
+ * (and for 500 hours to clearly see the stablisation).
+ * 
+ * Model Structure
+ * 
+ * ABSTRACT: The suprachiasmatic nucleus (SCN) of the hypothalamus
+ * is a multicellular system that drives daily rhythms in mammalian
+ * behavior and physiology. Although the gene regulatory network
+ * that produces daily oscillations within individual neurons is
+ * well characterized, less is known about the electrophysiology
+ * of the SCN cells and how firing rate correlates with circadian
+ * gene expression. We developed a firing rate code model to incorporate
+ * known electrophysiological properties of SCN pacemaker cells,
+ * including circadian dependent changes in membrane voltage and
+ * ion conductances. Calcium dynamics were included in the model
+ * as the putative link between electrical firing and gene expression.
+ * Individual ion currents exhibited oscillatory patterns matching
+ * experimental data both in current levels and phase relationships.
+ * VIP and GABA neurotransmitters, which encode synaptic signals
+ * across the SCN, were found to play critical roles in daily oscillations
+ * of membrane excitability and gene expression. Blocking various
+ * mechanisms of intracellular calcium accumulation by simulated
+ * pharmacological agents (nimodipine, IP3- and ryanodine-blockers)
+ * reproduced experimentally observed trends in firing rate dynamics
+ * and core-clock gene transcription. The intracellular calcium
+ * concentration was shown to regulate diverse circadian processes
+ * such as firing frequency, gene expression and system periodicity.
+ * The model predicted a direct relationship between firing frequency
+ * and gene expression amplitudes, demonstrated the importance
+ * of intracellular pathways for single cell behavior and provided
+ * a novel multiscale framework which captured characteristics
+ * of the SCN at both the electrophysiological and gene regulatory
+ * levels.
+ * 
+ * The original paper reference is cited below:
+ * 
+ * A multiscale model to investigate circadian rhythmicity of pacemaker
+ * neurons in the suprachiasmatic nucleus, Vasalou C, Henson MA,
+ * 2010, PLoS Computational Biology, 6, e1000706. PubMed ID: 20300645
+ * 
+ * [[Image file: vasalou_henson_2010.png]]
+ * 
+ * Schematic representation of the SCN neuron model
+ * 
+ * [[Image file: leloup_2003.png]]
+ * 
+ * Leloup and Goldbeter 2003 model for circadian oscillations in
+ * mammals involving interlocked negative and positive regulations
+ * of Per, Cry, Bmal1, and Rev-Erb genes by their protein products.
+ */
+
+import nsrunit;
+unit conversion on;
+unit hour=3600 second^1;
+unit nanoM=1E-6 meter^(-3)*mole^1;
+unit per_nanoM=1E6 meter^3*mole^(-1);
+unit per_nanoM_0_2=15.84893192 meter^.6*mole^(-0.2);
+unit nanoM_2_2=6.3095734E-14 meter^(-6.6)*mole^2.2;
+unit nanoM_0_1=.25118864 meter^(-0.3)*mole^.1;
+unit nanoM_4_5=1E-27 meter^(-13.5)*mole^4.5;
+unit nanoM_0_8_per_hour=4.4024811E-9 meter^(-2.4)*second^(-1)*mole^.8;
+unit per_nanoM2=1E12 meter^6*mole^(-2);
+unit microM=1E-3 meter^(-3)*mole^1;
+// unit milliohm predefined
+unit microM_per_hour=2.7777778E-7 meter^(-3)*second^(-1)*mole^1;
+unit per_microM=1E3 meter^3*mole^(-1);
+unit per_kelvin=1 kelvin^(-1);
+unit per_microM_per_hour=.27777778 meter^3*second^(-1)*mole^(-1);
+unit milliM=1 meter^(-3)*mole^1;
+unit per_hour=2.7777778E-4 second^(-1);
+unit milliV=.001 kilogram^1*meter^2*second^(-3)*ampere^(-1);
+unit per_milliV=1E3 kilogram^(-1)*meter^(-2)*second^3*ampere^1;
+// unit gigaohm predefined
+unit picoA=1E-12 ampere^1;
+unit picoA_2_5=1E-30 ampere^2.5;
+unit nanoS=1E-9 kilogram^(-1)*meter^(-2)*second^3*ampere^2;
+unit per_nanoF=1E9 kilogram^1*meter^2*second^(-4)*ampere^(-2);
+unit nanoF=1E-9 kilogram^(-1)*meter^(-2)*second^4*ampere^2;
+unit coulomb_per_mole=1 second^1*ampere^1*mole^(-1);
+unit joule_per_mole_kelvin=1 kilogram^1*meter^2*second^(-2)*kelvin^(-1)*mole^(-1);
+unit flux=2.7777778E-10 meter^(-3)*second^(-1)*mole^1;
+unit hertz_1_9=1 second^(-1.9);
+unit first_order_rate_constant=2.7777778E-4 second^(-1);
+unit second_order_rate_constant=2.7777778E2 meter^3*second^(-1)*mole^(-1);
+unit per_milliM=1 meter^3*mole^(-1);
+property cellMLNames=string;
+
+math main {
+	realDomain time hour;
+	time.min=0;
+	extern time.max;
+	extern time.delta;
+	real V_K(time) nanoM;
+	V_K.cellMLNames="membrane.V_K;CB.V_K";
+	real fr(time) hertz;
+	fr.cellMLNames="membrane.fr;VIP.fr";
+	real v_sPC(time) flux;
+	v_sPC.cellMLNames="membrane.v_sPC;MP.v_sPC";
+	real Res(time) gigaohm;
+	Res.cellMLNames="membrane.Res";
+	real V_rest(time) milliV;
+	V_rest.cellMLNames="membrane.V_rest";
+	real V_reset(time) milliV;
+	V_reset.cellMLNames="membrane.V_reset";
+	real V_theta milliV;
+	V_theta.cellMLNames="membrane.V_theta";
+	V_theta=20.0;
+	real Cm nanoF;
+	Cm.cellMLNames="membrane.Cm";
+	Cm=5.0;
+	real R joule_per_mole_kelvin;
+	R.cellMLNames="membrane.R";
+	R=8.314;
+	real T kelvin;
+	T.cellMLNames="membrane.T";
+	T=37;
+	real T_abs kelvin;
+	T_abs.cellMLNames="membrane.T_abs";
+	T_abs=273.15;
+	real T_room kelvin;
+	T_room.cellMLNames="membrane.T_room";
+	T_room=22;
+	real F coulomb_per_mole;
+	F.cellMLNames="membrane.F";
+	F=96485;
+	real alpha(time) dimensionless;
+	alpha.cellMLNames="membrane.alpha";
+	real beta(time) dimensionless;
+	beta.cellMLNames="membrane.beta";
+	real beta_a(time) dimensionless;
+	beta_a.cellMLNames="membrane.beta_a";
+	real c(time) dimensionless;
+	c.cellMLNames="membrane.c";
+	real P_Ca per_milliM;
+	P_Ca.cellMLNames="membrane.P_Ca";
+	P_Ca=0.05;
+	real P_K(time) per_milliM;
+	P_K.cellMLNames="membrane.P_K";
+	real P_Na per_milliM;
+	P_Na.cellMLNames="membrane.P_Na";
+	P_Na=0.036;
+	real P_Cl per_milliM;
+	P_Cl.cellMLNames="membrane.P_Cl";
+	P_Cl=0.3;
+	real v_PK per_milliM;
+	v_PK.cellMLNames="membrane.v_PK";
+	v_PK=1.9;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real npk dimensionless;
+//	npk.cellMLNames="membrane.npk";
+//	npk=-2.0;
+	real K_PK per_nanoM2;
+	K_PK.cellMLNames="membrane.K_PK";
+	K_PK=1.0;
+	real V_R gigaohm;
+	V_R.cellMLNames="membrane.V_R";
+	V_R=0.41;
+	real membrane.K_R milliV;
+	membrane.K_R.cellMLNames="membrane.K_R";
+	membrane.K_R=34.0;
+	real Ca_ex microM;
+	Ca_ex.cellMLNames="membrane.Ca_ex";
+	Ca_ex=5.0;
+	real Na_ex milliM;
+	Na_ex.cellMLNames="membrane.Na_ex";
+	Na_ex=145.0;
+	real K_ex milliM;
+	K_ex.cellMLNames="membrane.K_ex";
+	K_ex=1.0;
+	real Cl_ex milliM;
+	Cl_ex.cellMLNames="membrane.Cl_ex";
+	Cl_ex=114.5;
+	real Na_in milliM;
+	Na_in.cellMLNames="membrane.Na_in";
+	real K_in milliM;
+	K_in.cellMLNames="membrane.K_in";
+	real theta_Na dimensionless;
+	theta_Na.cellMLNames="membrane.theta_Na";
+	real theta_K dimensionless;
+	theta_K.cellMLNames="membrane.theta_K";
+	real E_Na_0 milliV;
+	E_Na_0.cellMLNames="membrane.E_Na_0";
+	E_Na_0=45.0;
+	real E_Na milliV;
+	E_Na.cellMLNames="membrane.E_Na";
+	real g_Na nanoS;
+	g_Na.cellMLNames="membrane.g_Na";
+	g_Na=36.0;
+	real E_Ca(time) milliV;
+	E_Ca.cellMLNames="membrane.E_Ca";
+	real g_Ca(time) nanoS;
+	g_Ca.cellMLNames="membrane.g_Ca";
+	real g_K(time) nanoS;
+	g_K.cellMLNames="membrane.g_K";
+	real g_K0 nanoS;
+	g_K0.cellMLNames="membrane.g_K0";
+	g_K0=9.7;
+	real v_gk nanoS;
+	v_gk.cellMLNames="membrane.v_gk";
+	v_gk=10.0;
+	real K_gk nanoM;
+	K_gk.cellMLNames="membrane.K_gk";
+	K_gk=10.0;
+	real g_KCa(time) nanoS;
+	g_KCa.cellMLNames="membrane.g_KCa";
+	real v_KCa nanoS;
+	v_KCa.cellMLNames="membrane.v_KCa";
+	v_KCa=3.0;
+	real K_KCa per_nanoM;
+	K_KCa.cellMLNames="membrane.K_KCa";
+	K_KCa=0.16;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nkca dimensionless;
+//	nkca.cellMLNames="membrane.nkca";
+//	nkca=-1.0;
+	real g_L(time) nanoS;
+	g_L.cellMLNames="membrane.g_L";
+	real E_L_0 milliV;
+	E_L_0.cellMLNames="membrane.E_L_0";
+	E_L_0=-29.0;
+	real E_L milliV;
+	E_L.cellMLNames="membrane.E_L";
+	real E_K_0 milliV;
+	E_K_0.cellMLNames="membrane.E_K_0";
+	E_K_0=-97.0;
+	real E_K milliV;
+	E_K.cellMLNames="membrane.E_K";
+	real g_ex(time) nanoS;
+	g_ex.cellMLNames="membrane.g_ex";
+	real E_ex milliV;
+	E_ex.cellMLNames="membrane.E_ex";
+	E_ex=0.0;
+	real v_ex1 nanoS;
+	v_ex1.cellMLNames="membrane.v_ex1";
+	v_ex1=105.0;
+	real v_ex2 nanoS;
+	v_ex2.cellMLNames="membrane.v_ex2";
+	v_ex2=4.4;
+	real K_ex1 picoA_2_5;
+	K_ex1.cellMLNames="membrane.K_ex1";
+	K_ex1=574050000.0;
+	real K_ex2 per_microM;
+	K_ex2.cellMLNames="membrane.K_ex2";
+	K_ex2=1.0;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nex1 dimensionless;
+//	nex1.cellMLNames="membrane.nex1";
+//	nex1=2.5;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nex2 dimensionless;
+//	nex2.cellMLNames="membrane.nex2";
+//	nex2=-1.0;
+	real g_inhib nanoS;
+	g_inhib.cellMLNames="membrane.g_inhib";
+	g_inhib=12.3;
+	real E_inhib(time) milliV;
+	E_inhib.cellMLNames="membrane.E_inhib";
+	real GABA(time) nanoM;
+	GABA.cellMLNames="membrane.GABA";
+	real GABA0 nanoM;
+	GABA0.cellMLNames="membrane.GABA0";
+	GABA0=0.2;
+	real v_GABA nanoM;
+	v_GABA.cellMLNames="membrane.v_GABA";
+	v_GABA=19.0;
+	real K_GABA nanoM;
+	K_GABA.cellMLNames="membrane.K_GABA";
+	K_GABA=3.0;
+	real Cl_in(time) milliM;
+	Cl_in.cellMLNames="membrane.Cl_in";
+	real Cl0 milliM;
+	Cl0.cellMLNames="membrane.Cl0";
+	Cl0=1.0;
+	real v_Cl1 milliM;
+	v_Cl1.cellMLNames="membrane.v_Cl1";
+	v_Cl1=15.5;
+	real v_Cl2 milliM;
+	v_Cl2.cellMLNames="membrane.v_Cl2";
+	v_Cl2=19.0;
+	real K_Cl1 nanoM;
+	K_Cl1.cellMLNames="membrane.K_Cl1";
+	K_Cl1=4.0;
+	real K_Cl2 per_nanoM_0_2;
+	K_Cl2.cellMLNames="membrane.K_Cl2";
+	K_Cl2=1.0;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nCl dimensionless;
+//	nCl.cellMLNames="membrane.nCl";
+//	nCl=-0.2;
+	real i_Na(time) picoA;
+	i_Na.cellMLNames="membrane.i_Na";
+	real i_Na_abs(time) picoA;
+	i_Na_abs.cellMLNames="membrane.i_Na_abs";
+	real i_Ca(time) picoA;
+	i_Ca.cellMLNames="membrane.i_Ca";
+	real i_K(time) picoA;
+	i_K.cellMLNames="membrane.i_K";
+	real i_KCa(time) picoA;
+	i_KCa.cellMLNames="membrane.i_KCa";
+	real i_L(time) picoA;
+	i_L.cellMLNames="membrane.i_L";
+	real i_ex(time) picoA;
+	i_ex.cellMLNames="membrane.i_ex";
+	real i_inhib(time) picoA;
+	i_inhib.cellMLNames="membrane.i_inhib";
+	real I_star(time) picoA;
+	I_star.cellMLNames="membrane.I_star";
+	real R_star(time) milliohm;
+	R_star.cellMLNames="membrane.R_star";
+	real tau_m(time) second;
+	tau_m.cellMLNames="membrane.tau_m";
+	real theta(time) milliV;
+	theta.cellMLNames="membrane.theta";
+	real psi(time) dimensionless;
+	psi.cellMLNames="membrane.psi";
+	real k_q per_kelvin;
+	k_q.cellMLNames="membrane.k_q";
+	k_q=8.75e-5;
+	real k_MK nanoM;
+	k_MK.cellMLNames="membrane.k_MK";
+	k_MK=2.9;
+	real V_MK nanoM;
+	V_MK.cellMLNames="membrane.V_MK";
+	V_MK=5.0;
+	real V_b nanoM;
+	V_b.cellMLNames="membrane.V_b";
+	V_b=2.0;
+	real k_b dimensionless;
+	k_b.cellMLNames="membrane.k_b";
+	k_b=2.0;
+	real K_D nanoM;
+	K_D.cellMLNames="membrane.K_D";
+	K_D=0.08;
+	real v_sP0 flux;
+	v_sP0.cellMLNames="membrane.v_sP0";
+	v_sP0=1.0;
+	real C_T flux;
+	C_T.cellMLNames="membrane.C_T";
+	C_T=1.6;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nca dimensionless;
+//	nca.cellMLNames="membrane.nca";
+//	nca=2.2;
+	real v_Ca nanoS;
+	v_Ca.cellMLNames="membrane.v_Ca";
+	v_Ca=12.3;
+	real K_Ca nanoM_2_2;
+	K_Ca.cellMLNames="membrane.K_Ca";
+	K_Ca=22.0;
+	real K_C nanoM;
+	K_C.cellMLNames="membrane.K_C";
+	K_C=0.15;
+	real Ca_in(time) microM;
+	Ca_in.cellMLNames="membrane.Ca_in;Ca_in.Ca_in";
+	when(time=time.min) Ca_in=0.1;
+	real BC(time) nanoM;
+	BC.cellMLNames="membrane.BC;BC.BC;Ca_in.BC;BCP.BC;BN.BC";
+	when(time=time.min) BC=2.41;
+	real MP(time) nanoM;
+	MP.cellMLNames="membrane.MP;MP.MP;Ca_in.MP;PC.MP";
+	when(time=time.min) MP=2.8;
+	real VIP(time) nanoM;
+	VIP.cellMLNames="membrane.VIP;VIP.VIP";
+	when(time=time.min) VIP=0.0;
+	real CC(time) nanoM;
+	CC.cellMLNames="membrane.CC;CC.CC;Ca_in.CC;PC.CC;CCP.CC;PCC.CC";
+	when(time=time.min) CC=12.0;
+	real CB(time) nanoM;
+	CB.cellMLNames="membrane.CB;CB.CB";
+	when(time=time.min) CB=0.12;
+	real beta_IP3 dimensionless;
+	beta_IP3.cellMLNames="Ca_in.beta_IP3";
+	beta_IP3=0.5;
+	real Ca_store(time) nanoM;
+	Ca_store.cellMLNames="Ca_in.Ca_store";
+	when(time=time.min) Ca_store=0.1;
+	real v0(time) microM_per_hour;
+	v0.cellMLNames="Ca_in.v0";
+	real v1 microM_per_hour;
+	v1.cellMLNames="Ca_in.v1";
+	real v2(time) microM_per_hour;
+	v2.cellMLNames="Ca_in.v2";
+	real v3(time) microM_per_hour;
+	v3.cellMLNames="Ca_in.v3";
+	real v_kk per_microM_per_hour;
+	v_kk.cellMLNames="Ca_in.v_kk";
+	v_kk=3.3;
+	real v_v0 microM_per_hour;
+	v_v0.cellMLNames="Ca_in.v_v0";
+	v_v0=0.09;
+	real kf per_hour;
+	kf.cellMLNames="Ca_in.kf";
+	kf=0.001;
+	real k(time) per_microM_per_hour;
+	k.cellMLNames="Ca_in.k";
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nkk dimensionless;
+//	nkk.cellMLNames="Ca_in.nkk";
+//	nkk=0.1;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nv0 dimensionless;
+//	nv0.cellMLNames="Ca_in.nv0";
+//	nv0=4.5;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real Ca_in.m dimensionless;
+//	Ca_in.m.cellMLNames="Ca_in.m";
+//	Ca_in.m=6.0;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real Ca_in.n dimensionless;
+//	Ca_in.n.cellMLNames="Ca_in.n";
+//	Ca_in.n=2.2;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real p dimensionless;
+//	p.cellMLNames="Ca_in.p";
+//	p=4.2;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real v dimensionless;
+//	v.cellMLNames="Ca_in.v";
+//	v=2.0;
+	real K_kk nanoM_0_1;
+	K_kk.cellMLNames="Ca_in.K_kk";
+	K_kk=0.02;
+	real K_v0 nanoM_4_5;
+	K_v0.cellMLNames="Ca_in.K_v0";
+	K_v0=4.5;
+	real K_2 microM;
+	K_2.cellMLNames="Ca_in.K_2";
+	K_2=5.0;
+	real Ca_in.K_R microM;
+	Ca_in.K_R.cellMLNames="Ca_in.K_R";
+	Ca_in.K_R=3.0;
+	real K_A microM;
+	K_A.cellMLNames="Ca_in.K_A";
+	K_A=0.67;
+	real v_M1 microM_per_hour;
+	v_M1.cellMLNames="Ca_in.v_M1";
+	v_M1=0.0003;
+	real v_M2 microM_per_hour;
+	v_M2.cellMLNames="Ca_in.v_M2";
+	v_M2=149.5;
+	real v_M3 microM_per_hour;
+	v_M3.cellMLNames="Ca_in.v_M3";
+	v_M3=400.0;
+	real v_VIP flux;
+	v_VIP.cellMLNames="VIP.v_VIP";
+	v_VIP=0.5;
+	real K_VIP hertz_1_9;
+	K_VIP.cellMLNames="VIP.K_VIP";
+	K_VIP=15.0;
+	real kd_VIP nanoM_0_8_per_hour;
+	kd_VIP.cellMLNames="VIP.kd_VIP";
+	kd_VIP=0.5;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real nd_VIP dimensionless;
+//	nd_VIP.cellMLNames="VIP.nd_VIP";
+//	nd_VIP=0.2;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real n_VIP dimensionless;
+//	n_VIP.cellMLNames="VIP.n_VIP";
+//	n_VIP=1.9;
+	real vmP flux;
+	vmP.cellMLNames="MP.vmP";
+	vmP=1.1;
+	real kdmp first_order_rate_constant;
+	kdmp.cellMLNames="MP.kdmp";
+	kdmp=0.01;
+	real KAP nanoM;
+	KAP.cellMLNames="MP.KAP";
+	KAP=0.6;
+	real KmP nanoM;
+	KmP.cellMLNames="MP.KmP";
+	KmP=0.31;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real MP.n dimensionless;
+//	MP.n.cellMLNames="MP.n;model_parameters.n;MC.n";
+//	MP.n=4.0;
+	real BN(time) nanoM;
+	BN.cellMLNames="MP.BN;BN.BN;MC.BN;PCN.BN;MB.BN;BC.BN;BNP.BN;IN.BN";
+	when(time=time.min) BN=1.94;
+	real MC(time) nanoM;
+	MC.cellMLNames="MC.MC;CC.MC";
+	when(time=time.min) MC=2.0;
+	real vsC flux;
+	vsC.cellMLNames="MC.vsC";
+	vsC=1.1;
+	real vmC flux;
+	vmC.cellMLNames="MC.vmC";
+	vmC=1.0;
+	real kdmc first_order_rate_constant;
+	kdmc.cellMLNames="MC.kdmc";
+	kdmc=0.01;
+	real KAC nanoM;
+	KAC.cellMLNames="MC.KAC";
+	KAC=0.6;
+	real KmC nanoM;
+	KmC.cellMLNames="MC.KmC";
+	KmC=0.4;
+	real MB(time) nanoM;
+	MB.cellMLNames="MB.MB;BC.MB";
+	when(time=time.min) MB=7.94;
+	real vsB flux;
+	vsB.cellMLNames="MB.vsB";
+	vsB=1.0;
+	real vmB flux;
+	vmB.cellMLNames="MB.vmB";
+	vmB=0.8;
+	real kdmb first_order_rate_constant;
+	kdmb.cellMLNames="MB.kdmb";
+	kdmb=0.01;
+	real KIB nanoM;
+	KIB.cellMLNames="MB.KIB";
+	KIB=2.2;
+	real KmB nanoM;
+	KmB.cellMLNames="MB.KmB";
+	KmB=0.4;
+//	Var below replaced by constant in model eqns to satisfy unit correction
+//	real MB.m dimensionless;
+//	MB.m.cellMLNames="MB.m;model_parameters.m";
+//	MB.m=2.0;
+	real PC(time) nanoM;
+	PC.cellMLNames="PC.PC;PCP.PC;PCC.PC;CC.PC";
+	when(time=time.min) PC=0.4;
+	real ksP first_order_rate_constant;
+	ksP.cellMLNames="PC.ksP;model_parameters.ksP";
+	ksP=0.6;
+	real Kp nanoM;
+	Kp.cellMLNames="PC.Kp;model_parameters.Kp;CC.Kp;PCP.Kp;CCP.Kp;PCC.Kp;PCN.Kp;PCCP.Kp;PCNP.Kp;BC.Kp;BCP.Kp;BN.Kp;BNP.Kp";
+	Kp=0.1;
+	real Kdp nanoM;
+	Kdp.cellMLNames="PC.Kdp;model_parameters.Kdp;CC.Kdp;PCP.Kdp;CCP.Kdp;PCC.Kdp;PCN.Kdp;PCCP.Kdp;PCNP.Kdp;BC.Kdp;BCP.Kdp;BN.Kdp;BNP.Kdp";
+	Kdp=0.1;
+	real k3 second_order_rate_constant;
+	k3.cellMLNames="PC.k3;model_parameters.k3;CC.k3;PCC.k3";
+	k3=0.4;
+	real k4 first_order_rate_constant;
+	k4.cellMLNames="PC.k4;model_parameters.k4;CC.k4;PCC.k4";
+	k4=0.2;
+	real kdn first_order_rate_constant;
+	kdn.cellMLNames="PC.kdn;model_parameters.kdn;PCP.kdn;CCP.kdn;PCC.kdn;PCN.kdn;PCCP.kdn;PCNP.kdn;BC.kdn;BCP.kdn;BN.kdn;BNP.kdn;IN.kdn";
+	kdn=0.01;
+	real V1P flux;
+	V1P.cellMLNames="PC.V1P;model_parameters.V1P;PCP.V1P";
+	V1P=0.4;
+	real V2P flux;
+	V2P.cellMLNames="PC.V2P;model_parameters.V2P;PCP.V2P";
+	V2P=0.3;
+	real PCP(time) nanoM;
+	PCP.cellMLNames="PC.PCP;PCP.PCP";
+	when(time=time.min) PCP=0.13;
+	real PCC(time) nanoM;
+	PCC.cellMLNames="PC.PCC;PCC.PCC;CC.PCC;PCCP.PCC;PCN.PCC";
+	when(time=time.min) PCC=1.26;
+	real ksC first_order_rate_constant;
+	ksC.cellMLNames="CC.ksC;model_parameters.ksC";
+	ksC=1.6;
+	real kdnc first_order_rate_constant;
+	kdnc.cellMLNames="CC.kdnc;model_parameters.kdnc";
+	kdnc=0.12;
+	real V1C flux;
+	V1C.cellMLNames="CC.V1C;model_parameters.V1C;CCP.V1C";
+	V1C=0.6;
+	real V2C flux;
+	V2C.cellMLNames="CC.V2C;model_parameters.V2C;CCP.V2C";
+	V2C=0.1;
+	real CCP(time) nanoM;
+	CCP.cellMLNames="CC.CCP;CCP.CCP";
+	when(time=time.min) CCP=9.0;
+	real vdPC flux;
+	vdPC.cellMLNames="PCP.vdPC;model_parameters.vdPC";
+	vdPC=0.7;
+	real Kd nanoM;
+	Kd.cellMLNames="PCP.Kd;model_parameters.Kd;CCP.Kd;PCCP.Kd;PCNP.Kd;BCP.Kd;BNP.Kd;IN.Kd";
+	Kd=0.3;
+	real vdCC flux;
+	vdCC.cellMLNames="CCP.vdCC;model_parameters.vdCC";
+	vdCC=0.7;
+	real k1 first_order_rate_constant;
+	k1.cellMLNames="PCC.k1;model_parameters.k1;PCN.k1";
+	k1=0.45;
+	real k2 first_order_rate_constant;
+	k2.cellMLNames="PCC.k2;model_parameters.k2;PCN.k2";
+	k2=0.2;
+	real V1PC flux;
+	V1PC.cellMLNames="PCC.V1PC;model_parameters.V1PC;PCCP.V1PC";
+	V1PC=0.4;
+	real V2PC flux;
+	V2PC.cellMLNames="PCC.V2PC;model_parameters.V2PC;PCCP.V2PC";
+	V2PC=0.1;
+	real PCCP(time) nanoM;
+	PCCP.cellMLNames="PCC.PCCP;PCCP.PCCP";
+	when(time=time.min) PCCP=0.2;
+	real PCN(time) nanoM;
+	PCN.cellMLNames="PCC.PCN;PCN.PCN;BN.PCN;IN.PCN;PCNP.PCN";
+	when(time=time.min) PCN=0.16;
+	real k7 second_order_rate_constant;
+	k7.cellMLNames="PCN.k7;model_parameters.k7;BN.k7;IN.k7";
+	k7=0.5;
+	real k8 first_order_rate_constant;
+	k8.cellMLNames="PCN.k8;model_parameters.k8;BN.k8;IN.k8";
+	k8=0.1;
+	real V3PC flux;
+	V3PC.cellMLNames="PCN.V3PC;model_parameters.V3PC;PCNP.V3PC";
+	V3PC=0.4;
+	real V4PC flux;
+	V4PC.cellMLNames="PCN.V4PC;model_parameters.V4PC;PCNP.V4PC";
+	V4PC=0.1;
+	real PCNP(time) nanoM;
+	PCNP.cellMLNames="PCN.PCNP;PCNP.PCNP";
+	when(time=time.min) PCNP=0.091;
+	real IN(time) nanoM;
+	IN.cellMLNames="PCN.IN;IN.IN;BN.IN";
+	when(time=time.min) IN=0.05;
+	real vdPCC flux;
+	vdPCC.cellMLNames="PCCP.vdPCC;model_parameters.vdPCC";
+	vdPCC=0.7;
+	real vdPCN flux;
+	vdPCN.cellMLNames="PCNP.vdPCN;model_parameters.vdPCN";
+	vdPCN=0.7;
+	real ksB first_order_rate_constant;
+	ksB.cellMLNames="BC.ksB;model_parameters.ksB";
+	ksB=0.12;
+	real k5 first_order_rate_constant;
+	k5.cellMLNames="BC.k5;model_parameters.k5;BN.k5";
+	k5=0.4;
+	real k6 first_order_rate_constant;
+	k6.cellMLNames="BC.k6;model_parameters.k6;BN.k6";
+	k6=0.2;
+	real V1B flux;
+	V1B.cellMLNames="BC.V1B;model_parameters.V1B;BCP.V1B";
+	V1B=0.5;
+	real V2B flux;
+	V2B.cellMLNames="BC.V2B;model_parameters.V2B;BCP.V2B";
+	V2B=0.1;
+	real BCP(time) nanoM;
+	BCP.cellMLNames="BC.BCP;BCP.BCP";
+	when(time=time.min) BCP=0.48;
+	real vdBC flux;
+	vdBC.cellMLNames="BCP.vdBC;model_parameters.vdBC";
+	vdBC=0.5;
+	real V3B flux;
+	V3B.cellMLNames="BN.V3B;model_parameters.V3B;BNP.V3B";
+	V3B=0.5;
+	real V4B flux;
+	V4B.cellMLNames="BN.V4B;model_parameters.V4B;BNP.V4B";
+	V4B=0.2;
+	real BNP(time) nanoM;
+	BNP.cellMLNames="BN.BNP;BNP.BNP";
+	when(time=time.min) BNP=0.32;
+	real vdBN flux;
+	vdBN.cellMLNames="BNP.vdBN;model_parameters.vdBN";
+	vdBN=0.6;
+	real vdIN flux;
+	vdIN.cellMLNames="IN.vdIN;model_parameters.vdIN";
+	vdIN=0.8;
+	real K1CB nanoM;
+	K1CB.cellMLNames="CB.K1CB";
+	K1CB=0.01;
+	real K2CB nanoM;
+	K2CB.cellMLNames="CB.K2CB";
+	K2CB=0.01;
+	real WT hour;
+	WT.cellMLNames="CB.WT";
+	WT=1.0;
+	real vP nanoM;
+	vP.cellMLNames="CB.vP";
+	vP=1.0;
+
+	// <component name="environment">
+
+	// <component name="membrane">
+	I_star=(g_Na*E_Na+g_Ca*E_Ca+g_K*E_K+g_L*E_L+g_KCa*E_K-(g_inhib*E_inhib+g_ex*E_ex));
+	R_star=(1/(g_Na+g_K+g_L+g_Ca+g_KCa-(g_inhib+g_ex)));
+	fr=((-1)/(tau_m*ln((theta-R_star*I_star)/(V_reset-R_star*I_star))));
+	tau_m=(Cm*R_star);
+	V_rest=(R*(T+T_abs)/F*ln(psi)*1E3);
+	theta=(V_rest+V_theta);
+	V_reset=(V_rest+(4 milliV));
+	psi=((sqrt(beta_a^2-4*alpha*c)-beta_a)/(2*alpha));
+	alpha=(4*P_Ca*Ca_in*.001+P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex);
+	beta_a=(P_K*K_in+P_Na*Na_in+P_Cl*Cl_ex-(P_K*K_ex+P_Na*Na_ex+P_Cl*Cl_in));
+	c=((-1)*(P_K*K_ex+4*P_Ca*Ca_ex*.001+P_Na*Na_ex+P_Cl*Cl_in));
+	P_K=(v_PK*(BC^(-2)/(K_PK+BC^(-2))));
+	Res=(V_R*(V_rest/(membrane.K_R+V_rest)));
+	K_in=(K_ex/theta_K);
+	Na_in=(Na_ex/theta_Na);
+	theta_K=exp(E_K/(k_q*(T+T_abs)*(1E3 milliV)));
+	theta_Na=exp(E_Na/(k_q*(T+T_abs)*(1E3 milliV)));
+	E_K=(E_K_0*(T+T_abs)/(T_room+T_abs));
+	E_Na=(E_Na_0*(T+T_abs)/(T_room+T_abs));
+	E_L=(E_L_0*(T+T_abs)/(T_room+T_abs));
+	E_Ca=(k_q*(T+T_abs)/2*ln(Ca_ex/Ca_in)*(1E3 milliV));
+	E_inhib=((-1)*k_q*(T+T_abs)*ln(Cl_ex/Cl_in)*(1E3 milliV));
+	i_Na=(g_Na*(V_rest-E_Na));
+	i_Na_abs=sqrt(i_Na^2);
+	g_K=(g_K0+v_gk*(MP/(K_gk+MP)));
+	i_K=(g_K*(V_rest-E_K));
+	g_Ca=(v_Ca*(MP^2.2/(K_Ca+MP^2.2)));
+	i_Ca=(g_Ca*(V_rest-E_Ca));
+	g_KCa=(v_KCa*(CC^(-1)/(K_KCa+CC^(-1))));
+	i_KCa=(g_KCa*(V_rest-E_K));
+	g_L=(1/Res);
+	i_L=(g_L*(V_rest-E_L));
+	g_ex=(v_ex1*(i_Na_abs^2.5/(K_ex1+i_Na_abs^2.5))+v_ex2*(Ca_in^(-1)/(K_ex2+Ca_in^(-1))));
+	i_ex=(g_ex*(V_rest-E_ex));
+	i_inhib=(g_inhib*(V_rest-E_inhib));
+	GABA=(GABA0+v_GABA*VIP/(K_GABA+VIP));
+	beta=(VIP/(VIP+K_D));
+	v_sPC=(v_sP0+C_T*CB/(K_C+CB));
+	Cl_in=(Cl0+v_Cl1*(MP/(K_Cl1+MP))+v_Cl2*(GABA^(-0.2)/(K_Cl2+GABA^(-0.2))));
+	V_K=(V_MK*Ca_in/(k_MK+Ca_in)+V_b*beta/(k_b+beta));
+
+	// <component name="Ca_in">
+	Ca_in:time=(v0+v1+v3+kf*Ca_store-(v2+k*Ca_in^2));
+	Ca_store:time=(v2-(v3+kf*Ca_store));
+	k=(v_kk*(CC^.1/(K_kk+CC^.1)));
+	v0=(v_v0*(BC^4.5/(K_v0+BC^4.5)));
+	v1=(v_M1*beta_IP3);
+	v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)));
+	v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2)));
+
+	// <component name="VIP">
+	VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2);
+
+	// <component name="MP">
+	MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP));
+
+	// <component name="MC">
+	MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC));
+
+	// <component name="MB">
+	MB:time=(vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB));
+
+	// <component name="PC">
+	PC:time=(ksP*MP+V2P*(PCP/(Kdp+PCP))+k4*PCC-(V1P*(PC/(Kp+PC))+k3*PC*CC+kdn*PC));
+
+	// <component name="CC">
+	CC:time=(ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC));
+
+	// <component name="PCP">
+	PCP:time=(V1P*(PC/(Kp+PC))-(V2P*(PCP/(Kdp+PCP))+vdPC*(PCP/(Kd+PCP))+kdn*PCP));
+
+	// <component name="CCP">
+	CCP:time=(V1C*(CC/(Kp+CC))-(V2C*(CCP/(Kdp+CCP))+vdCC*(CCP/(Kd+CCP))+kdn*CCP));
+
+	// <component name="PCC">
+	PCC:time=(V2PC*(PCCP/(Kdp+PCCP))+k3*PC*CC+k2*PCN-(V1PC*(PCC/(Kp+PCC))+k4*PCC+k1*PCC+kdn*PCC));
+
+	// <component name="PCN">
+	PCN:time=(V4PC*(PCNP/(Kdp+PCNP))+k1*PCC+k8*IN-(V3PC*(PCN/(Kp+PCN))+k2*PCN+k7*BN*PCN+kdn*PCN));
+
+	// <component name="PCCP">
+	PCCP:time=(V1PC*(PCC/(Kp+PCC))-(V2PC*(PCCP/(Kdp+PCCP))+vdPCC*(PCCP/(Kd+PCCP))+kdn*PCCP));
+
+	// <component name="PCNP">
+	PCNP:time=(V3PC*(PCN/(Kp+PCN))-(V4PC*(PCNP/(Kdp+PCNP))+vdPCN*(PCNP/(Kd+PCNP))+kdn*PCNP));
+
+	// <component name="BC">
+	BC:time=(V2B*(BCP/(Kdp+BCP))+k6*BN+ksB*MB-(V1B*(BC/(Kp+BC))+k5*BC+kdn*BC));
+
+	// <component name="BCP">
+	BCP:time=(V1B*(BC/(Kp+BC))-(V2B*(BCP/(Kdp+BCP))+vdBC*(BCP/(Kd+BCP))+kdn*BCP));
+
+	// <component name="BN">
+	BN:time=(V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN));
+
+	// <component name="BNP">
+	BNP:time=(V3B*(BN/(Kp+BN))-(V4B*(BNP/(Kdp+BNP))+vdBN*(BNP/(Kd+BNP))+kdn*BNP));
+
+	// <component name="IN">
+	IN:time=(k7*BN*PCN-(k8*IN+vdIN*(IN/(Kd+IN))+kdn*IN));
+
+	// <component name="CB">
+	CB:time=((V_K*((1 nanoM)-CB)/(K1CB+(1 nanoM)-CB)-vP*CB/(K2CB+CB))/WT);
+
+	// <component name="model_parameters">
+}
+

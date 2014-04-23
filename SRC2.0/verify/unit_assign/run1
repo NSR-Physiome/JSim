@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. ../run.common
+
+LABEL=$1
+shift
+ARGS="$*"
+
+for M in units nounits
+do
+  echo ==== $LABEL $M
+  MOD=MOD/"$M".mod
+  OUT=WORK/"$LABEL"_"$M".out
+  echo $ARGS > $OUT
+
+  $JSBATCH -f $MOD -o a b Cin Cout -i $ARGS >> $OUT 2>&1
+done
+

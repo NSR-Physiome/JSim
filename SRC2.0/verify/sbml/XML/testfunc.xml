@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by sblToSBML version 1.0 -->
+<sbml level = "2" version = "1" xmlns = "http://www.sbml.org/sbml/level2" >
+<model id = "mod" name = "mod">
+
+<listOfCompartments>
+  <compartment id = "comp1" size = "10" />
+</listOfCompartments>
+
+<listOfFunctionDefinitions>
+  <functionDefinition id="f1">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+       <lambda>
+         <bvar> <ci> A</ci> </bvar>
+         <bvar> <ci> B</ci> </bvar>
+         <apply>
+	   <divide/>
+	   <ci> A </ci>
+	   <ci> B </ci>
+	 </apply>
+       </lambda>
+    </math>
+  </functionDefinition>
+</listOfFunctionDefinitions>
+
+<listOfSpecies>
+   <species compartment="comp1" id="X1"   hasOnlySubstanceUnits="true" initialAmount = "22" />
+   <species compartment="comp1" id="X2"   hasOnlySubstanceUnits="true" initialAmount = "33" />
+   <species compartment="comp1" id="X3"   hasOnlySubstanceUnits="true" initialAmount = "33" />
+</listOfSpecies>
+ 
+<listOfRules>
+  <assignmentRule variable="X3">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <ci> f1 </ci>
+	<ci> X1 </ci>
+	<ci> X2 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+</listOfRules>
+
+</model>
+</sbml>

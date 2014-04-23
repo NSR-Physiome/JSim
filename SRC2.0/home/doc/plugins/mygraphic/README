@@ -1,0 +1,16 @@
+  To build the plugin (MyGraphic.jar):
+
+./build
+
+  To run a plugin test:
+
+jsim -f heart.mod -plugin MyGraphic.jar
+
+Project->Add->New graphic(plugin)
+
+Choose plugin "mine" (click OK)
+
+Compile heart model and run
+ 
+Graphic should should show varying heart volumes as model runs
+

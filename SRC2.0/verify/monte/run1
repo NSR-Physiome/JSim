@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. ../run.common
+
+PROJ=$1
+
+echo "==== $PROJ"
+$JSBATCH -f PROJ/$PROJ.proj -monte -oreport -out WORK/$PROJ.out
+

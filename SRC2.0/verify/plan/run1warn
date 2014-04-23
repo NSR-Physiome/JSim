@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. ../run.common
+
+echo ==== $1 warn
+$JSBATCH -oplan -f MODWARN/"$1".mod > /dev/null 2> WORK/"$1"_warn.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+

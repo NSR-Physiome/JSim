@@ -1,0 +1,63 @@
+JSim v1.1
+
+
+unit dimensionless = 1  dimensionless;
+unit radian = 1  dimensionless;
+math test1 {
+	realDomain t;
+	real r1.vol;
+	real r1.S(t);
+	real r1.P(t);
+	real r2.vol;
+	real r2.S(t);
+	real r2.P(t);
+	real r3.vol;
+	real r3.S(t);
+	real r3.P(t);
+	real f1.flow(t);
+	real f1.S(t);
+	real f1.P(t);
+	private real f2.flow(t);
+	real f2.S(t);
+	real f2.P(t);
+	private real f3.flow(t);
+	real f3.S(t);
+	real f3.P(t);
+	extern real inj.flux(t);
+	real trS1.PS(t);
+	real trP1.PS(t);
+	real reac.kf(t);
+	real reac.kb(t);
+	t.min = 0;
+	t.max = 10;
+	t.delta = .1;
+	r1.vol = .05;
+	r2.vol = .3;
+	r3.vol = .1;
+	reac.kf = .02;
+	reac.kb = 0;
+	trS1.PS = .01;
+	trP1.PS = .03;
+	f1.flow = .02;
+	f2.flow = f1.flow;
+	f3.flow = f2.flow;
+	when (t=t.min) r1.S = 0;
+	r1.S:t = f1.flow/r1.vol*f1.S-f2.flow/r1.vol*r1.S+trS1.PS/r1.vol*(r2.S-r1.S);
+	when (t=t.min) r1.P = 0;
+	r1.P:t = f1.flow/r1.vol*f1.P-f2.flow/r1.vol*r1.P+trP1.PS/r1.vol*(r2.P-r1.P);
+	when (t=t.min) r2.S = 0;
+	r2.S:t = reac.kb*r2.P-reac.kf*r2.S+trS1.PS/r2.vol*(r1.S-r2.S);
+	when (t=t.min) r2.P = 0;
+	r2.P:t = reac.kf*r2.S-reac.kb*r2.P+trP1.PS/r2.vol*(r1.P-r2.P);
+	when (t=t.min) r3.S = 0;
+	r3.S:t = f2.flow/r3.vol*f2.S-f3.flow/r3.vol*r3.S;
+	when (t=t.min) r3.P = 0;
+	r3.P:t = f2.flow/r3.vol*f2.P-f3.flow/r3.vol*r3.P;
+	f1.S = inj.flux/f1.flow;
+	f1.P = 0;
+	f2.S = r1.S;
+	f2.P = r1.P;
+	f3.S = r3.S;
+	f3.P = r3.P;
+}
+

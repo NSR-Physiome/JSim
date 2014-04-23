@@ -1,0 +1,6 @@
+
+==== JSim version 1.6.85: Fatal Error
+
+JSim.util.Xcept: Model nounits
+aborted: Expression "Cin" Variable has no valid assigned value
+

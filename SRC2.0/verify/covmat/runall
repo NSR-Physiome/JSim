@@ -1,0 +1,14 @@
+#!/bin/sh
+
+rm -Rf WORK
+mkdir WORK
+
+cd PROJ
+PROJS=`ls *.proj | sed 's/.proj//'`
+cd ..
+
+for P in $PROJS
+do
+  run1 $P
+done
+

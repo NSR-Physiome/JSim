@@ -1,0 +1,3 @@
+a(t): memory.t.nth=1 = { (1,1) (2,4) (3,9) (4,16) (5,25) (6,36) (7,49) (8,64) (9,81) (10,100) } dimensionless
+a(t): memory.t.nth=2 = { (2,4) (4,16) (6,36) (8,64) (10,100) } dimensionless
+a(t): memory.t.nth=3 = { (1,1) (4,16) (7,49) (10,100) } dimensionless

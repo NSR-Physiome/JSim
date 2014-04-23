@@ -1,0 +1,31 @@
+#!/bin/sh
+
+. ../run.common
+
+rm -Rf WORK
+mkdir WORK
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/\.mod//'`
+cd ..
+
+for i in $MODS
+do
+  run1 $i
+done
+
+echo "==== unit algebra tests"
+$JSBATCH -f MOD/u1.mod -o "a/b" -out WORK/u1q.out
+$JSBATCH -f MOD/u03.mod -i a=b -out WORK/u03a.out
+$JSBATCH -f MOD/u03.mod -i b=a -out WORK/u03b.out
+
+
+cd MODBAD
+MODBADS=`ls *.mod | sed -e 's/\.mod//'`
+cd ..
+
+for i in $MODBADS
+do
+  run1bad $i
+done
+

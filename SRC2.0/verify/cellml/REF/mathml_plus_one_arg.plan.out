@@ -1,0 +1,454 @@
+==== Planner Log ====
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Loading Variables
+  add var: realDomain time second
+  add var: real time.min second
+  add var: extern real time.max second
+  add var: int time.ct
+  add var: extern real time.delta second
+  add var: real x1(time) nanomolar
+  add var: real x2(time) nanomolar
+  add var: real x3(time) nanomolar
+  add var: real x4(time) nanomolar
+  add var: real x5(time) nanomolar
+  add var: real x6(time) nanomolar
+  add var: real x7(time) nanomolar
+  add var: real x8(time) nanomolar
+  add var: real x9(time) nanomolar
+  add var: real k1 second_order_rate_constant
+  add var: real k1_ first_order_rate_constant
+  add var: real k2 second_order_rate_constant
+  add var: real k2_ first_order_rate_constant
+  add var: real k4 second_order_rate_constant
+  add var: real k4_ first_order_rate_constant
+  add var: real k5 second_order_rate_constant
+  add var: real k5_ first_order_rate_constant
+  add var: real scatchard(time) dimensionless
+  add var: real k3 second_order_rate_constant
+  add var: real k3_ first_order_rate_constant
+  add var: real x1:time(time) nanomolar/second
+  add var: real x2:time(time) nanomolar/second
+  add var: real x3:time(time) nanomolar/second
+  add var: real x4:time(time) nanomolar/second
+  add var: real x5:time(time) nanomolar/second
+  add var: real x6:time(time) nanomolar/second
+  add var: real x7:time(time) nanomolar/second
+  add var: real x8:time(time) nanomolar/second
+  add var: real x9:time(time) nanomolar/second
+Loading Constraints
+  time.min=0 :: [time.min]
+  when (time=time.min) x1=10 :: [x1(time.min)]
+  when (time=time.min) x2=.1 :: [x2(time.min)]
+  when (time=time.min) x3=1 :: [x3(time.min)]
+  when (time=time.min) x4=1 :: [x4(time.min)]
+  when (time=time.min) x5=1 :: [x5(time.min)]
+  when (time=time.min) x6=1 :: [x6(time.min)]
+  when (time=time.min) x7=1 :: [x7(time.min)]
+  when (time=time.min) x8=1 :: [x8(time.min)]
+  when (time=time.min) x9=1 :: [x9(time.min)]
+  k1=1E6 :: [k1]
+  k1_=4E-4 :: [k1_]
+  k2=1E6 :: [k2]
+  k2_=.04 :: [k2_]
+  k4=1E6 :: [k4]
+  k4_=4E-4 :: [k4_]
+  k5=1E7 :: [k5]
+  k5_=.004 :: [k5_]
+  k3=1E6 :: [k3]
+  k3_=4E-4 :: [k3_]
+  x1:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10) :: [x1:time, k1_, x3, k1, x1, x2, k2_, x4, k2, k4_, x6, x7, k4, x5, x9, k5_, x8, k5]
+  scatchard=((x3+x4+x7+x8+x9)/x1) :: [scatchard, x3, x4, x7, x8, x9, x1]
+  x2:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10) :: [x2:time, k1_, x3, k1, x1, x2, k3_, x5, x9, k3, x4]
+  x3:time=((k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10) :: [x3:time, k1, x1, x2, k1_, x3, k2_, x4, k2, k3_, x5, k3]
+  x4:time=((k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10) :: [x4:time, k2, x1, x3, k2_, x4, k3_, x9, x2]
+  x5:time=((k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10) :: [x5:time, k3, x2, x3, k3_, x5, k4_, x6, k4, x1, k5_, x9, k5]
+  x6:time=((k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10) :: [x6:time, k4, x1, x5, k4_, x6, k5_, x7, k5]
+  x7:time=((k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10) :: [x7:time, k4, x1, x9, k4_, x7, k5_, x8, k5, x6]
+  x8:time=((k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10) :: [x8:time, k5, x1, x7, k5_, x8]
+  x9:time=((k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10) :: [x9:time, k3, x2, x4, k3_, x9, k4_, x7, k4, x1, k5, x5, k5_]
+Input      phase completed with 0 errors, 0 warnings.
+
+Toolbox phase starting ...
+  add tool: domain time
+  add tool: extern time.max
+  add tool: extern time.delta
+Toolbox phase - cycle 1:
+  check eqn: time.min=0; [time.min]
+  add tool: time.min=0
+  add tool: time.ct=(time.max-time.min)/time.delta+1.5
+  check eqn: when (time=time.min) x1=10; [x1(time.min)]
+  add tool: x1(time.min)=10
+  check eqn: when (time=time.min) x2=.1; [x2(time.min)]
+  add tool: x2(time.min)=.1
+  check eqn: when (time=time.min) x3=1; [x3(time.min)]
+  add tool: x3(time.min)=1
+  check eqn: when (time=time.min) x4=1; [x4(time.min)]
+  add tool: x4(time.min)=1
+  check eqn: when (time=time.min) x5=1; [x5(time.min)]
+  add tool: x5(time.min)=1
+  check eqn: when (time=time.min) x6=1; [x6(time.min)]
+  add tool: x6(time.min)=1
+  check eqn: when (time=time.min) x7=1; [x7(time.min)]
+  add tool: x7(time.min)=1
+  check eqn: when (time=time.min) x8=1; [x8(time.min)]
+  add tool: x8(time.min)=1
+  check eqn: when (time=time.min) x9=1; [x9(time.min)]
+  add tool: x9(time.min)=1
+  check eqn: k1=1E6; [k1]
+  add tool: k1=1E6
+  check eqn: k1_=4E-4; [k1_]
+  add tool: k1_=4E-4
+  check eqn: k2=1E6; [k2]
+  add tool: k2=1E6
+  check eqn: k2_=.04; [k2_]
+  add tool: k2_=.04
+  check eqn: k4=1E6; [k4]
+  add tool: k4=1E6
+  check eqn: k4_=4E-4; [k4_]
+  add tool: k4_=4E-4
+  check eqn: k5=1E7; [k5]
+  add tool: k5=1E7
+  check eqn: k5_=.004; [k5_]
+  add tool: k5_=.004
+  check eqn: k3=1E6; [k3]
+  add tool: k3=1E6
+  check eqn: k3_=4E-4; [k3_]
+  add tool: k3_=4E-4
+  check eqn: x1:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10); [x1:time, x3]
+  check eqn: scatchard=((x3+x4+x7+x8+x9)/x1); [scatchard, x3]
+  check eqn: x2:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10); [x2:time, x3]
+  check eqn: x3:time=((k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10); [x3:time, x1]
+  check eqn: x4:time=((k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10); [x4:time, x1]
+  check eqn: x5:time=((k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10); [x5:time, x2]
+  check eqn: x6:time=((k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10); [x6:time, x1]
+  check eqn: x7:time=((k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10); [x7:time, x1]
+  check eqn: x8:time=((k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10); [x8:time, x1]
+  check eqn: x9:time=((k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10); [x9:time, x2]
+  add tool: ODE x1: []
+  updated ODE(x1) with x1(time.min)=10
+  add tool: ODE x2: []
+  updated ODE(x2) with x2(time.min)=.1
+  add tool: ODE x3: []
+  updated ODE(x3) with x3(time.min)=1
+  add tool: ODE x4: []
+  updated ODE(x4) with x4(time.min)=1
+  add tool: ODE x5: []
+  updated ODE(x5) with x5(time.min)=1
+  add tool: ODE x6: []
+  updated ODE(x6) with x6(time.min)=1
+  add tool: ODE x7: []
+  updated ODE(x7) with x7(time.min)=1
+  add tool: ODE x8: []
+  updated ODE(x8) with x8(time.min)=1
+  add tool: ODE x9: []
+  updated ODE(x9) with x9(time.min)=1
+Toolbox phase - cycle 1:
+  check eqn: x1:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10); [x1:time]
+  add tool: x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10
+  check eqn: scatchard=((x3+x4+x7+x8+x9)/x1); [scatchard]
+  add tool: scatchard=(x3+x4+x7+x8+x9)/x1
+  check eqn: x2:time=(k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10); [x2:time]
+  add tool: x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10
+  check eqn: x3:time=((k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10); [x3:time]
+  add tool: x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10
+  check eqn: x4:time=((k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10); [x4:time]
+  add tool: x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10
+  check eqn: x5:time=((k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10); [x5:time]
+  add tool: x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10
+  check eqn: x6:time=((k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10); [x6:time]
+  add tool: x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10
+  check eqn: x7:time=((k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10); [x7:time]
+  add tool: x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10
+  check eqn: x8:time=((k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10); [x8:time]
+  add tool: x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10
+  check eqn: x9:time=((k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10); [x9:time]
+  add tool: x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10
+  updated ODE(x1) with x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10
+    x1 is now entirely solved
+  updated ODE(x2) with x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10
+    x2 is now entirely solved
+  updated ODE(x3) with x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10
+    x3 is now entirely solved
+  updated ODE(x4) with x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10
+    x4 is now entirely solved
+  updated ODE(x5) with x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10
+    x5 is now entirely solved
+  updated ODE(x6) with x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10
+    x6 is now entirely solved
+  updated ODE(x7) with x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10
+    x7 is now entirely solved
+  updated ODE(x8) with x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10
+    x8 is now entirely solved
+  updated ODE(x9) with x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10
+    x9 is now entirely solved
+Toolbox phase - all cycles completed
+  add var: real x1__init nanomolar
+  add tool: x1__init=10
+  add var: real x2__init nanomolar
+  add tool: x2__init=.1
+  add var: real x3__init nanomolar
+  add tool: x3__init=1
+  add var: real x4__init nanomolar
+  add tool: x4__init=1
+  add var: real x5__init nanomolar
+  add tool: x5__init=1
+  add var: real x6__init nanomolar
+  add tool: x6__init=1
+  add var: real x7__init nanomolar
+  add tool: x7__init=1
+  add var: real x8__init nanomolar
+  add tool: x8__init=1
+  add var: real x9__init nanomolar
+  add tool: x9__init=1
+Toolbox    phase completed with 0 errors, 0 warnings.
+
+Sequencing phase starting ...
+Tools to sequence:
+  x9__init=1 :: [x9__init]<<[]
+  x8__init=1 :: [x8__init]<<[]
+  x7__init=1 :: [x7__init]<<[]
+  x6__init=1 :: [x6__init]<<[]
+  x5__init=1 :: [x5__init]<<[]
+  x4__init=1 :: [x4__init]<<[]
+  x3__init=1 :: [x3__init]<<[]
+  x2__init=.1 :: [x2__init]<<[]
+  x1__init=10 :: [x1__init]<<[]
+  @time x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10 :: [x9:time]<<[k3, x2, x4, k3_, x9, k4_, x7, k4, x1, k5, x5, k5_]
+  @time x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10 :: [x8:time]<<[k5, x1, x7, k5_, x8]
+  @time x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10 :: [x7:time]<<[k4, x1, x9, k4_, x7, k5_, x8, k5, x6]
+  @time x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10 :: [x6:time]<<[k4, x1, x5, k4_, x6, k5_, x7, k5]
+  @time x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10 :: [x5:time]<<[k3, x2, x3, k3_, x5, k4_, x6, k4, x1, k5_, x9, k5]
+  @time x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10 :: [x4:time]<<[k2, x1, x3, k2_, x4, k3_, x9, x2]
+  @time x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10 :: [x3:time]<<[k1, x1, x2, k1_, x3, k2_, x4, k2, k3_, x5, k3]
+  @time x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10 :: [x2:time]<<[k1_, x3, k1, x1, x2, k3_, x5, x9, k3, x4]
+  @time x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10 :: [x1:time]<<[k1_, x3, k1, x1, x2, k2_, x4, k2, k4_, x6, x7, k4, x5, x9, k5_, x8, k5]
+  k3_=4E-4 :: [k3_]<<[]
+  k3=1E6 :: [k3]<<[]
+  @time scatchard=(x3+x4+x7+x8+x9)/x1 :: [scatchard]<<[x3, x4, x7, x8, x9, x1]
+  k5_=.004 :: [k5_]<<[]
+  k5=1E7 :: [k5]<<[]
+  k4_=4E-4 :: [k4_]<<[]
+  k4=1E6 :: [k4]<<[]
+  k2_=.04 :: [k2_]<<[]
+  k2=1E6 :: [k2]<<[]
+  k1_=4E-4 :: [k1_]<<[]
+  k1=1E6 :: [k1]<<[]
+  @time ODE x9: x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10 :: [x9, x9(time.max)]<<[k3, x2, x4, k3_, k4_, x7, k4, x1, k5, x5, k5_, x9(time.min), x9:time]
+  @time ODE x8: x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10 :: [x8, x8(time.max)]<<[k5, x1, x7, k5_, x8(time.min), x8:time]
+  @time ODE x7: x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10 :: [x7, x7(time.max)]<<[k4, x1, x9, k4_, k5_, x8, k5, x6, x7(time.min), x7:time]
+  @time ODE x6: x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10 :: [x6, x6(time.max)]<<[k4, x1, x5, k4_, k5_, x7, k5, x6(time.min), x6:time]
+  @time ODE x5: x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10 :: [x5, x5(time.max)]<<[k3, x2, x3, k3_, k4_, x6, k4, x1, k5_, x9, k5, x5(time.min), x5:time]
+  @time ODE x4: x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10 :: [x4, x4(time.max)]<<[k2, x1, x3, k2_, k3_, x9, x2, x4(time.min), x4:time]
+  @time ODE x3: x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10 :: [x3, x3(time.max)]<<[k1, x1, x2, k1_, k2_, x4, k2, k3_, x5, k3, x3(time.min), x3:time]
+  @time ODE x2: x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10 :: [x2, x2(time.max)]<<[k1_, x3, k1, x1, k3_, x5, x9, k3, x4, x2(time.min), x2:time]
+  @time ODE x1: x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10 :: [x1, x1(time.max)]<<[k1_, x3, k1, x2, k2_, x4, k2, k4_, x6, x7, k4, x5, x9, k5_, x8, k5, x1(time.min), x1:time]
+  extern time.delta :: [time.delta]<<[]
+  time.ct=(time.max-time.min)/time.delta+1.5 :: [time.ct]<<[time.max, time.min, time.delta]
+  extern time.max :: [time.max]<<[]
+  time.min=0 :: [time.min]<<[]
+  domain time :: [time]<<[time.min, time.max, time.ct, time.delta]
+  x9(time.min)=x9__init :: [x9(time.min)]<<[x9__init]
+  x8(time.min)=x8__init :: [x8(time.min)]<<[x8__init]
+  x7(time.min)=x7__init :: [x7(time.min)]<<[x7__init]
+  x6(time.min)=x6__init :: [x6(time.min)]<<[x6__init]
+  x5(time.min)=x5__init :: [x5(time.min)]<<[x5__init]
+  x4(time.min)=x4__init :: [x4(time.min)]<<[x4__init]
+  x3(time.min)=x3__init :: [x3(time.min)]<<[x3__init]
+  x2(time.min)=x2__init :: [x2(time.min)]<<[x2__init]
+  x1(time.min)=x1__init :: [x1(time.min)]<<[x1__init]
+Events to seqence:
+Relations to sequence:
+Creating vuTools map ...
+Adding reuse & query tools ...
+Creating MainGraph ...
+loopOrder=[time]
+  addNode x9__init seqLoops=() phase=main fft=null
+  addNode x8__init seqLoops=() phase=main fft=null
+  addNode x7__init seqLoops=() phase=main fft=null
+  addNode x6__init seqLoops=() phase=main fft=null
+  addNode x5__init seqLoops=() phase=main fft=null
+  addNode x4__init seqLoops=() phase=main fft=null
+  addNode x3__init seqLoops=() phase=main fft=null
+  addNode x2__init seqLoops=() phase=main fft=null
+  addNode x1__init seqLoops=() phase=main fft=null
+  addNode x9:time seqLoops=(time) phase=time#1 fft=null
+  addNode x8:time seqLoops=(time) phase=time#1 fft=null
+  addNode x7:time seqLoops=(time) phase=time#1 fft=null
+  addNode x6:time seqLoops=(time) phase=time#1 fft=null
+  addNode x5:time seqLoops=(time) phase=time#1 fft=null
+  addNode x4:time seqLoops=(time) phase=time#1 fft=null
+  addNode x3:time seqLoops=(time) phase=time#1 fft=null
+  addNode x2:time seqLoops=(time) phase=time#1 fft=null
+  addNode x1:time seqLoops=(time) phase=time#1 fft=null
+  addNode k3_ seqLoops=() phase=main fft=null
+  addNode k3 seqLoops=() phase=main fft=null
+  addNode scatchard seqLoops=(time) phase=time#1 fft=null
+  addNode k5_ seqLoops=() phase=main fft=null
+  addNode k5 seqLoops=() phase=main fft=null
+  addNode k4_ seqLoops=() phase=main fft=null
+  addNode k4 seqLoops=() phase=main fft=null
+  addNode k2_ seqLoops=() phase=main fft=null
+  addNode k2 seqLoops=() phase=main fft=null
+  addNode k1_ seqLoops=() phase=main fft=null
+  addNode k1 seqLoops=() phase=main fft=null
+  addNode x9 seqLoops=(time) phase=time#1 fft=time
+  addNode x8 seqLoops=(time) phase=time#1 fft=time
+  addNode x7 seqLoops=(time) phase=time#1 fft=time
+  addNode x6 seqLoops=(time) phase=time#1 fft=time
+  addNode x5 seqLoops=(time) phase=time#1 fft=time
+  addNode x4 seqLoops=(time) phase=time#1 fft=time
+  addNode x3 seqLoops=(time) phase=time#1 fft=time
+  addNode x2 seqLoops=(time) phase=time#1 fft=time
+  addNode x1 seqLoops=(time) phase=time#1 fft=time
+  addNode time.delta seqLoops=() phase=main fft=null
+  addNode time.ct seqLoops=() phase=main fft=null
+  addNode time.max seqLoops=() phase=main fft=null
+  addNode time.min seqLoops=() phase=main fft=null
+  addNode time seqLoops=() phase=main fft=null
+  addNode x9(time.min) seqLoops=() phase=main fft=null
+  addNode x8(time.min) seqLoops=() phase=main fft=null
+  addNode x7(time.min) seqLoops=() phase=main fft=null
+  addNode x6(time.min) seqLoops=() phase=main fft=null
+  addNode x5(time.min) seqLoops=() phase=main fft=null
+  addNode x4(time.min) seqLoops=() phase=main fft=null
+  addNode x3(time.min) seqLoops=() phase=main fft=null
+  addNode x2(time.min) seqLoops=() phase=main fft=null
+  addNode x1(time.min) seqLoops=() phase=main fft=null
+Saving graph pullfinder
+Building mainline block ...
+Mainline block graph:
+building block for phase main
+  adding x9__init=1 to main
+  adding x8__init=1 to main
+  adding x7__init=1 to main
+  adding x6__init=1 to main
+  adding x5__init=1 to main
+  adding x4__init=1 to main
+  adding x3__init=1 to main
+  adding x2__init=.1 to main
+  adding x1__init=10 to main
+  adding k3_=4E-4 to main
+  adding k3=1E6 to main
+  adding k5_=.004 to main
+  adding k5=1E7 to main
+  adding k4_=4E-4 to main
+  adding k4=1E6 to main
+  adding k2_=.04 to main
+  adding k2=1E6 to main
+  adding k1_=4E-4 to main
+  adding k1=1E6 to main
+  adding extern time.delta to main
+  adding extern time.max to main
+  adding time.min=0 to main
+  adding time.ct=(time.max-time.min)/time.delta+1.5 to main
+  adding domain time to main
+  adding x9(time.min)=x9__init to main
+  adding x8(time.min)=x8__init to main
+  adding x7(time.min)=x7__init to main
+  adding x6(time.min)=x6__init to main
+  adding x5(time.min)=x5__init to main
+  adding x4(time.min)=x4__init to main
+  adding x3(time.min)=x3__init to main
+  adding x2(time.min)=x2__init to main
+  adding x1(time.min)=x1__init to main
+  subphase time#1 entryEdge=null
+building block for phase time#1
+  adding x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10 to loop-time
+  adding x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10 to loop-time
+  adding x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10 to loop-time
+  adding x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10 to loop-time
+  adding x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10 to loop-time
+  adding x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10 to loop-time
+  adding x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10 to loop-time
+  adding x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10 to loop-time
+  adding x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10 to loop-time
+  adding scatchard=(x3+x4+x7+x8+x9)/x1 to loop-time
+  adding ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1] to loop-time
+  adding loop-time to main
+Building ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1] ...
+  adding muTool x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10
+  adding muVar x9:time
+  adding muTool x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10
+  adding muVar x8:time
+  adding muTool x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10
+  adding muVar x7:time
+  adding muTool x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10
+  adding muVar x6:time
+  adding muTool x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10
+  adding muVar x5:time
+  adding muTool x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10
+  adding muVar x4:time
+  adding muTool x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10
+  adding muVar x3:time
+  adding muTool x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10
+  adding muVar x2:time
+  adding muTool x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10
+  adding muVar x1:time
+  adding x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+  adding x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10 to ODE Block-time [x9, x8, x7, x6, x5, x4, x3, x2, x1]
+Sequencing phase completed with 0 errors, 0 warnings.
+
+==== Main Calculation Block ====
+main
+  x9__init=1
+  x8__init=1
+  x7__init=1
+  x6__init=1
+  x5__init=1
+  x4__init=1
+  x3__init=1
+  x2__init=.1
+  x1__init=10
+  k3_=4E-4
+  k3=1E6
+  k5_=.004
+  k5=1E7
+  k4_=4E-4
+  k4=1E6
+  k2_=.04
+  k2=1E6
+  k1_=4E-4
+  k1=1E6
+  extern time.delta
+  extern time.max
+  time.min=0
+  time.ct=(time.max-time.min)/time.delta+1.5
+  domain time
+  x9(time.min)=x9__init
+  x8(time.min)=x8__init
+  x7(time.min)=x7__init
+  x6(time.min)=x6__init
+  x5(time.min)=x5__init
+  x4(time.min)=x4__init
+  x3(time.min)=x3__init
+  x2(time.min)=x2__init
+  x1(time.min)=x1__init
+  loop-time
+    x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10
+    x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10
+    x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10
+    x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10
+    x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10
+    x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10
+    x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10
+    x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10
+    x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10
+    scatchard=(x3+x4+x7+x8+x9)/x1
+    ODE Block-time vmus=[time, x9, x8, x7, x6, x5, x4, x3, x2, x1, x9:time, x8:time, x7:time, x6:time, x5:time, x4:time, x3:time, x2:time, x1:time]
+      x9:time=(k3*x2*x4-k3_*x9*1.0000000000000005E9+k4_*x7*1.0000000000000005E9-k4*x1*x9+k5*x1*x5-k5_*x9*1.0000000000000005E9)*9.999999999999996E-10
+      x8:time=(k5*x1*x7-k5_*x8*1.0000000000000005E9)*9.999999999999996E-10
+      x7:time=(k4*x1*x9-k4_*x7*1.0000000000000005E9+k5_*(x8-x7)*1.0000000000000005E9+k5*x1*(x6-x7))*9.999999999999996E-10
+      x6:time=(k4*x1*x5-k4_*x6*1.0000000000000005E9+k5_*x7*1.0000000000000005E9-k5*x1*x6)*9.999999999999996E-10
+      x5:time=(k3*x2*x3-k3_*x5*1.0000000000000005E9+k4_*x6*1.0000000000000005E9-k4*x1*x5+k5_*x9*1.0000000000000005E9-k5*x1*x5)*9.999999999999996E-10
+      x4:time=(k2*x1*x3-k2_*x4*1.0000000000000005E9+k3_*x9*1.0000000000000005E9-k2*x2*x4)*9.999999999999996E-10
+      x3:time=(k1*x1*x2-k1_*x3*1.0000000000000005E9+k2_*x4*1.0000000000000005E9-k2*x1*x3+k3_*x5*1.0000000000000005E9-k3*x2*x3)*9.999999999999996E-10
+      x2:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k3_*(x5+x9)-k3*x2*(x3+x4)*9.999999999999996E-10
+      x1:time=k1_*x3-k1*x1*x2*9.999999999999996E-10+k2_*x4-k2*x1*x3*9.999999999999996E-10+k4_*(x6+x7)-k4*x1*(x5+x9)*9.999999999999996E-10+k5_*(x7+x8+x9)-k5*x1*(x5+x6+x7)*9.999999999999996E-10
+

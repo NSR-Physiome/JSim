@@ -1,0 +1,7 @@
+
+JSim.util.Xcept: Model aunit_bad
+aborted:  near line 11 token ";" Expression "c=(a*b)"
+Operands for '=' have incompatible units
+c has units m = <1 m>
+a*b has units m*cm = <.01 m^2>
+

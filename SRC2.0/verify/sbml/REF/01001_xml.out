@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="mol_per_second" name="mol/second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="compartment" value="10" units="litre" constant="true"/>
+      <parameter id="reaction1" units="katal" constant="false"/>
+      <parameter id="k1" value="1.5" constant="true"/>
+      <parameter id="S2" value="0" units="mole" constant="false"/>
+      <parameter id="S1" value="0.0015" units="mole" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> reaction1 </ci>
+            <cn> -1 </cn>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> reaction1 </ci>
+        </math>
+      </rateRule>
+      <assignmentRule variable="reaction1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k1 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
+

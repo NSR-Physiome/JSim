@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model proc_revsum_bad
+aborted: Procedure call reversesum.1[u@t, v@t, vtot] arguments v@t and vtot require incompatible domain loops
+
+
+

@@ -1,0 +1,147 @@
+/*NSRCOPYRIGHT
+	Copyright (C) 1999-2008 University of Washington
+	Developed by the National Simulation Resource
+	Department of Bioengineering,  Box 355061
+	University of Washington, Seattle, WA 98195-5061.
+	Dr. J. B. Bassingthwaighte, Director
+END_NSRCOPYRIGHT*/
+
+package JSim.expr;
+
+import JSim.util.*;
+
+import java_cup.runtime.*;
+
+terminal LPAREN, RPAREN, COMMA,
+	PLUS, TIMES, MINUS, DIVIDE, POWER, 
+	DERIV,
+	EQ, NE, LT, LE, GT, GE, AND, OR, IF, ELSE, 
+	PI, TRUE, FALSE;
+
+terminal String NUMBER, IDENT;
+
+non terminal Expr expr;
+non terminal Unit unitexpr, punitexpr;
+non terminal Double pnumber;
+non terminal Expr.List exprs;
+
+precedence left AND, OR;
+precedence left EQ, NE, LT, LE, GT, GE;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence right POWER;
+precedence left DERIV;
+
+
+// algebraic expression containing number and/or variables
+expr    ::= NUMBER:n
+	     {: RESULT=new RealConst(n); :}
+	  | LPAREN expr:e unitexpr:u RPAREN
+	     {: if (!e.isConst()) throw new Xcept(e, 
+		    "constant expression required");
+		RESULT=new RealConst(e.constRealVal(), u); :}
+	  | PI
+	     {: RESULT=Expr.pi; :}
+	  | TRUE
+	     {: RESULT=Expr.truex; :}
+	  | FALSE
+	     {: RESULT=Expr.falsex; :}
+	  | IDENT:n
+	     {: RESULT=parser.ns.compByName(n); :}
+          | expr:l MINUS expr:r
+	     {: RESULT=l.sub(r); :}
+          | expr:l PLUS expr:r
+	     {: RESULT=l.add(r); :}
+	  | expr:l TIMES expr:r
+	     {: RESULT=l.mult(r); :}
+          | expr:l POWER expr:r
+	     {: RESULT=l.pow(r); :}
+          | expr:l DIVIDE expr:r
+	     {: RESULT=l.div(r); :}
+ 	  | IDENT:f LPAREN exprs:e RPAREN
+	     {: RESULT=parser.ns.funcCall(f, e); :}
+	  | IF LPAREN expr:e1 RPAREN expr:e2 ELSE expr:e3
+	     {: int op = IExpr.IF;
+		RESULT=new IfExpr(e1, e2, e3); :}
+	  | LPAREN expr:e RPAREN
+	     {: RESULT=e; :}
+          | MINUS expr:e
+	     {: RESULT=e.mult(Expr.negone); :}
+          | PLUS expr:e
+	     {: RESULT=e; :}
+          | expr:l EQ expr:r
+	     {: RESULT=new CompareExpr(IExpr.EQ, l, r); :}
+          | expr:l NE expr:r
+	     {: RESULT=new CompareExpr(IExpr.NE, l, r); :}
+          | expr:l LT expr:r
+	     {: RESULT=new CompareExpr(IExpr.LT, l, r); :}
+          | expr:l LE expr:r
+	     {: RESULT=new CompareExpr(IExpr.LE, l, r); :}
+          | expr:l GT expr:r
+	     {: RESULT=new CompareExpr(IExpr.GT, l, r); :}
+          | expr:l GE expr:r
+	     {: RESULT=new CompareExpr(IExpr.GE, l, r); :}
+          | expr:l AND expr:r
+	     {: RESULT=new LogicalExpr(IExpr.AND, l, r); :}
+          | expr:l OR expr:r
+	     {: RESULT=new LogicalExpr(IExpr.OR, l, r); :}
+          | expr:l DERIV expr:r
+	     {: RESULT=parser.ns.makeDeriv(l, r); :}
+	  ;
+
+// comma-sep list of expressions
+exprs   ::= exprs:l COMMA expr:e
+		{: l.add(e);
+		   RESULT=l; :}
+	  | expr:e
+		{: Expr.List l = new Expr.List(1);
+		   l.add(e);
+		   RESULT=l; :}
+	  |
+	  	{: RESULT=new Expr.List(1); :}
+	  ;
+
+// user-visible unitexpr 
+unitexpr ::= IDENT:n
+		{: RESULT = parser.ns.unitByName(n); :}
+ 	  |  IDENT:n POWER pnumber:p
+		{: Unit a  = parser.ns.unitByName(n);
+		   RESULT = a.power(p); :}
+	  |  unitexpr:a TIMES unitexpr:b
+		{: RESULT = a.mult(b); :}
+	  |  unitexpr:a TIMES punitexpr:b
+		{: RESULT = a.mult(b); :}
+	  |  unitexpr:a DIVIDE unitexpr:b
+		{: RESULT = a.div(b); :}
+	  |  unitexpr:a DIVIDE punitexpr:b
+		{: RESULT = a.div(b); :}
+	  |  NUMBER:n DIVIDE unitexpr:b
+		{: Unit a = new Unit(n);
+		   RESULT = a.div(b); :}
+	  |  NUMBER:n DIVIDE punitexpr:b
+		{: Unit a = new Unit(n);
+		   RESULT = a.div(b); :}
+	  ;
+
+
+// possibly parenthetical unit expr
+punitexpr ::= LPAREN unitexpr:u RPAREN
+		{: RESULT = u; :}
+	  |  LPAREN punitexpr:u RPAREN
+		{: RESULT = u; :}
+	  |  LPAREN unitexpr:u RPAREN POWER pnumber:p 
+		{: RESULT = u.power(p); :}
+	  |  LPAREN punitexpr:u RPAREN POWER pnumber:p 
+		{: RESULT = u.power(p); :}
+	  ;
+
+// number with parentheses and/or minus signs
+pnumber  ::= NUMBER:n
+		{: RESULT = new Double(Util.toDouble(n)); :}
+	  |  MINUS pnumber:n
+		{: RESULT = new Double(-n.doubleValue()); :}
+	  |  PLUS pnumber:n
+		{: RESULT = new Double(n.doubleValue()); :}
+	  |  LPAREN pnumber:n RPAREN
+		{: RESULT = n; :}
+	  ;

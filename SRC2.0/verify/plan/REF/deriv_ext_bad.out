@@ -1,0 +1,6 @@
+
+JSim.util.Xcept: Model deriv_ext
+aborted: Can't solve u:t because can't differentiate extern u with respect to t
+
+
+

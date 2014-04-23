@@ -1,0 +1,18 @@
+// JSim Java wrapper for XSim proto model
+
+class JSXproto extends RTXSimModel {
+
+	// load library
+	static { System.loadLibrary("jsxproto"); }
+
+	// constructor
+	public JSXproto() { super(); }
+
+	// native calls
+	protected native int xsimPSize();
+	protected native void xsimSetP(int loc, double v);
+	protected native double xsimGetP(int loc);
+	protected native void xsimini() throws Xcept;
+	protected native void xsimlop() throws Xcept;
+	protected native void xsimend() throws Xcept;
+}
