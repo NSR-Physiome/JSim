@@ -49,7 +49,7 @@ public class GLook {
 	    notesIcon, imagesetIcon,
 	    selectIcon, funcgenIcon,
 	    userIcon, runningIcon, closeIcon,
-	    nextIcon, prevIcon;
+	    nextIcon, prevIcon, lockIcon, unlockIcon;
 
 	private static String metalLookName = 
 	    "javax.swing.plaf.metal.MetalLookAndFeel";
@@ -114,6 +114,8 @@ public class GLook {
 	    closeIcon = readIcon("close.gif");
 	    nextIcon = readIcon("next.png");
 	    prevIcon = readIcon("prev.png");
+	    lockIcon = readIcon("lock.png");
+	    unlockIcon = readIcon("unlock.png");
 
 	    // create theme
 	    name = n;
@@ -297,6 +299,8 @@ public class GLook {
 	public Icon userIcon() { return userIcon; }
 	public Icon nextIcon() { return nextIcon; }
 	public Icon prevIcon() { return prevIcon; }
+	public Icon lockIcon() { return lockIcon; }
+	public Icon unlockIcon() { return unlockIcon; }
 
 	// icons for Project tabs
 	public Icon tabIcon(GNode gnode) {

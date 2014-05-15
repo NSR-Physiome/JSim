@@ -183,6 +183,7 @@ public class Batch {
 
 	    // build model
 	    if (pmodel != null) {
+	    	pmodel.options().setControls(appl.buildOptions);
 		PJob pjob = new PModelBuildJob(pmodel);
 		pjob.setStackTrace(stackTrace);
 		pjob.simpleRun();

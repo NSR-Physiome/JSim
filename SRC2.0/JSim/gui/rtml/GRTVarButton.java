@@ -48,6 +48,12 @@ public class GRTVarButton extends GRTVar {
 	    };
 	}
 
+	// clear aux: gets confused after color change updateUI() 
+	protected void clearAux() {
+	    jaux = null;
+	    visible = false;
+	}
+
 	// make JComponent
 	public void makeJComp() {
 	    JButton button = action.button();
@@ -63,7 +69,7 @@ public class GRTVarButton extends GRTVar {
 	    JButton button = (JButton) jcomp();
 	    Color color = glook().bg();
 	    if (visible) {
-		if (jaux == null) createAux();
+		if (jaux == null) jaux = createAux();
 		refresh();
 		button.setBackground(Color.black);
 		button.setForeground(color);
@@ -71,11 +77,11 @@ public class GRTVarButton extends GRTVar {
 		button.setBackground(color);
 		button.setForeground(Color.black);
 	    }
-	    jaux.setVisible(visible);
+	    if (jaux != null) jaux.setVisible(visible);
   	} 
 	    
 	// create jaux
-	private void createAux() {
+	private JPanel createAux() {
 	    boolean units = false;
 	    units = gmodel().pmodel().rt().getFlags().needsUnits;
 	    makeStuff(units);
@@ -83,7 +89,7 @@ public class GRTVarButton extends GRTVar {
 		new Dimension(pix(7),pix(1.5)));
 	    LayoutManager layout = new GridLayout(
 		junit() == null ? 1 : 2, 1);
-	    jaux = new JPanel(layout);
+	    JPanel jaux = new JPanel(layout);
 	    int x = jcomp().getX();
 	    int y = jcomp().getY() + jcomp().getHeight();
 	    jaux.add(jvalue());
@@ -95,6 +101,7 @@ public class GRTVarButton extends GRTVar {
 	    jaux.setLocation(x, y);
 	    jaux.setSize(jaux.getPreferredSize());
 	    page().addTop(jaux);
+	    return jaux;
 	}
 }
 

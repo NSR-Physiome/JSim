@@ -1,5 +1,5 @@
 ==== Planner Log ====
-Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false]
+Plan options=[maxBuildTime=120, maxImplicitBlock=10, initNaN=false, abortNaN=false, traceNaN=false, traceVars=, ignoreAllOverspec=false, ignoreAllUnderspec=false, splitBlocks=false, parallelize=false]
 Loading Variables
   add var: realDomain t second
   add var: real t.min second

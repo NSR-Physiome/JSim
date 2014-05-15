@@ -23,6 +23,7 @@ public class PDEBlock extends MuBlock {
 	protected DomainSet xs; // space domains, if any
 	protected String[] solverMsgs; // solver support foreach DETool
 	protected Hashtable<TSubDom,BCBlock> bcblocks;
+	protected PDEBlock[] splitBlocks; // null if unsplit
 
 	// solver names for each dimensionality
 	private static final String[] solverNames1D = new String[] {
@@ -50,7 +51,7 @@ public class PDEBlock extends MuBlock {
 	}
 
 	// build everything
-	protected void build() throws Xcept {
+	protected void build(boolean doSplits) throws Xcept {
 	    log("Building " + this + " ...");
 	    buildVsols();
 	    setFactorVars();
@@ -58,6 +59,7 @@ public class PDEBlock extends MuBlock {
 	    buildMus();
 	    buildOrder();
 	    buildBCs();
+	    if (doSplits) buildSplitBlocks();  
 	}
 
 	// build vsols,  exclude 1st spatial derivs of block PDEs
@@ -130,8 +132,21 @@ public class PDEBlock extends MuBlock {
 	// build 1 BC block
 	private void buildBC(TSubDom bc) throws Xcept {
 	    BCBlock block = new BCBlock(this, bc);
-	    block.build();
+	    block.build(false);
 	    bcblocks.put(bc, block);
+	}
+
+	// build split blocks
+	protected void buildSplitBlocks() throws Xcept { 
+	    if (! plan().splitBlocks()) return;
+	    MuBlockSplitter splitter = new MuBlockSplitter(this);
+	    int n = splitter.nSplitBlocks();
+	    if (n < 2) return;
+	    splitBlocks = new PDEBlock[n];
+	    for (int i=0; i<n; i++) {
+	    	splitBlocks[i] = (PDEBlock) splitter.getSplitBlock(i);
+		splitBlocks[i].build(false);
+	    }
 	}
 
 	// simple query
@@ -162,4 +177,5 @@ public class PDEBlock extends MuBlock {
 	    DomainSet loopDomains = seqLoops.minus(muDoms);
 	    return loopDomains;
 	}
+	public PDEBlock[] splitBlocks() { return splitBlocks; }
 }

@@ -20,8 +20,6 @@ public class LSModelMopt implements MPDispatch.Monitor {
 	private LSModel lsmodel; // for this model
 	private ASInfo.Mopt info; // info for this job
 	private int nproc;  // # processors available
-	private ASVar[] parVars; // pars to optimize
-	private String[] parInitVals; // init par vals USED???
 	private ASQuery[] matchExprs; // exprs the match
 	private boolean cancelled; // cancel flag
 	private MoptData moptData; // created MOPT data
@@ -33,21 +31,12 @@ public class LSModelMopt implements MPDispatch.Monitor {
 	    info = mopt;
 	    this.nproc = nproc;
 	    
-	    // sanity check
-	    
-	    // store pars, initial values, match exprs
-	    parVars = new ASVar[npars()];
-	    parInitVals = new String[npars()];
-	    for (int p=0; p<npars(); p++) {
-	    	String pname = info.optim.args.xname[p];
-	    	parVars[p] = lsmodel.getASVar(pname);
-		parInitVals[p] = parVars[p].getAssign();
-	    }
+	    // store match exprs
 	    matchExprs = new ASQuery[nmatches()];
 	    for (int m=0; m<nmatches(); m++) 
 	    	matchExprs[m] = lsmodel.parseQuery(
 		    info.optim.matchExprs[m]);
-
+		    
 	    // initialize data
 	    moptData = new MoptData(info.optim.args.xname, 
 	    	nsegments(), nmatches());
@@ -102,6 +91,8 @@ public class LSModelMopt implements MPDispatch.Monitor {
 	    for (int m=0; m<nmatches(); m++) {
 	    	int storeInx = threadInxBase;
 		Data data = lsmodel.getData(storeInx, matchExprs[m]);
+		data.setName(info.refData[s][m].name());
+		data.setDesc(null);
 		moptData.setFitData(s, m, data);
 	    }
 	    if (info.saveOptimResults)

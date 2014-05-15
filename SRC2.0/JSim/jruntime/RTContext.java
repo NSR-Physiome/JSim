@@ -87,7 +87,7 @@ public class RTContext extends FgenContext implements NamedVal.Query {
 		x.name(), x.unit(), cmin, cmax, cct);
 	    double cdelta = (cmax-cmin)/(cct-1);
 	    int xid = x.domainID();
-	    int nth = getNth(x);
+	    int nth = getRuntimeNth(x);
 	    if (cct <= nth) nth = 1;
 	    int dct = (cct+nth-1)/nth;
 	    int flop = (cct-1) % nth;
@@ -96,9 +96,21 @@ public class RTContext extends FgenContext implements NamedVal.Query {
 	    GridData dgrid = new RegularGridData(
 		x.name(), x.unit(), dmin, dmax, dct);
 	    store().setDomainData(x, dgrid, cgrid, nth, flop);
+	    if (RTModel.NTHPOST && getPostNth(x) > 1)
+	    	store().createStoreNth();
 	    unSet(x); // must be set before access
 	}
 
+	// get Nth value to be used during model run
+	private int getRuntimeNth(RTRealDomain x) throws Xcept {
+	    return RTModel.NTHMIDRUN ? getNth(x) : 1;
+	}
+	
+	// get Nth value to be used for post-processing 
+	protected int getPostNth(RTRealDomain x) throws Xcept {
+	    return RTModel.NTHPOST ? getNth(x) : 1;
+	}
+	
 	// get user-specified nth value for a domain
 	private int getNth(RTRealDomain x) throws Xcept {
 	    NamedVal nval = namedVal("memory.storeGrids");
@@ -108,7 +120,10 @@ public class RTContext extends FgenContext implements NamedVal.Query {
 	    nval = namedVal(s);
 	    if (nval == null) return 1;
 	    int nth = nval.intVal();
-	    return Math.max(1, nth);
+	    if (nth < 1) nth = 1;
+	    int xct = intVal(x.vct);
+	    if (nth >= xct) nth = xct-1; // assure at least 2 grid pts
+	    return nth;
 	}
 
 	// FgenContext 
@@ -380,6 +395,13 @@ public class RTContext extends FgenContext implements NamedVal.Query {
 	    double frac = (cinx(x)+1.0) / cct(x);
 	    store.updatePhase(frac);
 	}
+
+	//// split block solving
+	// single thread for now
+	public void solve(RTProblem[] probs) throws Xcept {
+	    for (int i=0; i<probs.length; i++) 
+	    	probs[i].solve(this);
+  	}
 
 	//// Version 1.6 tracing
 	public static final int TRACE = 1;

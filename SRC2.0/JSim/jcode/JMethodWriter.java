@@ -367,6 +367,16 @@ abstract public class JMethodWriter extends JExprWriter {
 */
 	}
 
+	// write cache vars
+	protected void addCacheVars(LinkedHashSet<JCacheVar> cacheVars)
+	throws Xcept {
+	    Iterator<Var> iter = cache.iterator();
+	    while (iter.hasNext()) {
+		Var v = iter.next();
+		cacheVars.add(new JCacheVar(v, cacheLevel));
+	    }
+	}
+
 	// write interrupt check
 	protected void writeInterruptCheck() throws Xcept {
 	    println("interruptCheck();");

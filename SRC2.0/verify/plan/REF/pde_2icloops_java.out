@@ -201,7 +201,6 @@ public class JS100pde_2icloops extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(x) [v, w]
         public void LSFEA_tstep__v(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2v=us[0];

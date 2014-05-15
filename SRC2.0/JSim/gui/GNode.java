@@ -122,6 +122,7 @@ public class GNode implements Printable {
 	public boolean editable() { return parent.editable(); }
 	// key to help database
 	public String helpKey() { return null; }
+	public Icon buttonTabIcon() { return null; }
 
 	// update
 	public void addChild(GNode c) {
@@ -231,7 +232,7 @@ public class GNode implements Printable {
 
 	    // build content 1st time
 	    if (needsContent) makeContent();
-
+ 
 	    // debugging message
 /*	    String msg = "Refreshing " + this.getClass().getName() + " ";
 	    if (pnamed instanceof Control) 

@@ -37,6 +37,10 @@ public abstract class RTModel implements DiagInfo, NameSpace {
  	protected int maxProc; // max # MP calc threads
 	protected int maxThreads; // # threadInx slots for next run
 
+	// Nth point parsing during or after run
+	public static boolean NTHPOST = true;
+	public static boolean NTHMIDRUN = !NTHPOST;
+
       	// constructor
 	public RTModel(String n, UnitNList sysUnits,
 	ASServer.Messenger msgr) 
@@ -389,7 +393,10 @@ public abstract class RTModel implements DiagInfo, NameSpace {
 
 	    int tx = ctxt.threadInx;
 	    RTContext qctxt = new RTContext(this, tx, 1, stores[n], true);
-	    return getData(qctxt, expr, null, null);
+	    Data data = getData(qctxt, expr, null, null);
+	    if (store.storeNth != null) 
+	        data = store.storeNth.getData(ctxt, data);
+	    return data;
 	}
 
 	// get internal data from appropriate RTDataStore
@@ -420,8 +427,8 @@ public abstract class RTModel implements DiagInfo, NameSpace {
 	}
 
 	// make expr data
-	private RealNData makeData(RTContext ctxt, Expr expr, RTRealDomain[] addDoms, Unit forceUnit)
-	throws Xcept {
+	private RealNData makeData(RTContext ctxt, Expr expr, 
+	RTRealDomain[] addDoms, Unit forceUnit) throws Xcept {
 	    // create blank RealNData
 	    RTRealDomain.List doms = new RTRealDomain.List(4);
 	    if (addDoms != null) 
@@ -431,7 +438,7 @@ public abstract class RTModel implements DiagInfo, NameSpace {
 	    GridData[] grids = new GridData[doms.size()];
 	    for (int i=0; i<doms.size(); i++) {
 		RTRealDomain x = (RTRealDomain) doms.get(i);
-		grids[i] = ctxt.grid(x);
+		grids[i] = ctxt.grid(x); // coarse or fine ???
 	    }
 	    String desc = expr.toString();
 

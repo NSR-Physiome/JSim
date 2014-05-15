@@ -299,7 +299,6 @@ public class JS100pde_recirc_xy extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(y) [v]
         public void LSFEA_tstep__v(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2v=us[0];
@@ -371,7 +370,6 @@ public class JS100pde_recirc_xy extends RTModel {
             gammas[0]=0;
         }
         
-        // ctxt methods for PDE Block-t(x) [u]
         public void LSFEA_tstep__u(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2u=us[0];

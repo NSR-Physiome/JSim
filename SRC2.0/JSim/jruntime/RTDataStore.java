@@ -22,6 +22,7 @@ public final class RTDataStore implements NamedVal.Query {
 	private String sensP;	// for this sensitivity par (if any)
 	private double sensDelta; // delta for sensP
 	private Data[] data;	// data items
+	private Data[] fineData; // Nth unreduced data from inputs w/ dim>0
 	private boolean assignPending[]; // calcAssign needed?
 	private NamedVal.NList overrides; // model overrides
 	private boolean isRunning; // this store currently running?
@@ -36,6 +37,7 @@ public final class RTDataStore implements NamedVal.Query {
 	private GridData[] cgrids; // comp grids by domain
 	private int[] nths; // every nth, count by domain
 	private int[] flops; // # left excess cgrid points
+	protected RTDataStoreNth storeNth; // post-processing Nth store
 
 	// new run constructor
 	public RTDataStore(RTModel m) {
@@ -45,26 +47,30 @@ public final class RTDataStore implements NamedVal.Query {
 	    cgrids = new GridData[nx];
 	    nths = new int[nx];
 	    flops = new int[nx];
-	    for (int i=0; i<nx; i++)
+	    for (int i=0; i<nx; i++) 
 	    	nths[i] = flops[i] = -1;
 	    clear();
 	}
 	
 	// clear a previous data in store (if any)
-	public void clear() {	    
-	    data = new Data[model.vars.size()];
-	    assignPending = new boolean[model.vars.size()];
+	public void clear() {
+	    int nvars = model.vars.size(); 
+	    data = new Data[nvars];
+	    fineData = new Data[nvars];
+	    assignPending = new boolean[nvars];
 	    for (int i=0; i<assignPending.length; i++) 
 		if (model.vars.var(i).isInput()) 
 		    assignPending[i] = true;
 	    overrides = null;
 	    liveQueries = new RTLiveQuery.List();
+	    storeNth = null;
 	}
 
 	// set properties
 	protected void setName(String n) { 
 	    name = n; 
 	}
+		
 	protected void setSens(String p, double delta) {
 	    sensP = p;
 	    sensDelta = delta;
@@ -82,6 +88,12 @@ public final class RTDataStore implements NamedVal.Query {
 	    flops[xid] = flop;
 	}
 
+	// create POSTRUN Nth store, if needed
+	protected void createStoreNth() {
+	    if (storeNth == null)
+	    	storeNth = new RTDataStoreNth(this);
+	}
+	
 	// create new top context for run in this store
 	protected void runPrep(RTContext ctxt, NamedVal.NList overs) throws Xcept {
 	    isRunning = true;
@@ -146,14 +158,22 @@ public final class RTDataStore implements NamedVal.Query {
 		    expr = Expr.cons(nval.realVal());
 	    }
 	    
-	    // do assign
+	    // do assign to user data
 	    RealNData ndata = 
 	    	((RTRealNVar) v).calcAssign(this, expr, ctxt.random);
 	    setData(v, ndata);
 	    assignPending[vid] = false; 
+
+	    // create fine grid for exact muCalc of inputs
+	    if (! RTModel.NTHMIDRUN) return;
+	    if (v.ndim() < 1) return;
+	    if (expr.isConst()) return;
+	    // fineData[vid] = RTModel.makeFineData(this, expr,
+	    //	   ctxt.random);
 	}
 
 	// query name & data
+	public RTModel model() { return model; }
 	public String name() { return name; }
 	public String sensP() { return sensP; }
 	public double sensDelta() { return sensDelta; }
@@ -163,6 +183,9 @@ public final class RTDataStore implements NamedVal.Query {
 	}
 	public RealNData ndata(RTVar v) {
 	    return (RealNData) data[v.varID()];
+	}
+	public RealNData fineData(RTVar v) {
+	    return (RealNData) fineData[v.varID()];
 	}
 	public GridData gdata(RTVar v) {
 	    return (GridData) data[v.varID()];
@@ -186,7 +209,6 @@ public final class RTDataStore implements NamedVal.Query {
 	public int flop(int xid) { 
 	    return flops[xid];
 	}
-
 
 	// query local namedVals first,  then model's
  	public NamedVal namedVal(String n) throws Xcept {

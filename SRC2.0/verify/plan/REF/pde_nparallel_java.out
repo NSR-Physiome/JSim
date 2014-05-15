@@ -246,7 +246,6 @@ public class JS100pde_nparallel extends RTModel {
             interruptCheck();
         }
         
-        // ctxt methods for PDE Block-t(x) [u]
         public void MacCormack_State__u(double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
             js3t=t;
             js3u=us[0];

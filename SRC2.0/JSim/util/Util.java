@@ -19,7 +19,7 @@ public class Util {
 
 	// JSim version control
 	public static final String version() {
-	    return "2.13";
+	    return "2.14";
 	}
 
 	// Java/OS versions
@@ -34,6 +34,18 @@ public class Util {
 	    String home = System.getProperty("jsim.home");
 	    if (home == null) throw new Xcept(
 		"jsim.home property not defined");
+	    return home;
+	}
+
+	// USER HOME directory
+	public static String userHome() throws Xcept {
+	    String home = System.getProperty("user.home");
+	    if (home == null) throw new Xcept(
+		"Java user.home property not defined");
+	    File f = new File(home);
+	    if (! f.exists()) throw new Xcept(
+	    	"Java user.home property: Directory <" + home + 
+		"> does not exist");
 	    return home;
 	}
 

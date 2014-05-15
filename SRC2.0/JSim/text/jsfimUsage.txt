@@ -3,11 +3,13 @@ Usage: jsfim [ switches ] project datafile
 Switches:
 
   -model name            Select named model within project
+  -i v=expr              Assign input v to expression
   -fgen [file] v=curve   Drive input v via data curve 
   -o file                Write func image(s) to specified file
   -ofit file             Write curve fits to specified file
   -log file              Save optim reports in log file
-  -ofmt dataformat       Specify non-default output data format
+  -ofmt dataformat       Specify non-default FIM output data format
+  -ofitfmt dataformat    Specify non-default model fit output data format
   -oprec integer         Specify numeric output precision
   -ref prefix            Select ref curves by prefix
   -refx name ...         Exclude names from ref curve list

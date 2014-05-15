@@ -50,7 +50,7 @@ public class MoptData implements DiagInfo {
 	}
 	public void setFitData(int segment, int match, Data data)
 	throws Xcept {
-	    data.setGroup("segment_" + (segment+1));
+//OLD	    data.setGroup("segment_" + (segment+1));
 	    fitData[match][segment] = (RealNData) data;
 	}
 	public void setOptimResults(int segment, OptimResults rold)

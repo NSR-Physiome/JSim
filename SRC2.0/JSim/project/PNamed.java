@@ -400,6 +400,10 @@ public abstract class PNamed implements Named, NamedVal.Query {
 	    for (int i=0; i<nvals.size(); i++)
 	    	setControl(nvals.nval(i));
 	}
+	public void setControls(NamedVal.List vals) throws Xcept {
+	    for (int i=0; i<vals.size(); i++)
+	    	setControl(vals.nval(i));
+	}
 	public void setControls(NamedVal[] nvals) throws Xcept {
 	    for (int i=0; i<nvals.length; i++)
 	    	setControl(nvals[i]);

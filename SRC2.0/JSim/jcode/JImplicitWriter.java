@@ -28,6 +28,17 @@ public class JImplicitWriter extends JProblemWriter {
 	    	cache.add(vsol(i).v());
 	}
 
+	// write solve call
+	public void writeSolverCall() throws Xcept {
+	    String obj = problemObject();
+	    JWriter pp = parent.parent;
+	    if (pp instanceof JODEWriter) 
+	    	obj = ((JODEWriter) pp).problemObject();
+	    if (pp instanceof JPDEWriter) 
+	    	obj = ((JPDEWriter) pp).problemObject();
+	    println(obj + ".solve(this);");
+	}
+
 	// write problem class
 	public void writeClass() throws Xcept {
 

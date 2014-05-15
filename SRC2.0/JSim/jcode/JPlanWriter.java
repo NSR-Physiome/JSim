@@ -72,12 +72,7 @@ public class JPlanWriter extends JWriter {
 	    // update cacheVars from subWriters
 	    for (int i=0; i<subWriters.size(); i++) {
 		JMethodWriter p = subWriters.get(i);
-		int plevel = p.cacheLevel;
-	    	Iterator<Var> cache = p.cache.iterator();
-		while (cache.hasNext()) {
-		    Var v = cache.next();
-		    cacheVars.add(new JCacheVar(v, plevel));
-		}
+		p.addCacheVars(cacheVars);	
 	    }
 	}
 

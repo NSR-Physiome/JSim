@@ -46,5 +46,10 @@ public class GParSet extends GTabs {
 	    gproject().addTab(this);
 	}
 
+	// icon for buttonTabs
+	public Icon buttonTabIcon() {
+	    boolean locked = parset.locked.val();
+	    return locked ? glook().lockIcon() : glook().unlockIcon();
+	}
 }
 

@@ -89,10 +89,9 @@ public final class LSServer extends ASServer {
 	    if (Util.isBlank(jsimPath))
 		jsimPath = System.getProperty("jsim.path");
 	    if (Util.isBlank(jsimPath)) {
-		jsimPath = 
-		    System.getProperty("user.home") + 
-		        File.separator + ".jsim" + 
-			File.separator + "local" + 
+		jsimPath = Util.userHome() + 
+		    File.separator + ".jsim" + 
+		    File.separator + "local" + 
 		    File.pathSeparator + 
 		    Util.jsimHome() + File.separator + "local" + 
 		    File.pathSeparator + 
@@ -157,8 +156,8 @@ public final class LSServer extends ASServer {
 	}
 
 	// init $HOME/.jsim directory
-	private File initJSimDir() throws IOException {
-	    File dir = new File(System.getProperty("user.home") +
+	private File initJSimDir() throws Exception {
+	    File dir = new File(Util.userHome() +
 		File.separator + ".jsim");
 	    makeDir(dir);
 	    makeDir(new File(dir, "local"));

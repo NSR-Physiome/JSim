@@ -114,6 +114,8 @@ public class DataFilter {
 	    return rdata;		
 	}
 
+	// every nth point
+
 }
 
 	

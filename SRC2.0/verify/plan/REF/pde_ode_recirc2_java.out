@@ -256,7 +256,6 @@ public class JS100pde_ode_recirc2 extends RTModel {
             udot[1] = js2v1__Dt;
         }
         
-        // ctxt methods for PDE Block-t(x) [u2, u1]
         public void LSFEA_tstep__u2(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2u2=us[0];

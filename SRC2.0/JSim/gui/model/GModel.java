@@ -9,6 +9,7 @@ END_NSRCOPYRIGHT*/
 
 package JSim.gui.model;
 
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,12 +43,13 @@ public class GModel extends GTabs {
 	private GModelHelpDB helpDB;
 	private GModelForwardIC forwardICDialog;
 
+	private static String knew = "<new parameter set>";
+
 	// actions
 	public GAction loadSet, loadXSet, revert, forwardIC, 
 	    storeSet, storeSetAs, print, exportEPS; // Parset menu
 	public GAction singleRun, loopsRun, optimRun, monteRun,
 	   sensRun; // All_runs menu
-
 
 	// constructor
 	public GModel(GNode p, PModel m) throws Xcept {
@@ -58,26 +60,23 @@ public class GModel extends GTabs {
 	    // load project parameter set
 	    loadSet = new GAction(this, "Load project parameter set ...") {
 		public void doit() throws Xcept {
-		    Project proj = gproject().project();
-		    PNamed.List sets = proj.children(ParSet.class);
-		    if (sets.size()==0) throw new Xcept(
+		    StringList opts = makeParsetOptionsList();
+		    if (opts.size() == 0) throw new Xcept(
 			"No parameter sets available in this project");
-		    String[] names = new String[sets.size()];
-		    for (int i=0; i<sets.size(); i++)
-			names[i] = sets.pnamed(i).name();
 		    String msg = "Choose parameter set to load";
-		    String name = (String) JOptionPane.showInputDialog(
+		    String opt = (String) JOptionPane.showInputDialog(
 			    jcomp(), msg, "Load parameter set", 
 			    JOptionPane.QUESTION_MESSAGE, 
 			    glook().parsetIcon(),
-			    names, null);
-		    if (name == null) return;
+			    opts.array(), null);
+		    if (opt == null) return;
+		    String name = getNameFromParsetOption(opt);
 		    PModel pmodel = gmodel().pmodel();
 		    pmodel.loadParSet(name);
 		    gproject().refresh();
 		}
 		public boolean sbEnabled() { return gnode.editable(); }
-	    };
+	    };    
 
 	    // load XSim parameter file
 	    loadXSet = new GAction(this, "Import XSim parameter file ...") {
@@ -354,10 +353,12 @@ public class GModel extends GTabs {
 
 	// store parameter set dialog
 	public void storeParSet(boolean saveAs) throws Xcept {
-	    String knew = "<new parameter set>";
  	    Project proj = gproject().project();
 	    PModel pmodel = gmodel().pmodel();
-	    StringList options = proj.children(ParSet.class).nameList();
+	    
+//	    StringList options = proj.children(ParSet.class).nameList();
+	    StringList options = makeParsetOptionsList();
+
 	    if (options.size() == 0) saveAs = true;
 	    String curr = pmodel.parSetName.val();
 	    String sname = saveAs ? knew : curr;
@@ -369,6 +370,7 @@ public class GModel extends GTabs {
 		    glook().parsetIcon(),
 		    options.array(), knew);
 	    	if (sname == null) return;
+		sname = getNameFromParsetOption(sname);
 	    }
 	    if (sname.equals(knew)) {
 		sname = proj.newChildName("pars", true);
@@ -386,7 +388,7 @@ public class GModel extends GTabs {
 	    } else if (! curr.equals(sname)) {
 	    	int stat = JOptionPane.showConfirmDialog(jcomp(), 
 		   "Replacing existing parset " + sname + 
-		   " with current paramters?",
+		   " with current parameters?",
 		   "Replace Parameter Set", JOptionPane.YES_NO_OPTION);
 		if (stat != JOptionPane.OK_OPTION) return;
 	    }
@@ -414,6 +416,27 @@ public class GModel extends GTabs {
 	    gproject().message("Store parameters in parameter set " + sname);
 	    gproject().refresh();
 	}
+
+	// create parset options list for selection dialog (name + locked status)
+	private StringList makeParsetOptionsList() {
+	    Project proj = gproject().project();
+	    PNamed.List sets = proj.children(ParSet.class);
+	    StringList opts = new StringList();
+	    for (int i=0; i<sets.size(); i++) {
+		ParSet parset = (ParSet) sets.pnamed(i);
+		String opt = parset.name() + 
+		    (parset.locked.val() ? " (locked)" : " (unlocked)");
+		opts.add(opt);
+	    }
+	    return opts;
+	}
+
+	// return parset name from option
+	private String getNameFromParsetOption(String opt) {
+	    if (opt.equals(knew)) return opt;
+	    int inx = opt.indexOf(' ');
+	    return (inx > 0) ? opt.substring(0, inx) : opt;
+	} 
 
 	// refresh
 	public void refresh() {

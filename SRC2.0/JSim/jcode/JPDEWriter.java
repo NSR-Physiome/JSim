@@ -18,6 +18,7 @@ public class JPDEWriter extends JProblemWriter {
 	protected Domain t;
 	protected Domain x;
 	protected ArrayList<Var> us, uts, uxs, uxts, uxxs;
+	protected JPDEWriter[] splitWriters;
 
 	protected static final int LSFEA = ASModel.PDE_LSFEA;
 	protected static final int MacCormack = ASModel.PDE_MacCormack;
@@ -61,10 +62,72 @@ public class JPDEWriter extends JProblemWriter {
 	    addSubWriterBlock(block);
 	    addSubWriterBlock(lhbcBlock(), "__LHBC");
 	    addSubWriterBlock(rhbcBlock(), "__RHBC");
+
+
+	    if (isSplit()) {
+	    	int n = splitBlocks().length;
+	    	splitWriters = new JPDEWriter[n];
+		for (int i=0; i<n; i++) {
+		    PDEBlock splitBlock = splitBlocks()[i];
+		    splitWriters[i] = new JPDEWriter(this, splitBlock);
+		}
+	    }
 	}
+
+	// add cacheVars
+	protected void addCacheVars(LinkedHashSet<JCacheVar> cacheVars)
+	throws Xcept {
+	    if (isSplit()) {
+		for (int i=0; i<splitWriters.length; i++)
+		    splitWriters[i].addCacheVars(cacheVars);
+	    } else {
+	    	super.addCacheVars(cacheVars);
+	    }
+	}
+
+	// write problem (maybe array declaration
+	public void writeDecl() throws Xcept {
+	    if (isSplit()) 
+	        println("public RTProblem[] " + problemObject() + ";");
+	    else 
+	    	super.writeDecl(); 
+	}
+	
+	// write problem object instantiation
+	public void writeInst() throws Xcept {
+	    if (isSplit()) {
+	    	int n = splitWriters.length;
+	        println(problemObject() 
+		    + " = new RTProblem[" + n + "];");
+		for (int i=0; i<n; i++) {
+		    println(problemObject() + "[" + i + "] = new " +
+		    	splitWriters[i].problemClass() + "(this);");
+		} 
+	    } else {
+	    	super.writeInst(); 
+	    }
+	}
+
+	// write solver call
+	public void writeSolverCall() throws Xcept {
+	    if (isSplit()) 
+	        println("solve(" + problemObject() + ");");
+	    else 
+	    	super.writeSolverCall(); 
+	}
+	
 
 	// write problem class
 	public void writeClass() throws Xcept {
+
+	    // split blocks?
+	    if (isSplit()) {
+		for (int i=0; i<splitWriters.length; i++) 
+		    splitWriters[i].writeClass();
+		return;
+	    }
+
+	    // single block
 	    println("// PDE problem solving " + block.vstate());
 	    println("public class " + problemClass() +
 	    	" extends " + extendsClass() + " {");
@@ -154,6 +217,15 @@ public class JPDEWriter extends JProblemWriter {
 	// write ctxt call w/ PDE ncallback increment
 	public void writeCtxtCall(String name, String args, String
 	types) throws Xcept {
+
+	    // split blocks? 
+	    if (isSplit()) {
+		for (int i=0; i<splitWriters.length; i++) 
+		    splitWriters[i].writeCtxtCall(name, args, types);
+		return;
+	    }
+
+	    // single block
 	    startMethod(name, "ctxt," + args, "RTContext," + types);
 	    println("npdeCallbacks[ProfileData." + name + "]++;");
 	    println("((XContext) ctxt)." + name + "__" + id + 
@@ -175,7 +247,15 @@ public class JPDEWriter extends JProblemWriter {
 
 	// write ctxt methods
 	public void writeMethods() throws Xcept {
-	    println("// ctxt methods for " + block);
+
+	    // split blocks? 
+	    if (isSplit()) {
+		for (int i=0; i<splitWriters.length; i++) 
+		    splitWriters[i].writeMethods();
+		return;
+	    }
+
+	    // single block
 
 	    // LSFEA state methods
 	    if (doSolver(LSFEA)) {
@@ -325,5 +405,7 @@ public class JPDEWriter extends JProblemWriter {
 	}
 	public String evalMethod() { return "evaluate__" + id; }
 	public String extendsClass() { return "PDE1Problem"; }  
+	public PDEBlock[] splitBlocks() { return block.splitBlocks(); }
+	public boolean isSplit() { return splitBlocks() != null; }
 }
 

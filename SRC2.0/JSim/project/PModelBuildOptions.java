@@ -29,6 +29,8 @@ public class PModelBuildOptions extends PNamed {
 	public IntControl maxImplicitBlock;
 	public BooleanControl ignoreAllOverspec;
 	public BooleanControl ignoreAllUnderspec;
+	public BooleanControl splitBlocks;
+	public BooleanControl parallelize;
 	
 	// constructor
 	public PModelBuildOptions(PModel p, String n) throws Xcept {
@@ -45,6 +47,10 @@ public class PModelBuildOptions extends PNamed {
 	    	this, "ignoreAllOverspec", false);
 	    ignoreAllUnderspec = new BooleanControl(
 	    	this, "ignoreAllUnderspec", false);
+	    splitBlocks = new BooleanControl(
+	    	this, "splitBlocks", false);
+	    parallelize = new BooleanControl(
+	    	this, "parallelize", false);
 	}
 
 	// query

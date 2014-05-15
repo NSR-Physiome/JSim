@@ -26,6 +26,8 @@ import JSim.gui.model.*;
 
 public class GRTAuto extends GRTDoc{
 
+	public static boolean JBB_MODE = true;
+
 	// state info
 	private Element root;
 	private String errMsg;
@@ -115,26 +117,52 @@ public class GRTAuto extends GRTDoc{
 		root.appendChild(page);
 		return;
 	    }
-	
-	    // domain blocks
-	    double x = 0.5;
+	    double x = 24.7;
 	    double y = 0;
+
+	    // Advance config table
+	    Element lab = doc.createElement("text");
+	    lab.setAttribute("text", "Advanced");
+	    lab.setAttribute("fontMult", "1.3");
+	    lab.setAttribute("pos", "" + x + " " + y);
+	    page.appendChild(lab);
+	    y += 2;
+	    double ws[] = widths(null);
+	    ws[0] += 3;
+	    ws[2] = 0;
+	    StringList anames = new StringList();
+	    StringList alabels = new StringList();
+	    anames.add("loops.inner.ntimes");
+	    alabels.add("#inner loops");
+	    anames.add("loops.outer.ntimes");
+	    alabels.add("#outer loops");
 	    for (int i=0; i<dvars.size(); i++) {
 		ASVar d = dvars.asvar(i);
-		Element lab = doc.createElement("text");
+		String dname = d.name();
+		anames.add("memory." + dname + ".nth");
+	    }
+	    Element tbl = makeTable(anames, alabels, ws);
+	    tbl.setAttribute("pos", "" + x + " " + y);
+	    page.appendChild(tbl);
+	
+	    // domain blocks
+	    x = 0.5;
+	    y = 0;
+	    for (int i=0; i<dvars.size(); i++) {
+		ASVar d = dvars.asvar(i);
+		lab = doc.createElement("text");
 		lab.setAttribute("text", "Domain " + d.name());
 	    	lab.setAttribute("fontMult", "1.3");
 		lab.setAttribute("pos", "" + x + " " + y);
 		page.appendChild(lab);
 		y += 2;
 		ASVar.List vsub = subVars(d);
-		double[] ws = widths(null);
-		Element tbl = makeTable(vsub, ws);
+		ws = widths(null);
+		tbl = makeTable(vsub, ws);
 		tbl.setAttribute("pos", "" + x + " " + y);
 		y += 1 + GRTTable.HMULT*vsub.size();
 		page.appendChild(tbl);
 	    }
-//	    y += 1;
 		
 	    // input header
 	    double yin = y;
@@ -203,6 +231,32 @@ public class GRTAuto extends GRTDoc{
 		ASVar v = list.asvar(i);
 		Element e = doc.createElement("var");
 		e.setAttribute("name", v.name());
+		tbl.appendChild(e);
+	    }
+	    return tbl;
+	}
+
+	// create table from var list
+	private Element makeTable(StringList names, double[] ws) {
+	    return makeTable(names, null, ws);
+	}
+
+	// create table from var list
+	private Element makeTable(StringList names, StringList labels,
+	double[] ws) {
+	    Element tbl = doc.createElement("table");
+	    tbl.setAttribute("widths",
+		"" + Util.pretty(ws[0]) + 
+		" " + Util.pretty(ws[1]) + 
+		" " + Util.pretty(ws[2])); 
+	    for (int i=0; i<names.size(); i++) {
+		Element e = doc.createElement("var");
+		e.setAttribute("name", names.str(i));
+		if (labels != null && i < labels.size()) {
+		    String label = labels.str(i);
+		    if (! Util.isBlank(label))
+		    	e.setAttribute("label", labels.str(i));
+		}
 		tbl.appendChild(e);
 	    }
 	    return tbl;

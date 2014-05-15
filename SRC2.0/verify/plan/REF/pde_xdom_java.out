@@ -222,7 +222,6 @@ public class JS100pde_xdom extends RTModel {
             interruptCheck();
         }
         
-        // ctxt methods for PDE Block-t(x) [u]
         public void LSFEA_tstep__u(double t,double x,double[] us,double[] uts) throws Xcept {
             js3t=t;
             js3u=us[0];

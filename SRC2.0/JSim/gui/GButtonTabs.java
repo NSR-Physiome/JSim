@@ -191,13 +191,14 @@ implements ActionListener, ComponentListener {
 	    currItem = item;
 
 	    // update cardPanel
+	    JComponent jc = item.gnode.jcomp();
 	    if (item.cardID == null) {
 	        item.cardID = "" + item.gnode.hashCode();
-	    	JComponent jc = item.gnode.jcomp();
 		cardPanel.add(jc, item.cardID);
 	    }
 	    cardLayout.show(cardPanel, item.cardID);
 	    refresh();
+	    SwingUtilities.updateComponentTreeUI(jc);
 	}
 
 		
@@ -243,6 +244,9 @@ implements ActionListener, ComponentListener {
 		    item.radio = new JRadioButtonMenuItem(item.name);
 		    group.menu.add(item.radio);
 		    item.radio.addActionListener(this);
+		    Icon icon = item.gnode.buttonTabIcon();
+		    item.radio.setIcon(icon);
+		    item.radio.setHorizontalTextPosition(JButton.LEADING);
 		}
 	    }
 

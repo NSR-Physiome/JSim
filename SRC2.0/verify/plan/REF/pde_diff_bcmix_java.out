@@ -179,7 +179,6 @@ public class JS100pde_diff_bcmix extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(x) [u]
         public void MacCormack_State__u(double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
             js2t=t;
             js2u=us[0];

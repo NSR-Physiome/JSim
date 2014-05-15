@@ -290,7 +290,6 @@ public class JS100pde_query extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(x2) [B]
         public void LSFEA_tstep__B(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2B=us[0];
@@ -362,7 +361,6 @@ public class JS100pde_query extends RTModel {
             gammas[0]=0;
         }
         
-        // ctxt methods for PDE Block-t(x) [A]
         public void LSFEA_tstep__A(double t,double x,double[] us,double[] uts) throws Xcept {
             js2t=t;
             js2A=us[0];

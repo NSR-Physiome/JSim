@@ -28,6 +28,7 @@ abstract public class GRTVar extends GRTPageItem {
 
 	// state
 	private String name;
+	private String label;
 	private Control cntl;  // control if input
 	private PModel pmodel;
 	private GControl gcntl;  // gcontrol if input
@@ -40,6 +41,7 @@ abstract public class GRTVar extends GRTPageItem {
 	public GRTVar(GRTNode n, Element e) {
 	    super(n, e);
 	    name = e.getAttribute("name");
+	    label = e.getAttribute("label");
 	    addXMLChildren(e);
 	    pmodel = gmodel().pmodel();
 	}
@@ -47,6 +49,11 @@ abstract public class GRTVar extends GRTPageItem {
 	// connect and make widgets
 	public void makeStuff(boolean units) {
 	    cntl = pmodel.vars().control(name);
+	    if (cntl == null) {
+	    	PNamed p = pmodel.nestedChild(name);
+		if (p instanceof Control)
+		    cntl = (Control) p;
+	    }
 	    ASModel rt = pmodel.rt();
 	    try {
 		expr = rt.parseQuery(name);
@@ -120,7 +127,8 @@ abstract public class GRTVar extends GRTPageItem {
 
 	// query
 	public String name() { return name; }
-	public String label() { 
+	public String label() {
+	    if (! Util.isBlank(label)) return label;
 	    if (text() != null) return text(); 
 	    if (expr != null) {
 		if (expr instanceof ASVar) 

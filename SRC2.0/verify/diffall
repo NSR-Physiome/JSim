@@ -9,6 +9,7 @@ fi
 DIR1=$1
 DIR2=$2
 DSW="-b --ignore-matching-lines version --ignore-matching-lines jsim/work"
+DSW="$DSW --ignore-matching-lines options="
 
 cd $DIR1
 for i in *.out

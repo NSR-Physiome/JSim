@@ -88,6 +88,7 @@ public class SeqBlock implements SeqItem {
 
 	// query
 	public TModel model() { return model; }
+	public Plan plan() { return model().plan; }
 	public String title() { return "untitled"; }
 	public String toString() { return title(); }
 	public ArrayList<SeqItem> items() { return items; }

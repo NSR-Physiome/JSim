@@ -230,7 +230,6 @@ public class JS100pde_imp_bc extends RTModel {
         public void export__1t__a(double[] vals) throws Xcept {
             set(JSa,vals[0]);
         }
-        // ctxt methods for PDE Block-t(x) [u]
         public void MacCormack_State__u(double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
             js2t=t;
             js2u=us[0];

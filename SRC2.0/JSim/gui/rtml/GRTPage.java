@@ -61,7 +61,12 @@ public class GRTPage extends GRTNode implements Named {
 
 	// make JComponents
 	public void makeJComp() {
-	    layers = new JLayeredPane();
+	    layers = new JLayeredPane() {
+	    	public void updateUI() {
+		    super.updateUI();
+		    auxUpdateUI();
+		}
+	    };
 	    JPanel panel = new JPanel();
 	    panel.setBackground(Color.white);
 	    layers.add(panel, BACKDROP);
@@ -92,9 +97,18 @@ public class GRTPage extends GRTNode implements Named {
 	    layers.setPreferredSize(new Dimension(xmax, ymax));
 	}
 
+	// aux updateUI(): GRTVarButton aux gets confused, clear
+	private void auxUpdateUI() {
+	    for (int i=0; i<nChild(); i++) {
+	    	if (! (child(i) instanceof GRTVarButton)) continue;
+		((GRTVarButton) child(i)).clearAux();
+	    }
+	}
+
 	// add components at different levels
 	public void addTop(JComponent c) { 
 	    layers.add(c, TOP);
+layers.setComponentZOrder(c, 0);
 	    layers.revalidate(); // needed for 1st time popup 
 	}
 

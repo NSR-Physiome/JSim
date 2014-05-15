@@ -177,7 +177,6 @@ public class JS100pde_toms extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(x) [v, u]
         public void Toms731_State__v(double t,double x,double[] us,double[] uxs,double[] cs,double[] qs,double[] rs) throws Xcept {
             js2t=t;
             js2v=us[0];

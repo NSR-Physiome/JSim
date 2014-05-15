@@ -19,6 +19,7 @@ import java.util.*;
 
 public class ODEBlock extends MuBlock {
 	private Domain t; // time domain
+	protected ODEBlock[] splitBlocks; // null if unsplit
 	
 	// constructor
 	public ODEBlock(SeqBlock parent, DETool detool,  
@@ -44,10 +45,24 @@ public class ODEBlock extends MuBlock {
 	    }
 	}
 
+	// build split blocks
+	protected void buildSplitBlocks() throws Xcept { 
+	    if (! plan().splitBlocks()) return;
+ 	    MuBlockSplitter splitter = new MuBlockSplitter(this);
+	    int n = splitter.nSplitBlocks();
+	    if (n < 2) return;
+	    splitBlocks = new ODEBlock[n];
+	    for (int i=0; i<n; i++) {
+	    	splitBlocks[i] = (ODEBlock) splitter.getSplitBlock(i);
+		splitBlocks[i].build(false);
+	    }
+	}
+
 	// simple query
 	public String toString() { return title + " " + vstate; }
 	public boolean matches(DETool detool) {
 	    return t == detool.t() && detool.xs.size() == 0;
 	}
 	public Domain t() { return t; }
+	public ODEBlock[] splitBlocks() { return splitBlocks; }
 }

@@ -55,10 +55,17 @@ abstract public class MuBlock extends SeqBlock {
 	}
 	
 	// build sequence
-	protected void build() throws Xcept {
+	protected void build(boolean doSplits) throws Xcept {
 	    log("Building " + this + " ...");
 	    buildMus();
 	    buildOrder();
+	    if (doSplits) 
+	    	buildSplitBlocks();  
+	}
+
+	// build block splitter
+	protected void buildSplitBlocks() throws Xcept { 
+	    // implemented in ODE & PDE blocks only	
 	}
 
 	// build vmus and muToolMap for this block

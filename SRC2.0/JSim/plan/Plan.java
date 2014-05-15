@@ -159,6 +159,12 @@ public class Plan {
 	public boolean pullDisjoint() {
 	    return options.boolVal("pullDisjoint", true);
 	}
+	public boolean splitBlocks() {
+	    return options.boolVal("splitBlocks", true);
+	}
+	public boolean parallelize() {
+	    return options.boolVal("parallelize", false);
+	}
 
 	// get GraphML
 	public Document getGraphML() throws Xcept {

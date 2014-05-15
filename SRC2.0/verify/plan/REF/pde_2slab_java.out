@@ -419,7 +419,6 @@ public class JS100pde_2slab extends RTModel {
             updatePhase(JSt);
         }
         
-        // ctxt methods for PDE Block-t(x) [C2, C1]
         public void MacCormack_State__C2(double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
             js2t=t;
             js2C2=us[0];

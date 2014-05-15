@@ -28,6 +28,7 @@ public class GParSetView extends GEditor {
 	private ParSet parset;
 	private PrintWriter writer;
 	private JLabel l_hdr;
+	private JLabel l_lock;
 	private GAction writeFile, importPars;
 
 	// constructor from PNotes
@@ -38,7 +39,7 @@ public class GParSetView extends GEditor {
 
 	    // actions
 	    glocked = new GBooleanControl(this, parset.locked, "Locked");
-	    glocked.addAuxNode(this);
+	    glocked.addAuxNode(gproject());
 
 	    // import selected pars from another parset
 	    importPars = new GAction(this, "Import selected pars...") {
@@ -68,8 +69,14 @@ public class GParSetView extends GEditor {
 	    setIndentedBorder(text);
 	    JScrollPane scroll = new JScrollPane(text);
 	    JPanel jcontent = new JPanel(new BorderLayout());
+
 	    JPanel jlockLine = new JPanel(new BorderLayout());
-	    jlockLine.add(glocked.jcomp(), BorderLayout.EAST);
+	    JPanel jlockGroup = new JPanel(new GridLayout(1,2));
+	    jlockGroup.add(glocked.jcomp());
+	    l_lock = new JLabel(glook().lockIcon());
+	    jlockGroup.add(l_lock);
+	    jlockLine.add(jlockGroup, BorderLayout.WEST);
+
 	    jcontent.add(jlockLine, BorderLayout.NORTH);
 	    jcontent.add(scroll, BorderLayout.CENTER);
 	    root.setContentPane(jcontent);
@@ -106,6 +113,8 @@ public class GParSetView extends GEditor {
 	    refreshText();
 	    text().setCaretPosition(0);
 	    setTabLabel(l_hdr);
+	    Icon icon = parset.locked.val() ? glook().lockIcon() : glook().unlockIcon();
+	    l_lock.setIcon(icon);
 	    super.refresh();
 	}
 	    

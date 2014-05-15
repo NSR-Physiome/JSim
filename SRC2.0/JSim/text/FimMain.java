@@ -31,10 +31,12 @@ class FimMain implements ActionListener {
 	public StringList fgenVars; // fgen variables
 	public StringList fgenCurves; // fgen curve names
 	public JSReadable.List fgenFiles; // files for input assigns
+	public StringList inputs; // input assigns
 	public File outFimFile;  // output FIM file
 	public File outFitFile; // output fits file
 	public File logFile; // opt results,  if selected
-	public String fmtName = "column"; // output format, bul default
+	public String fmtName = "column"; // FIM output format
+	public String fitFmtName = "JSML"; // FIT output format
 	public int outPrec = Util.SINGLE_PRECISION;
 	public StringList prefixes; // ref data prefixes
 	public StringList excludes; // ref data exclusions
@@ -81,6 +83,10 @@ class FimMain implements ActionListener {
 		NamedVal.create("maxProc", maxProc);
 	    appl.server().setProperty(nval);
 
+	    // create data output formats (check for errors)
+	    DataFormat fimFmt = appl.dataFormats().format(fmtName);
+	    DataFormat fitFmt = appl.dataFormats().format(fitFmtName);
+
 	    // create project, fim generator
 	    Project proj = new Project("proj", appl);
 	    proj.importXML(projFile);
@@ -99,6 +105,18 @@ class FimMain implements ActionListener {
 	        for (int m=0; m<nmatches; m++) 
 		    pfim.setMatchData(m, matchDataSet, 
 		    	prefixes.str(m), excludes);
+
+	    // set inputs
+	    for (int i=0; i<inputs.size(); i++) {
+	    	String input = inputs.str(i);
+		int inx = input.indexOf('=');
+		String vname = input.substring(0, inx);
+		String expr = input.substring(inx+1);
+		Control vc = pfim.pmodel().vars().control(vname);
+		if (vc == null) throw new Xcept(
+		    "Input variable <" + vname + "> not found");
+		vc.setVal(expr);
+	    }
 
 	    // set func gens
 	    int nfgens = fgenVars.size();
@@ -128,7 +146,7 @@ class FimMain implements ActionListener {
 
 	    // start run MOPT generator thread
 	    msg("Staring optimizations ...");
-	    if (fmtName.equals("i4bull")) 
+	    if (fmtName.equals("i4bull") || fitFmtName.equals("i4bull")) 
 	        pfim.checkI4Bull();
 	    ASInfo.Mopt jobInfo = pfim.makeJobInfo();
 	    pjob = new PModelMoptJob(pfim.pmodel(), jobInfo);
@@ -156,8 +174,7 @@ class FimMain implements ActionListener {
 	    processSegments();
 
     	    // write FIM output
-	    DataFormat fmt = appl.dataFormats().format(fmtName);
-	    DataWriter wrt = fmt.createWriter();
+	    DataWriter wrt = fimFmt.createWriter();
 	    wrt.setPrecision(outPrec);
 	    Data.List list = moptData.parData();
 	    if (fmtName.equals("i4bull"))
@@ -167,8 +184,7 @@ class FimMain implements ActionListener {
 	    
 	    // write fit output
 	    if (outFitFile != null) {
-		fmt = new JSMLDataFormat();
-		wrt = fmt.createWriter();
+		wrt = fitFmt.createWriter();
 		wrt.setPrecision(outPrec);
 	    	Data.List fitData = moptData.fitData();
 	    	if (fmtName.equals("i4bull"))
@@ -261,6 +277,7 @@ class FimMain implements ActionListener {
 		
 	// parse command line args
 	public void parseArgs(String[] args) throws Xcept {
+	    inputs = new StringList();
 	    fgenVars = new StringList();
 	    fgenCurves = new StringList();
 	    fgenFiles = new JSReadable.List();
@@ -273,7 +290,12 @@ class FimMain implements ActionListener {
 	    	String s = args[i++];
 		if (s.equals("-model") && i<args.length-1) 
 		    modelName = args[i++];
-		else if (s.equals("-fgen") && i<args.length-1) {
+		else if (s.equals("-i")) {
+		    while (i<args.length-1 
+		    && ! args[i].startsWith("-")
+		    && args[i].indexOf('=') > 0)
+		    	inputs.add(args[i++]);
+		} else if (s.equals("-fgen") && i<args.length-1) {
 		    String eqn = args[i++];
 		    String fileName = null;
 		    if (eqn.indexOf('=')<0 && i<args.length-1) {
@@ -289,6 +311,8 @@ class FimMain implements ActionListener {
 		    logFile = new File(args[i++]);
 		else if (s.equals("-ofmt") && i<args.length-1)
 		    fmtName = args[i++];
+		else if (s.equals("-ofitfmt") && i<args.length-1)
+		    fitFmtName = args[i++];
 		else if (s.equals("-oprec") && i<args.length-1)
 		    outPrec = Util.toInt(args[i++]);
 		else if (s.equals("-ref") && i<args.length-1)

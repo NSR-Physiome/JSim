@@ -37,7 +37,7 @@ public class PApplication implements ASServer.Messenger {
 	protected ASInfo.Sandbox sandbox; // sandbox info
 	protected ASServer server;  // local or remote JSim server
 	private PNamed.List projects; // curr projs for this app
-	protected NamedVal.List buildOptions; // compiler options
+	public NamedVal.List buildOptions; // compiler options
 
 	// constructors
 	public PApplication() throws Xcept {

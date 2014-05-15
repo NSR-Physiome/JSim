@@ -76,7 +76,7 @@ public class MainBlock extends SeqBlock {
 	    buildPhaseBlock(this, wgraph.mainPhase());
 	    for (int i=0; i<deblocks.size(); i++) {
 	    	MuBlock block = deblocks.get(i);
-		block.build();
+		block.build(true);
 	    }
 
 	    // Optimize run-time memory usage (in development)
