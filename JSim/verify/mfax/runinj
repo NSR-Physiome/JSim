@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. ../run.common
+
+echo ==== $1
+$JSBATCH -f MODINJ/"$1".mod -i inj.flux=1 -out WORK/"$1".out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+# always good
+run1 g1 Cin=t 
+run1 g2 Cin=t a=0
+run1 g3 Cin=t a=b*2
+run1 g4 Cin=t b=a*2
+run1 g5 Cin=t
+run1 g6 Cin=1
+run1 g7 Cin=d/a
+run1 g8 Cin=t solver.ode_Dopri5_abstol=1e-5
+run1 g9 Cin=f1 f1.domain0=t f1.which=Pulse1 f1.Pulse1.timeToRepeat=20 -func f1
+
+# bad w/ units, good w/o units
+run1 m1 Cin=a
+run1 m2 Cin=a/d
+
+# always bad
+run1 b1 
+run1 b2 Cin=t b=b+a
+run1 b3 Cin=t t=1
+run1 b4 Cin=bogie
+run1 b5 Cin=Cout/a

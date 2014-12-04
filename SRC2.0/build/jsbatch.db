@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# debug version of JSim 1.6 batch application 
-#     appropriate for developers
-
-jsrun.db JSim.text.Batch $*
-exit $?

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# debug version of JSim 1.6 Gui application 
+#     appropriate for developers
+
+jsrun.db JSim.gui.GLaunch $*
+exit $?
+

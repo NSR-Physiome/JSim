@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ../run.common
+
+# test all func gens using model
+
+FUNC=$1
+echo ==== non-defaults $FUNC
+
+PROJ=PROJ/nondef.proj
+$JSBATCH -o a -f $PROJ -i f2.which=$FUNC -out WORK/"$FUNC"_nondef.out
+
+

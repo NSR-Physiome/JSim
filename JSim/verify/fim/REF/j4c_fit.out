@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSMLDataSet coding="ascii" precision="4" version="2.14d">
+  <ndata name="seg1" unit="dimensionless">
+    <grid ct="13" desc="t" max="3" min="0" tag="grid_0" unit="dimensionless"/>
+    <samples>  1.0  0.7788008  0.60653067  0.47236654  0.36787945  0.2865048  0.22313017  0.17377394
+  0.13533528  0.10539922  0.082085  0.06392786  0.049787067</samples>
+  </ndata>
+  <ndata name="seg2" unit="dimensionless">
+    <grid tag="grid_0"/>
+    <samples>  2.0010693  1.5586468  1.2140878  0.94574505  0.7367594  0.57400125  0.4472451  0.34852728
+  0.27164578  0.21177042  0.16513942  0.12882316  0.10054004</samples>
+  </ndata>
+  <ndata name="seg3" unit="dimensionless">
+    <grid tag="grid_0"/>
+    <samples>  3.999505  3.7782393  3.6059172  3.4717128  3.3671942  3.2857952  3.2224014  3.1730304
+  3.1345801  3.104635  3.0813138  3.0631511  3.0490062</samples>
+  </ndata>
+  <ndata name="seg4" unit="dimensionless">
+    <grid tag="grid_0"/>
+    <samples>  4.9998393  4.5577555  4.2134604  3.945323  3.7364974  3.573864  3.4472048  3.3485625
+  3.27174  3.2119102  3.1653152  3.1290267  3.1007652</samples>
+  </ndata>
+  <ndata name="seg5" unit="dimensionless">
+    <grid tag="grid_0"/>
+    <samples>  6.997826  6.777246  6.6054583  6.4716697  6.367475  6.2863283  6.223131  6.173913
+  6.135582  6.1057296  6.082481  6.0643744  6.0502734</samples>
+  </ndata>
+  <ndata name="seg6" unit="dimensionless">
+    <grid tag="grid_0"/>
+    <samples>  8.000303  7.558082  7.21368  6.945459  6.7365685  6.5738845  6.447186  6.348513
+  6.2716665  6.211818  6.165209  6.128909  6.1006384</samples>
+  </ndata>
+</JSMLDataSet>

@@ -1,0 +1,24 @@
+#!/bin/bash
+# Test uses sed, awk, grep, etc
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+cd PROJ
+PROJS=`ls *.proj | sed -e 's/.proj//'`
+cd ..
+rm -Rf WORK
+mkdir WORK
+
+
+echo "====nth memory"
+
+for j in $PROJS
+do
+  run1_proj $j 
+done
+
+for i in $MODS
+do
+  run1_mod $i 
+done

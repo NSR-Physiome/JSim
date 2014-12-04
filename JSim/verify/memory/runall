@@ -1,0 +1,24 @@
+#!/bin/bash
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+rm -Rf WORK
+mkdir WORK
+
+
+echo "==== memloops"
+$JSBATCH -f PROJ/memloop.proj -loops -o a > WORK/memloops.out
+
+for i in $MODS
+do
+  run1 $i
+done
+
+ echo "============================ STARTING DIR NTH"
+ cd NTH
+ ./runall
+ ../../cmpall REF WORK
+
+ cd ..

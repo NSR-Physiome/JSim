@@ -1,0 +1,55 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+# basic optimizers
+run1 basic simplex amp decay
+run1 basic ggopt amp decay
+run1 basic gridsearch amp decay
+run1 basic neldermead amp decay
+run1 basic nl2sol amp decay
+run1 basic sensop amp decay
+echo "Note: simanneal & genetic: show diffs due to randomization"
+run1 basic simanneal amp decay
+run1 basic genetic amp decay
+
+# reentrancy: optim and fzero
+run1 fzero_bound simplex a b
+#run1 fzero_bound genetic a b # doesn't reliably converge
+run1 fzero_unbound ggopt a b
+run1 fzero_bound gridsearch a b
+run1 fzero_unbound neldermead a b
+run1 fzero_unbound nl2sol a b
+
+# model time range matches data sub-range
+run1 subrange simplex a
+
+# 2 curves amp->2
+run1 par2 simplex amp decay
+
+# func gen fgen_1.SineTrain.amplitude -> 3
+run1 fgen simplex fgen_1.SineTrain.amplitude
+
+# curve weights, 2 curves weighted 3/1, amp -> 2.5
+run1 cwgt simplex amp
+
+### point weighting tests (imperfect fit) amp only
+
+# amp only, pwgt=1, amp->~2.6
+run1 nowgt simplex amp
+
+# pwgt=t^2, amp->~4.2
+run1 pwgt_t simplex amp
+     
+# match ramp funcgen, amp->~5
+run1 pwgt_fr simplex amp
+
+# match data funcgen, amp->~5
+run1 pwgt_fd simplex amp
+
+# sensop paper tests
+run1 gaussian sensop theta1 theta2 theta3
+run1 biggs sensop t1 t2 t3 t4 t5 t6
+#run1 btex30 sensop PSg Visfp PSpc Vpcp Gpc # slow!!
+

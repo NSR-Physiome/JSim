@@ -1,9 +1,0 @@
-#!/bin/sh
-
-. ../run.common
-
-echo ==== $1
-$JSBATCH -o $2 $3 $4 -f PROJ/"$1".proj -sens -out WORK/"$1".out
-
-
-

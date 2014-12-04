@@ -1,0 +1,158 @@
+// JSim generated model JS100imp2_when
+ 
+import java.lang.Math;
+import JSim.util.*;
+import JSim.expr.*;
+import JSim.data.*;
+import JSim.jruntime.*;
+import JSim.aserver.*;
+import JSim.nml.math.NatMath;
+ 
+// JS100imp2_when model
+public class JS100imp2_when extends RTModel {
+
+    // variable declarations
+    public RTRealDomain JSt;
+    public RTRealNVar JSt__min;
+    public RTRealNVar JSt__max;
+    public RTIntNVar JSt__ct;
+    public RTRealNVar JSt__delta;
+    public RTRealNVar JSa;
+    public RTRealNVar JSb;
+    public RTRealNVar JSc;
+     
+    // F&P declarations
+    
+    // solver declarations
+    public Fzero1Problem__b fzero1problem__b;
+     
+    // RT model constructor
+    public JS100imp2_when(UnitNList u,ASServer.Messenger m) throws Xcept {
+        super("JS100imp2_when", u, m);
+         
+        // units used in model
+        units.add("dimensionless", Unit.parse(this, "1  dimensionless"));
+        units.add("radian", Unit.parse(this, "1  dimensionless"));
+         
+        // var instantiation
+        JSt__min = new RTRealNVar(this, "t.min","dimensionless",1,null);
+        JSt__max = new RTRealNVar(this, "t.max","dimensionless",1,null);
+        JSt__ct = new RTIntNVar(this, "t.ct","dimensionless",2,null);
+        JSt__delta = new RTRealNVar(this, "t.delta","dimensionless",1,null);
+        JSa = new RTRealNVar(this, "a","dimensionless",1,null);
+        JSt = new RTRealDomain(this, "t","dimensionless",2,JSt__min,JSt__max,JSt__delta,JSt__ct);
+        JSb = new RTRealNVar(this, "b","dimensionless",3,new RTRealDomain[] {JSt});
+        JSc = new RTRealNVar(this, "c","dimensionless",3,new RTRealDomain[] {JSt});
+         
+        // input defaults
+        JSt__min.setDefault("0");
+        JSt__max.setDefault("4");
+        JSt__delta.setDefault("1");
+        JSa.setDefault("1");
+        
+        // F&P initialization
+        
+        // solver instantiation
+        fzero1problem__b = new Fzero1Problem__b(this);
+        
+    }
+    
+    // simple main methods
+    public boolean defaultUnitCorrect() { return false; }
+    public boolean allowMPRuns() { return true; }
+    public void mainline(RTContext ctxt) throws Xcept { ((XContext) ctxt).mainline(); }
+    public RTContext newRunContext(int threadInx, int nproc, RTDataStore s) { return new XContext(this, threadInx, nproc, s); }
+    
+    // every Nth point support
+    public boolean runTimeNthSupported(RTRealDomain x) {
+        return true;
+    }
+    
+    // Implicit block solving [b(t.min), c(t.min)]
+    public class Fzero1Problem__b extends Fzero1Problem {
+        public Fzero1Problem__b(RTModel m) throws Xcept {
+            super(m, "Fzero1Problem__b",2);
+        }
+        public void setCoef(RTContext ctxt,double[] mat,double[] vec,double[] rec) throws Xcept {
+            ((XContext) ctxt).setCoef__b(mat,vec,rec);
+        }
+        public void setBounds(RTContext ctxt,double[] vmin,double[] vmax,double[] vguess) throws Xcept {
+            ((XContext) ctxt).setBounds__b(vmin,vmax,vguess);
+        }
+        public void calcZero(RTContext ctxt,double[] val,double[] zero) throws Xcept {
+            ((XContext) ctxt).calcZero__b(val,zero);
+            ncallbacks++;
+        }
+        public void export(RTContext ctxt,double[] val) throws Xcept {
+            ((XContext) ctxt).export__b(val);
+        }
+    }
+     
+    // model-specific context
+    public class XContext extends RTContext {
+        // global caches
+        private double js0t__min;
+        private double js0t__max;
+        private double js0t__delta;
+        private double js0a;
+        private double js1b;
+        private double js1c;
+        
+        // context constructor
+        public XContext(RTModel m, int threadInx, int nproc, RTDataStore s) { super(m, threadInx, nproc, s, false); }
+        
+        // trace NaN causes abort?
+        public boolean abortNaN() { return false; }
+        
+        // ctxt mainline
+        public void mainline() throws Xcept {
+            js0a = realVal(JSa);
+            js0t__delta = realVal(JSt__delta);
+            js0t__max = realVal(JSt__max);
+            js0t__min = realVal(JSt__min);
+            set(JSt__ct,(((js0t__max-js0t__min)/js0t__delta)+1.5));
+            set(JSt__max,js0t__max = (js0t__min+(js0t__delta*(realVal(JSt__ct)-1))));
+            setDomain(JSt);
+            setLHBC(JSt);
+            setLHBC(JSt);
+            fzero1problem__b.solve(this);
+            startPhase(3, JSt);
+            for (setLHBC(JSt); isSet(JSt); moveRight(JSt)) loop__0t();
+            startPhase(4, null);
+        }
+        
+        // ctxt methods for Fzero1Problem__b
+        public void setCoef__b(double[] mat,double[] vec,double[] rec) throws Xcept {
+            mat[0]=1;
+            mat[1]=1;
+            mat[2]=1;
+            mat[3]=(-1);
+            vec[0]=(js0a*(-1));
+            vec[1]=(-4);
+        }
+        public void setBounds__b(double[] vmin,double[] vmax,double[] vguess) throws Xcept {
+        }
+        public void calcZero__b(double[] vals,double[] zeroes) throws Xcept {
+            js1b=vals[0];
+            js1c=vals[1];
+            zeroes[0]=((js1b+js1c)-js0a);
+            zeroes[1]=((js1b-js1c)-4);
+        }
+        public void export__b(double[] vals) throws Xcept {
+            set(JSb,vals[0]);
+            set(JSc,vals[1]);
+        }
+        // ctxt loop iteration for domain t
+        public void loop__0t() throws Xcept {
+            if (! atRHBC(JSt)) setNextRight(JSc,JSt);
+            if (! atRHBC(JSt)) setNextRight(JSb,JSt);
+            interruptCheck();
+            updatePhase(JSt);
+        }
+        
+        // ctxt methods for F&P
+    }
+     
+}
+
+

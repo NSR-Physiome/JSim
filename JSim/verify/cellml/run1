@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ../run.common
+
+echo ==== $1 translate
+
+$JSBATCH -f XML*/"$1".cellml -omml -out WORK/"$1".mod.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

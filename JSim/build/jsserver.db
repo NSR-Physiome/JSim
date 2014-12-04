@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# this version of
+# jsserver.db -start creates internal rmiregistry
+#   which exists as long as program runs
+# old jsserver.init and jsserver.kill are obsolete
+
+jsrun.db -Djsim.jvmID=server JSim.rserver.RSAdmin $*
+exit $?
+

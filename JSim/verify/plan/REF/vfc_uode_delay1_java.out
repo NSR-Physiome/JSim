@@ -1,0 +1,341 @@
+// JSim generated model JS100vfc_uode_delay1
+ 
+import java.lang.Math;
+import JSim.util.*;
+import JSim.expr.*;
+import JSim.data.*;
+import JSim.jruntime.*;
+import JSim.aserver.*;
+import JSim.nml.math.NatMath;
+ 
+// JS100vfc_uode_delay1 model
+public class JS100vfc_uode_delay1 extends RTModel {
+
+    // variable declarations
+    public RTRealDomain JSt;
+    public RTRealNVar JSt__min;
+    public RTRealNVar JSt__max;
+    public RTIntNVar JSt__ct;
+    public RTRealNVar JSt__delta;
+    public RTRealNVar JSd;
+    public RTRealNVar JSu;
+    public RTRealNVar JSv;
+    public RTRealNVar JSu__Dt;
+    public RTRealNVar JSu__init;
+     
+    // F&P declarations
+    
+    // solver declarations
+    public ODE1Problem__u ode1problem__u;
+     
+    // RT model constructor
+    public JS100vfc_uode_delay1(UnitNList u,ASServer.Messenger m) throws Xcept {
+        super("JS100vfc_uode_delay1", u, m);
+         
+        // units used in model
+        units.addFund("kg");
+        units.addFund("m");
+        units.addFund("sec");
+        units.addFund("amp");
+        units.addFund("degK");
+        units.addFund("mol");
+        units.addFund("candela");
+        units.add("dimensionless", Unit.parse(this, "1  dimensionless"));
+        units.add("radian", Unit.parse(this, "1  dimensionless"));
+        units.add("kg", Unit.parse(this, "1 kg^1"));
+        units.add("m", Unit.parse(this, "1 m^1"));
+        units.add("sec", Unit.parse(this, "1 sec^1"));
+        units.setPrefixable("sec");
+        units.add("amp", Unit.parse(this, "1 amp^1"));
+        units.setPrefixable("amp");
+        units.add("degK", Unit.parse(this, "1 degK^1"));
+        units.add("mol", Unit.parse(this, "1 mol^1"));
+        units.setPrefixable("mol");
+        units.add("candela", Unit.parse(this, "1 candela^1"));
+        units.setPrefixable("candela");
+        units.add("steradian", Unit.parse(this, "1  dimensionless"));
+        units.setPrefixable("steradian");
+        units.add("scalar", Unit.parse(this, "1  dimensionless"));
+        units.add("percent", Unit.parse(this, ".01  dimensionless"));
+        units.add("mole", Unit.parse(this, "1 mol^1"));
+        units.setPrefixable("mole");
+        units.add("mmol", Unit.parse(this, ".001 mol^1"));
+        units.add("umol", Unit.parse(this, "1E-6 mol^1"));
+        units.add("nmol", Unit.parse(this, "1E-9 mol^1"));
+        units.add("pmol", Unit.parse(this, "1E-12 mol^1"));
+        units.add("meter", Unit.parse(this, "1 m^1"));
+        units.setPrefixable("meter");
+        units.add("metre", Unit.parse(this, "1 m^1"));
+        units.setPrefixable("metre");
+        units.add("mm", Unit.parse(this, ".001 m^1"));
+        units.add("cm", Unit.parse(this, ".01 m^1"));
+        units.add("km", Unit.parse(this, "1E3 m^1"));
+        units.add("micron", Unit.parse(this, "1E-6 m^1"));
+        units.add("um", Unit.parse(this, "1E-6 m^1"));
+        units.add("nm", Unit.parse(this, "1E-9 m^1"));
+        units.add("angstrom", Unit.parse(this, "1E-10 m^1"));
+        units.setPrefixable("angstrom");
+        units.add("inch", Unit.parse(this, ".0254 m^1"));
+        units.add("foot", Unit.parse(this, ".3048 m^1"));
+        units.add("yard", Unit.parse(this, ".9144 m^1"));
+        units.add("mile", Unit.parse(this, "1609.344 m^1"));
+        units.add("gram", Unit.parse(this, ".001 kg^1"));
+        units.setPrefixable("gram");
+        units.add("g", Unit.parse(this, ".001 kg^1"));
+        units.add("mg", Unit.parse(this, "1E-6 kg^1"));
+        units.add("ug", Unit.parse(this, "1E-9 kg^1"));
+        units.add("amu", Unit.parse(this, "1.660531E-27 kg^1"));
+        units.add("dalton", Unit.parse(this, "1.660531E-27 kg^1"));
+        units.setPrefixable("dalton");
+        units.add("da", Unit.parse(this, "1.660531E-27 kg^1"));
+        units.add("second", Unit.parse(this, "1 sec^1"));
+        units.setPrefixable("second");
+        units.add("s", Unit.parse(this, "1 sec^1"));
+        units.add("min", Unit.parse(this, "60 sec^1"));
+        units.add("hour", Unit.parse(this, "3600 sec^1"));
+        units.add("hr", Unit.parse(this, "3600 sec^1"));
+        units.add("ms", Unit.parse(this, ".001 sec^1"));
+        units.add("msec", Unit.parse(this, ".001 sec^1"));
+        units.add("usec", Unit.parse(this, "1E-6 sec^1"));
+        units.add("hz", Unit.parse(this, "1 sec^(-1)"));
+        units.add("hertz", Unit.parse(this, "1 sec^(-1)"));
+        units.setPrefixable("hertz");
+        units.add("ml", Unit.parse(this, "1E-6 m^3"));
+        units.add("liter", Unit.parse(this, ".001 m^3"));
+        units.setPrefixable("liter");
+        units.add("litre", Unit.parse(this, ".001 m^3"));
+        units.setPrefixable("litre");
+        units.add("L", Unit.parse(this, ".001 m^3"));
+        units.add("dL", Unit.parse(this, "1E-4 m^3"));
+        units.add("mL", Unit.parse(this, "1E-6 m^3"));
+        units.add("uL", Unit.parse(this, "1E-9 m^3"));
+        units.add("N", Unit.parse(this, "1 kg^1*m^1*sec^(-2)"));
+        units.setPrefixable("N");
+        units.add("newton", Unit.parse(this, "1 kg^1*m^1*sec^(-2)"));
+        units.setPrefixable("newton");
+        units.add("dyn", Unit.parse(this, "1E-5 kg^1*m^1*sec^(-2)"));
+        units.add("dyne", Unit.parse(this, "1E-5 kg^1*m^1*sec^(-2)"));
+        units.setPrefixable("dyne");
+        units.add("pa", Unit.parse(this, "1 kg^1*m^(-1)*sec^(-2)"));
+        units.add("pascal", Unit.parse(this, "1 kg^1*m^(-1)*sec^(-2)"));
+        units.setPrefixable("pascal");
+        units.add("atm", Unit.parse(this, "101325 kg^1*m^(-1)*sec^(-2)"));
+        units.add("mmHg", Unit.parse(this, "1.3332237E2 kg^1*m^(-1)*sec^(-2)"));
+        units.add("torr", Unit.parse(this, "1.3332237E2 kg^1*m^(-1)*sec^(-2)"));
+        units.setPrefixable("torr");
+        units.add("cmH2O", Unit.parse(this, "9.828409E1 kg^1*m^(-1)*sec^(-2)"));
+        units.add("bar", Unit.parse(this, "1E5 kg^1*m^(-1)*sec^(-2)"));
+        units.add("erg", Unit.parse(this, "1E-7 kg^1*m^2*sec^(-2)"));
+        units.setPrefixable("erg");
+        units.add("joule", Unit.parse(this, "1 kg^1*m^2*sec^(-2)"));
+        units.setPrefixable("joule");
+        units.add("J", Unit.parse(this, "1 kg^1*m^2*sec^(-2)"));
+        units.add("cal", Unit.parse(this, "4.187 kg^1*m^2*sec^(-2)"));
+        units.setPrefixable("cal");
+        units.add("calorie", Unit.parse(this, "4.187 kg^1*m^2*sec^(-2)"));
+        units.setPrefixable("calorie");
+        units.add("watt", Unit.parse(this, "1 kg^1*m^2*sec^(-3)"));
+        units.setPrefixable("watt");
+        units.add("poise", Unit.parse(this, ".1 kg^1*m^(-1)*sec^(-1)"));
+        units.setPrefixable("poise");
+        units.add("p", Unit.parse(this, ".1 kg^1*m^(-1)*sec^(-1)"));
+        units.add("cp", Unit.parse(this, ".001 kg^1*m^(-1)*sec^(-1)"));
+        units.add("P", Unit.parse(this, ".1 kg^1*m^(-1)*sec^(-1)"));
+        units.add("cP", Unit.parse(this, ".001 kg^1*m^(-1)*sec^(-1)"));
+        units.add("degR", Unit.parse(this, ".55555556 degK^1"));
+        units.add("K", Unit.parse(this, "1 degK^1"));
+        units.add("kelvin", Unit.parse(this, "1 degK^1"));
+        units.setPrefixable("kelvin");
+        units.add("A", Unit.parse(this, "1 amp^1"));
+        units.setPrefixable("A");
+        units.add("mA", Unit.parse(this, ".001 amp^1"));
+        units.add("uA", Unit.parse(this, "1E-6 amp^1"));
+        units.add("ampere", Unit.parse(this, "1 amp^1"));
+        units.setPrefixable("ampere");
+        units.add("coulomb", Unit.parse(this, "1 sec^1*amp^1"));
+        units.setPrefixable("coulomb");
+        units.add("faraday", Unit.parse(this, "96485.341 sec^1*amp^1*mol^(-1)"));
+        units.setPrefixable("faraday");
+        units.add("volt", Unit.parse(this, "1 kg^1*m^2*sec^(-3)*amp^(-1)"));
+        units.setPrefixable("volt");
+        units.add("mV", Unit.parse(this, ".001 kg^1*m^2*sec^(-3)*amp^(-1)"));
+        units.add("ohm", Unit.parse(this, "1 kg^1*m^2*sec^(-3)*amp^(-2)"));
+        units.setPrefixable("ohm");
+        units.add("mho", Unit.parse(this, "1 kg^(-1)*m^(-2)*sec^3*amp^2"));
+        units.setPrefixable("mho");
+        units.add("mmho", Unit.parse(this, ".001 kg^(-1)*m^(-2)*sec^3*amp^2"));
+        units.add("siemens", Unit.parse(this, "1 kg^(-1)*m^(-2)*sec^3*amp^2"));
+        units.setPrefixable("siemens");
+        units.add("mS", Unit.parse(this, ".001 kg^(-1)*m^(-2)*sec^3*amp^2"));
+        units.add("uS", Unit.parse(this, "1E-6 kg^(-1)*m^(-2)*sec^3*amp^2"));
+        units.add("farad", Unit.parse(this, "1 kg^(-1)*m^(-2)*sec^4*amp^2"));
+        units.setPrefixable("farad");
+        units.add("uF", Unit.parse(this, "1E-6 kg^(-1)*m^(-2)*sec^4*amp^2"));
+        units.add("weber", Unit.parse(this, "1 kg^1*m^2*sec^(-2)*amp^(-1)"));
+        units.setPrefixable("weber");
+        units.add("tesla", Unit.parse(this, "1 kg^1*sec^(-2)*amp^(-1)"));
+        units.setPrefixable("tesla");
+        units.add("henry", Unit.parse(this, "1 kg^1*m^2*sec^(-2)*amp^(-2)"));
+        units.setPrefixable("henry");
+        units.add("gauss", Unit.parse(this, "1E-4 kg^1*sec^(-2)*amp^(-1)"));
+        units.setPrefixable("gauss");
+        units.add("mu0", Unit.parse(this, "1.2566371E-6 kg^1*m^1*sec^(-2)*amp^(-2)"));
+        units.add("oersted", Unit.parse(this, "79.57747155 m^(-1)*amp^1"));
+        units.setPrefixable("oersted");
+        units.add("gilbert", Unit.parse(this, ".79577472 amp^1"));
+        units.setPrefixable("gilbert");
+        units.add("molar", Unit.parse(this, "1E3 m^(-3)*mol^1"));
+        units.setPrefixable("molar");
+        units.add("Molar", Unit.parse(this, "1E3 m^(-3)*mol^1"));
+        units.setPrefixable("Molar");
+        units.add("M", Unit.parse(this, "1E3 m^(-3)*mol^1"));
+        units.add("mM", Unit.parse(this, "1 m^(-3)*mol^1"));
+        units.add("uM", Unit.parse(this, "1E-3 m^(-3)*mol^1"));
+        units.add("nM", Unit.parse(this, "1E-6 m^(-3)*mol^1"));
+        units.add("pM", Unit.parse(this, "1E-9 m^(-3)*mol^1"));
+        units.add("katal", Unit.parse(this, "1 sec^(-1)*mol^1"));
+        units.setPrefixable("katal");
+        units.add("lumen", Unit.parse(this, "1 candela^1"));
+        units.setPrefixable("lumen");
+        units.add("lux", Unit.parse(this, "1 m^(-2)*candela^1"));
+        units.setPrefixable("lux");
+        units.add("becquerel", Unit.parse(this, "1 sec^(-1)"));
+        units.setPrefixable("becquerel");
+        units.add("gray", Unit.parse(this, "1 m^2*sec^(-2)"));
+        units.setPrefixable("gray");
+        units.add("sievert", Unit.parse(this, "1 m^2*sec^(-2)"));
+        units.setPrefixable("sievert");
+        units.addPrefix("yotta", 1E24);
+        units.addPrefix("zetta", 1E21);
+        units.addPrefix("exa", 1E18);
+        units.addPrefix("peta", 1E15);
+        units.addPrefix("tera", 1E12);
+        units.addPrefix("giga", 1E9);
+        units.addPrefix("mega", 1E6);
+        units.addPrefix("kilo", 1E3);
+        units.addPrefix("hecto", 100);
+        units.addPrefix("deka", 10);
+        units.addPrefix("deca", 10);
+        units.addPrefix("deci", .1);
+        units.addPrefix("centi", .01);
+        units.addPrefix("milli", .001);
+        units.addPrefix("micro", 1E-6);
+        units.addPrefix("nano", 1E-9);
+        units.addPrefix("pico", 1E-12);
+        units.addPrefix("femto", 1E-15);
+        units.addPrefix("atto", 1E-18);
+        units.addPrefix("zepto", 1E-21);
+        units.addPrefix("yocto", 1E-24);
+         
+        // var instantiation
+        JSt__min = new RTRealNVar(this, "t.min","min",1,null);
+        JSt__max = new RTRealNVar(this, "t.max","min",1,null);
+        JSt__ct = new RTIntNVar(this, "t.ct","dimensionless",2,null);
+        JSt__delta = new RTRealNVar(this, "t.delta","min",1,null);
+        JSd = new RTRealNVar(this, "d","sec",1,null);
+        JSu__init = new RTRealNVar(this, "u__init","dimensionless",1,null);
+        JSt = new RTRealDomain(this, "t","min",2,JSt__min,JSt__max,JSt__delta,JSt__ct);
+        JSu = new RTRealNVar(this, "u","dimensionless",3,new RTRealDomain[] {JSt});
+        JSv = new RTRealNVar(this, "v","dimensionless",3,new RTRealDomain[] {JSt});
+        JSu__Dt = new RTRealNVar(this, "u:t","dimensionless",3,new RTRealDomain[] {JSt});
+         
+        // input defaults
+        JSt__min.setDefault("0");
+        JSt__max.setDefault("10");
+        JSt__delta.setDefault("1");
+        JSd.setDefault("1");
+        JSu__init.setDefault("1");
+        
+        // F&P initialization
+        
+        // solver instantiation
+        ode1problem__u = new ODE1Problem__u(this);
+        
+    }
+    
+    // simple main methods
+    public boolean defaultUnitCorrect() { return false; }
+    public boolean allowMPRuns() { return true; }
+    public void mainline(RTContext ctxt) throws Xcept { ((XContext) ctxt).mainline(); }
+    public RTContext newRunContext(int threadInx, int nproc, RTDataStore s) { return new XContext(this, threadInx, nproc, s); }
+    
+    // every Nth point support
+    public boolean runTimeNthSupported(RTRealDomain x) {
+        String xname = x.name();
+        if (xname.equals("t")) return false;
+        return true;
+    }
+    
+    // ODE problem solving [u]
+    public class ODE1Problem__u extends ODE1Problem {
+        public ODE1Problem__u(RTModel m) throws Xcept {
+            super(m, "ODE1Problem__u");
+            setup(JSt, new RTRealNVar[] {JSu});
+        }
+        public void evaluate(RTContext ctxt, double t, double[] u, double[] udot) throws Xcept {
+            ((XContext) ctxt).evaluate__u(t, u, udot);
+            interruptCheck(ctxt, t, udot);
+            ncallbacks++;
+        }
+    }
+     
+    // model-specific context
+    public class XContext extends RTContext {
+        // global caches
+        private double js0t__min;
+        private double js0t__max;
+        private double js0t__delta;
+        private double js0d;
+        private double js0u__init;
+        private double js2t;
+        private double js2u;
+        private double js2v;
+        private double js2u__Dt;
+        
+        // context constructor
+        public XContext(RTModel m, int threadInx, int nproc, RTDataStore s) { super(m, threadInx, nproc, s, false); }
+        
+        // trace NaN causes abort?
+        public boolean abortNaN() { return false; }
+        
+        // ctxt mainline
+        public void mainline() throws Xcept {
+            js0u__init = realVal(JSu__init);
+            js0d = realVal(JSd);
+            js0t__delta = realVal(JSt__delta);
+            js0t__max = realVal(JSt__max);
+            js0t__min = realVal(JSt__min);
+            set(JSt__ct,(((js0t__max-js0t__min)/js0t__delta)+1.5));
+            set(JSt__max,js0t__max = (js0t__min+(js0t__delta*(realVal(JSt__ct)-1))));
+            setDomain(JSt);
+            setLHBC(JSt);
+            set(JSu,js0u__init);
+            startPhase(3, JSt);
+            for (setLHBC(JSt); isSet(JSt); moveRight(JSt)) loop__0t();
+            startPhase(4, null);
+        }
+        
+        // ctxt loop iteration for domain t
+        public void loop__0t() throws Xcept {
+            set(JSv,(((realVal(JSt)<js0d)) ? (realVal(JSu, new double[] {js0t__min})) : (realVal(JSu, new double[] {(realVal(JSt)-js0d)}))));
+            set(JSu__Dt,realVal(JSv));
+            ode1problem__u.solve(this);
+            interruptCheck();
+            updatePhase(JSt);
+        }
+        
+        // ctxt ODE evaluate
+        public void evaluate__u(double t,double[] u,double[] udot) throws Xcept {
+            js2t = t;
+            js2u = u[0];
+            js2v = (((js2t<js0d)) ? (realVal(JSu, new double[] {js0t__min})) : (realVal(JSu, new double[] {(js2t-js0d)})));
+            js2u__Dt = js2v;
+            udot[0] = js2u__Dt;
+        }
+        
+        // ctxt methods for F&P
+    }
+     
+}
+
+

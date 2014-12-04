@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+run1 demox Sine -lm
+
+

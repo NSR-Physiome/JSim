@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# != 2 ]
+then
+  echo "usage: cmpall dir1 dir2"
+  exit 1
+fi
+
+DIR1=$1
+DIR2=$2
+
+cd $DIR1
+for i in *.out
+do
+  echo "====================== $i"
+  cmp $i ../$DIR2/$i
+done

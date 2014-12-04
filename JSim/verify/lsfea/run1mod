@@ -1,0 +1,56 @@
+#!/bin/bash
+
+. ../run.common
+
+M="$1"
+MOD=MOD/"$M".mod
+if [ ! -r $MOD ]
+then
+  MOD=WORK/"$M".mod
+fi
+
+echo ==== $MOD
+
+if [ ! -r $MOD ]
+then
+  echo $MOD not found
+  exit 1
+fi
+
+BADCT=`echo $M | fgrep _bad | wc -l`
+PLANCT=`echo $M | fgrep _plan | wc -l`
+
+SW="-i solver.pde_which=LSFEA"
+if [ $PLANCT -gt 0 ]
+then
+  SW="-oplan"
+fi
+
+if [ $BADCT -eq 0 ]
+then
+  $JSBATCH $SW -f $MOD -out WORK/"$M".out
+  STAT=$?
+  if [ $STAT -ne 0 ]
+  then
+    echo "Program exited with error status"
+  fi
+else
+  $JSBATCH $SW -f $MOD > WORK/"$M".out 2>&1
+  STAT=$?
+  if [ $STAT -eq 0 ]
+  then
+    echo "Program failed to generate error status"
+  fi
+  bad2plan $M
+  if [ $? -ne 0 ]
+  then
+    exit 1
+  fi
+  PM=`echo $M | sed s/_bad/_plan/`
+  if [ $PM = "Dneg_plan" ]
+  then
+    exit 0
+  fi
+  run1mod $PM
+fi
+

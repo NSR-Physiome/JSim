@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ../run.common
+
+echo ==== $1 data
+
+$JSBATCH -f XML/"$1".xml -i time.max=10 time.delta=.5 -oprec 5 -out WORK/"$1"_data.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

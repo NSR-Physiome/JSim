@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# debug version of jsfim
+
+jsrun.db JSim.text.FimMain $*
+exit $?

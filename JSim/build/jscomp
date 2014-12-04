@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. jsbuild.path
+
+$JSIMSDK/bin/javac -g -d $JSIMSRC $*

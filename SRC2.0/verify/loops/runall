@@ -1,8 +1,0 @@
-#!/bin/sh
-
-rm -Rf WORK
-mkdir WORK
-
-run1 l2 c
-run1 fgenloop b
-run1 solverloop u

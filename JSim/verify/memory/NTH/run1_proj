@@ -1,0 +1,51 @@
+#!/bin/bash
+# Test uses sed, awk, grep, etc
+. ../../run.common
+
+TMP1=doproj.tmp1
+TMP2=doproj.tmp2
+TMP3=doproj.tmp3
+TMP4=doproj.tmp4
+
+doModel() {
+  PROJ=$1
+  MOD=$2
+  echo "======= $PROJ MOD=$MOD"
+    
+  # get domain list
+  DOMS=`$JSBATCH -f PROJ/$PROJ.proj -model $MOD -oplan 2>&1 |\
+    grep "add var: realDomain" |\
+    awk '{ print $4 }'`
+  #echo DOMS=$DOMS
+
+  # run jsbatch.db with Nths=1
+  $JSBATCH -f PROJ/$PROJ.proj -model $MOD -i memory.storeGrids=all > $TMP1
+  lastdata $TMP1 > $TMP2
+
+  # loop over domains reducing each
+  for DOM in $DOMS
+  do
+    echo ----- DOM=$DOM
+    NTHS="memory.$DOM.nth=100"
+    $JSBATCH -f PROJ/$PROJ.proj -model $MOD -i memory.storeGrids=nth $NTHS > $TMP3
+    lastdata $TMP3 > $TMP4
+  
+    # compare domain result with reference
+    cmp $TMP2 $TMP4
+    STAT=$?
+    echo "Data compare STAT=$STAT" >WORK/$PROJ.out
+    diff $TMP2 $TMP4
+  done
+  
+}
+ 
+for PROJ in $*
+do
+  MODS=`fgrep '<model' PROJ/$PROJ.proj | awk -F '"' '{ print $2 }'`
+  for MOD in $MODS
+  do
+    doModel $PROJ $MOD
+  done  
+done
+
+rm $TMP1 $TMP2 $TMP3 $TMP4 

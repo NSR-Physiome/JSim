@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. ../run.common
+
+echo ==== $1 
+
+$JSBATCH -f MOD/"$1".mod -omatlab -out WORK/"$1"_m.out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi
+

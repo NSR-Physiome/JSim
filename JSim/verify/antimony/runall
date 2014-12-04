@@ -1,0 +1,24 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+cd TXT
+TXTS=`ls *.txt | sed -e 's/.txt//'`
+cd ..
+
+for i in $MODS
+do
+  run1txt $i
+done
+
+for i in $TXTS
+do
+  run1mml $i
+  run1data $i
+done
+

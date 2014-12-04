@@ -1,3 +1,0 @@
-#!/bin/sh
-
-jsrun.db JSim.tests.PlanTest $*

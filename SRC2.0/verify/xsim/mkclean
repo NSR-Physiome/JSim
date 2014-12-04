@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rm -f *.o *.so *.dll lib*lib jsx*.c
-

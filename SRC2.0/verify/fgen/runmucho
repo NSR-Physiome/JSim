@@ -1,9 +1,0 @@
-#!/bin/sh
-
-MODLIST="delta ct nomin nomax noct nodelta"
-
-for i in $MODLIST
-do
-  runall $i
-  ../diffall REF WORK
-done

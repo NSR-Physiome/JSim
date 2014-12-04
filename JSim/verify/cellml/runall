@@ -1,0 +1,43 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+echo "Running models that should translate & plan correctly"
+cd XML
+CMLS=`ls *.cellml | sed -e 's/.cellml//'`
+cd ..
+for i in $CMLS
+do
+  run1 $i      # translate
+  runplan1 $i  # plan
+done
+
+echo "Running models that should fail to translate"
+cd XMLBAD
+CMLS=`ls *.cellml | sed -e 's/.cellml//'`
+cd ..
+for i in $CMLS
+do
+  runbad1 $i
+done
+
+echo "Running models that should translate, then fail plan"
+cd XMLBADPLAN
+CMLS=`ls *.cellml | sed -e 's/.cellml//'`
+cd ..
+for i in $CMLS
+do
+  run1 $i     # translate
+  runbad1 $i  # plan
+done
+
+echo "Translating MML to CellML"
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+for i in $MODS
+do
+  run1xml $i      # translate
+done
+

@@ -1,0 +1,64 @@
+#!/bin/bash  
+
+# run this on $JSIMAUXLIB/macos*/libsbmlj.jnilib at creation time
+#   so that double-click launch of JSim binary can find libsbml.*dylib
+
+if [ $# != 1 ]
+then
+  echo "Usage: jssetup_libsbmlj libsbmlj.jnilib"
+  exit 1
+fi
+
+JNILIB="$1"
+
+# This works ONLY on MacOS
+
+. jsbuild.osarch
+
+if [ "$JSIMOS" != "macos" ]
+then
+   echo "JSIMOS is not macos"
+   exit 1
+fi
+
+if [ ! -r $JNILIB ]
+then
+  echo "$JNILIB not found"
+  exit 1
+fi
+
+LIBSBML=$(otool -L $JNILIB | grep '.*libsbml.*\.dylib' -o)
+
+CT=`echo $LIBSBML | wc -w`
+
+if [ $CT == 0 ]
+then
+  echo 'Could not find libsbml*.dylib reference in $JNILIB'
+  echo "Results from otool -L $JNILIB are as follows:"
+  otool -L $JNILIB
+  echo "If libsbml appears above, this script may require editing in order to find it"
+  exit 1
+fi
+
+if [ $CT -gt 1 ]
+then
+  echo 'Multiple libsbml*.dylib references in $JNILIB'
+  echo "Results from otool -L $JNILIB are as follows:"
+  otool -L $JNILIB
+  echo "This script may require editing to find only the correct .dylib"
+  exit 1
+fi  
+
+TARGET=@executable_path/../Resources/macos/lib/$(basename $LIBSBMLJ)
+
+echo "Modifying $LIBSBML to $TARGET in $JNILIB ..."
+
+install_name_tool -change $LIBSBML $TARGET $JNILIB
+
+if [ $? -eq 0 ]
+then
+  echo "Modification succeeded !!!"
+else
+  echo "Modification failed !!!"
+fi
+

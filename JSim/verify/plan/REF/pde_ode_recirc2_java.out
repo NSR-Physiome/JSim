@@ -1,0 +1,375 @@
+// JSim generated model JS100pde_ode_recirc2
+ 
+import java.lang.Math;
+import JSim.util.*;
+import JSim.expr.*;
+import JSim.data.*;
+import JSim.jruntime.*;
+import JSim.aserver.*;
+import JSim.nml.math.NatMath;
+ 
+// JS100pde_ode_recirc2 model
+public class JS100pde_ode_recirc2 extends RTModel {
+
+    // variable declarations
+    public RTRealDomain JSt;
+    public RTRealNVar JSt__min;
+    public RTRealNVar JSt__max;
+    public RTIntNVar JSt__ct;
+    public RTRealNVar JSt__delta;
+    public RTRealDomain JSx;
+    public RTRealNVar JSx__min;
+    public RTRealNVar JSx__max;
+    public RTIntNVar JSx__ct;
+    public RTRealNVar JSx__delta;
+    public RTRealNVar JSuIn;
+    public RTRealNVar JSu1Out;
+    public RTRealNVar JSu2Out;
+    public RTRealNVar JSu1;
+    public RTRealNVar JSv1;
+    public RTRealNVar JSu2;
+    public RTRealNVar JSv2;
+    public RTRealNVar JSv1__Dt;
+    public RTRealNVar JSv2__Dt;
+    public RTRealNVar JSv1__init;
+    public RTRealNVar JSv2__init;
+     
+    // F&P declarations
+    
+    // solver declarations
+    public ODE1Problem__v2 ode1problem__v2;
+    public PDE1Problem__u2 pde1problem__u2;
+     
+    // RT model constructor
+    public JS100pde_ode_recirc2(UnitNList u,ASServer.Messenger m) throws Xcept {
+        super("JS100pde_ode_recirc2", u, m);
+         
+        // units used in model
+        units.add("dimensionless", Unit.parse(this, "1  dimensionless"));
+        units.add("radian", Unit.parse(this, "1  dimensionless"));
+         
+        // var instantiation
+        JSt__min = new RTRealNVar(this, "t.min","dimensionless",1,null);
+        JSt__max = new RTRealNVar(this, "t.max","dimensionless",1,null);
+        JSt__ct = new RTIntNVar(this, "t.ct","dimensionless",2,null);
+        JSt__delta = new RTRealNVar(this, "t.delta","dimensionless",1,null);
+        JSx__min = new RTRealNVar(this, "x.min","dimensionless",1,null);
+        JSx__max = new RTRealNVar(this, "x.max","dimensionless",1,null);
+        JSx__ct = new RTIntNVar(this, "x.ct","dimensionless",2,null);
+        JSx__delta = new RTRealNVar(this, "x.delta","dimensionless",1,null);
+        JSv1__init = new RTRealNVar(this, "v1__init","dimensionless",1,null);
+        JSv2__init = new RTRealNVar(this, "v2__init","dimensionless",1,null);
+        JSt = new RTRealDomain(this, "t","dimensionless",2,JSt__min,JSt__max,JSt__delta,JSt__ct);
+        JSx = new RTRealDomain(this, "x","dimensionless",2,JSx__min,JSx__max,JSx__delta,JSx__ct);
+        JSuIn = new RTRealNVar(this, "uIn","dimensionless",5,new RTRealDomain[] {JSt});
+        JSu1Out = new RTRealNVar(this, "u1Out","dimensionless",5,new RTRealDomain[] {JSt});
+        JSu2Out = new RTRealNVar(this, "u2Out","dimensionless",5,new RTRealDomain[] {JSt});
+        JSu1 = new RTRealNVar(this, "u1","dimensionless",5,new RTRealDomain[] {JSt,JSx});
+        JSv1 = new RTRealNVar(this, "v1","dimensionless",5,new RTRealDomain[] {JSt});
+        JSu2 = new RTRealNVar(this, "u2","dimensionless",5,new RTRealDomain[] {JSt,JSx});
+        JSv2 = new RTRealNVar(this, "v2","dimensionless",5,new RTRealDomain[] {JSt});
+        JSv1__Dt = new RTRealNVar(this, "v1:t","dimensionless",5,new RTRealDomain[] {JSt});
+        JSv2__Dt = new RTRealNVar(this, "v2:t","dimensionless",5,new RTRealDomain[] {JSt});
+         
+        // input defaults
+        JSt__min.setDefault("0");
+        JSt__max.setDefault("3");
+        JSt__delta.setDefault(".1");
+        JSx__min.setDefault("0");
+        JSx__max.setDefault("1");
+        JSx__delta.setDefault(".05");
+        JSv1__init.setDefault("0");
+        JSv2__init.setDefault("0");
+        
+        // F&P initialization
+        
+        // solver instantiation
+        ode1problem__v2 = new ODE1Problem__v2(this);
+        pde1problem__u2 = new PDE1Problem__u2(this);
+        
+    }
+    
+    // simple main methods
+    public boolean defaultUnitCorrect() { return false; }
+    public boolean allowMPRuns() { return true; }
+    public void mainline(RTContext ctxt) throws Xcept { ((XContext) ctxt).mainline(); }
+    public RTContext newRunContext(int threadInx, int nproc, RTDataStore s) { return new XContext(this, threadInx, nproc, s); }
+    
+    // every Nth point support
+    public boolean runTimeNthSupported(RTRealDomain x) {
+        String xname = x.name();
+        if (xname.equals("t")) return false;
+        if (xname.equals("x")) return false;
+        return true;
+    }
+    
+    // ODE problem solving [v2, v1]
+    public class ODE1Problem__v2 extends ODE1Problem {
+        public ODE1Problem__v2(RTModel m) throws Xcept {
+            super(m, "ODE1Problem__v2");
+            setup(JSt, new RTRealNVar[] {JSv2,JSv1});
+        }
+        public void evaluate(RTContext ctxt, double t, double[] u, double[] udot) throws Xcept {
+            ((XContext) ctxt).evaluate__v2(t, u, udot);
+            interruptCheck(ctxt, t, udot);
+            ncallbacks++;
+        }
+    }
+     
+    // PDE problem solving [u2, u1]
+    public class PDE1Problem__u2 extends PDE1Problem {
+        public PDE1Problem__u2(RTModel m) throws Xcept {
+            super(m, "PDE1Problem__u2");
+            setup(JSt,JSx,0,
+                new RTRealNVar[] {JSu2,JSu1},
+                new RTRealNVar[] {null,null},
+                new RTRealNVar[] {null,null},
+                new RTRealNVar[] {null,null},
+                new RTRealNVar[] {null,null},
+                null, null);
+            setSolvedVars(new ASVar[] {JSu2,JSu1});
+        }
+        public boolean usesPDESolver(int which) {
+            switch(which) {
+            case ASModel.PDE_LSFEA: return true;
+            case ASModel.PDE_MacCormack: return true;
+            case ASModel.PDE_Toms731: return true;
+            default: return false;
+            }
+        }
+        public void common_LHB(RTContext ctxt,double t,double[] us,double[] f1s,double[] f2s,double[] f3s) throws Xcept {
+            npdeCallbacks[ProfileData.common_LHB]++;
+            ((XContext) ctxt).common_LHB__u2(t,us,f1s,f2s,f3s);
+        }
+        public void common_RHB(RTContext ctxt,double t,double[] us,double[] f1s,double[] f2s,double[] f3s) throws Xcept {
+            npdeCallbacks[ProfileData.common_RHB]++;
+            ((XContext) ctxt).common_RHB__u2(t,us,f1s,f2s,f3s);
+        }
+        public void LSFEA_tstep(RTContext ctxt,double t,double x,double[] us,double[] uts) throws Xcept {
+            npdeCallbacks[ProfileData.LSFEA_tstep]++;
+            ((XContext) ctxt).LSFEA_tstep__u2(t,x,us,uts);
+        }
+        public void LSFEA_xstep(RTContext ctxt,double t,double x,double[] us,double[] uxcoefs,double[] uxxcoefs) throws Xcept {
+            npdeCallbacks[ProfileData.LSFEA_xstep]++;
+            ((XContext) ctxt).LSFEA_xstep__u2(t,x,us,uxcoefs,uxxcoefs);
+        }
+        public void MacCormack_State(RTContext ctxt,double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
+            npdeCallbacks[ProfileData.MacCormack_State]++;
+            ((XContext) ctxt).MacCormack_State__u2(t,x,us,cxs,cxxs,srcs);
+        }
+        public void Toms731_State(RTContext ctxt,double t,double x,double[] us,double[] uxs,double[] cs,double[] qs,double[] rs) throws Xcept {
+            npdeCallbacks[ProfileData.Toms731_State]++;
+            ((XContext) ctxt).Toms731_State__u2(t,x,us,uxs,cs,qs,rs);
+        }
+        public void Toms731_LHB(RTContext ctxt,double t,double[] us,double[] uxs,double[] betas,double[] gammas) throws Xcept {
+            npdeCallbacks[ProfileData.Toms731_LHB]++;
+            ((XContext) ctxt).Toms731_LHB__u2(t,us,uxs,betas,gammas);
+        }
+        public void Toms731_RHB(RTContext ctxt,double t,double[] us,double[] uxs,double[] betas,double[] gammas) throws Xcept {
+            npdeCallbacks[ProfileData.Toms731_RHB]++;
+            ((XContext) ctxt).Toms731_RHB__u2(t,us,uxs,betas,gammas);
+        }
+    }
+    
+    // model-specific context
+    public class XContext extends RTContext {
+        // global caches
+        private double js0t__min;
+        private double js0t__max;
+        private double js0t__delta;
+        private double js0x__min;
+        private double js0x__max;
+        private double js0x__delta;
+        private double js0v1__init;
+        private double js0v2__init;
+        private double js2t;
+        private double js2v2;
+        private double js2v1;
+        private double js2v2__Dt;
+        private double js2v1__Dt;
+        private double js2u2__Dx;
+        private double js2u1__Dx;
+        private double js2x;
+        private double js2u2;
+        private double js2u1;
+        private double js2uIn;
+        
+        // context constructor
+        public XContext(RTModel m, int threadInx, int nproc, RTDataStore s) { super(m, threadInx, nproc, s, false); }
+        
+        // trace NaN causes abort?
+        public boolean abortNaN() { return false; }
+        
+        // ctxt mainline
+        public void mainline() throws Xcept {
+            js0v2__init = realVal(JSv2__init);
+            js0v1__init = realVal(JSv1__init);
+            js0x__delta = realVal(JSx__delta);
+            js0x__max = realVal(JSx__max);
+            js0x__min = realVal(JSx__min);
+            js0t__delta = realVal(JSt__delta);
+            js0t__max = realVal(JSt__max);
+            js0t__min = realVal(JSt__min);
+            set(JSx__ct,(((js0x__max-js0x__min)/js0x__delta)+1.5));
+            set(JSx__max,js0x__max = (js0x__min+(js0x__delta*(realVal(JSx__ct)-1))));
+            setDomain(JSx);
+            set(JSt__ct,(((js0t__max-js0t__min)/js0t__delta)+1.5));
+            set(JSt__max,js0t__max = (js0t__min+(js0t__delta*(realVal(JSt__ct)-1))));
+            setDomain(JSt);
+            setLHBC(JSt);
+            set(JSv2,js0v2__init);
+            setLHBC(JSt);
+            set(JSv1,js0v1__init);
+            startPhase(3, JSx);
+            for (setLHBC(JSx); isSet(JSx); moveRight(JSx)) loop__0x();
+            startPhase(4, null);
+            startPhase(5, JSt);
+            for (setLHBC(JSt); isSet(JSt); moveRight(JSt)) loop__1t();
+            startPhase(6, null);
+        }
+        
+        // ctxt loop iteration for domain x
+        public void loop__0x() throws Xcept {
+            setLHBC(JSt);
+            set(JSu2,realVal(JSx));
+            setLHBC(JSt);
+            set(JSu1,realVal(JSx));
+            interruptCheck();
+            updatePhase(JSx);
+        }
+        
+        // ctxt loop iteration for domain t
+        public void loop__1t() throws Xcept {
+            setRHBC(JSx);
+            set(JSu2Out,realVal(JSu2));
+            setRHBC(JSx);
+            set(JSu1Out,realVal(JSu1));
+            set(JSuIn,(1-NatMath.exp((realVal(JSt)*(-1)))));
+            set(JSv2__Dt,(realVal(JSu2Out)-realVal(JSv2)));
+            set(JSv1__Dt,(realVal(JSu1Out)-realVal(JSv1)));
+            ode1problem__v2.solve(this);
+            pde1problem__u2.solve(this);
+            interruptCheck();
+            updatePhase(JSt);
+        }
+        
+        // ctxt ODE evaluate
+        public void evaluate__v2(double t,double[] u,double[] udot) throws Xcept {
+            js2t = t;
+            js2v2 = u[0];
+            js2v1 = u[1];
+            js2v2__Dt = (realVal(JSu2Out)-js2v2);
+            js2v1__Dt = (realVal(JSu1Out)-js2v1);
+            udot[0] = js2v2__Dt;
+            udot[1] = js2v1__Dt;
+        }
+        
+        public void LSFEA_tstep__u2(double t,double x,double[] us,double[] uts) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=x;
+            interruptCheck();
+            uts[0]=0;
+            uts[1]=0;
+        }
+        public void LSFEA_xstep__u2(double t,double x,double[] us,double[] uxcoefs,double[] uxxcoefs) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=x;
+            interruptCheck();
+            uxcoefs[0]=((-1)*(-1));
+            uxxcoefs[0]=((-1)*(-1));
+            uxcoefs[1]=((-1)*(-1));
+            uxxcoefs[1]=((-1)*(-1));
+        }
+        public void MacCormack_State__u2(double t,double x,double[] us,double[] cxs,double[] cxxs,double[] srcs) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=x;
+            interruptCheck();
+            cxs[0]=((-1)*(-1));
+            cxxs[0]=((-1)*(-1));
+            srcs[0]=0;
+            cxs[1]=((-1)*(-1));
+            cxxs[1]=((-1)*(-1));
+            srcs[1]=0;
+        }
+        public void Toms731_State__u2(double t,double x,double[] us,double[] uxs,double[] cs,double[] qs,double[] rs) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=x;
+            js2u2__Dx=uxs[0];
+            js2u1__Dx=uxs[1];
+            interruptCheck();
+            cs[0]=1;
+            qs[0]=js2u2__Dx;
+            rs[0]=js2u2__Dx;
+            cs[1]=1;
+            qs[1]=js2u1__Dx;
+            rs[1]=js2u1__Dx;
+        }
+        public void common_LHB__u2(double t,double[] us,double[] f1s,double[] f2s,double[] f3s) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=js0x__min;
+            js2uIn = (1-NatMath.exp((js2t*(-1))));
+            interruptCheck();
+            f1s[0]=1;
+            f2s[0]=0;
+            f3s[0]=((realVal(JSv2)*(-1))*(-1));
+            f1s[1]=1;
+            f2s[1]=0;
+            f3s[1]=(((js2uIn+realVal(JSv1))*(-1))*(-1));
+        }
+        public void Toms731_LHB__u2(double t,double[] us,double[] uxs,double[] betas,double[] gammas) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2u2__Dx=uxs[0];
+            js2u1__Dx=uxs[1];
+            js2x=js0x__min;
+            js2uIn = (1-NatMath.exp((js2t*(-1))));
+            interruptCheck();
+            betas[0]=0;
+            gammas[0]=(js2u2-realVal(JSv2));
+            betas[1]=0;
+            gammas[1]=(js2u1-(js2uIn+realVal(JSv1)));
+        }
+        public void common_RHB__u2(double t,double[] us,double[] f1s,double[] f2s,double[] f3s) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2x=js0x__max;
+            interruptCheck();
+            f1s[0]=0;
+            f2s[0]=1;
+            f3s[0]=0;
+            f1s[1]=0;
+            f2s[1]=1;
+            f3s[1]=0;
+        }
+        public void Toms731_RHB__u2(double t,double[] us,double[] uxs,double[] betas,double[] gammas) throws Xcept {
+            js2t=t;
+            js2u2=us[0];
+            js2u1=us[1];
+            js2u2__Dx=uxs[0];
+            js2u1__Dx=uxs[1];
+            js2x=js0x__max;
+            interruptCheck();
+            betas[0]=1;
+            gammas[0]=0;
+            betas[1]=1;
+            gammas[1]=0;
+        }
+        
+        // ctxt methods for F&P
+    }
+     
+}
+
+

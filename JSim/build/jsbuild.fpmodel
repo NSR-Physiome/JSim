@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo "==== Building fpack models"
+. jsbuild.path
+
+# clear work area
+DEST=$JSIMNATIVE/fpack
+rm -Rf $DEST
+mkdir $DEST
+
+# testmain.o 
+cd $JSIMSRC/fpack/test
+$JSIMMAKE clean
+$JSIMMAKE testmain.o
+
+# each model dir
+cd $JSIMSRC/fpack
+for DIR in body btex demo gentex mmid4 msid4
+do
+  echo "== model dir $DIR"
+  cd $DIR
+  $JSIMMAKE clean
+  $JSIMMAKE all
+  $JSIMMAKE install
+  if [ "$JSIMOS" != "macos" ]
+  then
+    $JSIMMAKE test
+  fi
+  $JSIMMAKE clean
+  cd ..
+done
+

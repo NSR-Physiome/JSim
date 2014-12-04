@@ -1,0 +1,32 @@
+#!/bin/bash
+
+rm -Rf WORK
+mkdir WORK
+
+cd MOD
+MODS=`ls *.mod | sed -e 's/.mod//'`
+cd ..
+
+cd XML
+XMLS=`ls *.xml | sed -e 's/.xml//'`
+cd ..
+
+cd XMLNODATA
+XMLSNODATA=`ls *.xml | sed -e 's/.xml//'`
+cd ..
+
+for i in $MODS
+do
+  run1xml $i
+done
+
+for i in $XMLS $XMLSNODATA
+do
+  run1mml $i
+done
+
+for i in $XMLS
+do
+  run1data $i
+done
+

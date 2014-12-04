@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSim version="2.02">
+  <project name="proj1">
+    <model name="Fac_Diff_2Region">
+      <control name="desc" value=""/>
+      <control name="easelVariant" value=""/>
+      <control name="notes">barta2regC
+ 
+
+Composed out of duplicating &apos;barta1reg.proj&apos; using x for 1st region, y for 2nd
+On 6oct06 barta1reg was fixed by JBB: 
+1.  reduced from the barta receptor model 6oct06 by jbb.
+2.  added units, mM, to solpa etc so that it compiles with 
+      init conversion on.
+3.  graphs tidied a little.
+
+On 70ct07 written by JBB:
+  Description for barta2regA:
+This is a stepping stone toward a real 2 region model.
+It is composed of 2 completely separate 1 region diffusion models for
+
+8oct06: barta2regB written by JBB regions connected compiles OK but doesn&apos;t run:
+1. JSim does not accept boundary conditions defined in terms of the independent variables
+    e.g. either //CF(t,x.max)); or // + P1y*CFy(t,y.min)); in line 92
+    Therefore cannot define exchane between differently defined regions.
+2.Program doesn&apos;t run. but compiles OK.
+3.MacCormack solver gives oscillations in space. TOMS 731 is smooth.(with offending BC 
+   removed.
+4.BC: accepts and runs with CF(t,x) but not CF(t,x.max). This is OK but not need for 
+     RHB of x at x1, but is needed to identify CFy(t,y.min) for the flux from 2 --&gt; 1.
+    Unless there is an independent way to define x.max as being connected to y,min.
+   Simply using CFy(t,y) instead of CFy(t,y.min) evokes msg:
+        y domain not set.
+   Using CFy(t,0.0001) evokes:
+     TOMS 731 ( moving grid) failed idid= -12 ....
+   Using CFy(t,0) gives same result.
+</control>
+      <control name="modelSource">
+// MODEL NUMBER: 0135
+// MODEL NAME: Facil_Diffusion_2Region
+// SHORT DESCRIPTION: This theoretical model simulates the diffusional transport 
+// of fatty acid from a constant source through two unstirred regions separated 
+// by a permeable membrane.
+
+
+JSim v1.1
+import nsrunit;
+unit conversion on;   
+
+
+
+math barta02regC {
+        realDomain t sec; t.min=0; t.max=60; t.delta=0.2;
+        realDomain x cm; real x1, Ngrid=21; x.min=0; x.max=x1; x.ct=Ngrid;
+        real CFflux(t) mM *cm/sec;
+        
+	real x1  = 5.0E-3   cm,
+             Da  = 9.35E-7  cm^2/s,    //Diffusion coef for albumin
+             Daf = 9.35E-7  cm^2/s,    //Diffusion coef for albumin-fa complex
+             Df  = 5.0E-6   cm^2/s,    //Diffusion coef for unbound fatty acid
+             P1x = 0.0083   cm/s,      //Permeability of cell memb to fatty acid
+             km1 = 0.142    1/s,       //Dissoc rate for fa-alb site 1 
+             Kd1 = 3e-5     mM,        // Equilib dissoc const for alb-fa, 30nM
+	     kp1 = km1 / Kd1,           //rate of binding of F to A
+	     G1  = 0           1/s,       // First order metabolic rate constant
+	     CAt = 0.6          mM,       // High Albumin Conc Source
+	     CFt = 0.54         mM;       // High Fatty Acid Conc Source
+	     //CAt = 1.5e-3     mM,       // Low Albumin Concentrations
+	     //CFt = 0.1e-3     mM;       // Low Fatty Acid Concentrations
+
+     
+	real solpa mM, solpb mM, solp1 mM, solp2 mM, CAF1 mM, CAF2 mM, CF1 mM, 
+             CF2 mM, CA1 mM, CA2 mM, CAF0 mM, CA0 mM, CF0 mM;
+	real CA(t,x) mM, CF(t,x) mM, CAF(t,x) mM;
+        real CFxmax(t) mM, CFymin(t) mM, CFymax(t) mM;
+         
+  
+//Params and variable for region two: ..................................       
+
+        realDomain y cm; real y1, Nygrid=41; y.min=x.max; y.max=y.min+y1; y.ct=Nygrid;
+       
+	real y1  = 5.0E-3   cm,
+             Dby  = 9.35E-7  cm^2/s,    //Diffusion coef for albumin
+             Dbfy = 9.35E-7  cm^2/s,    //Diffusion coef for albumin-fa complex
+             Dfy  = 5.0E-6   cm^2/s,    //Diffusion coef for unbound fatty acid
+             P1y   = P1x, //   cm/s,     //Permeability of memb 1 to fatty acid
+             P2y   = 0.0083   cm/s,     //Permeability of memb 2 to fatty acid
+             km1y = 0.142    1/s,       //Dissoc rate for fa-alb site 1 
+             Kd1y = 3e-5     mM,        // Equilib dissoc const for alb-fa, 30nM
+	     kp1y = km1y / Kd1y,           //rate of binding of F to A
+	     G2  = 0           1/s,       // First order metabolic rate constant
+	     CBty = 0.6          mM,       // High Binding Site Conc Source
+	     CFty = 0.54         mM;       // High Fatty Acid Conc Source
+     
+	real solpay mM, solpby mM, solp1y mM, solp2y mM, CBF1y mM, CBF2y mM, CF1y mM, 
+             CF2y mM, CB1y mM, CB2y mM, CBF0y mM, CB0y mM, CF0y mM;
+	real CBy(t,y) mM, CFy(t,y) mM, CBFy(t,y) mM;
+//...............................................................
+
+        CFxmax(t) = CF(t,x.max);
+        CFymin(t) = CFy(t,y.min);
+        CFymax(t) = CFy(t,y.max);
+
+// Solve quadratic for concentrations of A, AF and F in source solution in region 1
+	solpa = (0.5)*(CFt+CAt+Kd1);
+	solpb = (0.5)*(sqrt(CFt^2-2*CAt*CFt+2*CFt*Kd1+CAt^2+2*CAt*Kd1+Kd1^2));
+	solp1 = solpa+solpb;
+	solp2 = solpa-solpb;
+	CAF1  = solp1;
+	CAF2  = solp2;
+	CF1   = CFt-solp1;
+	CF2   = CFt-solp2;
+	CA1   = CAt-solp1;
+	CA2   = CAt-solp2;
+	CAF0  = if ( CAF1 &gt; 0 and CF1 &gt; 0 and CA1 &gt; 0 )   CAF1 
+	        else                    	          CAF2;
+	CA0   = if ( CAF1 &gt; 0 and CF1 &gt; 0 and CA1 &gt; 0 )   CA1 
+	        else                         	          CA2;
+	CF0   = if ( CAF1 &gt; 0 and CF1 &gt; 0 and CA1 &gt; 0 )   CF1 
+	        else                    	          CF2;
+// B.C. 
+        CFflux = P1x*CFxmax - P1y*CFymin; 
+        when (x=x.min) { CA=CA0; CF=CF0; CAF=CAF0; }
+        when (x=x.max) {
+	   CA:x = 0;  
+//	   CF:x = (-P1x*CFxmax + P1y*CFymin)/Df;  //may not work??
+           CF:x = -CFflux/Df;
+           
+	   CAF:x= 0; 
+
+          }
+
+// I.C.
+        when (t=t.min) {CA= CA0;} //if (x=x.min) CA0 else 0;} 
+        when (t=t.min) {CF= CF0; //if (x=x.min) CF0 else 0;
+                        CAF=CAF0;} //if (x=x.min) CAF0 else 0;
+                        
+
+// Partial Differential Equations
+        CA:t =  Da*CA:x:x    -kp1*CA*CF + km1*CAF;
+        CF:t =  Df*CF:x:x    -kp1*CA*CF + km1*CAF -G1*CF;
+        CAF:t=  Daf*CAF:x:x + kp1*CA*CF  -km1*CAF;
+
+// Solve quadratic for concentrations of B, BF and F in solution in region 2
+	solpay = (0.5)*(CFty+CBty+Kd1y);
+	solpby = (0.5)*(sqrt(CFty^2-2*CBty*CFty+2*CFty*Kd1y+CBty^2+2*CBty*Kd1y+Kd1y^2));
+	solp1y = solpay+solpby;
+	solp2y = solpay-solpby;
+	CBF1y  = solp1y;
+	CBF2y  = solp2y;
+	CF1y   = CFty-solp1y;
+	CF2y   = CFty-solp2y;
+	CB1y   = CBty-solp1y;
+	CB2y   = CBty-solp2y;
+	CBF0y  = if ( CBF1y &gt; 0 and CF1y &gt; 0 and CB1y &gt; 0 )   CBF1y 
+	        else                    	          CBF2y;
+	CB0y   = if ( CBF1y &gt; 0 and CF1y &gt; 0 and CB1y &gt; 0 )   CB1y 
+	        else                         	          CB2y;
+	CF0y   = if ( CBF1y &gt; 0 and CF1y &gt; 0 and CB1y &gt; 0 )   CF1y 
+	        else                    	          CF2y;
+// B.C.  
+        
+        when (y=y.min) { CBy:y = 0;  CBFy:y = 0; }
+        when (y=y.min) { CFy:y = -(1/Dfy)*(CFflux);  } 
+
+        when (y=y.max) {
+	   CBy:y = 0;  
+	   CFy:y = -P2y*CFymax/Dfy;
+	   CBFy:y= 0; 
+         }
+// I.C. for uniform equilibrated concentrations in region 2
+        when (t=t.min) {CBy= CB0y;  
+                        CFy = CF0y;     //if (y=y.min) CF0y else 0;
+                        CBFy = CBF0y; } //if (y=y.min) CBF0y else 0;
+
+// Partial Differential Equations
+        CBy:t  =  Dby*CBy:y:y    -kp1y*CBy*CFy + km1y*CBFy;
+        CFy:t  =  Dfy*CFy:y:y    -kp1y*CBy*CFy + km1y*CBFy -G2*CFy;
+        CBFy:t =  Dbfy*CBFy:y:y + kp1y*CBy*CFy - km1y*CBFy;
+}
+
+
+
+// Maple model for Boundary concentrations
+// CFt:=1.0e-10;
+// CAt:=1.5E-9;
+// Kd1:= 3.0e-11;
+// eq1:= CF+CAF=CFt;
+// eq2:= CA+CAF=CAt;
+// eq3:= CAF*Kd1=CA*CF;
+// solve( {eq1,eq2,eq3}, {CA,CF,CAF} );
+// 
+//                 {CAF = %1, CF = - %1 + CFt, CA = - %1 + CAt}
+// 
+//                     2
+// %1 :=      RootOf(_Z  + (- CFt - CAt - Kd1) _Z + CAt CFt)
+// 
+// solve (z*z + (-CFt-CAt-Kd1)*z +CAt*CFt =0. ,z) ;
+// 
+//                       -10                     -11                     -8
+//  {CAF = .9790516666*10   , CF = .2094833340*10   , CA = .1402094833*10  },
+// 
+
+/*
+ FIGURE:
+
+       Source               Region 1                           Region 2
+                   |                              ||                              ||
+                   |           k+                 ||               k+             ||
+                   |    F + A &lt;--&gt; AF             ||        F + A &lt;--&gt; AF         ||
+    F + AF = Ftot  |           k-                 ||               k-             ||
+                   |                         P1 -----&gt;                            ||
+    A + AF = Atot  |    Metabolic                 ||        Metabolic             ||
+                   |    Consumption of F, G       ||        Consumption of F, G   ||
+      A*F     k-   |                              ||                              ||
+     ----- = ----  |    Diffusion of:          &lt;----- P2    Diffusion of:     P2 -----&gt;
+       AF     k+   |     F at rate Df             ||          F at rate Df        ||
+                   |     A at rate Da             ||          A at rate Da        ||
+                   |     AF at rate Daf           ||          AF at rate Daf      ||
+                   |                              ||                              ||
+                 x = 0
+                                              Facilitated                     Facilitated  
+                                              Diffusion of                    Diffusion of      
+                                                F only	 		   F only
+      where concentrations of:				
+               Free Fatty Acid, is F
+               Albumin, is A
+               Fatty Acid-Albumin Complex, is AF   
+       
+
+
+ DETAILED DESCRIPTION:
+ Model for albumin-facilitated diffusion of palmitate in plane slab from a plane 
+ source (equilibrated) to a planar membrane which palmitate permeates. Same as the 
+ 1 region model except there are now 2 regions with spatial domains x and y, with 
+ duplicated code, the second being suffixed “y” on variables and parameters so that 
+ comparisons can be made. The 2 regions are not connected, but this code will serve 
+ as the basis for code in which the regions are connected, which reproduces the full 
+ model in Barta et al 2000. This model assumes only 1 binding site on albumin, and 
+ has adjustable rates and kd. 	
+
+ SHORTCOMINGS/GENERAL COMMENTS:
+  This edition appears to be correctly running but the solutions are
+  produced over a rather narrow range of parameter values. More robust
+  solvers may be needed, or boundary conditions reassessed.
+
+ 
+ KEY WORDS: Facilitated diffusion, permeation, Fatty acid, Albumin, Albumin-fatty acid complex, 
+ Multiregion, PDE, Publication, Transport Physiology,  
+
+ REFERENCES:
+ Barta, Efrath; Sideman, Samuel; and Bassingthwaighte, James B.;
+ Facilitated Diffusion and Membrane Permeation of Fatty Acid in Albumin Solutions, 
+ ABME 28: 331-345, 2000	
+
+ REVISION HISTORY:
+	Original Author : JBB  Date: 01/12/06
+        Edited 6oct06 by JBB to add units to solpa etc. to run with unit conversion on
+        edited 7oct06 by JBB to make it for two independent regions
+        edited 8oct06 by JBB to make it into two connected regions across permeable barrier
+        edited 20nov07 by JBB to make it the full model of Barta et al 2000
+	Revised by: BEJ Date:13jun11 : Update comment format, set t.max to 400 sec to shorten run.
+                    Use MacCormack instead of TOMS 731 solver.
+	
+
+ COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:   
+  Copyright (C) 1999-2011 University of Washington. From the National Simulation Resource,  
+  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington, Seattle WA 98195-5061. 
+  Academic use is unrestricted. Software may be copied so long as this copyright notice is included.
+  
+  This software was developed with support from NIH grant HL073598. 
+  Please cite this grant in any publication for which this software is used and send an email 
+  with the citation and, if possible, a PDF file of the paper to: staff@physiome.org. 
+
+*/
+
+
+</control>
+      <control name="sourceType" value="mml"/>
+      <control name="auxName" value=""/>
+      <control name="parSetName" value="default"/>
+      <control name="parSetModified" value="true"/>
+      <control name="built" value="true"/>
+      <control name="customRTML"></control>
+      <control name="customBuilt" value="false"/>
+      <options name="buildOptions">
+        <control name="maxBuildTime" value="120"/>
+        <control name="maxImplicitBlock" value="10"/>
+        <control name="initNaN" value="false"/>
+        <control name="abortNaN" value="false"/>
+        <control name="traceNaN" value="false"/>
+        <control name="traceVars" value=""/>
+        <control name="ignoreAllOverspec" value="false"/>
+        <control name="ignoreAllUnderspec" value="false"/>
+      </options>
+      <vars name="vars"/>
+      <parset name="last">
+        <vars name="vars">
+          <solver name="solver">
+            <control name="ode_which" value="Auto"/>
+            <control name="ode_Dopri5_reltol" value="1E-7"/>
+            <control name="ode_Dopri5_abstol" value="1E-7"/>
+            <control name="ode_Dopri5_nstep" value="100000"/>
+            <control name="ode_Dopri5_stiff" value="1000"/>
+            <control name="ode_Dopri5_round" value="2.3E-16"/>
+            <control name="ode_Dopri5_safety" value=".9"/>
+            <control name="ode_Dopri5_loselect" value=".2"/>
+            <control name="ode_Dopri5_hiselect" value="10"/>
+            <control name="ode_Dopri5_beta" value=".04"/>
+            <control name="ode_Euler_nstep" value="2"/>
+            <control name="ode_RK2_nstep" value="2"/>
+            <control name="ode_Fehlberg_minstep" value="1E-4"/>
+            <control name="ode_Fehlberg_maxstep" value=".1"/>
+            <control name="ode_Fehlberg_tol" value="1E-6"/>
+            <control name="ode_KM_minstep" value="1E-4"/>
+            <control name="ode_KM_maxstep" value=".1"/>
+            <control name="ode_KM_tol" value="1E-6"/>
+            <control name="ode_Radau_reltol" value="1E-7"/>
+            <control name="ode_Radau_abstol" value="1E-7"/>
+            <control name="ode_Radau_nstep" value="100000"/>
+            <control name="ode_Radau_round" value="1E-16"/>
+            <control name="ode_Radau_safety" value=".9"/>
+            <control name="ode_Radau_minord" value="3"/>
+            <control name="ode_Radau_maxord" value="7"/>
+            <control name="ode_Radau_initord" value="3"/>
+            <control name="ode_Radau_newton" value="0"/>
+            <control name="ode_Radau_jacob" value=".001"/>
+            <control name="ode_Radau_losize" value="1"/>
+            <control name="ode_Radau_hisize" value="1.2"/>
+            <control name="ode_Radau_loselect" value=".2"/>
+            <control name="ode_Radau_hiselect" value="8"/>
+            <control name="ode_Radau_locontract" value=".002"/>
+            <control name="ode_Radau_hicontract" value=".8"/>
+            <control name="ode_Radau_hiorder" value="1.2"/>
+            <control name="ode_Radau_loorder" value=".8"/>
+            <control name="ode_RK4_nstep" value="2"/>
+            <control name="ode_CVode_reltol" value="1E-7"/>
+            <control name="ode_CVode_abstol" value="1E-8"/>
+            <control name="ode_CVode_maxsteps" value="100000"/>
+            <control name="ode_CVode_stiff" value="false"/>
+            <control name="pde_which" value="MacCormack"/>
+            <control name="pde_MacCormack_FCT" value="true"/>
+            <control name="fzero_unbound" value="ggopt"/>
+            <control name="fzero_bound" value="simplex"/>
+            <control name="fzero_errtol" value="1E-6"/>
+            <control name="fzero_maxcalls" value="500"/>
+            <control name="fzero_maxiters" value="100"/>
+            <control name="fzero_eps" value="1E-6"/>
+            <control name="fzero_istep" value=".01"/>
+            <control name="fzero_npoints" value="5"/>
+            <control name="fzero_randseed" value="0"/>
+            <control name="fzero_inittemp" value="100"/>
+            <control name="fzero_populationsize" value="50"/>
+            <control name="fzero_mutationrate" value=".1"/>
+            <control name="fzero_crossoverrate" value=".5"/>
+            <control name="fzero_mutationstep" value=".05"/>
+            <control name="fzero_elitecutoff" value=".5"/>
+            <control name="fzero_selectmethod" value="1"/>
+            <control name="random_seed" value="0"/>
+          </solver>
+          <assign name="vars">
+            <control name="t.min" value="0"/>
+            <control name="t.max" value="400"/>
+            <control name="t.delta" value="1"/>
+            <control name="x.min" value="0"/>
+            <control name="x1" value="0.005"/>
+            <control name="Ngrid" value="51"/>
+            <control name="Da" value="9.35E-7"/>
+            <control name="Daf" value="9.35E-7"/>
+            <control name="Df" value="5E-6"/>
+            <control name="P1x" value="0.0166"/>
+            <control name="km1" value="0.142"/>
+            <control name="Kd1" value="3E-5"/>
+            <control name="G1" value="0"/>
+            <control name="CAt" value="0.6"/>
+            <control name="CFt" value="0.54"/>
+            <control name="y1" value="0.004"/>
+            <control name="Nygrid" value="41"/>
+            <control name="Dby" value="9.35E-7"/>
+            <control name="Dbfy" value="9.35E-7"/>
+            <control name="Dfy" value="5E-6"/>
+            <control name="P2y" value="0.0083"/>
+            <control name="km1y" value="0.142"/>
+            <control name="Kd1y" value="3E-5"/>
+            <control name="G2" value="0"/>
+            <control name="CBty" value="0.6"/>
+            <control name="CFty" value="0.54"/>
+          </assign>
+        </vars>
+        <control name="desc" value=""/>
+        <control name="locked" value="false"/>
+        <control name="notes"></control>
+      </parset>
+      <imageset name="images"/>
+      <loops name="loops">
+        <loop name="outer">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="3"/>
+          <control name="npars" value="1"/>
+          <looppar name="looppar0">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+        <loop name="inner">
+          <control name="mode" value="auto"/>
+          <control name="ntimes" value="2"/>
+          <control name="npars" value="2"/>
+          <looppar name="looppar0">
+            <control name="par" value="P1x"/>
+            <control name="values" value="@*4"/>
+            <control name="enabled" value="true"/>
+          </looppar>
+          <looppar name="looppar1">
+            <control name="par" value=""/>
+            <control name="values" value=""/>
+            <control name="enabled" value="true"/>
+          </looppar>
+        </loop>
+      </loops>
+      <sens name="sens">
+        <control name="npars" value="1"/>
+        <senspar name="senspar0">
+          <control name="par" value=""/>
+          <control name="delta" value=".01"/>
+          <control name="enabled" value="true"/>
+        </senspar>
+      </sens>
+      <optim name="optim">
+        <control name="npars" value="1"/>
+        <control name="nmatches" value="1"/>
+        <control name="alg" value="simplex"/>
+        <control name="maxCalls" value="50"/>
+        <control name="maxIters" value="10"/>
+        <control name="errTol" value=".001"/>
+        <control name="stepTol" value="1E-6"/>
+        <control name="gradTol" value="1E-6"/>
+        <control name="npoints" value="5"/>
+        <control name="eps" value="1E-6"/>
+        <control name="randomSeed" value="0"/>
+        <control name="initTemp" value="100"/>
+        <control name="populationSize" value="25"/>
+        <control name="mutationRate" value=".1"/>
+        <control name="crossoverRate" value=".5"/>
+        <control name="mutationStep" value=".05"/>
+        <control name="selectMethod" value="roulette"/>
+        <control name="eliteCutoff" value=".5"/>
+        <control name="calcCovMat" value="true"/>
+        <optgraph name="pars">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="normPars">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="rmsError">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="dataToMatch">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="unwgtResid">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="wgtResid">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optgraph name="pointWgts">
+          <control name="log" value="linear"/>
+        </optgraph>
+        <optpar name="optpar0">
+          <control name="par" value=""/>
+          <control name="min" value="NaN"/>
+          <control name="max" value="NaN"/>
+          <control name="step" value=".01"/>
+          <control name="enabled" value="true"/>
+        </optpar>
+        <optmatch name="optmatch0">
+          <control name="src" value=""/>
+          <control name="data" value=""/>
+          <control name="expr" value=""/>
+          <control name="pointWgts" value="1"/>
+          <control name="step" value="1"/>
+          <control name="enabled" value="true"/>
+        </optmatch>
+      </optim>
+      <browser name="browser">
+        <control name="which" value="variables"/>
+        <control name="varCollapse" value="true"/>
+        <control name="varNodeTextColor" value="disabled"/>
+        <control name="varNodeFillColor" value="unitType"/>
+        <control name="varNodeBorderColor" value="toolType"/>
+        <control name="varNodeShape" value="isInput"/>
+        <control name="seqNodeTextColor" value="disabled"/>
+        <control name="seqNodeFillColor" value="itemType"/>
+        <control name="seqNodeBorderColor" value="phase"/>
+        <control name="seqNodeShape" value="hasDeT"/>
+      </browser>
+      <rtml name="rtml"/>
+    </model>
+    <plotpage name="Transient_Profiles">
+      <control name="desc" value=""/>
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="liveUpdate" value="false"/>
+      <control name="showConf" value="true"/>
+      <control name="showXRule" value="false"/>
+      <control name="xRule" value=".5"/>
+      <control name="showYRule" value="false"/>
+      <control name="yRule" value=".5"/>
+      <control name="showMinMaxSliders" value="false"/>
+      <control name="animeDuration" value="10"/>
+      <control name="animeRate" value="10"/>
+      <control name="animeLoop" value="false"/>
+      <control name="animeDir" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="16"/>
+        <control name="title" value="Transient Fatty Acid Concentrations in Two Regions"/>
+        <control name="titleX" value=".53415061"/>
+        <control name="titleY" value=".95583039"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="showTitle" value="true"/>
+        <control name="showFooter" value="false"/>
+        <control name="legendX" value=".4290718"/>
+        <control name="legendY" value=".70464135"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="7"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="Distance from Source, cm (membrane at x=0.005)"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="false"/>
+          <control name="label" value="Fatty Acid Concentrations, mM"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="1.1E-4"/>
+          <control name="max" value="2.8E-4"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(5,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="normal"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="shortdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item1">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(10,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="normal"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="longdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item2">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(20,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dot"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item3">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(50,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="normal"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item4">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(100,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="normal"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item5">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(200,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdotdotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item6">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(400,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="sdashldash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item7">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(900,x)"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="false"/>
+          <control name="xExpr" value="x"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item8">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(5,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="shortdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item9">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(10,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="longdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item10">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(20,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dot"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item11">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(50,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item12">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(100,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item13">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(200,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="dotdotdotdash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item14">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(400,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="sdashldash"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item15">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(900,y)"/>
+          <control name="color" value="violet2"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="false"/>
+          <control name="xExpr" value="y"/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <plotpage name="Steady_State_Profiles">
+      <control name="desc" value=""/>
+      <control name="confPlot" value="0"/>
+      <control name="nRow" value="1"/>
+      <control name="nCol" value="1"/>
+      <control name="liveUpdate" value="false"/>
+      <control name="showConf" value="false"/>
+      <control name="showXRule" value="false"/>
+      <control name="xRule" value=".5"/>
+      <control name="showYRule" value="false"/>
+      <control name="yRule" value=".5"/>
+      <control name="showMinMaxSliders" value="false"/>
+      <control name="animeDuration" value="10"/>
+      <control name="animeRate" value="10"/>
+      <control name="animeLoop" value="false"/>
+      <control name="animeDir" value="true"/>
+      <plot name="plot0">
+        <control name="nItems" value="8"/>
+        <control name="title" value="Steady State Profiles for Fatty Acid, Albumin and AF Complex"/>
+        <control name="titleX" value=".50087566"/>
+        <control name="titleY" value=".9540636"/>
+        <control name="footer" value="%TIME"/>
+        <control name="footerX" value="0"/>
+        <control name="footerY" value="0"/>
+        <control name="showLegend" value="true"/>
+        <control name="showTitle" value="true"/>
+        <control name="showFooter" value="false"/>
+        <control name="legendX" value=".42732049"/>
+        <control name="legendY" value=".87102473"/>
+        <control name="style" value="XY plot"/>
+        <control name="confItem" value="3"/>
+        <control name="confAxis" value="Y"/>
+        <plotaxis name="xaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="false"/>
+          <control name="label" value="Distance from Source, cm (membrane at x=0.005)"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value=".01"/>
+        </plotaxis>
+        <plotaxis name="yaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="false"/>
+          <control name="label" value="Relative Concn, F/F0, A/A0, AF/AF0"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="2.1"/>
+        </plotaxis>
+        <plotaxis name="zaxis">
+          <control name="log" value="linear"/>
+          <control name="autoscale" value="true"/>
+          <control name="label" value="axis label"/>
+          <control name="showLabel" value="true"/>
+          <control name="min" value="0"/>
+          <control name="max" value="1"/>
+        </plotaxis>
+        <plotitem name="item0">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(t.max,x)/CF0"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item1">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(t.max,y)/CF0"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item2">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CF(t.max,x)/CF0"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="false"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item3">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CFy(t.max,y)/CF0"/>
+          <control name="color" value="red"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="false"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item4">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CA(t.max,x)/CA0"/>
+          <control name="color" value="black"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item5">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CAF(t.max,x)/CAF0"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item6">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CBy(t.max, y)/CA0"/>
+          <control name="color" value="black"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+        <plotitem name="item7">
+          <control name="src" value="Fac_Diff_2Region"/>
+          <control name="expr" value="CBFy(t.max,y)/CAF0"/>
+          <control name="color" value="blue"/>
+          <control name="size" value="small"/>
+          <control name="shape" value="none"/>
+          <control name="line" value="solid"/>
+          <control name="thickness" value="medium"/>
+          <control name="colorMap" value="none"/>
+          <control name="palette" value="heat"/>
+          <control name="show" value="true"/>
+          <control name="xExpr" value=""/>
+          <control name="yExpr" value=""/>
+        </plotitem>
+      </plot>
+    </plotpage>
+    <parset name="default">
+      <vars name="vars">
+        <solver name="solver">
+          <control name="ode_which" value="Auto"/>
+          <control name="ode_Dopri5_reltol" value="1E-7"/>
+          <control name="ode_Dopri5_abstol" value="1E-7"/>
+          <control name="ode_Dopri5_nstep" value="100000"/>
+          <control name="ode_Dopri5_stiff" value="1000"/>
+          <control name="ode_Dopri5_round" value="2.3E-16"/>
+          <control name="ode_Dopri5_safety" value=".9"/>
+          <control name="ode_Dopri5_loselect" value=".2"/>
+          <control name="ode_Dopri5_hiselect" value="10"/>
+          <control name="ode_Dopri5_beta" value=".04"/>
+          <control name="ode_Euler_nstep" value="2"/>
+          <control name="ode_RK2_nstep" value="2"/>
+          <control name="ode_Fehlberg_minstep" value="1E-4"/>
+          <control name="ode_Fehlberg_maxstep" value=".1"/>
+          <control name="ode_Fehlberg_tol" value="1E-6"/>
+          <control name="ode_KM_minstep" value="1E-4"/>
+          <control name="ode_KM_maxstep" value=".1"/>
+          <control name="ode_KM_tol" value="1E-6"/>
+          <control name="ode_Radau_reltol" value="1E-7"/>
+          <control name="ode_Radau_abstol" value="1E-7"/>
+          <control name="ode_Radau_nstep" value="100000"/>
+          <control name="ode_Radau_round" value="1E-16"/>
+          <control name="ode_Radau_safety" value=".9"/>
+          <control name="ode_Radau_minord" value="3"/>
+          <control name="ode_Radau_maxord" value="7"/>
+          <control name="ode_Radau_initord" value="3"/>
+          <control name="ode_Radau_newton" value="0"/>
+          <control name="ode_Radau_jacob" value=".001"/>
+          <control name="ode_Radau_losize" value="1"/>
+          <control name="ode_Radau_hisize" value="1.2"/>
+          <control name="ode_Radau_loselect" value=".2"/>
+          <control name="ode_Radau_hiselect" value="8"/>
+          <control name="ode_Radau_locontract" value=".002"/>
+          <control name="ode_Radau_hicontract" value=".8"/>
+          <control name="ode_Radau_hiorder" value="1.2"/>
+          <control name="ode_Radau_loorder" value=".8"/>
+          <control name="ode_RK4_nstep" value="2"/>
+          <control name="ode_CVode_reltol" value="1E-7"/>
+          <control name="ode_CVode_abstol" value="1E-8"/>
+          <control name="ode_CVode_maxsteps" value="100000"/>
+          <control name="ode_CVode_stiff" value="false"/>
+          <control name="pde_which" value="MacCormack"/>
+          <control name="pde_MacCormack_FCT" value="true"/>
+          <control name="fzero_unbound" value="ggopt"/>
+          <control name="fzero_bound" value="simplex"/>
+          <control name="fzero_errtol" value="1E-6"/>
+          <control name="fzero_maxcalls" value="500"/>
+          <control name="fzero_maxiters" value="100"/>
+          <control name="fzero_eps" value="1E-6"/>
+          <control name="fzero_istep" value=".01"/>
+          <control name="fzero_npoints" value="5"/>
+          <control name="fzero_randseed" value="0"/>
+          <control name="fzero_inittemp" value="100"/>
+          <control name="fzero_populationsize" value="50"/>
+          <control name="fzero_mutationrate" value=".1"/>
+          <control name="fzero_crossoverrate" value=".5"/>
+          <control name="fzero_mutationstep" value=".05"/>
+          <control name="fzero_elitecutoff" value=".5"/>
+          <control name="fzero_selectmethod" value="1"/>
+          <control name="random_seed" value="0"/>
+        </solver>
+        <assign name="vars">
+          <control name="t.min" value="0"/>
+          <control name="t.max" value="400"/>
+          <control name="t.delta" value="1"/>
+          <control name="x.min" value="0"/>
+          <control name="x1" value="0.005"/>
+          <control name="Ngrid" value="51"/>
+          <control name="Da" value="9.35E-7"/>
+          <control name="Daf" value="9.35E-7"/>
+          <control name="Df" value="5E-6"/>
+          <control name="P1x" value="0.0166"/>
+          <control name="km1" value="0.142"/>
+          <control name="Kd1" value="3E-5"/>
+          <control name="G1" value="0"/>
+          <control name="CAt" value="0.6"/>
+          <control name="CFt" value="0.54"/>
+          <control name="y1" value="0.004"/>
+          <control name="Nygrid" value="41"/>
+          <control name="Dby" value="9.35E-7"/>
+          <control name="Dbfy" value="9.35E-7"/>
+          <control name="Dfy" value="5E-6"/>
+          <control name="P2y" value="0.0083"/>
+          <control name="km1y" value="0.142"/>
+          <control name="Kd1y" value="3E-5"/>
+          <control name="G2" value="0"/>
+          <control name="CBty" value="0.6"/>
+          <control name="CFty" value="0.54"/>
+        </assign>
+      </vars>
+      <control name="desc" value=""/>
+      <control name="locked" value="false"/>
+      <control name="notes"></control>
+    </parset>
+  </project>
+</JSim>

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. ../run.common
+
+PROJ="$1"
+
+echo ==== $1
+$JSBATCH -f PROJ/"$PROJ".proj -onested -out WORK/"$PROJ".out
+STAT=$?
+
+if [ $STAT -ne 0 ]
+then
+  echo "Program exited with error status"
+fi

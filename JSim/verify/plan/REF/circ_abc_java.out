@@ -1,0 +1,130 @@
+// JSim generated model JS100circ_abc
+ 
+import java.lang.Math;
+import JSim.util.*;
+import JSim.expr.*;
+import JSim.data.*;
+import JSim.jruntime.*;
+import JSim.aserver.*;
+import JSim.nml.math.NatMath;
+ 
+// JS100circ_abc model
+public class JS100circ_abc extends RTModel {
+
+    // variable declarations
+    public RTRealNVar JSa;
+    public RTRealNVar JSb;
+    public RTRealNVar JSc;
+     
+    // F&P declarations
+    
+    // solver declarations
+    public Fzero1Problem__a fzero1problem__a;
+     
+    // RT model constructor
+    public JS100circ_abc(UnitNList u,ASServer.Messenger m) throws Xcept {
+        super("JS100circ_abc", u, m);
+         
+        // units used in model
+        units.add("dimensionless", Unit.parse(this, "1  dimensionless"));
+        units.add("radian", Unit.parse(this, "1  dimensionless"));
+         
+        // var instantiation
+        JSa = new RTRealNVar(this, "a","dimensionless",2,null);
+        JSb = new RTRealNVar(this, "b","dimensionless",2,null);
+        JSc = new RTRealNVar(this, "c","dimensionless",2,null);
+         
+        // input defaults
+        
+        // F&P initialization
+        
+        // solver instantiation
+        fzero1problem__a = new Fzero1Problem__a(this);
+        
+    }
+    
+    // simple main methods
+    public boolean defaultUnitCorrect() { return false; }
+    public boolean allowMPRuns() { return true; }
+    public void mainline(RTContext ctxt) throws Xcept { ((XContext) ctxt).mainline(); }
+    public RTContext newRunContext(int threadInx, int nproc, RTDataStore s) { return new XContext(this, threadInx, nproc, s); }
+    
+    // every Nth point support
+    public boolean runTimeNthSupported(RTRealDomain x) {
+        return true;
+    }
+    
+    // Implicit block solving [a, b, c]
+    public class Fzero1Problem__a extends Fzero1Problem {
+        public Fzero1Problem__a(RTModel m) throws Xcept {
+            super(m, "Fzero1Problem__a",3);
+        }
+        public void setCoef(RTContext ctxt,double[] mat,double[] vec,double[] rec) throws Xcept {
+            ((XContext) ctxt).setCoef__a(mat,vec,rec);
+        }
+        public void setBounds(RTContext ctxt,double[] vmin,double[] vmax,double[] vguess) throws Xcept {
+            ((XContext) ctxt).setBounds__a(vmin,vmax,vguess);
+        }
+        public void calcZero(RTContext ctxt,double[] val,double[] zero) throws Xcept {
+            ((XContext) ctxt).calcZero__a(val,zero);
+            ncallbacks++;
+        }
+        public void export(RTContext ctxt,double[] val) throws Xcept {
+            ((XContext) ctxt).export__a(val);
+        }
+    }
+     
+    // model-specific context
+    public class XContext extends RTContext {
+        // global caches
+        private double js1a;
+        private double js1b;
+        private double js1c;
+        
+        // context constructor
+        public XContext(RTModel m, int threadInx, int nproc, RTDataStore s) { super(m, threadInx, nproc, s, false); }
+        
+        // trace NaN causes abort?
+        public boolean abortNaN() { return false; }
+        
+        // ctxt mainline
+        public void mainline() throws Xcept {
+            fzero1problem__a.solve(this);
+        }
+        
+        // ctxt methods for Fzero1Problem__a
+        public void setCoef__a(double[] mat,double[] vec,double[] rec) throws Xcept {
+            mat[0]=1;
+            mat[1]=(-1);
+            mat[2]=0;
+            mat[3]=0;
+            mat[4]=1;
+            mat[5]=(-1);
+            mat[6]=(-1);
+            mat[7]=0;
+            mat[8]=1;
+            vec[0]=(-1);
+            vec[1]=(-1);
+            vec[2]=(-1);
+        }
+        public void setBounds__a(double[] vmin,double[] vmax,double[] vguess) throws Xcept {
+        }
+        public void calcZero__a(double[] vals,double[] zeroes) throws Xcept {
+            js1a=vals[0];
+            js1b=vals[1];
+            js1c=vals[2];
+            zeroes[0]=(js1a-(js1b+1));
+            zeroes[1]=(js1b-(js1c+1));
+            zeroes[2]=(js1c-(js1a+1));
+        }
+        public void export__a(double[] vals) throws Xcept {
+            set(JSa,vals[0]);
+            set(JSb,vals[1]);
+            set(JSc,vals[2]);
+        }
+        // ctxt methods for F&P
+    }
+     
+}
+
+

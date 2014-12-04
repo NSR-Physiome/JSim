@@ -1,0 +1,17 @@
+#!/bin/bash
+
+. ../run.common
+
+echo ==== $1
+
+TMP=WORK/"$1".tmp
+OUT=WORK/"$1".out
+$JSBATCH -f MODBAD/"$1".mod > $TMP 2>&1
+STAT=$?
+sed -e "/JSim version/d" $TMP > $OUT
+rm $TMP
+
+if [ $STAT -eq 0 ]
+then
+  echo "  Program incorrectly exited without error"
+fi

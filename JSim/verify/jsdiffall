@@ -1,0 +1,27 @@
+#!/bin/bash
+
+. jsbuild.osarch
+
+if [ $# != 2 ]
+then
+  echo "usage: diffall dir1 dir2"
+  exit 1
+fi
+
+REF=$1
+OSREF="$1"."$JSIMOS"
+WORK=$2
+
+DSW="-b --ignore-matching-lines version --ignore-matching-lines jsim/work"
+
+cd $REF
+for F in *.out
+do
+  OSF=../$OSREF/$F
+  if [ -r $OSF ]
+  then
+    F=$OSF
+  fi
+  echo "====================== $F"
+  diff $DSW $F ../$WORK
+done

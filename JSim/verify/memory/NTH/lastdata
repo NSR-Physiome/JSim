@@ -1,0 +1,15 @@
+#!/bin/bash
+
+INPUT=$1
+
+LCT=`cat $INPUT | wc -l`
+L=0
+while [ $L -lt $LCT ]
+do
+  let L=L+1
+  # echo "===process line $L"
+  LTXT=`head -$L $INPUT | tail -1 | tr '(),' '   '`
+  WCT=`echo $LTXT | wc -w`
+  let NTOK=$WCT-2
+  echo $LTXT | awk '{ print $1, $'$NTOK' }'
+done

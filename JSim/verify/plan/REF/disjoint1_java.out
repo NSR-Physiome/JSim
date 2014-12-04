@@ -1,0 +1,163 @@
+// JSim generated model JS100disjoint1
+ 
+import java.lang.Math;
+import JSim.util.*;
+import JSim.expr.*;
+import JSim.data.*;
+import JSim.jruntime.*;
+import JSim.aserver.*;
+import JSim.nml.math.NatMath;
+ 
+// JS100disjoint1 model
+public class JS100disjoint1 extends RTModel {
+
+    // variable declarations
+    public RTRealDomain JSt;
+    public RTRealNVar JSt__min;
+    public RTRealNVar JSt__max;
+    public RTIntNVar JSt__ct;
+    public RTRealNVar JSt__delta;
+    public RTRealDomain JSx;
+    public RTRealNVar JSx__min;
+    public RTRealNVar JSx__max;
+    public RTIntNVar JSx__ct;
+    public RTRealNVar JSx__delta;
+    public RTRealNVar JSA1;
+    public RTRealNVar JSB1;
+    public RTRealNVar JSA2;
+    public RTRealNVar JSB2;
+     
+    // F&P declarations
+    
+    // solver declarations
+     
+    // RT model constructor
+    public JS100disjoint1(UnitNList u,ASServer.Messenger m) throws Xcept {
+        super("JS100disjoint1", u, m);
+         
+        // units used in model
+        units.add("dimensionless", Unit.parse(this, "1  dimensionless"));
+        units.add("radian", Unit.parse(this, "1  dimensionless"));
+         
+        // var instantiation
+        JSt__min = new RTRealNVar(this, "t.min","dimensionless",1,null);
+        JSt__max = new RTRealNVar(this, "t.max","dimensionless",1,null);
+        JSt__ct = new RTIntNVar(this, "t.ct","dimensionless",2,null);
+        JSt__delta = new RTRealNVar(this, "t.delta","dimensionless",1,null);
+        JSx__min = new RTRealNVar(this, "x.min","dimensionless",1,null);
+        JSx__max = new RTRealNVar(this, "x.max","dimensionless",1,null);
+        JSx__ct = new RTIntNVar(this, "x.ct","dimensionless",1,null);
+        JSx__delta = new RTRealNVar(this, "x.delta","dimensionless",2,null);
+        JSt = new RTRealDomain(this, "t","dimensionless",2,JSt__min,JSt__max,JSt__delta,JSt__ct);
+        JSx = new RTRealDomain(this, "x","dimensionless",2,JSx__min,JSx__max,JSx__delta,JSx__ct);
+        JSA1 = new RTRealNVar(this, "A1","dimensionless",5,new RTRealDomain[] {JSt});
+        JSB1 = new RTRealNVar(this, "B1","dimensionless",3,new RTRealDomain[] {JSx});
+        JSA2 = new RTRealNVar(this, "A2","dimensionless",7,new RTRealDomain[] {JSt});
+        JSB2 = new RTRealNVar(this, "B2","dimensionless",9,new RTRealDomain[] {JSx});
+         
+        // input defaults
+        JSt__min.setDefault("0");
+        JSt__max.setDefault("30");
+        JSt__delta.setDefault(".05");
+        JSx__min.setDefault("0");
+        JSx__max.setDefault("1");
+        JSx__ct.setDefault("5");
+        
+        // F&P initialization
+        
+        // solver instantiation
+        
+    }
+    
+    // simple main methods
+    public boolean defaultUnitCorrect() { return false; }
+    public boolean allowMPRuns() { return true; }
+    public void mainline(RTContext ctxt) throws Xcept { ((XContext) ctxt).mainline(); }
+    public RTContext newRunContext(int threadInx, int nproc, RTDataStore s) { return new XContext(this, threadInx, nproc, s); }
+    
+    // every Nth point support
+    public boolean runTimeNthSupported(RTRealDomain x) {
+        String xname = x.name();
+        if (xname.equals("x")) return false;
+        if (xname.equals("t")) return false;
+        return true;
+    }
+    
+    // model-specific context
+    public class XContext extends RTContext {
+        // global caches
+        private double js0t__min;
+        private double js0t__max;
+        private double js0t__delta;
+        private double js0x__min;
+        private double js0x__max;
+        private double js0x__ct;
+        
+        // context constructor
+        public XContext(RTModel m, int threadInx, int nproc, RTDataStore s) { super(m, threadInx, nproc, s, false); }
+        
+        // trace NaN causes abort?
+        public boolean abortNaN() { return false; }
+        
+        // ctxt mainline
+        public void mainline() throws Xcept {
+            js0x__ct = realVal(JSx__ct);
+            js0x__max = realVal(JSx__max);
+            js0x__min = realVal(JSx__min);
+            js0t__delta = realVal(JSt__delta);
+            js0t__max = realVal(JSt__max);
+            js0t__min = realVal(JSt__min);
+            set(JSx__delta,((js0x__max-js0x__min)/(js0x__ct-1)));
+            set(JSx__max,js0x__max = (js0x__min+(realVal(JSx__delta)*(js0x__ct-1))));
+            setDomain(JSx);
+            set(JSt__ct,(((js0t__max-js0t__min)/js0t__delta)+1.5));
+            set(JSt__max,js0t__max = (js0t__min+(js0t__delta*(realVal(JSt__ct)-1))));
+            setDomain(JSt);
+            startPhase(3, JSx);
+            for (setLHBC(JSx); isSet(JSx); moveRight(JSx)) loop__0x();
+            startPhase(4, null);
+            startPhase(5, JSt);
+            for (setLHBC(JSt); isSet(JSt); moveRight(JSt)) loop__1t();
+            startPhase(6, null);
+            startPhase(7, JSt);
+            for (setLHBC(JSt); isSet(JSt); moveRight(JSt)) loop__2t();
+            startPhase(8, null);
+            startPhase(9, JSx);
+            for (setLHBC(JSx); isSet(JSx); moveRight(JSx)) loop__3x();
+            startPhase(10, null);
+        }
+        
+        // ctxt loop iteration for domain x
+        public void loop__0x() throws Xcept {
+            set(JSB1,realVal(JSx));
+            interruptCheck();
+            updatePhase(JSx);
+        }
+        
+        // ctxt loop iteration for domain t
+        public void loop__1t() throws Xcept {
+            set(JSA1,realVal(JSt));
+            interruptCheck();
+            updatePhase(JSt);
+        }
+        
+        // ctxt loop iteration for domain t
+        public void loop__2t() throws Xcept {
+            set(JSA2,realVal(JSB1, new double[] {js0x__max}));
+            interruptCheck();
+            updatePhase(JSt);
+        }
+        
+        // ctxt loop iteration for domain x
+        public void loop__3x() throws Xcept {
+            set(JSB2,realVal(JSA1, new double[] {js0t__max}));
+            interruptCheck();
+            updatePhase(JSx);
+        }
+        
+        // ctxt methods for F&P
+    }
+     
+}
+
+

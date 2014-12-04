@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -Rf WORK LOG hs_err*.log

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. ../run.common
+
+# test default func gens using model
+
+MODEL=$1
+FUNC=$2
+echo ==== defaults $1 $2
+
+MODFILE=MOD/"$MODEL".mod
+$JSBATCH -o a -f $MODFILE -func f1 -i a=f1 f1.domain0=t f1.which=$FUNC -out WORK/"$FUNC"_def.out
+
+

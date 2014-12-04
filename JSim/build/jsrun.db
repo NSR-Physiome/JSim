@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# debug version of JSim 1.6 
+#     appropriate for developers
+
+. jsbuild.path
+
+#$JSIMJRE/bin/java $JSIMARGS $*
+$JSIMJRE/bin/java $JSIMARGS $*
+exit $?

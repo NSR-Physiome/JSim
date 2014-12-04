@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. ../run.common
+
+BASE=$1
+
+echo ==== $BASE
+
+$JSBATCH -f MOD/"$BASE".mod -out WORK/"$BASE".out
+

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. ../run.common
+
+rm -Rf WORK
+mkdir WORK
+
+cd PROJ
+PROJS=`ls *.proj | sed s/.proj//g`
+cd ..
+
+if [ $# -ne 0 ]
+then
+  PROJS="$*"
+fi
+
+for p in $PROJS
+do
+  run1 $p
+done

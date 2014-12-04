@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "==== Building xsleg archive (XSim legacy support)"
+. jsbuild.path
+
+DIR=$JSIMSRC/fpack/libxsleg
+TMP=/tmp/libxsleg.$$.a
+LIB=$DIR/libxsleg.a
+
+# clear work area
+rm -f $LIB 
+
+# compile
+cd $DIR
+for f in *.[fF]
+do
+  o=`echo $f | sed s/[.][fF]/.o/`
+  echo "==== $f $o"
+  $JSIMMAKE -f $JSIMSRC/fpack/Makefile.model $o
+done
+
+# assemble and cleanup
+# MacOS bug requires ar to build to non-networked file
+rm -Rf $TMP
+ar rs $TMP *.o
+cp -p $TMP $LIB   
+ranlib $LIB
+rm -Rf $TMP *.o
+

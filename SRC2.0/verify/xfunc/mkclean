@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd LIB
-rm -f *.o *.so *.dll *.class lib*lib jscompile_c*
