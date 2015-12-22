@@ -72,14 +72,14 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 	    // right-side controls
 	    gright = new GVertTable(this,
 		new Control[] { 
-		    optim.maxIters, 
+		    optim.maxIters, optim.maxStaticIters,
 		    optim.gradTol, optim.eps,
 		    optim.initTemp, optim.selectMethod, optim.mutationStep,
                     optim.eliteCutoff, 
 		    optim.npoints },
 		8, 
 		new String[] { 
-		    "Max # iter", 
+		    "Max # iter", "Max stat iter",
 		    "Min gradient", "Relative error", 
 		    "Init temp",  "Select Method", "Mutation step", "Elite cutoff",
 		    "# grid points"

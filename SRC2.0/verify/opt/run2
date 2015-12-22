@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. ../run.common
+
+PROJ=$1
+OUT=WORK/"$PROJ".out
+
+echo "==== $PROJ"
+$JSBATCH -f PROJ/$PROJ.proj -optim -oreport -out $OUT
+

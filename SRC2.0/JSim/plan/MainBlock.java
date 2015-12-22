@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -86,7 +86,6 @@ public class MainBlock extends SeqBlock {
  	    } catch (Exception e) {
 	    	// logger().log(e); // still not completely working
 	    }
-
 	    if (logger().isVerbose("b") && logger().out != null) 
 	    	dump(logger().out);
 	}
@@ -136,8 +135,7 @@ public class MainBlock extends SeqBlock {
 		if (isUnsolvedPDEDeriv(vu)) continue;
 		if (vu.isCurr()) 
 		    throw new Xcept(
-		        "MainBlock: No tool for " + vu);
-
+		        "MainBlock: Cannot sequence variable/expression: '" + vu + "'. Please look at dependencies.");
 		if (vu.isBoundary() && ! vu.isSolvable()) {
 		    VarUsage vu0 = new VarUsage(model, vu.v(),
 		        vu.stat(), vu.domain());

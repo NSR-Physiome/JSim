@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -7,6 +7,8 @@
 END_NSRCOPYRIGHT*/
 
 // lagrangian sliding fluid element PDE solver - version 2
+// RETIRED Jan 15th, 2014, JSim v2.13. 
+// JSim now uses improved version PDE1SolverLSFEA3.java
 
 package JSim.nml.pde1;
 

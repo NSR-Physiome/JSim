@@ -65,7 +65,7 @@ public class RTSolverSettings {
 	    defVals.add(NamedVal.create(pfx + "ode_CVode_stiff", false));
 
 	    // PDE controls
-	    defVals.add(NamedVal.create(pfx + "pde_which", 1));
+	    defVals.add(NamedVal.create(pfx + "pde_which", 0));
 	    defVals.add(NamedVal.create(pfx + "pde_MacCormack_FCT", false));
 
 	    // Fzero controls

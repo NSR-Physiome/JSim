@@ -22,6 +22,7 @@ public class PModelOptim extends PNamed {
 	public StringControl alg; // optimizer algorithm to use
 	public IntControl maxCalls; // max # calls
 	public IntControl maxIters; // max # iterations (ggopt)
+	public IntControl maxStaticIters; // max # iters w/o progress
 	public RealControl errTol; // RMS error tolerance
 	public RealControl stepTol; // par step tolerance
 	public RealControl gradTol; // gradient tolerance
@@ -64,6 +65,7 @@ public class PModelOptim extends PNamed {
 		server().optimAlgs().getNames(OptimAlg.ALL));
 	    maxCalls = new IntControl(this, "maxCalls", 50);
 	    maxIters = new IntControl(this, "maxIters", 10);
+	    maxStaticIters = new IntControl(this, "maxStaticIters", 0);
 	    errTol = new RealControl(this, "errTol", 1e-3);
 	    stepTol = new RealControl(this, "stepTol", 1e-6);
 	    gradTol = new RealControl(this, "gradTol", 1e-6);
@@ -163,6 +165,7 @@ public class PModelOptim extends PNamed {
 	    args.alg = alg.val();
 	    args.maxCalls = maxCalls.val();
 	    args.maxIters = maxIters.val();
+	    args.maxStaticIters = maxStaticIters.val();
 	    args.errTol = errTol.val();
 	    args.saveLogs = true;
 	    args.stepTol = stepTol.val();

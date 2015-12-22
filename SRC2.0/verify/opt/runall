@@ -53,3 +53,10 @@ run1 gaussian sensop theta1 theta2 theta3
 run1 biggs sensop t1 t2 t3 t4 t5 t6
 #run1 btex30 sensop PSg Visfp PSpc Vpcp Gpc # slow!!
 
+# Optim report - individ curve RMS, RRMS
+run2 OptimReportRRMScurveWgt 
+run2 OptimReportRRMSpointWgt
+run2 OptimReportRRMSRangeNonZero
+run2 OptimReportRRMSRangeZero
+
+

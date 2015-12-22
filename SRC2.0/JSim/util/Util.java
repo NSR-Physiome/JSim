@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -19,7 +19,7 @@ public class Util {
 
 	// JSim version control
 	public static final String version() {
-	    return "2.15";
+	    return "2.16";
 	}
 
 	// Java/OS versions
@@ -93,22 +93,27 @@ public class Util {
 
 	/////  memory utils	
 	private static final long meg = 1024*1024;
+        private static long maxMemUsed = 0;
 
 	// get memory message
 	public static String memoryMessage() {
-	    int[] stats = new int[3];
+	    int[] stats = new int[4];
 	    Runtime r = Runtime.getRuntime();
+	    if((r.maxMemory()- r.freeMemory()) > maxMemUsed) {
+		maxMemUsed = r.totalMemory()- r.freeMemory();// maxMemory() or totalMemory()?
+	    }
 	    stats[0] = (int) (r.totalMemory()/meg);
 	    stats[1] = (int) (r.freeMemory()/meg);
 	    long max = r.maxMemory();
 	    if (max == Long.MAX_VALUE) max = 0;
 	    stats[2] = (int) (max/meg);
+	    stats[3] = (int)(maxMemUsed/meg);
 	    String sfreep = "" + (100*stats[1]/stats[0]) + "% free";
 	    String smaxp = "";
 	    if (stats[2] > 0) 
 	    	smaxp = ", " + (100*stats[0]/stats[2]) + 
 		    "% of max allowed";	    	
-	    return "" + stats[0] + "MB allocated (" +
+	    return " Mem Used:"+stats[3]+" MB," + stats[0] + "MB allocated (" +
 		sfreep + smaxp + ")";
 	}	    
 

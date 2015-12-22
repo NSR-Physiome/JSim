@@ -21,7 +21,7 @@ public class Sensop extends Optimizer {
             algInfo.name = "sensop";
             algInfo.boundsNeeded = true;
             algInfo.sensMatNeeded = true;
-            algInfo.parsNeeded = new String[] { "stepTol","gradTol" };
+            algInfo.parsNeeded = new String[] { "stepTol","gradTol", "maxStaticIters" };
             algInfo.optimClassName = Sensop.class.getName();
             return algInfo;
         }
@@ -84,6 +84,9 @@ public class Sensop extends Optimizer {
             boolean runagain=true;
             boolean[] recompute = new boolean[nx];
 
+	    int nStatIter = 0; // # iterations since last improvement
+	    int lastBestCall = 0;  // bestCall of last iter
+
             for (int ix=0; ix<nx; ix++) {
                 dx[ix]=0;
                 delx[ix]=Math.abs(eps2*x[ix]);
@@ -134,6 +137,16 @@ public class Sensop extends Optimizer {
                     if( sumd<=ssetl)   { sendMsg(res,1); return;}
                     if( gradtl<=grdtl) { sendMsg(res,2); return;}
                     if( stpnew<=st2tl) { sendMsg(res,3); return;}
+
+		    // check maxStaticIter
+		    if (lastBestCall != res.bestCall) nStatIter = 0;
+		    nStatIter++;
+		    lastBestCall = res.bestCall;
+		    //System.err.println("ifn=" + ifn + " nStatIter=" + nStatIter 
+		    //    + " bestCall=" + res.bestCall);
+		    if (res.args.maxStaticIters > 0 && 
+		    	nStatIter > res.args.maxStaticIters) { sendMsg(res,7); return; }
+		    
 // SECTION 2.
                     // J. Compute sensitivity functions
                     runagain=true;
@@ -295,6 +308,9 @@ public class Sensop extends Optimizer {
                     break;
                  case 6:
                     term(res,"all parameters pinned at limits");
+                    break;
+                 case 7:
+                    term(res,"# static iters");
                     break;
                  default:
                     termError(res,"Unspecified error in Sensop.");

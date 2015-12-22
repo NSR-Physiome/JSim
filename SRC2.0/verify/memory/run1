@@ -8,7 +8,7 @@ echo ==== $BASE
 
 for N in 1 2 3
 do
-  $JSBATCH -f MOD/"$BASE".mod -ofinal -out WORK/"$BASE"_"$N".out -i memory.storeGrids=nth memory.t.nth=$N
+  $JSBATCH -f MOD/"$BASE".mod -ofinal -out WORK/"$BASE"_"$N".out -i solver.pde_which=MacCormack memory.storeGrids=nth memory.t.nth=$N
 done
 
 

@@ -1,0 +1,73 @@
+Optimizer Tuning Parameters:
+    Algorithm       ggopt
+    Max # runs      20
+    Min RMS error   0.0
+    Min par step    0.0
+    Max # iter      10
+    Min gradient    0.0
+    Relative error  0.0
+
+Parameters to Vary:
+   Parameter        Start     
+       a0             2       
+       a1             1       
+       a2             1       
+       b0         .91799998   
+       b1             1       
+       b2            -0.5     
+
+Data to Match:
+   Curve        Par/Expr         Point Wgts     Curve Wgt   
+  NoiseT            X                1              1       
+  NoiseX            T                1              1       
+
+Optimization Results:
+   termination status   Met # calls stopping criterion
+   # evaluations        20
+   best RMS error       1.667E2 on run #13
+
+   RMS and relative RMS (RRMS) error for each curve at run #13:
+     Curve           RMS            RRMS     
+     NoiseT        2.356E2         2.605     
+     NoiseX        13.7228         .5194     
+
+   best parameter values:
+   Parm        value       +/- 1SD     90%       95%       99%   
+    a0           2         49.5459   81.8827   97.7115   1.289E2 
+    a1           1         2.29E1    37.8439   45.1595   59.5628 
+    a2           1          2.216     3.662     4.37      5.764  
+    b0          .918       49.5459   81.8827   97.7115   1.289E2 
+    b1           1         2.29E1    37.8439   45.1595   59.5628 
+    b2         -0.495       2.216     3.662     4.37      5.764  
+
+Correlation matrix: (condition number=2.083E4)
+              a0        a1        a2        b0        b1        b2    
+    a0         1      -0.8611    .7379       0         0         0    
+    a1      -0.8611      1      -0.9677     -0        -0        -0    
+    a2       .7379    -0.9677      1         0         0         0    
+    b0         0         0         0         1      -0.8611    .7379  
+    b1        -0        -0        -0      -0.8611      1      -0.9677 
+    b2         0         0         0       .7379    -0.9677      1    
+
+   run#       a0        a1        a2        b0        b1        b2     RMS error
+     1         2         1         1       .918        1       -0.5     1.669E2 
+     2       2.02        1         1       .918        1       -0.5     1.669E2 
+     3         2       1.01        1       .918        1       -0.5     1.669E2 
+     4         2         1       1.01      .918        1       -0.5     1.669E2 
+     5         2         1         1       .9272       1       -0.5     166.884 
+     6         2         1         1       .918      1.01      -0.5     1.668E2 
+     7         2         1         1       .918        1      -0.505    1.67E2  
+     8       1.98        1         1       .918        1       -0.5     1.669E2 
+     9         2        .99        1       .918        1       -0.5     1.669E2 
+    10         2         1        .99      .918        1       -0.5     166.889 
+    11         2         1         1       .9088       1       -0.5     1.669E2 
+    12         2         1         1       .918       .99      -0.5     1.669E2 
+    13         2         1         1       .918        1      -0.495    1.667E2 
+    14       1.98      1.01        1       .918        1       -0.5     1.669E2 
+    15       1.98        1       1.01      .918        1       -0.5     1.669E2 
+    16       1.98        1         1       .9272       1       -0.5     1.669E2 
+    17       1.98        1         1       .918      1.01      -0.5     1.668E2 
+    18       1.98        1         1       .918        1      -0.505    1.67E2  
+    19         2        .99      1.01      .918        1       -0.5     1.669E2 
+    20         2        .99        1       .9272       1       -0.5     1.669E2 
+

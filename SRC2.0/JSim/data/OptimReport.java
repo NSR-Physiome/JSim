@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -24,10 +24,10 @@ public class OptimReport {
 	    "roulette", "tournament", "elitism" };
 	
 	// constructor
-	public OptimReport(OptimResults res, OptimAlg.NList algs) {
+	public OptimReport(OptimResults res, OptimAlg.NList algs) throws Xcept {
 	    this(res, algs.alg(res.args.alg)); // HACK!!!
 	}
-	public OptimReport(OptimResults res, OptimAlg alg) {
+	public OptimReport(OptimResults res, OptimAlg alg) throws Xcept {
 	    this.res = res;
 	    args = res.args;
 	    nx = args.nx();
@@ -38,7 +38,7 @@ public class OptimReport {
 	}
 
 	// create report
-	public String getReport() {
+	public String getReport() throws Xcept {
 	    if (alg == null) 
 	        return "Unknown optimizer algorithm: " + args.alg;
 	    StringBuffer s = new StringBuffer();
@@ -51,6 +51,31 @@ public class OptimReport {
 	    s.append("   best RMS error       " + 
 	        PrettyFormat.sformat(res.bestErr, prec) + 
 		" on run #" + (res.bestCall+1) + "\n");
+	    int parMaxWidth = 15;
+	    int floatWidth = 15;
+	    TextColumns crveCols = new TextColumns();
+	    crveCols.addColumn(parMaxWidth,"Curve");
+	    crveCols.addColumn(floatWidth,"RMS");
+	    crveCols.addColumn(floatWidth,"RRMS");
+	    crveCols.println();
+	    if(this.res.bestCompare == null) throw new Xcept("No best optimization result retained."); 
+	    double[] curve_num = this.res.bestCompare.curveWgts(); //assume # curve wgts = # of curves
+	    if(curve_num.length >1)
+		{
+		    DataCompare.IndividCrvResults[] individCR = this.res.bestCompare.compareSingleCurve();
+		    s.append("\n   RMS and relative RMS (RRMS) error for each curve at run #"+(res.bestCall+1) + ":\n");
+		    for(int i=0; i<individCR.length;i++)
+			{
+			    crveCols.print(individCR[i].curveName.toString());
+			    crveCols.print(individCR[i].rmsErr,prec);
+			    if((individCR[i].rrmsErrSD <= 0) || Double.isNaN(individCR[i].rrmsErrSD)) { 
+				crveCols.print(" - ");   // Data range > 0?
+			    }
+			    else crveCols.print(individCR[i].rrmsErrSD,prec);
+			    crveCols.println();
+			}
+		    s.append( crveCols+"\n");
+		}
 
 	    // initialize param values & confidence limits table
 	    boolean doSD = res.covMat != null;
@@ -61,14 +86,14 @@ public class OptimReport {
 	    TextColumns cols = new TextColumns();
 	    int precWidth = prec + 6;
 	    int[] parWidths = new int[nx];
-	    int parMaxWidth = 0;
+	    parMaxWidth = 0;
 	    for (int x=0; x<nx; x++) {
 	    	int w = args.xname[x].length() + 2;
 		w = Math.max(w, precWidth);
 		parWidths[x] = w;
 		parMaxWidth = Math.max(parMaxWidth, w);
 	    }
-	    int floatWidth = 15;
+	   
 
 	    // header 
 	    cols.addColumn(parMaxWidth, "Parm");
@@ -153,6 +178,8 @@ public class OptimReport {
 	    	s.append("    # grid points   " + args.npoints + "\n");
 	    if (alg.parNeeded("maxIters")) 
 	    	s.append("    Max # iter      " + args.maxIters + "\n");
+	    if (alg.parNeeded("maxStaticIters")) 
+	    	s.append("    Max static iter " + args.maxStaticIters + "\n");
 	    if (alg.parNeeded("gradTol")) 
 	    	s.append("    Min gradient    " + args.gradTol + "\n");
 	    if (alg.parNeeded("eps")) 

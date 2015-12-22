@@ -1,0 +1,55 @@
+Optimizer Tuning Parameters:
+    Algorithm       sensop
+    Max # runs      11
+    Min RMS error   0.0
+    Min par step    0.0
+    Max static iter 0
+    Min gradient    0.0
+
+Parameters to Vary:
+   Parameter        Start           Min            Max      
+      kon1        .19310001          0              1       
+      kon2           .003            0              1       
+      KD2            250             0             1E3      
+      Etot            10             0             100      
+
+Data to Match:
+   Curve        Par/Expr         Point Wgts     Curve Wgt   
+  lowdose          LSA               1             100      
+  middose          MSA               1              10      
+  hidose           HSA               1              1       
+
+Optimization Results:
+   termination status   Met # calls would have exceeded stopping criterion
+   # evaluations        7
+   best RMS error       .6245 on run #7
+
+   RMS and relative RMS (RRMS) error for each curve at run #7:
+     Curve           RMS            RRMS     
+    lowdose         .0437           .05      
+    middose         .5728          .0309     
+     hidose          6.31          .1792     
+
+   best parameter values:
+   Parm        value       +/- 1SD     90%       95%       99%   
+   kon1      .19184309      .1065     .1825     .2202     .2989  
+   kon2      .00299314    3.293E-4  5.645E-4  6.813E-4  9.246E-4 
+    KD2        2.5E2       25.836    44.2796   53.4459   72.5297 
+   Etot      9.9986771      1.269     2.175     2.626     3.563  
+
+Correlation matrix: (condition number=8.123E10)
+             kon1      kon2       KD2      Etot   
+   kon1        1       .8359     .414     -0.8075 
+   kon2      .8359       1       .2954    -0.7384 
+    KD2      .414      .2954       1      -0.8394 
+   Etot     -0.8075   -0.7384   -0.8394      1    
+
+   run#      kon1      kon2       KD2      Etot    RMS error
+     1       .1931     .003       250       10       .625   
+     2       .1931     .003       250       10       .625   
+     3       .1922     .003       250       10       .6248  
+     4       .1931     .003       250       10       .6247  
+     5       .1931     .003     2.488E2     10       .6247  
+     6       .1931     .003       250      9.951     .6248  
+     7       .1918     .003       250      9.999     .6245  
+

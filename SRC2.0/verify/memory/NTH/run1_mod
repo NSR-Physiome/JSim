@@ -18,7 +18,7 @@ TMP4=domod.tmp4
  # echo DOMS=$DOMS
 
   # run jsbatch.db with Nths=1
-  $JSBATCH -f MOD/$MOD -i memory.storeGrids=all > $TMP1
+  $JSBATCH -f MOD/$MOD -i solver.pde_which=MacCormack memory.storeGrids=all > $TMP1
   lastdata $TMP1 > $TMP2
 
   # loop over domains reducing each
@@ -26,7 +26,7 @@ TMP4=domod.tmp4
   do
     echo ----- DOM=$DOM
     NTHS="memory.$DOM.nth=100"
-    $JSBATCH -f MOD/$MOD -i memory.storeGrids=nth $NTHS > $TMP3
+    $JSBATCH -f MOD/$MOD -i solver.pde_which=MacCormack memory.storeGrids=nth $NTHS > $TMP3
     lastdata $TMP3 > $TMP4
   
     # compare domain result with reference

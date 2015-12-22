@@ -31,6 +31,7 @@ public class OptimArgs implements Serializable {
 	public boolean calcCovMat; // calc covariance matrix?
 	public double[] confPcts; // confidence fracs (.95=95%)
 	public int maxIters; // maximum # iterations 
+	public int maxStaticIters; // max # iters w/ no improvement
 	public long randomSeed; // <= 0 implies timer seeded
 	
 	// simplex specific
@@ -97,6 +98,7 @@ public class OptimArgs implements Serializable {
 	    if (a.confPcts != null) 
 	    	confPcts = (double[]) a.confPcts.clone();		
 	    maxIters = a.maxIters;
+	    maxStaticIters = a.maxStaticIters;
 	    gradTol = a.gradTol;
 	    eps = a.eps;
 	    npoints = a.npoints;

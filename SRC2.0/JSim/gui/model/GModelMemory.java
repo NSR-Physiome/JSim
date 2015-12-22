@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -91,8 +91,8 @@ public class GModelMemory extends GNode {
 
 	// reconfig
 	public void reconfig() {
-	    if (needsContent) makeContent();
-	    
+	    if (needsContent) makeContent();  
+  
 	    // create missing domain labels/gcontrols
 	    domains = pmemory().domains();
 	    if (domains == null) domains = new StringList();
@@ -162,6 +162,8 @@ public class GModelMemory extends GNode {
 
 	// refresh
 	public void refresh() {
+        // completely reload GRTAuto to update possible change 'Advanced' table 
+           this.gmodel().gpars().connectRT();  
 	   reconfig();
 	   super.refresh();
 	}

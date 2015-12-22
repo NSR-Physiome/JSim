@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2015 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -26,7 +26,7 @@ import JSim.gui.model.*;
 
 public class GRTAuto extends GRTDoc{
 
-	public static boolean JBB_MODE = true;
+    	public static boolean JBB_MODE = true;
 
 	// state info
 	private Element root;
@@ -35,17 +35,19 @@ public class GRTAuto extends GRTDoc{
 	private ASVar.List vars, dvars, ivars, ovars;
 	private boolean units;
 	private Document doc;
+       
+        private boolean domainUsed;
 
 	// constructor
 	public GRTAuto(GModelPars p) {
 	    super(p);
+	    domainUsed = false;
 	    reload();
 	}
 
 	// reload
 	public void reload() {
 	    clear();
-
 	    // get model stuff
 	    rt = null;
 	    errMsg = null;
@@ -58,8 +60,10 @@ public class GRTAuto extends GRTDoc{
 		units = rt.getFlags().needsUnits;
 		for (int i=0; i<vars.size(); i++) {
 		    ASVar v = vars.asvar(i);
-		    if (v.isDomain())
+		    if (v.isDomain()) {
 			dvars.add(v);
+			domainUsed = true;
+		    }
 		}
 		for (int i=0; i<vars.size(); i++) {
 		    ASVar v = vars.asvar(i);
@@ -136,10 +140,15 @@ public class GRTAuto extends GRTDoc{
 	    alabels.add("#inner loops");
 	    anames.add("loops.outer.ntimes");
 	    alabels.add("#outer loops");
-	    for (int i=0; i<dvars.size(); i++) {
-		ASVar d = dvars.asvar(i);
-		String dname = d.name();
-		anames.add("memory." + dname + ".nth");
+
+	    // Only add domains if 'nth' point set
+	    PModelMemory mem_nth = gmodel().pmodel().vars().memory();
+	    if(mem_nth.storeGrids.stringVal() == "nth") {
+	        for (int i=0; i<dvars.size(); i++) {
+		    ASVar d = dvars.asvar(i);
+		    String dname = d.name();
+		    anames.add("memory." + dname + ".nth");
+		}
 	    }
 	    Element tbl = makeTable(anames, alabels, ws);
 	    tbl.setAttribute("pos", "" + x + " " + y);
@@ -185,7 +194,10 @@ public class GRTAuto extends GRTDoc{
 	    double wtot = wins[0] + wins[1] + wins[2]
 	        + wouts[0] + wouts[1] + wouts[2];
 	    if (wtot < 52 && ivars.size() > 20) {
-	    	y = yin;
+		//	    	y = yin;
+		if(domainUsed == true)
+		    y=yin;
+		else y = yin+6;   // offset past the 'Advanced' loops table
 		x = x + wins[0] + wins[1] + wins[2] + 1;
 	    }
 
@@ -196,6 +208,7 @@ public class GRTAuto extends GRTDoc{
 	    ohdr.setAttribute("text", "Model Outputs");
 	    page.appendChild(ohdr);
 	    y += 2;
+
 		
 	    // outputs table
 	    Element otbl = makeTable(ovars, wouts);
