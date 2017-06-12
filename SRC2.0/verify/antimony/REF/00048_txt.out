@@ -1,20 +1,31 @@
-//Created by libAntimony v2.0
-model file0()
+// Created by libAntimony v2.8.0
+model *doc0()
 
   // Assignment Rules:
-  reaction1 := k1 * S1;
+  reaction1 := k1*S1;
 
   // Rate Rules:
+  S1' = reaction1*-1;
   S2' = reaction1;
-  S1' = reaction1 * -1;
 
   // Variable initializations:
   compartment_ = 1;
+  compartment_ has dimensionless;
+  reaction1 has katal;
   k1 = 1;
-  S2 = 0;
   S1 = 0.015;
+  S1 has mole;
+  S2 = 0;
+  S2 has mole;
 
-  //Other declarations:
-  var reaction1, S2, S1;
+  // Other declarations:
+  var reaction1, S1, S2;
+  const compartment_, k1;
+
+  // Unit definitions:
+  unit mol_per_second = mole / second;
+
+  // Display Names:
+  mol_per_second is "mol/second";
 end
 

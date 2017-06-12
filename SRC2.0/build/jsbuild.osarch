@@ -15,11 +15,11 @@ case $JSIMOS in
   Darwin )
     JSIMOS=macos
     JSIMARCH=`uname -p`
-    # use 1.4 for compilation on all platforms
-    JSIMSDK=/System/Library/Frameworks/JavaVM.framework/Home
+    # use 1.8 for compilation on all platforms
+   # Not needed: JSIMSDK=/Library/Java/JavaVirtualMachines
      ;;
   CYGWIN* )
-    JSIMOS=win32
+    JSIMOS=win64
     JSIMARCH=""
     ;;
   * )
@@ -28,7 +28,7 @@ case $JSIMOS in
     ;;
 esac
 
-JSIMARCH=i386
+JSIMARCH=amd64
 
 # determine JSIMOSARCH
 JSIMOSARCH="$JSIMOS"

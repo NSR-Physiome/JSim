@@ -35,7 +35,7 @@ fi
 
 # set PATH
 PATH="$JSIMSDK/bin":"$PATH"
-if [ "$JSIMOS" = "win32" ]
+if [ "$JSIMOS" = "win64" ]
 then
   PATH=$JSIMNATIVE/nml:"$PATH"
 fi
@@ -51,11 +51,11 @@ then
     CLASSPATH="$CLASSPATH":"$i"
   done
 else
-  # win32 tools finder broken, force tools5 for now
+  # win64 tools finder broken, force tools5 for now?? Not anymore ??
   CLASSPATH="$CLASSPATH":"$JSIMJARDIR/JSimClient.jar"
-  if [ "$JSIMOS" = "win32" ] 
+  if [ "$JSIMOS" = "win64" ] 
   then
-    CLASSPATH="$CLASSPATH":"$JSIMJARDIR/tools6.jar"
+    CLASSPATH="$CLASSPATH":"$JSIMJARDIR/tools8.jar"
   fi
   if [ "$JSIMCLIENT" != "true" ]
   then 
@@ -68,7 +68,7 @@ LD_LIBRARY_PATH=$JSIMNATIVE/nml:$JSIMNATIVE/fpack
 if [ "$JSIMAUXLIB" != "" ]
 then
   LD_LIBRARY_PATH="$JSIMAUXLIB/$JSIMOSARCH":"$LD_LIBRARY_PATH" 
-  if [ "$JSIMOS" = "win32" ]
+  if [ "$JSIMOS" = "win64" ]
   then
     PATH="$JSIMAUXLIB/$JSIMOSARCH":"$PATH"
   fi
@@ -80,8 +80,8 @@ then
   JSIMMEM=1500
 fi
 
-# modify win32 paths (SDK lacks cygwin)
-if [ "$JSIMOS" = "win32" ]
+# modify win64 paths (SDK lacks cygwin)
+if [ "$JSIMOS" = "win64" ]
 then
   CLASSPATH=`cygpath -wp "$CLASSPATH"`
   LD_LIBRARY_PATH=`cygpath -wp "$LD_LIBRARY_PATH"`

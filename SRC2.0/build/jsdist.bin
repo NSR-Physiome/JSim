@@ -33,7 +33,7 @@ OSARCH="$1"
 if [ "$OSARCH" = "all" ]
 then
   jsdist.bin linux
-  for i in macos win32
+  for i in macos win64
   do
     jsdist.bin -quick $i
   done
@@ -53,7 +53,7 @@ case $OS in
     PRETTY="Macintosh"
     OSARCHDIR="$OSDIR"
     ;;
-  win32 )
+  win64 )
     PRETTY="Windows"
     OSARCHDIR="$OSDIR"
     ;;
@@ -120,7 +120,7 @@ cd $WORKOSARCH
 mkdir lib bin include include/$OS
 
 # create jsim, jsbatch, jsserver, jsfim executables
-if [ "$OS" = "win32" ]
+if [ "$OS" = "win64" ]
 then
   SFX=".bat"
 else
@@ -149,7 +149,7 @@ smartcp $JSIMSRC/JSim/nonJava/include/$OS include/$OS
 
 # libSBML native libs
 echo "Copying libsbml native libs ..."
-if [ "$OS" = "win32" ]
+if [ "$OS" = "win64" ]
 then
   LIBSFX=".dll"
 elif [ "$OS" = "linux" ]
@@ -177,7 +177,7 @@ cd $WORKOSARCH
 # unpack JRE
 if [ "$OS" = "macos" ]
 then
-  echo "Skipping JRE for MacOS ..."
+  echo "Skipping JRE for MacOS ..." 
 else
   mkdir jre
   cd jre
@@ -227,7 +227,7 @@ then
 fi
 
 # DOS text file conversion
-if [ "$OS" = "win32" ]
+if [ "$OS" = "win64" ]
 then
   echo "Converting text files to DOS format ..."
   cd $JSIMWORK

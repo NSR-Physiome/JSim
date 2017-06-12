@@ -4,19 +4,18 @@
 CC      = gcc
 LD      = gcc
 FORTRAN = /usr/local/bin/gfortran
-ifeq ($(JSIMARCH),i386)
-  FLIB  = /usr/local/gfortran/lib/libgfortran.a
-  FBEGLIB =
-else
+
   FLIBDIR = /usr/local/gfortran/lib
-  FLIB = $(FLIBDIR)/libgfortran.a $(FLIBDIR)/gcc/powerpc-apple-darwin*/*/libgcc.a
-  FBEGLIB = $(FLIBDIR)/gcc/powerpc-apple-darwin*/*/libgfortranbegin.a
-endif
+#  FLIB = $(FLIBDIR)/libgfortran.a $(FLIBDIR)/gcc/x86_64-apple-darwin14/*/libgcc.a
+FLIB = $(FLIBDIR)/libgfortran.dylib $(FLIBDIR)/gcc/x86_64-apple-darwin14/*/libgcc.a
+# NOT needed: ?
+  FBEGLIB = $(FLIBDIR)/gcc/x86_64-apple-darwin14/*/libgfortranbegin.a
+
 APILIB  = $(NMLDIR)/$(LIBPFX)jsimapi.dylib
 
 # NML flags
-CFLAGS   = -g -O2 -fPIC
-FFLAGS   = -g -O2 -fPIC -ffixed-line-length-132 -Dmacos
+CFLAGS   = -g -O2 -m64 -fPIC -Wno-return-type -Wno-implicit-int -Wno-implicit-function-declaration
+FFLAGS   = -g -O2 -m64 -fPIC -ffixed-line-length-132 -Dmacos
 DFLAGS   =
 #LDFLAGS - see below
 

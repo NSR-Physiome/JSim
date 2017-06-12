@@ -1,8 +1,17 @@
-//Created by libAntimony v2.0
-model file0()
+// Created by libAntimony v2.8.0
+model *doc0()
 
   // Variable initializations:
   compartment_ = 1;
+  compartment_ has litre;
   S1 = 7;
+  S1 has M;
+
+  // Other declarations:
+  var S1;
+  const compartment_;
+
+  // Unit definitions:
+  unit M = mole / (1000 metre)^3;
 end
 

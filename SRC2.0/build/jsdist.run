@@ -24,7 +24,7 @@ case $PROG in
      RUNSKEL=$JSIMSRC/$OS/jsrun.skel
      CLASS=JSim.gui.GLaunch
      MESSAGE="echo Starting JSim ..."
-     if [ "$OS" != "win32" ]
+     if [ "$OS" != "win64" ]
      then
        SUBMIT="\&"
      fi

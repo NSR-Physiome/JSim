@@ -1,24 +1,38 @@
-//Created by libAntimony v2.0
-model file0()
+// Created by libAntimony v2.8.0
+model *doc0()
 
   // Assignment Rules:
-  reaction2 := compartment_ * reaction2_k * S2;
-  reaction1 := compartment_ * k * S1;
+  reaction2 := compartment_*reaction2_k*S2;
+  reaction1 := compartment_*k*S1;
 
   // Rate Rules:
-  S3' = reaction2 / compartment_;
-  S2' = (reaction1 + reaction2 * -1) / compartment_;
-  S1' = reaction1 * -1 / compartment_;
+  S2' = (reaction1 + reaction2*-1)/compartment_;
+  S1' = reaction1*-1/compartment_;
+  S3' = reaction2/compartment_;
 
   // Variable initializations:
   k = 1;
+  reaction2 has katal;
   compartment_ = 1;
+  compartment_ has litre;
   reaction2_k = 2;
-  S3 = 0;
   S2 = 0;
-  S1 = 0.0003 / compartment_;
+  S2 has M;
+  reaction1 has katal;
+  S1 = 0.0003/compartment_;
+  S1 has M;
+  S3 = 0;
+  S3 has M;
 
-  //Other declarations:
-  var reaction2, reaction1, S3, S2, S1;
+  // Other declarations:
+  var reaction2, S2, reaction1, S1, S3;
+  const k, compartment_, reaction2_k;
+
+  // Unit definitions:
+  unit M_per_second = mole / ((1000 metre)^3 * second);
+  unit M = mole / (1000 metre)^3;
+
+  // Display Names:
+  M_per_second is "M/second";
 end
 

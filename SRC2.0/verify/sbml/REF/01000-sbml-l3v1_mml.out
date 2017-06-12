@@ -52,7 +52,7 @@ math main {
   when (time=time.min) comp = 5;
   comp:time = 1;
   comp2 = k4;
-  kavo = 6.02214179E23/6.0219999999999996E23;
+  kavo = 6.02214179E23/6.022000000000001E23;
   when (time=time.min) k4 = 1;
   k4:time = time;
   when (time=time.min) S1 = 1/comp;

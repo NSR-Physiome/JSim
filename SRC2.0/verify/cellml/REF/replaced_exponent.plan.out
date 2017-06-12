@@ -399,7 +399,7 @@ Loading Constraints
   v0=(v_v0*(BC^4.5/(K_v0+BC^4.5))) :: [v0, v_v0, BC, K_v0]
   v1=(v_M1*beta_IP3) :: [v1, v_M1, beta_IP3]
   v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))) :: [v2, v_M2, Ca_in, K_2]
-  v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18) :: [v3, v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
+  v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18) :: [v3, v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
   VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2) :: [VIP:time, v_VIP, fr, K_VIP, kd_VIP, VIP]
   MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)) :: [MP:time, v_sPC, BN, KAP, vmP, MP, KmP, kdmp]
   MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)) :: [MC:time, vsC, BN, KAC, vmC, MC, KmC, kdmc]
@@ -758,7 +758,7 @@ Toolbox phase - cycle 1:
   check eqn: v1=(v_M1*beta_IP3); [v1]
   add tool: v1=v_M1*beta_IP3
   check eqn: v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))); [v2, Ca_in]
-  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18); [v3, Ca_store]
+  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18); [v3, Ca_store]
   check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
   check eqn: MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)); [MP:time, v_sPC]
   check eqn: MC:time=(vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)); [MC:time, BN]
@@ -875,8 +875,8 @@ Toolbox phase - cycle 1:
   add tool: v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
   check eqn: v2=(v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))); [v2]
   add tool: v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
-  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18); [v3]
-  add tool: v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+  check eqn: v3=(v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18); [v3]
+  add tool: v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18
   check eqn: VIP:time=(v_VIP*(fr^1.9/(K_VIP+fr^1.9))-kd_VIP*VIP^.2); [VIP:time, fr]
   check eqn: MP:time=(v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)); [MP:time]
   add tool: MP:time=v_sPC*(BN^4/(KAP^4+BN^4))-(vmP*(MP/(KmP+MP))+kdmp*MP)
@@ -1248,7 +1248,7 @@ Tools to sequence:
   kf=.001 :: [kf]<<[]
   v_v0=.09 :: [v_v0]<<[]
   v_kk=3.3 :: [v_kk]<<[]
-  @time v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 :: [v3]<<[v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
+  @time v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18 :: [v3]<<[v_M3, Ca_store, Ca_in.K_R, Ca_in, K_A]
   @time v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) :: [v2]<<[v_M2, Ca_in, K_2]
   v1=v_M1*beta_IP3 :: [v1]<<[v_M1, beta_IP3]
   @time v0=v_v0*(BC^4.5/(K_v0+BC^4.5)) :: [v0]<<[v_v0, BC, K_v0]
@@ -1828,7 +1828,7 @@ building block for phase time#1
   adding MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB) to loop-time
   adding MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) to loop-time
   adding k=v_kk*(CC^.1/(K_kk+CC^.1)) to loop-time
-  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 to loop-time
+  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18 to loop-time
   adding v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) to loop-time
   adding v0=v_v0*(BC^4.5/(K_v0+BC^4.5)) to loop-time
   adding GABA=GABA0+v_GABA*VIP/(K_GABA+VIP) to loop-time
@@ -1900,7 +1900,7 @@ Building ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, M
   adding muVar BN:time
   adding muTool v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
   adding muVar v2
-  adding muTool v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+  adding muTool v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18
   adding muVar v3
   adding muTool Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
   adding muVar Ca_store:time
@@ -1988,7 +1988,7 @@ Building ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, M
   adding MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
   adding BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
   adding v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2)) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
-  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
+  adding v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
   adding Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008 to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
   adding beta=VIP/(VIP+K_D) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
   adding CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC) to ODE Block-time [BNP, BCP, IN, PCNP, PCN, PCCP, CCP, PCC, PCP, PC, MB, MC, BN, Ca_store, CB, CC, VIP, MP, BC, Ca_in]
@@ -2219,7 +2219,7 @@ main
     MB:time=vsB*(KIB^2/(KIB^2+BN^2))-(vmB*(MB/(KmB+MB))+kdmb*MB)
     MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
     k=v_kk*(CC^.1/(K_kk+CC^.1))
-    v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+    v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18
     v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
     v0=v_v0*(BC^4.5/(K_v0+BC^4.5))
     GABA=GABA0+v_GABA*VIP/(K_GABA+VIP)
@@ -2275,7 +2275,7 @@ main
       MC:time=vsC*(BN^4/(KAC^4+BN^4))-(vmC*(MC/(KmC+MC))+kdmc*MC)
       BN:time=V4B*(BNP/(Kdp+BNP))+k5*BC+k8*IN-(V3B*(BN/(Kp+BN))+k6*BN+k7*BN*PCN+kdn*BN)
       v2=v_M2*(Ca_in^2.2/(K_2^2.2+Ca_in^2.2))
-      v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000016E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000016E-18
+      v3=v_M3*(Ca_store^6/(Ca_in.K_R^6+Ca_store^6*1.0000000000000014E-18))*(Ca_in^4.2/(K_A^4.2+Ca_in^4.2))*1.0000000000000014E-18
       Ca_store:time=(v2-(v3+kf*Ca_store*.0010000000000000002))*1000.000008
       beta=VIP/(VIP+K_D)
       CC:time=ksC*MC+V2C*(CCP/(Kdp+CCP))+k4*PCC-(V1C*(CC/(Kp+CC))+k3*PC*CC+kdnc*CC)

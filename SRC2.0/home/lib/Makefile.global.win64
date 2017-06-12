@@ -1,0 +1,30 @@
+# JSim common makefile for win64
+
+# Programs needed for building libs
+FDIR    = C:/mingw-w64/x86_64-6.2.0-posix/mingw64
+CC	= jsbuild.cygpath $(FDIR)/bin/gcc
+FORTRAN = jsbuild.cygpath $(FDIR)/bin/gfortran
+# Need explicit link to libquadmath for gfortran library
+FLIB    = -static -lgfortran $(FDIR)/lib/gcc/x86_64-w64-mingw32/6.2.0/libquadmath.a
+
+# not /bin/ld, it leaves _mainCRTStartup undefined
+LD      = $(CC)
+AR      = jsbuild.cygpath $(FDIR)/bin/ar
+RANLIB  = jsbuild.cygpath $(FDIR)/bin/ranlib
+
+# Standard compile/link flags
+CFLAGS  = -g -O2 -D_JNI_IMPLEMENTATION_ 
+FFLAGS  = -g -O2 -ffixed-line-length-132 -D_JNI_IMPLEMENTATION_ 
+#DFLAGS  = -DNEED_UNDERSCORE 
+LDFLAGS = -D_JNI_IMPLEMENTATION_ -Wl,--kill-at -shared \
+ -Wl,--add-stdcall-alias $(FLIB) 
+
+# Fpack flags
+FP_LDFLAGS = -Wall -D_JNI_IMPLEMENTATION_ -Wl,--kill-at -shared \
+ -Wl,--add-stdcall-alias $(XSLIB) $(FLIB) -lc -lm 
+OS         = WIN64
+
+# library naming
+LIBPFX     = 
+LIBSFX     = .dll
+

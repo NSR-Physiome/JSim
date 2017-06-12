@@ -26,8 +26,8 @@ $(MODELLIB): $(OBJS)
 test: $(TEST)
 
 $(TEST): ../test/testmain.o $(MODELLIB)
-	$(CC) -m32 -o $(TEST) ../test/testmain.o $(MODELLIB) $(FLIB) 
-
+#	$(CC) -m32 -o $(TEST) ../test/testmain.o $(MODELLIB) $(FLIB) 
+	$(CC) -m64 -o $(TEST) ../test/testmain.o $(MODELLIB) $(FLIB)
 install: $(MODELLIB)
 	cp $(MODELLIB) $(JSIMSRC)/native/$(JSIMOSARCH)/fpack
 

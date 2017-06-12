@@ -1,19 +1,30 @@
-//Created by libAntimony v2.0
-model file0()
+// Created by libAntimony v2.8.0
+model *doc0()
 
   // Assignment Rules:
   J0 := k1;
 
   // Rate Rules:
-  X' = Xref * J0 / default_compartment;
+  X' = Xref*J0/default_compartment;
+  J0 has katal;
 
   // Variable initializations:
+  k1 = 1;
   X = 0;
+  X has M;
   Xref = 3;
   default_compartment = 1;
-  k1 = 1;
+  default_compartment has litre;
 
-  //Other declarations:
-  var J0, X;
+  // Other declarations:
+  var J0, X, Xref;
+  const k1, default_compartment;
+
+  // Unit definitions:
+  unit M_per_second = mole / ((1000 metre)^3 * second);
+  unit M = mole / (1000 metre)^3;
+
+  // Display Names:
+  M_per_second is "M/second";
 end
 

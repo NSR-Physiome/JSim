@@ -1,26 +1,40 @@
-//Created by libAntimony v2.0
-model file0()
+// Created by libAntimony v2.8.0
+model *doc0()
 
   // Assignment Rules:
-  J2 := k3 * S2;
-  J1 := k2 * S1 / S2;
+  J2 := k3*S2;
+  J1 := k2*S1/S2;
   J0 := k1;
 
   // Rate Rules:
-  S2' = modelconv * (J1 * 3 + J2 * -1) / default_compartment;
-  S1' = modelconv * (J0 + J1 * -2) / default_compartment;
+  S2' = modelconv*(J1*3 + J2*-1)/default_compartment;
+  S1' = modelconv*(J0 + J1*-2)/default_compartment;
+  J2 has katal;
 
   // Variable initializations:
-  S2 = 0.001 / default_compartment;
-  default_compartment = 1;
-  S1 = 0;
   k3 = 1.4;
+  S2 = 0.001/default_compartment;
+  S2 has M;
+  J1 has katal;
   k2 = 3;
-  S1conv = 3;
+  S1 = 0;
+  S1 has M;
+  J0 has katal;
   k1 = 1;
+  default_compartment = 1;
+  default_compartment has litre;
   modelconv = 4;
+  S1conv = 3;
 
-  //Other declarations:
-  var J2, J1, J0, S2, S1;
+  // Other declarations:
+  var J2, S2, J1, S1, J0;
+  const k3, k2, k1, default_compartment, modelconv, S1conv;
+
+  // Unit definitions:
+  unit M_per_second = mole / ((1000 metre)^3 * second);
+  unit M = mole / (1000 metre)^3;
+
+  // Display Names:
+  M_per_second is "M/second";
 end
 

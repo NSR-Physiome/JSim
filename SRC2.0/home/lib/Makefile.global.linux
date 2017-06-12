@@ -1,10 +1,14 @@
 # JSim common makefile for linux
-# Compile and link for 32bit Only.
+# Compile and link for 64bit.
+# See Makefile.global.linux.32 for 32 bit build info
 # programs and fortran libs
 
-FLIB       = /usr/lib/gcc/i386-redhat-linux/4.1.2/libgfortran.a # Redhat EL5
-#FLIB       = /usr/lib/gcc/i686-redhat-linux/4.4.7/libgfortran.a # Redhat EL6 32 and 64bit
-#FLIB       = /usr/lib/gcc/x86_64-linux-gnu/4.8/32/libgfortran.a /usr/lib/gcc/x86_64-linux-gnu/4.8/32/libgcc_eh.a # Linux Mint 17 64bit
+
+# 64bit target:
+#   libgfortran.a(error.o): relocation R_X86_64_32 against `.rodata.str1.1' ... work around using Shared libraries: 
+FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.1.2/libgfortran.so # Redhat EL5 64bit
+#FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.8.5/libgfortran.so # Centos7 64bit, 
+
 CC         = /usr/bin/gcc
 FORTRAN    = /usr/bin/gfortran
 OPT        = -O2
@@ -13,20 +17,22 @@ OPT        = -O2
 LIBPFX     = lib
 LIBSFX     = .so
 
-# standard compile/link flags
-# Force 32 bit compile (-m32):
-CFLAGS     = -g -m32 $(OPT) -fpic 
-FFLAGS     = -g -m32 $(OPT) -fpic -ffixed-line-length-132
-DFLAGS     = -DNEED_UNDERSCORE 
+# 64bit target: Force 64 bit compile (-m64):
+CFLAGS     = -g -fPIC -m64 $(OPT) 
+FFLAGS     = -g -fPIC -m64 $(OPT) -ffixed-line-length-132
+DFLAGS     = -fPIC -DNEED_UNDERSCORE
+ 
+# 64bit target:link 64 bit libs :
+LDFLAGS    = -melf_x86_64 -shared -fPIC $(FLIB) -lc -lm  #Redhat EL5 64bit 
 
-# link 32 bit libs :
-LDFLAGS    = -melf_i386 -shared $(FLIB) -lc -lm
-#LDFLAGS    = -melf_i386 -shared $(FLIB) -lc -lm /usr/lib/gcc/x86_64-redhat-linux/4.4.7/32/libgcc.a #Redhat EL6 64bit
-#LDFLAGS    = -melf_i386 -shared $(FLIB) -lc -lm /usr/lib/gcc/x86_64-linux-gnu/4.8/32/libgcc.a #Linux Mint 17 64bit
+# Fpack compile/link flags:
+#  64 bit target:
+FP_LDFLAGS = -melf_x86_64 -shared $(XSLIB) -lm $(FLIB)  #Redhat EL5 64bit
 
-# Fpack compile/link flags
-FP_LDFLAGS = -melf_i386 -shared $(XSLIB) -lm $(FLIB)    #Redhat EL5 and EL6 32bit
-#FP_LDFLAGS = -melf_i386 -shared $(XSLIB) -lm $(FLIB) /usr/lib/gcc/x86_64-redhat-linux/4.4.7/32/libgcc.a #Redhat EL6 64bit
-#FP_LDFLAGS = -melf_i386 -shared $(XSLIB) -lm $(FLIB) /usr/lib/gcc/x86_64-linux-gnu/4.8/32/libgcc.a #Linux Mint 17 64bit
 OS         = LINUX
+
+
+ 
+
+
 

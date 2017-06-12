@@ -2,7 +2,6 @@ time.min = { 0 } second
 time.max = { 10 } second
 time.ct = { 21 } dimensionless
 time.delta = { .5 } second
-default_compartment = { 1 } L
 C = { 1 } dimensionless
 k3 = { .7 } dimensionless
 k1 = { 10 } dimensionless

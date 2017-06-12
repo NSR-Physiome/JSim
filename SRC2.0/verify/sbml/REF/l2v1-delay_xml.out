@@ -45,7 +45,7 @@
                       <apply>
                         <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay"> delay </csymbol>
                         <ci> P </ci>
-                        <ci> delta_t </ci>
+                        <ci> time__min </ci>
                       </apply>
                       <ci> q </ci>
                     </apply>

@@ -10,7 +10,7 @@ Configuration:
 Optimizer Tuning Parameters:
     Algorithm       simplex
     Max # runs      50
-    Min RMS error   0.0010
+    Min RMS error   0.001
     Min par step    1.0E-6
 
 Parameters to Vary:

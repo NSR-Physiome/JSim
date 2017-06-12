@@ -12,6 +12,7 @@ Optimizer Tuning Parameters:
     Max # runs      50
     Min RMS error   0.0
     Min par step    0.0
+    Max static iter 0
     Min gradient    0.0
 
 Parameters to Vary:

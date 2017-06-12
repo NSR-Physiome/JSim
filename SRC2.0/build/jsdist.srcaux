@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# win32 aux source dist for native library build / win32 testing
+# win64 aux source dist for native library build / win64 testing
 
 . jsbuild.path
 
@@ -37,10 +37,10 @@ mkdir $AUXDIR
 jsdist.mkjars $AUXDIR
 
 # make 
-echo "Copying JSIMAUXLIB/win32 ..."
-cp -R $JSIMAUXLIB/win32 $AUXDIR
+echo "Copying JSIMAUXLIB/win64 ..."
+cp -R $JSIMAUXLIB/win64 $AUXDIR
 echo "Unpacking jre ..."
-JREZIP=$AUXDIR/win32/jre.zip
+JREZIP=$AUXDIR/win64/jre.zip
 if [ -r $JREZIP ]
 then
   cd $AUXDIR

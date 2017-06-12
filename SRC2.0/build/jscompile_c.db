@@ -25,7 +25,7 @@ shift
 CFPFLAGS="$*"
 
 # cd DIR
-#if [ "$JSIMOS" = "win32" ]
+#if [ "$JSIMOS" = "win64" ]
 #then
 #  DIR=`cygpath -u "$DIR"`
 #fi
