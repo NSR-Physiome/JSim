@@ -54,4 +54,5 @@ list third "*"
 list unix "*"
 list win32 "*" 
 list verify "*"
+list fpack "*"
 
