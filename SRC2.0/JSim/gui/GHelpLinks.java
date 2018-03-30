@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -23,12 +23,17 @@ import edu.stanford.ejalbert.*; // in BrowserLauncher2.jar
 
 public class GHelpLinks {
 	public static final String HTTP = "http://";
-	public static final String PHYSIOME = HTTP + "www.physiome.org";
-	public static final String HELPLINKS = PHYSIOME + "/jsim/help/helplinks.php";
+	// 	Help pages may use https, redirects confuse the xml parser (SAX)??:
+	public static final String HTTPS = "https://";
+	public static final String PHYS = "www.physiome.org";
+	public static final String PHYSIOMEHTTP = HTTP + PHYS;
+    public static final String JSIMLINKS = "/jsim/help/helplinks.php";
+	private String PHYSIOME = HTTP + PHYS;
+	private String HELPLINKS = PHYSIOME + JSIMLINKS;
 
 //	alt HELPLINKS consts to test failure & slow response
-//	public static final String HELPLINKS = PHYSIOME + "/jsim/help/nonexistent.php";
-//	public static final String HELPLINKS = PHYSIOME + "/jsim/help/slow.php";
+//	public String HELPLINKS = PHYSIOME + "/jsim/help/nonexistent.php";
+//	public String HELPLINKS = PHYSIOME + "/jsim/help/slow.php";
 
 	// control asynch loading of helplinks doc
 	private Thread loadThread, monitorThread; // load doc & monitor thread
@@ -62,6 +67,15 @@ public class GHelpLinks {
 	    public LoadThread() { super("HelpLinksLoadThread"); }
 	    public void run() {
 	    	try {
+			// Check if help website using http or redirected to https:
+			URL urlObj = new URL(PHYSIOMEHTTP);
+			boolean useHTTPS = isHTTPS(urlObj);
+			if(useHTTPS) {
+				PHYSIOME = HTTPS + PHYS;
+				HELPLINKS = PHYSIOME + JSIMLINKS;
+			}
+			//System.out.println("Physiome url: ... " + PHYSIOME);
+
 		    loadDoc();
 		} catch (Exception e) {
 	    	    System.err.println("Warning: Failure loading helplinks.php");
@@ -116,6 +130,32 @@ public class GHelpLinks {
 		nodeMenus.put(gnode, e);
 	    }
 	}
+
+	private boolean isHTTPS(URL urlCheck) throws Exception {
+		URL obj = new URL(PHYSIOME);
+		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+		conn.setReadTimeout(5000);
+		conn.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
+		conn.addRequestProperty("User-Agent", "Mozilla");
+		conn.addRequestProperty("Referer", "google.com");
+
+		//System.out.println("Request URL ... " + obj);
+		boolean redirect = false;
+
+		// normally, code 3xx is redirect
+		int status = conn.getResponseCode();
+		if (status != HttpURLConnection.HTTP_OK) {
+			if (status == HttpURLConnection.HTTP_MOVED_TEMP
+				|| status == HttpURLConnection.HTTP_MOVED_PERM // Code 301
+					|| status == HttpURLConnection.HTTP_SEE_OTHER) // code 303
+			redirect = true;
+		}
+
+		//System.out.println("Response Code ... " + status);
+		conn.disconnect();
+		return redirect;
+	}
+
 
 	// add gnode help menu to menubar
 	public void addHelpMenu(GNode gnode, JMenuBar mbar) {
