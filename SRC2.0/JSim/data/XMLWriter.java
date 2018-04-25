@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -14,6 +14,7 @@ import java.util.*;
 import org.w3c.dom.*;
 
 import JSim.util.*;
+import JSim.project.SemSimControl;
 
 public class XMLWriter {
 
@@ -83,7 +84,6 @@ public class XMLWriter {
     	// write 1 node
     	protected void writeNode(Node node, Writer writer, 
     	String indentLevel) throws IOException {
-
             // Determine action based on node type
             switch (node.getNodeType()) {
             case Node.DOCUMENT_NODE:
@@ -94,7 +94,7 @@ public class XMLWriter {
                     for (int i=0; i<nodes.getLength(); i++) 
                         writeNode(nodes.item(i), writer, "");
                 break;
-            
+          
             case Node.ELEMENT_NODE:
 		ArrayList<Node> children = UtilXML.getNodes(node);
 	        writeElement(node, writer, indentLevel, children);
@@ -140,22 +140,41 @@ public class XMLWriter {
 	    }        
     	}
 
-	// write Element with children
+ 
+	// Hack for semSimAnnotate element. Get rid of when feasible.
+	// Already tested node must = Node.TEXT_NODE for this to be called.
+    	protected void writeSemSimNode(Node node, Writer writer, 
+    	String indentLevel) throws IOException {
+
+			// Do not safe write:
+			if(node.getNodeType() == Node.TEXT_NODE) { 
+				String contents = node.getNodeValue();
+				// Do not save msg to file:
+				CharSequence chars = new StringBuffer(SemSimControl.NO_SEMSIM_ANNOTATE);
+				if(contents.contains(chars)) contents="";		 
+				writer.write(contents);
+			}
+                  
+    	}
+
+
+	// write Element with children.
 	protected void writeElement(Node node,  Writer writer, 
     	String indentLevel, ArrayList<Node> children) throws IOException {
-              	String name = node.getNodeName();
-                writer.write(indentLevel + "<" + name);
-                NamedNodeMap attributes = node.getAttributes();
-                for (int i=0; i<attributes.getLength(); i++) {
+       	String name = node.getNodeName();
+        writer.write(indentLevel + "<" + name);
+        NamedNodeMap attributes = node.getAttributes();
+           for (int i=0; i<attributes.getLength(); i++) {
                     Node current = attributes.item(i);
                     writer.write(" " + current.getNodeName() +
                                  "=\"" + safe(current.getNodeValue()) +
                                  "\"");
-                }
+            }
 
 		// use long form?
 		boolean longForm = false;
 		boolean addLineSep = true;
+
 		for (int i=0; i<children.size(); i++) {
 		    int typ = children.get(i).getNodeType();
 		    if (typ != Node.ATTRIBUTE_NODE) longForm = true;
@@ -167,16 +186,35 @@ public class XMLWriter {
 		    return;
 		}
 		writer.write(">");
-                if (addLineSep) writer.write(lineSeparator);
+        if (addLineSep) writer.write(lineSeparator);
                
-                // write kids
+        // write kids
 		boolean textSpacing = false;
-                for (int i=0; i<children.size(); i++) {
+
+	// This has a hack to deal with semSimAnnotate element. 
+	// At some point it needs to be fixed.
+		Element elem = (Element)node;
+		if( elem.getAttribute("name").equals("semSimAnnotate")){
+            for (int i=0; i<children.size(); i++) {
+				Node n = children.get(i);  
+ 				if (n.getNodeType() == Node.TEXT_NODE) {
+					textSpacing = false;                 
+					writeSemSimNode(n, writer, indentLevel + indent);
+				}   
+				else  writeNode(n, writer,
+                            indentLevel + indent);
+				
+			}
+
+		}
+		else { // All other elements:
+            for (int i=0; i<children.size(); i++) {
 		    Node n = children.get(i);                       
                     writeNode(n, writer,
                             indentLevel + indent);
 		    if (n.getNodeType() == Node.TEXT_NODE)
 			textSpacing = true;
+			}
 		}
 		if (!textSpacing) writer.write(indentLevel);
                 writer.write("</" + name + ">");
