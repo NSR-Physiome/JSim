@@ -75,7 +75,7 @@ implements JSCompactTabs.Listener {
 		"DataSets", "Notes", "ImageSets" };
 	    Class[] classes = new Class[] { 
 		GTree.class, GModel.class, GParSet.class, 
-		GDataSet.class, GNotes.class, GImageSet.class };
+		GDataSet.class, GNotes.class, GSemSim.class, GImageSet.class };
 	    Icon[] icons = new Icon[] { 
 		g.glook().projectIcon(), g.glook().modelIcon(), 
 		g.glook().parsetIcon(), g.glook().datasetIcon(), 

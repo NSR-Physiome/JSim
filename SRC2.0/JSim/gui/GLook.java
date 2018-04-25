@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -317,6 +317,7 @@ public class GLook {
 	    if (gclass == GNested.class) return nestedIcon;
 	    if (gclass == GGraphicTab.class) return graphicIcon;
 	    if (gclass == GNotes.class) return notesIcon;
+	    if (gclass == GSemSim.class) return notesIcon;
 	    if (gclass == GImageSet.class) return imagesetIcon;
 	    if (gclass == GTree.class) return projectIcon;
 
@@ -327,6 +328,7 @@ public class GLook {
 	    if (gclass == PNested.class) return nestedIcon;
 	    if (gclass == PGraphic.class) return graphicIcon;
 	    if (gclass == PNotes.class) return notesIcon;
+		if (gclass == PSemSim.class) return notesIcon;
 	    if (gclass == PImageSet.class) return imagesetIcon;
 	    if (gclass == Project.class) return projectIcon;
 	    return null;

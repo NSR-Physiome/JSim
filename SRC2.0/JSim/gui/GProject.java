@@ -386,6 +386,7 @@ public class GProject extends GNode implements MouseListener {
 	    pasteNodes = new GAction(this, "paste") {
 		public void doit() throws Xcept {
 		    if (gmain().xmlBuffer == null) return;
+
 		    for (int i=0; i<gmain().xmlBuffer.length; i++) {
 			Element e = gmain().xmlBuffer[i];
 			if (e == null) continue;
@@ -903,6 +904,8 @@ public class GProject extends GNode implements MouseListener {
 		gnode = new GGraphicTab(righttabs, (PGraphic) p);
 	    else if (p instanceof PNotes) 
 		gnode = new GNotes(lefttabs, (PNotes) p);
+	    else if (p instanceof PSemSim) 
+		gnode = new GSemSim(lefttabs, (PSemSim) p);
 	    else if (p instanceof PImageSet) {
 		gnode = new GImageSet(lefttabs, (PImageSet) p);
 		addTab(gnode);

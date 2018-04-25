@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -42,7 +42,7 @@ implements ListCellRenderer, MouseListener {
 	public final static Class[] itemClasses = {
 	    PModel.class, ParSet.class, PDataSet.class, PImageSet.class, 
 	    PlotPage.class, PNested.class, PGraphic.class, PNotes.class, 
-	    Project.class };
+	    PSemSim.class, Project.class };
 
 	// constructor
 	public GTree(GNode g) {
@@ -401,6 +401,7 @@ implements ListCellRenderer, MouseListener {
 	    if (c == PDataSet.class) return "data set";
 	    if (c == PImageSet.class) return "image set";
 	    if (c == PNotes.class) return "notes";
+	    if (c == PSemSim.class) return "semsim";
 	    if (c == PGraphic.class) return "graphic plugin";
 	    if (c == PlotPage.class) return "plot page";
 	    if (c == PNested.class) return "nested plot";
