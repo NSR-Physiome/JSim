@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -38,6 +38,7 @@ public class GModel extends GTabs {
 	private GModelMonte gmonte;
 	private GModelBrowser gbrowser;
 	private GImageSet gimages;
+	private GModelSemSim gsemsim;
 	private GModelMemory gmemory;
 	private boolean editable; 
 	private GModelHelpDB helpDB;
@@ -256,6 +257,9 @@ public class GModel extends GTabs {
 	    gnotes = new GNotes(this, pmodel.notes);
 	    addTab("Notes", gnotes);
 
+	    gsemsim = new GModelSemSim(this, pmodel.semSimAnnotate);
+	    addTab("SemSim", gsemsim);
+
 	    gimages = new GImageSet(this, pmodel.images());
 	    addTab("Images", gimages);
 
@@ -455,6 +459,7 @@ public class GModel extends GTabs {
 	public GModelOptim goptim() { return goptim; }
 	public GImageSet gimages() { return gimages; }
 	public GHelpDB helpDB() { return helpDB; }
+    public GModelSemSim gSemSim() {return gsemsim; }
 	public String title() { 
 	    return gproject().title() + 
 	        " Model " + pmodel.name();
