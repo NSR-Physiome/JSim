@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -22,7 +22,8 @@ public class PModel extends PNamed {
 
 	// controls
 	public StringControl easelVariant; // blank=none
-	public TextControl notes;
+    public TextControl notes;
+	public SemSimControl semSimAnnotate; // SemSim annotations of model
 	public TextControl modelSource; // model source code
 	public ChoiceControl sourceType; // type of source
 	public StringControl parSetName; // name of parset loaded
@@ -67,6 +68,7 @@ public class PModel extends PNamed {
 	    built = new BooleanControl(this, "built", false);
 	    customRTMLText = new TextControl(this, "customRTML");
 	    customBuilt = new BooleanControl(this, "customBuilt", false);
+        semSimAnnotate = new SemSimControl(this, "semSimAnnotate");
 	    options = new PModelBuildOptions(this, "buildOptions");
 	    vars = new PModelVars(this, "vars");
 	    lastParSet = new ParSet(this, "last", true);
@@ -166,7 +168,6 @@ public class PModel extends PNamed {
 
 	// import XML child
 	public PNamed importXMLChild(Element c) {
-
 	    // parsModified no longer a control in 2.05+
 	    if (c.getNodeName().equals("control") &&
 		c.getAttribute("name").equals("parSetModified")) {
@@ -192,6 +193,7 @@ public class PModel extends PNamed {
 	 	}
 		return null;
 	    } 
+
 
 	    // support legacy "PNamed" optim tag (before 1.6.42)
 	    if (c.getNodeName().equals("PNamed") &&

@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -18,6 +18,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.CharacterData;
+import org.w3c.dom.NamedNodeMap;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
 
 public abstract class PNamed implements Named, NamedVal.Query {
 	protected PNamed parent; // parent item
@@ -335,6 +343,8 @@ public abstract class PNamed implements Named, NamedVal.Query {
 	    }
 	}
 
+
+
 	// check label matches
 	public boolean importXMLLabelMatch(Element e) {
 	    if (! (e.getNodeName().equals(xmlLabel()))) {
@@ -353,8 +363,8 @@ public abstract class PNamed implements Named, NamedVal.Query {
 		importXMLMessage("XML Element " + c.getNodeName() + " " + 
 		   cname + " ignored.  No matching child in " + 
 		   xmlLabel() + " " + this + ".");
-	    else
-	        pnamed.importXML(c);
+	    else pnamed.importXML(c);
+	    
 	    return pnamed;
 	}
 	
@@ -394,6 +404,24 @@ public abstract class PNamed implements Named, NamedVal.Query {
 	    }
 	    return s.toString();
 	}
+
+
+    // Flatten all XML child nodes into one string.
+    public static String allTextAllChildNodes(Element e) {
+		//	NodeList nlist = e.getChildNodes();
+	try {
+		String s;
+		s = new String(prettyPrint(e.cloneNode(true))); 
+		return s;
+	}  catch  (ParserConfigurationException err) {
+			err.printStackTrace();
+		}
+	   catch  (Exception err) {
+			err.printStackTrace();
+		}
+	return 	null; // Nothing to print; 
+
+    }
 	
 	// set several controls
 	public void setControls(NamedVal.NList nvals) throws Xcept {
@@ -471,5 +499,29 @@ public abstract class PNamed implements Named, NamedVal.Query {
 	    public PNamed pnamed(int n) { return (PNamed) get(n); }
  	    public PNamed pnamed(String n) { return (PNamed) getByName(n); }
         }
+
+
+
+    public static final String prettyPrint(Node node) throws Exception {
+		try {
+			String strOut;
+	        Transformer tf = TransformerFactory.newInstance().newTransformer();
+	        tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	        tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+	        tf.setOutputProperty(OutputKeys.INDENT, "yes");
+			Writer out = new StringWriter();
+			tf.transform(new DOMSource(node), new StreamResult(out));
+			strOut = new String(out.toString());
+			// Treat string as XML node, so need to convert as necessary:
+			strOut = strOut.replaceAll("&lt;","<");
+			strOut = strOut.replaceAll("&gt;",">");
+			return strOut;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; // Nothing to print
+	    }
+
+
 }
 

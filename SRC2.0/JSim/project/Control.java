@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -95,7 +95,18 @@ public abstract class Control extends PNamed implements DiagInfo {
 	public void importXML(Element e) {
 	    super.importXML(e);
 	    String s = e.getAttribute("value");
-	    if (s.length() == 0) s = allText(e);
+		// Convert XML based SemSim annotations to string:
+	    if( e.getAttribute("name").equals("semSimAnnotate")) {
+			s = allTextAllChildNodes(e);
+			// Get rid of extra xml control label:
+			s = s.replace("<control name=\"semSimAnnotate\">","");
+			s = s.trim();
+			s = s.replace("</control>","");
+
+			if (s.length()<1) s = SemSimControl.NO_SEMSIM_ANNOTATE;
+				
+	    }
+	    if (s.length() == 0) s = allText(e); // Call checkChildNodes in PNamed.java and create string
 	    try { 
 		setVal(s); 
 //		importXMLMessage(fullname() + " set to \"" + s + "\"");
@@ -103,6 +114,8 @@ public abstract class Control extends PNamed implements DiagInfo {
 		importXMLMessage(x.cleanMessage());
 	    }
 	}   
+
+
 
 }
 
