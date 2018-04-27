@@ -224,6 +224,8 @@ then
   cd $JSIMWORK/JSim.app/Contents/Resources
   mv lib Java
   ln -s Java lib
+# Adjust location of jar files:
+  mv $JSIMWORK/JSim.app/Contents/Resources/Java $JSIMWORK/JSim.app/Contents/
 fi
 
 # DOS text file conversion
