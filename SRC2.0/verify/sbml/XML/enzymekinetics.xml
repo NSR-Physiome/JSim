@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="2" version="4" xmlns="http://www.sbml.org/sbml/level2/version4">
+    <model id="EnzymaticReaction">
+        <listOfUnitDefinitions>
+            <unitDefinition id="per_second">
+                <listOfUnits>
+                    <unit kind="second" exponent="-1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="litre_per_mole_per_second">
+                <listOfUnits>
+                    <unit kind="mole"   exponent="-1"/>
+                    <unit kind="litre"  exponent="1"/>
+                    <unit kind="second" exponent="-1"/>
+                </listOfUnits>
+            </unitDefinition>
+        </listOfUnitDefinitions>
+        <listOfCompartments>
+            <compartment id="cytosol" size="1e-14">
+				<notes><p xmlns="http://www.w3.org/1999/xhtml">Compartment cytosol note. </p></notes>
+			</compartment>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species compartment="cytosol" id="ES" initialAmount="0"     name="ES">
+				<notes><p xmlns="http://www.w3.org/1999/xhtml">ES in the cytosol note </p></notes>
+			</species>
+            <species compartment="cytosol" id="P"  initialAmount="0"     name="P">
+				<notes><p xmlns="http://www.w3.org/1999/xhtml">Product in the cytosol note </p></notes>
+			</species>
+            <species compartment="cytosol" id="S"  initialAmount="1e-20" name="S"/>
+            <species compartment="cytosol" id="E"  initialAmount="5e-21" name="E"/>
+        </listOfSpecies>
+        <listOfReactions>
+            <reaction id="veq">
+				<notes><p xmlns="http://www.w3.org/1999/xhtml">Reaction, veq, note. This reaction is rather short so it may thrown out if necessary. </p></notes>
+                <listOfReactants>
+                    <speciesReference species="E"/>
+                    <speciesReference species="S"/>
+                </listOfReactants>
+                <listOfProducts>
+                    <speciesReference species="ES"/>
+                </listOfProducts>
+                <kineticLaw>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <apply>
+                            <times/>
+                            <ci>cytosol</ci>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <times/>
+                                    <ci>kon</ci>
+                                    <ci>E</ci>
+                                    <ci>S</ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>koff</ci>
+                                    <ci>ES</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </math>
+                    <listOfParameters>
+                        <parameter id="kon"  value="1000000" units="litre_per_mole_per_second"/>
+                        <parameter id="koff" value="0.2"     units="per_second"/>
+                    </listOfParameters>
+                </kineticLaw>
+            </reaction>
+            <reaction id="vcat" reversible="false">
+                <listOfReactants>
+                    <speciesReference species="ES"/>
+                </listOfReactants>
+                <listOfProducts>
+                    <speciesReference species="E"/>
+                    <speciesReference species="P"/>
+                </listOfProducts>
+                <kineticLaw>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <apply>
+                            <times/>
+                            <ci>cytosol</ci>
+                            <ci>kcat</ci>
+                            <ci>ES</ci>
+                        </apply>
+                    </math>
+                    <listOfParameters>
+                        <parameter id="kcat" value="0.1" units="per_second"/>
+                    </listOfParameters>
+                </kineticLaw>
+            </reaction>
+        </listOfReactions>
+    </model>
+</sbml>

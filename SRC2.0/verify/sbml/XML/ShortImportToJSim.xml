@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">radioactive decay
+A short description: look at the decay rate.
+This model used to test exporting
+   comments to SBML.
+</p>
+    </notes>
+    <listOfUnitDefinitions>
+      <unitDefinition id="gtg"/>
+      <unitDefinition id="kg_per_sec" name="kg/sec">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="_1_per_sec" name="1/sec">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="u" value="1" units="kilogram" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">ODE variable declaration</p>
+        </notes>
+      </parameter>
+      <parameter id="rate" value="1" units="_1_per_sec" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="u">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">state equation for u</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> rate </ci>
+            <ci> u </ci>
+            <cn> -1 </cn>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
