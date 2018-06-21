@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -12,6 +12,7 @@ package JSim.lserver;
 
 
 import java.io.*;
+import java.util.Hashtable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Document;
 
@@ -20,6 +21,7 @@ import JSim.util.*;
 import JSim.data.*;
 import JSim.cellml.*;
 import JSim.sbml.*;
+import JSim.mml.ModelReader;
 
 public class LSTranslator {
 	private LSServer server;
@@ -54,7 +56,6 @@ public class LSTranslator {
 	public String getText(int destType, String options)
 	throws Xcept {
 	    warnings = new StringList();
-
 	    if (srcType == ASModel.TEXT_SBML && destType == ASModel.TEXT_MML)
 	    	return sbml2MML(srcText, options);
 	    if (srcType == ASModel.TEXT_CELLML && destType == ASModel.TEXT_MML)
@@ -123,10 +124,12 @@ public class LSTranslator {
 
 	// XMML -> SBML
 	private String xmml2SBML(String srcText, String options) throws Xcept {
+		ModelReader mr = new ModelReader(this.server.mmlText);
 	    if (srcDoc == null) srcDoc = UtilXML.parse(srcText);
 	    try {
-	    	SBWriter swrt = new SBWriter(srcDoc, warnings);
-	    	return swrt.getSBML(options);
+			  	SBWriter swrt = new SBWriter(srcDoc, warnings,mr.getCommentsHT(), mr.getIdentifiersHT() );
+				return swrt.getSBML(options);
+			
 	    } catch (Exception e) {
 	     	throw Xcept.wrap(e);
 	    }
@@ -203,6 +206,7 @@ public class LSTranslator {
 
 	    return runHelperProg(cmdarr, srcText, outFile);
 	}
+
 
 	// run helper program
 	private String getHelperName(String baseName) throws Xcept {

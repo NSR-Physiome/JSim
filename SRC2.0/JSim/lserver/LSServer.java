@@ -55,6 +55,8 @@ public final class LSServer extends ASServer {
 	protected LSTranslator translator; // latest translation
 	private int lastTempInx; // index to temp file name
 
+	protected String mmlText;  // BEJ added
+
 	// constructor
 	public LSServer(NamedVal.NList options, 
 	ASServer.Messenger msgr, ASInfo.Sandbox sandbox) 

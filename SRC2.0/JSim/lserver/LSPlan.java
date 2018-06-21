@@ -40,6 +40,7 @@ public class LSPlan implements Model.Translator {
 	    this.mmlSource = mmlSource;
 	    this.flatFile = flatFile;
 	    this.options = options;
+		this.server.mmlText = new String(mmlSource); // Find better way...Get LSServer to crate this.
 	}
 
 	// make plan
