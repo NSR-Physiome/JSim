@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -12,6 +12,8 @@ package JSim.mml; import JSim.util.*;
 import JSim.expr.*;
 
 import java.io.*;
+import java.util.Hashtable;
+import java.util.Enumeration;
 
 public class ModelReader extends Model  {
 	private String filename;// file name being read
@@ -22,6 +24,9 @@ public class ModelReader extends Model  {
 	private Templ wtempl;	// template for next component to create
 	private int waccess;	// access for next comp ...
 	public ModelScanner scan;// lexical scanner
+
+	private Hashtable<Integer,String> comments_HT; // mml text line numbers and associated comments. 
+	protected Hashtable<String,Integer> identifiers_HT; // mml identifiers and text line numbers where found.
 
 	// testing constructor
 	public ModelReader(File file) throws Xcept {
@@ -59,7 +64,8 @@ public class ModelReader extends Model  {
 	// common contstructor code
 	private void common(Reader rdr) throws Xcept {
 	    comp = this;
-
+        comments_HT = new Hashtable<Integer,String>();
+        identifiers_HT = new Hashtable<String,Integer>();
 	    // setup scanner & parser
 	    scan = new ModelScanner(rdr);
 	    ModelParser pars = new ModelParser(scan);
@@ -68,6 +74,21 @@ public class ModelReader extends Model  {
 	    // try to parse
 	    try {
 	    	pars.parse();
+			if( scan.getComments().size()>0)
+			{
+				comments_HT = scan.getComments();
+				/*	 Enumeration<Integer> keys = comments_HT.keys();
+				while(keys.hasMoreElements()) {
+					Integer key = keys.nextElement();
+						System.out.println("Value of "+key+" is: "+comments_HT.get(key));
+				} */
+			}
+			/*		  Enumeration<String> ident_keys = identifiers_HT.keys();
+			while(ident_keys.hasMoreElements()) {
+				String key = ident_keys.nextElement();
+				System.out.println("Value of "+key+" is: "+identifiers_HT.get(key));
+				} */
+
 	    } catch (Exception e) {
 		XceptPos pos = currPos();
 		if (! (e instanceof Xcept)) 
@@ -247,7 +268,6 @@ public class ModelReader extends Model  {
 	// create component from parser
 	protected void parseComp(String n, Expr.List e)
 	throws Xcept {
-
 	    // already defined ??
 	    NamedExpr ne = comp.getNamed(n);
 	    if (ne != null && ! (ne instanceof Comp)) 
@@ -259,7 +279,8 @@ public class ModelReader extends Model  {
 	    if (c == null) {
  	    	c = wtempl.createComp(comp, n, e);
 	        c.templ = wtempl;
-		c.builtin = false;
+			identifiers_HT.put(c.name,scan.getLineNo());
+			c.builtin = false;
 	    }
 
 	    // check agreement,  set access
@@ -269,30 +290,43 @@ public class ModelReader extends Model  {
 		" cargs=" + c.args + " e=" + e);	
 	    c.setAccess(waccess);   
 	    comp = c;
+
 	}   
 
 	// done with 1 component within statement
-	protected void doneComp() throws Xcept {
+   	protected void doneComp() throws Xcept {
+		String childName = new String(comp.name);
+		//		System.out.println("ModelReader:doneComp: name: "+comp.name+"," +scan.getLineNo());
+		if(!identifiers_HT.containsKey(comp.name)) {
+			identifiers_HT.put(comp.name,scan.getLineNo());
+		}
+		//		comp.dump(System.out,"dump: ");
 	    comp = comp.parent;
+
 	} 
 
 	// new integral
 	protected Expr makeIntegral(Range r, Expr u)
 	throws Xcept {
+ //	System.out.println("*******ModelReader:makeIntegral: "+u.toString()+", "+scan.getLineNo() );
+		identifiers_HT.put(u.toString().trim(),scan.getLineNo());
 	    return new Integral(comp, r, u);
 	}
 	protected Expr makeIntegral(Expr u)
 	throws Xcept {
+		identifiers_HT.put(u.toString().trim(),scan.getLineNo());
 	    return new Integral(comp, u);
 	}
 
 	// new summation
 	protected Summation makeSum(Range r, Expr u)
 	throws Xcept {
+		identifiers_HT.put(u.toString().trim(),scan.getLineNo());
 	    return new Summation(comp, r, u);
 	}
 	protected Summation makeSum(Expr u)
 	throws Xcept {
+		identifiers_HT.put(u.toString().trim(),scan.getLineNo());
 	    return new Summation(comp, u);
 	}
 
@@ -322,6 +356,7 @@ public class ModelReader extends Model  {
 	    else throw new Xcept(this,
 	    	"Property " + name + 
 		": only string type is currently supported.");
+		identifiers_HT.put(name,scan.getLineNo());
 	    defProps.add(new CompProp(this, name, type));
 	}
 
@@ -335,6 +370,16 @@ public class ModelReader extends Model  {
 		"mismatched dataTypes");
 	    Eqn eqn = new Eqn(comp.parent, null, e, IExpr.EQ, rhx);
 	    eqn.pos = currPos();
+		String[] mod_eqn = eqn.toString().split("builtin",1); // some eqns are considered 'builtin'
+		String identifier = "";
+		if(mod_eqn.length>1) { 
+			identifier = mod_eqn[1];
+			identifier = identifier.replace(";","");
+			identifier = identifier.trim();
+		}
+		else identifier = eqn.toString();
+ //	System.out.println("*******ModelReader:addEqn: "+identifier+", "+scan.getLineNo() );
+        identifiers_HT.put(identifier,scan.getLineNo());
 	    eqn.builtin = false;
 	    if (u != null)    
 	    	setCompUnit(u); 
@@ -342,6 +387,10 @@ public class ModelReader extends Model  {
 
 	// add statement into current component
 	protected void addStmt(Expr e) throws Xcept {
+		// Find last semicolon line number and use as statment line number.
+		// Line number should be when statement starts... if blank lines between next statement 
+		// then line number reported can be 2, 3 or more lines off.
+		identifiers_HT.put(e.toString(),(scan.getSemiColLineNumb()));
 	    // inside event?
 	    if (wevent != null) {
 		wevent.addEqn(e);
@@ -396,6 +445,10 @@ public class ModelReader extends Model  {
 	public Expr funcCall(String n, Expr.List elist) throws Xcept {
 	    return funcCall(comp, n, elist);
 	}
+
+	public Hashtable getCommentsHT() throws Xcept { return comments_HT; }
+	
+	public Hashtable getIdentifiersHT() throws Xcept { return identifiers_HT; }
 
 	// class override
 	public void classOverride(String cname, String ocname) throws Xcept {
