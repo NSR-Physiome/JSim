@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="Model_1" name="init Assignment test">
+
+	<listOfCompartments>
+	   <compartment id="C" name="Cytosol" 
+                   spatialDimensions="3" units="litre"
+                   size="1e-15" constant="true"/>
+	</listOfCompartments>
+	<listOfSpecies>
+		<species id="x" compartment="C" substanceUnits="mole"
+		hasOnlySubstanceUnits="true" boundaryCondition="false"
+		constant="false"/>
+		<species id="y" compartment="C" substanceUnits="mole"
+		hasOnlySubstanceUnits="true" boundaryCondition="false"
+		constant="false"/>
+	</listOfSpecies>
+<listOfInitialAssignments>
+	<initialAssignment symbol="x">
+		<notes><p xmlns="http://www.w3.org/1999/xhtml">Initial Assignment of x notes.</p></notes>
+		<math xmlns="http://www.w3.org/1998/Math/MathML"
+		xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+		<apply>
+		<times/>
+		<ci> y </ci>
+		<cn sbml:units="dimensionless"> 2 </cn>
+		</apply>
+		</math>
+	</initialAssignment>
+</listOfInitialAssignments>
+</model>
+</sbml>
+
