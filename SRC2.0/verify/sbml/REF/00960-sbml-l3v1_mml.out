@@ -1,5 +1,9 @@
 // This model generated automatically from SBML
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p> Originally created by libAntimony v1.4 (using libSBML 5.0.0-a1) 
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -25,11 +29,11 @@ math main {
   real P5;
 
   // equations
-  P1 = 6.02214179E23;
-  P2 = 6.02214179E23;
-  P3 = 6.02214179E23;
-  P4 = 6.02214179E23;
-  P5 = 6.02214179E23-6.0221000000000006E23;
+  P1 = 6.02214179E23; 
+  P2 = 6.02214179E23; 
+  P3 = 6.02214179E23; 
+  P4 = 6.02214179E23; 
+  P5 = 6.02214179E23-6.0221000000000006E23; 
 
   // variable properties
   P1.sbmlRole="parameter";

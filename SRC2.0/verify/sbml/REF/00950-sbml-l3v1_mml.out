@@ -6,6 +6,10 @@
 // MathML error:  Tag <notanumber> not supported within <math> 
 // Untranslated math element:  NaN
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p> Originally created by libAntimony v1.4 (using libSBML 5.0.0-a1) 
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;

@@ -2,6 +2,7 @@
 // WARNING: SBML events are not currently supported: event1
 // WARNING: SBML events are not currently supported: event2
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -12,8 +13,8 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction1: S1 S2 <=> S3 
-// reaction2: S3 <=> S1 S2 
+// reaction1: S1 S2 <=> S3  
+// reaction2: S3 <=> S1 S2  
 
 math main {
   realDomain time second;
@@ -32,14 +33,14 @@ math main {
   real reaction2(time) katal;
 
   // equations
-  when (time=time.min) S1 = 1/C;
+  when (time=time.min) S1 = 1/C; 
   (S1*C):time = -1*reaction1 + reaction2;
-  when (time=time.min) S2 = 2/C;
+  when (time=time.min) S2 = 2/C; 
   (S2*C):time = -1*reaction1 + reaction2;
-  when (time=time.min) S3 = 1/C;
+  when (time=time.min) S3 = 1/C; 
   (S3*C):time = reaction1 + -1*reaction2;
-  reaction1 = C*k1*S1*S2;
-  reaction2 = C*k2*S3;
+  reaction1 = C*k1*S1*S2; 
+  reaction2 = C*k2*S3; 
 
   // variable properties
   C.sbmlRole="compartment";

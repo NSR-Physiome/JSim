@@ -3,6 +3,7 @@
 // WARNING: SBML events are not currently supported: Rinc
 // WARNING: SBML events are not currently supported: error_check
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -28,7 +29,7 @@ math main {
   real error = 0;
 
   // equations
-  S = Q+R;
+  S = Q+R; 
 
   // variable properties
   S.sbmlRole="parameter";

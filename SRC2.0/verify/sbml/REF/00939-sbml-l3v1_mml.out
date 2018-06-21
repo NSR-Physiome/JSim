@@ -1,6 +1,10 @@
 // This model generated automatically from SBML
 // WARNING: Renamed variable _J0 to xxx_J0 due to JSim namespace restrictions
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p> Originally created by libAntimony 1.4 (using libSBML 5.0.0-a1) 
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -11,7 +15,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// _J0: => x 
+// _J0: => x  
 
 math main {
   realDomain time second;
@@ -26,10 +30,10 @@ math main {
   real xxx_J0(time) katal;
 
   // equations
-  y = 2+x(if (time<(time.min+.2)) time.min else time-(.2));
-  when (time=time.min) x = 3/default_compartment;
+  y = 2+x(if (time<(time.min+.2)) time.min else time-(.2)); 
+  when (time=time.min) x = 3/default_compartment; 
   (x*default_compartment):time = xxx_J0;
-  xxx_J0 = 1;
+  xxx_J0 = 1; 
 
   // variable properties
   default_compartment.sbmlRole="compartment";

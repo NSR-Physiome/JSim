@@ -1,6 +1,7 @@
 // This model generated automatically from SBML
 // WARNING: SBML events are not currently supported: 
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -27,9 +28,9 @@ math main {
   real P2(time) M;
 
   // equations
-  when (time=time.min) P1 = 0;
+  when (time=time.min) P1 = 0; 
   P1:time = k1-P1;
-  when (time=time.min) P2 = 0;
+  when (time=time.min) P2 = 0; 
   P2:time = k2-P2;
 
   // variable properties

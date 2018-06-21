@@ -1,5 +1,9 @@
 // This model generated automatically from SBML
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p> Originally created by libAntimony 1.4 (using libSBML 5.0.0-a1) 
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -23,9 +27,9 @@ math main {
   real x(time) M;
 
   // equations
-  y = 2+x(if (time<(time.min+.5)) time.min else time-(.5));
-  when (time=time.min) x = 1*sin(10*time);
-  x:time = 0;
+  y = 2+x(if (time<(time.min+.5)) time.min else time-(.5)); 
+  when (time=time.min) x = 1*sin(10*time); 
+  x:time = 0; 
 
   // variable properties
   default_compartment.sbmlRole="compartment";

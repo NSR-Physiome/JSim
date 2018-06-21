@@ -1,0 +1,48 @@
+// This model generated automatically from SBML
+
+/* radioactive decay
+A short description: look at the decay rate.
+This the first comment
+fundamental units, creates exception
+gigatongrams
+This is another comment
+This model used to test exporting
+   comments to SBML. */
+
+// unit definitions
+// Note:  the following unit(s) have been changed due to conflicts with built-in JSim unit definitions:
+//    '_1_per_sec' to 'xxx_1_per_sec'
+import nsrunit;
+unit conversion off;
+unit xxx_1_per_sec = hz;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  extern real sum_u kg; /* a summing variable */
+  extern real uab kg*s; /* Just extra test. */
+  real rate = 1 xxx_1_per_sec;
+  real u(time) kg; /* ODE variable declaration ,  state equation for u */
+
+  // equations
+  when (time=time.min) u = 1; /* ODE variable declaration ,  state equation for u */
+  u:time = rate*u*(-1); /* ODE variable declaration ,  state equation for u */
+
+  // variable properties
+  sum_u.sbmlRole="parameter";
+  uab.sbmlRole="parameter";
+  rate.sbmlRole="parameter";
+  u.sbmlRole="parameter";
+}
+

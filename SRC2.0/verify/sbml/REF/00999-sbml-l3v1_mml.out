@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -38,22 +39,22 @@ math main {
   real S8 = 8 mol;
 
   // equations
-  when (time=time.min) comp2 = 10;
+  when (time=time.min) comp2 = 10; 
   comp2:time = 1;
-  p1 = S1;
-  p2 = S2;
-  p3 = S3;
-  p4 = S4;
-  p5 = S5;
-  p6 = S6;
-  p7 = S7;
-  p8 = S8;
-  S2 = 2*comp1;
-  S3 = 3/comp1;
-  when (time=time.min) S5 = 5;
+  p1 = S1; 
+  p2 = S2; 
+  p3 = S3; 
+  p4 = S4; 
+  p5 = S5; 
+  p6 = S6; 
+  p7 = S7; 
+  p8 = S8; 
+  S2 = 2*comp1; 
+  S3 = 3/comp1; 
+  when (time=time.min) S5 = 5; 
   (S5*comp2):time = 0;
-  when (time=time.min) S6 = 6*comp2;
-  when (time=time.min) S7 = 7/comp2;
+  when (time=time.min) S6 = 6*comp2; 
+  when (time=time.min) S7 = 7/comp2; 
   (S7*comp2):time = 0;
 
   // variable properties

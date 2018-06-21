@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,8 +11,8 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// in: X0 => T 
-// out: T => X1 
+// in: X0 => T  
+// out: T => X1  
 
 math main {
   realDomain time second;
@@ -33,16 +34,16 @@ math main {
   real k2 = .15;
 
   // equations
-  when (time=time.min) X0 = 1;
+  when (time=time.min) X0 = 1; 
   (X0*cell):time = -1*in;
-  when (time=time.min) X1 = 0;
+  when (time=time.min) X1 = 0; 
   (X1*cell):time = out;
-  when (time=time.min) T = 0;
+  when (time=time.min) T = 0; 
   (T*cell):time = in + -1*out;
-  S2 = Keq*S1;
-  in = k1*X0;
-  out = k2*S2;
-  S2+S1-T = 0;
+  S2 = Keq*S1; 
+  in = k1*X0; 
+  out = k2*S2; 
+  S2+S1-T = 0; 
 
   // variable properties
   cell.sbmlRole="compartment";

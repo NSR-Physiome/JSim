@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">This model generated automatically from SBML
+WARNING: Renamed variable _2DG to xxx2DG due to JSim namespace restrictions
+WARNING: Renamed variable 3DG to xxx3DG due to JSim namespace restrictions
+unit definitions
+</p>
+    </notes>
     <listOfParameters>
       <parameter id="xxx3DG" units="mole" constant="false"/>
       <parameter id="xxx2DG" value="22" units="mole" constant="true"/>

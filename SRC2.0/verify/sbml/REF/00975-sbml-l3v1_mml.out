@@ -3,6 +3,7 @@
 // WARNING: Renamed variable _J1 to xxx_J1 due to JSim namespace restrictions
 // WARNING: Renamed variable _J2 to xxx_J2 due to JSim namespace restrictions
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -13,9 +14,9 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// _J0: => S1 
-// _J1: 2S1 => 3S2 
-// _J2: S2 
+// _J0: => S1  
+// _J1: 2S1 => 3S2  
+// _J2: S2  
 
 math main {
   realDomain time second;
@@ -37,13 +38,13 @@ math main {
   real xxx_J2(time) katal;
 
   // equations
-  when (time=time.min) S1 = 0;
+  when (time=time.min) S1 = 0; 
   (S1*default_compartment):time = modelconv*(xxx_J0 + -2*xxx_J1);
-  when (time=time.min) S2 = .001/default_compartment;
+  when (time=time.min) S2 = .001/default_compartment; 
   (S2*default_compartment):time = modelconv*(3*xxx_J1 + -1*xxx_J2);
-  xxx_J0 = k1;
-  xxx_J1 = k2*S1/S2;
-  xxx_J2 = k3*S2;
+  xxx_J0 = k1; 
+  xxx_J1 = k2*S1/S2; 
+  xxx_J2 = k3*S2; 
 
   // variable properties
   default_compartment.sbmlRole="compartment";

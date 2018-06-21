@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,10 +11,10 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction_1: X0 <=> S1 
-// reaction_2: S1 <=> S2 
-// reaction_3: S2 <=> S3 
-// reaction_4: S3 <=> X4 
+// reaction_1: X0 <=> S1  
+// reaction_2: S1 <=> S2  
+// reaction_3: S2 <=> S3  
+// reaction_4: S3 <=> X4  
 
 math main {
   realDomain time second;
@@ -41,22 +42,22 @@ math main {
   real reaction_4(time) katal;
 
   // equations
-  when (time=time.min) V1 = 1;
+  when (time=time.min) V1 = 1; 
   V1:time = Kv;
-  when (time=time.min) X0 = 0;
+  when (time=time.min) X0 = 0; 
   X0:time = Kin;
-  when (time=time.min) S1 = 0;
+  when (time=time.min) S1 = 0; 
   (S1*V0):time = reaction_1 + -1*reaction_2;
-  when (time=time.min) S2 = 0;
+  when (time=time.min) S2 = 0; 
   (S2*V0):time = reaction_2 + -1*reaction_3;
-  when (time=time.min) S3 = 0;
+  when (time=time.min) S3 = 0; 
   (S3*V1):time = reaction_3 + -1*reaction_4;
-  when (time=time.min) X4 = 0;
+  when (time=time.min) X4 = 0; 
   (X4*V1):time = 0;
-  reaction_1 = K0*X0;
-  reaction_2 = K1*S1;
-  reaction_3 = K2*S2;
-  reaction_4 = K3*S3;
+  reaction_1 = K0*X0; 
+  reaction_2 = K1*S1; 
+  reaction_3 = K2*S2; 
+  reaction_4 = K3*S3; 
 
   // variable properties
   V0.sbmlRole="compartment";

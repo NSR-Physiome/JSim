@@ -2,6 +2,7 @@
 // WARNING: Renamed variable _2DG to xxx_2DG due to JSim namespace restrictions
 // WARNING: Renamed variable _3DG to xxx_3DG due to JSim namespace restrictions
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -25,7 +26,7 @@ math main {
   real xxx_3DG(time) mol;
 
   // equations
-  xxx_3DG = time+xxx_2DG;
+  xxx_3DG = time+xxx_2DG; 
 
   // variable properties
   comp1.sbmlRole="compartment";

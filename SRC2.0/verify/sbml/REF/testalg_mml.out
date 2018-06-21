@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -26,11 +27,11 @@ math main {
   real ConcNoneAlg(time) M;
 
   // equations
-  time+AmtAmtAlg = 0;
-  time+AmtNoneAlg = 0;
-  time+ConcAmtAlg = 0;
-  time+ConcConcAlg = 0;
-  time+ConcNoneAlg = 0;
+  time+AmtAmtAlg = 0; 
+  time+AmtNoneAlg = 0; 
+  time+ConcAmtAlg = 0; 
+  time+ConcConcAlg = 0; 
+  time+ConcNoneAlg = 0; 
 
   // variable properties
   comp1.sbmlRole="compartment";

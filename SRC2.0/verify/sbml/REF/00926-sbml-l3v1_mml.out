@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -22,9 +23,9 @@ math main {
   real s(time) M;
 
   // equations
-  when (time=time.min) c = 1;
+  when (time=time.min) c = 1; 
   c:time = .5*c;
-  when (time=time.min) s = 2;
+  when (time=time.min) s = 2; 
   (s*c):time = 0;
 
   // variable properties

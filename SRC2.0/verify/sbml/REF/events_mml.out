@@ -1,0 +1,51 @@
+// This model generated automatically from SBML
+// WARNING: SBML events are not currently supported: 
+
+/* Note: This is an events note test. SBML event is not supported in JSim. */
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real cell = 1 L;
+  real k1 = 1 hz;
+  real k2 = 1 hz;
+  real tau = .25 M;
+  real G1 = 1 M;
+  real G2 = 0 M;
+  real P1(time) M;
+  real P2(time) M; /* Rate rule note for P2. */
+
+  // equations
+  when (time=time.min) P1 = 0; 
+  P1:time = k1*(G1-P1);
+  when (time=time.min) P2 = 0; /* Rate rule note for P2. */
+  P2:time = k2*(G2-P2); /* Rate rule note for P2. */
+
+  // variable properties
+  cell.sbmlRole="compartment";
+  k1.sbmlRole="parameter";
+  k2.sbmlRole="parameter";
+  tau.sbmlRole="parameter";
+  G1.sbmlRole="parameter";
+  G2.sbmlRole="parameter";
+  P1.sbmlRole="species";
+  P1.sbmlCompartment="cell";
+  P2.sbmlRole="species";
+  P2.sbmlCompartment="cell";
+}
+

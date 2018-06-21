@@ -1,6 +1,7 @@
 // This model generated automatically from SBML
 // Warning:  The SBML reaction 'fasterReaction' was a 'fast reaction' in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -11,8 +12,8 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// fasterReaction: A4 => A2 
-// slowerReaction1: A1 A2 => A3 
+// fasterReaction: A4 => A2  
+// slowerReaction1: A1 A2 => A3  
 
 math main {
   realDomain time second;
@@ -34,16 +35,16 @@ math main {
   real slowerReaction1(time) katal;
 
   // equations
-  when (time=time.min) A1 = 2/C;
+  when (time=time.min) A1 = 2/C; 
   (A1*C):time = -1*slowerReaction1;
-  when (time=time.min) A2 = 3/C;
+  when (time=time.min) A2 = 3/C; 
   (A2*C):time = fasterReaction + -1*slowerReaction1;
-  when (time=time.min) A3 = 4/C;
+  when (time=time.min) A3 = 4/C; 
   (A3*C):time = slowerReaction1;
-  when (time=time.min) A4 = 1/C;
+  when (time=time.min) A4 = 1/C; 
   (A4*C):time = -1*fasterReaction;
-  fasterReaction = (Kf1*A4+(-1)*(Kr1*A2))*C;
-  slowerReaction1 = (Kf*A1*A2+(-1)*(Kr*A3))*C;
+  fasterReaction = (Kf1*A4+(-1)*(Kr1*A2))*C; 
+  slowerReaction1 = (Kf*A1*A2+(-1)*(Kr*A3))*C; 
 
   // variable properties
   C.sbmlRole="compartment";

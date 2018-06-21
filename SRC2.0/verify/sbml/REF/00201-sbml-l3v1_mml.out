@@ -2,6 +2,7 @@
 // MathML error:  Can't process <apply> operator xor 
 // Untranslated math element:  piecewise(p1, xor(gt(S2, 4), lt(S2, 1), lt(S2, 2)), p2)
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -12,8 +13,8 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction1: S1 <=> S2 
-// reaction2: S3 <=> S4 
+// reaction1: S1 <=> S2  
+// reaction2: S3 <=> S4  
 
 math main {
   realDomain time second;
@@ -34,15 +35,15 @@ math main {
   extern real reaction2 katal;
 
   // equations
-  when (time=time.min) S1 = 5/compartment;
+  when (time=time.min) S1 = 5/compartment; 
   (S1*compartment):time = -1*reaction1;
-  when (time=time.min) S2 = 0;
+  when (time=time.min) S2 = 0; 
   (S2*compartment):time = reaction1;
-  when (time=time.min) S3 = 4/compartment;
+  when (time=time.min) S3 = 4/compartment; 
   (S3*compartment):time = -1*reaction2;
-  when (time=time.min) S4 = 0;
+  when (time=time.min) S4 = 0; 
   (S4*compartment):time = reaction2;
-  reaction1 = compartment*k1*S1;
+  reaction1 = compartment*k1*S1; 
 
   // variable properties
   compartment.sbmlRole="compartment";

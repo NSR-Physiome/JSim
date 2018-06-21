@@ -1,6 +1,7 @@
 // This model generated automatically from SBML
 // WARNING: Renamed variable _AmtAmtAssn to xxx_AmtAmtAssn due to JSim namespace restrictions
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -23,7 +24,7 @@ math main {
   real xxx_AmtAmtAssn(time) mol;
 
   // equations
-  time+xxx_AmtAmtAssn = 0;
+  time+xxx_AmtAmtAssn = 0; 
 
   // variable properties
   comp1.sbmlRole="compartment";

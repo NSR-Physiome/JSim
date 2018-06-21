@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">This model generated automatically from SBML
+unit definitions
+</p>
+    </notes>
     <listOfUnitDefinitions>
       <unitDefinition id="M_per_second" name="M/second">
         <listOfUnits>

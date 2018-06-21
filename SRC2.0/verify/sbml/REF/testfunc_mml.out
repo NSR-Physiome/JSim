@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -25,8 +26,8 @@ math main {
   private real f1_call0(time);
 
   // equations
-  X3 = f1_call0;
-  f1_call0 = X1/X2;
+  X3 = f1_call0; 
+  f1_call0 = X1/X2; 
 
   // Used function definitions
   // Function definition f1(A,B)=A/B;

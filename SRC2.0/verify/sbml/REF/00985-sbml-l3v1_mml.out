@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -23,10 +24,10 @@ math main {
   real y(time);
 
   // equations
-  z = x(if (time<(time.min+1)) time.min else time-(1));
-  when (time=time.min) x = 0;
+  z = x(if (time<(time.min+1)) time.min else time-(1)); 
+  when (time=time.min) x = 0; 
   x:time = 1;
-  y = x(if (time<(time.min+z)) time.min else time-(z));
+  y = x(if (time<(time.min+z)) time.min else time-(z)); 
 
   // variable properties
   z.sbmlRole="parameter";

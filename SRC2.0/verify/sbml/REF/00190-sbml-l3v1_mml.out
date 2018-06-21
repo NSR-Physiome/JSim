@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,7 +11,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction1: S1 <=> S2 
+// reaction1: S1 <=> S2  
 
 math main {
   realDomain time second;
@@ -27,11 +28,11 @@ math main {
   real reaction1(time) katal;
 
   // equations
-  when (time=time.min) S1 = 10/compartment;
+  when (time=time.min) S1 = 10/compartment; 
   (S1*compartment):time = -1*reaction1;
-  when (time=time.min) S2 = 0;
+  when (time=time.min) S2 = 0; 
   (S2*compartment):time = reaction1;
-  reaction1 = if (false) p1 else p2;
+  reaction1 = if (false) p1 else p2; 
 
   // variable properties
   compartment.sbmlRole="compartment";

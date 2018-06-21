@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -22,7 +23,7 @@ math main {
   real AmtAmtAssn(time) mol;
 
   // equations
-  AmtAmtAssn = time^(1/4);
+  AmtAmtAssn = time^(1/4); 
 
   // variable properties
   comp1.sbmlRole="compartment";

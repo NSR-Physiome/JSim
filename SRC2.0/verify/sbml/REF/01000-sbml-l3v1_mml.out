@@ -9,6 +9,7 @@
 // WARNING: SBML events are not currently supported: _E7
 // WARNING: Renamed variable _J0 to xxx_J0 due to JSim namespace restrictions
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -19,7 +20,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// _J0: S3 S1refS1 => S2refS2 
+// _J0: S3 S1refS1 => S2refS2  
 
 math main {
   realDomain time second;
@@ -49,21 +50,21 @@ math main {
   private real kinetics_call0(time);
 
   // equations
-  when (time=time.min) comp = 5;
+  when (time=time.min) comp = 5; 
   comp:time = 1;
-  comp2 = k4;
-  kavo = 6.02214179E23/6.022000000000001E23;
-  when (time=time.min) k4 = 1;
+  comp2 = k4; 
+  kavo = 6.02214179E23/6.022000000000001E23; 
+  when (time=time.min) k4 = 1; 
   k4:time = time;
-  when (time=time.min) S1 = 1/comp;
+  when (time=time.min) S1 = 1/comp; 
   (S1*comp):time = conversion1*(-S1ref*xxx_J0);
-  when (time=time.min) S2 = 3;
+  when (time=time.min) S2 = 3; 
   (S2*comp2):time = conversion1*(S2ref*xxx_J0);
-  when (time=time.min) S4 = 2*comp2;
-  S1ref = k1;
-  S2ref = k1*S1;
-  xxx_J0 = kinetics_call0;
-  kinetics_call0 = ((-1)*xxx_J0_k1+k2+k3+k4+k5+S1+S1ref+S3+S4+S2)/10;
+  when (time=time.min) S4 = 2*comp2; 
+  S1ref = k1; 
+  S2ref = k1*S1; 
+  xxx_J0 = kinetics_call0; 
+  kinetics_call0 = ((-1)*xxx_J0_k1+k2+k3+k4+k5+S1+S1ref+S3+S4+S2)/10; 
 
   // Used function definitions
   // Function definition kinetics(a,b,c,d,e,f,g,h,i,j)=((-1)*a+b+c+d+e+f+g+h+i+j)/10;

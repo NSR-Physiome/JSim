@@ -1,5 +1,9 @@
 // This model generated automatically from SBML
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p> Originally created by libAntimony v1.4 (using libSBML 5.0.0-a1) 
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -60,46 +64,46 @@ math main {
   real P40;
 
   // equations
-  P1 = 3.7;
-  P2 = abs(-1);
-  P3 = abs(1);
-  P4 = acos(-1);
-  P5 = acos(.5);
-  P6 = asin(1);
-  P7 = asin(-0.5);
-  P8 = atan(1,2.8);
-  P9 = atan(1,-7.09);
-  P10 = ceil(.5);
-  P11 = ceil(3.55);
-  P12 = ceil(-4.6);
-  P13 = cos(9.1);
-  P14 = cos(-0.22);
-  P15 = exp(0);
-  P16 = exp(1);
-  P17 = exp(.77);
-  P18 = floor(-4.6);
-  P19 = floor(9.1);
-  P20 = ln(.2);
-  P21 = ln(1);
-  P22 = log(.2);
-  P23 = log(1);
-  P24 = 1^2;
-  P25 = 2^2;
-  P26 = 1.4^5.1;
-  P27 = 4^2;
-  P28 = 3.1^2;
-  P29 = 4^(1/2);
-  P30 = 7.4^(1/2);
-  P31 = sin(2.1);
-  P32 = sin(0);
-  P33 = sin(-5.9);
-  P34 = tan(0);
-  P35 = tan(1.11);
-  P36 = tan(-6);
-  P37 = 1+2;
-  P38 = 1-2;
-  P39 = 5/2;
-  P40 = 8*3;
+  P1 = 3.7; 
+  P2 = abs(-1); 
+  P3 = abs(1); 
+  P4 = acos(-1); 
+  P5 = acos(.5); 
+  P6 = asin(1); 
+  P7 = asin(-0.5); 
+  P8 = atan(1,2.8); 
+  P9 = atan(1,-7.09); 
+  P10 = ceil(.5); 
+  P11 = ceil(3.55); 
+  P12 = ceil(-4.6); 
+  P13 = cos(9.1); 
+  P14 = cos(-0.22); 
+  P15 = exp(0); 
+  P16 = exp(1); 
+  P17 = exp(.77); 
+  P18 = floor(-4.6); 
+  P19 = floor(9.1); 
+  P20 = ln(.2); 
+  P21 = ln(1); 
+  P22 = log(.2); 
+  P23 = log(1); 
+  P24 = 1^2; 
+  P25 = 2^2; 
+  P26 = 1.4^5.1; 
+  P27 = 4^2; 
+  P28 = 3.1^2; 
+  P29 = 4^(1/2); 
+  P30 = 7.4^(1/2); 
+  P31 = sin(2.1); 
+  P32 = sin(0); 
+  P33 = sin(-5.9); 
+  P34 = tan(0); 
+  P35 = tan(1.11); 
+  P36 = tan(-6); 
+  P37 = 1+2; 
+  P38 = 1-2; 
+  P39 = 5/2; 
+  P40 = 8*3; 
 
   // variable properties
   P1.sbmlRole="parameter";

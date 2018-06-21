@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,11 +11,11 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// AmtAmtReac: => AmtAmtReac 
-// AmtNoneReac: => AmtNoneReac 
-// ConcAmtReac: => ConcAmtReac 
-// ConcConcReac: => ConcConcReac 
-// ConcNoneReac: => ConcNoneReac 
+// AmtAmtReac: => AmtAmtReac  
+// AmtNoneReac: => AmtNoneReac  
+// ConcAmtReac: => ConcAmtReac  
+// ConcConcReac: => ConcConcReac  
+// ConcNoneReac: => ConcNoneReac  
 
 math main {
   realDomain time second;
@@ -50,31 +51,31 @@ math main {
   real ConcNoneReac(time) M;
 
   // equations
-  ConcAmtNone = 5/comp1;
-  AmtAmtAssn = time;
-  AmtNoneAssn = time;
-  ConcAmtAssn = time;
-  ConcConcAssn = time;
-  ConcNoneAssn = time;
-  when (time=time.min) AmtAmtRate = 5;
+  ConcAmtNone = 5/comp1; 
+  AmtAmtAssn = time; 
+  AmtNoneAssn = time; 
+  ConcAmtAssn = time; 
+  ConcConcAssn = time; 
+  ConcNoneAssn = time; 
+  when (time=time.min) AmtAmtRate = 5; 
   AmtAmtRate:time = time;
-  when (time=time.min) AmtNoneRate = AmtNoneRate_init;
+  when (time=time.min) AmtNoneRate = AmtNoneRate_init; 
   AmtNoneRate:time = time;
-  when (time=time.min) ConcAmtRate = 5/comp1;
+  when (time=time.min) ConcAmtRate = 5/comp1; 
   ConcAmtRate:time = time;
-  when (time=time.min) ConcConcRate = 5;
+  when (time=time.min) ConcConcRate = 5; 
   ConcConcRate:time = time;
-  when (time=time.min) ConcNoneRate = ConcNoneRate_init;
+  when (time=time.min) ConcNoneRate = ConcNoneRate_init; 
   ConcNoneRate:time = time;
-  when (time=time.min) AmtAmtReac = 5;
+  when (time=time.min) AmtAmtReac = 5; 
   AmtAmtReac:time = AmtAmtReac;
-  when (time=time.min) AmtNoneReac = AmtNoneReac_init;
+  when (time=time.min) AmtNoneReac = AmtNoneReac_init; 
   AmtNoneReac:time = AmtNoneReac;
-  when (time=time.min) ConcAmtReac = 5/comp1;
+  when (time=time.min) ConcAmtReac = 5/comp1; 
   (ConcAmtReac*comp1):time = ConcAmtReac;
-  when (time=time.min) ConcConcReac = 5;
+  when (time=time.min) ConcConcReac = 5; 
   (ConcConcReac*comp1):time = ConcConcReac;
-  when (time=time.min) ConcNoneReac = ConcNoneReac_init;
+  when (time=time.min) ConcNoneReac = ConcNoneReac_init; 
   (ConcNoneReac*comp1):time = ConcNoneReac;
 
   // variable properties

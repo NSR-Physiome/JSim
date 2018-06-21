@@ -1,0 +1,63 @@
+// This model generated automatically from SBML
+
+
+// unit definitions
+import nsrunit;
+unit conversion off;
+
+// SBML property definitions
+property sbmlRole=string;
+property sbmlName=string;
+property sbmlCompartment=string;
+
+// SBML reactions
+// veq: E S => ES  /* Reaction, veq, note. This reaction is rather short so it may thrown out if necessary. */
+// vcat: ES <=> E P  
+
+math main {
+  realDomain time second;
+  time.min=0;
+  extern time.max;
+  extern time.delta;
+
+  // variable definitions
+  real cytosol = 1E-14 L; /* Compartment cytosol note. */
+  real ES(time) M; /* ES in the cytosol note */
+  real P(time) M; /* Product in the cytosol note */
+  real S(time) M;
+  real E(time) M;
+  real veq(time) katal;
+  real kon = 1E6 1/mol*L/s;
+  real koff = .2 hz;
+  real vcat(time) katal;
+  real kcat = .1 hz;
+
+  // equations
+  when (time=time.min) ES = 0; /* ES in the cytosol note */
+  (ES*cytosol):time = veq + -1*vcat; /* ES in the cytosol note */
+  when (time=time.min) P = 0; /* Product in the cytosol note */
+  (P*cytosol):time = vcat; /* Product in the cytosol note */
+  when (time=time.min) S = 1E-20/cytosol; 
+  (S*cytosol):time = -1*veq;
+  when (time=time.min) E = 5E-21/cytosol; 
+  (E*cytosol):time = -1*veq + vcat;
+  veq = cytosol*(kon*E*S-koff*ES)/* Reaction, veq, note. This reaction is rather short so it may thrown out if necessary. */; 
+  vcat = cytosol*kcat*ES; 
+
+  // variable properties
+  cytosol.sbmlRole="compartment";
+  ES.sbmlRole="species";
+  ES.sbmlCompartment="cytosol";
+  P.sbmlRole="species";
+  P.sbmlCompartment="cytosol";
+  S.sbmlRole="species";
+  S.sbmlCompartment="cytosol";
+  E.sbmlRole="species";
+  E.sbmlCompartment="cytosol";
+  veq.sbmlRole="rate";
+  kon.sbmlRole="parameter";
+  koff.sbmlRole="parameter";
+  vcat.sbmlRole="rate";
+  kcat.sbmlRole="parameter";
+}
+

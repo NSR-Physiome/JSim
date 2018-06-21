@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,7 +11,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// J0: => XrefX 
+// J0: => XrefX  
 
 math main {
   realDomain time second;
@@ -26,10 +27,10 @@ math main {
   real J0(time) katal;
 
   // equations
-  when (time=time.min) X = 0;
+  when (time=time.min) X = 0; 
   (X*default_compartment):time = Xref*J0;
-  Xref = 3;
-  J0 = k1;
+  Xref = 3; 
+  J0 = k1; 
 
   // variable properties
   default_compartment.sbmlRole="compartment";

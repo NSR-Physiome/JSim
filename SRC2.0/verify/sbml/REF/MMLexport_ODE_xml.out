@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">MODEL NUMBER: 0382
+MODEL NAME: Osm.CoupledKK.1sol
+SHORT DESCRIPTION: Transport across a membrane between 2 stirred tanks, V1 and V2 of solute 1 and solvent water. Water fluxes
+induce volume changes and pressure changes. Solute 1 can also permeate the membrane independently of the pore, Pmemb11,
+and so can water PmembW. This uses linearized thermodynamics of irreversible processes from Kedem and Katchalsky 1958.
+TEST MML comments export to SBML.
+DETAILED DESCRIPTION:  
+ Model for coupled fluxes of water and one solute through an aqueous channel, with permability
+ Ppore via the pore (aqueous channel). Diffusion with or against water flow affects solute flux. 
+ Solute diffusion is retarded by friction with channel wall, by a fraction 1-sigma.
+ Permeability Ppore cm/s = Dw * AreaPore* (1-sigma) / (PoreLength *AreaMemb), where
+ Dw is the free diffusion coeff in water. Sigma (approx) = 1- (1 - rs/rp)^2, but in this same project
+ file is another program, PoreTransp.P.Sig, which can be use to set P and sig1 in accord with the
+ hydrodynamics of a right cylindrical pore.
+
+ COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:   
+  Copyright (C) 1999-2016 University of Washington. From the National Simulation Resource,  
+  Director J. B. Bassingthwaighte, Department of Bioengineering, University of Washington, Seattle WA 98195-5061. 
+  Academic use is unrestricted. Software may be copied so long as this copyright notice is included.
+
+  When citing JSim please use this reference: Butterworth E, Jardine BE, Raymond GM, Neal ML, Bassingthwaighte JB. 
+  JSim, an open-source modeling system for data analysis [v3; ref status: indexed, http://f1000r.es/3n0] 
+  F1000Research 2014, 2:288 (doi: 10.12688/f1000research.2-288.v3)  
+
+  This software was developed with support from NIH grants HL088516 and HL073598, NIBIB grant BE08417,
+  the Cardiac Energy Grid HL199122 (PI: J.B. Bassingthwaighte), and the Virtual Physiological Rat program 
+  GM094503 (PI: D.A.Beard). Please cite these grants in any publication for which this software is used and 
+  send an email with the citation and, if possible, a PDF file of the paper to: staff@physiome.org.
+</p>
+    </notes>
+    <listOfUnitDefinitions>
+      <unitDefinition id="umol_per_sec" name="umol/sec">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1e-06"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mL_per_sec" name="mL/sec">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1e-06"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm_per_sec2" name="cm/sec^2">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="0.01"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmHg_x_cm3_per_mol" name="mmHg*cm^3/mol">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="0.00013332237"/>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_x_mL" name="mM*mL">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1e-06"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm_per__s_x_mmHg_" name="cm/(s*mmHg)">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="-1" scale="0" multiplier="7.5006168e-05"/>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm_per_s" name="cm/s">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="0.01"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="g_per_ml" name="g/ml">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="1000"/>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM" name="mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mmHg" name="mmHg">
+        <listOfUnits>
+          <unit kind="kilogram" exponent="1" scale="0" multiplier="133.32237"/>
+          <unit kind="metre" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mL" name="mL">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1e-06"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="umol_per__cm2_x_sec_" name="umol/(cm^2*sec)">
+        <listOfUnits>
+          <unit kind="metre" exponent="-2" scale="0" multiplier="0.01"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="umol" name="umol">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1e-06"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="cm2" name="cm^2">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="0.0001"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="Lp" value="0.02" units="cm_per__s_x_mmHg_" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Hydraulic conductivity of porous memb for water (solvent)</p>
+        </notes>
+      </parameter>
+      <parameter id="Q1tot" units="mM_x_mL" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">conservation check</p>
+        </notes>
+      </parameter>
+      <parameter id="Q12" units="umol" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Quantities Qij of solute i and side j</p>
+        </notes>
+      </parameter>
+      <parameter id="Q11" units="umol" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Quantities Qij of solute i and side j</p>
+        </notes>
+      </parameter>
+      <parameter id="p2zero" value="0" units="mmHg" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init pressure of side 2</p>
+        </notes>
+      </parameter>
+      <parameter id="dp" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">OP diffs for solute 1,  and hydrostatic press diff, dp</p>
+        </notes>
+      </parameter>
+      <parameter id="grav" value="980" units="cm_per_sec2" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">press p = rho*grav*h = rho*grav*VolumeChange/Base</p>
+        </notes>
+      </parameter>
+      <parameter id="dOP1" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">OP diffs for solute 1,  and hydrostatic press diff, dp</p>
+        </notes>
+      </parameter>
+      <parameter id="Jc1memb" units="umol_per__cm2_x_sec_" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Solute 1 flux from 1 to 2 via transmemb diffusion</p>
+        </notes>
+      </parameter>
+      <parameter id="C12p" units="dimensionless" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">C21p(t),C22p(t),Q2tp(t);</p>
+        </notes>
+      </parameter>
+      <parameter id="Jvmemb" units="cm_per_s" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Volume flux via memb from V1 to V2, per unit area of membrane</p>
+        </notes>
+      </parameter>
+      <parameter id="RT" value="19342500" units="mmHg_x_cm3_per_mol" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">RT = 19.3425*10^6 mmHg*cm^3*mol^(-1) at 37C</p>
+        </notes>
+      </parameter>
+      <parameter id="Jc1diff" units="umol_per__cm2_x_sec_" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Solute 1 flux from 1 to 2 via intrapore diffusion                             // (Cannot use Js in JSim because it is used in the Java)</p>
+        </notes>
+      </parameter>
+      <parameter id="PmembW" value="0" units="cm_per__s_x_mmHg_" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Water could permeate membrane independent of aqueous pore</p>
+        </notes>
+      </parameter>
+      <parameter id="p1zero" value="0" units="mmHg" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init pressure of side 1</p>
+        </notes>
+      </parameter>
+      <parameter id="V2" units="mL" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Volumes on sides 1 and 2</p>
+        </notes>
+      </parameter>
+      <parameter id="V1" units="mL" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Volumes on sides 1 and 2</p>
+        </notes>
+      </parameter>
+      <parameter id="Jc1conv" units="umol_per__cm2_x_sec_" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Solute 1 flux from 1 to 2 via convection with Jv</p>
+        </notes>
+      </parameter>
+      <parameter id="Ppore1" value="1e-05" units="cm_per_s" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">solute 1 can permeate aqueous pore</p>
+        </notes>
+      </parameter>
+      <parameter id="Q1tp" units="dimensionless" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">C21p(t),C22p(t),Q2tp(t);</p>
+        </notes>
+      </parameter>
+      <parameter id="V2p" units="dimensionless" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">C21p(t),C22p(t),Q2tp(t);</p>
+        </notes>
+      </parameter>
+      <parameter id="avgC1" units="mM" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">average concn solute 1 and solute 2 within pore</p>
+        </notes>
+      </parameter>
+      <parameter id="V2init" value="1" units="mL" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init volume of side 2</p>
+        </notes>
+      </parameter>
+      <parameter id="TempC" value="37" units="kelvin" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">deg Centigrade</p>
+        </notes>
+      </parameter>
+      <parameter id="Jc1" units="umol_per__cm2_x_sec_" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Solute 1 total flux from 1 to 2</p>
+        </notes>
+      </parameter>
+      <parameter id="Jv" units="cm_per_s" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Total Volume flux from V1 to V2, per unit area of membrane</p>
+        </notes>
+      </parameter>
+      <parameter id="Am" value="1" units="cm2" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Surface area of membrane</p>
+        </notes>
+      </parameter>
+      <parameter id="OP12" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">dOP(1,j) for sol 1, side j</p>
+        </notes>
+      </parameter>
+      <parameter id="C12init" value="1" units="mM" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init concn of 1  on side 2</p>
+        </notes>
+      </parameter>
+      <parameter id="C11p" units="dimensionless" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">C21p(t),C22p(t),Q2tp(t);</p>
+        </notes>
+      </parameter>
+      <parameter id="OP11" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">dOP(1,j) for sol 1, side j</p>
+        </notes>
+      </parameter>
+      <parameter id="rho" value="1" units="g_per_ml" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">water density -&gt; cm H2O height to mmHg (rhoHg = 13.59508 g/ml)</p>
+        </notes>
+      </parameter>
+      <parameter id="C12" units="mM" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Concn, Cij of solute i and side j</p>
+        </notes>
+      </parameter>
+      <parameter id="C11" units="mM" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Concn, Cij of solute i and side j</p>
+        </notes>
+      </parameter>
+      <parameter id="Jvpore" units="cm_per_s" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Volume flux via pore from V1 to V2, per unit area of membrane</p>
+        </notes>
+      </parameter>
+      <parameter id="Pmemb1" value="0" units="cm_per_s" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">solute 1 could permeate membrane independent of aqueous pore</p>
+        </notes>
+      </parameter>
+      <parameter id="V1init" value="1" units="mL" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init volume of side 1</p>
+        </notes>
+      </parameter>
+      <parameter id="V1p" units="dimensionless" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">C21p(t),C22p(t),Q2tp(t);</p>
+        </notes>
+      </parameter>
+      <parameter id="C11init" value="2" units="mM" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init concn of 1  on side 1</p>
+        </notes>
+      </parameter>
+      <parameter id="sig1" value="0.9" units="dimensionless" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">reflection coeff for solute 1, independent of direction</p>
+        </notes>
+      </parameter>
+      <parameter id="p2" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Hydrostatic pressures on sides 1 and 2</p>
+        </notes>
+      </parameter>
+      <parameter id="p1" units="mmHg" constant="false">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Hydrostatic pressures on sides 1 and 2</p>
+        </notes>
+      </parameter>
+      <parameter id="Base2" value="0.001" units="cm2" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">area of base of volume 2, to calc p2.</p>
+        </notes>
+      </parameter>
+      <parameter id="Base1" value="0.001" units="cm2" constant="true">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">area of base of volume 1, to calc p1.</p>
+        </notes>
+      </parameter>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="V2">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init volume of side 2</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> V2init </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Q11">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C11init </ci>
+            <ci> V1init </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Q12">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> C12init </ci>
+            <ci> V2init </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="V1">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Init volume of side 1</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> V1init </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="V1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Jv </ci>
+            <ci> Am </ci>
+            <cn> -1 </cn>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="V2">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">assumes conservation, and negligible solute volume</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Jv </ci>
+            <ci> Am </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule variable="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> p1zero </ci>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> rho </ci>
+                  <ci> grav </ci>
+                  <apply>
+                    <minus/>
+                    <ci> V1 </ci>
+                    <ci> V1init </ci>
+                  </apply>
+                </apply>
+                <ci> Base1 </ci>
+              </apply>
+              <cn> 0.00075006168 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> p2zero </ci>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> rho </ci>
+                  <ci> grav </ci>
+                  <apply>
+                    <minus/>
+                    <ci> V2 </ci>
+                    <ci> V2init </ci>
+                  </apply>
+                </apply>
+                <ci> Base2 </ci>
+              </apply>
+              <cn> 0.00075006168 </cn>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> Jvpore </ci>
+            <ci> Jvmemb </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jvpore">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">water flux, V1 to V2 via pore  Eq 10-21 of Katchalsky and Curran</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Lp </ci>
+            <apply>
+              <minus/>
+              <ci> dp </ci>
+              <apply>
+                <times/>
+                <ci> sig1 </ci>
+                <ci> dOP1 </ci>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jvmemb">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">water flux, V1 to V2 via memb permeation, parallel path to pore</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> PmembW </ci>
+            <apply>
+              <minus/>
+              <ci> OP11 </ci>
+              <ci> OP12 </ci>
+            </apply>
+            <cn> -1 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jc1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> Pmemb1 </ci>
+                  <ci> dOP1 </ci>
+                </apply>
+                <ci> RT </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> avgC1 </ci>
+                <apply>
+                  <minus/>
+                  <cn> 1 </cn>
+                  <ci> sig1 </ci>
+                </apply>
+                <ci> Jvpore </ci>
+                <cn type="e-notation"> 1 <sep/> -6 </cn>
+              </apply>
+              <apply>
+                <times/>
+                <ci> Ppore1 </ci>
+                <apply>
+                  <minus/>
+                  <cn> 1 </cn>
+                  <ci> sig1 </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <ci> C11 </ci>
+                  <ci> C12 </ci>
+                </apply>
+                <cn type="e-notation"> 1 <sep/> -6 </cn>
+              </apply>
+            </apply>
+            <cn> 1000000 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jc1memb">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Pmemb1 </ci>
+                <ci> dOP1 </ci>
+              </apply>
+              <ci> RT </ci>
+            </apply>
+            <cn> 1000000 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jc1conv">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> avgC1 </ci>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+              <ci> sig1 </ci>
+            </apply>
+            <ci> Jvpore </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Jc1diff">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Ppore1 </ci>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+              <ci> sig1 </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> C11 </ci>
+              <ci> C12 </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="OP11">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> sig1 </ci>
+            <ci> RT </ci>
+            <ci> C11 </ci>
+            <cn type="e-notation"> 1 <sep/> -6 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="OP12">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> sig1 </ci>
+            <ci> RT </ci>
+            <ci> C12 </ci>
+            <cn type="e-notation"> 1 <sep/> -6 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="dOP1">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Osmotic pressure difference</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> OP11 </ci>
+            <ci> OP12 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="dp">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">hydrostatic pressure diff</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> p1 </ci>
+            <ci> p2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="avgC1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <apply>
+              <plus/>
+              <ci> C11 </ci>
+              <ci> C12 </ci>
+            </apply>
+            <cn> 0.5 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="V1p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> V1 </ci>
+            <ci> V1init </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Q1tot">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> C11init </ci>
+              <ci> V1init </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> C12init </ci>
+              <ci> V2init </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="V2p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> V2 </ci>
+            <ci> V2init </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="C11p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> C11 </ci>
+            <ci> C11init </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="C12p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> C12 </ci>
+            <ci> C12init </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Q1tp">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">Conservation check</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <ci> Q11 </ci>
+              <ci> Q12 </ci>
+            </apply>
+            <ci> Q1tot </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="C11">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">osmotic pressures due to solute 1 in V1</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Q11 </ci>
+            <ci> V1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="C12">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">osmotic pressures due to solute 1 in V2</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> Q12 </ci>
+            <ci> V2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule variable="Q11">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">osmotic pressures due to solute 1 in V1</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Am </ci>
+            <ci> Jc1 </ci>
+            <cn> -1 </cn>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Q12">
+        <notes>
+          <p xmlns="http://www.w3.org/1999/xhtml">osmotic pressures due to solute 1 in V2</p>
+        </notes>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> Am </ci>
+            <ci> Jc1 </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+

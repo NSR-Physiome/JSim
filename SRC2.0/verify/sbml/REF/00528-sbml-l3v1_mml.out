@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,7 +11,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction1: S1 <=> S2 
+// reaction1: S1 <=> S2  
 
 math main {
   realDomain time second;
@@ -28,13 +29,13 @@ math main {
   real reaction1(time) katal;
 
   // equations
-  when (time=time.min) k1 = division_call0;
-  division_call0 = k2/100;
-  when (time=time.min) S1 = 1/C;
+  when (time=time.min) k1 = division_call0; 
+  division_call0 = k2/100; 
+  when (time=time.min) S1 = 1/C; 
   (S1*C):time = -1*reaction1;
-  when (time=time.min) S2 = 1.5/C;
+  when (time=time.min) S2 = 1.5/C; 
   (S2*C):time = reaction1;
-  reaction1 = C*k1*S1;
+  reaction1 = C*k1*S1; 
 
   // Used function definitions
   // Function definition division(x,y)=x/y;

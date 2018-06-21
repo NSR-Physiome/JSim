@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">This model generated automatically from SBML
+Warning:  The SBML reaction &apos;CalciumCalbindin_gt_BoundCytosol&apos; was a &apos;fast reaction&apos; in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
+Warning:  The SBML reaction &apos;CalciumBuffer_gt_BoundCytosol&apos; was a &apos;fast reaction&apos; in the original model.  This concept is not currently translatable to JSim, and simulation results may differ from expectations as a result.
+unit definitions
+</p>
+    </notes>
     <listOfUnitDefinitions>
       <unitDefinition id="microkatal" name="microkatal">
         <listOfUnits>

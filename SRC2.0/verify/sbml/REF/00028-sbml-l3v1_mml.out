@@ -2,6 +2,7 @@
 // MathML error:  Can't process <apply> operator factorial 
 // Untranslated math element:  factorial(ceil(p1 * S1)) * pow(p2, -1)
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -12,7 +13,7 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction1: S1 <=> S2 
+// reaction1: S1 <=> S2  
 
 math main {
   realDomain time second;
@@ -29,9 +30,9 @@ math main {
   extern real reaction1 katal;
 
   // equations
-  when (time=time.min) S1 = 1/compartment;
+  when (time=time.min) S1 = 1/compartment; 
   (S1*compartment):time = -1*reaction1;
-  when (time=time.min) S2 = 0;
+  when (time=time.min) S2 = 0; 
   (S2*compartment):time = reaction1;
 
   // variable properties

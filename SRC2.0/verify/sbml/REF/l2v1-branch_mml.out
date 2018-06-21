@@ -1,5 +1,13 @@
 // This model generated automatically from SBML
 
+/* <body xmlns="http://www.w3.org/1999/xhtml">
+    <p>Simple branch system.
+    <p>The reaction looks like this:
+    <p>reaction-1:   X0 -&gt; S1; k1*X0;
+    <p>reaction-2:   S1 -&gt; X1; k2*S1;
+    <p>reaction-3:   S1 -&gt; X2; k3*S1;
+  </body> */
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,9 +18,9 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// reaction_1: X0 <=> S1 
-// reaction_2: S1 <=> X1 
-// reaction_3: S1 <=> X2 
+// reaction_1: X0 <=> S1  
+// reaction_2: S1 <=> X1  
+// reaction_3: S1 <=> X2  
 
 math main {
   realDomain time second;
@@ -34,11 +42,11 @@ math main {
   real k3 = 0;
 
   // equations
-  when (time=time.min) S1 = 0;
+  when (time=time.min) S1 = 0; 
   (S1*compartmentOne):time = reaction_1 + -1*reaction_2 + -1*reaction_3;
-  reaction_1 = k1*X0;
-  reaction_2 = k2*S1;
-  reaction_3 = k3*S1;
+  reaction_1 = k1*X0; 
+  reaction_2 = k2*S1; 
+  reaction_3 = k3*S1; 
 
   // variable properties
   compartmentOne.sbmlRole="compartment";

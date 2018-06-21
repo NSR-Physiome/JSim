@@ -1,6 +1,7 @@
 // This model generated automatically from SBML
 // WARNING: SBML events are not currently supported: _E0
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -24,7 +25,7 @@ math main {
   real S2 = 0 M;
 
   // equations
-  S1 = if (time<=2) sin(time*10) else 1;
+  S1 = if (time<=2) sin(time*10) else 1; 
 
   // variable properties
   default_compartment.sbmlRole="compartment";

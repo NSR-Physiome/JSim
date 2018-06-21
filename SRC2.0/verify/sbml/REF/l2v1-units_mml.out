@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -10,9 +11,9 @@ property sbmlName=string;
 property sbmlCompartment=string;
 
 // SBML reactions
-// v1: x0 => s1 
-// v2: s1 => s2 
-// v3: s2 => x1 
+// v1: x0 => s1  
+// v2: s1 => s2  
+// v3: s2 => x1  
 
 math main {
   realDomain time second;
@@ -28,22 +29,22 @@ math main {
   real x1(time) mM;
   real s1(time) mM;
   real s2(time) mM;
-  real v1(time) millikatal;
-  real v2(time) millikatal;
-  real v3(time) millikatal;
+  real v1(time) millikatal; /* <html:p>((vm * s1)/(km + s1))*cell</html:p> */
+  real v2(time) millikatal; /* <html:p>((vm * s2)/(km + s2))*cell</html:p> */
+  real v3(time) millikatal; /* <html:p>((vm * x1)/(km + x1))*cell</html:p> */
 
   // equations
-  when (time=time.min) x0 = 1;
+  when (time=time.min) x0 = 1; 
   (x0*cell):time = -1*v1;
-  when (time=time.min) x1 = 1;
+  when (time=time.min) x1 = 1; 
   (x1*cell):time = v3;
-  when (time=time.min) s1 = 1;
+  when (time=time.min) s1 = 1; 
   (s1*cell):time = v1 + -1*v2;
-  when (time=time.min) s2 = 1;
+  when (time=time.min) s2 = 1; 
   (s2*cell):time = v2 + -1*v3;
-  v1 = vm*s1/(km+s1)*cell;
-  v2 = vm*s2/(km+s2)*cell;
-  v3 = vm*x1/(km+x1)*cell;
+  v1 = vm*s1/(km+s1)*cell; /* <html:p>((vm * s1)/(km + s1))*cell</html:p> */
+  v2 = vm*s2/(km+s2)*cell; /* <html:p>((vm * s2)/(km + s2))*cell</html:p> */
+  v3 = vm*x1/(km+x1)*cell; /* <html:p>((vm * x1)/(km + x1))*cell</html:p> */
 
   // variable properties
   cell.sbmlRole="compartment";

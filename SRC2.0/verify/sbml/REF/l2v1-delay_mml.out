@@ -1,5 +1,6 @@
 // This model generated automatically from SBML
 
+
 // unit definitions
 import nsrunit;
 unit conversion off;
@@ -26,7 +27,7 @@ math main {
   real P(time) M;
 
   // equations
-  when (time=time.min) P = 0;
+  when (time=time.min) P = 0; 
   P:time = (1/(1+m*P(if (time<(time.min+delta_t)) time.min else time-(delta_t))^q)-P)/tau;
 
   // variable properties
