@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-  Copyright (C) 1999-2008 University of Washington
+  Copyright (C) 1999-2018 University of Washington
   Developed by the National Simulation Resource
   Department of Bioengineering,  Box 355061
   University of Washington, Seattle, WA 98195-5061.
@@ -35,6 +35,8 @@ public class SBWriter {
         xunitList, xvarList, xeventList, xrelationList;
     private SBUnitWriter unitWriter;
     private ArrayList<String> mBadFunctions;
+	private Hashtable<Integer,String> comments_HT;
+	private Hashtable<String,Integer> idents_HT;
     static private boolean sbmlPresent;
 
     // maps
@@ -68,7 +70,8 @@ public class SBWriter {
     }
 
     // constructor
-    public SBWriter(Document xdoc, StringList warnings) 
+    public SBWriter(Document xdoc, StringList warnings, Hashtable<Integer,String> comments,
+					Hashtable<String,Integer> identifiers) 
         throws Exception {
         if (!sbmlPresent) throw new Xcept("libSBML native library not found.");
         this.xdoc = xdoc;
@@ -76,7 +79,19 @@ public class SBWriter {
         this.mVersion = 4;
         this.sdoc = new org.sbml.libsbml.SBMLDocument(mLevel,mVersion);
         this.model = this.sdoc.createModel();
+
+		this.comments_HT = new Hashtable<Integer,String>();
+		this.comments_HT = comments;
+		this.idents_HT = new Hashtable<String,Integer>();
+		this.idents_HT = identifiers;
+		String modelComment = findComment(1); 
+		int notesSet = this.model.setNotes(modelComment,true); // 0 = success, <0 = fail
+		if (notesSet != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+			warnings.add("Could NOT add comment to SBML model:"+modelComment);
+		}
+
         this.warnings = warnings;
+
         xroot = xdoc.getDocumentElement();
         xmodel = getFirstElement(xroot, "model");
         xtoolList = getFirstElement(xroot, "toolList");
@@ -169,7 +184,6 @@ public class SBWriter {
             SBMLError error = sdoc.getError(err);
             if (error.getSeverity() >= 2) {
                 warnings.add("Translation error from libsbml: " + sdoc.getError(err).getMessage());
-                //System.out.println("Translation error from libsbml: " + sdoc.getError(err).getMessage());
             }
         }
         sdoc.getErrorLog().clearLog();
@@ -282,15 +296,22 @@ public class SBWriter {
                     continue;
                 }
             }
-            Parameter param = model.getParameter(name);
+            Parameter param = model.getParameter(name); 
             if (param == null) {
-                param = model.createParameter();
+                param = model.createParameter(); 
                 if (param.setId(name) == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE) {
                     warnings.add("Warning:  Unable to create the variable '" + name + "', as it is an illegal SBML name.");
                     model.removeParameter(model.getNumParameters()-1);
                     continue;
                 }
+				Integer line_number = new Integer (this.findLineNumber( xvar.getAttribute("id")));
+				String newComment = new String(this.findComment(line_number));
+				int check = param.setNotes(newComment,true);
+				if (check != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+					warnings.add("Could NOT add comment to SBML model:"+newComment);
+				}
             }
+
             NodeList domainlist = xvar.getElementsByTagName("domainList");
             if (domainlist.getLength() > 0) {
                 param.setConstant(false);
@@ -304,9 +325,7 @@ public class SBWriter {
                 unit = unitWriter.toSBMLFromJSim(unit);
                 param.setUnits(unit);
             }
-            //System.out.println("Set units.");
-        }
-        //System.out.println("done with vars, too.");
+         }
     }
 
     // create SBML rules
@@ -358,15 +377,17 @@ public class SBWriter {
             warnings.add("Warning: Unable to translate definition of '" + vid + "'" + origtxt + " to SBML.");
             return;
         }
+		if(astn.isUnknown()) {
+            warnings.add("Warning: Unable to translate definition of '" + vid + "'" + origtxt + " to SBML.");
+            return;
+		}
         fixTime(astn);
         translateDelay(astn);
         if (hasBadNodes(astn)) {
             warnings.add("Warning: Unable to translate definition of '" + vid + "'" + origtxt + " to SBML.");
             return;
         }
-        //System.out.println(elementToString(math));
         String formula = libsbml.formulaToString(astn);
-        //System.out.println("formula: \n" + formula);
         String init = libsbml.formulaToString(astn);
         Parameter p = model.getParameter(vid);
         if (p == null) {
@@ -376,6 +397,12 @@ public class SBWriter {
                 model.removeParameter(model.getNumParameters()-1);
                 return;
             }
+			Integer line_number = new Integer (this.findLineNumber(vid)); 
+			String newComment = new String(this.findComment(line_number));
+			int check = p.setNotes(newComment,true);
+			if (check != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+				warnings.add("Could NOT add comment to SBML model:"+newComment);
+				}
         }
         try {
             Double d = Double.parseDouble(init);
@@ -389,12 +416,25 @@ public class SBWriter {
                 p.setConstant(false);
                 AssignmentRule ar = model.createAssignmentRule();
                 ar.setVariable(vid);
+			    Integer line_number = new Integer (this.findLineNumber(debug.getTextContent())); 
+			    String newComment = new String(this.findComment(line_number));
+				int check = ar.setNotes(newComment,true);
+				if (check != libsbml.LIBSBML_OPERATION_SUCCESS) {  
+					warnings.add("Could NOT add comment to SBML model:"+newComment);
+				}
                 ar.setMath(astn);
             }
             else if (status.equals("MIN")) {
                 InitialAssignment ia = model.createInitialAssignment();
                 ia.setSymbol(vid);
                 ia.setMath(astn);
+			    Integer line_number = new Integer (this.findLineNumber(debug.getTextContent())); 
+			    String newComment = new String(this.findComment(line_number));
+				int check = ia.setNotes(newComment,true);
+				if (check != libsbml.LIBSBML_OPERATION_SUCCESS) {  
+					warnings.add("Could NOT add comment to SBML model:"+newComment);
+				}
+
             }
             else {
                 throw new Xcept("Unknown status for variable '" + vid + "':  " + status);
@@ -461,6 +501,12 @@ public class SBWriter {
                         model.removeParameter(model.getNumParameters()-1);
                         continue;
                     }
+					Integer line_number = new Integer (this.findLineNumber(initname));
+					String newComment = new String(this.findComment(line_number));
+					int check = initparam.setNotes(newComment,true);
+					if (check != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+						warnings.add("Could NOT add comment to SBML model:"+newComment);
+					}
                 }
                 initparam.setConstant(false);
                 varToInits.put(id, initname);
@@ -488,6 +534,11 @@ public class SBWriter {
                 warnings.add("Warning: Unable to translate definition of implicit expression" + origtxt + " to SBML.");
                 return;
             }
+			if (astn.isUnknown()) {
+				warnings.add("Warning: Unable to translate definition of implicit expression" + origtxt + " to SBML.");
+				return;
+			}
+
             fixTime(astn);
             translateDelay(astn);
             if (hasBadNodes(astn)) {
@@ -496,6 +547,12 @@ public class SBWriter {
             }
             AlgebraicRule ar = model.createAlgebraicRule();
             ar.setMath(astn);
+			Integer line_number = new Integer (this.findLineNumber(debug.getTextContent()));
+			String newComment = new String(this.findComment(line_number));
+			int check = ar.setNotes(newComment,true);
+			if (check != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+				warnings.add("Could NOT add comment to SBML model:"+newComment);
+			}
         }
     }
 
@@ -515,8 +572,15 @@ public class SBWriter {
                 model.removeParameter(model.getNumParameters()-1);
                 return;
             }
+			Integer line_number = new Integer (this.findLineNumber(vid));
+			String newComment = new String(this.findComment(line_number));
+			int check = p.setNotes(newComment,true);
+			if (check != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+				warnings.add("Could NOT add comment to SBML model:"+newComment);
+			}
         }
         p.setConstant(false);
+
         Element state = getFirstElement(xtool, "stateEquation");
         String toolID = state.getAttribute("toolID");
         Element tool = xtoolIDs.get(toolID);
@@ -531,17 +595,25 @@ public class SBWriter {
         String mathml = elementToString(math);
         ASTNode astn = org.sbml.libsbml.libsbml.readMathMLFromString(mathml);
         String origtxt = "";
+		String notechkstr = ""; 
         Element debug = getFirstElement(expr, "debug");
         if (debug != null) {
-            String debstr = elementToString(debug);
-            Node sub = debug.getFirstChild();
-            origtxt = sub.getNodeValue();
+			String debstr = elementToString(debug);
+	
+			Node sub = debug.getFirstChild();
+			sub = debug.getFirstChild();
+            notechkstr = sub.getNodeValue();
+			origtxt = sub.getNodeValue();
             origtxt = " ('" + origtxt + "')";
         }
         if (astn==null) {
             warnings.add("Warning: Unable to translate definition of '" + vid + "'" + origtxt + " to SBML.");
             return;
         }
+		if(astn.isUnknown()) {
+            warnings.add("Warning: Unable to translate definition of '" + vid + "'" + origtxt + " to SBML.");
+            return;
+		}
         fixTime(astn);
         translateDelay(astn);
         if (hasBadNodes(astn)) {
@@ -553,6 +625,12 @@ public class SBWriter {
         if (success != libsbml.LIBSBML_OPERATION_SUCCESS) {
             throw new Xcept("Unable to create rate rule for parameter '" + vid + "'.");
         }
+		Integer line_number = new Integer (this.findLineNumber(notechkstr));
+		String newComment = new String(this.findComment(line_number));
+		success = rr.setNotes(newComment,true);
+		if (success != libsbml.LIBSBML_OPERATION_SUCCESS) { 
+			warnings.add("Could NOT add comment to SBML model:"+newComment);
+		}
         rr.setMath(astn);
     }
 
@@ -637,7 +715,10 @@ public class SBWriter {
     }
 
     public void fixTime(ASTNode astn) {
-        if (astn==null) return;
+        if (astn==null) return; 
+		if (astn.isUnknown()) {
+				return;
+		}
         if (astn.isOperator() == false && astn.isNumber() == false) {
             if (astn.getName().equals("time")) {
                 astn.setType(libsbml.AST_NAME_TIME);
@@ -653,10 +734,10 @@ public class SBWriter {
 
     public void translateDelay(ASTNode astn) throws Xcept{
         if (astn==null) return;
+		if (astn.isUnknown()) return;
         String name = astn.getName();
-        //System.out.println("Node name: " + name);
         if (name != null && name.indexOf("__function") >= 0) {
-            //System.out.println("found __function.");
+			// System.out.println("found __function.");
             //Hopefully we can translate this to a delay.
             String vid = astn.getName();
             vid = vid.substring(0, name.indexOf("__function"));
@@ -668,7 +749,7 @@ public class SBWriter {
             time.setType(libsbml.AST_NAME_TIME);
             if (nodeIsOnlyTmin(astn)) {
                 //Option 1:  param(time.min) -> delay(time)
-                //System.out.println("Option 1.");
+				// System.out.println("Option 1.");
                 //This is probably used in some context that could be shortened overall to a simple delay function, but it should still work this way.
                 astn.setName("delay");
                 astn.setType(libsbml.AST_FUNCTION_DELAY);
@@ -678,7 +759,7 @@ public class SBWriter {
             else if (nodeIsFunctionWithoutTmin(astn)) {
                 if (astn.getNumChildren() != 1) {
                     warnings.add("Warning: This function is untranslateable to SBML, as it involves multiple domains: '" + libsbml.formulaToString(astn) + "'.");
-                    //System.err.println("Added bad function " + astn.getName());
+                    System.err.println("Added bad function " + astn.getName());
                     mBadFunctions.add(astn.getName());
                     return;
                 }
@@ -694,7 +775,6 @@ public class SBWriter {
                 }
                 else {
                     //Option 2b:  param(function) -> delay(time - function)
-                    //System.err.println("Option 2b.");
                     astn.setName("delay");
                     astn.setType(libsbml.AST_FUNCTION_DELAY);
                     astn.replaceChild(0, paramnode);
@@ -707,22 +787,25 @@ public class SBWriter {
                 }
             }
             else {
-                ASTNode func = getDelayFromCanonical(astn);
-                if (func != null) {
+				ASTNode func = new ASTNode(getDelayFromCanonical(astn));
+                if ( (func != null) || (!func.isUnknown()) ) {
                     //Option 3:  param(if(func) time.min otherwise time-X) -> delay(X)  [the default delay translation]
-                    //System.err.println("Option 3: time - " + libsbml.formulaToString(func));
+					// System.err.println("Option 3: time - " + libsbml.formulaToString(func));
                     astn.setName("delay");
                     astn.setType(libsbml.AST_FUNCTION_DELAY);
                     astn.replaceChild(0, paramnode);
-                    astn.addChild(func);
+					if(func.isWellFormedASTNode()){
+						astn.addChild(func);
+					}
+					else { System.err.println("Option 3: func Node is NOT well formed " );}
+
                 }
                 else {
                     //Option 4:  something with time.min that's not one of the above
                     throw new Xcept("Unable to parse '"  + libsbml.formulaToString(astn) + "' into SBML as a delay function--it used 'time.min' in an unexpected way.  For models intended to be translated to SBML, the format 'X(time-y)' is sufficient.");
                 }
             }
-
-            //System.out.println(vid);
+			//            System.out.println(vid);
         }
         else {
             for (long c = 0; c < astn.getNumChildren() ; c++) {
@@ -759,9 +842,7 @@ public class SBWriter {
     public ASTNode getDelayFromCanonical(ASTNode astn) throws Xcept {
         ASTNode child = astn.getChild(0);
         if (!child.isPiecewise()) return null;
-        //System.out.println("is piecewise...");
         if (child.getNumChildren() != 3) return null;
-        //System.out.println("Does have three children...");
         ASTNode tmin = child.getChild(0);
         ASTNode func = child.getChild(1);
         ASTNode otherwise = child.getChild(2);
@@ -779,7 +860,6 @@ public class SBWriter {
             retfunc.addChild(time);
             retfunc.addChild(otherwise.getChild(0));
         }
-        //System.out.println("final canonical: " + libsbml.formulaToString(retfunc));
         return retfunc;
     }
 
@@ -854,6 +934,13 @@ public class SBWriter {
             return;
         }
         Constraint cstr = model.createConstraint();
+	    Integer line_number = new Integer (this.findLineNumber(debug.getTextContent())); 
+	    String newComment = new String(this.findComment(line_number));
+		int check = cstr.setNotes(newComment,true);
+		if (check != libsbml.LIBSBML_OPERATION_SUCCESS) {  
+			warnings.add("Could NOT add comment to SBML model: "+newComment);
+		}
+		//		cstr.setNotes("Hi, a constraint has been issued.", true);
         cstr.setMath(astn);
     }
     //// UTILITIES
@@ -879,13 +966,74 @@ public class SBWriter {
         return map;
     }
 
+	// Finds line number in MML model text that corresponds to the identifier/expression.
+	private Integer findLineNumber(String modelExpression) {
+		Integer lineNumber =-1;  // default, did not find any ident/exprs in model text.
+        if (this.idents_HT.containsKey(modelExpression)) {
+			lineNumber = this.idents_HT.get(modelExpression);
+		}
+        else { // go through idents_HT and split keys on '=' and add enclosing parentheses
+ 			// search if contains modelExpression:
+			for(String key:this.idents_HT.keySet()) {
+				String[] split_key = key.split("=");
+				String searchString = "";
+				if(split_key.length == 2) searchString = split_key[1];
+				else searchString = key; 
+				String mod_modelExp = new String("("+modelExpression+")");	
+				if(searchString.equals(mod_modelExp)) {
+						lineNumber = this.idents_HT.get(key);
+						//System.out.println("SBWriter:findLineNumber:Found match:"+searchString+", "+lineNumber);
+					}
+		   }
+		}		
+		return lineNumber;
+	}
+
+	private String findComment(Integer lineNumber) throws Xcept {
+		String comment = new String("");
+		Integer firstIdent = 0; // line number of first ident/expr
+		Integer lastIdent = 1;  // line number of last ident/expr
+		if(lineNumber ==1) { // Looking for general model comments, assume before first and after last identifier.
+			Boolean first = true; 
+			for (String key:idents_HT.keySet()) {
+				if (first) {
+					firstIdent = idents_HT.get(key);
+					first = false;
+				}
+				else { if (idents_HT.get(key) < firstIdent)
+						firstIdent = idents_HT.get(key);
+				}
+				if( idents_HT.get(key) >lastIdent ) lastIdent = idents_HT.get(key);
+			}
+			for (int i =1; i <firstIdent.intValue();i++) {
+				if (comments_HT.containsKey(i) ) {
+					comment = comment.concat(comments_HT.get(i));
+					comment = comment.concat(System.getProperty("line.separator"));
+				}
+			}
+			for (int i =1; i <comments_HT.size();i++) {
+				Integer i_Int = new Integer(lastIdent+i);
+				if (comments_HT.containsKey(i_Int) ) {
+					comment = comment.concat(comments_HT.get(i_Int));
+					comment = comment.concat(System.getProperty("line.separator"));
+				}
+			}
+			return comment;
+		}
+		// Just return comment that corresponds to line number, if any:
+		else {	if (comments_HT.containsKey(lineNumber) ) {
+					comment = comment.concat(comments_HT.get(lineNumber)); }
+		}
+		return comment; 
+	}
+
     //// TEST HARNESS
     public static final void main(String[] args)
         throws Exception {
         File f = new File(args[0]);
         String options = args[1];
         Document xdoc = UtilXML.parse(f);
-        SBWriter wrt = new SBWriter(xdoc, new StringList());
+        SBWriter wrt = new SBWriter(xdoc, new StringList(),null,null/*,null*/);
         String sbml = wrt.getSBML(options);
         System.out.println(sbml);
         StringList warns = wrt.getWarnings();

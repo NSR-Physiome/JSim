@@ -26,6 +26,7 @@ public class SBVar implements Named {
     protected String compartment; // for species
     protected String conversionFactor; //Also for species
     protected String unit;
+	protected String notes;  // Any sbml notes associated with it.
     protected boolean isConst; // time invariant?
     protected boolean inDelay;
     protected boolean isPrivate; // private variable?
@@ -57,6 +58,7 @@ public class SBVar implements Named {
         mInitValueNode = null;
         hasExternInit = false;
         sbmodel.sbvars.add(this);
+		this.notes = new String("");
     }
 
     // create MML safe name (this routine good for most, not all)
@@ -201,7 +203,7 @@ public class SBVar implements Named {
         }
 
         //Build up the declaration:
-        String decl = "  ";
+        String decl = new String("  ");
         if (isExtern()) {
             decl += "extern ";
         }
@@ -217,6 +219,10 @@ public class SBVar implements Named {
             decl += " = " + initValue;
         }
         decl += sunit;
+		if(!this.notes.equals("")) { 
+			decl =decl.concat( " "+this.notes);
+			//this.notes = "";  // Do not use anymore.
+		}
         wrt.println(decl);
     }
     
@@ -229,7 +235,10 @@ public class SBVar implements Named {
             if (hasKnownVariance() ||  hasTimeDependence(mInitValueNode)) {
                 eq = "when (time=time.min) " + eq;
             }
-            eq = "  " + eq + initValue + ";";
+            eq = "  " + eq + initValue + "; ";
+			if(!this.notes.equals("")) { 
+					eq = eq.concat(this.notes);
+				}			
             wrt.println(eq);
         }
 
@@ -246,16 +255,31 @@ public class SBVar implements Named {
             if (ode == null && !isSubstanceOnly && role.equals("species") && compartment != null) {
                 amountname = "(" + mmlName + "*" + compartment + ")";
             }
-            wrt.println("  " + amountname + ":time = " + eq + ";");
-        }
+			if(!this.notes.equals("")) { 
+				 wrt.println("  " + amountname + ":time = " + eq + "; " +this.notes);
+				}
+			else { 	wrt.println("  " + amountname + ":time = " + eq + ";"); }
+
+		}
         else if (alg != null) {
-            wrt.println("  " + mmlName + " = " + alg + ";");
-        }
+			if(!this.notes.equals("")) {
+				wrt.println("  " + mmlName + " = " + alg + "; "+this.notes);
+			}
+			else { wrt.println("  " + mmlName + " = " + alg + "; "); }
+	    }
         else if (!isSubstanceOnly && compartmentVaries()) {
-            wrt.println("  (" + mmlName + "*" + compartment + "):time = 0;");
+			if(!this.notes.equals("")) {
+				wrt.println("  (" + mmlName + "*" + compartment + "):time = 0; "+this.notes);
+			}
+			else { wrt.println("  (" + mmlName + "*" + compartment + "):time = 0;" ); }
         }
         else if (inDelay && !hasKnownVariance()) {
-            wrt.println("  " + mmlName + ":time = 0;");
+			if(!this.notes.equals("")) {
+				wrt.println("  " + mmlName + ":time = 0; "+this.notes);
+				//	this.notes = "";
+			}
+            else { wrt.println("  " + mmlName + ":time = 0; "); }
+
         }
     }
 
@@ -315,6 +339,19 @@ public class SBVar implements Named {
     // query
     public String name() { return name; }
     public String toString() { return name; }
+	public String notes() { return notes; }
+	protected boolean setNotes(String newNotes) {
+		if(this.notes.equals("")) {
+			this.notes = new String(newNotes);
+			return true;
+		}
+		else { // get rid of extra set of comment idents if more than one comment added:
+			// ex: /* this note. */ /*The second note */
+			this.notes = this.notes.replace("*/",",");
+			this.notes = this.notes.concat(newNotes.replace("/*"," "));
+			return true;
+		}
+	}
     public String diagInfo() { return "Var " + name(); }
 
     // SBVar.List

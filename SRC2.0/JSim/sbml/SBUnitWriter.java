@@ -89,13 +89,15 @@ public class SBUnitWriter {
             basesbml = makeSBMLIdFrom(base);
             UnitDefinition unitdef = model().createUnitDefinition();
             unitdef.setId(basesbml);
+//		unitdef.setNotes("My unit notes..!");
+
             addSBMLJSimConversion(basesbml, base);
         }
     }
 
     private void processDerivedUnit(Element xunit) throws Xcept {
         String jsimunit = xunit.getAttribute("id");
-        //System.out.println("Calculating derived unit " + jsimunit);
+		//       System.out.println("Calculating derived unit " + jsimunit);
         if (toSBMLFromJSim(jsimunit) != null) {
             //This unit already exists in SBML, probably as a fundamental unit.  Don't create another one.
             return;
@@ -106,6 +108,7 @@ public class SBUnitWriter {
         }
         UnitDefinition unitdef = model().createUnitDefinition();
         unitdef.setId(sbmlunit);
+	 // unitdef.setNotes("Notes for a derived unit!",true);
         unitdef.setName(jsimunit);
         addSBMLJSimConversion(sbmlunit, jsimunit);
         ArrayList<Element> factors = new ArrayList<Element>();
@@ -136,6 +139,7 @@ public class SBUnitWriter {
             if (factors.size()==firstunit) {
                 //No unitFactors at all, just a realFactor.
                 org.sbml.libsbml.Unit unit = unitdef.createUnit();
+
                 unit.setMultiplier(firstMultiplier);
                 unit.setKind(SBUnitConstants.stringToKind("dimensionless"));
                 unit.setExponent(1);
@@ -174,6 +178,7 @@ public class SBUnitWriter {
             }
             addSBMLJSimConversion(sbmlUnitId, unitId);
             org.sbml.libsbml.Unit unit = unitdef.createUnit();
+
             unit.setKind(kind);
             if (f==firstunit) {
                 unit.setMultiplier(firstMultiplier);
@@ -239,7 +244,7 @@ public class SBUnitWriter {
         if (sbml.matches("^[0-9].*")) {
             sbml = "_" + sbml;
         }
-        //System.out.println("Final version '" + sbml + "'");
+		//System.out.println("Final version '" + sbml + "'");
         return sbml;
     }
 

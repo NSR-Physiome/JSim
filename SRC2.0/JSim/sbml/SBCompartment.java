@@ -23,11 +23,21 @@ public class SBCompartment implements Named {
     protected SBModel sbmodel;
     protected Compartment comp;
     protected SBVar v;
+	protected String notes;
     
     // constructor
     public SBCompartment(SBModel sm, Compartment c) throws Xcept {
         sbmodel = sm;
         comp = c;
+		if (c.isSetNotes()) {
+				SBNotes newNote = new SBNotes(c.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				this.notes = new String(newNote.getNote());
+			}
+    	else { this.notes = new String(""); }
+
+		// Store notes in SBVar ......
         v = new SBVar(sbmodel, name(), "compartment");
         double sz = 1;  // non-spec hack 4 biomodel auto-verify
         if (comp.isSetSize()) {
@@ -40,9 +50,17 @@ public class SBCompartment implements Named {
             v.setConst(comp.getConstant());
         }
         v.setInitValue(sz);
+		v.setNotes(this.notes);
         InitialAssignment ia = sm.model.getInitialAssignment(c.getId());
         if (ia != null) {
             v.setInitValue(ia.getMath());
+			if (ia.isSetNotes()) {
+				SBNotes newNote = new SBNotes(ia.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				v.setNotes(newNote.getNote());
+			}
+
         }
         String cunit = unit();
         v.setUnit(cunit);

@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-  Copyright (C) 1999-2011 University of Washington
+  Copyright (C) 1999-2018 University of Washington
   Developed by the National Simulation Resource
   Department of Bioengineering,  Box 355061
   University of Washington, Seattle, WA 98195-5061.
@@ -51,6 +51,13 @@ public class SBFunction implements Named {
         expr = expr.replace(lambda.args(), args);
         String vassn = expr.toString(sbmodel.ctxt);
         v.setAssign(vassn);
+		if (this.func.isSetNotes()) {
+				SBNotes newNote = new SBNotes(this.func.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				v.setNotes(newNote.getNote());
+			}
+
         return new NamedRealConst(vname, 0);
     }
 

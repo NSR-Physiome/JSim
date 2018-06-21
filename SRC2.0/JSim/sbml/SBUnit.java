@@ -27,6 +27,7 @@ public class SBUnit implements Named {
     protected SBUnitSpace mSBUnitSpace;
     protected String name;
     protected String expression;
+	protected String notes;
     protected boolean isUnitExpression;
 
     // constructor
@@ -34,6 +35,14 @@ public class SBUnit implements Named {
         sbmodel = sm;
         unit = c;
         name = unit.getId();
+		if (unit.isSetNotes()) {
+				SBNotes newNote = new SBNotes(unit.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				this.notes = new String(newNote.getNote());
+			}
+    	else { this.notes = new String(""); }
+
         mSBUnitSpace = sm.getSBUnitSpace();
         calculateExpression();
     }
@@ -51,7 +60,7 @@ public class SBUnit implements Named {
         //System.out.println("Writing out the unit " + name);
         if (!isUnitExpression) {
             //This unit cannot be used directly as the unit for a variable, so we must declare it.
-            wrt.println("unit " + name + " = " + expression + ";");
+            wrt.println("unit " + this.name + " = " + this.expression + ";"+this.notes);
         }
     }
 

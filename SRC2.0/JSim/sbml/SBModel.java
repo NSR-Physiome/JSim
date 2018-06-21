@@ -239,7 +239,14 @@ public class SBModel implements MLNameSpace {
         for (int i=0; i<sbvars.size(); i++) 
             sbvars.sbvar(i).writeRenameWarning(out);
         out.println("");
-                
+		if (model.isSetNotes()) {
+			SBNotes newNote = new SBNotes(model.getNotesString());
+			newNote.removeXMLTags();
+			newNote.addCommentIdentifiers();
+			out.println(newNote.getNote());
+			}
+		out.println("");
+
         // units
         out.println("// unit definitions");
         if (!changedUnits.isEmpty()) {
@@ -251,7 +258,8 @@ public class SBModel implements MLNameSpace {
         out.println("import nsrunit;");
         out.println("unit conversion off;");
         for (int i=0; i<sbunits.size(); i++) 
-            sbunits.sbunit(i).writeMML(out);
+			sbunits.sbunit(i).writeMML(out);
+	   
         out.println("");
 
         out.println("// SBML property definitions");

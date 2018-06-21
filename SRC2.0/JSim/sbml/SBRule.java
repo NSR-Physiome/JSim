@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-  Copyright (C) 1999-2011 University of Washington
+  Copyright (C) 1999-2018 University of Washington
   Developed by the National Simulation Resource
   Department of Bioengineering,  Box 355061
   University of Washington, Seattle, WA 98195-5061.
@@ -23,22 +23,32 @@ public class SBRule implements Named {
     protected SBModel sbmodel;
     protected Rule rule;
     protected String aexpr;
+	protected String notes;
 
     // constructor
     public SBRule(SBModel sm, Rule r) throws Xcept {
         sbmodel = sm;
         rule = r;
+		if (rule.isSetNotes()) {
+				SBNotes newNote = new SBNotes(this.rule.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				this.notes = new String(newNote.getNote());
+			}
+    	else { this.notes = new String(""); }
 
         String text = libsbml.writeMathMLToString(rule.getMath());
         String rhs = sbmodel.mathExprMML(text);
         
         if (rule instanceof AssignmentRule) {
             SBVar v = sbmodel.sbvars.sbvar(rule.getVariable());
+			v.setNotes(this.notes);
             v.setAssign(rhs);
         } else if (rule instanceof AlgebraicRule) {
             aexpr = rhs;
         } else if (rule instanceof RateRule) {
             SBVar v = sbmodel.sbvars.sbvar(rule.getVariable());
+			v.setNotes(this.notes);
             v.setODE(rhs);
         }    
 
@@ -64,7 +74,7 @@ public class SBRule implements Named {
     // write MML
     public void writeMML(PrintWriter wrt) {
         if (aexpr == null) return;
-        wrt.println("  " + aexpr + " = 0;");
+        wrt.println("  " + aexpr + " = 0; "+this.notes);
     }
 
     // SBRule.List

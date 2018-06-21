@@ -67,6 +67,13 @@ public class SBSpecies implements Named {
         String compNameMML = sbcomp().v.mmlName;
         vspec.compartment = compNameMML;
 
+		if (s.isSetNotes()) {
+				SBNotes newNote = new SBNotes(s.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				vspec.setNotes(newNote.getNote());
+			}
+
         if (spec.isSetConversionFactor()) {
             vspec.conversionFactor = spec.getConversionFactor();
         }
@@ -131,6 +138,13 @@ public class SBSpecies implements Named {
             else {
                 vspec.setInitValue(form);
             }
+			if (ia.isSetNotes()) {
+				SBNotes newNote = new SBNotes(ia.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				vspec.setNotes(newNote.getNote());
+			}
+
         }
     }
     

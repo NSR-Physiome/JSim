@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-  Copyright (C) 1999-2011 University of Washington
+  Copyright (C) 1999-2018 University of Washington
   Developed by the National Simulation Resource
   Department of Bioengineering,  Box 355061
   University of Washington, Seattle, WA 98195-5061.
@@ -35,11 +35,27 @@ public class SBParameter implements Named {
         if (parm.isSetValue()) {
             var.setInitValue(parm.getValue());
         }
+		if (parm.isSetNotes()) {
+				SBNotes newNote = new SBNotes(parm.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				var.setNotes(newNote.getNote());
+		}
+
         InitialAssignment ia = sm.model.getInitialAssignment(p.getId());
         if (ia != null) {
             var.setInitValue(ia.getMath());
+			if (ia.isSetNotes()) {
+				SBNotes newNote = new SBNotes(ia.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				var.setNotes(newNote.getNote());
+			}
         }
         var.setUnit(parm.getUnits());
+
+
+
      }
     
     // query

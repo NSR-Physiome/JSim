@@ -24,6 +24,7 @@ public class SBReaction implements Named {
     protected Reaction reac;
     protected SBVar vrate;
     protected String eqn; // chem eqn
+	protected String notes;
     public int nstoichs;
     protected ArrayList<Stoich> stoichs; // product stoich
 
@@ -31,6 +32,13 @@ public class SBReaction implements Named {
     public SBReaction(SBModel sm, Reaction c) throws Xcept {
         sbmodel = sm;
         reac = c;
+		if (reac.isSetNotes()) {
+				SBNotes newNote = new SBNotes(reac.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				this.notes = new String(newNote.getNote());
+			}
+    	else { this.notes = new String(""); }
 
 
         // load stoichiometry
@@ -61,6 +69,14 @@ public class SBReaction implements Named {
         KineticLaw law = reac.getKineticLaw();
         String rate = (law == null) ?
             makeKRate() : makeMathRate(law);
+		if (law.isSetNotes()) {
+				SBNotes newNote = new SBNotes(law.getNotesString());
+				newNote.removeXMLTags();
+				newNote.addCommentIdentifiers();
+				vrate.setNotes(newNote.getNote());
+			}
+   
+		if(!this.notes.equals("")) {rate = rate.concat(this.notes);} // << this should work ok
         vrate.setAssign(rate);
         String sunit = "substance";
         String tunit = "time";
@@ -103,6 +119,14 @@ public class SBReaction implements Named {
             InitialAssignment ia = sbmodel.model.getInitialAssignment(sref.getId());
             if (ia != null) {
                 srvar.setInitValue(ia.getMath());
+				if (ia.isSetNotes()) {
+					SBNotes newNote = new SBNotes(ia.getNotesString());
+					newNote.removeXMLTags();
+					newNote.addCommentIdentifiers();
+					srvar.setNotes(newNote.getNote());
+				}
+
+
             }
             else if (sref.isSetStoichiometryMath()) {
                 //Note:  'stoichiometryMath' is only used in L2 models, which cannot
@@ -208,7 +232,7 @@ public class SBReaction implements Named {
 
     // write MML
     public void writeMML(PrintWriter wrt) {
-        wrt.println("// " + name() + ": " + eqn);
+        wrt.println("// " + name() + ": " + eqn+" "+ this.notes);
     }
 
     // Stoich class
