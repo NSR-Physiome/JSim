@@ -141,7 +141,9 @@ unitDecl ::= IDENT:n EQ NUMBER:d unitexpr:u unitPrefixable:p
 		   if (p.booleanValue()) 
 			parser.mr.units.setPrefixable(n); :}
 	   | CONVERSION IDENT:s
-		{: parser.mr.setUnitControl(s); :}
+		{: parser.mr.setUnitControl(s);
+           parser.mr.identifiers_HT.put("unit conversion" ,parser.mr.scan.getLineNo());
+        :}
 	   | PREFIX IDENT:s EQ NUMBER:d0
 		{: double f = Util.toDouble(d0);
 		   parser.mr.units.addPrefix(s, f); :}
