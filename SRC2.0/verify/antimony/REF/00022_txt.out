@@ -1,5 +1,5 @@
 // Created by libAntimony v2.8.0
-model *doc0()
+model file0()
 
   // Assignment Rules:
   reaction2 := compartment_*k2*S2;

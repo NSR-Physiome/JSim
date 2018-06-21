@@ -1,0 +1,17 @@
+// Created by libAntimony v2.8.0
+model file0()
+
+  // Assignment Rules:
+  z := delay(x, 1);
+  y := delay(x, z);
+
+  // Rate Rules:
+  x' = 1;
+
+  // Variable initializations:
+  x = 0;
+
+  // Other declarations:
+  var z, x, y;
+end
+

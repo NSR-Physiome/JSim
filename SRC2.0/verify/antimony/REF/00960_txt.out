@@ -1,5 +1,5 @@
 // Created by libAntimony v2.8.0
-model *doc0()
+model file0()
 
   // Variable initializations:
   P1 = 6.0221418e+23;
