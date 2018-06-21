@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2008 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -13,21 +13,33 @@ import JSim.util.*;
 import JSim.expr.*;
 import java_cup.runtime.Symbol;
 
+import java.util.Hashtable;
+
 %%
 %class ModelScanner
 %cup
 %line
 %char
 %{
-	// code to include in Yylex class
+ 	// code to include in Yylex class
 	public int getLineNo() { return yyline+1; }
 	public int getCharNo() { return yychar; }
 	public String tokText() { return new String(yytext()); }
 	public void lexError() throws Xcept {
 	    throw new Xcept("Illegal character");
 	}
+
+	Hashtable<Integer,String> commentsHT = new Hashtable<Integer,String>(); // Contains all of the comments and associated line numbers.
+	public Hashtable<Integer,String> getComments() { return commentsHT; }  
+	int lastSemiColLineNumb; // line number of last semicolon scanned;
+	public int getSemiColLineNumb() { return lastSemiColLineNumb; }
 %}
 
+    LineTerminator = \r|\n|\r\n
+    InputCharacter = [^\r\n]
+    WhiteSpace     = {LineTerminator} | [ \t\f]
+    EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+ 
 %eofval{
 	return new Symbol(ModelParserSym.EOF);
 %eofval}
@@ -36,16 +48,37 @@ import java_cup.runtime.Symbol;
 	Xcept
 %yylexthrow}
 
+Identifier = ([A-Za-z][0-9A-Za-z_]*".")*[A-Za-z][0-9A-Za-z_]* 
+
 %%
 "{{" ~"}}" { /* double brace enclosed code blocks */
 	   String s = tokText();
 	   s = s.substring(2, s.length()-2);
 	   return new Symbol(ModelParserSym.STRING, s);
 	}
-"//".*\n { /* ignore Unix comments */ }
-"//".*\r { /* ignore DOS comments */ }
-"/*" ~"*/" { /* ignore C-style comments */ }
+// "//".*\n { /* ignore Unix comments */ }
 
+{EndOfLineComment} {String s = tokText();s = s.substring(2, s.length()); 
+ 		  if(commentsHT == null){
+			commentsHT = new Hashtable<Integer,String>();
+		  }
+		  commentsHT.put(this.getLineNo(),s.trim()); 
+}
+ 
+"//".*\r { String s = tokText();s = s.substring(2, s.length()); 
+		  if(commentsHT == null){
+			commentsHT = new Hashtable<Integer,String>();
+		  }
+		  commentsHT.put(this.getLineNo(),s.trim());		
+  }
+"/*" ~"*/" {String s = tokText(); s = s.substring(2, s.length()-2);   
+		  if(commentsHT == null){
+			commentsHT = new Hashtable<Integer,String>();
+		  }
+		  commentsHT.put(this.getLineNo(),s.trim());
+
+}
+ 
 "JSim" { return new Symbol(ModelParserSym.JSIM); }
 "unit" { return new Symbol(ModelParserSym.UNIT); }
 "fundamental" { return new Symbol(ModelParserSym.FUNDAMENTAL); }
@@ -97,7 +130,10 @@ v[0-9]+"."[0-9]+ { return new Symbol(ModelParserSym.VERSION, tokText()); }
 "and"    { return new Symbol(ModelParserSym.AND, tokText()); }
 "or"     { return new Symbol(ModelParserSym.OR, tokText()); }
 
-([A-Za-z][0-9A-Za-z_]*".")*[A-Za-z][0-9A-Za-z_]* { return new Symbol(ModelParserSym.IDENT, tokText()); }
+//([A-Za-z][0-9A-Za-z_]*".")*[A-Za-z][0-9A-Za-z_]* { return new Symbol(ModelParserSym.IDENT, tokText()); }
+
+{Identifier} { String s = tokText(); return new Symbol(ModelParserSym.IDENT, tokText()); }
+
 ([0-9]+)?"."?[0-9]+([Ee]([+-])?[0-9]+)? { return new Symbol(ModelParserSym.NUMBER, tokText()); }
 [0-9]+"."?([0-9]+)?([Ee]([+-])?[0-9]+)? { return new Symbol(ModelParserSym.NUMBER, tokText()); }
 
@@ -108,11 +144,13 @@ v[0-9]+"."[0-9]+ { return new Symbol(ModelParserSym.VERSION, tokText()); }
 "/" { return new Symbol(ModelParserSym.DIVIDE); }
 "@" { return new Symbol(ModelParserSym.FORALL); }
 
-"(" { return new Symbol(ModelParserSym.LPAREN); }
+"(" { String s = tokText(); 
+      return new Symbol(ModelParserSym.LPAREN); }
 ")" { return new Symbol(ModelParserSym.RPAREN); }
 "{" { return new Symbol(ModelParserSym.LBRACE); }
 "}" { return new Symbol(ModelParserSym.RBRACE); }
-";" { return new Symbol(ModelParserSym.SEMI); }
+";" { this.lastSemiColLineNumb = this.getLineNo();  // pass in line number here 
+      return new Symbol(ModelParserSym.SEMI); }
 "," { return new Symbol(ModelParserSym.COMMA); }
 ":" { return new Symbol(ModelParserSym.DERIV); }
 
