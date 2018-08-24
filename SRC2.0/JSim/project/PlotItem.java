@@ -39,9 +39,9 @@ public class PlotItem extends PNamed {
 		new Class[] { PModel.class, PDataSet.class });
 	    expr = new PlotDataControl(this, "expr", dataSrc, false);
 	    color = new ChoiceControl(this, "color", inx % 13,
-			  new String[] { "black", "red", "green", "orange", 
-			 "blue", "indigo", "violet2", "gray", "forest", "salmon", 
-			 "brown", "violet", "yellow" } );	    
+					  new String[] { "black", "red", "green", "blue", "orange", 
+             "turquoise","violet2", "indigo", "gray", "forest", "salmon", 
+			 "brown", "violet" } );	    
 	    size = new ChoiceControl(this, "size", 1,
 		new String[] { "tiny", "small", "normal", "big" } );	    
 	    shape = new ChoiceControl(this, "shape", 0,
