@@ -83,16 +83,16 @@ public class GLook {
 	    plotColors[k++] = Color.black; // black
 	    plotColors[k++] = Color.red; // red
 	    plotColors[k++] = Color.green; // green
-	    plotColors[k++] = new Color(255,127,0); // orange
 	    plotColors[k++] = Color.blue;  // blue
-	    plotColors[k++] = new Color(0,64,127); // indigo
+		plotColors[k++] = new Color(255,127,0); // orange
+		plotColors[k++] = new Color(64,224,208); // turquoise .. added
 	    plotColors[k++] = new Color(127,0,127); // violet2
+	    plotColors[k++] = new Color(0,64,127); // indigo
 	    plotColors[k++] = new Color(140,140,140); // gray
 	    plotColors[k++] = new Color(46,139,87); // forest
 	    plotColors[k++] = new Color(233,150,122); // salmon
 	    plotColors[k++] = new Color(139,35,35); // brown
 	    plotColors[k++] = new Color(160,32,240); // violet
-	    plotColors[k++] = new Color(255,204,51); // dark yellow .. Added
 
 	    // read icons
 	    jsimIcon = readIcon("jsim.gif");
