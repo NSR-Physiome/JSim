@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -13,13 +13,16 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.event.*;
+import java.awt.datatransfer.*;
+import javax.swing.text.DefaultEditorKit;
 
 import JSim.util.*;
 import JSim.data.*;
 import JSim.project.*;
 
 public class GPlotText extends GNode 
-implements AdjustmentListener, MouseWheelListener {
+	implements AdjustmentListener, /*CaretListener,*/ MouseWheelListener {
 
 	// state
 	private JPanel jpanel;
@@ -31,6 +34,10 @@ implements AdjustmentListener, MouseWheelListener {
 	private int horizOfs, horizTot, horizExtent;
 	private Data.List currData;
 	private int fontH;
+	private JLabel l_hdr; 
+	//	private String lastFind; // text from last find
+	public GAction copy;
+	//public GAction findText, findAgain; // Issues, not currently in use.
 
 	// constructor from PNotes
 	public GPlotText(GNode p, PlotPage pa) {
@@ -44,16 +51,17 @@ implements AdjustmentListener, MouseWheelListener {
 		    refreshExtent(); 
 		}
 	    };
-	    setJComp(jpanel);
+	    setJComp(jpanel); 
 
 	    // text
 	    text = new JTextArea("text area");
 	    text.setBackground(glook().dark());
-	    text.setEditable(false);
+		text.setEditable(false);
 	    setIndentedBorder(text);
 	    jpanel.add(text, BorderLayout.CENTER);
 	    jpanel.addMouseWheelListener(this);
 
+ 	
 	    // scrollbars
 	    vscroll = new JScrollBar(JScrollBar.VERTICAL);
 	    jpanel.add(vscroll, BorderLayout.EAST);
@@ -70,6 +78,68 @@ implements AdjustmentListener, MouseWheelListener {
 	    horizOfs = 0;
 	    horizTot = 100;
 	    horizExtent = 10;
+
+		// Actions:
+        copy = new GAction(this, "copy") {
+                public void doit() {
+					text.copy();
+					refresh();
+				}
+		};
+
+		// Remove for now, only searches text in current panel, not all of data
+		/*
+		findText = new GAction(this, "find") {
+		public void doit() throws Xcept {
+		    String msg = "Find text";
+		    lastFind = (String) JOptionPane.showInputDialog(
+			    jcomp(), msg, msg, 
+			    JOptionPane.QUESTION_MESSAGE, 
+			    glook().userIcon(),
+			    null, lastFind);
+		    text.requestFocus();
+		    if (Util.isBlank(lastFind)) return;
+		    findAgain.doit();
+		}
+	    };
+	    findAgain = new GAction(this, "find again") {
+		public void doit() throws Xcept {
+			String alltext = text.getText();
+		    int cpos = text.getCaretPosition();
+		    int npos = alltext.indexOf(lastFind, cpos);
+		    if (npos <= cpos) npos = alltext.indexOf(lastFind);
+		    if (npos<0) throw new Xcept("Can't find \"" + 
+			lastFind + "\" in current editor window");
+		    text.setCaretPosition(npos); 
+		    text.setSelectionStart(npos);
+		    text.setSelectionEnd(npos + lastFind.length());
+		}
+	    };
+		*/
+
+		// set accels 
+		copy.setAccel('C',false);
+		//findText.setAccel('F',false); // Not working, opens pop-up in left panel
+		//findAgain.setAccel('N',false); // setting to 'true' (using shift key) seems to work.
+
+	    // menubar
+		JMenuBar mbar = new JMenuBar();
+	    l_hdr = new JLabel();
+	    setTabLabel(l_hdr);
+	    mbar.add(l_hdr);
+	    JMenu menu;
+
+		menu = newMenu("Edit");
+		menu.add(copy.item());
+		// Debug:
+		// KeyStroke checkKey = copy.item().getAccelerator();
+		// System.out.println("GPlotText:constructor: copy acceler:"+checkKey.toString());
+	    
+		//menu.add(findText.item());  // Not in use
+	    //menu.add(findAgain.item()); //     "
+		mbar.add(menu);
+	    jpanel.add(mbar, BorderLayout.NORTH); 
+
 	}
 
 	// refresh
@@ -120,6 +190,17 @@ implements AdjustmentListener, MouseWheelListener {
 	    }
 	}
 
+	/*  NEEDED for find
+	// caret moved
+	public void caretUpdate(CaretEvent e) {
+	    try {
+	    	int line = text.getLineOfOffset(e.getDot());
+	    	//gproject().setEditLine(line+1);
+	    } catch (Exception ex) { 
+		// no biggie if fails
+	    }
+		} */
+
 	// new layout determines vertExtent
 	private void refreshExtent() {
 	    Font font = glook().textFont();
@@ -156,11 +237,19 @@ implements AdjustmentListener, MouseWheelListener {
 	    hscroll.setValues(horizOfs, hext, 0, horizTot);
 
 	    // refresh text
-	    refreshText();
+		try{
+			refreshText();
+		}
+		catch(UnsupportedFlavorException e) {
+			e.printStackTrace();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// refresh text
-	private void refreshText() throws Xcept {
+	private void refreshText() throws UnsupportedFlavorException, IOException, Xcept {
 	    if (pwrt == null) refreshPretty();
 	    String s;
 	    if (currData == null || currData.size() == 0) {
@@ -173,6 +262,7 @@ implements AdjustmentListener, MouseWheelListener {
 		s = clipText(s);
 	    }
 	    text.setText(s);
+
 	}
 
 	// refresh pwrt
@@ -224,5 +314,6 @@ implements AdjustmentListener, MouseWheelListener {
 	    page.addData(dlist);
 	    return dlist;
 	}
+
 
 }
