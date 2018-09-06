@@ -48,7 +48,7 @@ public class GPlotText extends GNode
 	    jpanel = new JPanel(new BorderLayout()) { 
 		public void doLayout() { 
 		    super.doLayout();
-		    refreshExtent(); 
+			refreshExtent(); 
 		}
 	    };
 	    setJComp(jpanel); 
@@ -83,7 +83,7 @@ public class GPlotText extends GNode
         copy = new GAction(this, "copy") {
                 public void doit() {
 					text.copy();
-					refresh();
+					//refresh();
 				}
 		};
 
