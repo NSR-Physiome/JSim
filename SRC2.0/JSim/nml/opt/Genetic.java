@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -37,8 +37,6 @@ public class Genetic extends Optimizer {
 	
 	    // initialize
 	    OptimArgs args = res.args;
-	
-	    // System.err.println("GS mut=" + args.mutationRate);
 	    if (args.mutationRate < 0 || args.mutationRate > 1)
 	        throw new Xcept(
 	        "Genetic Optimizer: 0<=Mutation Rate<=1. Illegal mutationRate=" + args.mutationRate);
@@ -74,7 +72,6 @@ public class Genetic extends Optimizer {
 	
 	    //main GA loop
 	    for (int i=0; i < numIterations; ++i) {
-	
 	        //next generation
 	        best = oneStep( population, 
 	                        selectionMethod, 
@@ -149,8 +146,8 @@ public class Genetic extends Optimizer {
 	// rest of v3 equals v2 index by index
 	private static double[] crossOver(double[] v1, double[] v2) {
 	    double[] v3 = new double[v1.length];
-	
-	    //take half of each vector
+
+ 	    //take half of each vector
 	    for (int i=0; i < v1.length/2; ++i) {
 	        v3[i] = v1[i];
 	    }
@@ -160,6 +157,7 @@ public class Genetic extends Optimizer {
 	    //average the two vectors
 	    //for (int i=0; i < v1.length && i < v2.length; ++i)
 	    //    v3[i] = 0.5* ( v1[i] + v2[i] );
+
 	    return v3;
 	}
 	
@@ -170,16 +168,19 @@ public class Genetic extends Optimizer {
 	                               double[] minValues, double[] maxValues, RTContext ctxt) {
 	    double[] v = new double[x.length];
 	    int n = (int)(v.length * prob);
-	    if (n < 1) {  //at least one mutation
-	        n = 1;
+	    if (n < 1) {  // at least one mutation
+			n = 1;
 	    }
 	    int k = 0;
-	
-	    for (int i=0; i < n; ++i) {
-	        k = (int)(ctxt.random() * v.length);
-	        v[k] += stepSize * (maxValues[i] - minValues[i]) * (ctxt.random() - 0.5);// * v[k];
+		// Initialize mutant child with current child
+		for(int j=0;j<v.length;j++) {
+			v[j] = x[j];
+		}
+
+	    for ( int i=0; i < n;i++ ) {
+			k = (int)(ctxt.random() * v.length);
+	        v[k] += stepSize * (maxValues[k] - minValues[k]) * (ctxt.random() - 0.5);// * v[k];
 	    }
-	
 	    return v;
 	}
 	
@@ -198,7 +199,6 @@ public class Genetic extends Optimizer {
 	        for (int j=0; j < vecsize; ++j) {
 	            if (minValues.length > j && maxValues.length > j &&
 	                (population[i][j] > maxValues[j] || population[i][j] < minValues[j])) {
-	
 	                //pick random values in the given interval
 	                population[i][j] = minValues[j] + ctxt.random()*(maxValues[j] - minValues[j]);  
 	            }
@@ -221,8 +221,8 @@ public class Genetic extends Optimizer {
 	        }
 	    }
 	
-	    //adjust fitness so that min is at 0
-	    maxfitness -= minfitness;
+	    //adjust fitness so that min is at 0 (cost is 0)
+		maxfitness -= minfitness;
 	    for (int i=0; i < fitness.length; ++i) {
 	        fitness[i] -= minfitness;
 	    }
@@ -233,7 +233,6 @@ public class Genetic extends Optimizer {
 	    int popsz = 1;
 	
 	    //selection loop
-	
 	    switch (selectionMethod) {
 	
 	        case 0: { //roulette wheel
@@ -248,7 +247,7 @@ public class Genetic extends Optimizer {
 	            
 	                while (r2 < r1 && k < (fitness.length-1)) { //convert fitness -> probability
 	                    r2 += fitness[k];
-	                    ++k;
+						 ++k;
 	                }
 	                double[] child;
 	                if (ctxt.random() < crossoverProb) { //do crossover?
@@ -257,7 +256,7 @@ public class Genetic extends Optimizer {
 	                    int k2 = 0;
 	                    while (r2 < r1 && k2 < (fitness.length-1)) {
 	                        r2 += fitness[k2];                            
-	                        ++k2;
+							 ++k2;
 	                    }
 	                    child = crossOver(population[k], population[k2]);
 	                    child = mutate(child, mutationProb, mutationStep, minValues, maxValues, ctxt);
@@ -265,7 +264,7 @@ public class Genetic extends Optimizer {
 	                    child = mutate(population[k], mutationProb, mutationStep, minValues, maxValues, ctxt);
 	                }
 	                newPopulation[popsz] = child;
-	                ++popsz;
+	                 ++popsz;
 	            }
 	            break;
 	        }
@@ -274,14 +273,14 @@ public class Genetic extends Optimizer {
 	            int k1,k2,k3,k4,p1,p2;
 	            while (popsz < population.length) {
 	                double[] child;
-	                k1 = (int)(population.length * ctxt.random());  //pick an individual
-	                k2 = (int)(population.length * ctxt.random()); //pick an individual
-	                if (fitness[k1] > fitness[k2]) {  //select best of two
+	                k1 = (int)(population.length * ctxt.random()); // pick an individual
+	                k2 = (int)(population.length * ctxt.random()); // pick an individual
+	                if (fitness[k1] > fitness[k2]) {  // select best of two
 	                    p1 = k1;
 	                } else {
 	                    p1 = k2;
 	                }
-	                if (ctxt.random() < crossoverProb){ //do crossover?
+	                if (ctxt.random() < crossoverProb){  // do crossover?
 	                    k3 = (int)(population.length * ctxt.random());
 	                    k4 = (int)(population.length * ctxt.random());
 	                    if (fitness[k3] > fitness[k4]) {
@@ -304,44 +303,46 @@ public class Genetic extends Optimizer {
 	            if (elitismPercent >= 1 || elitismPercent <= 0) {
 	                elitismPercent = 0.5;
 	            }
+				popsz = 0;
 	            double[] sortedFitness = new double[fitness.length];
 	            for (int i=0; i < fitness.length; ++i) {
 	                sortedFitness[i] = fitness[i];
 	            }
 	            Arrays.sort(sortedFitness);
 	            double cutoff = sortedFitness[ (int)(fitness.length*(1 - elitismPercent)) ];
-	            for (int i=0; i < population.length; ++i) {
-	                if (fitness[i] > cutoff) {
+	            for (int i=0; i < population.length; i++ ) {
+	                if (fitness[i] > cutoff) {   // KEEP
 	                    newPopulation[popsz] = cloneArray(population[i]);
-	                    ++popsz;
+						popsz++ ;
 	                }
 	            }
-	            popsz = 0;
+ 
 	            while (popsz < population.length) {
 	                double[] child;
 	                if (ctxt.random() < crossoverProb) {
 	                    child = crossOver(
-	                            newPopulation[(int)(ctxt.random() * newPopulation.length)],
-	                            newPopulation[(int)(ctxt.random() * newPopulation.length)]);
+							   population[(int)(ctxt.random() * population.length)],
+							   population[(int)(ctxt.random() * population.length)]);
 	                    child = mutate(child, mutationProb, mutationStep, minValues, maxValues, ctxt);
 	                } else {
 	                    child = mutate(
-	                            newPopulation[(int)(ctxt.random() * newPopulation.length)],
+						   // newPopulation[(int)(ctxt.random() * newPopulation.length)],
+								population[(int)(ctxt.random() * newPopulation.length)],
 	                            mutationProb,
 	                            mutationStep,
 	                            minValues, maxValues,
 	                            ctxt);
 	                }
 	                newPopulation[popsz] = child;
-	                ++popsz;
+	                popsz++;
 	            }
 	        }
 	    }
 	
 	    //       population = newPopulation;
-	    for (int i=0; i < population.length && i < newPopulation.length; ++i) {
-	        for (int j=0; j < population[i].length && j < newPopulation[i].length; ++j) {
-	            population[i][j] = newPopulation[i][j];  
+	    for (int i=0; i < population.length && i < newPopulation.length; i++) {
+	        for (int j=0; j < population[i].length && j < newPopulation[i].length; j++) {
+	            population[i][j] = newPopulation[i][j]; 
 	        }
 	    }
 	    return maxfitness;
@@ -353,14 +354,13 @@ public class Genetic extends Optimizer {
 	                                     double[] xstart, double[] minValues, 
 	                                     double[] maxValues , RTContext ctxt) {
 	    double[][] population = new double[ populationSize ][ vectorSize ];
-	    for (int j=0; j<vectorSize; j++) {
+	    for (int j=0; j<vectorSize; j++) {  // vectorSize: number of params to adjust.
 	        population[0][j] = xstart[j];
 	    }
 	    for (int i=1; i < populationSize; ++i) {
 	        for (int j=0; j < vectorSize; ++j) {
 	            if (minValues.length > j && maxValues.length > j) {
-	
-	                //pick random values in the given interval
+ 	                // pick random values in the given interval:
 	                population[i][j] = minValues[j] + ctxt.random()*(maxValues[j] - minValues[j]);
 	            } else {
 	                population[i][j] = ctxt.random(); //between 0 and 1
