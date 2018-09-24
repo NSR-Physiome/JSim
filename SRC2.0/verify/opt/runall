@@ -13,6 +13,7 @@ run1 basic sensop amp decay
 echo "Note: simanneal & genetic: show diffs due to randomization"
 run1 basic simanneal amp decay
 run1 basic genetic amp decay
+run1 Genetic_test genetic KdH kpfH
 
 # reentrancy: optim and fzero
 run1 fzero_bound simplex a b
