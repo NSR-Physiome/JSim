@@ -84,7 +84,7 @@ public class SBWriter {
 		this.comments_HT = comments;
 		this.idents_HT = new Hashtable<String,Integer>();
 		this.idents_HT = identifiers;
-		String modelComment = findComment(1); 
+		String modelComment = findComment(1); 	// Find comment on line 1
 		int notesSet = this.model.setNotes(modelComment,true); // 0 = success, <0 = fail
 		if (notesSet != libsbml.LIBSBML_OPERATION_SUCCESS) { 
 			warnings.add("Could NOT add comment to SBML model:"+modelComment);
@@ -1018,13 +1018,23 @@ public class SBWriter {
 					comment = comment.concat(System.getProperty("line.separator"));
 				}
 			}
-			return comment;
+			return this.replaceChars(comment);
 		}
 		// Just return comment that corresponds to line number, if any:
 		else {	if (comments_HT.containsKey(lineNumber) ) {
 					comment = comment.concat(comments_HT.get(lineNumber)); }
 		}
-		return comment; 
+		return this.replaceChars(comment); 
+	}
+
+	// Replace invalid xml chars
+	private String replaceChars(String origComment) throws Xcept {
+		String modelComSafe = origComment.replace("<","&lt;");
+		modelComSafe = modelComSafe.replace(">","&gt;");
+		modelComSafe = modelComSafe.replace("&","&amp;");
+		modelComSafe = modelComSafe.replace("\"","&quot;");
+		modelComSafe = modelComSafe.replace("'","&apos;");
+	return modelComSafe;
 	}
 
     //// TEST HARNESS
