@@ -341,6 +341,7 @@ public class SBVar implements Named {
     public String toString() { return name; }
 	public String notes() { return notes; }
 	protected boolean setNotes(String newNotes) {
+		newNotes = newNotes.replace(System.getProperty("line.separator"), "");
 		if(this.notes.equals("")) {
 			this.notes = new String(newNotes);
 			return true;
