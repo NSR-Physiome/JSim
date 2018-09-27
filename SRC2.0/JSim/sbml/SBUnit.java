@@ -40,6 +40,7 @@ public class SBUnit implements Named {
 				newNote.removeXMLTags();
 				newNote.addCommentIdentifiers();
 				this.notes = new String(newNote.getNote());
+				this.notes = this.notes.replace(System.getProperty("line.separator"), "");
 			}
     	else { this.notes = new String(""); }
 
