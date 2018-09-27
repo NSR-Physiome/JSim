@@ -26,25 +26,29 @@ public class SBNotes {
 	private String note;
 
 	public static final String XHTML_TAG = new String("<p xmlns=\"http://www.w3.org/1999/xhtml\">");
+	public static final String XHTML_BODY_TAG = new String("<body xmlns=\"http://www.w3.org/1999/xhtml\">");
+	public static final String END_BODY_TAG = new String("</body>");
 	public static final String END_P_TAG = new String("</p>");
+	public static final String BEGIN_P_TAG = new String("<p>");
 	public static final String NOTE_TAG = new String("<notes>");
 	public static final String END_NOTE_TAG = new String("</notes>");
 
 	public SBNotes(String sbmlNote) throws Xcept {
 		note = new String(sbmlNote);
-	
 	}
 
 	public SBNotes(XMLNode sbmlNote) throws Xcept {
-		note = new String(sbmlNote.toXMLString());
-	
+		note = new String(sbmlNote.toXMLString());	
 	}
 
 	public void removeXMLTags() {
-		note = note.replace(NOTE_TAG, "");
-		note = note.replace(END_NOTE_TAG, "");
-		note = note.replace(XHTML_TAG,"");
+		note = note.replace(NOTE_TAG, " ");
+		note = note.replace(END_NOTE_TAG, " ");
+		note = note.replace(XHTML_TAG," ");
+		note = note.replace(XHTML_BODY_TAG," ");
+		note = note.replace(BEGIN_P_TAG,"");
 		note = note.replace(END_P_TAG,"");
+		note = note.replace(END_BODY_TAG,"");
 		note = note.trim();
 	}
 
