@@ -1,0 +1,53 @@
+Optimizer Tuning Parameters:
+    Algorithm       sensop
+    Max # runs      10
+    Min RMS error   0.0
+    Min par step    0.0
+    Max static iter 0
+    Min gradient    0.0
+
+Parameters to Vary:
+   Parameter        Start           Min            Max      
+     e_PSg        .97763699          .1             10      
+    e_Visfp       .13998701     9.9999997E-5       1E3      
+     p_PSg            0              0              10      
+
+Data to Match:
+   Curve        Par/Expr         Point Wgts     Curve Wgt   
+ R1s2 "3H"       Cout_e              1              1       
+R1s3 "14C"       Cout_p              1              1       
+ R1s2 "3H"       Cout_e              1              1       
+R1s3 "14C"       Cout_p              1              1       
+
+Optimization Results:
+   termination status   Met # calls would have exceeded stopping criterion
+   # evaluations        6
+   best RMS error       .019954 on run #6
+
+   RMS and relative RMS (RRMS) error for each curve at run #6:
+     Curve           RMS            RRMS     
+      R1s2         .011544        .456416    
+      R1s3         .022208        .715059    
+      R1s2         .011059        .462512    
+      R1s3          .02905        .714385    
+
+   best parameter values:
+    Parm         value        +/- 1SD       90%         95%         99%    
+    e_PSg      1.5665339      .309145     .516899     .619052     .823828  
+   e_Visfp     .12783103      .035065     .05863      .070217     .093444  
+    p_PSg      .17106277      .131178     .219333     .262678     .34957   
+
+Correlation matrix: (condition number=77.781914)
+                e_PSg      e_Visfp      p_PSg   
+    e_PSg         1        .010801   -2.53041E-4
+   e_Visfp     .010801        1       -0.023428 
+    p_PSg    -2.53041E-4  -0.023428       1     
+
+    run#        e_PSg      e_Visfp      p_PSg     RMS error 
+      1        .977637     .139987        0        .022148  
+      2        .977637     .139987        0        .022148  
+      3        .972863     .139987        0        .022168  
+      4        .977637     .139303        0        .022148  
+      5        .977637     .139987     .004883     .02212   
+      6        1.56653     .127831     .171063     .019954  
+
