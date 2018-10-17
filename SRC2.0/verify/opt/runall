@@ -60,4 +60,6 @@ run2 OptimReportRRMSpointWgt
 run2 OptimReportRRMSRangeNonZero
 run2 OptimReportRRMSRangeZero
 
+# BUGs
+run2 Optim_manycurve
 
