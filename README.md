@@ -14,7 +14,7 @@ be found in the on-line JSim documentation set:
 
  http://www.physiome.org/jsim/docs/Devel_Build.html
   
-JSim Binaries for MS Windows, Apple OS, and Redhat EL 5/6 can be found at:
+JSim Binaries for MS Windows, Apple OS, and CentOS EL 6/7 can be found at:
  
  http://www.physiome.org/jsim/download/index.html
  
