@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2015 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -201,8 +201,8 @@ public class DataCompare implements DiagInfo {
 	double[] curveW = this.curveWgts;  // get # of curvewgts: curveW.length
 	curveData = this.refs.info();
 	IndividCrvResults[] compareResults = new IndividCrvResults[curveData.length];
-	for(int i=0; i<curveData.length; i++) {	      
-	    Data nCurve =this.refs.dataForName(curveData[i].name);  // get individ curve
+	for(int i=0; i<curveData.length; i++) {	    
+		Data nCurve =this.refs.data(i);     // get individ curve
 	    if(nCurve != null) {
 		   Data.List individC = new Data.List(1);
 		   individC.add(nCurve);	
