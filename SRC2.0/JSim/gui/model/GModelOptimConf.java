@@ -178,14 +178,14 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 	    // set gleft/gright row visibility
 	    for (int r=0; r<gleft.nrows(); r++) {
 	    	String n = gleft.gcntl(r).cntl().name();
-		boolean vis = alg != null && alg.parNeeded(n);
-		if (r < 5) vis = true;
-		gleft.setRowVisible(r, vis);
+			boolean vis = alg != null && alg.parNeeded(n);
+			if (r < 5) vis = true;
+			gleft.setRowVisible(r, vis);
 	    }
 	    for (int r=0; r<gright.nrows(); r++) {
 	    	String n = gright.gcntl(r).cntl().name();
-		boolean vis = alg != null && alg.parNeeded(n);
-		gright.setRowVisible(r, vis);
+			boolean vis = alg != null && alg.parNeeded(n);
+			gright.setRowVisible(r, vis);
 	    }
 
 	    // set gpars column visibility
@@ -218,7 +218,7 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 		super(p, 
 		    new String[] { "Parameter", "", "Start", 
 			"Min", "Max", "Step", "OK" },
-		    new int[] { 7, 1, 6, 6, 6, 4, 2},
+			  new int[] { 8, 1, 6, 6, 6, 4, 2},
 		    4);
 		optim = o;
 	    }
@@ -283,7 +283,7 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 		super(p, 
 		    new String[] { "DataSet", "Curve", "", "Par/Expr", "", 
 			"Pwgt", "Cwgt", "OK" },
-		    new int[] { 6, 5, 1, 5, 1, 4, 4, 2 },
+			  new int[] { 8, 7, 1, 7, 1, 4, 4, 2 },
 		    4);
 		optim = o;
 	    }
