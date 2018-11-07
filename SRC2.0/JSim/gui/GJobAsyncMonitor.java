@@ -31,6 +31,7 @@ public class GJobAsyncMonitor implements ActionListener {
 	private GMain gmain;
 	private ArrayList<GJob> queue;  // all GJobs
 
+
 	// current internal state
 	private GJob gjob;
 	private PJob pjob;
@@ -81,6 +82,7 @@ public class GJobAsyncMonitor implements ActionListener {
 	    queue.add(gjob);
 	    if (queue.size() == 1) start(gjob);
 	}
+
 
 	// start a job
 	private void start(GJob g) {
@@ -178,6 +180,13 @@ public class GJobAsyncMonitor implements ActionListener {
 		pjob.postRun();
 		normal = (pjob.stat() == PJob.NORMAL);
 		msg = pjob.termMessage();
+        // Do not backup if Applet or user does not want to:
+		if( (! gmain.isApplet()) && (gmain.getBkupProj()==true) ) {
+		// See ASModel for jobCodes
+			if((pjob.jobCode()>=0) && (pjob.jobCode()< 5)) {
+				pjob.backup();
+			}
+		}
 	    } catch (Xcept e) {
 		normal = false;
 	        msg = e.cleanMessage() + ": " + pjob.termMessage();
