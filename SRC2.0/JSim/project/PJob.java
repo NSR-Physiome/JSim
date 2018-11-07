@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -7,11 +7,13 @@
 END_NSRCOPYRIGHT*/
 // An batch job
 
-package JSim.project; import JSim.aserver.*;
+package JSim.project; 
 
-import JSim.util.*;
 import JSim.aserver.*;
+import JSim.util.*;
 import JSim.data.*;
+
+import java.io.*;
 
 abstract public class PJob extends Thread {
 
@@ -43,7 +45,7 @@ abstract public class PJob extends Thread {
 	public PJob(PNamed p, int jcode) {
 	    super();
 	    pnamed = p;
-	    jobCode = jcode;
+ 	    jobCode = jcode;
 	    stat = UNSAFE;
 	    errMsg = null;
 	    stackTrace = false;
@@ -115,6 +117,28 @@ abstract public class PJob extends Thread {
 		return "aborted: " + errMsg;
 	    }	
 	}
+
+		// Write out to file in case next run crashes:
+	public boolean backup() throws Xcept { 
+			try {
+			PModel currModel = this.pmodel();
+			Project project = currModel.project();
+			File file = new File(pnamed.name()+"_LastRun.proj");  // change name? ....
+			// write project file
+			OutputStream out = new FileOutputStream(file);
+			PrintStream pout = new PrintStream(out);
+			project.writeXML(pout);
+			pout.close();
+			}
+			catch (FileNotFoundException e) {
+				throw new Xcept("Unable to backup current project: "+ e.getMessage());
+			} catch (SecurityException e) {
+				throw new Xcept(
+					"Backup file save operation not allowed:  " + e.getMessage()+ ".");
+			}
+		return true;			
+	}
+
 	public PModel pmodel() { return (PModel) pnamed; }
 	public int stat() { return stat; }
 	public int jobCode() { return jobCode; }
@@ -169,7 +193,7 @@ abstract public class PJob extends Thread {
 	    	"This job can't setSaveExprs(): " + getClass());
 	    String s = list.toString(";", false);
 	    baseVals.setVal("memory.saveExprs", s);
-System.err.println("Setting memory.saveExprs=" + s);
+	    System.err.println("Setting memory.saveExprs=" + s);
 	}
 
 }	
