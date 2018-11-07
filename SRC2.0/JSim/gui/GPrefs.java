@@ -28,12 +28,14 @@ public class GPrefs {
 	public int[] rgb;
 	public int fontSize;
 	public int[] winSize;
+	public Boolean bkupProj;
 
 	// create preferences from theme
-	public GPrefs(GLook glook) {
+	public GPrefs(GLook glook, Boolean bkup) {
 	    rgb = glook.rgb();
 	    fontSize = glook.fontSize();
 	    winSize = glook.winSize();
+		bkupProj = new Boolean(bkup);
 	}
 
 	// load preferences from file
@@ -74,6 +76,10 @@ public class GPrefs {
 			"illegal format for window size preference in file " 
 			+ f.getPath());
 		}
+
+		if(name.equals("bkupProj")) {
+			bkupProj = new Boolean(value);
+		}
 	    }
 	}
 
@@ -101,6 +107,8 @@ public class GPrefs {
 		fontSize + "\"/>");
 	    wrt.println("    <preference name=\"windowSize\" value=\"" +
 		winSize[0] + "x" + winSize[1]+ "\"/>");
+	    wrt.println("    <preference name=\"bkupProj\" value=\"" +
+					bkupProj.toString() + "\"/>");
 	    wrt.println("  </preferences>");
 	    wrt.println("</JSim>");
 	    wrt.close();
