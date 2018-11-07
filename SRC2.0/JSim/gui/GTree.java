@@ -33,7 +33,7 @@ implements ListCellRenderer, MouseListener {
 
 	// actions
 	public GAction blue, lightBlue, aqua, green, pink, violet, peach, gray, 
-	    customColor, maxProc,
+	    customColor, maxProc, bkupProj,
 	    biggerFont, smallerFont, savePrefs,
 	    sbwregister, sbwenable, sbwshow, sbwchange;
 	public JMenuItem sbwtarget;
@@ -55,6 +55,13 @@ implements ListCellRenderer, MouseListener {
 		    maxProcDialog();
 		}
 	    };
+
+		bkupProj = new GAction(this, "Auto backup project file" ) {
+	    	public void doit() throws Xcept {
+		    bkupProjDialog();
+		}
+	    };
+
 	    blue = new GAction(this, "Blue background") {
 		public void doit() { 
 		    glook().resetColor(GLook.DEFAULT_BACKGROUND_RGB);
@@ -122,7 +129,7 @@ implements ListCellRenderer, MouseListener {
 	    savePrefs = new GAction(this, "Save preferences") {
 		public void doit() throws Xcept {
 		    glook().setWinSize(gproject());
-		    GPrefs p = new GPrefs(glook());
+		    GPrefs p = new GPrefs(glook(),gappl().bkupProj);
 		    File f = gappl().preferencesFile();
 		    if (f == null) 
 			gproject().securityXcept();
@@ -279,6 +286,8 @@ implements ListCellRenderer, MouseListener {
 	    menu.addSeparator();
 	    menu.add(maxProc.item());
 	    menu.addSeparator();
+		menu.add(bkupProj.item());
+		menu.addSeparator();
 	    menu.add(blue.item());
 	    menu.add(lightBlue.item());
 	    menu.add(aqua.item());
@@ -326,6 +335,24 @@ implements ListCellRenderer, MouseListener {
 	    nproc = nval.intVal();
 	    gproject().message("JSim now using " + nproc +
 	    	" compute thread(s) on " + sproc + " system processors");
+	}
+
+	public void bkupProjDialog() throws Xcept {
+
+		String bkupValue = "";
+		if(gmain().getBkupProj() == true) bkupValue = "Yes";
+		else  bkupValue = "No";
+		String bkupMSG = "Always backup project file after successful run? (Currently: "+bkupValue+")";
+		int a =JOptionPane.showConfirmDialog(jcomp(),bkupMSG,"Backup project file",
+				 JOptionPane.YES_NO_OPTION,0, glook().modelIcon());
+		if(a == 0) {
+			gmain().setBkupProj(true); // Ideally should only set in one place. Why can't we?
+			gappl().bkupProj = true;
+		}
+		else {
+			gmain().setBkupProj(false);
+			gappl().bkupProj = false;
+		}
 	}
 
 	// get list of selected GNodes in tree
