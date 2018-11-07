@@ -160,10 +160,18 @@ public class GJobSyncMonitor extends Thread {
 
 		// postRun
 		pjob.postRun();
+
 		String msg = pjob.getName() + 
 		    ": " + pjob.termMessage() + "\n";
-		if (pjob.stat() == PJob.NORMAL) 
+		if (pjob.stat() == PJob.NORMAL) { 
 		    gproj.message(msg);
+			if( ! gproj.isApplet() ) { // Do not backup if Applet
+				// See ASModel for jobCodes
+				if((pjob.jobCode()>=0) && (pjob.jobCode()< 5)) {
+					pjob.backup();
+				}
+			}
+		}
 		else {
 		    gproj.warning(msg);
 		    if (pjob instanceof PModelBuildJob)
