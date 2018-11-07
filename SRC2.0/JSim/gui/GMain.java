@@ -38,6 +38,7 @@ public class GMain extends GNode {
 	public GJobAsyncMonitor monitor; // job monitor
 	public JLabel appletLabel; // if applet and newFrame
 	private boolean disconnected; // has been disconnected
+	private Boolean bkupProj;  // bkup project file after every run.
 
 	// no GActions here!  GAction requires GProject
 
@@ -45,7 +46,6 @@ public class GMain extends GNode {
 	public GMain(JApplet a, String[] args) {
 	    super(null, null);
 	    applet = a;
-
 	    // establish Project window,  exit on error
 	    saveErr = System.err;
 	    GProject gproj = null;
@@ -64,6 +64,10 @@ public class GMain extends GNode {
 		// look and feel manager
 		glook = new GLook(this, gappl.lookName, gappl.rgb(),
 		    gappl.fontSize(),  gappl.winSize());
+		bkupProj = new Boolean(gappl.bkupProj) ;  // Default to no bkup?
+		if (bkupProj == null) {
+			bkupProj = new Boolean(false);
+		}
 
 		// help links init
 		helpLinks = new GHelpLinks(this);
@@ -136,6 +140,11 @@ public class GMain extends GNode {
 	public GAppl gappl() { return gappl; }
 	public GSBW gsbw() { return gsbw; }
 	public GHelpLinks helpLinks() { return helpLinks; }
+	public void setBkupProj(Boolean b) {
+		bkupProj = b;
+	}
+	public Boolean getBkupProj() {return bkupProj; }
+
 	public void warning(String s) {
 	    if (isApplet())
 		applet.showStatus(s);
