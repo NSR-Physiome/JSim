@@ -40,6 +40,8 @@ public class GAppl extends PApplication {
 	public int tabType; // which project tab class?
 	public boolean newFrame; // new frame even if applet
 	public boolean demoMode; // compile/push fwd model & plot
+	public Boolean bkupProj;  // Auto Backup proj file
+
 	public StringList demoExprs; // plot exprs for demo plot
 	public String sbwCommand; // -sbw... argument suffix
 
@@ -60,6 +62,10 @@ public class GAppl extends PApplication {
 		if (rgb == null) rgb = gprefs.rgb;
 		if (fontSize == 0) fontSize = gprefs.fontSize;
 		if (winSize == null) winSize = gprefs.winSize;
+		if(gprefs.bkupProj !=null) {	
+			bkupProj = new Boolean(gprefs.bkupProj);
+		}
+		else bkupProj = new Boolean(false);
 	    } catch (Xcept e) {
 		System.err.println(
 		    "Error loading user preferences file: " +
@@ -76,6 +82,7 @@ public class GAppl extends PApplication {
 	    fontSize = 0;
 	    winSize = null;
 	    graph = 0;
+		bkupProj = new Boolean(false);
 	    // tabType = Util.isJava15() ? 0 : 1; // 1.6 => GCompactTabs menu bug
 	    tabType = 2; // new for 1.6.91
 	    newFrame = false;
