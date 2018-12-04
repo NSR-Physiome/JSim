@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -7,6 +7,8 @@
 END_NSRCOPYRIGHT*/
 
 // JSim Data class TableModel
+
+// *** Currently not implemented. ***
 
 package JSim.gui;
 
@@ -19,7 +21,7 @@ import java.io.*;
 
 import JSim.util.*;
 import JSim.data.*;
-
+import JSim.expr.*;
 
 public class GDataTableModel extends AbstractTableModel 
 implements CellEditorListener {
@@ -221,6 +223,103 @@ implements CellEditorListener {
 	    	return -1;
 	    }
 	}
+
+
+    public void setValueAt(Object value, int row, int col) {
+		//System.out.println("setValueAt column: "+this.getColumnName(col));
+		//System.out.println(" Getting value: "+this.getValueAt(row,col));
+		//	System.out.println("Setting value at " + row + "," + col
+        //                     + " to " + value
+        //                     + " (an instance of " 
+        //                     + value.getClass() + ")");
+		//		System.out.println("Type of data to change:"+this.data(row,col).getClass());
+
+		double newvalue = 0.00;
+		if(value.getClass().equals(String.class)) {
+			String newStrValue = value.toString();
+			newvalue = Double.parseDouble(newStrValue);	
+		}
+
+		Class dataClass = this.data(row,col).getClass();
+		if( this.data(row,col) instanceof RealNData ) {
+			RealNData editedData = (RealNData)this.data(row,col); // is a reference to this, does not actually change it's value. Need to change.
+
+				System.out.println("setValueAt: editedData:nsamples "+ editedData.nsamples() );
+				for(int i=0;i<editedData.nsamples();i++) {
+					if((i==row) && (col>0)) {
+						editedData.set(i,newvalue);
+					}
+					if(this.datas.size() ==1) {
+						System.out.println("One curve (Data) in list");
+						this.datas.set(0,editedData);
+					}
+				}
+		}
+		else {	if( this.data(row,col) instanceof IrregularGridData ) {
+				IrregularGridData editedData = updateIrregularGridData(newvalue,row,col);
+				// Now replace gridData[0] with this......			
+ 				if( (col == 0) && (this.ngrids()==1) ) {
+					this.grids[0] = editedData;  // Replace with updated grid
+					// Add to RealNData now:
+					if(this.datas.size() ==1) {
+						GridData[] newGridArray = new GridData[this.datas.size()];
+						newGridArray[0] = (GridData)editedData; 
+						System.out.println("One curve (Data) in list .. Good");
+						try {
+							RealNData newGrid = new RealNData((RealNData)this.data(row,1),newGridArray,true);
+							this.datas.set(0,newGrid);
+						} catch (Xcept e) {
+							System.err.println( "Unable to resample new curve grid domain: "+e.getMessage() );
+						}
+					
+						System.out.println("Updated new grid domain....");
+					
+					}
+
+				}
+			}
+		}
+		fireTableCellUpdated(row, col);
+	}
+
+	private IrregularGridData updateIrregularGridData(double newVal, int row, int col) {
+		// Need to generate a new copy of this.data but replace the one value....
+
+		try { double[] updateSamples = this.data(row,col).samples(); 
+			String desc = this.data(row,col).desc();
+			for(int i=0;i<updateSamples.length;i++) {
+				if((i==row) && (col==0)) {
+					updateSamples[i] = newVal; // insert new value
+				}
+		
+			}
+			IrregularGridData updatedGrid  = new IrregularGridData(desc ,null ,updateSamples); 
+			return updatedGrid;
+		}
+		catch (Xcept e){ 
+			System.err.println( "Sample ordering error for new curve grid domain: "+e.getMessage() );}
+
+
+		return null;
+	}
+
+	public void writeToFile() throws Xcept{
+		//System.out.println("In writeToFile");
+		    if (this.datas.size() == 0) throw new Xcept(
+			"no data available to export");
+
+			try {
+				File file = new File("modifiedData.csv"); // Testing, hardcoded....
+				CSVDataFormat csvWrite = new CSVDataFormat();
+				DataWriter wrt = csvWrite.createWriter();
+				wrt.setPrecision( Util.DOUBLE_PRECISION);
+				wrt.writeFile(file, this.datas);
+			} catch (Xcept e) {
+				System.err.println( "Unable to save data to file: "+e.getMessage() );
+			}
+			
+	}
+
 
 	// CellEditorListener
 	public void editingStopped(ChangeEvent e) {
