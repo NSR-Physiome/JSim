@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2018 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -22,10 +22,11 @@ import JSim.data.*;
 import JSim.project.*;
 import JSim.gui.graph.*;
 
-public class GDataSetView extends GNode implements ListSelectionListener {
+public class GDataSetView extends GNode implements ListSelectionListener, GDataUpdateListener {
 
 	// static state
 	private static Data.List copyBuffer;
+	public static String defaultName = "Example CSV data curve";
 
 	// state
 	private JRootPane root; // root
@@ -44,14 +45,13 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 	// actions
 	private GAction exportAll, exportSel, 
 	    cut, copy, paste, rename, filter,
-	    legacy, ascii;
+	    legacy, ascii, modify, create;  // added modify, create
 
 	// constructor
 	public GDataSetView(GNode p, PDataSet d) {
-	     super(p, d);
-	     dataset = d;
-
-	    // root/jpanel 
+	    super(p, d);
+	    dataset = d;
+			   
 	    root = new JRootPane();
 	    jpanel = new JPanel(null) {
 		public void doLayout() { reconfig(); } 
@@ -136,7 +136,6 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 		}
 	    };
 
-
 	    // Encoding menu actions
 	    legacy = new GAction(this, "legacy") {
 		public void doit() throws Xcept {
@@ -148,7 +147,46 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 		    ((GDataSetView) gnode).setEncoding("ascii");
 		}
 	    };
+
+		modify = new GAction(this, "modify") {
+		public void doit() throws Xcept {
+			//   String errmsg = null;
+		    int[] inxs = getSelectedIndices();
+		    Data.List dlist = getSelectedData1();
+		    if (dlist.size() == 1) {  // Currently modify only one curve
+				StringWriter csvStringW = new StringWriter();
+				PrintWriter csvWriter = new PrintWriter(csvStringW);
+				CSVDataFormat csvDFused = new CSVDataFormat();
+				CSVDataWriter csvWriteData = new CSVDataWriter(csvDFused);
+				csvWriteData.writeData((Writer)csvWriter,dlist);
+				String curveTitle = dlist.data(0).name(); // Only one curve in dlist
+				String csvDataString = csvStringW.toString();
+				GModifyData csvModify = new GModifyData(csvDataString, curveTitle);
+				csvModify.addListener((GDataSetView) gnode);
+			
+				((GDataSetView) gnode).reloadData();
+				gnode.gproject().project().revalidate();
+				gnode.gproject().refresh();
+			}
+			else  { throw new Xcept(dataset, 
+									"Only one data curve edited at a time."); }
+		}
+		};
 	
+		create = new GAction(this, "create") {
+		public void doit() throws Xcept {
+			String curveTitle = defaultName;
+			String csvDataString = "t_sec,y_Curvename \n0,1.2 \n0.5,12.5\n5,1.3E-2";
+			GModifyData csvModify = new GModifyData(csvDataString, curveTitle);
+			csvModify.addListener((GDataSetView) gnode);
+
+			((GDataSetView) gnode).reloadData();
+			gnode.gproject().project().revalidate();
+			gnode.gproject().refresh();
+
+		}
+		};
+
 	    // menubar - File Menu
 	    JMenuBar mbar = new JMenuBar();
 
@@ -168,6 +206,9 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 	    menu.add(cut.item());
 	    menu.add(copy.item());
 	    menu.add(paste.item());
+		menu.addSeparator();
+		menu.add(modify.item());
+		menu.add(create.item());
 	    menu.addSeparator();
 	    menu.add(rename.item());
 	    menu.add(filter.item());
@@ -210,6 +251,40 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 	    graph = gappl().newGraphRender(null);
 	    jpanel.add(graph.jcomp());
 
+	}
+
+	public void updatedCSVData (String data, String name) throws Xcept { 
+
+		try {
+			String dataCurve = data.replaceAll(" ",""); // get rid of space for csv format.
+			dataCurve = dataCurve.replaceAll("\t","");
+			CSVDataFormat csvDFused = new CSVDataFormat();
+			StringReader strRead = new StringReader(dataCurve);
+			CSVDataReader csvDR = new CSVDataReader(csvDFused,strRead);
+			if(name.contains(defaultName)) { 
+				String[] dataList = dataCurve.split("\n",2);
+				if (dataList.length >1) {
+					String[] name_columns = dataList[0].split(",",2);
+					if(name_columns.length>1) {
+						name = name_columns[1];   // Use y column for new curve name
+					}
+				} 
+			}
+			Data.List newCurve = csvDR.readData();
+		    for (int i=0; i<newCurve.size(); i++) {
+				Data modData = newCurve.data(i);
+				modData.setName(name);
+			}
+			dataset.importData(newCurve);
+			gproject().message("Successfully updated data curve.");
+		}
+		catch (Xcept e) { 
+			gproject().message("Data format issue: "+e.getMessage());	
+		}
+							 
+		reloadData();
+		gproject().project().revalidate();
+		gproject().refresh();
 	}
 
 	// reconfigure jpanel
@@ -424,6 +499,8 @@ public class GDataSetView extends GNode implements ListSelectionListener {
 	    }
 	    return dlist;
 	}
+
+
 
 	// save/restore selection
 	protected int[] getSelectedIndices() {
