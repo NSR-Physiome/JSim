@@ -6,6 +6,8 @@
 	Dr. J. B. Bassingthwaighte, Director
 END_NSRCOPYRIGHT*/
 
+// Currently not implimented.
+
 // JSim Data display/edit table
 
 package JSim.gui;
@@ -37,7 +39,19 @@ public class GDataTable extends JPanel {
 	    scroll = new JScrollPane(table);
 	    add(scroll, BorderLayout.CENTER);
 	    JPanel bpanel = new JPanel(new GridLayout(1, 2));
-	    bpanel.add(new JButton("Update"));
+		JButton upButton = new JButton("Update");
+		upButton.addActionListener(new ActionListener(){  
+				public void actionPerformed(ActionEvent e){  
+					//	System.out.println(" Update button pressed"); 
+					try {
+					model.writeToFile();
+					 
+					} catch (Xcept err) {	
+						System.err.println( "Unable to save edited data to file: "+err.getMessage() );
+					}
+				}  
+			});
+	    bpanel.add(upButton);
 	    bpanel.add(new JButton("Cancel"));
 	    add(bpanel, BorderLayout.SOUTH);
 	}
@@ -61,6 +75,7 @@ public class GDataTable extends JPanel {
 	    File f = new File(args[0]);
 	    Data.List datas = (new DataFormat.List()).readData(f);
 	    JFrame frame = new JFrame("GDataTable");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    JRootPane root = frame.getRootPane();
 	    GDataTable table = new GDataTable();
 	    table.setHeaderBackground(Color.lightGray);
