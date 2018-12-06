@@ -180,11 +180,22 @@ public class GJobAsyncMonitor implements ActionListener {
 		pjob.postRun();
 		normal = (pjob.stat() == PJob.NORMAL);
 		msg = pjob.termMessage();
+	   
         // Do not backup if Applet or user does not want to:
 		if( (! gmain.isApplet()) && (gmain.getBkupProj()==true) ) {
 		// See ASModel for jobCodes
 			if((pjob.jobCode()>=0) && (pjob.jobCode()< 5)) {
-				pjob.backup();
+				String fn = "";
+				if(gproj.file()!= null) {
+  					fn = gproj.file().file().getPath();
+ 					int inx = fn.lastIndexOf('.');
+					if(inx>0) fn=fn.substring(0,inx);
+					if (fn != null && !fn.equals("")) { 
+						fn = fn.concat("_LastRun.proj");
+						pjob.backup(fn);
+						gproj.message("Backup saved to: " + fn);
+					}
+				}
 			}
 		}
 	    } catch (Xcept e) {
