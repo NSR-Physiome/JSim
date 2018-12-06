@@ -119,11 +119,11 @@ abstract public class PJob extends Thread {
 	}
 
 		// Write out to file in case next run crashes:
-	public boolean backup() throws Xcept { 
+	public boolean backup(String fileName) throws Xcept { 
 			try {
 			PModel currModel = this.pmodel();
 			Project project = currModel.project();
-			File file = new File(pnamed.name()+"_LastRun.proj");  // change name? ....
+			File file = new File(fileName);
 			// write project file
 			OutputStream out = new FileOutputStream(file);
 			PrintStream pout = new PrintStream(out);
