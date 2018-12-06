@@ -165,12 +165,6 @@ public class GJobSyncMonitor extends Thread {
 		    ": " + pjob.termMessage() + "\n";
 		if (pjob.stat() == PJob.NORMAL) { 
 		    gproj.message(msg);
-			if( ! gproj.isApplet() ) { // Do not backup if Applet
-				// See ASModel for jobCodes
-				if((pjob.jobCode()>=0) && (pjob.jobCode()< 5)) {
-					pjob.backup();
-				}
-			}
 		}
 		else {
 		    gproj.warning(msg);
