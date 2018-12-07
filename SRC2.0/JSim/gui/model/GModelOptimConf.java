@@ -59,7 +59,7 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 		    optim.reportPrec, optim.calcCovMat, 
 		    optim.stepTol,
 		    optim.populationSize, optim.mutationRate, optim.crossoverRate },
-		9, // wider because of alg selection box
+			 	10, // wider because of alg selection box
 		new String[] { "Algorithm", 
 		    "Max # runs", "Min RMS error", 
 		    "Report precision", "Covariance mat?",
@@ -77,7 +77,7 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 		    optim.initTemp, optim.selectMethod, optim.mutationStep,
                     optim.eliteCutoff, 
 		    optim.npoints },
-		8, 
+				9,
 		new String[] { 
 		    "Max # iter", "Max stat iter",
 		    "Min gradient", "Relative error", 
