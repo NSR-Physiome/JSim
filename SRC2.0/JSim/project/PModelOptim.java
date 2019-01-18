@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -34,8 +34,14 @@ public class PModelOptim extends PNamed {
 	public RealControl mutationRate; // GA mutations 0-1
 	public RealControl crossoverRate; // GA crossover 0-1
 	public RealControl mutationStep;
-        public ChoiceControl selectMethod;
-        public RealControl eliteCutoff;
+    public ChoiceControl selectMethod;
+    public RealControl eliteCutoff;
+	public IntControl numParticles; // number of particles for PSwarm
+	public RealControl velCoeff; // particle velocity coefficient for PSwarm
+	public RealControl minInertia; // Min inertia of particle for PSwarm
+	public RealControl maxInertia; // Max inertia of particle for PSwarm
+	public RealControl cogLearn; //Particle cognitive learning factor for PSwarm
+	public RealControl socLearn; // Particle social learning factor for PSwarm
 
 	public BooleanControl calcCovMat; // calc covMat after opt?
 	public IntControl reportPrec; // report result numeric precision
@@ -80,6 +86,13 @@ public class PModelOptim extends PNamed {
             selectMethod = new ChoiceControl(this, "selectMethod",  0,
 	    	new String[] { "roulette", "tournament", "elitism" });
             eliteCutoff = new RealControl(this, "eliteCutoff", 0.5);
+		numParticles = new IntControl(this,"numParticles", 25);
+		velCoeff = new RealControl(this,"velCoeff", 0.25);
+		minInertia = new RealControl(this,"minInertia", 0.30);
+		maxInertia = new RealControl(this,"maxInertia", 1.00);
+		cogLearn = new RealControl(this,"cogLearn", 1.05);
+		socLearn = new RealControl(this,"socLearn", 1.05);
+
 	    calcCovMat = new BooleanControl(this, "calcCovMat", true);
 	    reportPrec = new IntControl(this, "reportPrec", 4);
 	    for (int i=0; i<PModelOptimGraph.NGRAPHS; i++) 
@@ -180,8 +193,15 @@ public class PModelOptim extends PNamed {
             args.mutationStep = mutationStep.val();
             args.selectMethod = selectMethod.val();
             args.eliteCutoff  = eliteCutoff.val();
+		args.numParticles = numParticles.val();
+		args.velCoeff = velCoeff.val();
+		args.minInertia = minInertia.val();
+		args.maxInertia = maxInertia.val();
+		args.cogLearn = cogLearn.val();
+		args.socLearn = socLearn.val();
+
 	    args.reportPrec = reportPrec.val();
-	    
+   
 	    args.calcCovMat = calcCovMat.val();
 	    if (args.calcCovMat) 
 	    	args.confPcts = new double[] { .9, .95, .99 };
@@ -306,8 +326,8 @@ public class PModelOptim extends PNamed {
 	    // constructor
 	    public Match(PModelOptim p, String n) throws Xcept {
 		super(p, n);
-	    	dataSrc = new PNamedControl(this, "src", project(), 
-		    new Class[] { PDataSet.class });
+	    dataSrc = new PNamedControl(this, "src", project(), 
+									new Class[] { PDataSet.class });
 		data = new DataControl(this, "data", dataSrc);
 		expr = new DataControl(this, "expr", pmodel());
 		pointWgts = new DataControl(this, "pointWgts", 
