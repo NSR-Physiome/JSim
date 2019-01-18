@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -55,6 +55,14 @@ public class OptimArgs implements Serializable {
         public int selectMethod;
         public double eliteCutoff;
 
+	// PSwarm algo specific
+	public int numParticles;  // # of particles in swarm
+	public double velCoeff;   // velocity coefficient
+	public double minInertia; // Min inertia of particle
+	public double maxInertia; // Max inertia
+	public double cogLearn;   // Particle cognitive learning factor
+	public double socLearn;   // Particle social learning factor
+
 	// constructors 
 	public OptimArgs() { } // RMI constructor
 	public OptimArgs(String alg, int n) {
@@ -108,6 +116,12 @@ public class OptimArgs implements Serializable {
 	    mutationStep  = a.mutationStep;
 	    selectMethod  = a.selectMethod;
 	    eliteCutoff   = a.eliteCutoff;
+		numParticles = a.numParticles;
+		velCoeff = a.velCoeff;
+		minInertia = a.minInertia;
+		maxInertia = a.maxInertia;
+		cogLearn = a.cogLearn;
+		socLearn = a.socLearn;
 	}
 
 	// query
