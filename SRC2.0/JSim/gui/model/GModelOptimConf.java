@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -58,13 +58,15 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 		    optim.maxCalls, optim.errTol, 
 		    optim.reportPrec, optim.calcCovMat, 
 		    optim.stepTol,
-		    optim.populationSize, optim.mutationRate, optim.crossoverRate },
+			optim.populationSize, optim.mutationRate, optim.crossoverRate,
+			optim.numParticles, optim.minInertia, optim.maxInertia },
 			 	10, // wider because of alg selection box
 		new String[] { "Algorithm", 
 		    "Max # runs", "Min RMS error", 
 		    "Report precision", "Covariance mat?",
 		    "Min par step", 
-		    "Population", "Mutation rate", "Crossover rate" });
+					   "Population", "Mutation rate", "Crossover rate",
+					   "# of particles","Min inertia", "Max inertia" });
 	    gleft.gcntl(0).addAuxNode(this); // alg change refreshes
 	    gleft.gcntl(4).addAuxNode(this); // covmat change refreshes
 	    panel.add(gleft.jcomp());
@@ -72,17 +74,18 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 	    // right-side controls
 	    gright = new GVertTable(this,
 		new Control[] { 
-		    optim.maxIters, optim.maxStaticIters,
+			optim.maxIters, optim.maxStaticIters, 
 		    optim.gradTol, optim.eps,
 		    optim.initTemp, optim.selectMethod, optim.mutationStep,
-                    optim.eliteCutoff, 
-		    optim.npoints },
+            optim.eliteCutoff, optim.velCoeff, 
+			optim.cogLearn, optim.socLearn, optim.npoints },
 				9,
 		new String[] { 
-		    "Max # iter", "Max stat iter",
+			"Max # iter", "Max stat iter",
 		    "Min gradient", "Relative error", 
 		    "Init temp",  "Select Method", "Mutation step", "Elite cutoff",
-		    "# grid points"
+		    "velocity coeff",
+			"Cog learn, C1", "Soc learn, C2","# grid points" 
 		    });
 	    panel.add(gright.jcomp());
 
@@ -192,6 +195,9 @@ public class GModelOptimConf extends GNode implements GLineTable.Listener {
 	    boolean vBounds = alg != null && alg.boundsNeeded();
 	    boolean vXstep = alg != null && alg.parNeeded("xstep");
 	    boolean vCovmat = optim.calcCovMat.val();
+		boolean vStartVal = alg !=null && !alg.name().equals("pswarm");
+		gpars.setVisible(2, vStartVal);
+
 	    gpars.setVisible(3, vBounds);
 	    gpars.setVisible(4, vBounds);
 	    gpars.setVisible(5, vXstep || vCovmat);
