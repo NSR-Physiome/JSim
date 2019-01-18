@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -38,6 +38,7 @@ public class OptimFactory {
 	    add(Sensop.algInfo()); 
 	    add(SimAnneal.algInfo()); 
 	    add(Genetic.algInfo()); 
+	    add(PSwarm.algInfo()); 
 	}
 
 	// add new Info
