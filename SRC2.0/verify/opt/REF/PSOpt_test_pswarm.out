@@ -1,0 +1,5 @@
+KdH = { .1 } uM
+kpfH = { 1.366 } 1/s
+KpH = { 5.551E4 } uM
+kfX = { 7.448E2 } 1/(uM*s)
+KdX = { 1.533 } uM
