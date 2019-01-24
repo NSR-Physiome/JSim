@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -474,7 +474,6 @@ public class GProject extends GNode implements MouseListener {
 	// load .proj or subsidiary file
     	protected void loadFile(File f) throws Xcept {
 	    String sfx = UtilIO.fileSuffix(f);
-
 	    // load project
 	    if (sfx.equals("proj")) {
 		loadProjFile(new JSReadable(f));
@@ -693,12 +692,14 @@ public class GProject extends GNode implements MouseListener {
 	    if (project.changed) {
 		if (frame != null) 
 		    frame.setVisible(true); // bring forward
-		int which = JOptionPane.showConfirmDialog(root,
+		String[] options = {"Save", "Don't Save", "Cancel"};
+		int which = JOptionPane.showOptionDialog(root,
 		    "Some project data not yet saved.  Save before closing?", 
 		    "Closing " + title(), 
 		    JOptionPane.YES_NO_CANCEL_OPTION,
 		    JOptionPane.QUESTION_MESSAGE,
-		    glook().userIcon());
+ 		    glook().userIcon(),
+			options,options[0]);
 		boolean cancel = 
 		    (which == JOptionPane.CANCEL_OPTION);
 		if (which == JOptionPane.YES_OPTION) {
