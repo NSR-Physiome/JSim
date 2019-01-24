@@ -135,11 +135,6 @@ public class PSwarm extends Optimizer {
 		{
 			x[n] = x_PSO[n][i];
 		}
-   //-----------------------------------------------------------------------------------------
-   // Call the force_pCa_curve function to get the force as a function of Ca++ concentrations.
-   // NB: this function implicitly calls the other functions.
-   //-----------------------------------------------------------------------------------------
-
 	 //Compute the sum of the squares of the weighted residuals.
 	  residual_cost_func[i] = cbs.calcError(ctxt,x,res);
 
