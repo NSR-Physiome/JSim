@@ -39,6 +39,7 @@ run1opt $NPROC opt4 nl2sol a1 a2 a3 a4
 run1opt $NPROC opt4 sensop a1 a2 a3 a4
 run1opt $NPROC opt4 simanneal a1 a2 a3 a4
 run1opt $NPROC opt4 genetic a1 a2 a3 a4
+run1opt $NPROC opt4 pswarm a1 a2 a3 a4
 
 # ode50 tests - hardcore calc, no sleep
 run1ode $NPROC ode50 Dopri5 uf t.max=5
