@@ -1,4 +1,4 @@
 
 JSim.util.Xcept: Model nan
-aborted: Solver Error: Radau - step size becomes too small
+aborted: Solver Error: Radau, state variables are either Inf or NaN
 
