@@ -6,7 +6,8 @@
 
 # 64bit target:
 #   libgfortran.a(error.o): relocation R_X86_64_32 against `.rodata.str1.1' ... work around using Shared libraries: 
-FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.1.2/libgfortran.so # Redhat EL5 64bit
+#FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.1.2/libgfortran.so # Redhat EL5 64bit
+FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.4.7/libgfortran.so /usr/lib/gcc/x86_64-redhat-linux/4.4.7/libgcc.a # CentOS6 64bit
 #FLIB       =/usr/lib/gcc/x86_64-redhat-linux/4.8.5/libgfortran.so # Centos7 64bit, 
 
 CC         = /usr/bin/gcc
@@ -27,8 +28,8 @@ LDFLAGS    = -melf_x86_64 -shared -fPIC $(FLIB) -lc -lm  #Redhat EL5 64bit
 
 # Fpack compile/link flags:
 #  64 bit target:
-FP_LDFLAGS = -melf_x86_64 -shared $(XSLIB) -lm $(FLIB)  #Redhat EL5 64bit
-
+#FP_LDFLAGS = -melf_x86_64 -shared $(XSLIB) -lm $(FLIB)  #Redhat EL5 64bit
+FP_LDFLAGS = -melf_x86_64 -shared $(XSLIB) -lm $(FLIB)  #CentOS6 64bit
 OS         = LINUX
 
 
