@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2018 University of Washington
+	Copyright (C) 1999-2019 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -19,7 +19,7 @@ public class Util {
 
 	// JSim version control
 	public static final String version() {
-	    return "2.18";
+	    return "2.19";
 	}
 
 	// Java/OS versions
