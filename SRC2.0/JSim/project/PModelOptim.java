@@ -15,10 +15,10 @@ import JSim.data.*;
 import java.util.*;
 
 public class PModelOptim extends PNamed {
-	
+
 	// controls
-	public IntControl npars; // # Par's 
-	public IntControl nmatches; // # Match's 
+	public IntControl npars; // # Par's
+	public IntControl nmatches; // # Match's
 	public StringControl alg; // optimizer algorithm to use
 	public IntControl maxCalls; // max # calls
 	public IntControl maxIters; // max # iterations (ggopt)
@@ -34,14 +34,18 @@ public class PModelOptim extends PNamed {
 	public RealControl mutationRate; // GA mutations 0-1
 	public RealControl crossoverRate; // GA crossover 0-1
 	public RealControl mutationStep;
-    public ChoiceControl selectMethod;
-    public RealControl eliteCutoff;
+  public ChoiceControl selectMethod;
+  public RealControl eliteCutoff;
 	public IntControl numParticles; // number of particles for PSwarm
 	public RealControl velCoeff; // particle velocity coefficient for PSwarm
 	public RealControl minInertia; // Min inertia of particle for PSwarm
 	public RealControl maxInertia; // Max inertia of particle for PSwarm
 	public RealControl cogLearn; //Particle cognitive learning factor for PSwarm
 	public RealControl socLearn; // Particle social learning factor for PSwarm
+	public RealControl maxDist; // max dist from the init guess to the min for Praxis
+	public IntControl itrNoImprove;// # of itr w/o improvement before the algo terms for Praxis
+	public BooleanControl bounds; // Use boundaries for Praxis optimization, or not (false). 
+	public RealControl praxisTol; // Max Tolerence between actual cost and current cost.
 
 	public BooleanControl calcCovMat; // calc covMat after opt?
 	public IntControl reportPrec; // report result numeric precision
@@ -82,20 +86,23 @@ public class PModelOptim extends PNamed {
 	    populationSize = new IntControl(this, "populationSize", 25);
 	    mutationRate = new RealControl(this, "mutationRate", 0.1);
 	    crossoverRate = new RealControl(this, "crossoverRate", 0.5);
-            mutationStep = new RealControl(this, "mutationStep", 0.05);
-            selectMethod = new ChoiceControl(this, "selectMethod",  0,
-	    	new String[] { "roulette", "tournament", "elitism" });
-            eliteCutoff = new RealControl(this, "eliteCutoff", 0.5);
-		numParticles = new IntControl(this,"numParticles", 25);
-		velCoeff = new RealControl(this,"velCoeff", 0.25);
-		minInertia = new RealControl(this,"minInertia", 0.30);
-		maxInertia = new RealControl(this,"maxInertia", 1.00);
-		cogLearn = new RealControl(this,"cogLearn", 1.05);
-		socLearn = new RealControl(this,"socLearn", 1.05);
-
+      mutationStep = new RealControl(this, "mutationStep", 0.05);
+      selectMethod = new ChoiceControl(this, "selectMethod",  0,
+			 new String[] { "roulette", "tournament", "elitism" });
+      eliteCutoff = new RealControl(this, "eliteCutoff", 0.5);
+			numParticles = new IntControl(this,"numParticles", 25);
+			velCoeff = new RealControl(this,"velCoeff", 0.25);
+			minInertia = new RealControl(this,"minInertia", 0.30);
+			maxInertia = new RealControl(this,"maxInertia", 1.00);
+			cogLearn = new RealControl(this,"cogLearn", 1.05);
+			socLearn = new RealControl(this,"socLearn", 1.05);
+			maxDist = new RealControl(this,"maxDist", 1.0);
+			itrNoImprove = new IntControl(this,"itrNoImprove", 1);
+			bounds = new BooleanControl(this,"bounds", true);
+			praxisTol = new RealControl(this,"praxisTol", 1e-10);
 	    calcCovMat = new BooleanControl(this, "calcCovMat", true);
 	    reportPrec = new IntControl(this, "reportPrec", 4);
-	    for (int i=0; i<PModelOptimGraph.NGRAPHS; i++) 
+	    for (int i=0; i<PModelOptimGraph.NGRAPHS; i++)
 	    	graphs.add(new PModelOptimGraph(this,
 		    PModelOptimGraph.NAMES[i]));
 	    reconfigPars();
@@ -109,7 +116,7 @@ public class PModelOptim extends PNamed {
 	    int ct0 = pars.size();
 
 	    // add missing children
-	    for (int i=ct0; i<ct; i++) 
+	    for (int i=ct0; i<ct; i++)
 		pars.add(new Par(this, "optpar" + i));
 
 	    // remove extra children
@@ -122,7 +129,7 @@ public class PModelOptim extends PNamed {
 		remove(par);
 	    }
 	}
-	    
+
 	// change nmatches
 	public void reconfigMatchs() throws Xcept {
 	    int ct = nmatches.val();
@@ -130,7 +137,7 @@ public class PModelOptim extends PNamed {
 	    int ct0 = matches.size();
 
 	    // add missing children
-	    for (int i=ct0; i<ct; i++) 
+	    for (int i=ct0; i<ct; i++)
 		matches.add(new Match(this, "optmatch" + i));
 
 	    // remove extra children
@@ -143,7 +150,7 @@ public class PModelOptim extends PNamed {
 		remove(match);
 	    }
 	}
-	    
+
 	// collect optimization job info
 	public ASInfo.Optim makeJobInfo() throws Xcept {
 
@@ -157,7 +164,7 @@ public class PModelOptim extends PNamed {
 	    }
 	    if (runPars.size()<1) throw new Xcept(this,
 	    	"no valid parameters to vary");
-		
+
 	    // collect runnable matches
 	    Match.List runMatches = new Match.List(4);
 	    for (int i=0; i<matches.size(); i++) {
@@ -173,7 +180,7 @@ public class PModelOptim extends PNamed {
 	    ASInfo.Optim jinfo = new ASInfo.Optim(
 	    	runPars.size(), runMatches.size());
 	    jinfo.baseVals = pmodel().makeJobInfo();
-	    
+
 	    OptimArgs args = jinfo.args;
 	    args.alg = alg.val();
 	    args.maxCalls = maxCalls.val();
@@ -190,44 +197,46 @@ public class PModelOptim extends PNamed {
 	    args.populationSize = populationSize.val();
 	    args.mutationRate = mutationRate.val();
 	    args.crossoverRate = crossoverRate.val();
-            args.mutationStep = mutationStep.val();
-            args.selectMethod = selectMethod.val();
-            args.eliteCutoff  = eliteCutoff.val();
+		args.mutationStep = mutationStep.val();
+		args.selectMethod = selectMethod.val();
+		args.eliteCutoff  = eliteCutoff.val();
 		args.numParticles = numParticles.val();
 		args.velCoeff = velCoeff.val();
 		args.minInertia = minInertia.val();
 		args.maxInertia = maxInertia.val();
 		args.cogLearn = cogLearn.val();
 		args.socLearn = socLearn.val();
-
+		args.maxDist = maxDist.val();
+		args.itrNoImprove = itrNoImprove.val();
+		args.bounds = bounds.val();
+		args.praxisTol = praxisTol.val();
 	    args.reportPrec = reportPrec.val();
-   
 	    args.calcCovMat = calcCovMat.val();
-	    if (args.calcCovMat) 
+	    if (args.calcCovMat)
 	    	args.confPcts = new double[] { .9, .95, .99 };
 
 	    // add pars-to-vary info
 	    for (int i=0; i<runPars.size(); i++) {
-		Par par = (Par) runPars.pnamed(i);
-		Control cntl = par.par.control();
-		args.xname[i] = par.par.stringVal();
-		args.xstart[i] = cntl.realVal();
-		if (Double.isNaN(args.xstart[i])) 
-		    throw new Xcept(cntl,
-		    "illegal optimizer starting value");
-		args.xmin[i] = par.min.realVal();
-		args.xmax[i] = par.max.realVal();
-		args.xistep[i] = par.step.realVal();
-		if (optimAlg().boundsNeeded()) {
-		    if (args.xmax[i] < args.xstart[i])
-			throw new Xcept(this,
-			"Optimization parameter \"" + cntl.name() + 
-			"\" maximum less than start value");
+				Par par = (Par) runPars.pnamed(i);
+				Control cntl = par.par.control();
+				args.xname[i] = par.par.stringVal();
+				args.xstart[i] = cntl.realVal();
+				if (Double.isNaN(args.xstart[i]))
+		    	throw new Xcept(cntl,
+		    	"illegal optimizer starting value");
+				args.xmin[i] = par.min.realVal();
+				args.xmax[i] = par.max.realVal();
+				args.xistep[i] = par.step.realVal();
+				if (optimAlg().boundsNeeded()) {
+		    	if (args.xmax[i] < args.xstart[i])
+						throw new Xcept(this,
+						"Optimization parameter \"" + cntl.name() +
+						"\" maximum less than start value");
 		    if (args.xmin[i] > args.xstart[i])
-			throw new Xcept(this,
-			"Optimization parameter \"" + cntl.name() + 
-			"\" minimum greater than start value");
-		}
+					throw new Xcept(this,
+					"Optimization parameter \"" + cntl.name() +
+					"\" minimum greater than start value");
+				}
 	    }
 
 	    // add data-to-match info
@@ -235,7 +244,7 @@ public class PModelOptim extends PNamed {
 	    	Match match = (Match) runMatches.pnamed(i);
 		jinfo.refData[i] = match.data.getData(0);
 		jinfo.matchExprs[i] = match.expr.getExpr().toString();
-		jinfo.pointWgts[i] = 
+		jinfo.pointWgts[i] =
 		    match.pointWgts.getExpr().toString();
 		jinfo.curveWgts[i] = match.curveWgt.val();
 	    }
@@ -243,14 +252,14 @@ public class PModelOptim extends PNamed {
 	    // enhance data to match report & return
 	    jinfo.enhanceReport();
 	    return jinfo;
-	}		
-	    
+	}
+
 	// query
-	public Par par(int i) { 
+	public Par par(int i) {
 	    if (i<0 || i>=pars.size()) return null;
 	    return (Par) pars.get(i);
 	}
-	public Match match(int i) { 
+	public Match match(int i) {
 	    if (i<0 || i>=matches.size()) return null;
 	    return (Match) matches.get(i);
 	}
@@ -275,7 +284,7 @@ public class PModelOptim extends PNamed {
 	    public RealControl max; // par max value
 	    public RealControl step; // par step (simplex)
 	    public BooleanControl enabled; // this par enabled
-	
+
 	    // constructor
 	    public Par(PModelOptim p, String n) throws Xcept {
 		super(p, n);
@@ -287,7 +296,7 @@ public class PModelOptim extends PNamed {
 	    }
 
 	    // query
-	    public String diagInfo() { 
+	    public String diagInfo() {
 		return "optimization par " + name();
 	    }
 	    public String xmlLabel() { return "optpar"; }
@@ -298,18 +307,18 @@ public class PModelOptim extends PNamed {
 	    public String validMsg() {
 		if (par.isBlank()) return "parameter missing";
 		if (! par.valid()) return par.validMsg();
-		OptimAlg alg;		
+		OptimAlg alg;
 		try {
 		    alg = ((PModelOptim) parent()).optimAlg();
 		} catch (Xcept e) {
 		    return e.toString();
 		}
 		if (alg.boundsNeeded()) {
-		    if (Double.isNaN(min.val())) return "minimum missing"; 
-		    if (Double.isNaN(max.val())) return "maximum missing"; 
+		    if (Double.isNaN(min.val())) return "minimum missing";
+		    if (Double.isNaN(max.val())) return "maximum missing";
 		}
-		if (alg.parNeeded("xstep") && Double.isNaN(step.val())) 
-		    return "step missing"; 
+		if (alg.parNeeded("xstep") && Double.isNaN(step.val()))
+		    return "step missing";
 		return null;
 	    }
 	}
@@ -322,22 +331,22 @@ public class PModelOptim extends PNamed {
 	    public DataControl pointWgts; // point weights expr
 	    public RealControl curveWgt; // curve weight
 	    public BooleanControl enabled; // this matchs enabled
-	
+
 	    // constructor
 	    public Match(PModelOptim p, String n) throws Xcept {
 		super(p, n);
-	    dataSrc = new PNamedControl(this, "src", project(), 
+	    dataSrc = new PNamedControl(this, "src", project(),
 									new Class[] { PDataSet.class });
 		data = new DataControl(this, "data", dataSrc);
 		expr = new DataControl(this, "expr", pmodel());
-		pointWgts = new DataControl(this, "pointWgts", 
+		pointWgts = new DataControl(this, "pointWgts",
 		    pmodel(), "1");
 		curveWgt = new RealControl(this, "step", 1);
 		enabled = new BooleanControl(this, "enabled", true);
 	    }
 
 	    // query
-	    public String diagInfo() { 
+	    public String diagInfo() {
 		return "optimization match " + name();
 	    }
 	    public String xmlLabel() { return "optmatch"; }
@@ -351,12 +360,12 @@ public class PModelOptim extends PNamed {
 		if (dataSrc.isBlank() && dataSrc.singlePick() == null)
 		     return "data set missing";
 		if (! dataSrc.valid()) return dataSrc.validMsg();
-		if (data.isBlank()) return "data missing"; 
-		if (! data.valid()) return data.validMsg(); 
-		if (expr.isBlank()) return "par/expr missing"; 
-		if (! expr.valid()) return expr.validMsg(); 
-		if (pointWgts.isBlank()) return "point weights missing"; 
-		if (! pointWgts.valid()) return pointWgts.validMsg(); 
+		if (data.isBlank()) return "data missing";
+		if (! data.valid()) return data.validMsg();
+		if (expr.isBlank()) return "par/expr missing";
+		if (! expr.valid()) return expr.validMsg();
+		if (pointWgts.isBlank()) return "point weights missing";
+		if (! pointWgts.valid()) return pointWgts.validMsg();
 		return null;
 	    }
 	}
@@ -371,8 +380,8 @@ public class PModelOptim extends PNamed {
 	    	if (! ((Match) matches.get(i)).expr.isBlank()) return false;
 	    }
 	    return true;
-	} 
-	
+	}
+
 	// control changed: update parset
 	public void childChanged(PNamed c) throws Xcept {
 	    super.childChanged(c);
@@ -381,4 +390,3 @@ public class PModelOptim extends PNamed {
 	}
 
 }
-
