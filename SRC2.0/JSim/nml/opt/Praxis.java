@@ -64,7 +64,7 @@ public class Praxis extends Optimizer {
 				algInfo.boundsNeeded = true;  // Let user decide.
         algInfo.sensMatNeeded = true;
         algInfo.parsNeeded = new String[] { "maxCalls", "errTol", "maxDist",
-			 														"itrNoImprove", "bounds", "praxisTol"	};
+			 								"itrNoImprove", "bounds", "praxisTol"	};
         algInfo.optimClassName = Praxis.class.getName();
         return algInfo;
 	}
@@ -127,9 +127,8 @@ public class Praxis extends Optimizer {
 		double results = -5.0; // less than zero value.
  		results = praxis ( maxfn, t0, h0,  nx, prin, x,
 						   ctxt, res, cbs );
-if(results == 2)sendMsg(res,2); // Finished, maximum calls reached
-
-if(results == 1) sendMsg(res,1);  // Finished, error tolerance reached.
+		if(results == 2) sendMsg(res,2); // Finished, maximum calls reached
+		if(results == 1) sendMsg(res,1);  // Finished, error tolerance reached.
 
 }
 
@@ -417,13 +416,13 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
     for ( ii = i; ii <= n; ii++ )
     {
 //      s = s + a[ii-1+(i-1)*n] * a[ii-1+(i-1)*n];
-				s = s + this.v[ii-1+(i-1)*n] * this.v[ii-1+(i-1)*n];
+		s = s + this.v[ii-1+(i-1)*n] * this.v[ii-1+(i-1)*n];
     }
     g = 0.0;
     if ( tol <= s )
     {
       //f = a[i-1+(i-1)*n];
-			f = v[i-1+(i-1)*n];
+	  f = this.v[i-1+(i-1)*n];
       g = Math.sqrt( s );
       if ( 0.0 <= f )
       {
@@ -431,20 +430,20 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
       }
       h = f * g - s;
       //a[i-1+(i-1)*n] = f - g;
-			v[i-1+(i-1)*n] = f - g;
+			this.v[i-1+(i-1)*n] = f - g;
       for ( j = l; j <= n; j++ )
       {
         f = 0.0;
         for ( ii = i; ii <= n; ii++ )
         {
 //          f = f + a[ii-1+(i-1)*n] * a[ii-1+(j-1)*n];
-						f = f + this.v[ii-1+(i-1)*n] * this.v[ii-1+(j-1)*n];
+			f = f + this.v[ii-1+(i-1)*n] * this.v[ii-1+(j-1)*n];
         }
         f = f / h;
         for ( ii = i; ii <= n; ii++ )
         {
 //          a[ii-1+(j-1)*n] = a[ii-1+(j-1)*n] + f * a[ii-1+(i-1)*n];
-						this.v[ii-1+(j-1)*n] = this.v[ii-1+(j-1)*n] + f * this.v[ii-1+(i-1)*n];
+			this.v[ii-1+(j-1)*n] = this.v[ii-1+(j-1)*n] + f * this.v[ii-1+(i-1)*n];
         }
       }
     }
@@ -454,7 +453,7 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
     for ( j = l; j <= n; j++ )
     {
   //    s = s + a[i-1+(j-1)*n] * a[i-1+(j-1)*n];
-				s = s + this.v[i-1+(j-1)*n] * this.v[i-1+(j-1)*n];
+		s = s + this.v[i-1+(j-1)*n] * this.v[i-1+(j-1)*n];
     }
     g = 0.0;
     if ( tol <= s )
@@ -462,7 +461,7 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
       if ( i < n )
       {
 //        f = a[i-1+i*n];
-				f = v[i-1+i*n];
+		  f = this.v[i-1+i*n];
       }
       g = Math.sqrt( s );
       if ( 0.0 <= f )
@@ -473,11 +472,11 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
       if ( i < n )
       {
 //        a[i-1+i*n] = f - g;
-				this.v[i-1+i*n] = f - g;
+		  this.v[i-1+i*n] = f - g;
         for ( jj = l; jj <= n; jj++ )
         {
 //          e[jj-1] = a[i-1+(jj-1)*n] / h;
-					e[jj-1] = v[i-1+(jj-1)*n] / h;
+			e[jj-1] = this.v[i-1+(jj-1)*n] / h;
         }
         for ( j = l; j <= n; j++ )
         {
@@ -485,12 +484,12 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
           for ( jj = l; jj <= n; jj++ )
           {
 //            s = s + a[j-1+(jj-1)*n] * a[i-1+(jj-1)*n];
-						s = s + v[j-1+(jj-1)*n] * v[i-1+(jj-1)*n];
+			  s = s + this.v[j-1+(jj-1)*n] * this.v[i-1+(jj-1)*n];
           }
           for ( jj = l; jj <= n; jj++ )
           {
 //            a[j-1+(jj-1)*n] = a[j-1+(jj-1)*n] + s * e[jj-1];
-						v[j-1+(jj-1)*n] = v[j-1+(jj-1)*n] + s * e[jj-1];
+			  this.v[j-1+(jj-1)*n] = this.v[j-1+(jj-1)*n] + s * e[jj-1];
           }
         }
       }
@@ -503,7 +502,7 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
 //  Accumulation of right-hand transformations.
 //
 //  a[n-1+(n-1)*n] = 1.0;
-	v[n-1+(n-1)*n] = 1.0;
+	this.v[n-1+(n-1)*n] = 1.0;
   g = e[n-1];
   l = n;
   for ( i = n - 1; 1 <= i; i-- )
@@ -511,11 +510,11 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
     if ( g != 0.0 )
     {
   //    h = a[i-1+i*n] * g;
-			h = v[i-1+i*n] * g;
+		h = this.v[i-1+i*n] * g;
       for ( ii = l; ii <= n; ii++ )
       {
 //        a[ii-1+(i-1)*n] = a[i-1+(ii-1)*n] / h;
-				v[ii-1+(i-1)*n] = v[i-1+(ii-1)*n] / h;
+		  this.v[ii-1+(i-1)*n] = this.v[i-1+(ii-1)*n] / h;
       }
       for ( j = l; j <= n; j++ )
       {
@@ -523,12 +522,12 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
         for ( jj = l; jj <= n; jj++ )
         {
   //        s = s + a[i-1+(jj-1)*n] * a[jj-1+(j-1)*n];
-						s = s + v[i-1+(jj-1)*n] * v[jj-1+(j-1)*n];
+			s = s + this.v[i-1+(jj-1)*n] * this.v[jj-1+(j-1)*n];
         }
         for ( ii = l; ii <= n; ii++ )
         {
   //        a[ii-1+(j-1)*n] = a[ii-1+(j-1)*n] + s * a[ii-1+(i-1)*n];
-					v[ii-1+(j-1)*n] = v[ii-1+(j-1)*n] + s * v[ii-1+(i-1)*n];
+			this.v[ii-1+(j-1)*n] = this.v[ii-1+(j-1)*n] + s * this.v[ii-1+(i-1)*n];
         }
       }
     }
@@ -536,16 +535,16 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
     for ( jj = l; jj <= n; jj++ )
     {
 //      a[i-1+(jj-1)*n] = 0.0;
-			v[i-1+(jj-1)*n] = 0.0;
+		this.v[i-1+(jj-1)*n] = 0.0;
     }
 
     for ( ii = l; ii <= n; ii++ )
     {
 //      a[ii-1+(i-1)*n] = 0.0;
-			v[ii-1+(i-1)*n] = 0.0;
+		this.v[ii-1+(i-1)*n] = 0.0;
     }
 //    a[i-1+(i-1)*n] = 1.0;
-		v[i-1+(i-1)*n] = 1.0;
+	this.v[i-1+(i-1)*n] = 1.0;
     g = e[i-1];
     l = i;
   }
@@ -563,7 +562,7 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
       if ( kt_max < kt )
       {
         e[k-1] = 0.0;
-				String minfitErrMsg = "MINFIT - Error!	The QR algorithm failed to converge.";
+		String minfitErrMsg = "MINFIT - Error!	The QR algorithm failed to converge.";
         termError(res,minfitErrMsg);
       }
       skip = false;
@@ -626,7 +625,7 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
           for ( i = 1; i <= n; i++ )
           {
 //            a[i-1+(k-1)*n] = - a[i-1+(k-1)*n];
-						v[i-1+(k-1)*n] = - v[i-1+(k-1)*n];
+			  this.v[i-1+(k-1)*n] = - this.v[i-1+(k-1)*n];
           }
         }
         break;
@@ -677,13 +676,13 @@ public double[] minfit ( int n, double tol, double q[],	OptimResults res )// a[]
         for ( j = 1; j <= n; j++ )
         {
 //          x = a[j-1+(i-2)*n];
-					x = v[j-1+(i-2)*n];
+			x = this.v[j-1+(i-2)*n];
 //          z = a[j-1+(i-1)*n];
-				  z = v[j-1+(i-1)*n];
+			z = this.v[j-1+(i-1)*n];
 //          a[j-1+(i-2)*n] =   x * c + z * s;
-					v[j-1+(i-2)*n] =   x * c + z * s;
+			this.v[j-1+(i-2)*n] =   x * c + z * s;
 //          a[j-1+(i-1)*n] = - x * s + z * c;
-					v[j-1+(i-1)*n] = - x * s + z * c;
+			this.v[j-1+(i-1)*n] = - x * s + z * c;
         }
         z = r8_hypot ( f, h );
         q[i-2] = z;
