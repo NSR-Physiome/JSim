@@ -35,10 +35,11 @@ public class OptimFactory {
 	    add(GridSearch.algInfo());
 	    add(NelderMead.algInfo());
 	    add(NL2sol.algInfo());
-	    add(Sensop.algInfo()); 
-	    add(SimAnneal.algInfo()); 
-	    add(Genetic.algInfo()); 
-	    add(PSwarm.algInfo()); 
+	    add(Sensop.algInfo());
+	    add(SimAnneal.algInfo());
+	    add(Genetic.algInfo());
+	    add(PSwarm.algInfo());
+		add(Praxis.algInfo());
 	}
 
 	// add new Info
@@ -54,7 +55,7 @@ public class OptimFactory {
 
 	// add plugins
 	public void add(Plugin.List list) throws Xcept {
-	    for (int i=0; i<list.size(); i++) 
+	    for (int i=0; i<list.size(); i++)
 	        add(list.plugin(i));
 	}
 	public void add(Plugin plugin) throws Xcept {
@@ -70,7 +71,7 @@ public class OptimFactory {
 	public Optimizer createOptimizer(String name) throws Xcept {
 	    int inx = names.indexOf(name);
 	    if (inx < 0) throw new Xcept(
-	    	name + ": Unknown optimization algorithm"); 
+	    	name + ": Unknown optimization algorithm");
 	    ClassLoader cloader = cloaders.get(inx);
 	    String className = infos.get(inx).optimClassName;
 	    try {
@@ -94,9 +95,9 @@ public class OptimFactory {
 	    	throw Xcept.wrap(e);
 	    }
 	}
-	    
+
 	// query
-	public OptimAlg.Info[] algInfo() { 
+	public OptimAlg.Info[] algInfo() {
 	    return infos.toArray(new OptimAlg.Info[0]);
 	}
 	public OptimAlg.NList algs() { 	return algs; }
@@ -109,8 +110,6 @@ public class OptimFactory {
 	    System.err.println("alg=" + alg);
 	    Optimizer opt = factory.createOptimizer(name);
 	    System.err.println("opt=" + opt);
-	    
+
 	}
 }
-
-	    
