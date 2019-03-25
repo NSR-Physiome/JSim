@@ -14,9 +14,10 @@ echo "Note: simanneal, genetic, and pswarm: show diffs due to randomization"
 run1 basic simanneal amp decay
 run1 basic genetic amp decay
 run1 basic pswarm amp decay
+run1 basic praxis amp decay
 run1 Genetic_test genetic KdH kpfH
 run1 PSOpt_test pswarm KdH kpfH KpH kfX KdX
-
+run1 praxis_test praxis KdH kpfH KpH kfX KdX
 
 # reentrancy: optim and fzero
 run1 fzero_bound simplex a b
@@ -25,6 +26,7 @@ run1 fzero_unbound ggopt a b
 run1 fzero_bound gridsearch a b
 run1 fzero_unbound neldermead a b
 run1 fzero_unbound nl2sol a b
+run1 fzero_bound praxis a b
 
 # model time range matches data sub-range
 run1 subrange simplex a
