@@ -11,7 +11,8 @@ in the file license.html within the distribution root directory (/SRC2.0/).
 
 Information on the contents of this distribution and how to build it may
 be found in the on-line JSim documentation set:
-
+ https://github.com/NSR-Physiome/JSim/wiki/Building-JSim-from-source
+ or:
  http://www.physiome.org/jsim/docs/Devel_Build.html
   
 JSim Binaries for MS Windows, Apple OS, and CentOS EL 6/7 can be found at:
