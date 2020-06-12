@@ -102,16 +102,18 @@ public class Praxis extends Optimizer {
 					Util.hasNaNs(this.xmax)) throw new Xcept(this,
 					"xmin & xmax required");
 		}
+		// Make sure between 0 and 1, default to 1.
+		if ( (args.maxDist >1.0) || (args.maxDist < 0.01)) args.maxDist = 1;
 
-		if ( (args.maxDist >1.0) || (args.maxDist < 0.01)) throw new Xcept(this,
-                 "Maximum relative distance (maxDist) must be between 0.01 and 1.0");
+
 		double avgParmDist = 0;
 		for(int i=0; i<nx;i++) avgParmDist = avgParmDist + x[i];
 		double h0 = (avgParmDist/nx)*args.maxDist; // Max step size calculated from Avg of all params.
 
 		this.ktm = args.itrNoImprove;
-		if ( (this.ktm <1.0) || (this.ktm > 4)) throw new Xcept(this,
-                 "Itr no improve must be between 1 and 4 (conservative)");
+		// Set ktm to default if outside of range. Not a show stopper.
+		if ( (this.ktm <1.0) || (this.ktm > 4)) this.ktm = 1;
+
 		int prin =0; // Use for debug. Print settings:
 		// 0: nothing printed.
 		// 1: F is printed after every n+1 or n+2 linear minimizations.
