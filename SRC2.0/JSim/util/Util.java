@@ -19,7 +19,7 @@ public class Util {
 
 	// JSim version control
 	public static final String version() {
-	    return "2.19";
+	    return "2.20";
 	}
 
 	// Java/OS versions
