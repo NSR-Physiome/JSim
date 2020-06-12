@@ -1,9 +1,7 @@
 // This model generated automatically from SBML
 // WARNING: Renamed variable _J0 to xxx_J0 due to JSim namespace restrictions
 
-/* <body xmlns="http://www.w3.org/1999/xhtml">
-    <p> Originally created by libAntimony 1.4 (using libSBML 5.0.0-a1) 
-  </body> */
+/* Originally created by libAntimony 1.4 (using libSBML 5.0.0-a1) */
 
 // unit definitions
 import nsrunit;
