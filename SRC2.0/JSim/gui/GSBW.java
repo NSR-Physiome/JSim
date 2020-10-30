@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2020 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -182,7 +182,7 @@ public class GSBW {
 	private static String convertSBML(String text) throws Xcept {
 	    try {
 		// get an instance of the SBML support module
-		Module module = SBW.getModuleInstance(
+			edu.caltech.sbw.Module module = SBW.getModuleInstance(
 		    "edu.caltech.NOMClipboard");
 		// get hold of the NOM service
 		Service service = module.findServiceByName("NOM");
