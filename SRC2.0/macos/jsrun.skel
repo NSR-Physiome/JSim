@@ -1,12 +1,31 @@
 #!/bin/sh
 
+# in the code below you must:
+# 1. Set $JSIMHOME to JSim install dir
+#    Example:  export=JSIMHOME=/Users/user/location/JSim_macos_2_##
+# 2. Set $JAVARTE to location of java 8 virtual machine install directory.
+#    This is typically for java 8 jdk on MacOS:
+# 	 JAVARTE= /Library/Java/JavaVirtualMachines/jdk1.8.0_###.jdk/Contents/Home
+#    If you only installed the runtime, then it may be here:
+#    JAVARTE="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+
 PROG="$0"
+
+# Location of JSim installation:
+export JSIMHOME=/Users/user/location/JSim_macos_2_##
+
+# Set Java location:
+if [ "$JAVARTE" = "" ]
+then
+  JAVARTE="/Library/Java/JavaVirtualMachines/jdk1.8.0_###.jdk/Contents/Home"
+fi
 
 if [ "$JSIMHOME" = "" ]
 then
   echo "$PROG"": JSIMHOME undefined"
   exit 1
 fi
+export JSIMROOT=$JSIMHOME
 
 # Adjust JSIMHOME for backwards compatibility if it is set to the folder enclosing JSim.app 
 if [ ! -d "$JSIMHOME"/lib ]
@@ -14,14 +33,11 @@ then
   JSIMHOME="$JSIMHOME"/JSim.app/Contents/Resources
 fi
 
-if [ "$JAVARTE" = "" ]
-then
-  JAVARTE=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home
-fi
-
 # set CLASSPATH
-CLASSPATH="$JSIMHOME"/lib/JSimClient.jar
-CLASSPATH="$CLASSPATH":"$JSIMHOME"/lib/JSimServer.jar
+CLASSPATH="$JSIMROOT"/JSim.app/Contents/Java/JSimClient.jar
+CLASSPATH="$CLASSPATH":"$JSIMROOT"/JSim.app/Contents/Java/JSimServer.jar
+CLASSPATH="$CLASSPATH":"$JSIMROOT"/JSim.app/Contents/Java/tools8.jar
+
 
 # native libraries accessed via DYLD_LIBRARY_PATH
 JSIMNATIVE="$JSIMHOME"/macos/lib
@@ -35,7 +51,7 @@ else
   UARG="-Djsim.userdir=$JSIMUSERDIR"
 fi
 
-# default JSIMMEM
+# default JSIMMEM (1500 = ~1.5 GB)
 if [ "$JSIMMEM" = "" ]
 then
   JSIMMEM=1500
@@ -43,14 +59,8 @@ fi
 
 export CLASSPATH DYLD_LIBRARY_PATH JSIMMEM
 
-# use 32-bit mode switch, if available
+# set java executable's location:
 JAVA="$JAVARTE"/bin/java
-if [ `$JAVA -help | fgrep " -d32" | wc -l` -gt 0 ]
-then
-  D32="-d32"
-else
-  D32=""
-fi
 
 JSMESSAGE
 $JAVA $D32 -Djsim.home="$JSIMHOME" -Xmx"$JSIMMEM"m \
