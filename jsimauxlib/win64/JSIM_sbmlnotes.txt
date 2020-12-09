@@ -1,0 +1,7 @@
+
+- libSBML: 5.14.0, built with MS VS 2015 on MS Win 7 64 bit from libSBML-5.14.0-core-plus-packages-src
+- libSBML depend: libSBML_dependencies_vs14_release_x64.zip
+- swig 2.0.10 (swigwin binary) 
+antimony (sbtranslate): v2.8, built from source on Win 7 64 bit
+sbml2matlab: Built from sbml2matlab-master.zip, downloaded from github Jan 3, 2017
+

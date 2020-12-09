@@ -1,0 +1,13 @@
+
+All builds built on 10.10 yosemite 64 bit system
+
+-libSBML built from source v5.14.0 download. Built with Flux Balance Constraints (FBC) package.
+-swig 2.0.10 built from src
+-pcre 8.30 built through swig scripts.
+-antimony 2.8 built from src
+-sbml2matlab built from src
+-libxml2.dylib
+
+
+
+

@@ -1,0 +1,2 @@
+
+JRE is from oracle jre-8u92-macos-x64
