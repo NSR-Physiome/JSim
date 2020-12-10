@@ -1,25 +1,16 @@
 #!/bin/sh
 
-# in the code below you must:
-# 1. Set $JSIMHOME to JSim install dir
-#    Example:  export=JSIMHOME=/Users/user/location/JSim_macos_2_##
-# 2. Set $JAVARTE to location of java 8 virtual machine install directory.
-#    This is typically for java 8 jdk on MacOS:
-# 	 JAVARTE= /Library/Java/JavaVirtualMachines/jdk1.8.0_###.jdk/Contents/Home
-#    If you only installed the runtime, then it may be here:
-#    JAVARTE="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+# Before running jsim, you must:
+# Set $JSIMHOME to JSim install dir
+#   Example:  export JSIMHOME=/Applications/location/JSim_macos_2_##
 
 PROG="$0"
 
-# Location of JSim installation:
-export JSIMHOME=/Users/user/location/JSim_macos_2_##
 
 # Set Java location:
-if [ "$JAVARTE" = "" ]
-then
-  JAVARTE="/Library/Java/JavaVirtualMachines/jdk1.8.0_###.jdk/Contents/Home"
-fi
+ JAVARTE="$JSIMHOME"/JSim.app/Contents/Resources/macos/jre/Contents/Home
 
+# Location of JSim installation:
 if [ "$JSIMHOME" = "" ]
 then
   echo "$PROG"": JSIMHOME undefined"
