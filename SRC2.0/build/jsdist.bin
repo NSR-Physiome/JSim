@@ -175,22 +175,17 @@ tar cf - $SBMLLIBS | (cd  $WORKOSARCH/lib; tar xf -)
 cd $WORKOSARCH
 
 # unpack JRE
-if [ "$OS" = "macos" ]
-then
-  echo "Skipping JRE for MacOS ..." 
-else
-  mkdir jre
-  cd jre
-  JREZIP="$JSIMAUXLIB"/$OSARCH/jre.zip
-  echo "Unpacking JRE from $JREZIP ..."
-  unzip -q $JREZIP
-  if [ $? -ne 0 ]
-  then
-    echo "JRE unzip failed !!!"
-    exit 1
-  fi
-  cd ..
-fi
+ mkdir jre
+ cd jre
+ JREZIP="$JSIMAUXLIB"/$OSARCH/jre.zip
+ echo "Unpacking JRE from $JREZIP ..."
+ unzip -q $JREZIP
+ if [ $? -ne 0 ]
+ then
+   echo "JRE unzip failed !!!"
+   exit 1
+ fi
+ cd ..
 
 # FPACK project examples
 if [ -d $JSIMSRC/fpack ]
