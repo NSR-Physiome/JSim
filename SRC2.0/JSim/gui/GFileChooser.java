@@ -1,5 +1,5 @@
 /*NSRCOPYRIGHT
-	Copyright (C) 1999-2011 University of Washington
+	Copyright (C) 1999-2021 University of Washington
 	Developed by the National Simulation Resource
 	Department of Bioengineering,  Box 355061
 	University of Washington, Seattle, WA 98195-5061.
@@ -7,6 +7,7 @@
 END_NSRCOPYRIGHT*/
 
 // JSIM-specific JFileChooser
+// and macOS FileDialog
 
 package JSim.gui;
 
@@ -32,6 +33,7 @@ public class GFileChooser {
 	public static final int RTML = 7;
 	public static final int IMAGE = 8;
 	public static final int PARSET = 9;
+	
 	private static DataFormat.List fmts;
 	private static Filter projFilter;
 	private static Filter textFilter;
@@ -45,6 +47,14 @@ public class GFileChooser {
 	private static Filter rtmlFilter;
 	private static Filter imageFilter;
 	private static Filter parSetFilter;
+
+	private static final String textExt[]= { ".txt", ".mod", ".flat", ".tac", ".rtml", 
+                                   ".xml", ".cellml", ".sbml", ".java", ".c", ".h", ".f" };
+	private static final String modelExt[]= { ".mod", ".flat", ".xml", ".cellml", ".sbml",
+											  ".txt" }; 
+	private static final String imageExt[]= { ".gif", ".jpeg", ".png" };
+	private static final String dataExt[]= {".tac", ".jsml", ".pdata", ".csv", ".cdata", ".ldata"};
+	private static boolean isMacOS; 
 
 	// HACK to communicate with inner classes
 	private static GLook glook;
@@ -75,15 +85,15 @@ public class GFileChooser {
 	    StringList esfx = new StringList(fmts.size());
 	    StringList isfx = new StringList(fmts.size());
 	    for (int i=0; i<fmts.size(); i++) {
-		DataFormat fmt = fmts.format(i);
-		dataFilters[i] = new Filter(fmt);
-		String[] sfxs = fmt.suffixes();
-		for (int j=0; j<sfxs.length; j++) {
-		    String sfx = sfxs[j];
-		    esfx.add(sfx);
-		    if (fmt.readSupported(true)) 
-		    	isfx.add(sfx);
-		}
+			DataFormat fmt = fmts.format(i);
+			dataFilters[i] = new Filter(fmt);
+			String[] sfxs = fmt.suffixes();
+			for (int j=0; j<sfxs.length; j++) {
+			    String sfx = sfxs[j];
+			    esfx.add(sfx);
+			    if (fmt.readSupported(true)) 
+			    	isfx.add(sfx);
+			}
 	    }
 	    importDataFilter = new Filter(
 		"Importable data files", isfx.array());
@@ -94,79 +104,222 @@ public class GFileChooser {
 	// show select file dialog,  return File or  null
 	public static Info select(GNode gnode,
 	boolean isOpen, int which) throws Xcept {
+		FileDialog fd = null;
+		JFileChooser fc = null;
 	    glook = gnode.glook();
 	    if (projFilter == null) 
 		makeFilters(gnode.gappl().dataFormats());
-
+		if(Util.isMacos()) isMacOS = true;
+		else isMacOS = false;
 	    try { 
-		// JFileChooser with local icon
-		JFileChooser fc = new JFileChooser(
-		    gnode.gappl().userDir()) {
-		    public Icon getIcon(File f) {
-			if (f.isDirectory())
-			    return super.getIcon(f);
-			if (modelFilter.accept(f))
-		  	    return glook.modelIcon();
-	   	    	if (importDataFilter.accept(f))
-			    return glook.datasetIcon();
-	    		if (projFilter.accept(f))
-			    return glook.projectIcon();
-	    		return super.getIcon(f);
-		    }
-		};
-
+			if(isMacOS) {
+				Frame currFr = gnode.frame();
+				fd = new FileDialog(currFr) ;
+			}
+			else {
+				// JFileChooser with local icon
+				fc = new JFileChooser(
+		            gnode.gappl().userDir()) {
+					public Icon getIcon(File f) {
+					if (f.isDirectory())
+						return super.getIcon(f);
+			        if (modelFilter.accept(f))
+						return glook.modelIcon();
+					if (importDataFilter.accept(f))
+						return glook.datasetIcon();
+					if (projFilter.accept(f))
+						return glook.projectIcon();
+					return super.getIcon(f);
+					}
+				}; 
+			}
+		
 		// set filter
-		switch (which) {
+  		switch (which) {
 		case PROJ: 
-		    fc.setFileFilter(projFilter);
+			if (isMacOS) {		
+				if(isOpen) fd.setTitle("Open .proj (project) file");
+				else { fd.setTitle("Save .proj (project) file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".proj");		
+					}}); 
+				}
+			}
+			else fc.setFileFilter(projFilter);
 		    break;
-		case TEXT: 
-		    fc.setFileFilter(textFilter);
+		case TEXT:
+			if(isMacOS) {
+				if (isOpen)	fd.setTitle("Open a text (.txt, .mod, .flat, .tac, .rtml, .xml, .cellml, .sbml, .java, .c, .h, .f) file");
+				else fd.setTitle("Save text file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					for(int i=0; i< textExt.length; i++) {
+						if(name.toLowerCase().endsWith(textExt[i]))
+						   return true;
+					}		
+					return false;
+				}}); 
+			}
+			else fc.setFileFilter(textFilter);
 		    break;
 		case MODEL: 
-		    fc.setFileFilter(modelFilter);
+			if(isMacOS) {
+				if (isOpen)	fd.setTitle("Open a model file");
+				else fd.setTitle("Save model file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					for(int i=0; i< modelExt.length; i++) {
+						if(name.toLowerCase().endsWith(modelExt[i]))
+						   return true;
+					}
+					return false;
+				}});
+			} 
+			else fc.setFileFilter(modelFilter);
 		    break;
-		case DATASET: 
-		    if (isOpen) {
-		    	for (int i=0; i<dataFilters.length; i++)
-			    if (fmts.format(i).readSupported(true))
-			    	fc.addChoosableFileFilter(dataFilters[i]);
-		    	fc.setFileFilter(importDataFilter);
-		    } else {
-		    	for (int i=0; i<dataFilters.length; i++)
-			    fc.addChoosableFileFilter(dataFilters[i]);
-		    	fc.setFileFilter(exportDataFilter);
-			fc.setAccessory(dataAccessory());
-		    }
+		case DATASET:
+			if(isMacOS) {
+				if (isOpen) {
+					fd.setTitle("Open a data file. (.tac .pdata .csv .cdata .ldata)");
+					for (int i=0; i<dataFilters.length; i++)
+						if (fmts.format(i).readSupported(true)) {
+							fd.setFilenameFilter(new FilenameFilter() {
+								@Override
+								public boolean accept(File dir, String name) {
+									for(int i=0; i< dataExt.length; i++) {
+										if(name.toLowerCase().endsWith(dataExt[i]))
+											return true;
+									}		
+									return false;
+								}});
+						}
+				} else {
+					fd.setTitle("Save data file. (.tac .pdata .csv .cdata .ldata)");
+					fd.setFilenameFilter(new FilenameFilter() {
+							@Override
+							public boolean accept(File dir, String name) {
+								for(int i=0; i< dataExt.length; i++) {
+									if(name.toLowerCase().endsWith(dataExt[i]))
+										return true;
+								}		
+								return false;
+							}});
+				}
+			}
+			else {
+				if (isOpen) {
+					for (int i=0; i<dataFilters.length; i++)
+					   if (fmts.format(i).readSupported(true))
+						   fc.addChoosableFileFilter(dataFilters[i]);
+					fc.setFileFilter(importDataFilter);
+				} else {
+					for (int i=0; i<dataFilters.length; i++)
+						fc.addChoosableFileFilter(dataFilters[i]);
+					fc.setFileFilter(exportDataFilter);
+					fc.setAccessory(dataAccessory());
+				}
+			}
 		    break;
 		case EPS: 
-		    fc.setFileFilter(exportEPSFilter);
+			if(isMacOS) {
+				fd.setTitle("Export .eps (encapsulated postscript) file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".eps");
+					}}); 
+			}
+			else fc.setFileFilter(exportEPSFilter);
+			
 		    break;
 		case XSIMPAR: 
-		    fc.setFileFilter(xsimParFilter);
+			if(isMacOS) {
+				fd.setTitle("Export .par (XSIM parameter) file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".par");
+					}}); 
+			}
+			else fc.setFileFilter(xsimParFilter);
 		    break;
-		case XML: 
-		    fc.setFileFilter(xmlFilter);
+		case XML:
+			if(isMacOS) {
+				fd.setTitle("Export .xml file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".xml");
+					}}); 
+			} 
+		    else fc.setFileFilter(xmlFilter);
 		    break;
 		case RTML: 
-		    fc.setFileFilter(rtmlFilter);
+			if(isMacOS) {
+				fd.setTitle("Export .rtml file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".rtml");
+					}}); 
+			}
+		    else fc.setFileFilter(rtmlFilter);
 		    break;
 		case IMAGE: 
-		    fc.setFileFilter(imageFilter);
+			if(isMacOS) {
+				fd.setTitle("Image (.png, .jpeg, .gif) file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					System.out.println("In image filter...");
+					for(int i=0; i< modelExt.length; i++) {
+						if(name.toLowerCase().endsWith(imageExt[i]))
+						   return true;
+					}
+					return false;
+				}});
+			}
+			else fc.setFileFilter(imageFilter);
 		    break;
 		case PARSET: 
-		    fc.setFileFilter(parSetFilter);
+			if(isMacOS) {
+				fd.setTitle("Export .par (parameter set) file");
+				fd.setFilenameFilter(new FilenameFilter() {
+				    @Override
+					public boolean accept(File dir, String name) {
+						return name.toLowerCase().endsWith(".par");
+					}}); 
+			}
+		    else fc.setFileFilter(parSetFilter);
 		    break;
 		}
-
+  
+		File f = null;
 		// show dialog,  get info   
-		int stat = isOpen ?
-		    fc.showOpenDialog(gnode.jcomp()) :
-		    fc.showSaveDialog(gnode.jcomp());
-		if (stat != JFileChooser.APPROVE_OPTION) 
-		    return null;
-		File f = fc.getSelectedFile();
-	        gnode.gappl().setUserDir(f);
+		if(isMacOS) {
+			if(isOpen) fd.setMode(FileDialog.LOAD);
+			else fd.setMode(FileDialog.SAVE); 
+			fd.setAlwaysOnTop(true);
+			fd.setVisible(true);
+			File[] files = fd.getFiles();
+			if(files.length == 0) return null; // no files selected.
+			f = files[0];
+			gnode.gappl().setUserDir(f.getParentFile());
+		}
+		else {
+	   		int stat = isOpen ?
+				fc.showOpenDialog(gnode.jcomp()) :
+				fc.showSaveDialog(gnode.jcomp());
+			if (stat != JFileChooser.APPROVE_OPTION) 
+				return null;
+			f = fc.getSelectedFile();
+			gnode.gappl().setUserDir(f);
+		}
+		
 		if (f == null) return null;
 		Info info = new Info(f);
 		if (which != DATASET || isOpen) return info;
@@ -179,8 +332,8 @@ public class GFileChooser {
 		return info;
 
 	    } catch (SecurityException e) {
-		gnode.gproject().securityXcept();
-		return null; // no reached,  needed for javac
+			gnode.gproject().securityXcept();
+			return null; // not reached,  needed for javac
 	    }
 	}
 
@@ -194,7 +347,7 @@ public class GFileChooser {
 	    };
 	    JPanel jpanel = new JPanel(new GridLayout(text.length,1));
 	    for (int i=0; i<text.length; i++) 
-		jpanel.add(new JLabel(text[i]));
+			jpanel.add(new JLabel(text[i]));
 	    return jpanel;
 	}
 
