@@ -44,7 +44,9 @@
 #                                                                                #
 ##################################################################################
 
-
+# Modified by BEJ, Physiome.org, December, 2020
+# Removed references to OLD Apple Java 6 runtime where feasible.
+# Modified code to handle JAVA jre installed with JSim package.
 
 #
 # resolve symlinks
@@ -366,16 +368,16 @@ function JavaVersionSatisfiesRequirement() {
 
 
 #
-# find installed Java versions
+# Get installed Java version within JSim install.
 ############################################
 
-apple_jre_plugin="/Library/Java/Home/bin/java"
-apple_jre_version=`extractJavaMajorVersion "${apple_jre_plugin}"`
-oracle_jre_plugin="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java"
+oracle_jre_plugin='"${AppPackageFolder}"/Contents/Resources/macos/jre/Contents/Home/bin/java'
 oracle_jre_version=`extractJavaMajorVersion "${oracle_jre_plugin}"`
 
+JAVA_HOME="$AppPackageFolder/Contents/Resources/macos/jre/Contents/Home"
+export $JAVA_HOME
 
-
+# DEBUG osascript -e "tell application \"System Events\" to display dialog \"${JAVA_HOME}\n\nFirst Here: ${AppPackageFolder}\" with title \"AppPackFolder:${AppPackageFolder}\" buttons {\" OK \"} default button 1 with icon path to resource \"${CFBundleIconFile}\" in bundle (path to me)"
 
 # first check system variable "$JAVA_HOME"
 if [ -n "$JAVA_HOME" ] ; then
@@ -409,15 +411,6 @@ elif [ ! -z ${JVMVersion} ] ; then
 		fi
 	fi
 
-	# then additionally check the Apple JRE plugin whether it's a higher/newer compatible version
-	if [ -x "${apple_jre_plugin}" ] && JavaVersionSatisfiesRequirement ${apple_jre_version} ${JVMVersion} ; then
-		this_java_ver=$(comparableJavaVersionNumber $(extractJavaVersionString "${apple_jre_plugin}"))
-		# use this compatible version only if the above returned empty or if the version number is higher
-		if [ -z ${JAVACMD} ] || [ ${this_java_ver} -ge ${JAVACMD_version} ] ; then
-			JAVACMD="${apple_jre_plugin}"
-			JAVACMD_version=${this_java_ver}
-		fi
-	fi
 
 	if [ -z "$JAVACMD" ] ; then
 		# display human readable java version (#28)
@@ -449,15 +442,6 @@ else
 		fi
 	fi
 
-	# then additionally check the Apple JRE plugin whether it's a higher/newer compatible version
-	if [ -x "${apple_jre_plugin}" ] ; then
-		this_java_ver=$(comparableJavaVersionNumber $(extractJavaVersionString "${apple_jre_plugin}"))
-		# use this compatible version only if the above returned empty or if the version number is higher
-		if [ -z ${JAVACMD} ] || [ ${this_java_ver} -ge ${JAVACMD_version} ] ; then
-			JAVACMD="${apple_jre_plugin}"
-			JAVACMD_version=${this_java_ver}
-		fi
-	fi
 fi
 
 # fallback fallback: /usr/bin/java
@@ -469,7 +453,7 @@ fi
 # execute JAVA commandline and do some pre-checks
 ####################################################
 
-# DEBUG: osascript -e "tell application \"System Events\" to display dialog \"${JVMOptions}\n\nHere:${AppPackageFolder}\" with title \"Here:${AppPackageFolder}\" buttons {\" OK \"} default button 1 with icon path to resource \"${CFBundleIconFile}\" in bundle (path to me)"
+# DEBUG osascript -e "tell application \"System Events\" to display dialog \"${JVMOptions}\n\nAppPackFolder Here:${AppPackageFolder}\" with title \" Here:${AppPackageFolder}\" buttons {\" OK \"} default button 1 with icon path to resource \"${CFBundleIconFile}\" in bundle (path to me)"
 
 # display error message if MainClassName is empty
 if [ -z ${JVMMainClass} ]; then
