@@ -55,7 +55,7 @@ JAVA="$JAVARTE"/bin/java
 
 JSMESSAGE
 $JAVA $D32 -Djsim.home="$JSIMHOME" -Xmx"$JSIMMEM"m \
-  -Xdock:name=JSim:icon="$JSIMHOME"/macos/lib/JSim.icns \
+  -Xdock:name=JSim -Xdock:icon="$JSIMHOME"/JSim.app/Contents/Resources/JSim.icns \
   $UARG JSCLASS $* JSSUBMIT
 
 
